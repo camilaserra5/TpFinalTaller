@@ -5,6 +5,7 @@
 class Editor{
   private:
     YAML::Node archivo;
+    char mapa [10][10];
   public:
     Editor(){
       this->archivo = YAML::LoadFile("config.yaml");
