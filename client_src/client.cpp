@@ -29,6 +29,7 @@ void Client::run() {
             im.render(srcArea, destArea);
             // Para el alumno: Buscar diferencia entre waitEvent y pollEvent
             SDL_WaitEvent(&event);
+            TCPProtocol::send(this->socket, event);
             switch(event.type) {
                 case SDL_KEYDOWN: {
                     SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
