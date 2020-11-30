@@ -22,7 +22,6 @@ include_directories(${PROJECT_BINARY_DIR})
 add_executable (server
         src/server_main.cpp
         src/servidor.cpp
-        src/client_manager.cpp
         src/cliente.cpp
         ${UIS_HEADERS})
 
