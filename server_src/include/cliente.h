@@ -2,16 +2,16 @@
 #define _CLIENTE_H
 
 #include "../common_src/include/thread.h"
-#include <queue>
+#include "../common_src/include/protected_queue.h"
 #include <SDL2/SDL.h>
 
 class Cliente: public Thread {
     public:
-      Cliente(const std::queue<SDL_Event>& cola_eventos);
+      Cliente(ProtectedQueue& cola_eventos);
       ~Cliente();
       void run() override;
     private:
-        std::queue<SDL_Event> cola_eventos;
+        ProtectedQueue& cola_eventos;
 };
 
 #endif

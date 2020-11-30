@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 
     //YAML::Node config = YAML::LoadFile(argv[1]);
   //  const std::string port = config["port"].as<std::string>();
-
+/*
    Socket socket;
     if (socket.bind(argv[1]) != OK_CODE) {
         std::cout << "bind error";
@@ -22,10 +22,13 @@ int main(int argc, char *argv[]) {
     if (socket.listen() != OK_CODE) {
         std::cout << "listen error";
         return ERR_CODE;
-    }
-    std::queue<SDL_Event> cola;
+    }*/
+    ProtectedQueue cola;
     Cliente cliente(cola);
     Servidor servidor(cola);
-    servidor.run();
+    cliente.start();
+    servidor.start();
+    cliente.join();
+    servidor.join();
     return OK_CODE;
 }
