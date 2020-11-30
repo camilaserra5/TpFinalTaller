@@ -4,28 +4,31 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QPalette>
 
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     QWidget ventana;
-    //
 
-    QHBoxLayout configuracion(&ventana);
-    QVBoxLayout editar(&ventana);
-    // Creo los widgets
+    ventana.setGeometry(50,50,500,500);
+
+    ventana.setStyleSheet("background-color: blue");
     QLabel label("configuracion");
+
     QPushButton colores("editar colores");
     QPushButton personajes("editar personajes");
-    // Agrego los widgets al layout vertical
-    editar.addWidget(&label);
+
+    QHBoxLayout configuracion;
+    QVBoxLayout editar;
+    // Agrego los widgets al layout vertical y horiontal;
+    configuracion.addWidget(&label);
     editar.addWidget(&colores);
     editar.addWidget(&personajes);
     //configuracion.addH(&editar);
   //  QLabel label("El mapa a editar es\n");
-    ventana.setLayout(&configuracion);
+    //ventana.setLayout(&configuracion);
     ventana.setLayout(&editar);
-    editar.show();
     ventana.show();
     return app.exec();
 }
