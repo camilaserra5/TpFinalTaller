@@ -6,13 +6,13 @@ find_package(Threads REQUIRED)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 add_library(commonc
-        common_src/src/Area.cpp
-        common_src/src/SdlException.cpp
-        common_src/src/SdlTexture.cpp
-        common_src/src/SdlWindow.cpp
-        common_src/src/socket.cpp
-        common_src/src/tcp_protocol.cpp
-        common_src/src/thread.cpp
+        ../common_src/src/Area.cpp
+        ../common_src/src/SdlException.cpp
+        ../common_src/src/SdlTexture.cpp
+        ../common_src/src/SdlWindow.cpp
+        ../common_src/src/socket.cpp
+        ../common_src/src/tcp_protocol.cpp
+        ../common_src/src/thread.cpp
         )
 
 # Agrego la carpeta con los headers autogenerados a los includes

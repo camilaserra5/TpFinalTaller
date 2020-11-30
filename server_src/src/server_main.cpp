@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
-#include "server.h"
-#include "../common_src/socket.h"
+#include "../include/servidor.h"
+#include "../common_src/include/socket.h"
+#include "../include/cliente.h"
 #include "yaml-cpp/yaml.h"
 #define OK_CODE 0
 #define ERR_CODE 1
@@ -22,7 +23,9 @@ int main(int argc, char *argv[]) {
         std::cout << "listen error";
         return ERR_CODE;
     }
-    Server server(std::move(socket));
-    server.run();
+    std::queue<SDL_Event> cola;
+    Cliente cliente(cola);
+    Servidor servidor(cola);
+    servidor.run();
     return OK_CODE;
 }

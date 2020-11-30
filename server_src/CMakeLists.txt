@@ -6,13 +6,13 @@ find_package(Threads REQUIRED)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 add_library(commons
-        common_src/src/Area.cpp
-        common_src/src/SdlException.cpp
-        common_src/src/SdlTexture.cpp
-        common_src/src/SdlWindow.cpp
-        common_src/src/socket.cpp
-        common_src/src/tcp_protocol.cpp
-        common_src/src/thread.cpp
+        ../common_src/src/Area.cpp
+        ../common_src/src/SdlException.cpp
+        ../common_src/src/SdlTexture.cpp
+        ../common_src/src/SdlWindow.cpp
+        ../common_src/src/socket.cpp
+        ../common_src/src/tcp_protocol.cpp
+        ../common_src/src/thread.cpp
         )
 
 # Agrego la carpeta con los headers autogenerados a los includes
@@ -23,6 +23,7 @@ add_executable (server
         src/server_main.cpp
         src/servidor.cpp
         src/client_manager.cpp
+        src/cliente.cpp
         ${UIS_HEADERS})
 
 file(GLOB common RELATIVE ${CMAKE_SOURCE_DIR} "common_src/src*.cpp" "common_src/include*.h")

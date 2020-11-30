@@ -1,4 +1,4 @@
-#include "tcp_protocol.h"
+#include "../include/tcp_protocol.h"
 #include <sstream>
 #include <string>
 
@@ -49,4 +49,3 @@ std::string TCPProtocol::receive(Socket &socket) {
     }
     return stream.str();
 }
-

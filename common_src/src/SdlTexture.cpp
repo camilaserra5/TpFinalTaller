@@ -1,8 +1,8 @@
-#include "SdlTexture.h"
+#include "../include/SdlTexture.h"
 #include <SDL2/SDL_image.h>
 #include <string>
-#include "SdlWindow.h"
-#include "SdlException.h"
+#include "../include/SdlWindow.h"
+#include "../include/SdlException.h"
 
 SdlTexture::SdlTexture(const std::string &filename, const SdlWindow& window)
     : renderer(window.getRenderer()) {
