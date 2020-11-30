@@ -1,9 +1,9 @@
-#include "Area.h"
+#include "../include/Area.h"
 
 Area::Area(int x, int y, int width, int height) :
 	x(x), y(y), width(width), height(height){
 }
-	
+
 int Area::getX() const {
 	return this->x;
 }

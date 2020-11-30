@@ -1,8 +1,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
-#include "SdlException.h"
-#include "SdlWindow.h"
+#include "../include/SdlException.h"
+#include "../include/SdlWindow.h"
 #include <iostream>
 
 
@@ -17,7 +17,7 @@ SdlWindow::SdlWindow(int width, int height) :
         &this->window, &this->renderer);
     if (errCode) {
         throw SdlException("Error al crear ventana", SDL_GetError());
-    }   
+    }
 }
 
 

@@ -23,6 +23,7 @@ add_executable (server
         src/server_main.cpp
         src/servidor.cpp
         src/client_manager.cpp
+        src/cliente.cpp
         ${UIS_HEADERS})
 
 file(GLOB common RELATIVE ${CMAKE_SOURCE_DIR} "common_src/src*.cpp" "common_src/include*.h")

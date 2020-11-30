@@ -1,4 +1,4 @@
-#include "cliente.h"
+#include "../include/cliente.h"
 
 
 Cliente::Cliente(const std::queue<STD_Event>& cola_eventos):

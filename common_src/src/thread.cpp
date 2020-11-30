@@ -1,5 +1,5 @@
 #include <utility>
-#include "thread.h"
+#include "../include/thread.h"
 
 Thread::Thread() {}
 

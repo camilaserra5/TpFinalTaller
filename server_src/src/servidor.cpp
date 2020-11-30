@@ -1,21 +1,21 @@
-#include "servidor.h"
-#include <SDL2/SDL.h>
+#include "../include/servidor.h"
 #include <iostream>
 #include <exception>
-#include "../common_src/SdlWindow.h"
-#include "../common_src/SdlTexture.h"
+#include "../common_src/include/SdlWindow.h"
+#include "../common_src/include/SdlTexture.h"
 
-Servidor::Servidor(const std::queue<STD_Event> cola_eventos):
+Servidor::Servidor(const std::queue<SDL_Event>& cola_eventos):
       cola_eventos(cola_eventos){}
 
 Servidor::~Servidor(){}
 
-Servidor::run(){
+void Servidor::run(){
 
     bool termine = false;
     while (!termine){
         try{
-            STD_Event evento = this->cola_eventos.front();
+          int x = 0, y = 0;
+            SDL_Event evento = this->cola_eventos.front();
             this->cola_eventos.pop();
             switch(evento.type) {
                 case SDL_KEYDOWN: {

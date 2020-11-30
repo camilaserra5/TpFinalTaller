@@ -1,10 +1,9 @@
 #ifndef CLIENT_PROCESSOR_H
 #define CLIENT_PROCESSOR_H
 
-#include "../common_src/socket.h"
-#include "../common_src/thread.h"
-#include "../common_src/resource_list.h"
-#include "../common_src/protocol.h"
+#include "../common_src/include/socket.h"
+#include "../common_src/include/thread.h"
+#include <SDL2/SDL.h>
 #include <string>
 #include <queue>
 /**
@@ -18,7 +17,7 @@ public:
      * @param socket: the socket corresponding to the connection with a client
      * @param resourceList
      */
-    ClientProcessor(Socket socket);
+    ClientProcessor(Socket socket,std::queue<SDL_Event>& eventQueue);
 
     /**
      * Processes the protocol received.

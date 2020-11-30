@@ -3,10 +3,10 @@
 
 #include <vector>
 #include <string>
-#include "../common_src/socket.h"
-#include "../common_src/thread.h"
+#include "../common_src/include/socket.h"
+#include "../common_src/include/thread.h"
 #include <queue>
-#include "client_processor.h"
+#include "../include/client_processor.h"
 /**
  * The client manager.
  * In charge of handling the different client connections.

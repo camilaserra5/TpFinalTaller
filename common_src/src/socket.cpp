@@ -1,7 +1,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <cstring>
-#include "socket.h"
+#include "../include/socket.h"
 
 Socket::Socket(int fd) {
     this->fd = fd;
