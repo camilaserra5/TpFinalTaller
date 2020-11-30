@@ -16,10 +16,10 @@ void Servidor::run(){
         try{
           int x = 0, y = 0;
             SDL_Event evento = this->cola_eventos.obtener_evento();
-            switch(evento.type) {
+            switch(SDL_KEYDOWN/*evento.type*/) {
                 case SDL_KEYDOWN: {
                     SDL_KeyboardEvent& keyEvento = (SDL_KeyboardEvent&) evento;
-                    switch (keyEvento.keysym.sym) {
+                    switch (SDLK_LEFT/*keyEvento.keysym.sym*/) {
                         case SDLK_LEFT:
                             x -= 10;
                             std::cout << "me enviaron la tecla izquierda";

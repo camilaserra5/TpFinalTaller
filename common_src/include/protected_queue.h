@@ -3,6 +3,17 @@
 #include <queue>
 #include <mutex>
 #include <SDL2/SDL.h>
+#include <exception>
+
+class QueueException: public std::exception{
+  private:
+    std::string error;
+  public:
+    explicit QueueException(const std::string& error):
+    error(error)
+    {}
+    //const std::string getError() const { return this->error;}
+};
 
 class ProtectedQueue{
   private:
