@@ -13,6 +13,7 @@ add_library(commons
         ../common_src/src/socket.cpp
         ../common_src/src/tcp_protocol.cpp
         ../common_src/src/thread.cpp
+        ../common_src/src/protected_queue.cpp
         )
 
 # Agrego la carpeta con los headers autogenerados a los includes

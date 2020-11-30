@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
         std::cout << "listen error";
         return ERR_CODE;
     }*/
-    std::queue<SDL_Event> cola;
+    ProtectedQueue cola;
     Cliente cliente(cola);
     Servidor servidor(cola);
     cliente.start();

@@ -4,7 +4,7 @@
 #include "../common_src/include/SdlWindow.h"
 #include "../common_src/include/SdlTexture.h"
 
-Servidor::Servidor(const std::queue<SDL_Event>& cola_eventos):
+Servidor::Servidor(ProtectedQueue& cola_eventos):
       cola_eventos(cola_eventos){}
 
 Servidor::~Servidor(){}
@@ -15,8 +15,7 @@ void Servidor::run(){
     while (!termine){
         try{
           int x = 0, y = 0;
-            SDL_Event evento = this->cola_eventos.front();
-            this->cola_eventos.pop();
+            SDL_Event evento = this->cola_eventos.obtener_evento();
             switch(evento.type) {
                 case SDL_KEYDOWN: {
                     SDL_KeyboardEvent& keyEvento = (SDL_KeyboardEvent&) evento;

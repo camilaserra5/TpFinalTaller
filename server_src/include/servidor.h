@@ -2,15 +2,15 @@
 #define _SERVIDOR_H
 #include "../common_src/include/thread.h"
 #include <SDL2/SDL.h>
-#include <queue>
+#include "../common_src/include/protected_queue.h"
 
 class Servidor : public Thread {
       public:
-            Servidor(const std::queue<SDL_Event>& cola_eventos);
+            Servidor(ProtectedQueue& cola_eventos);
             ~Servidor();
             void run() override;
       private:
-            std::queue<SDL_Event> cola_eventos;
+            ProtectedQueue& cola_eventos;
 };
 
 #endif
