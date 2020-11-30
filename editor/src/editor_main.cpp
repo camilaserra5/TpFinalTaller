@@ -1,6 +1,9 @@
 #include <QApplication>
 #include "editor.h"
 #include <QLabel>
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 
 int main(int argc, char *argv[]) {
@@ -9,7 +12,7 @@ int main(int argc, char *argv[]) {
     //
 
     QHBoxLayout configuracion(&ventana);
-    QVBoxLayout editar(&configuracion);
+    QVBoxLayout editar(&ventana);
     // Creo los widgets
     QLabel label("configuracion");
     QPushButton colores("editar colores");
@@ -18,8 +21,11 @@ int main(int argc, char *argv[]) {
     editar.addWidget(&label);
     editar.addWidget(&colores);
     editar.addWidget(&personajes);
-    configuracion.addWidget(editar);
+    //configuracion.addH(&editar);
   //  QLabel label("El mapa a editar es\n");
+    ventana.setLayout(&configuracion);
+    ventana.setLayout(&editar);
+    editar.show();
     ventana.show();
     return app.exec();
 }
