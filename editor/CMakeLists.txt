@@ -8,6 +8,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 # find_package(Qt5 COMPONENTS Widgets Core <...>) es una forma más feliz de
 # agregar paquetes, ver https://blog.kitware.com/cmake-finding-qt5-the-right-way/
 find_package(Qt5Widgets)
+find_package(yaml-cpp)
 
 add_executable(out
   src/editor.cpp
@@ -15,4 +16,4 @@ add_executable(out
   ${UIS_HEADERS})
 
 # Linkea libQt5Widgets.so al ejecutable
-target_link_libraries(out Qt5::Widgets)
+target_link_libraries(out Qt5::Widgets ${YAML_CPP_LIBRARIES})

@@ -4,7 +4,7 @@
 void Editor::cargar_mapa(char** mapa, int tam_fila, int tam_columna){
 
 }
-
+Editor::~Editor(){}
 void Editor::CrearMapa(std::string& nombre_archivo){
     YAML::Emitter yaml;
     yaml << YAML::BeginSeq;

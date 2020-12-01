@@ -8,7 +8,7 @@ class Editor{
     char mapa [10][10];
   public:
     Editor(){
-      this->archivo = YAML::LoadFile("config.yaml");
+      //this->archivo = YAML::LoadFile("config.yaml");
     }
     void cargar_mapa(char** mapa, int tam_fila, int tam_columna);
     void mostrar_mapa();
