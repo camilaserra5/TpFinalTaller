@@ -1,6 +1,8 @@
 # [75.42] Taller de programación I
 ## Trabajo práctico final: Wolfenstein 3D
-(nosotras) para compilar crear una carpeta build en el proyecto, entrar en esa carpeta, abrir una terminal y ejecutar cmake .. 
+(nosotras) para compilar crear una carpeta build en el proyecto, entrar en esa carpeta, abrir una terminal y ejecutar cmake ..
+dudas:  
+donde metemos el poll event
 
 **Fontenla, Maria Sol**  
 103870  
