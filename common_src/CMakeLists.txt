@@ -15,4 +15,7 @@ add_library(commons
         ../common_src/src/thread.cpp
         ../common_src/src/protected_queue.cpp
         ../common_src/src/comando.cpp
+        ../common_src/src/movimiento.cpp
+        ../common_src/src/ataque.cpp
+        ../common_src/src/item_catch.cpp
         )
