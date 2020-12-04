@@ -2,11 +2,12 @@
 #define MOVIMIENTO_H
 #include "comando.h"
 
-class Movimiento: public Comando{
+class Item_catch: public Comando{
   private:
-    int tecla_asociada = 1;
+    int item = 1;
   public:
-    Movimiento() {}
+    Item_catch() {}
     void estrategia() override;
 };
+
 #endif
