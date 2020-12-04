@@ -1,5 +1,4 @@
 #include "../include/protected_queue.h"
-#include <iostream>
 
 ProtectedQueue::ProtectedQueue(){
 
@@ -7,18 +6,16 @@ ProtectedQueue::ProtectedQueue(){
 ProtectedQueue::~ProtectedQueue(){
 
 }
-SDL_Event ProtectedQueue::obtener_evento(){
+Comando* ProtectedQueue::obtener_comando(){
   std::lock_guard<std::mutex> l(this->m);
-  if (this->cola_eventos.empty()){
+  if (this->cola_comandos.empty()){
     throw QueueException("no hay elementos en la cola\n");
-    std::cout << "no estoy vacia\n";
   }
-  std::cout << "no estoy vacia\n";
-  SDL_Event evento =  this->cola_eventos.front();
-  this->cola_eventos.pop();
-  return evento;
+  Comando* comando =  this->cola_comandos.front();
+  this->cola_comandos.pop();
+  return comando;
 }
-void ProtectedQueue::aniadir_evento(SDL_Event event){
+void ProtectedQueue::aniadir_comando(Comando* comando){
   std::lock_guard<std::mutex> l(this->m);
-  this->cola_eventos.push(event);
+  this->cola_comandos.push(comando);
 }

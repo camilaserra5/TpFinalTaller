@@ -11,7 +11,7 @@ class Cliente: public Thread {
       ~Cliente();
       void run() override;
     private:
-        ProtectedQueue& cola_eventos;
+        ProtectedQueue& cola_comandos;
 };
 
 #endif

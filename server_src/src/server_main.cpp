@@ -9,8 +9,6 @@
 #define USAGE "Uso: ./server <config_file>"
 
 int main(int argc, char *argv[]) {
-
-
     //YAML::Node config = YAML::LoadFile(argv[1]);
   //  const std::string port = config["port"].as<std::string>();
 /*
