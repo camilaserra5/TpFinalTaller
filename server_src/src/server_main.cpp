@@ -27,6 +27,8 @@ int main(int argc, char *argv[]) {
     Cliente cliente(cola);
     Servidor servidor(cola);
     cliente.start();
+    std::chrono::milliseconds duration(10);
+    std::this_thread::sleep_for(duration);
     servidor.start();
     cliente.join();
     servidor.join();
