@@ -7,6 +7,7 @@
 #include <QPalette>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "map.h"
 #include "map_translator.h"
 
@@ -42,5 +43,16 @@ int main(int argc, char *argv[]) {
     std::cout << m.getColSize() << std::endl;
     std::cout << m.getRowSize() << std::endl;
 
+
+    for (std::size_t i = 0; i < m.getRowSize(); i++) {
+        for (std::size_t j = 0; j < m.getColSize(); j++) {
+            m.setValue(i, j, m(i,j));
+        }
+    }
+
+    YAML::Node node = MapTranslator::mapToYaml(m);
+    std::ofstream file("confignew.yaml");
+    file << node;
+    file.close();
     return 0;
 }

@@ -4,7 +4,7 @@
 #include <vector>
 
 enum class Type {
-    empty, door, wall, fakeDoor, keyDoor
+    empty = 0, door = 1, wall = 2, fakeDoor = 3, keyDoor =4
 };
 
 class Map {
@@ -15,6 +15,8 @@ public:
     unsigned getRowSize() const;
 
     unsigned getColSize() const;
+
+    void setValue(const unsigned rowNumber, const unsigned colNumber, Type value);
 
     Type &operator()(const unsigned rowNumber, const unsigned colNumber);
 

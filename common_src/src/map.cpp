@@ -22,6 +22,10 @@ unsigned Map::getColSize() const {
     return this->colSize;
 }
 
+void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type value) {
+    this->map[rowNumber][colNumber] = value;
+}
+
 Type &Map::operator()(const unsigned rowNumber, const unsigned colNumber) {
     return this->map[rowNumber][colNumber];
 }
