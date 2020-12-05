@@ -1,8 +1,8 @@
 #ifndef CLIENT_PROCESSOR_H
 #define CLIENT_PROCESSOR_H
 
-#include "../common_src/include/socket.h"
-#include "../common_src/include/thread.h"
+#include "socket.h"
+#include "thread.h"
 #include <SDL2/SDL.h>
 #include <string>
 #include <queue>

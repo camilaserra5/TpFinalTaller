@@ -1,7 +1,7 @@
 #include "../include/cliente.h"
-#include "../common_src/include/movimiento.h"
-#include "../common_src/include/ataque.h"
-#include "../common_src/include/item_catch.h"
+#include "movimiento.h"
+#include "ataque.h"
+#include "item_catch.h"
 
 #include <mutex>
 

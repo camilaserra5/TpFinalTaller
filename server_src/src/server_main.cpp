@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
-#include "../include/servidor.h"
-#include "../common_src/include/socket.h"
+#include "socket.h"
 #include "../include/cliente.h"
+#include "../include/servidor.h"
 #include "yaml-cpp/yaml.h"
 #define OK_CODE 0
 #define ERR_CODE 1

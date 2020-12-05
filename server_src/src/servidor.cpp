@@ -1,8 +1,8 @@
 #include "../include/servidor.h"
 #include <iostream>
 #include <exception>
-#include "../common_src/include/SdlWindow.h"
-#include "../common_src/include/SdlTexture.h"
+#include "SdlWindow.h"
+#include "SdlTexture.h"
 
 Servidor::Servidor(ProtectedQueue& cola_comandos):
       cola_comandos(cola_comandos){}

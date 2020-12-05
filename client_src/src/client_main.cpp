@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "../include/cliente.h"
-#include "../common_src/include/socket.h"
+#include "socket.h"
 
 #define OK_CODE 0
 #define ERR_CODE 1
@@ -19,10 +19,9 @@ int main(int argc, char *argv[]) {
     char *host = argv[HOST_PARAM];
     char *port = argv[PORT_PARAM];
     try {
-      std::queue cola;
-        Socket socket(host, port);
-        Cliente cliente(cola);
-        client.run();
+        ProtectedQueue qeue;
+        Cliente cliente(qeue);
+        cliente.run();
     } catch (...) {
         std::cout << "connect error";
         return ERR_CODE;
