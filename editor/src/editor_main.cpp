@@ -6,6 +6,10 @@
 #include <QVBoxLayout>
 #include <QPalette>
 #include <string>
+#include <iostream>
+#include "map.h"
+#include "map_translator.h"
+
 
 int main(int argc, char *argv[]) {
     /*QApplication app(argc, argv);
@@ -30,9 +34,13 @@ int main(int argc, char *argv[]) {
     //ventana.setLayout(&configuracion);
     ventana.setLayout(&editar);
     ventana.show();*/
-    Editor editor;
-    std::string nombre_archivo("mapa.txt");
-    editor.CrearMapa(nombre_archivo);
+    //Editor editor;
+    //std::string nombre_archivo("mapa.txt");
+    //editor.CrearMapa(nombre_archivo);
     //return app.exec();
+    Map m = MapTranslator::yamlToMap(YAML::LoadFile("../src/config.yaml"));
+    std::cout << m.getColSize() << std::endl;
+    std::cout << m.getRowSize() << std::endl;
+
     return 0;
 }
