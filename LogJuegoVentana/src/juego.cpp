@@ -1,4 +1,5 @@
 #include "../include/juego.h"
+#include "../include/textura.h"
 #define EXITO 0
 
 
@@ -15,10 +16,8 @@ void Juego::inicializar(const char* titulo, int xpos, int ypos, int ancho, int a
     } else {
         this->corriendo = false;
     }
-
-    SDL_Surface* superficie_temp = IMG_Load("..resources/images/ParteInferior.png");
-    this->texturaInferior = SDL_CreateTextureFromSurface(this->render, superficie_temp);
-    SDL_FreeSurface(superficie_temp);
+    Textura* unaTextura = new Textura("..resources/images/ParteInferior.png", this->render);
+    this->texturaInferior = unaTextura->cargarTextura();
 }
 
 void Juego::handleEvents() {
