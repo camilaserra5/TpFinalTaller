@@ -1,10 +1,10 @@
-#include "juego.h"
+#include "../include/juego.h"
 #define EXITO 0
 
 void Juego::inicializar(const char* titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen){
     int flags = 0;
     if (fullscreen) {
-        flags = SDL_WINDONW_FULLSCREEN;
+        flags = SDL_WINDOW_FULLSCREEN;
     }
     if (SDL_Init(SDL_INIT_EVERYTHING) == EXITO) {
         this->ventana = SDL_CreateWindow(titulo, xpos,ypos, ancho, alto, flags);
@@ -19,7 +19,7 @@ void Juego::inicializar(const char* titulo, int xpos, int ypos, int ancho, int a
 void Juego::handleEvents() {
     SDL_Event evento;
     SDL_PollEvent(&evento);
-    switch (event.type) {
+    switch (evento.type) {
         case SDL_QUIT:
             this->corriendo = false;
             break;

@@ -1,7 +1,5 @@
-#include "juego.h"
+#include "include/juego.h"
 /*#include <SDL2/SDL_image.h>
-#include <string>
-
 void crearVentana(){
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window *ventana = SDL_CreateWindow("LA VENTANITA", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, 600, 400, SDL_WINDOW_SHOWN);
