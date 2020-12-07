@@ -1,1 +1,0 @@
-/usr/bin/c++   -std=c++11 -g  -rdynamic CMakeFiles/server.dir/src/servidor.cpp.o CMakeFiles/server.dir/src/cliente.cpp.o CMakeFiles/server.dir/src/server_main.cpp.o  -o server  -L/home/stephy/TpFinalTaller/common_src/build -Wl,-rpath,/home/stephy/TpFinalTaller/common_src/build -Wl,-Bstatic -lcommons -Wl,-Bdynamic -lSDL2 -lSDL2_image -lpthread 

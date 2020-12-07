@@ -1,1 +1,0 @@
-/usr/bin/c++   -std=c++11 -g  -rdynamic CMakeFiles/client.dir/src/client_main.cpp.o CMakeFiles/client.dir/src/cliente.cpp.o  -o client  -L/home/stephy/TpFinalTaller/common_src/build -Wl,-rpath,/home/stephy/TpFinalTaller/common_src/build -Wl,-Bstatic -lcommons -Wl,-Bdynamic -lSDL2 -lSDL2_image -lpthread 

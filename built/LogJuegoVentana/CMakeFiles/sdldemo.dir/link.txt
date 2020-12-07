@@ -1,1 +1,0 @@
-/usr/bin/c++   -std=c++11  -rdynamic CMakeFiles/sdldemo.dir/src/pruebaSDLmain.cpp.o CMakeFiles/sdldemo.dir/src/juego.cpp.o  -o sdldemo -lSDL2 -lSDL2_image 
