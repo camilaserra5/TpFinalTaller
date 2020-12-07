@@ -14,9 +14,9 @@ Cliente::~Cliente(){}
 void Cliente::run(){
     Comando* movimiento = new Movimiento();
     Comando* ataque = new Ataque();
-    Comando* item = new Item_catch();
+    Comando* itemTomado = new ItemTomado();
 
     this->cola_comandos.aniadir_comando(movimiento);
     this->cola_comandos.aniadir_comando(ataque);
-    this->cola_comandos.aniadir_comando(item);
+    this->cola_comandos.aniadir_comando(itemTomado);
 }
