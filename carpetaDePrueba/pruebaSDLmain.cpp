@@ -10,5 +10,6 @@ int main(){
     SDL_SetRenderDrawColor(unRender, 0 , 255, 0, 255);
     SDL_RenderClear(unRender);
     SDL_RenderPresent(unRender);
+    SDL_Delay(6000);
     return 0;
 }

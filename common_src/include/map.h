@@ -4,7 +4,7 @@
 #include <vector>
 
 enum class Type {
-    empty = 0, door = 1, wall = 2, fakeDoor = 3, keyDoor =4
+    empty = 0, door = 1, wall = 2, fakeDoor = 3, keyDoor = 4
 };
 
 class Map {
