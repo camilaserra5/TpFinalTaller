@@ -1,6 +1,7 @@
 #ifndef _JUGADOR_H
 #define _JUGADOR_H
 #include <vector>
+#include "arma.h"
 
 class Jugador{
       public:

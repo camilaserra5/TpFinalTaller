@@ -9,6 +9,6 @@ Pistola::Pistola():
 Pistola::~Pistola(){}
 // conviene mandarle coordenadas de yo jugador??
 // or ahora devuelve danio de ataque
-int atacar(){
+int Pistola::atacar(){
     return this->danio;
 }

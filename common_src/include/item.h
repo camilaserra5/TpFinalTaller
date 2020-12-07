@@ -1,5 +1,6 @@
 #ifndef ITEM_H
 #define ITEM_H
+#include "jugador.h"
 
 class Item{
   public:
