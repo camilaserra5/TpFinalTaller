@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
   //  QLabel label("El mapa a editar es\n");
     //ventana.setLayout(&configuracion);
     ventana.setLayout(&editar);
-    ventana.show();*/
+    ventana.show();
     //Editor editor;
     //std::string nombre_archivo("mapa.txt");
     //editor.CrearMapa(nombre_archivo);
