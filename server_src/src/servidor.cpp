@@ -22,7 +22,8 @@ void procesar_comandos(ProtectedQueue& cola_comandos){
     }
   }
 }
-void Servidor::abrir_mapa(){
+/*
+void abrir_mapa(){
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window *ventana = SDL_CreateWindow("LA VENTANITA",
                                             SDL_WINDOWPOS_CENTERED,
@@ -35,7 +36,7 @@ void Servidor::abrir_mapa(){
     SDL_RenderPresent(unRender);
     return 0;
 }
-
+*/
 void Servidor::run(){
     bool termine = false;
     while (!termine){
