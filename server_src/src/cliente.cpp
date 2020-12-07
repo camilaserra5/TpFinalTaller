@@ -1,7 +1,7 @@
 #include "../include/cliente.h"
 #include "movimiento.h"
 #include "ataque.h"
-#include "item_catch.h"
+#include "item_tomado.h"
 
 #include <mutex>
 
@@ -14,9 +14,9 @@ Cliente::~Cliente(){}
 void Cliente::run(){
     Comando* movimiento = new Movimiento();
     Comando* ataque = new Ataque();
-    Comando* item = new Item_catch();
+    Comando* itemTomado = new ItemTomado();
 
     this->cola_comandos.aniadir_comando(movimiento);
     this->cola_comandos.aniadir_comando(ataque);
-    this->cola_comandos.aniadir_comando(item);
+    this->cola_comandos.aniadir_comando(itemTomado);
 }

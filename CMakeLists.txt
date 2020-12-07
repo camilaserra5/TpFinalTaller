@@ -4,6 +4,7 @@ project(wolfstein)
 
 add_subdirectory(common_src)
 add_subdirectory(editor)
+add_subdirectory(common_src)
 add_subdirectory(server_src)
 add_subdirectory(client_src)
-add_subdirectory(carpetaDePrueba)
+add_subdirectory(LogJuegoVentana)
