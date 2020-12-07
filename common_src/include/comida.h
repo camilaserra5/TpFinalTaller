@@ -8,7 +8,7 @@ class Comida: public Item{
     ~Comida(){}
     void obtenerBeneficio(Jugador &jugador) override;
   private:
-    int puntos_de_vida = 10;  
+    int puntos_de_vida = 10;
 };
 
 #endif

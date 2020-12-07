@@ -4,8 +4,8 @@
 
 class Pistola : public Arma{
       public:
-            Arma();
-            ~Arma();
+            Pistola();
+            ~Pistola();
             int atacar() override;
       private:
             int danio; //  aleatorio rand(1,10)?

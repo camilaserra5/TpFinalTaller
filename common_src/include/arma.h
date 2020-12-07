@@ -5,7 +5,7 @@ class Arma{
       public:
             Arma();
             virtual ~Arma(){}
-            virtual void atacar() = 0;
+            virtual int atacar() = 0;
       private:
 
 };

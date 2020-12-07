@@ -11,7 +11,7 @@ Jugador::Jugador():
 Jugador::~Jugador(){}
 
 // recibo la posicion a moverse
-void Jugador::Moverse(int &posx, int &posy){
+void Jugador::moverse(int &posx, int &posy){
     this->posx += posx;
     this->posy += posy;
 }
