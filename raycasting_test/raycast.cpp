@@ -1,4 +1,4 @@
-#include "map.h"
+#include "../common_src/include/map.h"
 #include <math.h>
 
 void dibujarPared(int alturaParedProyectada,int stripe){
@@ -14,7 +14,7 @@ bool verificarParedHorizontal(Map& mapa,int ladoCelda,int anguloPorStripe, int& 
   int largoFila = mapa.getRowSize();
   int largoColumna = mapa.getColSize();
   while (!encontrePared && posX < largoFila && posY < largoColumna){
-    if (mapa(posX,posY) == 2){
+    if (mapa(posX,posY) == Type::wall){
       encontrePared = true;
       posX -= posXPared;
       posY -= posYPared;
@@ -34,7 +34,7 @@ bool verificarParedVertical(Map& mapa,int ladoCelda,int anguloPorStripe, int& di
   int largoFila = mapa.getRowSize();
   int largoColumna = mapa.getColSize();
   while (!encontrePared && posX < largoFila && posY < largoColumna){
-    if (mapa(posX,posY) == 2){
+    if (mapa(posX,posY) == Type::wall){
       encontrePared = true;
       posX -= posXPared;
       posY -= posYPared;
@@ -47,18 +47,19 @@ bool verificarParedVertical(Map& mapa,int ladoCelda,int anguloPorStripe, int& di
 }
 
 int main (){
-  Map mapa;
+  Map mapa(320,320);
   int posJugadorX, posJugadorY, alturaJugador;
   int anguloDeVista = 60, ladoCelda, largoProyector, anchoProyector;
   int distanciaProyector = (largoProyector / 2) / tan(anguloDeVista / 2);
   int ladoMapa = 320;
   int anguloPorStripe = ladoMapa / anguloDeVista;
+  int alturaParedProyectada = 0;
   for (int i = 0; i < ladoMapa; i++){
     int distancia = 0;
     if (verificarParedHorizontal(mapa,ladoCelda,anguloPorStripe,distancia)){
-      int alturaParedProyectada = (ladoCelda / distancia) * distanciaProyector;
+      alturaParedProyectada = (ladoCelda / distancia) * distanciaProyector;
     }else if (verificarParedVertical(mapa,ladoCelda,anguloPorStripe,distancia)){
-      int alturaParedProyectada = (ladoCelda / distancia) * distanciaProyector;
+      alturaParedProyectada = (ladoCelda / distancia) * distanciaProyector;
     }
     if (distancia > 0){
       dibujarPared(alturaParedProyectada,i);
