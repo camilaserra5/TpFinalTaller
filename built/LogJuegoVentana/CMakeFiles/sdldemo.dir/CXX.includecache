@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/stephy/CLionProjects/TpFinalTaller/LogJuegoVentana/include/juego.h
+SDL2/SDL.h
+-
+
+/home/stephy/CLionProjects/TpFinalTaller/LogJuegoVentana/src/juego.cpp
+../include/juego.h
+/home/stephy/CLionProjects/TpFinalTaller/LogJuegoVentana/include/juego.h
+
+/home/stephy/CLionProjects/TpFinalTaller/LogJuegoVentana/src/pruebaSDLmain.cpp
+../include/juego.h
+/home/stephy/CLionProjects/TpFinalTaller/LogJuegoVentana/include/juego.h
+

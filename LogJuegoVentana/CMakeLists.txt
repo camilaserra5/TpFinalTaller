@@ -4,10 +4,10 @@ project(sdl)
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-include_directories(~/TpFinalTaller/LogJuegoVentana/include)
+include_directories(~/TpFinalTaller/logJuegoVentana/include)
 
-add_library(sdldemo
-            pruebaSDLmain.cpp
+add_executable(sdldemo
+            src/pruebaSDLmain.cpp
             src/juego.cpp
 )
 
