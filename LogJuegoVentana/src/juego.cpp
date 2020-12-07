@@ -1,6 +1,7 @@
 #include "../include/juego.h"
 #define EXITO 0
 
+
 void Juego::inicializar(const char* titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen){
     int flags = 0;
     if (fullscreen) {
@@ -9,11 +10,15 @@ void Juego::inicializar(const char* titulo, int xpos, int ypos, int ancho, int a
     if (SDL_Init(SDL_INIT_EVERYTHING) == EXITO) {
         this->ventana = SDL_CreateWindow(titulo, xpos,ypos, ancho, alto, flags);
         this->render = SDL_CreateRenderer(this->ventana,-1,0);
-        SDL_SetRenderDrawColor(this->render, 255 , 0, 0, 255);
+        SDL_SetRenderDrawColor(this->render, 157 , 97, 70, 255);
         this->corriendo = true;
     } else {
         this->corriendo = false;
     }
+
+    SDL_Surface* superficie_temp = IMG_Load("..resources/images/ParteInferior.png");
+    this->texturaInferior = SDL_CreateTextureFromSurface(this->render, superficie_temp);
+    SDL_FreeSurface(superficie_temp);
 }
 
 void Juego::handleEvents() {
@@ -33,6 +38,7 @@ void Juego::actualizar(){}
 
 void Juego::renderizar(){
     SDL_RenderClear(this->render);
+    SDL_RenderCopy(this->render, this->texturaInferior, NULL, NULL);
     SDL_RenderPresent(this->render);
 }
 
