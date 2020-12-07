@@ -9,9 +9,6 @@ Ataque::Ataque(int &destinox, int &destinoy):
 Ataque::~Ataque(){}
 
 
-void Ataque::estrategia(Mapa &mapa){
-    if (mapa(destinox,destinoy) == JUGADOR){
-        mapa(destinox,destinoy).recibirAtaque(danio);
-    }
+void Ataque::estrategia(){
     std::cout << "ataco pium pium\n";
 }
