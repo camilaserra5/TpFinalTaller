@@ -43,7 +43,7 @@ void Servidor::run(){
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
         procesar_comandos(this->cola_comandos);//devolveria actualizaciones
-        //enviar_actualizaciones();
+        //enviar_actualizaciones(cola de actualizaciones);
         //std::chrono::milliseconds duration(10);
         //std::this_thread::sleep_for(duration);
         termine = true;

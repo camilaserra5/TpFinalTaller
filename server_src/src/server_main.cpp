@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
     ProtectedQueue cola;
     Cliente cliente(cola);
     Servidor servidor(cola);
+    servidor.abrir_mapa();
     cliente.start();
     std::chrono::milliseconds duration(10);
     std::this_thread::sleep_for(duration);
