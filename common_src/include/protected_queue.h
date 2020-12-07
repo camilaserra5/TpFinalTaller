@@ -2,7 +2,7 @@
 #define _PROTECTED_QUEUE_
 #include <queue>
 #include <mutex>
-#include <SDL2/SDL.h>
+#include "comando.h"
 #include <exception>
 
 class QueueException: public std::exception{
@@ -17,12 +17,12 @@ class QueueException: public std::exception{
 
 class ProtectedQueue{
   private:
-    std::queue<SDL_Event> cola_eventos;
+    std::queue<Comando*> cola_comandos;
     std::mutex m;
   public:
     ProtectedQueue();
     ~ProtectedQueue();
-    SDL_Event obtener_evento();
-    void aniadir_evento(SDL_Event event);
+    Comando* obtener_comando();
+    void aniadir_comando(Comando* comando);
 };
 #endif

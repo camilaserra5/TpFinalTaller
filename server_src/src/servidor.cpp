@@ -1,55 +1,37 @@
 #include "../include/servidor.h"
 #include <iostream>
 #include <exception>
-#include "../common_src/include/SdlWindow.h"
-#include "../common_src/include/SdlTexture.h"
+#include "SdlWindow.h"
+#include "SdlTexture.h"
 
-Servidor::Servidor(ProtectedQueue& cola_eventos):
-      cola_eventos(cola_eventos){}
+Servidor::Servidor(ProtectedQueue& cola_comandos):
+      cola_comandos(cola_comandos){}
 
 Servidor::~Servidor(){}
 
-void Servidor::run(){
+void procesar_comandos(ProtectedQueue& cola_comandos){
+  bool termine = false;
+  while (!termine){
+    try{
+      Comando* comando = cola_comandos.obtener_comando();
+      comando->estrategia();
+      //creamos actualizacion y la agregamos a una cola
+      delete comando;
+    }catch(const std::exception& exception){
+      termine = true;
+    }
+  }
+}
 
+void Servidor::run(){
     bool termine = false;
     while (!termine){
-        try{
-          int x = 0, y = 0;
-            SDL_Event evento = this->cola_eventos.obtener_evento();
-            switch(SDL_KEYDOWN/*evento.type*/) {
-                case SDL_KEYDOWN: {
-                    SDL_KeyboardEvent& keyEvento = (SDL_KeyboardEvent&) evento;
-                    switch (SDLK_LEFT/*keyEvento.keysym.sym*/) {
-                        case SDLK_LEFT:
-                            x -= 10;
-                            std::cout << "me enviaron la tecla izquierda";
-                            break;
-                        case SDLK_RIGHT:
-                            x += 10;
-                            std::cout << "me llego la tecla derecha";
-                            break;
-                        case SDLK_UP:
-                            y -= 10;
-                            std::cout << " me llego tecla de arriba";
-                            break;
-                        case SDLK_DOWN:
-                            y += 10;
-                            std::cout << "me llego tecla de abajo";
-                            break;
-                        }
-                  }
-                  break;
-                    case SDL_MOUSEMOTION:
-                        std::cout << "soy el mouse" << std::endl;
-                        break;
-                    case SDL_QUIT:
-                        std::cout << "tecla salir" << std::endl;
-                        //running = false;
-                        break;
-                }
-      }catch(const std::exception& exception){
-            //std::cerr << exception.what();
-            termine = true;
-      }
+        //el while va a depender del obtener comandos con un try catch
+        //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
+        procesar_comandos(this->cola_comandos);//devolveria actualizaciones
+        //enviar_actualizaciones();
+        //std::chrono::milliseconds duration(10);
+        //std::this_thread::sleep_for(duration);
+        termine = true;
     }
 }

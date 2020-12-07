@@ -1,7 +1,6 @@
-project(wolfstein)
+cmake_minimum_required(VERSION 2.8)
 
-# Busca el módulo Widgets de la biblioteca Qt5
-# en particular toma la configuración de /usr/lib/x86_64-linux-gnu/cmake/Qt5/Qt5WidgetsConfig.cmake
+project(editor)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
@@ -10,10 +9,14 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 find_package(Qt5Widgets)
 find_package(yaml-cpp)
 
+set ( PROJECT_LINK_LIBS libcommons.a )
+link_directories( ~/TpFinalTaller/common_src/build )
+include_directories(~/TpFinalTaller/common_src/include )
+
 add_executable(out
   src/editor.cpp
   src/editor_main.cpp
   ${UIS_HEADERS})
 
 # Linkea libQt5Widgets.so al ejecutable
-target_link_libraries(out Qt5::Widgets ${YAML_CPP_LIBRARIES})
+target_link_libraries(out ${PROJECT_LINK_LIBS} Qt5::Widgets ${YAML_CPP_LIBRARIES})

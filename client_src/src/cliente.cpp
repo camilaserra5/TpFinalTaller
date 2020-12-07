@@ -8,6 +8,6 @@ Cliente::Cliente(ProtectedQueue& cola_eventos):
 Cliente::~Cliente(){}
 
 void Cliente::run(){
-    SDL_Event evento;
-    this->cola_eventos.aniadir_evento(evento);
+    Comando* evento;
+    this->cola_eventos.aniadir_comando(evento);
 }
