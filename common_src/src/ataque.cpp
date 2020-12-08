@@ -8,12 +8,6 @@ Ataque::Ataque(int &destinox, int &destinoy):
           }
 */
 
-<<<<<<< HEAD
-Ataque::~Ataque(){}
-
-
-=======
->>>>>>> 177ffbcac120ced3aed5940f3a589e4ff7bb09d5
 void Ataque::estrategia(){
     std::cout << "ataco pium pium\n";
 }
