@@ -4,14 +4,14 @@
 
 class Ataque: public Comando{
   public:
-    Ataque(int &destinox, int &destinoy);
-    ~Ataque();
+    Ataque(){}
+    ~Ataque(){}
     void estrategia() override;
   private:
-    int ataque_asociado;
-    int destinox;
-    int destinoy;
-    int danio;
+    int ataque_asociado = 1;
+    int destinox = 1;
+    int destinoy = 1;
+    int danio = 1;
 };
 
 #endif
