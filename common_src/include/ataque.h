@@ -3,15 +3,17 @@
 #include "comando.h"
 
 class Ataque: public Comando{
+    private:
+      int ataque_asociado;
+      int destinox;
+      int destinoy;
+      int danio;
   public:
     Ataque(){}
     ~Ataque(){}
-    void estrategia() override;
-  private:
-    int ataque_asociado = 1;
-    int destinox = 1;
-    int destinoy = 1;
-    int danio = 1;
+    void estrategia() override{
+      std::cout << "ataco pium pium\n";
+    }
 };
 
 #endif
