@@ -1,5 +1,6 @@
 #include "rayo.h"
 #include <math.h>
+#include <stdlib.h>
 #include <iostream>
 
 int Rayo::verificarCuadranteY(const float anguloJugador){
@@ -40,7 +41,7 @@ Rayo::Rayo(float campoDeVision,int ladoCelda,int tamanio_fila_mapa,int largoProy
     this->distanciaProyector = (this->largoProyector / 2) / tan(this->campoDeVision / 2);
     //this->ladoMapa = this->ladoCelda * this->tamanio_fila_mapa; // lado celda * tamnaio de cada fila
     this->anguloPorStripe =  this->campoDeVision / this->tamanio_fila_mapa;
-    this->anguloBarrido = anguloPorStripe;
+    this->anguloBarrido = this->anguloPorStripe;
 }
 
 bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA],float& distancia,const float anguloJugador){
@@ -52,10 +53,12 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA],float& dista
   while (!encontrePared && 0 < posXPared/this->ladoCelda && posXPared/this->ladoCelda < TAMANIO_FILA &&  0 < posYPared/this->ladoCelda && posYPared/this->ladoCelda < TAMANIO_COLUMNA){
     if (mapa[posXPared/this->ladoCelda][posYPared/this->ladoCelda] == 2){
       encontrePared = true;
-      std::cout << "Para la interseccion horizontal x: " << posXPared << " y: "<< posYPared <<"\n";
       posX -= posXPared/this->ladoCelda;
       posY -= posYPared/this->ladoCelda;
-      distancia = 2 * this->ladoCelda+ sqrt((posX * posX) + (posY * posY));
+      int distanciaDistorsionada = 2 * this->ladoCelda + sqrt((posX * posX) + (posY * posY));
+      distancia = distanciaDistorsionada * abs(cos(this->anguloBarrido));
+      //std::cout << "Para la distancia horizontal es: " << distancia <<"\n";
+
     }
     posXPared = (this->izquierda? floor(posXPared + xa):ceil(posXPared + xa));
     posYPared += ya;
@@ -72,10 +75,11 @@ bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA],float& distanc
   while (!encontrePared && 0 < posXPared/this->ladoCelda && posXPared/this->ladoCelda < TAMANIO_FILA &&  0 < posYPared/this->ladoCelda && posYPared/this->ladoCelda < TAMANIO_COLUMNA){
     if (mapa[posXPared/this->ladoCelda][posYPared/this->ladoCelda] == 2){
       encontrePared = true;
-      std::cout << "Para la interseccion vertical x: " << posX << " y: "<< posY <<"\n";
       posX -= posXPared/this->ladoCelda;//creo que esta mal
       posY -= posYPared/this->ladoCelda;
-      distancia = 2 * this->ladoCelda + sqrt((posX * posX) + (posY * posY));
+      int distanciaDistorsionada = 2 * this->ladoCelda + sqrt((posX * posX) + (posY * posY));
+      distancia = distanciaDistorsionada * abs(cos(this->anguloBarrido));
+      //std::cout << "Para la distancia vertical es: " << distancia <<"\n";
     }
     posXPared = (this->abajo? floor(posYPared + ya):ceil(posYPared + ya));
     posYPared += xa;
@@ -87,6 +91,5 @@ int Rayo::getDistanciaProyector(){
   return this->distanciaProyector;
 }
 void Rayo::aumentarAnguloBarrido(){
-  this->anguloBarrido += this->anguloPorStripe;
-  std::cout << "el angulo barrido es: " << this->anguloBarrido<< "\n";
+  this->anguloBarrido = this->anguloBarrido + this->anguloPorStripe;
 }
