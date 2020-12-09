@@ -37,7 +37,9 @@ void Juego::actualizar(){}
 
 void Juego::renderizar(){
     SDL_RenderClear(this->render);
-    SDL_RenderCopy(this->render, this->texturaInferior, NULL, NULL);
+    SDL_Rect posiciontexturaini = {0,0, 300, 300};
+    SDL_Rect posiciontexturadest = {100, 100, 300, 300 };
+    SDL_RenderCopy(this->render, this->texturaInferior, &posiciontexturaini, &posiciontexturadest);
     SDL_RenderPresent(this->render);
 }
 
