@@ -46,10 +46,10 @@ Rayo::Rayo(float campoDeVision,int ladoCelda,int tamanio_fila_mapa,int largoProy
 bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA],float& distancia,const float anguloJugador){
   bool encontrePared = false;
   int posX = 4, posY = 2;//lo va a recibir por parametro
-  int posXPared = posX * this->ladoCelda, posYPared = posY * this->ladoCelda;
   float ya = this->verificarCuadranteY(anguloJugador);
-  float xa = this->ladoCelda / tan(this->anguloPorStripe);
-  while (!encontrePared && 0 < posX && posX < TAMANIO_FILA &&  0 < posY && posY < TAMANIO_COLUMNA){
+  float xa = this->ladoCelda / tan(this->anguloBarrido);
+  int posXPared = posX * this->ladoCelda, posYPared = posY * this->ladoCelda;
+  while (!encontrePared && 0 < posXPared/this->ladoCelda && posXPared/this->ladoCelda < TAMANIO_FILA &&  0 < posYPared/this->ladoCelda && posYPared/this->ladoCelda < TAMANIO_COLUMNA){
     if (mapa[posXPared/this->ladoCelda][posYPared/this->ladoCelda] == 2){
       encontrePared = true;
       std::cout << "Para la interseccion horizontal x: " << posXPared << " y: "<< posYPared <<"\n";
@@ -68,13 +68,13 @@ bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA],float& distanc
   float ya = this->ladoCelda / tan(this->anguloBarrido);
   float xa = this->verificarCuadranteX(anguloJugador);
   int posX = 4, posY = 2;//lo va a recibir por parametro
-  int posXPared = posX, posYPared = posY;
-  while (!encontrePared && 0 < posX && posX < TAMANIO_FILA &&  0 < posY && posY < TAMANIO_COLUMNA){
-    if (mapa[posXPared % 320][posYPared % 320] == 2){
+  int posXPared = posX * this->ladoCelda, posYPared = posY * this->ladoCelda;
+  while (!encontrePared && 0 < posXPared/this->ladoCelda && posXPared/this->ladoCelda < TAMANIO_FILA &&  0 < posYPared/this->ladoCelda && posYPared/this->ladoCelda < TAMANIO_COLUMNA){
+    if (mapa[posXPared/this->ladoCelda][posYPared/this->ladoCelda] == 2){
       encontrePared = true;
       std::cout << "Para la interseccion vertical x: " << posX << " y: "<< posY <<"\n";
-      posX -= posXPared;//creo que esta mal
-      posY -= posYPared;
+      posX -= posXPared/this->ladoCelda;//creo que esta mal
+      posY -= posYPared/this->ladoCelda;
       distancia = 2 * this->ladoCelda + sqrt((posX * posX) + (posY * posY));
     }
     posXPared = (this->abajo? floor(posYPared + ya):ceil(posYPared + ya));

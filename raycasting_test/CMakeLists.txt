@@ -18,6 +18,7 @@ add_executable (raycast
         ../raycast.cpp
         ../common_src/include/map.h
         ../common_src/src/map.cpp
+        ../rayo.cpp
         ${UIS_HEADERS})
 
 #target_link_libraries(raycasting ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads ${YAML_CPP_LIBRARIES})
