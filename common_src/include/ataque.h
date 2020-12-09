@@ -1,8 +1,9 @@
 #ifndef ATAQUE_H
 #define ATAQUE_H
 #include "comando.h"
+#include "iserializable.h"
 
-class Ataque: public Comando{
+class Ataque: public Comando, public ISerializable{
     private:
       int ataque_asociado;
       int destinox;
@@ -11,9 +12,9 @@ class Ataque: public Comando{
   public:
     Ataque(){}
     ~Ataque(){}
-    void estrategia() override{
-      std::cout << "ataco pium pium\n";
-    }
+    void serializar() override{}
+    void deserializar() override{}
+    void estrategia() override{std::cout << "ataco pium pium\n";}
 };
 
 #endif
