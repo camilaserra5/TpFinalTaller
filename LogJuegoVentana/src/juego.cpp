@@ -12,11 +12,12 @@ void Juego::inicializar(const char* titulo, int xpos, int ypos, int ancho, int a
         this->ventana = SDL_CreateWindow(titulo, xpos,ypos, ancho, alto, flags);
         this->render = SDL_CreateRenderer(this->ventana,-1,0);
         SDL_SetRenderDrawColor(this->render, 157 , 97, 70, 255);
+        SDL_RenderClear(this->render);
         this->corriendo = true;
     } else {
         this->corriendo = false;
     }
-    Textura* unaTextura = new Textura("..resources/images/ParteInferior.png", this->render);
+    Textura* unaTextura = new Textura("../../LogJuegoVentana/resources/images/ParteInferior.png", this->render);
     this->texturaInferior = unaTextura->cargarTextura();
 }
 
