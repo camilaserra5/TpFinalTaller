@@ -1,22 +1,31 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 
-project(editor)
+project(editor LANGUAGES CXX)
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# find_package(Qt5 COMPONENTS Widgets Core <...>) es una forma más feliz de
-# agregar paquetes, ver https://blog.kitware.com/cmake-finding-qt5-the-right-way/
-find_package(Qt5Widgets)
-find_package(yaml-cpp)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set ( PROJECT_LINK_LIBS libcommons.a )
 link_directories( ~/TpFinalTaller/common_src/build )
 include_directories(~/TpFinalTaller/common_src/include )
 
-add_executable(out
-  src/editor.cpp
-  src/editor_main.cpp
-  ${UIS_HEADERS})
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(yaml-cpp)
 
-# Linkea libQt5Widgets.so al ejecutable
-target_link_libraries(out ${PROJECT_LINK_LIBS} Qt5::Widgets ${YAML_CPP_LIBRARIES})
+add_executable(editor
+        src/editor_main.cpp
+        src/mainwindow.cpp
+        include/mainwindow.h
+        src/map_tiles_list.cpp
+        include/map_tiles_list.h
+        src/map_widget.cpp
+        include/map_widget.h
+        )
+
+target_link_libraries(editor ${PROJECT_LINK_LIBS}  Qt5::Widgets ${YAML_CPP_LIBRARIES})

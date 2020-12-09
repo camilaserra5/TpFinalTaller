@@ -1,6 +1,34 @@
 # [75.42] Taller de programación I
 ## Trabajo práctico final: Wolfenstein 3D
-(nosotras) para compilar crear una carpeta build en el proyecto, entrar en esa carpeta, abrir una terminal y ejecutar cmake ..
+
+1. clonar el repo en ~/
+2. cd  ~/TpFinalTaller/common_src
+3. mkdir build
+4. cd build
+5. cmake ..
+6. sudo make install
+7. cd ../..
+8. mkdir build
+9. cd build
+10. cmake ..
+11. make
+
+Con eso debería generar todos los ejecutables
+
+Si se cambia algo en commons, repetir de paso 1-6 para instalar la última versión de la librería que genera el cmake
+
+Para correr el editor:
+./editor
+
+Se arrastran los tiles al mapa, y se puede guardar (convierte a yaml)
+
+Falta:
+- abrir desde un yaml existente
+- que se pueda pisar una tile en el mapa
+- cambiar el tamaño (ahora es de 10x10 fijo)
+- agregar más tiles
+- scroll en la ventana
+
 dudas:  
 donde metemos el poll event
 
