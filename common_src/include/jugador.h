@@ -17,6 +17,7 @@ class Jugador{
             std::vector<Arma*> armas;
             int municiones;
             int puntaje;
+            float angulo = 0;
 };
 
 #endif
