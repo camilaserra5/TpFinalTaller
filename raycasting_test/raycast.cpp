@@ -51,7 +51,7 @@ int main (){
 
   Rayo rayo(anguloDeVista,LADO_CELDA,TAMANIO_FILA,LARGO_PROYECTOR);
 
-  for (int i = ladoMapa; i > 0; i--){//como barremos antihorario, barremos de derecha a izquierda la pantalla
+  for (int i = TAMANIO_FILA/*esto hay que cambiarlo por ladoMapa*/; i > 0; i--){//como barremos antihorario, barremos de derecha a izquierda la pantalla
     float distancia = 0;
     if (rayo.verificarInterseccionHorizontal(mapa,distancia,anguloJugador)){
       alturaParedProyectada = (LADO_CELDA / distancia) * rayo.getDistanciaProyector();
@@ -61,6 +61,7 @@ int main (){
       std::cout << "la altura es: " << alturaParedProyectada << "\n";
 
     }
+
   /*  if (distancia > 0){
       dibujarPared(alturaParedProyectada,i);
     }*/
