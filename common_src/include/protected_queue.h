@@ -14,7 +14,6 @@ class QueueException: public std::exception{
     {}
     //const std::string getError() const { return this->error;}
 };
-
 class ProtectedQueue{
   private:
     std::queue<Comando*> cola_comandos;
@@ -24,5 +23,5 @@ class ProtectedQueue{
     ~ProtectedQueue();
     Comando* obtener_comando();
     void aniadir_comando(Comando* comando);
-};
+};//pasar a una cla protegida que tiene objetos del tipo ISerializable
 #endif
