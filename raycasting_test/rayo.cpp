@@ -47,6 +47,7 @@ Rayo::Rayo(float campoDeVision,int ladoCelda,int tamanio_fila_mapa,int largoProy
 bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA],float& distancia,const float anguloJugador){
   bool encontrePared = false;
   int posX = 4, posY = 2;//lo va a recibir por parametro
+  //pasar la posicion a metros
   float ya = this->verificarCuadranteY(anguloJugador);
   float xa = this->ladoCelda / tan(this->anguloBarrido);
   int posXPared = posX * this->ladoCelda, posYPared = posY * this->ladoCelda;

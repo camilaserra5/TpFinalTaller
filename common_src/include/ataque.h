@@ -10,7 +10,7 @@ class Ataque: public Comando, public ISerializable{
       int destinoy;
       int danio;
   public:
-    Ataque(){}
+    Ataque(int idJugador): idJugador(idJugador){}
     ~Ataque(){}
     void serializar() override{}
     void deserializar() override{}

@@ -4,9 +4,11 @@
 
 class Comando{
   public:
-  Comando(){}
-  virtual ~Comando(){}
-  virtual void estrategia() = 0; //deberia devolver una actualizacion en lugar de viod
+    Comando(){}
+    virtual ~Comando(){}
+    virtual void estrategia() = 0; //deberia devolver una actualizacion en lugar de viod
+  private:
+    int idJugador;
 };
 
 /* comandos que se me ocurren:

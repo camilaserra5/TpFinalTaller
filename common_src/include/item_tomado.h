@@ -7,7 +7,7 @@ class ItemTomado: public Comando,public ISerializable{//en vez de heredar dde co
   private:
     int item = 1;
   public:
-    ItemTomado() {}
+    ItemTomado(int idJugador): idJugador(idJugador) {}
     void serializar() override{}
     void deserializar() override{}
     void estrategia() override;

@@ -7,7 +7,7 @@ class Movimiento: public Comando, public ISerializable{
   private:
     int tecla_asociada = 1;
   public:
-    Movimiento() {}
+    Movimiento(int idJugador): idJugador(idJugador) {}
     void estrategia() override;
     void serializar() override{}
     void deserializar() override{}
