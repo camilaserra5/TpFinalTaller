@@ -22,8 +22,9 @@ int main(int argc, char *argv[]) {
         return ERR_CODE;
     }*/
     ProtectedQueue cola;
+    Map mapa(20, 20);
     Cliente cliente(cola);
-    Servidor servidor(cola);
+    Servidor servidor(cola, mapa);
     cliente.start();
     std::chrono::milliseconds duration(10);
     std::this_thread::sleep_for(duration);

@@ -7,13 +7,16 @@ class Jugador{
       public:
             Jugador();
             ~Jugador();
-            void moverse(int &posx, int &posy);
+            void moverse(int posx, int posy);
             void actualizar_vida(int &vidaActualizada);
             void agregar_item();
             void agregar_arma(Arma* arma);
+            int posEnX();
+            int posEnY();
       private:
             int vida;
-            int posx, posy;
+            int posx;
+            int posy;
             std::vector<Arma*> armas;
             int municiones;
             int puntaje;

@@ -9,12 +9,13 @@ class Ataque: public Comando, public ISerializable{
       int destinox;
       int destinoy;
       int danio;
+      int idJugador;
   public:
     Ataque(int idJugador): idJugador(idJugador){}
     ~Ataque(){}
     void serializar() override{}
     void deserializar() override{}
-    void estrategia() override{std::cout << "ataco pium pium\n";}
+    void estrategia(EstadoJuego& estadoJuego) override{std::cout << "ataco pium pium\n";}
 };
 
 #endif

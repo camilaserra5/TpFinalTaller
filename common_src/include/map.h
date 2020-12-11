@@ -3,6 +3,7 @@
 
 #include <vector>
 
+// faltaria agregar una posicion para los jugadores
 enum class Type {
     empty = 0, door = 1, wall = 2, fakeDoor = 3, keyDoor = 4
 };
