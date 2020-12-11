@@ -11,6 +11,9 @@ class Jugador{
             void actualizar_vida(int &vidaActualizada);
             void agregar_item();
             void agregar_arma(Arma* arma);
+            int cantidad_balas();
+            int puntos_de_vida();
+            void agregar_balas(int& balas);
             int posEnX();
             int posEnY();
       private:
@@ -18,7 +21,7 @@ class Jugador{
             int posx;
             int posy;
             std::vector<Arma*> armas;
-            int municiones;
+            int balas;
             int puntaje;
             float angulo = 0;
 };

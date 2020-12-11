@@ -1,11 +1,11 @@
-#ifndef COMIDA_H
-#define COMIDA_H
+#ifndef KITS_MEDICOS_H
+#define KITS_MEDICOS_H
 #include "item.h"
 
-class Comida: public Item{
+class KitsMedicos: public Item{
   public:
-    Comida();
-    ~Comida();
+    KitsMedicos();
+    ~KitsMedicos();
     void obtenerBeneficio(Jugador &jugador) override;
   private:
     int puntos_de_vida;

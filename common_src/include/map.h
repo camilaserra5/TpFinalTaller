@@ -4,8 +4,10 @@
 #include <vector>
 
 // faltaria agregar una posicion para los jugadores
+// tambien el tema de los itemas(comida, sangre, todas las armas);
 enum class Type {
-    empty = 0, door = 1, wall = 2, fakeDoor = 3, keyDoor = 4
+    empty = 0, door = 1, wall = 2, fakeDoor = 3, keyDoor = 4, comida = 5,
+    kitsMedicos = 6, sangre = 7, balas = 8
 };
 
 class Map {

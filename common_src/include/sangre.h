@@ -1,11 +1,10 @@
-#ifndef COMIDA_H
-#define COMIDA_H
+#ifndef SANGRE_H
+#define SANGRE_H
 #include "item.h"
-
-class Comida: public Item{
+class Sangre: public Item{
   public:
-    Comida();
-    ~Comida();
+    Sangre();
+    ~Sangre();
     void obtenerBeneficio(Jugador &jugador) override;
   private:
     int puntos_de_vida;

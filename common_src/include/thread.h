@@ -16,7 +16,7 @@ public:
 
     /**
      * Runs the thread. This must be overriden by each class.
-     */
+     *///
     virtual void run() = 0;
 
     Thread(const Thread &) = delete;
