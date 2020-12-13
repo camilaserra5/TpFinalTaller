@@ -11,7 +11,7 @@
 
 class Servidor : public Thread {
 public:
-    Servidor(ProtectedQueue &cola_comandos, Map &mapa);
+    Servidor(ProtectedQueue &cola_comandos, Map &mapa, int cant_jugadores);
 
     ~Servidor();
 
@@ -21,6 +21,7 @@ private:
     ProtectedQueue &cola_comandos;
     std::map<int, Jugador> jugadores;
     EstadoJuego estadoJuego;
+    int cant_jugadores;
 
 };
 
