@@ -3,10 +3,11 @@
 
 #include <vector>
 #include "arma.h"
+#include <string>
 
 class Jugador {
 public:
-    Jugador();
+    Jugador(std::string& nombre, int& id);
 
     ~Jugador();
 
@@ -29,6 +30,8 @@ public:
     int posEnY();
 
 private:
+    int id;
+    std::string nombre;
     int vida;
     int posx;
     int posy;

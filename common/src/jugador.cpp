@@ -8,7 +8,9 @@
 #define CANT_INICAL_BALAS 5
 #define PUNTAJE_INICIAL 0
 
-Jugador::Jugador() :
+Jugador::Jugador(std::string& nombre, int& id) :
+        nombre(nombre),
+        id(id);
         vida(MAX_VIDA),
         posx(POSX_INICIAL),
         posy(POSY_INICIAL),

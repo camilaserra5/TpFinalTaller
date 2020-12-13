@@ -29,11 +29,9 @@ void Servidor::agregarCliente(std::string& nombreJugador, Cliente& cliente){
       // asignarle un id random
       // el mapa deveria crear al jugador o hay que avisarle que hay un nuevo jugador
       // para asignarle posicion;
-      int id = 111
+      int id = 111;
       Jugador jugador(nombreJugador, id);
-      this->jugadores.insert(make_pair(jugador,))
-
-
+      this->jugadores.insert(make_pair(id,jugador));
 
 }
 
