@@ -22,10 +22,11 @@ int main(int argc, char *argv[]) {
         std::cout << "listen error";
         return ERR_CODE;
     }*/
+    std::string nombre = "pepe";
     ProtectedQueue cola;
     Map mapa(20, 20);
-    Cliente cliente(cola);
-    Servidor servidor(cola, mapa);
+    Cliente cliente(cola, nombre);
+    Servidor servidor(cola, mapa, 5);
     cliente.start();
     std::chrono::milliseconds duration(10);
     std::this_thread::sleep_for(duration);

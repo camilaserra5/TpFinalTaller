@@ -7,7 +7,7 @@
 
 class Cliente : public Thread {
 public:
-    Cliente(ProtectedQueue &cola_eventos);
+    Cliente(ProtectedQueue &cola_eventos, std::string& nombre);
 
     ~Cliente();
 
