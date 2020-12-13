@@ -24,6 +24,7 @@ void procesar_comandos(ProtectedQueue& cola_comandos, EstadoJuego& estadoJuego){
   }
 }
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
+// servidor es partida
 void Servidor::run(){
     bool termine = false;
     while (!termine){
