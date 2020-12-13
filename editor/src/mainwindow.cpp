@@ -23,6 +23,62 @@ void MainWindow::openMap() {
 
 }
 
+void MainWindow::newMap() {
+    QDialog *d = new QDialog();
+    QVBoxLayout *vbox = new QVBoxLayout();
+
+    QLabel *widthLabel = new QLabel("Ancho:");
+    widthLabel->setFixedWidth(50);
+    QSpinBox *widthSpinbox = new QSpinBox;
+    widthSpinbox->setRange(1, 1000);
+    widthSpinbox->setSingleStep(1);
+    widthSpinbox->setFixedWidth(50);
+    widthSpinbox->setValue(10);
+
+    QLabel *heightLabel = new QLabel("Alto:");
+    heightLabel->setFixedWidth(50);
+    QSpinBox *heightSpinbox = new QSpinBox;
+    heightSpinbox->setRange(1, 1000);
+    heightSpinbox->setSingleStep(1);
+    heightSpinbox->setFixedWidth(50);
+    heightSpinbox->setValue(10);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
+                                                       | QDialogButtonBox::Cancel);
+
+    QObject::connect(buttonBox, SIGNAL(accepted()), d, SLOT(accept()));
+    QObject::connect(buttonBox, SIGNAL(rejected()), d, SLOT(reject()));
+
+    vbox->addWidget(widthLabel);
+    vbox->addWidget(widthSpinbox);
+    vbox->addWidget(heightLabel);
+    vbox->addWidget(heightSpinbox);
+    vbox->addWidget(buttonBox);
+
+    d->setLayout(vbox);
+
+    int result = d->exec();
+    if (result == QDialog::Accepted) {
+        mapWidget = new MapWidget(40*widthSpinbox->value(), 40*heightSpinbox->value());
+        mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
+
+        QFrame *frame = new QFrame;
+        QHBoxLayout *mapLayout = new QHBoxLayout(frame);
+        mapLayout->addWidget(mapTilesList);
+        mapLayout->addWidget(mapWidget);
+
+        setCentralWidget(frame);
+
+        initTiles();
+    }
+}
+
+void MainWindow::initTiles() {
+    addTile(QStringLiteral("../../editor/resources/wall1.jpg"), Type::wall);
+    addTile(QStringLiteral("../../editor/resources/wall2.jpg"), Type::door);
+    addTile(QStringLiteral("../../editor/resources/wall3.jpg"), Type::fakeDoor);
+}
+
 void MainWindow::saveMap() {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Guardar Mapa"), "", tr("YAML files (*.yaml)"));
     Map map = mapWidget->toMap();
@@ -55,6 +111,9 @@ void MainWindow::addTile(const QString &path, Type type) {
 void MainWindow::setupMenus() {
     QMenu *fileMenu = menuBar()->addMenu(tr("&Archivo"));
 
+    QAction *newAction = fileMenu->addAction(tr("&Nuevo..."), this, &MainWindow::newMap);
+    newAction->setShortcuts(QKeySequence::New);
+
     QAction *openAction = fileMenu->addAction(tr("&Abrir..."), this, &MainWindow::openMap);
     openAction->setShortcuts(QKeySequence::Open);
 
@@ -66,14 +125,13 @@ void MainWindow::setupMenus() {
 }
 
 void MainWindow::setupWidgets() {
-    QFrame *frame = new QFrame;
-    QHBoxLayout *frameLayout = new QHBoxLayout(frame);
-
     mapWidget = new MapWidget(400, 400);
     mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
 
-    frameLayout->addWidget(mapTilesList);
-    frameLayout->addWidget(mapWidget);
+    QFrame *frame = new QFrame;
+    QHBoxLayout *mapLayout = new QHBoxLayout(frame);
+    mapLayout->addWidget(mapTilesList);
+    mapLayout->addWidget(mapWidget);
 
     setCentralWidget(frame);
 }

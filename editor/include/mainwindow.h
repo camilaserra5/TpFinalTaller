@@ -17,18 +17,21 @@ class MainWindow : public QMainWindow {
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
-    void addTile(const QString &path, Type type);
+    void initTiles();
 
     ~MainWindow();
 
-public
-    slots:
+public slots:
 
-            void openMap();
+    void openMap();
+
+    void newMap();
 
     void saveMap();
 
 private:
+    void addTile(const QString &path, Type type);
+
     void setupMenus();
 
     void setupWidgets();
