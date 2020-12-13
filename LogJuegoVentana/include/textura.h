@@ -5,12 +5,13 @@
 
 class Textura {
     SDL_Texture *textura;
+    SDL_Renderer * render;
 public:
     Textura(const char *archivo, SDL_Renderer *un_render);
 
     ~Textura() {};
 
-    SDL_Texture *cargarTextura();
+    int renderizar(const Lienzo& src, const Lienzo& dest);
 };
 
 #endif //TEXTURA_H

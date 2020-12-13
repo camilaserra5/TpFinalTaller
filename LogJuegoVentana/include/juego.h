@@ -3,13 +3,13 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-
+#include "../include/textura.h"
 class Juego {
 private:
     bool corriendo;
     SDL_Window *ventana;
     SDL_Renderer *render;
-    SDL_Texture *texturaInferior;
+    Textura *texturaInferior;
 public:
     Juego() {}
 

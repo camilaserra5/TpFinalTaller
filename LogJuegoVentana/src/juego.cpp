@@ -1,6 +1,6 @@
 #include "../include/juego.h"
 #include "../include/textura.h"
-
+#include "../include/lienzo.h"
 #define EXITO 0
 
 
@@ -18,8 +18,7 @@ void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int a
     } else {
         this->corriendo = false;
     }
-    Textura *unaTextura = new Textura("../../LogJuegoVentana/resources/images/ParteInferior.png", this->render);
-    this->texturaInferior = unaTextura->cargarTextura();
+    this->texturaInferior = new Textura("../../LogJuegoVentana/resources/images/ParteInferior.png", this->render);
 }
 
 void Juego::handleEvents() {
@@ -39,9 +38,9 @@ void Juego::actualizar() {}
 
 void Juego::renderizar() {
     SDL_RenderClear(this->render);
-    SDL_Rect posiciontexturaini = {0, 0, 300, 300};
-    SDL_Rect posiciontexturadest = {100, 100, 300, 300};
-    SDL_RenderCopy(this->render, this->texturaInferior, &posiciontexturaini, &posiciontexturadest);
+    Lienzo posiciontexturaini(0, 0, 300, 300);
+    Lienzo posiciontexturadest(100, 100, 300, 300);
+    this->texturaInferior->renderizar(posiciontexturaini, posiciontexturadest);
     SDL_RenderPresent(this->render);
 }
 
