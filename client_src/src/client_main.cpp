@@ -1,18 +1,26 @@
-#include "../include/juego.h"
 #include <iostream>
-int main() {
-    Juego *juego = new Juego();
-    try{
-        juego->inicializar("Wolfstein", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
-        while (juego->estaCorriendo()) {
-            juego->handleEvents();
-            juego->actualizar();
-            juego->renderizar();
-        }
-        juego->clean();
-    }catch(...){
-        std::cout<<"error";
-    }
+#include "../include/cliente.h"
 
-    return 0;
+#define OK_CODE 0
+#define ERR_CODE 1
+#define NBR_PARAMS 3
+#define HOST_PARAM 1
+#define PORT_PARAM 2
+#define USAGE "Uso: ./client <pip/hostname> <port/service>"
+
+int main(int argc, char *argv[]) {
+    if (argc != NBR_PARAMS) {
+        std::cout << USAGE;
+        return ERR_CODE;
+    }
+    try {
+        ProtectedQueue qeue;
+        Cliente cliente(qeue, argv[HOST_PARAM], argv[PORT_PARAM]);
+        cliente.run();
+        //PENSAR SI N OIES MEJOR TIRAR UN HILO QUE AGARRE LOS EVENTOS Y LOS VAYA MANDANDO/RECIBIENDO ACTUALIZACIONES
+    } catch (...) {
+        std::cout << "connect error";
+        return ERR_CODE;
+    }
+    return OK_CODE;
 }
