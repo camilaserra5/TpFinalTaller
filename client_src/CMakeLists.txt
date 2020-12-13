@@ -22,4 +22,4 @@ add_executable(client
 
 target_link_libraries(client ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads)
 
-install(FILES assets/cat.gif DESTINATION ${CMAKE_BINARY_DIR})
+install(FILES ../resources/images/ParteInferior.png DESTINATION ${CMAKE_BINARY_DIR})
