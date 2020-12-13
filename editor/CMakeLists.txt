@@ -11,9 +11,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set ( PROJECT_LINK_LIBS libcommons.a )
-link_directories( ~/TpFinalTaller/common_src/build )
-include_directories(~/TpFinalTaller/common_src/include )
+set(PROJECT_LINK_LIBS libcommons.a)
+link_directories(~/TpFinalTaller/common/build)
+include_directories(~/TpFinalTaller/common/include)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(yaml-cpp)
@@ -28,4 +28,4 @@ add_executable(editor
         include/map_widget.h
         )
 
-target_link_libraries(editor ${PROJECT_LINK_LIBS}  Qt5::Widgets ${YAML_CPP_LIBRARIES})
+target_link_libraries(editor ${PROJECT_LINK_LIBS} Qt5::Widgets ${YAML_CPP_LIBRARIES})

@@ -51,6 +51,15 @@ void MapWidget::dragMoveEvent(QDragMoveEvent *event) {
     update(updateRect);
 }
 
+void MapWidget::addTile(const QPoint &position, const QPixmap pixmap, const int type) {
+    Tile tile;
+    tile.rect = targetSquare(position);
+    tile.pixmap = pixmap;
+    tile.type = type;
+    tiles.append(tile);
+    update(tile.rect);
+}
+
 void MapWidget::dropEvent(QDropEvent *event) {
     if (event->mimeData()->hasFormat(MapTilesList::tileMimeType())
         && findTile(targetSquare(event->pos())) == -1) {

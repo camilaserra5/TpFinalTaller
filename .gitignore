@@ -1,6 +1,4 @@
 .idea
 *.o
 cmake-build-debug/
-client
-server
 build

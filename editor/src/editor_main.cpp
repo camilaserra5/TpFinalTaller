@@ -26,9 +26,7 @@ int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
     MainWindow window;
-    window.addTile(QStringLiteral("../../editor/resources/wall1.jpg"), Type::wall);
-    window.addTile(QStringLiteral("../../editor/resources/wall2.jpg"), Type::door);
-    window.addTile(QStringLiteral("../../editor/resources/wall3.jpg"), Type::fakeDoor);
+    window.initTiles();
     window.show();
     return app.exec();
 }

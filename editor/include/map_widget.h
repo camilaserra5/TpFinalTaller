@@ -14,7 +14,7 @@ class QDropEvent;
 class QMouseEvent;
 
 class MapWidget : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit MapWidget(int height, int width, QWidget *parent = nullptr);
@@ -24,6 +24,8 @@ public:
     int tileSize() const;
 
     Map toMap();
+
+    void addTile(const QPoint &position, const QPixmap pixmap, const int type);
 
     ~MapWidget();
 
@@ -50,7 +52,7 @@ private:
 
     const QRect targetSquare(const QPoint &position) const;
 
-    QVector<Tile> tiles;
+    QVector <Tile> tiles;
     QRect highlightedRect;
 };
 
