@@ -36,8 +36,8 @@ void Juego::actualizar() {}
 
 void Juego::renderizar() {
     SDL_RenderClear(this->render);
-    Lienzo posiciontexturaini(0, 0, 300, 300);
-    Lienzo posiciontexturadest(100, 100, 300, 300);
+    Lienzo posiciontexturaini(0, 0, 800, 40);
+    Lienzo posiciontexturadest(0, 562, 800, 40);
     this->texturaInferior->renderizar(this->render, posiciontexturaini, posiciontexturadest);
     SDL_RenderPresent(this->render);
 }
