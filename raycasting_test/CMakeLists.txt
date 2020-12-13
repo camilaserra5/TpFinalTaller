@@ -16,8 +16,6 @@ include_directories(~/TpFinalTaller/common_src/include )
 
 add_executable (raycast
         ../raycast.cpp
-        ../common_src/include/map.h
-        ../common_src/src/map.cpp
         ../rayo.cpp
         ${UIS_HEADERS})
 
