@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
-#include "../common_src/include/map.h"
-#include "../common_src/include/map_translator.h"
+#include "map.h"
+#include "map_translator.h"
 #include "rayo.h"
 
 #define TAMANIO_FILA 320

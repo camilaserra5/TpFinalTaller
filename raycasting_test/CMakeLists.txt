@@ -11,8 +11,8 @@ include_directories(${PROJECT_BINARY_DIR})
 #find_package(yaml-cpp)
 
 set(PROJECT_LINK_LIBS libcommons.a)
-link_directories(~/TpFinalTaller/common_src/build)
-include_directories(~/TpFinalTaller/common_src/include)
+link_directories(~/TpFinalTaller/common/build)
+include_directories(~/TpFinalTaller/common/include)
 
 add_executable(raycast
         ../raycast.cpp

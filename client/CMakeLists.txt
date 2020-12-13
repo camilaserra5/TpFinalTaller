@@ -10,8 +10,8 @@ message("Agregando '${PROJECT_BINARY_DIR}' como directorio de includes")
 include_directories(${PROJECT_BINARY_DIR})
 
 set(PROJECT_LINK_LIBS libcommons.a)
-link_directories(~/TpFinalTaller/common_src/build)
-include_directories(~/TpFinalTaller/common_src/include)
+link_directories(~/TpFinalTaller/common/build)
+include_directories(~/TpFinalTaller/common/include)
 
 add_executable(client
         src/client_main.cpp
