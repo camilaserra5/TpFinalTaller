@@ -1,6 +1,5 @@
 #include "../include/juego.h"
-#include "../include/textura.h"
-#include "../include/lienzo.h"
+
 #define EXITO 0
 
 
@@ -28,7 +27,6 @@ void Juego::handleEvents() {
         case SDL_QUIT:
             this->corriendo = false;
             break;
-
         default:
             break;
     }
@@ -40,7 +38,7 @@ void Juego::renderizar() {
     SDL_RenderClear(this->render);
     Lienzo posiciontexturaini(0, 0, 300, 300);
     Lienzo posiciontexturadest(100, 100, 300, 300);
-    this->texturaInferior->renderizar(posiciontexturaini, posiciontexturadest);
+    this->texturaInferior->renderizar(this->render, posiciontexturaini, posiciontexturadest);
     SDL_RenderPresent(this->render);
 }
 

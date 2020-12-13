@@ -3,29 +3,29 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "../include/textura.h"
+#include "textura.h"
 class Juego {
-private:
-    bool corriendo;
-    SDL_Window *ventana;
-    SDL_Renderer *render;
-    Textura *texturaInferior;
-public:
-    Juego() {}
+    private:
+        bool corriendo;
+        SDL_Window *ventana;
+        SDL_Renderer *render;
+        Textura *texturaInferior;
+    public:
+        Juego() {}
 
-    ~Juego() {}
+        ~Juego() {}
 
-    void inicializar(const char *titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen);
+        void inicializar(const char *titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen);
 
-    bool estaCorriendo() { return corriendo; }
+        bool estaCorriendo() { return corriendo; }
 
-    void handleEvents();
+        void handleEvents();
 
-    void actualizar();
+        void actualizar();
 
-    void renderizar();
+        void renderizar();
 
-    void clean();
+        void clean();
 };
 
 #endif /*JUEGO_H*/

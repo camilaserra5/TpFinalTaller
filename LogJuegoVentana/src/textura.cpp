@@ -1,5 +1,4 @@
 #include "../include/textura.h"
-#include "../include/lienzo.h"
 
 Textura::Textura(const char *archivo, SDL_Renderer *un_render) {
     SDL_Surface *superficie = IMG_Load(archivo);
@@ -11,7 +10,7 @@ Textura::Textura(const char *archivo, SDL_Renderer *un_render) {
     this->textura = unaTextura;
 }
 
-int Textura::renderizar(const Lienzo& src, const Lienzo& dest) const {
+int Textura::renderizar(SDL_Renderer* render, const Lienzo& src, const Lienzo& dest) const {
     SDL_Rect sdlSrc = {
             src.getX(), src.getY(),
             src.getAncho(), src.getAlto()
@@ -20,5 +19,5 @@ int Textura::renderizar(const Lienzo& src, const Lienzo& dest) const {
             dest.getX(), dest.getY(),
             dest.getAncho(), dest.getAlto()
     };
-    return SDL_RenderCopy(this->render, this->textura, &sdlSrc, &sdlDest);
+    return SDL_RenderCopy(render, this->textura, &sdlSrc, &sdlDest);
 }

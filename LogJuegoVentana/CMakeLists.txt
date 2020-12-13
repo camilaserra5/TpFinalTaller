@@ -10,7 +10,8 @@ include_directories(~/TpFinalTaller/logJuegoVentana/include)
 add_executable(sdldemo
         src/pruebaSDLmain.cpp
         src/juego.cpp
-        src/textura.cpp src/lienzo.cpp include/lienzo.h)
+        src/textura.cpp
+        src/lienzo.cpp)
 
 target_link_libraries(sdldemo SDL2 SDL2_image)
 
