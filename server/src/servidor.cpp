@@ -4,10 +4,11 @@
 #include "actualizacion.h"
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor(ProtectedQueue &cola_comandos, Map &mapa) :
+Servidor::Servidor(ProtectedQueue &cola_comandos, Map &mapa, int cant_jugadores) :
         cola_comandos(cola_comandos),
         jugadores(),
-        estadoJuego(mapa, jugadores) {}
+        estadoJuego(mapa, jugadores),
+        cant_jugadores(cant_jugadores){}
 
 Servidor::~Servidor() {}
 
@@ -24,9 +25,21 @@ void procesar_comandos(ProtectedQueue &cola_comandos, EstadoJuego &estadoJuego) 
         }
     }
 }
+void Servidor::agregarCliente(std::string& nombreJugador, Cliente& cliente){
+      // asignarle un id random
+      // el mapa deveria crear al jugador o hay que avisarle que hay un nuevo jugador
+      // para asignarle posicion;
+      int id = 111
+      Jugador jugador(nombreJugador, id);
+      this->jugadores.insert(make_pair(jugador,))
+
+
+
+}
 
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
-void Servidor::run() {
+// servidor es partida
+void Servidor::run(){
     bool termine = false;
     while (!termine) {
         //el while va a depender del obtener comandos con un try catch

@@ -10,6 +10,11 @@ Textura::Textura(const char *archivo, SDL_Renderer *un_render) {
     this->textura = unaTextura;
 }
 
+<<<<<<< HEAD
+SDL_Texture *Textura::cargarTextura() {
+    return this->textura;
+}
+=======
 int Textura::renderizar(SDL_Renderer* render, const Lienzo& src, const Lienzo& dest) const {
     SDL_Rect sdlSrc = {
             src.getX(), src.getY(),
@@ -21,3 +26,4 @@ int Textura::renderizar(SDL_Renderer* render, const Lienzo& src, const Lienzo& d
     };
     return SDL_RenderCopy(render, this->textura, &sdlSrc, &sdlDest);
 }
+>>>>>>> 41293b1723feb628b3ba72462c3bec0cc3dda179
