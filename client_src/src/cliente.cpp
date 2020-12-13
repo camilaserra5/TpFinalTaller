@@ -1,9 +1,10 @@
 #include "../include/cliente.h"
 #include "../../common_src/include/socket.h"
-
+#include <iostream>
+#include "../include/juego.h"
 
 Cliente::Cliente(ProtectedQueue& cola_eventos, const char* host, const char* server_port):
-    cola_eventos(cola_eventos), socket(host, server_port){}
+    cola_eventos(cola_eventos),socket(){}
 
 Cliente::~Cliente(){}
 
@@ -13,5 +14,16 @@ void Cliente::run(){
     this->cola_eventos.aniadir_comando(evento);
     //SE VAN AÑADIENDO, SE ENVIAN Y SE ACTUALIZA.
     //LO QUE RECIBA DE LA ACTUALIZACION HAY QUE DIBUJARLO.
-
+    Juego *juego = new Juego();
+    try{
+        juego->inicializar("Wolfstein", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+        while (juego->estaCorriendo()) {
+            juego->handleEvents();
+            juego->actualizar();
+            juego->renderizar();
+        }
+        juego->clean();
+    }catch(...){
+        std::cout<<"error";
+    }
 }

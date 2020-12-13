@@ -16,6 +16,9 @@ include_directories(~/TpFinalTaller/common/include)
 add_executable(client
         src/client_main.cpp
         src/cliente.cpp
+        src/juego.cpp
+        src/lienzo.cpp
+        stc/textura.cpp
         ${UIS_HEADERS}
         )
 
