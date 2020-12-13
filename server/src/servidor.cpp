@@ -33,11 +33,9 @@ void Servidor::agregarCliente(std::string& nombreJugador, Cliente& cliente){
       // para asignarle posicion;
       int id = 111;
       Jugador jugador(nombreJugador, id);
-<<<<<<< HEAD
-      this->jugadores.insert(std::pair<int, Jugador>(id,jugador));
-=======
+
       this->jugadores.insert(std::make_pair(id,jugador));
->>>>>>> 7632d0ff7eb3384ad4fd780f34707e0a0d05d0fe
+
 
 }
 
@@ -47,7 +45,7 @@ bool Servidor::yaArranco(){
 bool Servidor::terminoPartida(){
     return !(this->sigue_corriendo);
 }
-ProtectedQueue& Servidor::obtenerColaEventos(){
+ProtectedQueue<Comando*>& Servidor::obtenerColaEventos(){
     return this->cola_comandos;
 }
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
@@ -57,15 +55,12 @@ void Servidor::run(){
     while (!termine) {
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
-<<<<<<< HEAD
-        //Jugador jugador;
-        //this->jugadores.insert(std::pair<int, Jugador>(111, jugador));
-=======
+
         std::string nombre = "juan";
         int id = 1;
         Jugador jugador(nombre,id);//nombre e id
         this->jugadores.insert(std::pair<int, Jugador>(111, jugador));
->>>>>>> 7632d0ff7eb3384ad4fd780f34707e0a0d05d0fe
+
         procesar_comandos(this->cola_comandos, this->estadoJuego);//devolveria actualizaciones
         //enviar_actualizaciones(cola de actualizaciones);
         //std::chrono::milliseconds duration(10);

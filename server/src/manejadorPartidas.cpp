@@ -2,6 +2,7 @@
 
 #include "map.h"
 #include "protected_queue.h"
+#include "comando.h"
 
 
 ManejadorPartidas::ManejadorPartidas():
@@ -23,7 +24,7 @@ bool ManejadorPartidas::crearPartida(std::string& nombreJugador,
         // hay que relacionar el nombre del mapa con el archivo yaml
         // capaz esta clase tiene el un vector de yamls
         Map mapa(20, 20);
-        ProtectedQueue cola;
+        ProtectedQueue<Comando*> cola;
         Servidor* servidor = new Servidor(cola, mapa, cant_jugadores);
         Cliente* cliente = new Cliente(cola, nombreJugador);
         servidor->agregarCliente(nombreJugador, *cliente);
@@ -43,7 +44,7 @@ bool ManejadorPartidas::agregarClienteAPartida(std::string& nombreJugador,
     } else {
         // partida valida para unirse
         // avisarle al cliente;
-        ProtectedQueue cola;
+        ProtectedQueue<Comando*> cola;
         Cliente* cliente = new Cliente(cola, nombreJugador);
         servidor->agregarCliente(nombreJugador, *cliente);
         this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia
