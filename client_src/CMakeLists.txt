@@ -20,7 +20,7 @@ add_executable(client
         src/lienzo.cpp
         stc/textura.cpp
         ${UIS_HEADERS}
-        )
+        src/client_main.cpp)
 
 target_link_libraries(client ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads)
 
