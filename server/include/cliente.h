@@ -3,7 +3,7 @@
 
 #include "thread.h"
 #include "protected_queue.h"
-#include <SDL2/SDL.h>
+#include <string>
 
 class Cliente : public Thread {
 public:
@@ -15,6 +15,7 @@ public:
 
 private:
     ProtectedQueue &cola_comandos;
+    std::string nombre;
 };
 
 #endif

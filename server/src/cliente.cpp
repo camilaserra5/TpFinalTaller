@@ -6,8 +6,9 @@
 #include <mutex>
 
 
-Cliente::Cliente(ProtectedQueue &cola_comandos) :
-        cola_comandos(cola_comandos) {}
+Cliente::Cliente(ProtectedQueue &cola_comandos, std::string& nombre) :
+        cola_comandos(cola_comandos),
+        nombre(nombre){}
 
 Cliente::~Cliente() {}
 
