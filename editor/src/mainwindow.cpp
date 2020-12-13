@@ -20,7 +20,45 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 }
 
 void MainWindow::openMap() {
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Abrir mapa existente"), "",
+                                                    tr("YAML Files (*.yaml *.yml)"));
+    Map map = MapTranslator::yamlToMap(YAML::LoadFile(fileName.toStdString()));
+    mapWidget = new MapWidget(mapWidget->tileSize() * map.getColSize(), mapWidget->tileSize() * map.getRowSize());
+    mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
 
+    QFrame *frame = new QFrame;
+    QHBoxLayout *mapLayout = new QHBoxLayout(frame);
+    mapLayout->addWidget(mapTilesList);
+    mapLayout->addWidget(mapWidget);
+
+    setCentralWidget(frame);
+
+    initTiles();
+
+    for (int i = 0; i < map.getColSize(); ++i) {
+        for (int j = 0; j < map.getRowSize(); ++j) {
+            Type type = map(i,j);
+            if (Type::wall == type) {
+                QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
+                QPixmap newImage;
+                newImage.load(QStringLiteral("../../editor/resources/wall1.jpg"));
+                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
+                mapWidget->addTile(point, pixmap, static_cast<int >(map(i, j)));
+            } else if (Type::door == type) {
+                QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
+                QPixmap newImage;
+                newImage.load(QStringLiteral("../../editor/resources/wall2.jpg"));
+                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
+                mapWidget->addTile(point, pixmap, static_cast<int >(map(i, j)));
+            } else if (Type::fakeDoor == type) {
+                QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
+                QPixmap newImage;
+                newImage.load(QStringLiteral("../../editor/resources/wall3.jpg"));
+                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
+                mapWidget->addTile(point, pixmap, static_cast<int >(map(i, j)));
+            }
+        }
+    }
 }
 
 void MainWindow::newMap() {
@@ -59,7 +97,7 @@ void MainWindow::newMap() {
 
     int result = d->exec();
     if (result == QDialog::Accepted) {
-        mapWidget = new MapWidget(40*widthSpinbox->value(), 40*heightSpinbox->value());
+        mapWidget = new MapWidget(mapWidget->tileSize() * widthSpinbox->value(), mapWidget->tileSize() * heightSpinbox->value());
         mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
 
         QFrame *frame = new QFrame;
@@ -80,7 +118,7 @@ void MainWindow::initTiles() {
 }
 
 void MainWindow::saveMap() {
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Guardar Mapa"), "", tr("YAML files (*.yaml)"));
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Guardar Mapa"), "", tr("YAML files (*.yaml *.yml)"));
     Map map = mapWidget->toMap();
 
     YAML::Node yaml = MapTranslator::mapToYaml(map);

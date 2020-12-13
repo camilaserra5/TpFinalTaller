@@ -25,6 +25,8 @@ public:
 
     Map toMap();
 
+    void addTile(const QPoint &position, const QPixmap pixmap, const int type);
+
     ~MapWidget();
 
 protected:
