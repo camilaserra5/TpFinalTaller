@@ -2,9 +2,10 @@
 #include <iostream>
 #include <exception>
 #include "actualizacion.h"
+#include "jugador.h"
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor(ProtectedQueue &cola_comandos, Map &mapa, int cant_jugadores) :
+Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos, Map &mapa, int cant_jugadores) :
         cola_comandos(cola_comandos),
         jugadores(),
         estadoJuego(mapa, jugadores),
@@ -13,7 +14,7 @@ Servidor::Servidor(ProtectedQueue &cola_comandos, Map &mapa, int cant_jugadores)
 
 Servidor::~Servidor() {}
 
-void procesar_comandos(ProtectedQueue &cola_comandos, EstadoJuego &estadoJuego) {
+void procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, EstadoJuego &estadoJuego) {
     bool termine = false;
     while (!termine) {
         try {
@@ -32,7 +33,11 @@ void Servidor::agregarCliente(std::string& nombreJugador, Cliente& cliente){
       // para asignarle posicion;
       int id = 111;
       Jugador jugador(nombreJugador, id);
+<<<<<<< HEAD
       this->jugadores.insert(std::pair<int, Jugador>(id,jugador));
+=======
+      this->jugadores.insert(std::make_pair(id,jugador));
+>>>>>>> 7632d0ff7eb3384ad4fd780f34707e0a0d05d0fe
 
 }
 
@@ -52,8 +57,15 @@ void Servidor::run(){
     while (!termine) {
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
+<<<<<<< HEAD
         //Jugador jugador;
         //this->jugadores.insert(std::pair<int, Jugador>(111, jugador));
+=======
+        std::string nombre = "juan";
+        int id = 1;
+        Jugador jugador(nombre,id);//nombre e id
+        this->jugadores.insert(std::pair<int, Jugador>(111, jugador));
+>>>>>>> 7632d0ff7eb3384ad4fd780f34707e0a0d05d0fe
         procesar_comandos(this->cola_comandos, this->estadoJuego);//devolveria actualizaciones
         //enviar_actualizaciones(cola de actualizaciones);
         //std::chrono::milliseconds duration(10);
