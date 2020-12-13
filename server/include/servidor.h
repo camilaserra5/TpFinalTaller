@@ -22,6 +22,7 @@ public:
 
 private:
     ProtectedQueue<Comando*> &cola_comandos;
+    ProtectedQueue<Actualizacion*> &cola_actualizaciones;
     std::map<int, Jugador> jugadores;
     EstadoJuego estadoJuego;
     int cant_jugadores;
