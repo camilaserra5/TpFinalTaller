@@ -4,7 +4,7 @@
 #include "actualizacion.h"
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor(ProtectedQueue &cola_comandos, Map &mapa, int cant_jugadores) :
+Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos, Map &mapa, int cant_jugadores) :
         cola_comandos(cola_comandos),
         jugadores(),
         estadoJuego(mapa, jugadores),
@@ -12,7 +12,7 @@ Servidor::Servidor(ProtectedQueue &cola_comandos, Map &mapa, int cant_jugadores)
 
 Servidor::~Servidor() {}
 
-void procesar_comandos(ProtectedQueue &cola_comandos, EstadoJuego &estadoJuego) {
+void procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, EstadoJuego &estadoJuego) {
     bool termine = false;
     while (!termine) {
         try {

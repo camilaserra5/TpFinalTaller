@@ -15,17 +15,18 @@ public:
     //const std::string getError() const { return this->error;}
 };
 
+template <class T>
 class ProtectedQueue {
 private:
-    std::queue<Comando *> cola_comandos;
+    std::queue<T> cola_comandos;
     std::mutex m;
 public:
     ProtectedQueue();
 
     ~ProtectedQueue();
 
-    Comando *obtener_comando();
+    T obtener_comando();
 
-    void aniadir_comando(Comando *comando);
+    void aniadir_comando(T comando);
 };//pasar a una cla protegida que tiene objetos del tipo ISerializable
 #endif

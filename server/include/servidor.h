@@ -11,14 +11,14 @@
 
 class Servidor : public Thread {
 public:
-    Servidor(ProtectedQueue &cola_comandos, Map &mapa);
+    Servidor(ProtectedQueue<Comando*> &cola_comandos, Map &mapa);
 
     ~Servidor();
 
     void run() override;
 
 private:
-    ProtectedQueue &cola_comandos;
+    ProtectedQueue<Comando*> &cola_comandos;
     std::map<int, Jugador> jugadores;
     EstadoJuego estadoJuego;
 
