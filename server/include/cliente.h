@@ -3,18 +3,19 @@
 
 #include "thread.h"
 #include "protected_queue.h"
+#include "comando.h"
 #include <string>
 
 class Cliente : public Thread {
 public:
-    Cliente(ProtectedQueue &cola_eventos);
+    Cliente(ProtectedQueue<Comando*> &cola_eventos, std::string& nombre);
 
     ~Cliente();
 
     void run() override;
 
 private:
-    ProtectedQueue &cola_comandos;
+    ProtectedQueue<Comando*> &cola_comandos;
     std::string nombre;
 };
 

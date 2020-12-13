@@ -3,7 +3,6 @@
 
 #include <queue>
 #include <mutex>
-#include "comando.h"
 #include <exception>
 
 class QueueException : public std::exception {
@@ -14,19 +13,19 @@ public:
             error(error) {}
     //const std::string getError() const { return this->error;}
 };
-
 template <class T>
+
 class ProtectedQueue {
 private:
     std::queue<T> cola_comandos;
     std::mutex m;
 public:
-    ProtectedQueue();
+    ProtectedQueue(){}
 
-    ~ProtectedQueue();
+    ~ProtectedQueue(){}
 
     T obtener_comando();
 
-    void aniadir_comando(T comando);
+    void aniadir_comando(T objeto);
 };//pasar a una cla protegida que tiene objetos del tipo ISerializable
 #endif

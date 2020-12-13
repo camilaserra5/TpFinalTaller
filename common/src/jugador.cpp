@@ -10,7 +10,7 @@
 
 Jugador::Jugador(std::string& nombre, int& id) :
         nombre(nombre),
-        id(id);
+        id(id),
         vida(MAX_VIDA),
         posx(POSX_INICIAL),
         posy(POSY_INICIAL),

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <exception>
 #include "actualizacion.h"
+#include "jugador.h"
 
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos, Map &mapa, int cant_jugadores) :
@@ -31,7 +32,7 @@ void Servidor::agregarCliente(std::string& nombreJugador, Cliente& cliente){
       // para asignarle posicion;
       int id = 111;
       Jugador jugador(nombreJugador, id);
-      this->jugadores.insert(make_pair(id,jugador));
+      this->jugadores.insert(std::make_pair(id,jugador));
 
 }
 
@@ -42,7 +43,9 @@ void Servidor::run(){
     while (!termine) {
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
-        Jugador jugador;
+        std::string nombre = "juan";
+        int id = 1;
+        Jugador jugador(nombre,id);//nombre e id
         this->jugadores.insert(std::pair<int, Jugador>(111, jugador));
         procesar_comandos(this->cola_comandos, this->estadoJuego);//devolveria actualizaciones
         //enviar_actualizaciones(cola de actualizaciones);
