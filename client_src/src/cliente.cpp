@@ -1,5 +1,5 @@
 #include "../include/cliente.h"
-#include "../../common_src/include/socket.h"
+#include "socket.h"
 #include <iostream>
 #include "../include/juego.h"
 

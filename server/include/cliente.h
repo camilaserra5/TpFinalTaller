@@ -8,7 +8,9 @@
 
 class Cliente : public Thread {
 public:
+
     Cliente(ProtectedQueue<Comando*> &cola_eventos, std::string& nombre);
+
 
     ~Cliente();
 
