@@ -1,7 +1,6 @@
 #include <iostream>
 #include "../include/cliente.h"
 
-
 #define OK_CODE 0
 #define ERR_CODE 1
 #define NBR_PARAMS 3
