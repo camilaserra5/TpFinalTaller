@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../include/cliente.h"
-#include "juego.h"
+
 
 #define OK_CODE 0
 #define ERR_CODE 1
