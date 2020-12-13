@@ -2,10 +2,10 @@
 
 
 Cuchillo::Cuchillo() :
-    danio(10){}
+        danio(10) {}
 
-Cuchillo::~Cuchillo(){}
+Cuchillo::~Cuchillo() {}
 
-int Cuchillo::atacar(){
+int Cuchillo::atacar() {
     return this->danio;
 }

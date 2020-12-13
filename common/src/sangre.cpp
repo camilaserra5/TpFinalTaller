@@ -1,14 +1,16 @@
 #include "../include/sangre.h"
+
 #define VIDA 1
 #define VIDA_MAXIMA 11
-Sangre::Sangre(){
+
+Sangre::Sangre() {
     this->puntos_de_vida = VIDA;
 }
 
-Sangre::~Sangre(){}
+Sangre::~Sangre() {}
 
-void Sangre::obtenerBeneficio(Jugador& jugador){
-    if (jugador.puntos_de_vida() <= VIDA_MAXIMA){
+void Sangre::obtenerBeneficio(Jugador &jugador) {
+    if (jugador.puntos_de_vida() <= VIDA_MAXIMA) {
         jugador.actualizar_vida(this->puntos_de_vida);
     }
 }

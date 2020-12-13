@@ -13,8 +13,8 @@ SdlWindow::SdlWindow(int width, int height) :
         throw SdlException("Error en la inicialización", SDL_GetError());
     }
     errCode = SDL_CreateWindowAndRenderer(
-        width, height, SDL_RENDERER_ACCELERATED,
-        &this->window, &this->renderer);
+            width, height, SDL_RENDERER_ACCELERATED,
+            &this->window, &this->renderer);
     if (errCode) {
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
@@ -339,7 +339,7 @@ void SdlWindow::fill(int r, int g, int b, int alpha) {
 }
 
 void SdlWindow::fill() {
-    this->fill(0x33,0x33,0x33,0xFF);
+    this->fill(0x33, 0x33, 0x33, 0xFF);
 }
 
 void SdlWindow::render() {
@@ -347,6 +347,6 @@ void SdlWindow::render() {
 }
 
 
-SDL_Renderer* SdlWindow::getRenderer() const {
+SDL_Renderer *SdlWindow::getRenderer() const {
     return this->renderer;
 }

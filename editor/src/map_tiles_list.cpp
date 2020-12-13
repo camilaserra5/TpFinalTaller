@@ -26,7 +26,7 @@ void MapTilesList::addTile(const QPixmap &pixmap, Type type) {
     QListWidgetItem *pieceItem = new QListWidgetItem(this);
     pieceItem->setIcon(QIcon(pixmap));
     pieceItem->setData(Qt::UserRole, QVariant(pixmap));
-    pieceItem->setData(Qt::UserRole+1, static_cast<int >(type));
+    pieceItem->setData(Qt::UserRole + 1, static_cast<int >(type));
     pieceItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled);
 }
 
@@ -36,7 +36,7 @@ void MapTilesList::startDrag(Qt::DropActions /*supportedActions*/) {
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
     QPixmap pixmap = qvariant_cast<QPixmap>(item->data(Qt::UserRole));
-    int type =item->data(Qt::UserRole + 1).toInt();
+    int type = item->data(Qt::UserRole + 1).toInt();
 
     dataStream << pixmap << type;
 

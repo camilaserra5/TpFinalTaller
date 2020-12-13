@@ -10,14 +10,17 @@
 #include "jugador.h"
 
 class Servidor : public Thread {
-      public:
-            Servidor(ProtectedQueue& cola_comandos, Map& mapa);
-            ~Servidor();
-            void run() override;
-      private:
-            ProtectedQueue& cola_comandos;
-            std::map<int, Jugador> jugadores;
-            EstadoJuego estadoJuego;
+public:
+    Servidor(ProtectedQueue &cola_comandos, Map &mapa);
+
+    ~Servidor();
+
+    void run() override;
+
+private:
+    ProtectedQueue &cola_comandos;
+    std::map<int, Jugador> jugadores;
+    EstadoJuego estadoJuego;
 
 };
 

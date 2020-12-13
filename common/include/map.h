@@ -28,7 +28,7 @@ public:
 private:
     unsigned rowSize;
     unsigned colSize;
-    std::vector<std::vector<Type>> map;
+    std::vector <std::vector<Type>> map;
 };
 
 #endif //MAP_H

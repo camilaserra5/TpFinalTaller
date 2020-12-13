@@ -5,7 +5,7 @@
 #include "map.h"
 
 class MapTilesList : public QListWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit MapTilesList(int pieceSize, QWidget *parent = nullptr);
@@ -15,6 +15,7 @@ public:
     static QString tileMimeType() { return QStringLiteral("image/x-tile"); }
 
     ~MapTilesList();
+
 protected:
 
     void dragMoveEvent(QDragMoveEvent *event) override;

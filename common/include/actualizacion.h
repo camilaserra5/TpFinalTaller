@@ -1,10 +1,10 @@
 #ifndef ACTUALIZACION_H
 #define ACTUALIZACION_H
 
-class Actualizacion{
+class Actualizacion {
 
-  public:
-    Actualizacion(){}
+public:
+    Actualizacion() {}
 };
 
 #endif
