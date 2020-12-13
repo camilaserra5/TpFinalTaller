@@ -1,8 +1,9 @@
 #ifndef TEXTURA_H
 #define TEXTURA_H
 
-#include "juego.h"
-
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include "lienzo.h"
 class Textura {
     SDL_Texture *textura;
 public:
@@ -10,7 +11,7 @@ public:
 
     ~Textura() {};
 
-    SDL_Texture *cargarTextura();
+    int renderizar(SDL_Renderer* render, const Lienzo& src, const Lienzo& dest) const;
 };
 
 #endif //TEXTURA_H

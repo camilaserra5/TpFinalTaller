@@ -1,5 +1,4 @@
 #include "../include/juego.h"
-#include "../include/textura.h"
 
 #define EXITO 0
 
@@ -18,8 +17,7 @@ void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int a
     } else {
         this->corriendo = false;
     }
-    Textura *unaTextura = new Textura("../../LogJuegoVentana/resources/images/ParteInferior.png", this->render);
-    this->texturaInferior = unaTextura->cargarTextura();
+    this->texturaInferior = new Textura("../../LogJuegoVentana/resources/images/ParteInferior.png", this->render);
 }
 
 void Juego::handleEvents() {
@@ -29,7 +27,6 @@ void Juego::handleEvents() {
         case SDL_QUIT:
             this->corriendo = false;
             break;
-
         default:
             break;
     }
@@ -39,9 +36,9 @@ void Juego::actualizar() {}
 
 void Juego::renderizar() {
     SDL_RenderClear(this->render);
-    SDL_Rect posiciontexturaini = {0, 0, 300, 300};
-    SDL_Rect posiciontexturadest = {100, 100, 300, 300};
-    SDL_RenderCopy(this->render, this->texturaInferior, &posiciontexturaini, &posiciontexturadest);
+    Lienzo posiciontexturaini(0, 0, 800, 40);
+    Lienzo posiciontexturadest(0, 562, 800, 40);
+    this->texturaInferior->renderizar(this->render, posiciontexturaini, posiciontexturadest);
     SDL_RenderPresent(this->render);
 }
 

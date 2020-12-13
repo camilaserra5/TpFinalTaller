@@ -15,13 +15,11 @@ int main(int argc, char *argv[]) {
         std::cout << USAGE;
         return ERR_CODE;
     }
-
-    char *host = argv[HOST_PARAM];
-    char *port = argv[PORT_PARAM];
     try {
         ProtectedQueue qeue;
-        Cliente cliente(qeue);
+        Cliente cliente(qeue, argv[HOST_PARAM], argv[PORT_PARAM]);
         cliente.run();
+        //PENSAR SI N OIES MEJOR TIRAR UN HILO QUE AGARRE LOS EVENTOS Y LOS VAYA MANDANDO/RECIBIENDO ACTUALIZACIONES
     } catch (...) {
         std::cout << "connect error";
         return ERR_CODE;
