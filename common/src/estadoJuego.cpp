@@ -9,18 +9,27 @@
 
 #define METROS_MOVIDOS 1 // de acuanto se mueve el jugador
 
+void EstadoJuego::realizarAtaque(int idJugador){
+  Jugador &jugador = this->jugadores.at(idJugador);
+  Arma* arma = jugador.getArma();
+  int distancia_inventada = 5;
+  arma->atacar(distancia_inventada,jugador,this->jugadores);
+}
 
 EstadoJuego::EstadoJuego(Map &mapa) :
         mapa(mapa),
         jugadores() {}
 
-EstadoJuego::~EstadoJuego() {}
+EstadoJuego::~EstadoJuego() {
+  std::cout << "entroooooooooooooo\n";
+}
 
 void EstadoJuego::agregarJugador(std::string& nombreJugador, int& id){
       Jugador jugador(nombreJugador, id);
       this->jugadores.insert(std::make_pair(id, jugador));
 }
 bool puedo_moverme(Map &mapa, int &posx, int &posy) {
+
     Type tipo = mapa(posx, posy);
     if (tipo == Type::wall) {
         return false;

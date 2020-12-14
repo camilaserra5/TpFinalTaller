@@ -3,18 +3,19 @@
 
 #include "arma.h"
 
+
 class Pistola : public Arma {
 public:
-    Pistola();
+    Pistola(int cantidad_rafagas);
 
     ~Pistola();
 
-    int atacar() override;
+    void atacar(int distancia_a_pared,Jugador &jugador,std::map<int,Jugador> &jugadores) override;
 
 private:
-    int danio; //  aleatorio rand(1,10)?
     int precision;
     int probalidad_acierto;
+    int cantidad_rafagas;
 };
 
 #endif

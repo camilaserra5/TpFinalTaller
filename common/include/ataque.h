@@ -1,12 +1,12 @@
 #ifndef ATAQUE_H
 #define ATAQUE_H
+#define DANIO_MAX 10
 
 #include "comando.h"
 #include "iserializable.h"
 
 class Ataque : public Comando, public ISerializable {
 private:
-    int ataque_asociado;
     int destinox;
     int destinoy;
     int danio;
@@ -20,7 +20,7 @@ public:
 
     void deserializar() override {}
 
-    void ejecutar(EstadoJuego &estadoJuego) override { std::cout << "ataco pium pium\n"; }
+    void ejecutar(EstadoJuego &estadoJuego) override;
 };
 
 #endif

@@ -1,15 +1,28 @@
 #ifndef _ARMA_H
 #define _ARMA_H
+#define NO_HAY_JUGADOR_CERCANO -1
+#define DANIO_MAX 10
+#include <map>
+#include "jugador.h"
+#include <ctime>
+#include "posicion.h"
 
 class Arma {
 public:
-    Arma();
+    Arma(int distancia_max_atacable):
+    distancia_max_atacable(distancia_max_atacable){}
 
     virtual ~Arma() {}
 
-    virtual int atacar() = 0;
+    virtual void atacar(int distancia_a_pared,Jugador &jugador,std::map<int,Jugador> &jugadores) = 0;
 
-private:
+    /*devuelve el id*/
+    int JugadorAMenorDistancia(Jugador &jugador,std::map<int,Jugador> &jugadores);
+
+protected:
+  int distancia_max_atacable;
+
+  int posicionAtacable(Posicion &atacante,Posicion &otroJugador);
 
 };
 

@@ -2,8 +2,10 @@
 #define _JUGADOR_H
 
 #include <vector>
-#include "arma.h"
 #include <string>
+#include "posicion.h"
+
+class Arma;
 
 class Jugador {
 public:
@@ -29,7 +31,16 @@ public:
 
     int posEnY();
 
+    int getId();
+
+    Posicion &getPosicion(){ return this->posicion;}
+
+    Arma* getArma(){return this->armaActual;}
+
+    float getAnguloDeVista(){ return this->angulo;}
+
 private:
+    Posicion posicion = Posicion(1,1,1);
     int id;
     std::string nombre;
     int vida;
@@ -39,6 +50,7 @@ private:
     int balas;
     int puntaje;
     float angulo = 0;
+    Arma* armaActual;
 };
 
 #endif

@@ -9,7 +9,7 @@ public:
 
     ~Cuchillo();
 
-    int atacar() override;
+    void atacar(int distancia_a_pared,Jugador &jugador,std::map<int,Jugador> &jugadores) override;
 
 private:
     int danio;
