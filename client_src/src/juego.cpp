@@ -17,7 +17,7 @@ void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int a
     } else {
         this->corriendo = false;
     }
-    this->texturaInferior = new Textura("../../LogJuegoVentana/resources/images/ParteInferior.png", this->render);
+    this->texturaInferior = new Textura("../../client_src/resources/images/ParteInferior.png", this->render);
 }
 
 void Juego::handleEvents() {
