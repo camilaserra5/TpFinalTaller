@@ -13,7 +13,7 @@
 
 class Servidor : public Thread {
 public:
-    Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,Map &mapa, int cant_jugadores);
+    Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/Map &mapa, int cant_jugadores);
 
     ~Servidor();
 
@@ -22,13 +22,14 @@ public:
     bool yaArranco();
     bool terminoPartida();
     ProtectedQueue<Comando*>& obtenerColaEventos();
+    ProtectedQueue<Actualizacion>& obtenerColaActualizaciones();
     void lanzarJugadores();
     void lanzarContadorTiempoPartida();
 
 private:
     void procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, EstadoJuego &estadoJuego);
-    ProtectedQueue<Comando*> &cola_comandos;
-    ProtectedQueue<Actualizacion> &cola_actualizaciones;
+    ProtectedQueue<Comando*> cola_comandos;
+    ProtectedQueue<Actualizacion> cola_actualizaciones;
     std::map<int, Cliente*> jugadores;
     EstadoJuego estadoJuego;
     int cant_jugadores;

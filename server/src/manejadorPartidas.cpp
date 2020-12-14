@@ -43,10 +43,10 @@ bool ManejadorPartidas::crearPartida(std::string& nombreJugador,
         // capaz esta clase tiene el un vector de yamls
       //  Map mapa = this->buscarMapa(archivoMapa);
         Map mapa(20, 20);
-        ProtectedQueue<Comando*> cola;
-        ProtectedQueue<Actualizacion> actualizaciones;
-        Servidor* servidor = new Servidor(cola, actualizaciones, mapa, cant_jugadores);
-        Cliente* cliente = new Cliente(cola,actualizaciones, nombreJugador);
+        //ProtectedQueue<Comando*> cola;
+        //ProtectedQueue<Actualizacion> actualizaciones;
+        Servidor* servidor = new Servidor(/*cola, actualizaciones,*/ mapa, cant_jugadores);
+        Cliente* cliente = new Cliente(servidor->obtenerColaEventos(),servidor->obtenerColaActualizaciones(), nombreJugador);
         servidor->agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor});
         return true;
@@ -59,14 +59,15 @@ bool ManejadorPartidas::agregarClienteAPartida(std::string& nombreJugador,
     Servidor* servidor = this->partidas.at(nombre_partida);
     if (servidor->yaArranco()){
         // la partida ya arranco
-        // informale al cliente
+        // informale al Cliente
+        std::cout << "ya arranco la partida";
         return false;
     } else {
         // partida valida para unirse
         // avisarle al cliente;
-        ProtectedQueue<Comando*> cola;
-        ProtectedQueue<Actualizacion> actualizaciones;
-        Cliente* cliente = new Cliente(cola, actualizaciones, nombreJugador);
+        //ProtectedQueue<Comando*> cola;
+        //ProtectedQueue<Actualizacion> actualizaciones;
+        Cliente* cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(), nombreJugador);
         servidor->agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia
                                                               // que esta adentro del mapa de partidas.

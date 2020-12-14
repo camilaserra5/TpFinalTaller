@@ -5,9 +5,9 @@
 #include "jugador.h"
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones, Map &mapa, int cant_jugadores) :
-        cola_comandos(cola_comandos),
-        cola_actualizaciones(actualizaciones),
+Servidor::Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/ Map &mapa, int cant_jugadores) :
+        cola_comandos(),
+        cola_actualizaciones(),
         jugadores(),
         estadoJuego(mapa),
         cant_jugadores(cant_jugadores),
@@ -49,6 +49,7 @@ void Servidor::lanzarJugadores(){
 
     for (auto it = this->jugadores.begin(); it != this->jugadores.end(); it++){
           it->second->start();
+          std::cout << "lanzo cliente";
     }
 
 }
@@ -63,6 +64,9 @@ bool Servidor::terminoPartida(){
 }
 ProtectedQueue<Comando*>& Servidor::obtenerColaEventos(){
     return this->cola_comandos;
+}
+ProtectedQueue<Actualizacion>& Servidor::obtenerColaActualizaciones(){
+    return this->cola_actualizaciones;
 }
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
 // servidor es partida
