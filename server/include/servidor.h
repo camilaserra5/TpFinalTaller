@@ -24,6 +24,7 @@ public:
     ProtectedQueue<Comando*>& obtenerColaEventos();
     void lanzarJugadores();
     void lanzarContadorTiempoPartida();
+    void borrarClientes();
 
 private:
     void procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, EstadoJuego &estadoJuego);

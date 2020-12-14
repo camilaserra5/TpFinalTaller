@@ -14,7 +14,12 @@ Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actual
         sigue_corriendo(true),
         arrancoPartida(false){}
 
-Servidor::~Servidor() {}
+Servidor::~Servidor() {
+  std::map<int, Cliente*>::iterator it;
+  for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it){
+    delete it->second;
+  }
+}
 
 void Servidor::procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, EstadoJuego &estadoJuego){
     bool termine = false;

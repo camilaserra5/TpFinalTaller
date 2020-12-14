@@ -11,7 +11,6 @@ ManejadorPartidas::ManejadorPartidas():
     esta_corriendo(true),
     mapas(){}
 
-ManejadorPartidas::~ManejadorPartidas(){}
 /*
 Map ManejadorPartidas::buscarMapa(std::string& archivoMapa){
     int i = 0;
@@ -76,7 +75,7 @@ bool ManejadorPartidas::agregarClienteAPartida(std::string& nombreJugador,
 }
 void ManejadorPartidas::eliminarPartidasTerminadas(){
     std::map<std::string, Servidor*>::iterator it;
-    for (it = this->partidas.begin(); it != partidas.end(); ++it) {
+    for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
           if (it->second->terminoPartida()){
                 it->second->join();
                 delete it->second;
@@ -91,10 +90,10 @@ void ManejadorPartidas::run(){
           this->eliminarPartidasTerminadas();
     }
 }
-/*
-ManejadorPartidas::~ManejadorPartidas(){
-para borrar la memoria dinamica
-  for (int i = 0; i < this->partidas.size();i++){
 
+ManejadorPartidas::~ManejadorPartidas(){
+  std::map<std::string, Servidor*>::iterator it;
+  for (it = this->partidas.begin(); it != this->partidas.end(); ++it){
+    delete it->second;
   }
-}*/
+}
