@@ -35,13 +35,14 @@ int main(int argc, char *argv[]) {
     Servidor servidor(comandos, actualizaciones, mapa,cantidadJugadores);
 */
     ManejadorPartidas manejadorPartidas;
-    bool estado = manejadorPartidas.crearPartida(nombreJugador, 5,nombre_partida, nombre_archivo);
+    bool estado = manejadorPartidas.crearPartida(nombreJugador, 1,nombre_partida, nombre_archivo);
     if (estado){
-        std::cout<< "creo partida";
+        std::cout<< "\nreo partida";
     }
+
     bool estado2 = manejadorPartidas.agregarClienteAPartida(nombre, nombre_partida);
     if (estado2){
-        std::cout <<"agreggo cliente a partida";
+        std::cout <<"\nagreggo cliente a partida";
     }
 
   //  cliente.start();

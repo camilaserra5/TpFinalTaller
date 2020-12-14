@@ -4,7 +4,7 @@
 #include <queue>
 #include <mutex>
 #include <exception>
-
+#include <iostream>
 class QueueException : public std::exception {
 private:
     std::string error;
@@ -27,8 +27,10 @@ public:
     T obtener_dato() {
         std::lock_guard <std::mutex> l(this->m);
         if (this->cola_datos.empty()) {
+            std::cout<< "\nno hay comandos";
             throw QueueException("no hay elementos en la cola\n");
         }
+        std::cout << "\nhay comando";
         T objeto = this->cola_datos.front();
         this->cola_datos.pop();
         return objeto;
