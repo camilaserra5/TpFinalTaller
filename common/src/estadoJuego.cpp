@@ -33,6 +33,7 @@ bool puedo_moverme(Map &mapa, int &posx, int &posy) {
     } else if (tipo == Type::fakeDoor) {
         return false;
     } else {
+        std::cout<< "puedo moverme";
         return true;
     }
 }
