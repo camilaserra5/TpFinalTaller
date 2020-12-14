@@ -3,6 +3,7 @@
 
 #include "thread.h"
 #include "protected_queue.h"
+#include "actualizacion.h"
 #include "comando.h"
 #include <string>
 

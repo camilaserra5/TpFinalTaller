@@ -13,8 +13,8 @@ public:
             error(error) {}
     //const std::string getError() const { return this->error;}
 };
-template <class T>
 
+template <class T>
 class ProtectedQueue {
 private:
     std::queue<T> cola_comandos;
@@ -24,11 +24,25 @@ public:
 
     ~ProtectedQueue(){}
 
+    T obtener_comando() {
+        std::lock_guard <std::mutex> l(this->m);
+        if (this->cola_comandos.empty()) {
+            throw QueueException("no hay elementos en la cola\n");
+        }
+        T objeto = this->cola_comandos.front();
+        this->cola_comandos.pop();
+        return objeto;
+    }
+
+    void aniadir_comando(T objeto) {
+        std::lock_guard <std::mutex> l(this->m);
+        this->cola_comandos.push(objeto);
+    }
+
+/*
     T obtener_comando();
 
-    void aniadir_comando(T objeto);
+    void aniadir_comando(T objeto);*/
 };
 
-#include "actualizacion.h"
-#include "comando.h"
 #endif
