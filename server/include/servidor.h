@@ -13,7 +13,7 @@
 
 class Servidor : public Thread {
 public:
-    Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion*>& actualizaciones,Map &mapa, int cant_jugadores);
+    Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,Map &mapa, int cant_jugadores);
 
     ~Servidor();
 
@@ -24,8 +24,9 @@ public:
     ProtectedQueue<Comando*>& obtenerColaEventos();
 
 private:
+    void procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, EstadoJuego &estadoJuego);
     ProtectedQueue<Comando*> &cola_comandos;
-    ProtectedQueue<Actualizacion*> &cola_actualizaciones;
+    ProtectedQueue<Actualizacion> &cola_actualizaciones;
     std::map<int, Jugador> jugadores;
     EstadoJuego estadoJuego;
     int cant_jugadores;

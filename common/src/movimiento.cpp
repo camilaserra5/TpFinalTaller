@@ -11,7 +11,7 @@ Movimiento::Movimiento(int &idJugador, int &tipo_de_movimiento) :
 
 Movimiento::~Movimiento() {}
 
-void Movimiento::estrategia(EstadoJuego &estadoJuego) {
+void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
     //van a ser las teclas cuando me muevo
     if (tipo_de_movimiento == DERECHA) {
         estadoJuego.moverse_a_derecha(this->idJugador);

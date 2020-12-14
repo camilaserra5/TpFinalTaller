@@ -6,12 +6,18 @@
 #include <mutex>
 
 
-Cliente::Cliente(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion*>& actualizaciones, std::string& nombre) :
+Cliente::Cliente(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones, std::string& nombre) :
         cola_comandos(cola_comandos),
         cola_actualizaciones(actualizaciones),
         nombre(nombre){}
 
 Cliente::~Cliente() {}
+
+void Cliente::actualizar(const Actualizacion& actualizacion){
+  //actualizacion.actualizar_vista
+  //desp sacar lo que sigue
+  printf("me llega una actualizacion");
+}
 
 void Cliente::run() {
     int tipo_de_movimiento = 1;
@@ -20,7 +26,20 @@ void Cliente::run() {
     Comando *ataque = new Ataque(id);
     Comando *itemTomado = new ItemTomado(id);
 
-    this->cola_comandos.aniadir_comando(movimiento);
-    this->cola_comandos.aniadir_comando(ataque);
-    this->cola_comandos.aniadir_comando(itemTomado);
+    this->cola_comandos.aniadir_dato(movimiento);
+    this->cola_comandos.aniadir_dato(ataque);
+    this->cola_comandos.aniadir_dato(itemTomado);
+
+    std::chrono::milliseconds duration(30);
+    std::this_thread::sleep_for(duration);
+
+    bool termine = false;
+    while (!termine){
+      try{
+        Actualizacion actualizacion = this->cola_actualizaciones.obtener_dato();
+        this->actualizar(actualizacion);
+      }catch(...){
+        termine = true;
+      }
+    }
 }

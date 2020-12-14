@@ -24,13 +24,12 @@ int main(int argc, char *argv[]) {
     }*/
 
     ProtectedQueue<Comando*> comandos;
-    ProtectedQueue<Actualizacion*> actualizaciones;
+    ProtectedQueue<Actualizacion> actualizaciones;
     Map mapa(20, 20);
     std::string nombreJugador = "juan";
     Cliente cliente(comandos,actualizaciones,nombreJugador);
     int cantidadJugadores = 1;
     Servidor servidor(comandos, actualizaciones, mapa,cantidadJugadores);
-
     cliente.start();
     std::chrono::milliseconds duration(10);
     std::this_thread::sleep_for(duration);
