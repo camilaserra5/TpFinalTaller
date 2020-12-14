@@ -23,12 +23,13 @@ int main(int argc, char *argv[]) {
         return ERR_CODE;
     }*/
 
-    ProtectedQueue<Comando*> cola;
+    ProtectedQueue<Comando*> comandos;
+    ProtectedQueue<Actualizacion*> actualizaciones;
     Map mapa(20, 20);
     std::string nombreJugador = "juan";
-    Cliente cliente(cola,nombreJugador);
+    Cliente cliente(comandos,actualizaciones,nombreJugador);
     int cantidadJugadores = 1;
-    Servidor servidor(cola, mapa,cantidadJugadores);
+    Servidor servidor(comandos, actualizaciones, mapa,cantidadJugadores);
 
     cliente.start();
     std::chrono::milliseconds duration(10);
