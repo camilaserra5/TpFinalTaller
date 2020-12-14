@@ -30,7 +30,7 @@ void Cliente::run() {
     this->cola_comandos.aniadir_dato(ataque);
     this->cola_comandos.aniadir_dato(itemTomado);
     std::cout << "agrege comandos a cola";
-    std::chrono::milliseconds duration(30);
+    std::chrono::milliseconds duration(100);
     std::this_thread::sleep_for(duration);
 
     bool termine = false;

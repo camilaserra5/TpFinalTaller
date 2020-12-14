@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(common)
-set(CMAKE_BUILD_TYPE Release " -std=c++11 -g")
+set(CMAKE_BUILD_TYPE Release "-std=c++11 -g")
 find_package(Threads REQUIRED)
 
 include_directories(include)
