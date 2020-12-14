@@ -23,23 +23,32 @@ int main(int argc, char *argv[]) {
         return ERR_CODE;
     }*/
 
-    ProtectedQueue<Comando*> comandos;
-    ProtectedQueue<Actualizacion*> actualizaciones;
-    Map mapa(20, 20);
+  //  ProtectedQueue<Comando*> comandos;
+  //  ProtectedQueue<Actualizacion*> actualizaciones;
+    //Map mapa(20, 20);
     std::string nombreJugador = "juan";
+    std::string nombre = "pepe";
     std::string nombre_partida = "grecia";
     std::string nombre_archivo = "archivo.yaml";
-    Cliente cliente(comandos,actualizaciones,nombreJugador);
+/*    Cliente cliente(comandos,actualizaciones,nombreJugador);
     int cantidadJugadores = 1;
     Servidor servidor(comandos, actualizaciones, mapa,cantidadJugadores);
+*/
     ManejadorPartidas manejadorPartidas;
-    manejadorPartidas.crearPartida(nombreJugador, 5,nombre_partida, nombre_archivo);
+    bool estado = manejadorPartidas.crearPartida(nombreJugador, 5,nombre_partida, nombre_archivo);
+    if (estado){
+        std::cout<< "creo partida";
+    }
+    bool estado2 = manejadorPartidas.agregarClienteAPartida(nombre, nombre_partida);
+    if (estado2){
+        std::cout <<"agreggo cliente a partida";
+    }
 
-    cliente.start();
+  //  cliente.start();
     std::chrono::milliseconds duration(10);
     std::this_thread::sleep_for(duration);
-    servidor.start();
-    cliente.join();
-    servidor.join();
+    //servidor.start();
+  //  cliente.join();
+    //servidor.join();
     return OK_CODE;
 }
