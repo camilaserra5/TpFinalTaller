@@ -5,8 +5,9 @@
 #include "jugador.h"
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos, Map &mapa, int cant_jugadores) :
+Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion*>& actualizaciones, Map &mapa, int cant_jugadores) :
         cola_comandos(cola_comandos),
+        cola_actualizaciones(actualizaciones),
         jugadores(),
         estadoJuego(mapa, jugadores),
         cant_jugadores(cant_jugadores),

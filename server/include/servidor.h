@@ -4,6 +4,7 @@
 #include <map>
 #include "thread.h"
 #include "protected_queue.h"
+#include "actualizacion.h"
 #include "comando.h"
 #include "map.h"
 #include "estadoJuego.h"
@@ -12,7 +13,7 @@
 
 class Servidor : public Thread {
 public:
-    Servidor(ProtectedQueue<Comando*> &cola_comandos, Map &mapa, int cant_jugadores);
+    Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion*>& actualizaciones,Map &mapa, int cant_jugadores);
 
     ~Servidor();
 

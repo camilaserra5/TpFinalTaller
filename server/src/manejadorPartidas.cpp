@@ -25,8 +25,9 @@ bool ManejadorPartidas::crearPartida(std::string& nombreJugador,
         // capaz esta clase tiene el un vector de yamls
         Map mapa(20, 20);
         ProtectedQueue<Comando*> cola;
-        Servidor* servidor = new Servidor(cola, mapa, cant_jugadores);
-        Cliente* cliente = new Cliente(cola, nombreJugador);
+        ProtectedQueue<Actualizacion*> actualizaciones;
+        Servidor* servidor = new Servidor(cola, actualizaciones, mapa, cant_jugadores);
+        Cliente* cliente = new Cliente(cola,actualizaciones, nombreJugador);
         servidor->agregarCliente(nombreJugador, *cliente);
         this->partidas.insert({nombre_partida, servidor});
         return true;
@@ -45,7 +46,8 @@ bool ManejadorPartidas::agregarClienteAPartida(std::string& nombreJugador,
         // partida valida para unirse
         // avisarle al cliente;
         ProtectedQueue<Comando*> cola;
-        Cliente* cliente = new Cliente(cola, nombreJugador);
+        ProtectedQueue<Actualizacion*> actualizaciones;
+        Cliente* cliente = new Cliente(cola, actualizaciones, nombreJugador);
         servidor->agregarCliente(nombreJugador, *cliente);
         this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia
                                                               // que esta adentro del mapa de partidas.
