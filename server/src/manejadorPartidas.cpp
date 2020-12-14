@@ -42,8 +42,6 @@ bool ManejadorPartidas::crearPartida(std::string& nombreJugador,
         // capaz esta clase tiene el un vector de yamls
       //  Map mapa = this->buscarMapa(archivoMapa);
         Map mapa(20, 20);
-        //ProtectedQueue<Comando*> cola;
-        //ProtectedQueue<Actualizacion> actualizaciones;
         Servidor* servidor = new Servidor(/*cola, actualizaciones,*/ mapa, cant_jugadores);
         Cliente* cliente = new Cliente(servidor->obtenerColaEventos(),servidor->obtenerColaActualizaciones(), nombreJugador);
         servidor->agregarCliente(nombreJugador, cliente);
