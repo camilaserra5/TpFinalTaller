@@ -6,6 +6,9 @@
 #include "cliente.h"
 #include <atomic>
 #include <string>
+#include <map>
+#include <vector>
+#include "map.h"
 
 class ManejadorPartidas : public Thread{
     public:
@@ -13,14 +16,16 @@ class ManejadorPartidas : public Thread{
           ~ManejadorPartidas();
           bool crearPartida(std::string& nombreJugador,
                             int cant_jugadores, std::string& nombre_partida,
-                            std::string& nombre_mapa);
+                            std::string& archivoMapa);
           bool agregarClienteAPartida(std::string& nombreJugador,
                                       std::string& nombre_partida);
           void run();
           void eliminarPartidasTerminadas();
+          Map buscarMapa(std::string& archivoMapa);
     private:
           std::map<std::string, Servidor*> partidas;
           std::atomic<bool> esta_corriendo;
+          std::vector<std::string> mapas;
 
 };
 

@@ -9,12 +9,16 @@
 #define METROS_MOVIDOS 1 // de acuanto se mueve el jugador
 
 
-EstadoJuego::EstadoJuego(Map &mapa, std::map<int, Jugador> &jugadores) :
+EstadoJuego::EstadoJuego(Map &mapa) :
         mapa(mapa),
-        jugadores(jugadores) {}
+        jugadores() {}
 
 EstadoJuego::~EstadoJuego() {}
 
+void EstadoJuego::agregarJugador(std::string& nombreJugador, int& id){
+      Jugador jugador(nombreJugador, id);
+      this->jugadores.insert(std::make_pair(id, jugador));
+}
 bool puedo_moverme(Map &mapa, int &posx, int &posy) {
     Type tipo = mapa(posx, posy);
     if (tipo == Type::wall) {
