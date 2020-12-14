@@ -91,3 +91,10 @@ void ManejadorPartidas::run(){
           this->eliminarPartidasTerminadas();
     }
 }
+/*
+ManejadorPartidas::~ManejadorPartidas(){
+para borrar la memoria dinamica
+  for (int i = 0; i < this->partidas.size();i++){
+
+  }
+}*/
