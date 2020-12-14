@@ -14,17 +14,21 @@ class Servidor : public Thread {
 public:
     Servidor(ProtectedQueue<Comando*> &cola_comandos, Map &mapa, int cant_jugadores);
 
-    void agregarCliente(std::string& nombreJugador, Cliente& cliente);
-
     ~Servidor();
 
     void run() override;
+    void agregarCliente(std::string& nombreJugador, Cliente& cliente);
+    bool yaArranco();
+    bool terminoPartida();
+    ProtectedQueue<Comando*>& obtenerColaEventos();
 
 private:
     ProtectedQueue<Comando*> &cola_comandos;
+    ProtectedQueue<Actualizacion*> &cola_actualizaciones;
     std::map<int, Jugador> jugadores;
     EstadoJuego estadoJuego;
     int cant_jugadores;
+    bool sigue_corriendo;
 
 };
 

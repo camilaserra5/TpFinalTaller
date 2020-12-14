@@ -9,7 +9,8 @@ Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos, Map &mapa, int cant_
         cola_comandos(cola_comandos),
         jugadores(),
         estadoJuego(mapa, jugadores),
-        cant_jugadores(cant_jugadores){}
+        cant_jugadores(cant_jugadores),
+        sigue_corriendo(true){}
 
 Servidor::~Servidor() {}
 
@@ -32,10 +33,21 @@ void Servidor::agregarCliente(std::string& nombreJugador, Cliente& cliente){
       // para asignarle posicion;
       int id = 111;
       Jugador jugador(nombreJugador, id);
+
       this->jugadores.insert(std::make_pair(id,jugador));
+
 
 }
 
+bool Servidor::yaArranco(){
+    return this->sigue_corriendo;
+}
+bool Servidor::terminoPartida(){
+    return !(this->sigue_corriendo);
+}
+ProtectedQueue<Comando*>& Servidor::obtenerColaEventos(){
+    return this->cola_comandos;
+}
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
 // servidor es partida
 void Servidor::run(){
@@ -43,10 +55,12 @@ void Servidor::run(){
     while (!termine) {
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
+
         std::string nombre = "juan";
         int id = 1;
         Jugador jugador(nombre,id);//nombre e id
         this->jugadores.insert(std::pair<int, Jugador>(111, jugador));
+
         procesar_comandos(this->cola_comandos, this->estadoJuego);//devolveria actualizaciones
         //enviar_actualizaciones(cola de actualizaciones);
         //std::chrono::milliseconds duration(10);

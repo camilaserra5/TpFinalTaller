@@ -27,5 +27,8 @@ public:
     T obtener_comando();
 
     void aniadir_comando(T objeto);
-};//pasar a una cla protegida que tiene objetos del tipo ISerializable
+};
+
+#include "actualizacion.h"
+#include "comando.h"
 #endif

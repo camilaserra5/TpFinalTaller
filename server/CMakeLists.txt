@@ -17,6 +17,7 @@ add_executable(server
         src/servidor.cpp
         src/cliente.cpp
         src/server_main.cpp
+        src/manejadorPartidas.cpp
         ${UIS_HEADERS})
 
 target_link_libraries(server ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads)
