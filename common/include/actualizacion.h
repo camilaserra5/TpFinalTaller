@@ -3,7 +3,6 @@
 #include "estadoJuego.h"
 
 class Actualizacion {
-
   public:
     Actualizacion(EstadoJuego &estadoJuego):
     estadoJuego(estadoJuego){}

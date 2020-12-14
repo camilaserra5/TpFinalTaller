@@ -22,6 +22,7 @@ private:
     ProtectedQueue<Comando*> &cola_comandos;
     ProtectedQueue<Actualizacion> &cola_actualizaciones;
     std::string nombre;
+    int id;
 };
 
 #endif

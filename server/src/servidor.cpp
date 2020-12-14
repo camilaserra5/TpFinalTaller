@@ -15,8 +15,10 @@ Servidor::Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actu
         arrancoPartida(false){}
 
 Servidor::~Servidor() {
+  this->join();
   std::map<int, Cliente*>::iterator it;
   for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it){
+    it->second->join();
     delete it->second;
   }
 }
@@ -27,7 +29,6 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, Estado
         try {
             Comando *comando = cola_comandos.obtener_dato(); // el comando va a tener quien le envio lo que tiene que hacer, osea el id
             comando->ejecutar(estadoJuego);
-            
             Actualizacion actualizacion(estadoJuego);
             this->cola_actualizaciones.aniadir_dato(actualizacion);
             delete comando;
@@ -47,6 +48,8 @@ void Servidor::agregarCliente(std::string& nombreJugador, Cliente* cliente){
       if (this->jugadores.size() == this->cant_jugadores){
             this->arrancoPartida = true;
             this->start();
+            std::chrono::milliseconds duration(10);
+            std::this_thread::sleep_for(duration);
       }
 
 
@@ -77,17 +80,15 @@ ProtectedQueue<Actualizacion>& Servidor::obtenerColaActualizaciones(){
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
 // servidor es partida
 void Servidor::run(){
-
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
-
-
     bool termine = false;
     while (!termine) {
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
-
-        procesar_comandos(this->cola_comandos, this->estadoJuego);//devolveria actualizaciones
+        try{
+          procesar_comandos(this->cola_comandos, this->estadoJuego);
+        }catch (...){ return; }
         //enviar_actualizaciones(cola de actualizaciones);
         //std::chrono::milliseconds duration(10);
         //std::this_thread::sleep_for(duration);

@@ -5,6 +5,7 @@
 #include "jugador.h"
 #include <map>
 #include <string>
+#include "arma.h"
 
 class EstadoJuego {
 public:
@@ -23,6 +24,9 @@ public:
     void no_me_muevo(int idJugador);
 
     void agregarJugador(std::string& nombreJugador, int& id);
+
+    void realizarAtaque(int idJugador);
+
 private:
     Map &mapa;
     std::map<int, Jugador> jugadores;

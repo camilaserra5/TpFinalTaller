@@ -11,7 +11,17 @@ Cliente::Cliente(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualiz
         cola_actualizaciones(actualizaciones),
         nombre(nombre){}
 
-Cliente::~Cliente() {}
+Cliente::~Cliente() {
+  bool termine = false;
+  while (!termine){
+    try{
+      Comando* comando = this->cola_comandos.obtener_dato();
+      delete comando;
+    }catch(...){
+      termine = true;
+    }
+  }
+}
 
 void Cliente::actualizar(const Actualizacion& actualizacion){
   //actualizacion.actualizar_vista
