@@ -18,19 +18,22 @@ public:
     ~Servidor();
 
     void run() override;
-    void agregarCliente(std::string& nombreJugador, Cliente& cliente);
+    void agregarCliente(std::string& nombreJugador, Cliente* cliente);
     bool yaArranco();
     bool terminoPartida();
     ProtectedQueue<Comando*>& obtenerColaEventos();
+    void lanzarJugadores();
+    void lanzarContadorTiempoPartida();
 
 private:
     void procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, EstadoJuego &estadoJuego);
     ProtectedQueue<Comando*> &cola_comandos;
     ProtectedQueue<Actualizacion> &cola_actualizaciones;
-    std::map<int, Jugador> jugadores;
+    std::map<int, Cliente*> jugadores;
     EstadoJuego estadoJuego;
     int cant_jugadores;
     bool sigue_corriendo;
+    bool arrancoPartida;
 
 };
 

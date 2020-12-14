@@ -9,9 +9,10 @@ Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actual
         cola_comandos(cola_comandos),
         cola_actualizaciones(actualizaciones),
         jugadores(),
-        estadoJuego(mapa, jugadores),
+        estadoJuego(mapa),
         cant_jugadores(cant_jugadores),
-        sigue_corriendo(true){}
+        sigue_corriendo(true),
+        arrancoPartida(false){}
 
 Servidor::~Servidor() {}
 
@@ -29,20 +30,33 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, Estado
         }
     }
 }
-void Servidor::agregarCliente(std::string& nombreJugador, Cliente& cliente){
+void Servidor::agregarCliente(std::string& nombreJugador, Cliente* cliente){
       // asignarle un id random
       // el mapa deveria crear al jugador o hay que avisarle que hay un nuevo jugador
       // para asignarle posicion;
       int id = 111;
-      Jugador jugador(nombreJugador, id);
-
-      this->jugadores.insert(std::make_pair(id,jugador));
+      //Jugador jugador(nombreJugador, id);
+      this->estadoJuego.agregarJugador(nombreJugador, id);
+      this->jugadores.insert(std::make_pair(id,cliente));
+      if (this->jugadores.size() == this->cant_jugadores){
+            this->arrancoPartida = true;
+            this->start();
+      }
 
 
 }
+void Servidor::lanzarJugadores(){
+
+    for (auto it = this->jugadores.begin(); it != this->jugadores.end(); it++){
+          it->second->start();
+    }
+
+}
+
+void Servidor::lanzarContadorTiempoPartida(){}
 
 bool Servidor::yaArranco(){
-    return this->sigue_corriendo;
+    return this->arrancoPartida;
 }
 bool Servidor::terminoPartida(){
     return !(this->sigue_corriendo);
@@ -53,15 +67,15 @@ ProtectedQueue<Comando*>& Servidor::obtenerColaEventos(){
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
 // servidor es partida
 void Servidor::run(){
+
+    this->lanzarJugadores();
+    this->lanzarContadorTiempoPartida();
+
+
     bool termine = false;
     while (!termine) {
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
-
-        std::string nombre = "juan";
-        int id = 1;
-        Jugador jugador(nombre,id);//nombre e id
-        this->jugadores.insert(std::pair<int, Jugador>(111, jugador));
 
         procesar_comandos(this->cola_comandos, this->estadoJuego);//devolveria actualizaciones
         //enviar_actualizaciones(cola de actualizaciones);

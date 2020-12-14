@@ -4,7 +4,7 @@
 #include "../include/cliente.h"
 #include "../include/servidor.h"
 #include "yaml-cpp/yaml.h"
-
+#include "../include/manejadorPartidas.h"
 #define OK_CODE 0
 #define ERR_CODE 1
 #define USAGE "Uso: ./server <config_file>"
@@ -27,9 +27,14 @@ int main(int argc, char *argv[]) {
     ProtectedQueue<Actualizacion> actualizaciones;
     Map mapa(20, 20);
     std::string nombreJugador = "juan";
+    std::string nombre_partida = "grecia";
+    std::string nombre_archivo = "archivo.yaml";
     Cliente cliente(comandos,actualizaciones,nombreJugador);
     int cantidadJugadores = 1;
     Servidor servidor(comandos, actualizaciones, mapa,cantidadJugadores);
+    ManejadorPartidas manejadorPartidas;
+    manejadorPartidas.crearPartida(nombreJugador, 5,nombre_partida, nombre_archivo);
+
     cliente.start();
     std::chrono::milliseconds duration(10);
     std::this_thread::sleep_for(duration);

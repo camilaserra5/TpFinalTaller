@@ -4,10 +4,11 @@
 #include "map.h"
 #include "jugador.h"
 #include <map>
+#include <string>
 
 class EstadoJuego {
 public:
-    EstadoJuego(Map &mapa, std::map<int, Jugador> &jugadores);
+    EstadoJuego(Map &mapa);
 
     ~EstadoJuego();
 
@@ -21,9 +22,10 @@ public:
 
     void no_me_muevo(int idJugador);
 
+    void agregarJugador(std::string& nombreJugador, int& id);
 private:
     Map &mapa;
-    std::map<int, Jugador> &jugadores;
+    std::map<int, Jugador> jugadores;
 };
 
 #endif
