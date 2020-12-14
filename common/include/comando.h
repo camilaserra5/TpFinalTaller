@@ -10,7 +10,7 @@ public:
 
     virtual ~Comando() {}
 
-    virtual void estrategia(EstadoJuego &estadoJuego) = 0; //deberia devolver una actualizacion en lugar de viod
+    virtual void ejecutar(EstadoJuego &estadoJuego) = 0; //deberia devolver una actualizacion en lugar de viod
 private:
     int idJugador;
 };

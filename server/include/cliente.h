@@ -10,8 +10,9 @@
 class Cliente : public Thread {
 public:
 
-    Cliente(ProtectedQueue<Comando*> &cola_eventos,ProtectedQueue<Actualizacion*>& actualizaciones, std::string& nombre);
+    Cliente(ProtectedQueue<Comando*> &cola_eventos,ProtectedQueue<Actualizacion>& actualizaciones, std::string& nombre);
 
+    void actualizar(const Actualizacion &actualizacion);
 
     ~Cliente();
 
@@ -19,7 +20,7 @@ public:
 
 private:
     ProtectedQueue<Comando*> &cola_comandos;
-    ProtectedQueue<Actualizacion*> &cola_actualizaciones;
+    ProtectedQueue<Actualizacion> &cola_actualizaciones;
     std::string nombre;
 };
 

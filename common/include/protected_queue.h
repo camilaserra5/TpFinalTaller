@@ -17,32 +17,28 @@ public:
 template <class T>
 class ProtectedQueue {
 private:
-    std::queue<T> cola_comandos;
+    std::queue<T> cola_datos;
     std::mutex m;
 public:
     ProtectedQueue(){}
 
     ~ProtectedQueue(){}
 
-    T obtener_comando() {
+    T obtener_dato() {
         std::lock_guard <std::mutex> l(this->m);
-        if (this->cola_comandos.empty()) {
+        if (this->cola_datos.empty()) {
             throw QueueException("no hay elementos en la cola\n");
         }
-        T objeto = this->cola_comandos.front();
-        this->cola_comandos.pop();
+        T objeto = this->cola_datos.front();
+        this->cola_datos.pop();
         return objeto;
     }
 
-    void aniadir_comando(T objeto) {
+    void aniadir_dato(T objeto) {
         std::lock_guard <std::mutex> l(this->m);
-        this->cola_comandos.push(objeto);
+        this->cola_datos.push(objeto);
     }
 
-/*
-    T obtener_comando();
-
-    void aniadir_comando(T objeto);*/
 };
 
 #endif

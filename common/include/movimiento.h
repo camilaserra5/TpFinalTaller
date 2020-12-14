@@ -12,7 +12,7 @@ private:
 public:
     Movimiento(int &idJugador, int &tipo_de_movimiento);
 
-    void estrategia(EstadoJuego &EstadoJuego) override;
+    void ejecutar(EstadoJuego &EstadoJuego) override;
 
     ~Movimiento();
 

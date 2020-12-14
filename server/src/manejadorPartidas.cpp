@@ -44,7 +44,7 @@ bool ManejadorPartidas::crearPartida(std::string& nombreJugador,
       //  Map mapa = this->buscarMapa(archivoMapa);
         Map mapa(20, 20);
         ProtectedQueue<Comando*> cola;
-        ProtectedQueue<Actualizacion*> actualizaciones;
+        ProtectedQueue<Actualizacion> actualizaciones;
         Servidor* servidor = new Servidor(cola, actualizaciones, mapa, cant_jugadores);
         Cliente* cliente = new Cliente(cola,actualizaciones, nombreJugador);
         servidor->agregarCliente(nombreJugador, cliente);
@@ -65,7 +65,7 @@ bool ManejadorPartidas::agregarClienteAPartida(std::string& nombreJugador,
         // partida valida para unirse
         // avisarle al cliente;
         ProtectedQueue<Comando*> cola;
-        ProtectedQueue<Actualizacion*> actualizaciones;
+        ProtectedQueue<Actualizacion> actualizaciones;
         Cliente* cliente = new Cliente(cola, actualizaciones, nombreJugador);
         servidor->agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia

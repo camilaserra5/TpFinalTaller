@@ -5,7 +5,7 @@
 #include "iserializable.h"
 
 class ItemTomado
-        : public Comando, public ISerializable {//en vez de heredar dde comando, deberia heredar de actualizacion creo
+        : public Comando, public ISerializable {
 private:
     int item = 1;
     int idJugador;
@@ -16,7 +16,7 @@ public:
 
     void deserializar() override {}
 
-    void estrategia(EstadoJuego &estadoJuego) override;
+    void ejecutar(EstadoJuego &estadoJuego) override;
 };
 
 #endif

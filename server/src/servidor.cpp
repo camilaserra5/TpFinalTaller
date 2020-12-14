@@ -5,7 +5,7 @@
 #include "jugador.h"
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion*>& actualizaciones, Map &mapa, int cant_jugadores) :
+Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones, Map &mapa, int cant_jugadores) :
         cola_comandos(cola_comandos),
         cola_actualizaciones(actualizaciones),
         jugadores(),
@@ -16,13 +16,14 @@ Servidor::Servidor(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actual
 
 Servidor::~Servidor() {}
 
-void procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, EstadoJuego &estadoJuego) {
+void Servidor::procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, EstadoJuego &estadoJuego){
     bool termine = false;
     while (!termine) {
         try {
-            Comando *comando = cola_comandos.obtener_comando(); // el comando va a tener quien le envio lo que tiene que hacer, osea el id
-            /*Actualizacion actualizacion =*/ comando->estrategia(estadoJuego);//cambiar a ejecutar
-            //creamos actualizacion y la agregamos a una cola
+            Comando *comando = cola_comandos.obtener_dato(); // el comando va a tener quien le envio lo que tiene que hacer, osea el id
+            comando->ejecutar(estadoJuego);
+            Actualizacion actualizacion(estadoJuego);
+            this->cola_actualizaciones.aniadir_dato(actualizacion);
             delete comando;
         } catch (const std::exception &exception) {
             termine = true;

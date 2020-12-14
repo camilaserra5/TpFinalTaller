@@ -20,7 +20,7 @@ public:
 
     void deserializar() override {}
 
-    void estrategia(EstadoJuego &estadoJuego) override { std::cout << "ataco pium pium\n"; }
+    void ejecutar(EstadoJuego &estadoJuego) override { std::cout << "ataco pium pium\n"; }
 };
 
 #endif
