@@ -22,6 +22,7 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, Estado
         try {
             Comando *comando = cola_comandos.obtener_dato(); // el comando va a tener quien le envio lo que tiene que hacer, osea el id
             comando->ejecutar(estadoJuego);
+            
             Actualizacion actualizacion(estadoJuego);
             this->cola_actualizaciones.aniadir_dato(actualizacion);
             delete comando;

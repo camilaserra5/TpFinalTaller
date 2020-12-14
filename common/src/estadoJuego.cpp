@@ -5,6 +5,7 @@
 #include "sangre.h"
 #include "kitsMedicos.h"
 #include "noItem.h"
+#include "iostream"
 
 #define METROS_MOVIDOS 1 // de acuanto se mueve el jugador
 
@@ -57,6 +58,10 @@ void EstadoJuego::moverse_a_derecha(int idJugador) {
     Jugador jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     int posEnJuegox = jugador.posEnX() + METROS_MOVIDOS;
     int posEnJuegoy = jugador.posEnY();
+    std::cout << "pos juador x antes de actualizar: " << jugador.posEnX();
+    std::cout << "pos jugador en y ants de actualzia: " << jugador.posEnY();
+    std::cout << "pos en x: " << posEnJuegox;
+    std::cout << "pos en y: " << posEnJuegoy;
     if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
         item->obtenerBeneficio(jugador);
