@@ -7,13 +7,17 @@ class Posicion{
     Posicion(int posicionX,int posicionY,float anguloDeVista):
     posicionX(posicionX),
     posicionY(posicionY),
-    anguloDeVista(anguloDeVista){}
+    anguloDeVista(anguloDeVista){
+      //calculo de la posicion dentro de la matriz
+    }
     ~Posicion(){}
     int distanciaA(Posicion &posicion){ return -1;}
     int intersectaConMiAngulo(Posicion &otroJugador){ return -1;}
   private:
-    int posicionX;
-    int posicionY;
+    int metrosX;
+    int metrosY;
+    int posicionMapaX;
+    int posicionMapaY
     float anguloDeVista;
 };
 
