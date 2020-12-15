@@ -9,7 +9,7 @@ public:
 
     ~KitsMedicos();
 
-    void obtenerBeneficio(Jugador &jugador) override;
+    void obtenerBeneficio(Jugador *jugador) override;
 
 private:
     int puntos_de_vida;

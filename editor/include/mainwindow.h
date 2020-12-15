@@ -12,7 +12,7 @@ class MapWidget;
 class QListWidgetItem;
 
 class MainWindow : public QMainWindow {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);

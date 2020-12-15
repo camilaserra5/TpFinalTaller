@@ -1,32 +1,25 @@
 #include "../include/cliente.h"
-#include "movimiento.h"
-#include "ataque.h"
-#include "item_tomado.h"
+#include "comandos/movimiento.h"
+#include "comandos/ataque.h"
+#include "comandos/item_tomado.h"
 
 #include <mutex>
 
 
-Cliente::Cliente(ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones, std::string& nombre) :
+Cliente::Cliente(ProtectedQueue<Comando *> &cola_comandos, ProtectedQueue<Actualizacion> &actualizaciones,
+                 std::string &nombre) :
         cola_comandos(cola_comandos),
         cola_actualizaciones(actualizaciones),
-        nombre(nombre){}
+        nombre(nombre) {}
 
 Cliente::~Cliente() {
-  bool termine = false;
-  while (!termine){
-    try{
-      Comando* comando = this->cola_comandos.obtener_dato();
-      delete comando;
-    }catch(...){
-      termine = true;
-    }
-  }
+
 }
 
-void Cliente::actualizar(const Actualizacion& actualizacion){
-  //actualizacion.actualizar_vista
-  //desp sacar lo que sigue
-  printf("me llega una actualizacion");
+void Cliente::actualizar(const Actualizacion &actualizacion) {
+    //actualizacion.actualizar_vista
+    //desp sacar lo que sigue
+    printf("me llega una actualizacion");
 }
 
 void Cliente::run() {
@@ -40,16 +33,16 @@ void Cliente::run() {
     this->cola_comandos.aniadir_dato(ataque);
     this->cola_comandos.aniadir_dato(itemTomado);
     std::cout << "agrege comandos a cola";
-    std::chrono::milliseconds duration(100);
+    std::chrono::milliseconds duration(10);
     std::this_thread::sleep_for(duration);
 
     bool termine = false;
-    while (!termine){
-      try{
-        Actualizacion actualizacion = this->cola_actualizaciones.obtener_dato();
-        this->actualizar(actualizacion);
-      }catch(...){
-        termine = true;
-      }
+    while (!termine) {
+        try {
+            Actualizacion actualizacion = this->cola_actualizaciones.obtener_dato();
+            this->actualizar(actualizacion);
+        } catch (...) {
+            termine = true;
+        }
     }
 }

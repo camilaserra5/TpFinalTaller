@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QVector>
 #include <QWidget>
+#include <QtWidgets/QGraphicsSceneMouseEvent>
 #include "map.h"
 
 class QDragEnterEvent;
@@ -14,7 +15,7 @@ class QDropEvent;
 class QMouseEvent;
 
 class MapWidget : public QWidget {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit MapWidget(int height, int width, QWidget *parent = nullptr);
@@ -40,6 +41,15 @@ protected:
 
     void paintEvent(QPaintEvent *event) override;
 
+    void mousePressEvent(QMouseEvent *event) override;
+
+    void mouseMoveEvent(QMouseEvent *event) override;
+
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
+public slots:
+
+    void onTileDoubleClicked(int, QPixmap);
 
 private:
     struct Tile {
@@ -47,12 +57,15 @@ private:
         QRect rect;
         int type = 0;
     };
+    QPoint startPoint;
+    bool pressed = false;
+    Tile selectedTile;
 
     int findTile(const QRect &tileRect) const;
 
     const QRect targetSquare(const QPoint &position) const;
 
-    QVector <Tile> tiles;
+    QVector<Tile> tiles;
     QRect highlightedRect;
 };
 

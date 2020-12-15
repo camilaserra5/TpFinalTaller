@@ -9,7 +9,7 @@ public:
 
     ~NoItem() {}
 
-    void obtenerBeneficio(Jugador &jugador) override {}
+    void obtenerBeneficio(Jugador *jugador) override {}
 
 };
 

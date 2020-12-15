@@ -4,6 +4,7 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <iostream>
+#include <include/map_widget.h>
 
 MapTilesList::MapTilesList(int tileSize, QWidget *parent)
         : QListWidget(parent), tileSize(tileSize) {
@@ -11,6 +12,7 @@ MapTilesList::MapTilesList(int tileSize, QWidget *parent)
     setViewMode(QListView::IconMode);
     setIconSize(QSize(tileSize, tileSize));
     setSpacing(10);
+    connect(this, SIGNAL(itemDoubleClicked(QListWidgetItem * )), this, SLOT(itemDoubleClicked(QListWidgetItem * )));
 }
 
 void MapTilesList::dragMoveEvent(QDragMoveEvent *event) {
@@ -20,6 +22,12 @@ void MapTilesList::dragMoveEvent(QDragMoveEvent *event) {
     } else {
         event->ignore();
     }
+}
+
+void MapTilesList::itemDoubleClicked(QListWidgetItem *item) {
+    QPixmap pixmap = qvariant_cast<QPixmap>(item->data(Qt::UserRole));
+    int type = item->data(Qt::UserRole + 1).toInt();
+    emit tileDoubleClicked(type, pixmap);
 }
 
 void MapTilesList::addTile(const QPixmap &pixmap, Type type) {

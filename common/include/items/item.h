@@ -9,7 +9,7 @@ public:
 
     virtual ~Item() {}
 
-    virtual void obtenerBeneficio(Jugador &jugador) = 0;
+    virtual void obtenerBeneficio(Jugador *jugador) = 0;
 };
 
 #endif

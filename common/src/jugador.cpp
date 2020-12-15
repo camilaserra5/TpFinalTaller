@@ -7,10 +7,11 @@
 #define POSY_INICIAL 5
 #define CANT_INICAL_BALAS 5
 #define PUNTAJE_INICIAL 0
-#include "cuchillo.h"
 
-int Jugador::getId(){
-  return this->id;
+#include "armas/cuchillo.h"
+
+int Jugador::getId() {
+    return this->id;
 }
 
 Jugador::Jugador(std::string& nombre, int& id) :
@@ -23,14 +24,15 @@ Jugador::Jugador(std::string& nombre, int& id) :
         armas(),
         puntaje(PUNTAJE_INICIAL),
         balas(CANT_INICAL_BALAS),
-        armaActual(new Cuchillo()){}
+        armaActual(new Cuchillo()) {}
 
 Jugador::~Jugador() {
-  for (int i = 0; i < this->armas.size(); i++){
-    delete armas[i];
-  }
-  std::cout << "entro\n";
-  delete armaActual;//despues borrar
+    std::cout << "destructor jugador";
+    for (int i = 0; i < this->armas.size(); i++) {
+        //  delete armas[i];
+    }
+    delete this->armaActual;
+    std::cout << "entro\n";
 }
 
 // recibo la posicion a moverse

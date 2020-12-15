@@ -5,7 +5,7 @@
 #include "thread.h"
 #include "protected_queue.h"
 #include "actualizacion.h"
-#include "comando.h"
+#include "comandos/comando.h"
 #include "map.h"
 #include "estadoJuego.h"
 #include "jugador.h"
@@ -13,25 +13,35 @@
 
 class Servidor : public Thread {
 public:
-    Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/Map &mapa, int cant_jugadores);
+    Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/Map *mapa,
+                                                                                                        int cant_jugadores);
 
     ~Servidor();
 
     void run() override;
-    void agregarCliente(std::string& nombreJugador, Cliente* cliente);
+
+    void agregarCliente(std::string &nombreJugador, Cliente *cliente);
+
     bool yaArranco();
+
     bool terminoPartida();
-    ProtectedQueue<Comando*>& obtenerColaEventos();
-    ProtectedQueue<Actualizacion>& obtenerColaActualizaciones();
+
+    ProtectedQueue<Comando *> &obtenerColaEventos();
+
+    ProtectedQueue<Actualizacion> &obtenerColaActualizaciones();
+
     void lanzarJugadores();
+
     void lanzarContadorTiempoPartida();
+
     void borrarClientes();
 
 private:
-    void procesar_comandos(ProtectedQueue<Comando*> &cola_comandos, EstadoJuego &estadoJuego);
-    ProtectedQueue<Comando*> cola_comandos;
+    void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);
+
+    ProtectedQueue<Comando *> cola_comandos;
     ProtectedQueue<Actualizacion> cola_actualizaciones;
-    std::map<int, Cliente*> jugadores;
+    std::map<int, Cliente *> jugadores;
     EstadoJuego estadoJuego;
     int cant_jugadores;
     bool sigue_corriendo;

@@ -9,7 +9,7 @@ public:
 
     ~Balas();
 
-    void obtenerBeneficio(Jugador &jugador) override;
+    void obtenerBeneficio(Jugador *jugador) override;
 
 private:
     int cant_balas;

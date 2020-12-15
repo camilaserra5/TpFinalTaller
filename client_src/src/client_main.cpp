@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
         return ERR_CODE;
     }
     try {
-        ProtectedQueue<Comando*> qeue;
+        ProtectedQueue<Comando *> qeue;
         Cliente cliente(qeue, argv[HOST_PARAM], argv[PORT_PARAM]);
         cliente.run();
         //PENSAR SI N OIES MEJOR TIRAR UN HILO QUE AGARRE LOS EVENTOS Y LOS VAYA MANDANDO/RECIBIENDO ACTUALIZACIONES

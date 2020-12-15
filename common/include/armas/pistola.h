@@ -1,7 +1,7 @@
 #ifndef _PISTOLA_H
 #define _PISTOLA_H
 
-#include "arma.h"
+#include "armas/arma.h"
 
 
 class Pistola : public Arma {
@@ -10,7 +10,7 @@ public:
 
     ~Pistola();
 
-    void atacar(int distancia_a_pared,Jugador &jugador,std::map<int,Jugador> &jugadores) override;
+    void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override;
 
 private:
     int precision;
