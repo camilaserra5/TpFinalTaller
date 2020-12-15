@@ -10,8 +10,8 @@ Balas::Balas() {
 
 Balas::~Balas() {}
 
-void Balas::obtenerBeneficio(Jugador &jugador) {
-    if (jugador.cantidad_balas() != MAX_BALAS) {
-        jugador.agregar_balas(this->cant_balas);
+void Balas::obtenerBeneficio(Jugador *jugador) {
+    if (jugador->cantidad_balas() != MAX_BALAS) {
+        jugador->agregar_balas(this->cant_balas);
     }
 }

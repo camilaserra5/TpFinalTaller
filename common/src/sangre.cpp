@@ -9,8 +9,8 @@ Sangre::Sangre() {
 
 Sangre::~Sangre() {}
 
-void Sangre::obtenerBeneficio(Jugador &jugador) {
-    if (jugador.puntos_de_vida() <= VIDA_MAXIMA) {
-        jugador.actualizar_vida(this->puntos_de_vida);
+void Sangre::obtenerBeneficio(Jugador *jugador) {
+    if (jugador->puntos_de_vida() <= VIDA_MAXIMA) {
+        jugador->actualizar_vida(this->puntos_de_vida);
     }
 }

@@ -29,7 +29,7 @@ public:
 
 private:
     Map &mapa;
-    std::map<int, Jugador> jugadores;
+    std::map<int, Jugador*> jugadores;
 };
 
 #endif

@@ -11,12 +11,12 @@ Cuchillo::Cuchillo() :
 Cuchillo::~Cuchillo() {}
 
 
-void Cuchillo::atacar(int distancia_a_pared,Jugador &jugador,std::map<int,Jugador> &jugadores){
+void Cuchillo::atacar(int distancia_a_pared,Jugador *jugador,std::map<int,Jugador*> &jugadores){
   srand(time(NULL));
   int idJugadorMasCercano = JugadorAMenorDistancia(jugador,jugadores);
   if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO){
     int danio = (rand() % DANIO_MAX) + 1;
     danio = -danio;
-    jugadores.at(idJugadorMasCercano).actualizar_vida(danio);
+    jugadores.at(idJugadorMasCercano)->actualizar_vida(danio);
   }
 }

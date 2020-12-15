@@ -13,7 +13,7 @@ Pistola::~Pistola() {}
 
 // conviene mandarle coordenadas de yo jugador??
 // or ahora devuelve danio de ataque
-void Pistola::atacar(int distancia_a_pared,Jugador &jugador,std::map<int,Jugador> &jugadores) {
+void Pistola::atacar(int distancia_a_pared,Jugador *jugador,std::map<int,Jugador*> &jugadores) {
   srand(time(NULL));
   int idJugadorMasCercano = JugadorAMenorDistancia(jugador,jugadores);
   if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO){
@@ -22,7 +22,7 @@ void Pistola::atacar(int distancia_a_pared,Jugador &jugador,std::map<int,Jugador
       //distancia influye en el danio y lode la precision
         int danio = (rand() % DANIO_MAX) + 1;
         danio = -danio;
-        jugadores.at(idJugadorMasCercano).actualizar_vida(danio);
+        jugadores.at(idJugadorMasCercano)->actualizar_vida(danio);
     }
   }
 }
