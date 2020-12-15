@@ -18,6 +18,8 @@ void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int a
         this->corriendo = false;
     }
     this->texturaInferior = new Textura("../../client_src/resources/images/ParteInferior.png", this->render);
+    ObjetoJuego* enemigo = new ObjetoJuego("../../client_src/resources/images/Guard.png", this->render, 50, 50,100,100);
+    this->objetos.push_back(enemigo);
 }
 
 void Juego::handleEvents() {
@@ -32,13 +34,16 @@ void Juego::handleEvents() {
     }
 }
 
-void Juego::actualizar() {}
+void Juego::actualizar() {
+    this->objetos.front()->actualizar();
+}
 
 void Juego::renderizar() {
     SDL_RenderClear(this->render);
     Lienzo posiciontexturaini(0, 0, 800, 40);
     Lienzo posiciontexturadest(0, 562, 800, 40);
     this->texturaInferior->renderizar(this->render, posiciontexturaini, posiciontexturadest);
+    this->objetos.front()->renderizar();
     SDL_RenderPresent(this->render);
 }
 

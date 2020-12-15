@@ -17,7 +17,8 @@ int main(int argc, char *argv[]) {
         ProtectedQueue<Comando *> qeue;
         Cliente cliente(qeue, argv[HOST_PARAM], argv[PORT_PARAM]);
         cliente.run();
-        //PENSAR SI N OIES MEJOR TIRAR UN HILO QUE AGARRE LOS EVENTOS Y LOS VAYA MANDANDO/RECIBIENDO ACTUALIZACIONES
+        //PENSAR SI N OIES MEJOR TIRAR UN HILO QUE AGARRE LOS EVENTOS Y
+        //LOS VAYA MANDANDO/RECIBIENDO ACTUALIZACIONES
     } catch (...) {
         std::cout << "connect error";
         return ERR_CODE;
