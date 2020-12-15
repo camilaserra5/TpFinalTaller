@@ -36,7 +36,7 @@ public:
 
     void borrarClientes();
 
-    void enviar_actualizaciones(ProtectedQueue<Actualizacion*> actualizaciones);
+    void enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones);
 
 private:
     void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);

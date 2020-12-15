@@ -81,7 +81,7 @@ ProtectedQueue<Actualizacion> &Servidor::obtenerColaActualizaciones() {
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
 // servidor es partida
 
-void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion*> actualizaciones){
+void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones){
   //serializa y manda por sockets a cada jugador
 }
 
