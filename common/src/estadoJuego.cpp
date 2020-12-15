@@ -5,6 +5,10 @@
 #include "items/sangre.h"
 #include "items/kitsMedicos.h"
 #include "items/noItem.h"
+#include "items/llave.h"
+#include "items/tesoro.h"
+#include "armas/canionDeCadena.h"
+#include "armas/ametralladora.h"
 #include "iostream"
 
 #define METROS_MOVIDOS 1 // de acuanto se mueve el jugador
@@ -34,15 +38,22 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
     this->jugadores.insert(std::make_pair(id, jugador));
 }
 
-bool puedo_moverme(Map *mapa, int &posx, int &posy) {
+bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
     Type tipo = mapa->operator()(posx, posy);
     if (tipo == Type::wall) {
         return false;
     } else if (tipo == Type::door) {
         // verifico si tengo llave sino no puedo avanzar;
+        if (jugador->tengollave()){
+            // abrir puerta;
+            jugador->usarLlave();
+            return true;
+        }
         return false;
     } else if (tipo == Type::keyDoor) {
         // me guardo la llave
+        Llave llave;
+        llave.obtenerBeneficio(jugador);
         return true;
     } else if (tipo == Type::fakeDoor) {
         return false;
@@ -64,6 +75,16 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
     } else if (tipo == Type::balas) {
         return new Balas();
         // faltan mas comandos, las armas!!
+    } else if (tipo == Type::ametralladora) {
+        return new Ametralladora();
+    } else if (tipo == Type::canionDeCadena){
+        return new CanionDeCadena();
+    } else if (tipo == Type::lanzaCohetes){
+        //return new lanzaCohetes();
+    } else if (tipo == Type::tesoro){
+        std::string tesoro("copa");
+        int puntos = 50;
+        return new Tesoro(tesoro, puntos);
     } else {
         return new NoItem();
     }
@@ -77,7 +98,7 @@ void EstadoJuego::moverse_a_derecha(int idJugador) {
     std::cout << "pos jugador en y ants de actualzia: " << jugador->posEnY();
     std::cout << "pos en x: " << posEnJuegox;
     std::cout << "pos en y: " << posEnJuegoy;
-    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy)) {
+    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
         item->obtenerBeneficio(jugador);
         jugador->moverse(METROS_MOVIDOS, 0); // en jugador se recibe lo movido y se suma;
@@ -92,7 +113,7 @@ void EstadoJuego::moverse_a_izquierda(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     int posEnJuegox = jugador->posEnX() - METROS_MOVIDOS;
     int posEnJuegoy = jugador->posEnY();
-    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy)) {
+    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
         item->obtenerBeneficio(jugador);
         jugador->moverse(-METROS_MOVIDOS, 0); // en jugador se recibe lo movido y se suma;
@@ -105,7 +126,7 @@ void EstadoJuego::moverse_arriba(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     int posEnJuegox = jugador->posEnX();
     int posEnJuegoy = jugador->posEnY() + METROS_MOVIDOS;
-    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy)) {
+    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
         item->obtenerBeneficio(jugador);
         jugador->moverse(0, METROS_MOVIDOS); // en jugador se recibe lo movido y se suma;
@@ -118,7 +139,7 @@ void EstadoJuego::moverse_abajo(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     int posEnJuegox = jugador->posEnX();
     int posEnJuegoy = jugador->posEnY() - METROS_MOVIDOS;
-    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy)) {
+    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
         item->obtenerBeneficio(jugador);
         jugador->moverse(0, -METROS_MOVIDOS); // en jugador se recibe lo movido y se suma;

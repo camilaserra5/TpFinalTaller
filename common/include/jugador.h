@@ -39,6 +39,20 @@ public:
 
     float getAnguloDeVista() { return this->angulo; }
 
+    bool tengollave(){
+        return (this->llaves > 0);
+    }
+
+    void usarLlave(){
+        this->llaves += -1;
+    }
+
+    bool poseeArma(Arma* arma);
+
+    void agarrarLlave();
+
+    void sumarPuntos(int puntos);
+
 private:
     Posicion posicion;
     int id;
@@ -51,6 +65,7 @@ private:
     int puntaje;
     float angulo = 0;
     Arma *armaActual;
+    int llaves;
 };
 
 #endif

@@ -24,7 +24,9 @@ Jugador::Jugador(std::string& nombre, int& id) :
         armas(),
         puntaje(PUNTAJE_INICIAL),
         balas(CANT_INICAL_BALAS),
-        armaActual(new Cuchillo()) {}
+        armaActual(new Cuchillo()),
+        posicion(posx, posy, 50),
+        llaves(0){}
 
 Jugador::~Jugador() {
     std::cout << "destructor jugador";
@@ -52,6 +54,15 @@ void Jugador::agregar_arma(Arma *arma) {
     this->armas.push_back(arma);
 }
 
+bool Jugador::poseeArma(Arma* arma){
+      bool poseeArma = false;
+      for (int i =0; i< this->armas.size(); i++){
+            if (this->armas[i]->esIgual(arma)){
+                poseeArma = true;
+            }
+      }
+      return poseeArma;
+}
 int Jugador::puntos_de_vida() {
     return this->vida;
 }
@@ -70,4 +81,12 @@ int Jugador::posEnX() {
 
 int Jugador::posEnY() {
     return this->posy;
+}
+
+void Jugador::sumarPuntos(int puntos){
+    this->puntaje += puntos;
+}
+
+void Jugador::agarrarLlave(){
+    this->llaves +=1;
 }

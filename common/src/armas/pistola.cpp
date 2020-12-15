@@ -5,7 +5,7 @@
 #define BALAS_POR_RAFAGA 1
 
 Pistola::Pistola(int cantidad_rafagas) :
-        Arma(DISTANCIA_MAX),
+        Arma(DISTANCIA_MAX, 4),
         precision(10),
         probalidad_acierto(10),
         cantidad_rafagas(cantidad_rafagas) {}

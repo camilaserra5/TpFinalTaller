@@ -4,9 +4,9 @@
 class Jugador;
 class Posicion{
   public:
-    Posicion(int metrosX,int metrosY,float anguloDeVista):
-    metrosX(metrosX),
-    metrosY(metrosY),
+    Posicion(int posicionX,int posicionY,float anguloDeVista):
+    metrosX(posicionX),
+    metrosY(posicionY),
     anguloDeVista(anguloDeVista){
       //calculo de la posicion dentro de la matriz
     }

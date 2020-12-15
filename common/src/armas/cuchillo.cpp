@@ -7,7 +7,7 @@
 
 Cuchillo::Cuchillo() :
         danio(10),
-        Arma(DISTANCIA_ACUCHILLABLE) {}
+        Arma(DISTANCIA_ACUCHILLABLE, 3) {}
 
 Cuchillo::~Cuchillo() {}
 
