@@ -13,7 +13,7 @@
 
 class Servidor : public Thread {
 public:
-    Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/Map &mapa,
+    Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/Map *mapa,
                                                                                                         int cant_jugadores);
 
     ~Servidor();

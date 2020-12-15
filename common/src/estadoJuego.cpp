@@ -16,11 +16,13 @@ void EstadoJuego::realizarAtaque(int idJugador) {
     arma->atacar(distancia_inventada, jugador, this->jugadores);
 }
 
-EstadoJuego::EstadoJuego(Map &mapa) :
+EstadoJuego::EstadoJuego(Map *mapa) :
         mapa(mapa),
         jugadores() {}
 
 EstadoJuego::~EstadoJuego() {
+    std::cout << "destructor estado juego";
+    delete this->mapa;
     std::map<int, Jugador *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         delete it->second;
@@ -32,9 +34,8 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
     this->jugadores.insert(std::make_pair(id, jugador));
 }
 
-bool puedo_moverme(Map &mapa, int &posx, int &posy) {
-
-    Type tipo = mapa(posx, posy);
+bool puedo_moverme(Map *mapa, int &posx, int &posy) {
+    Type tipo = mapa->operator()(posx, posy);
     if (tipo == Type::wall) {
         return false;
     } else if (tipo == Type::door) {
@@ -51,8 +52,8 @@ bool puedo_moverme(Map &mapa, int &posx, int &posy) {
     }
 }
 
-Item *verificarItems(Map &mapa, int &posx, int &posy) {
-    Type tipo = mapa(posx, posy);
+Item *verificarItems(Map *mapa, int &posx, int &posy) {
+    Type tipo = mapa->operator()(posx, posy);
     if (tipo == Type::comida) {
         return new Comida();
     } else if (tipo == Type::sangre) {

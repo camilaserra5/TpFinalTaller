@@ -13,7 +13,7 @@ Movimiento::~Movimiento() {}
 
 void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
     //van a ser las teclas cuando me muevo
-    std::cout << "ejecuto comandos";
+    std::cout << "ejecuto comandos: " << idJugador;
     if (tipo_de_movimiento == DERECHA) {
         estadoJuego.moverse_a_derecha(this->idJugador);
     } else if (tipo_de_movimiento == IZQUIERDA) {

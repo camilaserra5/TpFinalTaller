@@ -6,7 +6,7 @@
 
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/
-        Map &mapa, int cant_jugadores) :
+        Map *mapa, int cant_jugadores) :
         cola_comandos(),
         cola_actualizaciones(),
         jugadores(),
@@ -16,7 +16,7 @@ Servidor::Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actu
         arrancoPartida(false) {}
 
 Servidor::~Servidor() {
-    this->join();
+    std::cout << "destructor servidor";
     std::map<int, Cliente *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         it->second->join();
@@ -51,17 +51,13 @@ void Servidor::agregarCliente(std::string &nombreJugador, Cliente *cliente) {
         this->arrancoPartida = true;
         this->start();
     }
-
-
 }
 
 void Servidor::lanzarJugadores() {
-
     for (auto it = this->jugadores.begin(); it != this->jugadores.end(); it++) {
         it->second->start();
         std::cout << "lanzo cliente";
     }
-
 }
 
 void Servidor::lanzarContadorTiempoPartida() {}
@@ -88,7 +84,7 @@ void Servidor::run() {
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     bool termine = false;
-    std::chrono::milliseconds duration(100);
+    std::chrono::milliseconds duration(1000);
     std::this_thread::sleep_for(duration);
     while (!termine) {
         //el while va a depender del obtener comandos con un try catch
@@ -101,4 +97,5 @@ void Servidor::run() {
         //std::this_thread::sleep_for(duration);
         termine = true;
     }
+    this->sigue_corriendo=false;
 }

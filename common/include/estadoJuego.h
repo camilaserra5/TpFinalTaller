@@ -9,7 +9,7 @@
 
 class EstadoJuego {
 public:
-    EstadoJuego(Map &mapa);
+    EstadoJuego(Map *mapa);
 
     ~EstadoJuego();
 
@@ -28,7 +28,7 @@ public:
     void realizarAtaque(int idJugador);
 
 private:
-    Map &mapa;
+    Map *mapa;
     std::map<int, Jugador *> jugadores;
 };
 

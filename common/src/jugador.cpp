@@ -26,6 +26,7 @@ Jugador::Jugador(std::string &nombre, int &id) :
         armaActual(new Cuchillo()) {}
 
 Jugador::~Jugador() {
+    std::cout << "destructor jugador";
     for (int i = 0; i < this->armas.size(); i++) {
         //  delete armas[i];
     }
