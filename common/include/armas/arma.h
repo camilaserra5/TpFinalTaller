@@ -8,6 +8,7 @@
 #include <ctime>
 #include "posicion.h"
 
+
 class Arma {
 public:
     Arma(int distancia_max_atacable) :

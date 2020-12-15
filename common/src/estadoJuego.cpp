@@ -5,6 +5,8 @@
 #include "items/sangre.h"
 #include "items/kitsMedicos.h"
 #include "items/noItem.h"
+#include "armas/canionDeCadena.h"
+#include "armas/ametralladora.h"
 #include "iostream"
 
 #define METROS_MOVIDOS 1 // de acuanto se mueve el jugador
@@ -64,6 +66,12 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
     } else if (tipo == Type::balas) {
         return new Balas();
         // faltan mas comandos, las armas!!
+    } else if (tipo == Type::ametralladora) {
+        return new Ametralladora();
+    } else if (tipo == Type::canionDeCadena){
+        return new CanionDeCadena();
+    } else if (tipo == Type::lanzaCohetes){
+        //return new lanzaCohetes();
     } else {
         return new NoItem();
     }

@@ -16,3 +16,5 @@ void Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int
         }
     }
 }
+
+void Ametralladora::obtenerBeneficio(Jugador* jugador){}
