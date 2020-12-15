@@ -166,7 +166,8 @@ void MainWindow::setupMenus() {
 void MainWindow::setupWidgets() {
     mapWidget = new MapWidget(400, 400);
     mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
-    QObject::connect(mapTilesList, SIGNAL(tileDoubleClicked(int, QPixmap)), mapWidget, SLOT(onTileDoubleClicked(int, QPixmap)));
+    QObject::connect(mapTilesList, SIGNAL(tileDoubleClicked(int, QPixmap)), mapWidget,
+                     SLOT(onTileDoubleClicked(int, QPixmap)));
     QFrame *frame = new QFrame;
     QHBoxLayout *mapLayout = new QHBoxLayout(frame);
     mapLayout->addWidget(mapTilesList);
