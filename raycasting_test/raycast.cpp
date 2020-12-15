@@ -46,8 +46,8 @@ int main() {
     int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1},
                                                 {1,0,0,0,0,0,0,0,0,1},
                                                 {1,0,0,0,0,0,0,0,0,1},
-                                                {1,0,0,0,0,0,0,0,0,1},
-                                                {1,0,0,0,0,1,0,0,0,1},
+                                                {1,0,0,1,0,0,0,0,0,1},
+                                                {1,0,0,1,0,1,0,0,0,1},
                                                 {1,0,0,0,0,1,0,0,0,1},
                                                 {1,0,0,0,0,1,0,0,0,1},
                                                 {1,0,0,0,0,0,0,0,0,1},
@@ -64,7 +64,8 @@ int main() {
 
     Rayo rayo(anguloDeVista, ladoCelda, /*TAMANIO_FILA*/ANCHO_CANVAS, LARGO_PROYECTOR);
 
-    for (int i = ANCHO_CANVAS; i > 0; i--) {//como barremos antihorario, barremos de derecha a izquierda la pantalla
+    for (int i = ANCHO_CANVAS; i > 0; i--) {
+      //como barremos antihorario, barremos de derecha a izquierda la pantalla, igual barre al revez
         float distancia = 0;
         if (rayo.verificarInterseccionHorizontal(mapa, distancia, anguloJugador)) {
             alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
