@@ -3,9 +3,7 @@
 #define VIDA 20
 #define VIDA_MAXIMA 100
 
-KitsMedicos::KitsMedicos() {
-    this->puntos_de_vida = VIDA;
-}
+KitsMedicos::KitsMedicos(Posicion &posicion): Item(posicion),puntos_de_vida(VIDA){}
 
 KitsMedicos::~KitsMedicos() {}
 

@@ -5,8 +5,8 @@
 
 class Comida : public Item {
 public:
-    Comida(Posicion &posicion): Item(posicion){}
-
+    Comida(Posicion &posicion);
+    
     ~Comida();
 
     void obtenerBeneficio(Jugador *jugador) override;

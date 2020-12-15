@@ -4,9 +4,7 @@
 #define MAX_BALAS 25
 
 
-Balas::Balas() {
-    this->cant_balas = BALAS;
-}
+Balas::Balas(Posicion &posicion): Item(posicion),cant_balas(BALAS){}
 
 Balas::~Balas() {}
 

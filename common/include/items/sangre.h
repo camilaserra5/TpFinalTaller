@@ -5,7 +5,7 @@
 
 class Sangre : public Item {
 public:
-    Sangre(Posicion &posicion): Item(posicion){}
+    Sangre(Posicion &posicion);
 
     ~Sangre();
 

@@ -52,7 +52,8 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
         return false;
     } else if (tipo == Type::keyDoor) {
         // me guardo la llave
-        Llave llave;
+        Posicion posicion(1,1,1);//va a depender de su posidion en el mapa
+        Llave llave(posicion);
         llave.obtenerBeneficio(jugador);
         return true;
     } else if (tipo == Type::fakeDoor) {
@@ -64,29 +65,29 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
 }
 
 Item *verificarItems(Map *mapa, int &posx, int &posy) {
+  Posicion posicion = Posicion(1,1,0.5);//va a depender de su posidion en el mapa
     Type tipo = mapa->operator()(posx, posy);
     if (tipo == Type::comida) {
-        return new Comida();
+        return new Comida(posicion);
     } else if (tipo == Type::sangre) {
-        return new Sangre();
+        return new Sangre(posicion);
     } else if (tipo == Type::kitsMedicos) {
-
-        return new KitsMedicos();
+        return new KitsMedicos(posicion);
     } else if (tipo == Type::balas) {
-        return new Balas();
+        return new Balas(posicion);
         // faltan mas comandos, las armas!!
     } else if (tipo == Type::ametralladora) {
-        return new Ametralladora();
+        return new Ametralladora(posicion);
     } else if (tipo == Type::canionDeCadena){
-        return new CanionDeCadena();
+        return new CanionDeCadena(posicion);
     } else if (tipo == Type::lanzaCohetes){
         //return new lanzaCohetes();
     } else if (tipo == Type::tesoro){
         std::string tesoro("copa");
         int puntos = 50;
-        return new Tesoro(tesoro, puntos);
+        return new Tesoro(tesoro, puntos,posicion);
     } else {
-        return new NoItem();
+        return new NoItem(posicion);
     }
 }
 
