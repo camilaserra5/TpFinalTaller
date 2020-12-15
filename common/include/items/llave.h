@@ -8,7 +8,7 @@ class Llave: public Item{
     public:
         // esta llave es la misma para todas las puerta no hay una llave por puerta;
         //llave magica
-        Llave();
+        Llave(Posicion &posicion): Item(posicion){}
         ~Llave();
         void obtenerBeneficio(Jugador* jugador) override;
 

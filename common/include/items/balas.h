@@ -5,7 +5,7 @@
 
 class Balas : public Item {
 public:
-    Balas();
+    Balas(Posicion &posicion): Item(posicion){}
 
     ~Balas();
 

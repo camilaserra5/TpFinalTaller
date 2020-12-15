@@ -5,7 +5,7 @@
 
 class KitsMedicos : public Item {
 public:
-    KitsMedicos();
+    KitsMedicos(Posicion &posicion): Item(posicion){}
 
     ~KitsMedicos();
 

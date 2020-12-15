@@ -6,7 +6,7 @@
 
 class Tesoro: public Item{
     public:
-        Tesoro(std::string& tipoDeTesoro, int& puntos);
+        Tesoro(std::string& tipoDeTesoro, int& puntos,Posicion &posicion);
         ~Tesoro();
         void obtenerBeneficio(Jugador* jugador) override;
 

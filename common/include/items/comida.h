@@ -5,7 +5,7 @@
 
 class Comida : public Item {
 public:
-    Comida();
+    Comida(Posicion &posicion): Item(posicion){}
 
     ~Comida();
 
