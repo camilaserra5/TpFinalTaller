@@ -11,12 +11,16 @@ ManejadorPartidas::ManejadorPartidas() :
         esta_corriendo(true),
         mapas() {}
 
+void ManejadorPartidas::agregarMapa(std::string &archivoMapa){
+    this->mapas.push_back(archivoMapa);
+}
 
 Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
     int i = 0;
     int cant_mapas = this->mapas.size();
     bool encontre = false;
-    Map mapa(1, 1);
+    //Map* mapa = new Map(1, 1);
+    Map mapa(1,1);
     while (i < cant_mapas && !encontre) {
         int pos = this->mapas[i].find(archivoMapa);
         if (pos > -1) {
@@ -29,7 +33,7 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
 }
 
 bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
-                                     int cant_jugadores, std::string &nombre_partida,
+                                     int& cant_jugadores, std::string &nombre_partida,
                                      std::string &archivoMapa) {
     if (partidas.count(nombre_partida) > 0) {
         //partida existe;
@@ -42,8 +46,8 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
         // capaz esta clase tiene el un vector de yamls
         //Map mapa = this->buscarMapa(archivoMapa);
         Map *mapa = new Map(20, 20);
-        int cant_jugadores = 1;
-        Servidor *servidor = new Servidor(mapa, 1);
+        //int cant_jugadores = 1;
+        Servidor *servidor = new Servidor(mapa, cant_jugadores);
         //  Cliente *cliente = new Cliente(servidor.obtenerColaEventos(), servidor.obtenerColaActualizaciones(),  nombreJugador);
         //servidor.agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor});

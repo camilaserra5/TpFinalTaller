@@ -15,9 +15,12 @@ int main(int argc, char *argv[]) {
     std::string nombre = "pepe";
     std::string nombre_partida = "grecia";
     std::string nombre_archivo = "archivo.yaml";
+    int cant_jugadores = 1;
 
     ManejadorPartidas manejadorPartidas;
-    bool estado = manejadorPartidas.crearPartida(nombreJugador, 1,nombre_partida, nombre_archivo);
+    manejadorPartidas.agregarMapa(nombre_archivo);
+
+    bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores,nombre_partida, nombre_archivo);
     if (estado){
         std::cout<< "\nreo partida";
     }
