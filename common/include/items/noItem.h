@@ -5,7 +5,7 @@
 
 class NoItem : public Item {
 public:
-    NoItem() {}
+    NoItem(Posicion &posicion): Item(posicion){}
 
     ~NoItem() {}
 
