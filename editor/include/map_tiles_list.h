@@ -16,7 +16,16 @@ public:
 
     ~MapTilesList();
 
+signals:
+
+    void tileDoubleClicked(int, QPixmap);
+
+public slots:
+
+    void itemDoubleClicked(QListWidgetItem *item);
+
 protected:
+
 
     void dragMoveEvent(QDragMoveEvent *event) override;
 

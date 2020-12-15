@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QVector>
 #include <QWidget>
+#include <QtWidgets/QGraphicsSceneMouseEvent>
 #include "map.h"
 
 class QDragEnterEvent;
@@ -40,6 +41,15 @@ protected:
 
     void paintEvent(QPaintEvent *event) override;
 
+    void mousePressEvent(QMouseEvent *event) override;
+
+    void mouseMoveEvent(QMouseEvent *event) override;
+
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
+public slots:
+
+    void onTileDoubleClicked(int, QPixmap);
 
 private:
     struct Tile {
@@ -47,6 +57,9 @@ private:
         QRect rect;
         int type = 0;
     };
+    QPoint startPoint;
+    bool pressed = false;
+    Tile selectedTile;
 
     int findTile(const QRect &tileRect) const;
 

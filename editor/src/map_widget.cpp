@@ -20,6 +20,13 @@ void MapWidget::clear() {
     update();
 }
 
+void MapWidget::onTileDoubleClicked(int type, QPixmap pixmap) {
+    Tile tile;
+    tile.type = type;
+    tile.pixmap = pixmap;
+    this->selectedTile = tile;
+}
+
 void MapWidget::dragEnterEvent(QDragEnterEvent *event) {
     if (event->mimeData()->hasFormat(MapTilesList::tileMimeType()))
         event->accept();
@@ -36,10 +43,7 @@ void MapWidget::dragLeaveEvent(QDragLeaveEvent *event) {
 
 void MapWidget::dragMoveEvent(QDragMoveEvent *event) {
     QRect updateRect = highlightedRect.united(targetSquare(event->pos()));
-
-    if (event->mimeData()->hasFormat(MapTilesList::tileMimeType())
-        && findTile(targetSquare(event->pos())) == -1) {
-
+    if (event->mimeData()->hasFormat(MapTilesList::tileMimeType())) {
         highlightedRect = targetSquare(event->pos());
         event->setDropAction(Qt::CopyAction);
         event->accept();
@@ -47,7 +51,6 @@ void MapWidget::dragMoveEvent(QDragMoveEvent *event) {
         highlightedRect = QRect();
         event->ignore();
     }
-
     update(updateRect);
 }
 
@@ -61,9 +64,7 @@ void MapWidget::addTile(const QPoint &position, const QPixmap pixmap, const int 
 }
 
 void MapWidget::dropEvent(QDropEvent *event) {
-    if (event->mimeData()->hasFormat(MapTilesList::tileMimeType())
-        && findTile(targetSquare(event->pos())) == -1) {
-
+    if (event->mimeData()->hasFormat(MapTilesList::tileMimeType())) {
         QByteArray tileData = event->mimeData()->data(MapTilesList::tileMimeType());
         QDataStream dataStream(&tileData, QIODevice::ReadOnly);
         Tile tile;
@@ -125,6 +126,41 @@ Map MapWidget::toMap() {
         }
     }
     return map;
+}
+
+void MapWidget::mousePressEvent(QMouseEvent *event) {
+    startPoint = event->pos();
+    pressed = true;
+    update();
+}
+
+void MapWidget::mouseMoveEvent(QMouseEvent *event) {
+    if (pressed) {
+        QRect updateRect = highlightedRect.united(targetSquare(event->pos()));
+        highlightedRect = targetSquare(event->pos());
+        Tile tile;
+        tile.rect = targetSquare(event->pos());
+        tile.pixmap = this->selectedTile.pixmap;
+        tile.type = this->selectedTile.type;
+        tiles.append(tile);
+        highlightedRect = QRect();
+        update(tile.rect);
+        event->accept();
+        update(updateRect);
+    }
+}
+
+void MapWidget::mouseReleaseEvent(QMouseEvent *event) {
+    pressed = false;
+    Tile tile;
+    tile.rect = targetSquare(event->pos());
+    tile.pixmap = this->selectedTile.pixmap;
+    tile.type = this->selectedTile.type;
+    tiles.append(tile);
+    highlightedRect = QRect();
+    update(tile.rect);
+    event->accept();
+
 }
 
 int MapWidget::tileSize() const {
