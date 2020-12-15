@@ -18,6 +18,6 @@ void ObjetoJuego::actualizar(){
 
 void ObjetoJuego::renderizar() {
     Lienzo lienzosrc(0,0,30,30);
-    Lienzo lienzodest(this->x, this->y, this->ancho, this->alto);
-    this->textura->renderizar(this->render, &(this->lienzosrc), &(this->lienzodest));
+    Lienzo lienzodest(this->xpos, this->ypos, this->ancho, this->alto);
+    this->textura->renderizar(this->render, (lienzosrc), (lienzodest));
 }

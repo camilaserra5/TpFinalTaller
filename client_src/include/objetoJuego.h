@@ -11,7 +11,7 @@ class ObjetoJuego{
         int alto;
         int ancho;
         SDL_Renderer* render;
-        Textura textura;
+        Textura* textura;
 
     public:
         ObjetoJuego(const char* rutaimg, SDL_Renderer* render, int x, int y, int ancho, int alto);

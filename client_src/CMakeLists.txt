@@ -23,4 +23,4 @@ add_executable(client_src
 
 target_link_libraries(client_src ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads)
 
-install(FILES ../resources/images/ParteInferior.png DESTINATION ${CMAKE_BINARY_DIR})
+install(FILES ../resources/images/ParteInferior.png  ../resources/images/Guard.png DESTINATION ${CMAKE_BINARY_DIR})
