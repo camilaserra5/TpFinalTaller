@@ -5,7 +5,7 @@
 #define MAX_VIDA 100
 #define POSX_INICIAL 5
 #define POSY_INICIAL 5
-#define CANT_INICAL_BALAS 5
+#define CANT_INICAL_BALAS 8
 #define PUNTAJE_INICIAL 0
 
 #include "armas/cuchillo.h"
@@ -25,7 +25,9 @@ Jugador::Jugador(std::string& nombre, int& id) :
         puntaje(PUNTAJE_INICIAL),
         balas(CANT_INICAL_BALAS),
         armaActual(new Cuchillo()),
-        posicion(posx, posy, 50) {}
+        posicion(posx, posy, 50),
+        llaves(0),
+        cantidad_vidas(2){}
 
 Jugador::~Jugador() {
     std::cout << "destructor jugador";
@@ -43,6 +45,7 @@ void Jugador::moverse(int posx, int posy) {
     std::cout << "x: " << posx;
     std::cout << "y: " << posy;
 }
+
 
 // recibo cuando gano de vida + o cuanto pierdo -
 void Jugador::actualizar_vida(int &vidaActualizada) {
@@ -80,4 +83,12 @@ int Jugador::posEnX() {
 
 int Jugador::posEnY() {
     return this->posy;
+}
+
+void Jugador::sumarPuntos(int puntos){
+    this->puntaje += puntos;
+}
+
+void Jugador::agarrarLlave(){
+    this->llaves +=1;
 }

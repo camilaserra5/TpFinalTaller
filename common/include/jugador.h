@@ -38,8 +38,24 @@ public:
     Arma *getArma() { return this->armaActual; }
 
     float getAnguloDeVista() { return this->angulo; }
-    
+
+    bool tengollave(){
+        return (this->llaves > 0);
+    }
+
+    void usarLlave(){
+        this->llaves += -1;
+    }
+
+    bool estaMuerto(){
+        return (this->vida <=0);
+    }
+
     bool poseeArma(Arma* arma);
+
+    void agarrarLlave();
+
+    void sumarPuntos(int puntos);
 
 private:
     Posicion posicion;
@@ -53,6 +69,8 @@ private:
     int puntaje;
     float angulo = 0;
     Arma *armaActual;
+    int llaves;
+    int cantidad_vidas;
 };
 
 #endif

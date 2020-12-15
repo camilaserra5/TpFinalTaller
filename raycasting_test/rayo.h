@@ -1,7 +1,7 @@
 #ifndef RAYO_H
 #define RAY0_H
-#define TAMANIO_FILA 320
-#define TAMANIO_COLUMNA 320
+#define TAMANIO_FILA 10
+#define TAMANIO_COLUMNA 10
 
 class Rayo {
 private:
@@ -19,9 +19,9 @@ private:
     int ladoMapa;
     int tamanio_fila_mapa;
 
-    int verificarCuadranteX(const float anguloJugador);
+    void verificarCuadranteX(const float anguloJugador);
 
-    int verificarCuadranteY(const float anguloJugador);
+    void verificarCuadranteY(const float anguloJugador);
 
 public:
     Rayo(float campoDeVision, int ladoCelda, int tamanio_fila_mapa, int largoProyector);
