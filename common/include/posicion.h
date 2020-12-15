@@ -11,11 +11,11 @@ class Posicion{
       //calculo de la posicion dentro de la matriz
     }
     ~Posicion(){}
-    int distanciaA(Posicion &posicion){ return -1;}
-    int intersectaConMiAngulo(Posicion &otroJugador){ return -1;}
+    int distanciaA(Posicion &posicion);
+    bool intersectaConMiAngulo(Posicion &otroJugador);
   private:
-    int metrosX;
-    int metrosY;
+    int pixelesX;
+    int pixelesY;
     int posicionMapaX;
     int posicionMapaY;
     float anguloDeVista;
