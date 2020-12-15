@@ -14,7 +14,8 @@ int Jugador::getId() {
     return this->id;
 }
 
-Jugador::Jugador(std::string &nombre, int &id) :
+Jugador::Jugador(std::string& nombre, int& id) :
+        //posicion(posicion), que lo reciba inicializado por parametro
         nombre(nombre),
         id(id),
         vida(MAX_VIDA),

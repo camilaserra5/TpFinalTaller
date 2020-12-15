@@ -40,7 +40,7 @@ public:
     float getAnguloDeVista() { return this->angulo; }
 
 private:
-    Posicion posicion = Posicion(1, 1, 1);
+    Posicion posicion;
     int id;
     std::string nombre;
     int vida;
