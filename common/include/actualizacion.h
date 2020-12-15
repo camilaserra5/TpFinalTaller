@@ -15,6 +15,8 @@ public:
 private:
     EstadoJuego &estadoJuego;
     std::list<EntidadPosicionable*> objetos;
+    int puntaje_actual;
+    int vida_actual;
 };
 
 #endif
