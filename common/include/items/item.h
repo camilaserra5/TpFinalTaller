@@ -3,8 +3,8 @@
 
 #include "jugador.h"
 #include "posicion.h"
-
-class Item {
+#include "entidadPosicionable.h"
+class Item : public EntidadPosicionable{
 public:
     Item(Posicion &posicion):posicion(posicion){}
 
