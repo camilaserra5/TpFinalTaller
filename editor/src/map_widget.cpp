@@ -113,9 +113,9 @@ const QRect MapWidget::targetSquare(const QPoint &position) const {
 }
 
 Map MapWidget::toMap() {
-    Map map(10, 10);
-    for (int i = 0; i < 10; ++i) {
-        for (int j = 0; j < 10; ++j) {
+    Map map(this->height()/this->tileSize(), this->width()/this->tileSize());
+    for (int i = 0; i < map.getColSize(); ++i) {
+        for (int j = 0; j < map.getRowSize(); ++j) {
             QPoint point(i * tileSize(), j * tileSize());
             for (int k = 0, size = tiles.size(); k < size; ++k) {
                 map.setValue(i, j, Type::empty);
