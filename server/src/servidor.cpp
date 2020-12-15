@@ -51,17 +51,13 @@ void Servidor::agregarCliente(std::string &nombreJugador, Cliente *cliente) {
         this->arrancoPartida = true;
         this->start();
     }
-
-
 }
 
 void Servidor::lanzarJugadores() {
-
     for (auto it = this->jugadores.begin(); it != this->jugadores.end(); it++) {
         it->second->start();
         std::cout << "lanzo cliente";
     }
-
 }
 
 void Servidor::lanzarContadorTiempoPartida() {}
