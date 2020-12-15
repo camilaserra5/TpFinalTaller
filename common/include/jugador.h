@@ -38,6 +38,8 @@ public:
     Arma *getArma() { return this->armaActual; }
 
     float getAnguloDeVista() { return this->angulo; }
+    
+    bool poseeArma(Arma* arma);
 
 private:
     Posicion posicion;

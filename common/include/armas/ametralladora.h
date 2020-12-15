@@ -7,7 +7,7 @@
 
 class Ametralladora : public Arma , public Item{
 public:
-    Ametralladora() : Arma(DISTANCIA_MAX) {}
+    Ametralladora() : Arma(DISTANCIA_MAX, 1) {}
 
     ~Ametralladora() {}
 

@@ -7,7 +7,7 @@
 
 class CanionDeCadena : public Arma , public Item{
 public:
-    CanionDeCadena() : Arma(DISTANCIA_MAX) {}
+    CanionDeCadena() : Arma(DISTANCIA_MAX,2) {}
 
     ~CanionDeCadena() {}
 
