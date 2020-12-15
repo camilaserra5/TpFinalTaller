@@ -25,7 +25,8 @@ Jugador::Jugador(std::string& nombre, int& id) :
         puntaje(PUNTAJE_INICIAL),
         balas(CANT_INICAL_BALAS),
         armaActual(new Cuchillo()),
-        posicion(posx, posy, 50) {}
+        posicion(posx, posy, 50),
+        llaves(0){}
 
 Jugador::~Jugador() {
     std::cout << "destructor jugador";
@@ -80,4 +81,12 @@ int Jugador::posEnX() {
 
 int Jugador::posEnY() {
     return this->posy;
+}
+
+void Jugador::sumarPuntos(int puntos){
+    this->puntaje += puntos;
+}
+
+void Jugador::agarrarLlave(){
+    this->llaves +=1;
 }
