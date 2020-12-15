@@ -4,7 +4,7 @@ ObjetoJuego::ObjetoJuego(const char* rutaimg, SDL_Renderer* render, int x, int y
     xpos(x),
     ypos(y),
     alto(alto),
-    ancho(ancho)
+    ancho(ancho),
     render(render){
         this->textura = new Textura(rutaimg, render);
 }

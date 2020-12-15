@@ -10,7 +10,7 @@ class Textura {
 public:
     Textura(const char *archivo, SDL_Renderer *un_render);
 
-    ~Textura() {};
+    ~Textura() {}
 
     int renderizar(SDL_Renderer *render, const Lienzo &src, const Lienzo &dest) const;
 };
