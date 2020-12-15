@@ -9,7 +9,7 @@ class Arma;
 
 class Jugador {
 public:
-    Jugador(std::string& nombre, int& id);
+    Jugador(std::string &nombre, int &id);
 
     ~Jugador();
 
@@ -33,14 +33,14 @@ public:
 
     int getId();
 
-    Posicion &getPosicion(){ return this->posicion;}
+    Posicion &getPosicion() { return this->posicion; }
 
-    Arma* getArma(){return this->armaActual;}
+    Arma *getArma() { return this->armaActual; }
 
-    float getAnguloDeVista(){ return this->angulo;}
+    float getAnguloDeVista() { return this->angulo; }
 
 private:
-    Posicion posicion = Posicion(1,1,1);
+    Posicion posicion = Posicion(1, 1, 1);
     int id;
     std::string nombre;
     int vida;
@@ -50,7 +50,7 @@ private:
     int balas;
     int puntaje;
     float angulo = 0;
-    Arma* armaActual;
+    Arma *armaActual;
 };
 
 #endif

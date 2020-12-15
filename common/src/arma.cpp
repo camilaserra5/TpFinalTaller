@@ -9,8 +9,8 @@ int Arma::posicionAtacable(Posicion &atacante, Posicion &otroJugador) {
     }
 }
 
-int Arma::JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador*> &jugadores) {
-    std::map<int, Jugador*>::iterator it;
+int Arma::JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador *> &jugadores) {
+    std::map<int, Jugador *>::iterator it;
     int menorDistancia = this->distancia_max_atacable;
     int distanciaActual = this->distancia_max_atacable;
     int idJugadorMasCercano = NO_HAY_JUGADOR_CERCANO;

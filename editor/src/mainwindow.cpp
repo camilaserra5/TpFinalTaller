@@ -37,7 +37,7 @@ void MainWindow::openMap() {
 
     for (int i = 0; i < map.getColSize(); ++i) {
         for (int j = 0; j < map.getRowSize(); ++j) {
-            Type type = map(i,j);
+            Type type = map(i, j);
             if (Type::wall == type) {
                 QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
                 QPixmap newImage;
@@ -97,7 +97,8 @@ void MainWindow::newMap() {
 
     int result = d->exec();
     if (result == QDialog::Accepted) {
-        mapWidget = new MapWidget(mapWidget->tileSize() * widthSpinbox->value(), mapWidget->tileSize() * heightSpinbox->value());
+        mapWidget = new MapWidget(mapWidget->tileSize() * widthSpinbox->value(),
+                                  mapWidget->tileSize() * heightSpinbox->value());
         mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
 
         QFrame *frame = new QFrame;

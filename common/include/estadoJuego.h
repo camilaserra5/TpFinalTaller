@@ -23,13 +23,13 @@ public:
 
     void no_me_muevo(int idJugador);
 
-    void agregarJugador(std::string& nombreJugador, int& id);
+    void agregarJugador(std::string &nombreJugador, int &id);
 
     void realizarAtaque(int idJugador);
 
 private:
     Map &mapa;
-    std::map<int, Jugador*> jugadores;
+    std::map<int, Jugador *> jugadores;
 };
 
 #endif

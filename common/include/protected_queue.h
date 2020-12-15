@@ -5,6 +5,7 @@
 #include <mutex>
 #include <exception>
 #include <iostream>
+
 class QueueException : public std::exception {
 private:
     std::string error;
@@ -14,20 +15,20 @@ public:
     //const std::string getError() const { return this->error;}
 };
 
-template <class T>
+template<class T>
 class ProtectedQueue {
 private:
     std::queue<T> cola_datos;
     std::mutex m;
 public:
-    ProtectedQueue(){}
+    ProtectedQueue() {}
 
-    ~ProtectedQueue(){}
+    ~ProtectedQueue() {}
 
     T obtener_dato() {
-        std::lock_guard <std::mutex> l(this->m);
+        std::lock_guard<std::mutex> l(this->m);
         if (this->cola_datos.empty()) {
-            std::cout<< "\nno hay comandos";
+            std::cout << "\nno hay comandos";
             throw QueueException("no hay elementos en la cola\n");
         }
         std::cout << "\nhay comando";
@@ -37,7 +38,7 @@ public:
     }
 
     void aniadir_dato(T objeto) {
-        std::lock_guard <std::mutex> l(this->m);
+        std::lock_guard<std::mutex> l(this->m);
         this->cola_datos.push(objeto);
     }
 

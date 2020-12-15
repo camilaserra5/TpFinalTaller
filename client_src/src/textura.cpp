@@ -10,7 +10,7 @@ Textura::Textura(const char *archivo, SDL_Renderer *un_render) {
     this->textura = unaTextura;
 }
 
-int Textura::renderizar(SDL_Renderer* render, const Lienzo& src, const Lienzo& dest) const {
+int Textura::renderizar(SDL_Renderer *render, const Lienzo &src, const Lienzo &dest) const {
     SDL_Rect sdlSrc = {
             src.getX(), src.getY(),
             src.getAncho(), src.getAlto()

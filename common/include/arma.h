@@ -18,7 +18,7 @@ public:
     virtual void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) = 0;
 
     /*devuelve el id*/
-    int JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador*> &jugadores);
+    int JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador *> &jugadores);
 
 protected:
     int distancia_max_atacable;

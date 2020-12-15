@@ -1,9 +1,10 @@
 
 #ifndef CONTENEDOR_DE_ELEMENTOS
 #define CONTENEDOR_DE_ELEMENTOS
+
 #include <queue>
 
-class ContenedorDeElementos{
+class ContenedorDeElementos {
 /*  public:
     ContenedorDeElementos(){}
     ~ContenedorDeElementos(){}

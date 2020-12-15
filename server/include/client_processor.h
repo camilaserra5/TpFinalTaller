@@ -18,7 +18,7 @@ public:
      * @param socket: the socket corresponding to the connection with a client
      * @param resourceList
      */
-    ClientProcessor(Socket socket, std::queue <SDL_Event> &eventQueue);
+    ClientProcessor(Socket socket, std::queue<SDL_Event> &eventQueue);
 
     /**
      * Processes the protocol received.
@@ -41,7 +41,7 @@ private:
     Socket socket;
 
     bool is_alive;
-    std::queue <SDL_Event> eventQueue;
+    std::queue<SDL_Event> eventQueue;
 };
 
 #endif //CLIENT_PROCESSOR_H
