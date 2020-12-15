@@ -33,6 +33,7 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
 }
 
 bool puedo_moverme(Map &mapa, int &posx, int &posy) {
+
     Type tipo = mapa(posx, posy);
     if (tipo == Type::wall) {
         return false;
@@ -57,6 +58,7 @@ Item *verificarItems(Map &mapa, int &posx, int &posy) {
     } else if (tipo == Type::sangre) {
         return new Sangre();
     } else if (tipo == Type::kitsMedicos) {
+
         return new KitsMedicos();
     } else if (tipo == Type::balas) {
         return new Balas();
@@ -66,37 +68,62 @@ Item *verificarItems(Map &mapa, int &posx, int &posy) {
     }
 }
 
-void moverSiEsPosible(Map &mapa, Jugador *jugador, int movX, int movY) {
-    int posEnJuegox = jugador->posEnX() + movX;
-    int posEnJuegoy = jugador->posEnY() + movY;
-    if (puedo_moverme(mapa, posEnJuegox, posEnJuegoy)) {
-        Item *item = verificarItems(mapa, posEnJuegox, posEnJuegoy);
-        item->obtenerBeneficio(jugador);
-        jugador->moverse(movX, movY); // en jugador se recibe lo movido y se suma;
-        delete item;
-    } else {
-        jugador->moverse(0, 0);
-    }
-}
-
 void EstadoJuego::moverse_a_derecha(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    moverSiEsPosible(this->mapa, jugador, METROS_MOVIDOS, 0);
+    int posEnJuegox = jugador->posEnX() + METROS_MOVIDOS;
+    int posEnJuegoy = jugador->posEnY();
+    std::cout << "pos juador x antes de actualizar: " << jugador->posEnX();
+    std::cout << "pos jugador en y ants de actualzia: " << jugador->posEnY();
+    std::cout << "pos en x: " << posEnJuegox;
+    std::cout << "pos en y: " << posEnJuegoy;
+    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy)) {
+        Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
+        item->obtenerBeneficio(jugador);
+        jugador->moverse(METROS_MOVIDOS, 0); // en jugador se recibe lo movido y se suma;
+        delete item;
+    } else {
+        this->no_me_muevo(idJugador);
+    }
+
 }
 
 void EstadoJuego::moverse_a_izquierda(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    moverSiEsPosible(this->mapa, jugador, -METROS_MOVIDOS, 0);
+    int posEnJuegox = jugador->posEnX() - METROS_MOVIDOS;
+    int posEnJuegoy = jugador->posEnY();
+    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy)) {
+        Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
+        item->obtenerBeneficio(jugador);
+        jugador->moverse(-METROS_MOVIDOS, 0); // en jugador se recibe lo movido y se suma;
+    } else {
+        this->no_me_muevo(idJugador);
+    }
 }
 
 void EstadoJuego::moverse_arriba(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    moverSiEsPosible(this->mapa, jugador, 0, METROS_MOVIDOS);
+    int posEnJuegox = jugador->posEnX();
+    int posEnJuegoy = jugador->posEnY() + METROS_MOVIDOS;
+    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy)) {
+        Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
+        item->obtenerBeneficio(jugador);
+        jugador->moverse(0, METROS_MOVIDOS); // en jugador se recibe lo movido y se suma;
+    } else {
+        this->no_me_muevo(idJugador);
+    }
 }
 
 void EstadoJuego::moverse_abajo(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    moverSiEsPosible(this->mapa, jugador, 0, -METROS_MOVIDOS);
+    int posEnJuegox = jugador->posEnX();
+    int posEnJuegoy = jugador->posEnY() - METROS_MOVIDOS;
+    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy)) {
+        Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
+        item->obtenerBeneficio(jugador);
+        jugador->moverse(0, -METROS_MOVIDOS); // en jugador se recibe lo movido y se suma;
+    } else {
+        this->no_me_muevo(idJugador);
+    }
 }
 
 void EstadoJuego::no_me_muevo(int idJugador) {
