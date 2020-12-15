@@ -18,7 +18,8 @@ add_executable(client_src
         src/cliente.cpp
         src/juego.cpp
         src/lienzo.cpp
-        src/textura.cpp)
+        src/textura.cpp
+        src/objetoJuego.cpp)
 
 target_link_libraries(client_src ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads)
 

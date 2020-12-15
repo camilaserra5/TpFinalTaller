@@ -16,6 +16,8 @@ public:
     int getAncho() const;
 
     int getAlto() const;
+
+    void actualizar(int una_x, int una_y, int un_alto, int un_ancho){
 };
 
 #endif //LIENZO_H

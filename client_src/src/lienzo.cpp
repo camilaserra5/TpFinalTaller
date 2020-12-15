@@ -19,3 +19,9 @@ int Lienzo::getAncho() const {
 int Lienzo::getAlto() const {
     return this->alto;
 }
+void Lienzo::actualizar(int una_x, int una_y, int un_alto, int un_ancho){
+    this->x = una_x;
+    this->y = una_y;
+    this->alto = un_alto;
+    this->ancho = un_ancho;
+}
