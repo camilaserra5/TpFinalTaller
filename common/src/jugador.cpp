@@ -8,7 +8,7 @@
 #define CANT_INICAL_BALAS 5
 #define PUNTAJE_INICIAL 0
 
-#include "cuchillo.h"
+#include "armas/cuchillo.h"
 
 int Jugador::getId() {
     return this->id;

@@ -5,7 +5,7 @@
 #include "jugador.h"
 #include <map>
 #include <string>
-#include "arma.h"
+#include "armas/arma.h"
 
 class EstadoJuego {
 public:

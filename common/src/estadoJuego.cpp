@@ -1,10 +1,10 @@
 #include "../include/estadoJuego.h"
-#include "item.h"
-#include "comida.h"
-#include "balas.h"
-#include "sangre.h"
-#include "kitsMedicos.h"
-#include "noItem.h"
+#include "items/item.h"
+#include "items/comida.h"
+#include "items/balas.h"
+#include "items/sangre.h"
+#include "items/kitsMedicos.h"
+#include "items/noItem.h"
 #include "iostream"
 
 #define METROS_MOVIDOS 1 // de acuanto se mueve el jugador
@@ -62,7 +62,7 @@ Item *verificarItems(Map &mapa, int &posx, int &posy) {
         return new KitsMedicos();
     } else if (tipo == Type::balas) {
         return new Balas();
-        // faltan mas items, las armas!!
+        // faltan mas comandos, las armas!!
     } else {
         return new NoItem();
     }

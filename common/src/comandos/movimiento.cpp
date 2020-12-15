@@ -1,4 +1,4 @@
-#include "../include/movimiento.h"
+#include "comandos/movimiento.h"
 
 #define DERECHA 1
 #define IZQUIERDA -1
@@ -13,7 +13,7 @@ Movimiento::~Movimiento() {}
 
 void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
     //van a ser las teclas cuando me muevo
-    std::cout << "ejecuto comando";
+    std::cout << "ejecuto comandos";
     if (tipo_de_movimiento == DERECHA) {
         estadoJuego.moverse_a_derecha(this->idJugador);
     } else if (tipo_de_movimiento == IZQUIERDA) {

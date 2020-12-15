@@ -1,4 +1,4 @@
-#include "../include/sangre.h"
+#include "items/sangre.h"
 
 #define VIDA 1
 #define VIDA_MAXIMA 11

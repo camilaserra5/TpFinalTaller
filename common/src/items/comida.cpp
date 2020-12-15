@@ -1,4 +1,4 @@
-#include "../include/comida.h"
+#include "items/comida.h"
 
 #define VIDA 10
 #define VIDA_MAXIMA 100

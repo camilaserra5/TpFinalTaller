@@ -5,7 +5,7 @@
 #include "thread.h"
 #include "protected_queue.h"
 #include "actualizacion.h"
-#include "comando.h"
+#include "comandos/comando.h"
 #include "map.h"
 #include "estadoJuego.h"
 #include "jugador.h"

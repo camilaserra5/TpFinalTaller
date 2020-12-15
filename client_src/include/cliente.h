@@ -3,7 +3,7 @@
 //#include "../../common_src/include/socket.h"
 //#include "../../common_src/include/thread.h"
 #include "protected_queue.h"
-#include "comando.h"
+#include "comandos/comando.h"
 #include <SDL2/SDL.h>
 
 class Cliente {

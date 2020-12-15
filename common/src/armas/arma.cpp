@@ -1,4 +1,4 @@
-#include "../include/arma.h"
+#include "armas/arma.h"
 
 int Arma::posicionAtacable(Posicion &atacante, Posicion &otroJugador) {
     float distancia_jugador = atacante.distanciaA(otroJugador);

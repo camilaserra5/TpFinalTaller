@@ -2,7 +2,7 @@
 #define ATAQUE_H
 #define DANIO_MAX 10
 
-#include "comando.h"
+#include "comandos/comando.h"
 #include "iserializable.h"
 
 class Ataque : public Comando, public ISerializable {

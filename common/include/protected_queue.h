@@ -31,7 +31,7 @@ public:
             std::cout << "\nno hay comandos";
             throw QueueException("no hay elementos en la cola\n");
         }
-        std::cout << "\nhay comando";
+        std::cout << "\nhay comandos";
         T objeto = this->cola_datos.front();
         this->cola_datos.pop();
         return objeto;

@@ -1,4 +1,4 @@
-#include "../include/kitsMedicos.h"
+#include "items/kitsMedicos.h"
 
 #define VIDA 20
 #define VIDA_MAXIMA 100

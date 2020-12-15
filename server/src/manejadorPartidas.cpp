@@ -2,7 +2,7 @@
 
 #include "map.h"
 #include "protected_queue.h"
-#include "comando.h"
+#include "comandos/comando.h"
 #include "map_translator.h"
 #include <yaml-cpp/yaml.h>
 

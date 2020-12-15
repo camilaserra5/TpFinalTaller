@@ -1,4 +1,4 @@
-#include "../include/pistola.h"
+#include "armas/pistola.h"
 #include <ctime>
 
 #define DISTANCIA_MAX 2000000

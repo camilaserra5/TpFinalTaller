@@ -1,4 +1,4 @@
-#include "../include/cuchillo.h"
+#include "armas/cuchillo.h"
 
 #define DISTANCIA_ACUCHILLABLE 0.5 /*metros*/
 #define DISTANCIA_MAX 1

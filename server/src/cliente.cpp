@@ -1,7 +1,7 @@
 #include "../include/cliente.h"
-#include "movimiento.h"
-#include "ataque.h"
-#include "item_tomado.h"
+#include "comandos/movimiento.h"
+#include "comandos/ataque.h"
+#include "comandos/item_tomado.h"
 
 #include <mutex>
 
