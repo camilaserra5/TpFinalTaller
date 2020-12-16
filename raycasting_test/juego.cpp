@@ -98,10 +98,12 @@ void Juego::raycasting(){
 
                   double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2));
                   double drawEnd = drawStart + alturaParedProyectada;
-                  //SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
-                //  SDL_RenderDrawLine(this->render, i, i,drawStart, drawEnd);
+
+                SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
+              //  SDL_SetRenderDrawBlendMode(this->render,SDL_BLENDMODE_NONE);
+                  //SDL_RenderDrawLine(this->render, i, i,drawStart, drawEnd);
 
                 rayo.aumentarAnguloBarrido();
             }
-
+            SDL_RenderClear(this->render);
 }

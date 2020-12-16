@@ -15,7 +15,6 @@ int main() {
           juego->actualizar();
           juego->renderizar();
           juego->raycasting();
-
       }
       juego->clean();
   } catch (...) {
