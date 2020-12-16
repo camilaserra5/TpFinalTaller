@@ -54,8 +54,9 @@ void Juego::renderizar() {
     Lienzo posiciontexturadest(0, 562, 800, 40);
     this->texturaInferior->renderizar(this->render, posiciontexturaini, posiciontexturadest);
     this->objetos.front()->renderizar();
-    SDL_RenderPresent(this->render);
 
+    SDL_RenderDrawPoint(this->render, 400, 300); //Renders on middle of screen.
+    SDL_RenderPresent(this->render);
 }
 
 void Juego::clean() {
@@ -65,6 +66,7 @@ void Juego::clean() {
 }
 
 void Juego::raycasting(){
+
   int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1},
                                               {1,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,1},
@@ -85,7 +87,7 @@ void Juego::raycasting(){
 
             Rayo rayo(anguloDeVista, ladoCelda, /*TAMANIO_FILA*/ANCHO_CANVAS, LARGO_PROYECTOR);
 
-            for (int i = ANCHO_CANVAS; i > 0; i--) {
+            for (int i = 1; i > 0; i--) {
               //como barremos antihorario, barremos de derecha a izquierda la pantalla, igual barre al revez
                 float distancia = 0;
                 if (rayo.verificarInterseccionHorizontal(mapa, distancia, anguloJugador)) {
@@ -99,11 +101,11 @@ void Juego::raycasting(){
                   double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2));
                   double drawEnd = drawStart + alturaParedProyectada;
 
-                SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
+                  SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
               //  SDL_SetRenderDrawBlendMode(this->render,SDL_BLENDMODE_NONE);
-                  //SDL_RenderDrawLine(this->render, i, i,drawStart, drawEnd);
-
+                  SDL_RenderDrawLine(this->render, 100, 100,drawStart, drawEnd);
+                  SDL_RenderPresent(this->render);
                 rayo.aumentarAnguloBarrido();
             }
-            SDL_RenderClear(this->render);
+            //SDL_RenderClear(this->render);
 }

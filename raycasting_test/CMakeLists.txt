@@ -15,12 +15,12 @@ link_directories(~/TpFinalTaller/common/build)
 include_directories(~/TpFinalTaller/common/include)
 
 add_executable(raycasting_test
-        ../raycast.cpp
-        ../rayo.cpp
-        ../juego.cpp
-        ../objetoJuego.cpp
-        ../lienzo.cpp
-        ../textura.cpp
+        raycast.cpp
+        rayo.cpp
+        juego.cpp
+        objetoJuego.cpp
+        lienzo.cpp
+        textura.cpp
         ${UIS_HEADERS})
 
 target_link_libraries(raycasting_test ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads ${YAML_CPP_LIBRARIES})
