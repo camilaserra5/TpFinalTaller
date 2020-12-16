@@ -1,6 +1,7 @@
 #include "juego.h"
 #include "rayo.h"
 #include <iostream>
+#include <thread>
 
 
 #define EXITO 0
@@ -87,7 +88,7 @@ void Juego::raycasting(){
 
             Rayo rayo(anguloDeVista, ladoCelda, /*TAMANIO_FILA*/ANCHO_CANVAS, LARGO_PROYECTOR);
 
-            for (int i = 1; i > 0; i--) {
+            for (int i = ANCHO_CANVAS; i > 0; i--) {
               //como barremos antihorario, barremos de derecha a izquierda la pantalla, igual barre al revez
                 float distancia = 0;
                 if (rayo.verificarInterseccionHorizontal(mapa, distancia, anguloJugador)) {
@@ -103,9 +104,15 @@ void Juego::raycasting(){
 
                   SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
               //  SDL_SetRenderDrawBlendMode(this->render,SDL_BLENDMODE_NONE);
-                  SDL_RenderDrawLine(this->render, 100, 100,drawStart, drawEnd);
+                  SDL_RenderDrawLine(this->render, i, drawStart,i, drawEnd);
+
                   SDL_RenderPresent(this->render);
+                  std::chrono::milliseconds duration(10);
+                  std::this_thread::sleep_for(duration);//sin esto se pinta todo
                 rayo.aumentarAnguloBarrido();
             }
-            //SDL_RenderClear(this->render);
+            SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
+
+            SDL_RenderClear(this->render);
+
 }

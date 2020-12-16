@@ -4,6 +4,8 @@
 #include "map_translator.h"
 #include "rayo.h"
 #include "juego.h"
+#include <thread>
+
 
 int main() {
   Juego *juego = new Juego();
@@ -15,6 +17,8 @@ int main() {
           juego->actualizar();
           juego->renderizar();
           juego->raycasting();
+          //std::chrono::milliseconds duration(20);
+          //std::this_thread::sleep_for(duration);
       }
       juego->clean();
   } catch (...) {
