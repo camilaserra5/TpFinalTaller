@@ -1,7 +1,7 @@
 #include "../include/map_translator.h"
 #include <iostream>
 
-YAML::Node MapTranslator::mapToYaml(Map &map) {
+YAML::Node MapTranslator::mapToYaml(Map &map/*,std::list<EntidadPosicionable>& entidades*/) {
     YAML::Node node;
     node["rows"] = map.getRowSize();
     node["cols"] = map.getColSize();

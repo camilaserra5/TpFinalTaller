@@ -16,7 +16,7 @@ Servidor::Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actu
         arrancoPartida(false) {}
 
 Servidor::~Servidor() {
-    std::cout << "destructor servidor";
+    std::cout << "destructor servidor\n";
     std::map<int, Cliente *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         it->second->join();
@@ -56,7 +56,7 @@ void Servidor::agregarCliente(std::string &nombreJugador, Cliente *cliente) {
 void Servidor::lanzarJugadores() {
     for (auto it = this->jugadores.begin(); it != this->jugadores.end(); it++) {
         it->second->start();
-        std::cout << "lanzo cliente";
+        std::cout << "lanzo cliente\n";
     }
 }
 

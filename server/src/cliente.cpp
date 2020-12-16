@@ -19,7 +19,7 @@ Cliente::~Cliente() {
 void Cliente::actualizar(const Actualizacion &actualizacion) {
     //actualizacion.actualizar_vista
     //desp sacar lo que sigue
-    printf("me llega una actualizacion");
+    printf("me llega una actualizacion\n");
 }
 
 void Cliente::run() {
@@ -32,8 +32,8 @@ void Cliente::run() {
     this->cola_comandos.aniadir_dato(movimiento);
     this->cola_comandos.aniadir_dato(ataque);
     this->cola_comandos.aniadir_dato(itemTomado);
-    std::cout << "agrege comandos a cola";
-    std::chrono::milliseconds duration(10);
+    std::cout << "agrege comandos a cola\n";
+    std::chrono::milliseconds duration(1100);
     std::this_thread::sleep_for(duration);
 
     bool termine = false;

@@ -62,7 +62,7 @@ bool ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
     if (servidor->yaArranco()) {
         // la partida ya arranco
         // informale al Cliente
-        std::cout << "ya arranco la partida";
+        std::cout << "ya arranco la partida\n";
         return false;
     } else {
         // partida valida para unirse

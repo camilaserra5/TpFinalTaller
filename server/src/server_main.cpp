@@ -22,29 +22,15 @@ int main(int argc, char *argv[]) {
 
     bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores,nombre_partida, nombre_archivo);
     if (estado){
-        std::cout<< "\nreo partida";
+        std::cout<< "creo partida\n";
     }
     std::chrono::milliseconds duration(10);
     std::this_thread::sleep_for(duration);
     bool estado2 = manejadorPartidas.agregarClienteAPartida(nombre, nombre_partida);
     if (estado2){
-        std::cout <<"\nagreggo cliente a partida";
+        std::cout <<"agreggo cliente a partida\n";
     }
 
     manejadorPartidas.run();
-/*
-    Map mapa(20, 20);
-    int cant_jugadores = 1;
-    Servidor servidor(mapa, 1);
-    std::string nombre = "juan";
-    Cliente *cliente = new Cliente(servidor.obtenerColaEventos(), servidor.obtenerColaActualizaciones(), nombre);
-    servidor.agregarCliente(nombre, cliente);
-*/
-    //cliente.start();
-    //std::chrono::milliseconds duration(10);
-    //std::this_thread::sleep_for(duration);
-    //servidor.start();
-    //cliente.join();
-    //servidor.join();
     return OK_CODE;
 }

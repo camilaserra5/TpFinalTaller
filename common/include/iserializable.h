@@ -3,9 +3,9 @@
 
 class ISerializable {
 public:
-    virtual void serializar() = 0;
+    virtual /*std::stringstream*/void serializar() = 0;
 
-    virtual void deserializar() = 0;
+    virtual void deserializar(/*std::stringstream secuencia*/) = 0;
 
     virtual ~ISerializable() {}
 };
