@@ -29,7 +29,7 @@ void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int a
         this->corriendo = false;
     }
     this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png", this->render);
-    ObjetoJuego* enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->render, 50, 50,100,100);
+    ObjetoJuego *enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->render, 50, 50, 100, 100);
     this->objetos.push_back(enemigo);
 }
 
@@ -66,53 +66,53 @@ void Juego::clean() {
     SDL_Quit();
 }
 
-void Juego::raycasting(){
+void Juego::raycasting() {
 
-  int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1},
-                                              {1,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,1,0,0,0,0,0,1},
-                                              {1,0,0,1,0,1,0,0,0,1},
-                                              {1,0,0,0,0,1,0,0,0,1},
-                                              {1,0,0,0,0,1,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,1},
-                                              {1,1,1,1,1,1,1,1,1,1}
-                                            };
+    int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 1, 0, 1, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
 
-            float posJugadorX, posJugadorY, alturaJugador;
-            float anguloDeVista = 2 * acos(0.0) / 3;
-            float anguloJugador = 2 * acos(0.0) / 3;
-            int alturaParedProyectada = 0;
-            int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;
+    float posJugadorX, posJugadorY, alturaJugador;
+    float anguloDeVista = 2 * acos(0.0) / 3;
+    float anguloJugador = 2 * acos(0.0) / 3;
+    int alturaParedProyectada = 0;
+    int ladoCelda = ANCHO_CANVAS / TAMANIO_FILA;
 
-            Rayo rayo(anguloDeVista, ladoCelda, /*TAMANIO_FILA*/ANCHO_CANVAS, LARGO_PROYECTOR);
+    Rayo rayo(anguloDeVista, ladoCelda, /*TAMANIO_FILA*/ANCHO_CANVAS, LARGO_PROYECTOR);
 
-            for (int i = ANCHO_CANVAS; i > 0; i--) {
-              //como barremos antihorario, barremos de derecha a izquierda la pantalla, igual barre al revez
-                float distancia = 0;
-                if (rayo.verificarInterseccionHorizontal(mapa, distancia, anguloJugador)) {
-                    alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                    std::cout << "la altura es: " << alturaParedProyectada << "\n";
-                } else if (rayo.verificarInterseccionVertical(mapa, distancia, anguloJugador)) {
-                    alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                    std::cout << "la altura es: " << alturaParedProyectada << "\n";
-                }
+    for (int i = ANCHO_CANVAS; i > 0; i--) {
+        //como barremos antihorario, barremos de derecha a izquierda la pantalla, igual barre al revez
+        float distancia = 0;
+        if (rayo.verificarInterseccionHorizontal(mapa, distancia, anguloJugador)) {
+            alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
+            std::cout << "la altura es: " << alturaParedProyectada << "\n";
+        } else if (rayo.verificarInterseccionVertical(mapa, distancia, anguloJugador)) {
+            alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
+            std::cout << "la altura es: " << alturaParedProyectada << "\n";
+        }
 
-                  double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2));
-                  double drawEnd = drawStart + alturaParedProyectada;
+        double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2));
+        double drawEnd = drawStart + alturaParedProyectada;
 
-                  SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
-              //  SDL_SetRenderDrawBlendMode(this->render,SDL_BLENDMODE_NONE);
-                  SDL_RenderDrawLine(this->render, i, drawStart,i, drawEnd);
+        SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
+        //  SDL_SetRenderDrawBlendMode(this->render,SDL_BLENDMODE_NONE);
+        SDL_RenderDrawLine(this->render, i, drawStart, i, drawEnd);
 
-                  SDL_RenderPresent(this->render);
-                  std::chrono::milliseconds duration(10);
-                  std::this_thread::sleep_for(duration);//sin esto se pinta todo
-                rayo.aumentarAnguloBarrido();
-            }
-            SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
+        SDL_RenderPresent(this->render);
+        std::chrono::milliseconds duration(10);
+        std::this_thread::sleep_for(duration);//sin esto se pinta todo
+        rayo.aumentarAnguloBarrido();
+    }
+    SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
 
-            SDL_RenderClear(this->render);
+    SDL_RenderClear(this->render);
 
 }

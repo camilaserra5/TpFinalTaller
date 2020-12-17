@@ -13,13 +13,9 @@ set(PROJECT_LINK_LIBS libcommons.a)
 link_directories(~/TpFinalTaller/common/build)
 include_directories(~/TpFinalTaller/common/include)
 
+file(GLOB SOURCES src/*.cpp)
 add_executable(client_src
-        src/old_client_main.cpp
-        src/old_cliente.cpp
-        src/juego.cpp
-        src/lienzo.cpp
-        src/textura.cpp
-        src/objetoJuego.cpp)
+        ${SOURCES})
 
 target_link_libraries(client_src ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads)
 

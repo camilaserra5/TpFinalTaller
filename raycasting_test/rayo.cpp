@@ -46,27 +46,27 @@ Rayo::Rayo(float campoDeVision, int ladoCelda, int tamanio_fila_mapa, int largoP
 bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &distancia, const float anguloJugador) {
     bool encontrePared = false;
     int posX = 120, posY = 100;// en pixels
-    float interseccionAX,interseccionAY,xa,ya;// el primer punto de interseccion al que desp se le suma ya y xa
-    int xaMapa,yaMapa;
+    float interseccionAX, interseccionAY, xa, ya;// el primer punto de interseccion al que desp se le suma ya y xa
+    int xaMapa, yaMapa;
 
     //pasar la posicion a metros
 
     this->verificarCuadranteY(anguloJugador);
 
-    if (this->abajo){
-        interseccionAY = floor(posY/this->ladoCelda) * (this->ladoCelda) + this->ladoCelda;
+    if (this->abajo) {
+        interseccionAY = floor(posY / this->ladoCelda) * (this->ladoCelda) + this->ladoCelda;
         ya = this->ladoCelda;
-    }else{
-         interseccionAY = floor(posY/this->ladoCelda) * (this->ladoCelda) - 1;
-         ya = -this->ladoCelda;
-      }
+    } else {
+        interseccionAY = floor(posY / this->ladoCelda) * (this->ladoCelda) - 1;
+        ya = -this->ladoCelda;
+    }
 
-    yaMapa = interseccionAY/this->ladoCelda;
-    interseccionAX = posX + (posY-interseccionAY)/tan(this->anguloBarrido);
-    xaMapa = interseccionAX/this->ladoCelda;
+    yaMapa = interseccionAY / this->ladoCelda;
+    interseccionAX = posX + (posY - interseccionAY) / tan(this->anguloBarrido);
+    xaMapa = interseccionAX / this->ladoCelda;
     xa = this->ladoCelda / tan(this->anguloBarrido);
 
-    xaMapa --;//cheq
+    xaMapa--;//cheq
     yaMapa--;
     while (!encontrePared && 0 < xaMapa && xaMapa < TAMANIO_FILA && 0 < yaMapa && yaMapa < TAMANIO_COLUMNA) {
         if (mapa[xaMapa][yaMapa] == 1) {//cheq caoaz esta al revez
@@ -78,8 +78,8 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
         }
         interseccionAX = floor(interseccionAX + xa);
         interseccionAY += ya;
-        yaMapa = interseccionAY/this->ladoCelda;
-        xaMapa = interseccionAX/this->ladoCelda;
+        yaMapa = interseccionAY / this->ladoCelda;
+        xaMapa = interseccionAX / this->ladoCelda;
     }
     return encontrePared;
 }
@@ -87,26 +87,26 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
 bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distancia, const float anguloJugador) {
     bool encontrePared = false;
     int posX = 120, posY = 100;// en pixels
-    float interseccionAX,interseccionAY,xa,ya;// el primer punto de interseccion al que desp se le suma ya y xa
-    int xaMapa,yaMapa;
+    float interseccionAX, interseccionAY, xa, ya;// el primer punto de interseccion al que desp se le suma ya y xa
+    int xaMapa, yaMapa;
 
     this->verificarCuadranteX(anguloJugador);
 
-    if (this->izquierda){
-        interseccionAX = floor(posX/this->ladoCelda) * (this->ladoCelda) + this->ladoCelda;
+    if (this->izquierda) {
+        interseccionAX = floor(posX / this->ladoCelda) * (this->ladoCelda) + this->ladoCelda;
         xa = -this->ladoCelda;
-    }else{
-         interseccionAX = floor(posX/this->ladoCelda) * (this->ladoCelda) - 1;
-         xa = this->ladoCelda;
-      }
+    } else {
+        interseccionAX = floor(posX / this->ladoCelda) * (this->ladoCelda) - 1;
+        xa = this->ladoCelda;
+    }
 
-      xaMapa = interseccionAX/this->ladoCelda;
-      interseccionAY = posY + (posX-interseccionAX)/tan(this->anguloBarrido);
-      yaMapa = interseccionAY/this->ladoCelda;
+    xaMapa = interseccionAX / this->ladoCelda;
+    interseccionAY = posY + (posX - interseccionAX) / tan(this->anguloBarrido);
+    yaMapa = interseccionAY / this->ladoCelda;
 
-      ya = this->ladoCelda / tan(this->anguloBarrido);
-      xaMapa --;
-      yaMapa--;
+    ya = this->ladoCelda / tan(this->anguloBarrido);
+    xaMapa--;
+    yaMapa--;
     while (!encontrePared && 0 < xaMapa && xaMapa < TAMANIO_FILA && 0 < yaMapa && yaMapa < TAMANIO_COLUMNA) {
         if (mapa[xaMapa][yaMapa] == 1) {
             encontrePared = true;
@@ -118,8 +118,8 @@ bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distan
         }
         interseccionAY = floor(interseccionAY + ya);
         interseccionAX += xa;
-        yaMapa = interseccionAY/this->ladoCelda;
-        xaMapa = interseccionAX/this->ladoCelda;
+        yaMapa = interseccionAY / this->ladoCelda;
+        xaMapa = interseccionAX / this->ladoCelda;
     }
     return encontrePared;
 }
@@ -130,6 +130,6 @@ int Rayo::getDistanciaProyector() {
 
 void Rayo::aumentarAnguloBarrido() {
     this->anguloBarrido = this->anguloBarrido + this->anguloPorStripe;
-    this->anguloBarrido = fmodf(this->anguloBarrido,4 * acos(0.0));
-    if (this->anguloBarrido < 0 ) this->anguloBarrido += 4 * acos(0.0);
+    this->anguloBarrido = fmodf(this->anguloBarrido, 4 * acos(0.0));
+    if (this->anguloBarrido < 0) this->anguloBarrido += 4 * acos(0.0);
 }
