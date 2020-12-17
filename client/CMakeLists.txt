@@ -14,8 +14,8 @@ link_directories(~/TpFinalTaller/common/build)
 include_directories(~/TpFinalTaller/common/include)
 
 add_executable(client_src
-        src/client_main.cpp
-        src/cliente.cpp
+        src/old_client_main.cpp
+        src/old_cliente.cpp
         src/juego.cpp
         src/lienzo.cpp
         src/textura.cpp
@@ -23,4 +23,4 @@ add_executable(client_src
 
 target_link_libraries(client_src ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads)
 
-install(FILES ../resources/images/ParteInferior.png  ../resources/images/Guard.png DESTINATION ${CMAKE_BINARY_DIR})
+install(FILES ../resources/images/ParteInferior.png ../resources/images/Guard.png DESTINATION ${CMAKE_BINARY_DIR})

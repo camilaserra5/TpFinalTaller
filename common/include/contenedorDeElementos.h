@@ -17,16 +17,17 @@
 
 class ContenedorDeElementos {
 
-    public:
+public:
     ContenedorDeElementos();
+
     ~ContenedorDeElementos();
 
-    void agregarElemento(EntidadPosicionable* elemento);
+    void agregarElemento(EntidadPosicionable *elemento);
     //ElementoPosicionable actualizarElementos();
     //std::vector<ElementoPosicionable> elementoEnPosicion();
 
-  private:
-    std::vector<EntidadPosicionable*> elementos;
+private:
+    std::vector<EntidadPosicionable *> elementos;
 };
 
 #endif

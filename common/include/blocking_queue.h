@@ -27,7 +27,7 @@ public:
 
     T pop() {
         std::lock_guard<std::mutex> l(this->m);
-        while(cola_datos.empty()) {
+        while (cola_datos.empty()) {
             esta_vacia.wait(this->m);
         }
         T objeto = this->cola_datos.front();

@@ -3,7 +3,7 @@
 #define VIDA 1
 #define VIDA_MAXIMA 11
 
-Sangre::Sangre(Posicion &posicion):Item(posicion),puntos_de_vida(VIDA) {}
+Sangre::Sangre(Posicion &posicion) : Item(posicion), puntos_de_vida(VIDA) {}
 
 Sangre::~Sangre() {}
 

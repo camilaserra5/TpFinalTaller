@@ -39,19 +39,19 @@ public:
 
     float getAnguloDeVista() { return this->angulo; }
 
-    bool tengollave(){
+    bool tengollave() {
         return (this->llaves > 0);
     }
 
-    void usarLlave(){
+    void usarLlave() {
         this->llaves += -1;
     }
 
-    bool estaMuerto(){
-        return (this->vida <=0);
+    bool estaMuerto() {
+        return (this->vida <= 0);
     }
 
-    bool poseeArma(Arma* arma);
+    bool poseeArma(Arma *arma);
 
     void agarrarLlave();
 

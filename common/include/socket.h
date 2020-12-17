@@ -1,86 +1,73 @@
 #ifndef SOCKET_H
 #define SOCKET_H
 
-#include <netdb.h>
-#include <sys/socket.h>
+#include <stdio.h>
+#include <stddef.h>
 
-/**
- * The socket.
- */
+
 class Socket {
-    static const int MAX_CONNECTIONS = 20;
+private:
+    int filedescriptor;
 
-public:
     explicit Socket(int fd);
 
+public:
     Socket();
 
-    Socket(Socket &&socket);
-
-    Socket &operator=(Socket &&socket);
-
-    /**
-     * Creates the client socket with the given parameters.
-     * The Socket will be already connected.
-     * If unable to connect, and exception will be thrown.
-     * @param host
-     * @param port
-     */
-    Socket(char *host, char *port);
-
-    /**
-     * Binds the socket
-     * @param port: the port
-     * @return 0 if OK
-     */
-    int bind(char *port);
-
-    /**
-     * Starts listening to accept connections on the socket fd.
-     * @return 0 if OK
-     */
-    int listen();
-
-    /**
-     * @return true if the socket is in a valid state.
-     */
-    bool valid();
-
-    /**
-     * @return the socket fd.
-     */
-    int getFd();
-
-    /**
-     * Accepts a connection on the fd.
-     * Opens a new socket for this connection
-     * @return the new socket
-     */
-    Socket accept();
-
-    /**
-     * Shuts down the reception and the transmissions.
-     */
-    void shutdown();
-
-    /**
-     * Shuts down the transmissions of the socket fd.
-     */
-    void closeWrite();
-
-    /**
-     * Shuts down the receptions of the socket fd.
-     * Shut down all or part of the connection open on socket FD.
-     */
-    void closeRead();
-
-    /**
-     * Socket destructor.
-     */
     ~Socket();
 
-private:
-    int fd;
+    /*
+     * Hace un shutdown y close del socket, si es que este es válido.
+     */
+    void cerrar();
+
+    Socket(const Socket &copia) = delete;
+
+    Socket &operator=(const Socket &copia) = delete;
+
+    Socket(Socket &&otro) noexcept;
+
+    Socket &operator=(Socket &&other);
+
+    /*
+     *Enlaza y deja en estado de "escuchar" las conexiones
+     *(maximo 7 conexiones en espera)
+     */
+    void bind_and_listen(const char *servicio);
+
+    /*
+     *Acepta una conexión que estaba esperando. Devuelve un socket
+     *por movimiento. Si falla lanza una excepcion.
+     */
+    Socket aceptar();
+
+    /*
+     *Conecta. Devolverá EXITO(0) si completó sus acciones o de
+     *lo contrario ERROR(-1)
+     */
+    void conectar(const char *host, const char *servicio);
+
+    /*
+     *Envia length cantidad de bytes del buffer. Lanza excepcion si ocurre
+     *algún error. Retorna la cantidad de bytes enviados.
+     */
+    unsigned int enviar(const char *buffer, size_t tamanio);
+
+    /*
+     *Recibe length cantidad de bytes del buffer.  Lanza excepcion si ocurre
+     *algún error. Retorna la cantidad de bytes recibidos.
+     */
+    unsigned int recibir(char *buffer, size_t tamanio);
+
+    /*
+     *Hace un Shutdown en modo WR, escritura.
+     */
+    void apagar_escritura();
+
+    /*
+     *Hace un Shutdown en modo RD, lectura.
+     */
+    void apagar_lectura();
 };
 
-#endif //SOCKET_H
+#endif /*SOCKET_H*/

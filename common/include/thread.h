@@ -3,10 +3,10 @@
 
 #include <thread>
 
-/**
- * The thread.
- */
 class Thread {
+private:
+    std::thread thread;
+
 public:
     Thread();
 
@@ -14,23 +14,17 @@ public:
 
     void join();
 
-    /**
-     * Runs the thread. This must be overriden by each class.
-     *///
     virtual void run() = 0;
+
+    virtual ~Thread() = 0;
 
     Thread(const Thread &) = delete;
 
     Thread &operator=(const Thread &) = delete;
 
-    Thread(Thread &&thread);
+    Thread(Thread &&other);
 
-    Thread &operator=(Thread &&thread);
-
-    virtual ~Thread();
-
-private:
-    std::thread thread;
+    Thread &operator=(Thread &&other);
 };
 
-#endif //THREAD_H
+#endif /* THREAD_H */

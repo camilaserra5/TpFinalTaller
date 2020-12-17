@@ -2,16 +2,21 @@
 #define POSICION_H
 
 class Jugador;
-class Posicion{
-  public:
-    Posicion(int pixelesX,int pixelesY,float anguloDeVista):
-    pixelesX(pixelesX),
-    pixelesY(pixelesY),
-    anguloDeVista(anguloDeVista){}
-    ~Posicion(){}
+
+class Posicion {
+public:
+    Posicion(int pixelesX, int pixelesY, float anguloDeVista) :
+            pixelesX(pixelesX),
+            pixelesY(pixelesY),
+            anguloDeVista(anguloDeVista) {}
+
+    ~Posicion() {}
+
     int distanciaA(Posicion &posicion);
+
     bool intersectaConMiAngulo(Posicion &otroJugador);
-  private:
+
+private:
     int pixelesX;
     int pixelesY;
     float anguloDeVista;

@@ -38,13 +38,13 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
     this->jugadores.insert(std::make_pair(id, jugador));
 }
 
-bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
+bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
     Type tipo = mapa->operator()(posx, posy);
     if (tipo == Type::wall) {
         return false;
     } else if (tipo == Type::door) {
         // verifico si tengo llave sino no puedo avanzar;
-        if (jugador->tengollave()){
+        if (jugador->tengollave()) {
             // abrir puerta;
             jugador->usarLlave();
             return true;
@@ -52,7 +52,7 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
         return false;
     } else if (tipo == Type::keyDoor) {
         // me guardo la llave
-        Posicion posicion(1,1,1);//va a depender de su posidion en el mapa
+        Posicion posicion(1, 1, 1);//va a depender de su posidion en el mapa
         Llave llave(posicion);
         llave.obtenerBeneficio(jugador);
         return true;
@@ -65,7 +65,7 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
 }
 
 Item *verificarItems(Map *mapa, int &posx, int &posy) {
-  Posicion posicion = Posicion(1,1,0.5);//va a depender de su posidion en el mapa
+    Posicion posicion = Posicion(1, 1, 0.5);//va a depender de su posidion en el mapa
     Type tipo = mapa->operator()(posx, posy);
     if (tipo == Type::comida) {
         return new Comida(posicion);
@@ -78,14 +78,14 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
         // faltan mas comandos, las armas!!
     } else if (tipo == Type::ametralladora) {
         return new Ametralladora(posicion);
-    } else if (tipo == Type::canionDeCadena){
+    } else if (tipo == Type::canionDeCadena) {
         return new CanionDeCadena(posicion);
-    } else if (tipo == Type::lanzaCohetes){
+    } else if (tipo == Type::lanzaCohetes) {
         //return new lanzaCohetes();
-    } else if (tipo == Type::tesoro){
+    } else if (tipo == Type::tesoro) {
         std::string tesoro("copa");
         int puntos = 50;
-        return new Tesoro(tesoro, puntos,posicion);
+        return new Tesoro(tesoro, puntos, posicion);
     } else {
         return new NoItem(posicion);
     }

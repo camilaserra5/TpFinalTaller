@@ -11,7 +11,7 @@ ManejadorPartidas::ManejadorPartidas() :
         esta_corriendo(true),
         mapas() {}
 
-void ManejadorPartidas::agregarMapa(std::string &archivoMapa){
+void ManejadorPartidas::agregarMapa(std::string &archivoMapa) {
     this->mapas.push_back(archivoMapa);
 }
 
@@ -20,7 +20,7 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
     int cant_mapas = this->mapas.size();
     bool encontre = false;
     //Map* mapa = new Map(1, 1);
-    Map mapa(1,1);
+    Map mapa(1, 1);
     while (i < cant_mapas && !encontre) {
         int pos = this->mapas[i].find(archivoMapa);
         if (pos > -1) {
@@ -33,7 +33,7 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
 }
 
 bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
-                                     int& cant_jugadores, std::string &nombre_partida,
+                                     int &cant_jugadores, std::string &nombre_partida,
                                      std::string &archivoMapa) {
     if (partidas.count(nombre_partida) > 0) {
         //partida existe;
