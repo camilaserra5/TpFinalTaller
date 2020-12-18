@@ -6,11 +6,11 @@
 
 #define EXITO 0
 
-#define ANCHO_CANVAS 320
+#define ANCHO_CANVAS 800
 #define ALTURA_CANVAS 320
-#define TAMANIO_FILA 10
-#define TAMANIO_COLUMNA 10
-#define LARGO_PROYECTOR 320
+#define TAMANIO_FILA 20
+#define TAMANIO_COLUMNA 20
+#define LARGO_PROYECTOR ANCHO_CANVAS
 #define ANCHO_PROYECTOR 20
 
 
@@ -66,29 +66,39 @@ void Juego::clean() {
     SDL_Quit();
 }
 
-void Juego::raycasting(){
+void Juego::raycasting(/*Map &mapa,Jugador &jugador*/){
 
-  int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1},
-                                              {1,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,1,0,0,0,0,0,1},
-                                              {1,0,0,1,0,1,0,0,0,1},
-                                              {1,0,0,0,0,1,0,0,0,1},
-                                              {1,0,0,0,0,1,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,1},
-                                              {1,1,1,1,1,1,1,1,1,1}
+  int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                             };
 
             float posJugadorX, posJugadorY, alturaJugador;
             float anguloDeVista = 2 * acos(0.0) / 3;
             float anguloJugador = 2 * acos(0.0) / 3;
             int alturaParedProyectada = 0;
-            int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;
+            int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA - 10;//el -10 va para q dibuje alfo razzonable
 
-            Rayo rayo(anguloDeVista, ladoCelda, /*TAMANIO_FILA*/ANCHO_CANVAS, LARGO_PROYECTOR);
+            Rayo rayo(anguloDeVista, ladoCelda,ANCHO_CANVAS, LARGO_PROYECTOR);
 
-            for (int i = ANCHO_CANVAS; i > 0; i--) {
+            for (int i = 0; i <= ANCHO_CANVAS; i++) {
               //como barremos antihorario, barremos de derecha a izquierda la pantalla, igual barre al revez
                 float distancia = 0;
                 if (rayo.verificarInterseccionHorizontal(mapa, distancia, anguloJugador)) {
@@ -99,8 +109,8 @@ void Juego::raycasting(){
                     std::cout << "la altura es: " << alturaParedProyectada << "\n";
                 }
 
-                  double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2));
-                  double drawEnd = drawStart + alturaParedProyectada;
+                  double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
+                  double drawEnd = drawStart + alturaParedProyectada - 20; // va a haber q sumarle la altura del coso azul de abajo
 
                   SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
               //  SDL_SetRenderDrawBlendMode(this->render,SDL_BLENDMODE_NONE);

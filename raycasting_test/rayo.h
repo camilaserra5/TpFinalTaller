@@ -1,7 +1,7 @@
 #ifndef RAYO_H
 #define RAY0_H
-#define TAMANIO_FILA 10
-#define TAMANIO_COLUMNA 10
+#define TAMANIO_FILA 20
+#define TAMANIO_COLUMNA 20
 
 class Rayo {
 private:

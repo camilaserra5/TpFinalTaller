@@ -57,7 +57,7 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
         interseccionAY = floor(posY/this->ladoCelda) * (this->ladoCelda) + this->ladoCelda;
         ya = this->ladoCelda;
     }else{
-         interseccionAY = floor(posY/this->ladoCelda) * (this->ladoCelda) - 1;
+         interseccionAY = ceil(posY/this->ladoCelda) * (this->ladoCelda) - 1;
          ya = -this->ladoCelda;
       }
 
@@ -70,11 +70,15 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
     yaMapa--;
     while (!encontrePared && 0 < xaMapa && xaMapa < TAMANIO_FILA && 0 < yaMapa && yaMapa < TAMANIO_COLUMNA) {
         if (mapa[xaMapa][yaMapa] == 1) {//cheq caoaz esta al revez
+          std::cout << "posiciones h: " << xaMapa <<" y " << yaMapa << "\n";
+
             encontrePared = true;
             interseccionAX -= posX;
             interseccionAY -= posY;
             int distanciaDistorsionada = sqrt((interseccionAX * interseccionAX) + (interseccionAY * interseccionAY));
-            distancia = distanciaDistorsionada * cos(this->anguloBarrido);
+            distancia = distanciaDistorsionada * cos(this->anguloBarrido) + 3;
+            std::cout << "Para la distancia horizontal es: " << distancia  << "con angulo: " << this->anguloBarrido <<"\n";
+
         }
         interseccionAX = floor(interseccionAX + xa);
         interseccionAY += ya;
@@ -96,7 +100,7 @@ bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distan
         interseccionAX = floor(posX/this->ladoCelda) * (this->ladoCelda) + this->ladoCelda;
         xa = -this->ladoCelda;
     }else{
-         interseccionAX = floor(posX/this->ladoCelda) * (this->ladoCelda) - 1;
+         interseccionAX = ceil(posX/this->ladoCelda) * (this->ladoCelda) - 1;
          xa = this->ladoCelda;
       }
 
@@ -109,12 +113,14 @@ bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distan
       yaMapa--;
     while (!encontrePared && 0 < xaMapa && xaMapa < TAMANIO_FILA && 0 < yaMapa && yaMapa < TAMANIO_COLUMNA) {
         if (mapa[xaMapa][yaMapa] == 1) {
+          std::cout << "posiciones: " << xaMapa <<" y " << yaMapa << "\n";
+
             encontrePared = true;
             interseccionAX -= posX;
             interseccionAY -= posY;
             int distanciaDistorsionada = sqrt((interseccionAX * interseccionAX) + (interseccionAY * interseccionAY));
-            distancia = distanciaDistorsionada * cos(this->anguloBarrido);
-            //std::cout << "Para la distancia vertical es: " << distancia <<"\n";
+            distancia = distanciaDistorsionada * cos(this->anguloBarrido) + 3;
+            std::cout << "Para la distancia vertical es: " << distancia << "con angulo: " << this->anguloBarrido <<"\n";
         }
         interseccionAY = floor(interseccionAY + ya);
         interseccionAX += xa;
