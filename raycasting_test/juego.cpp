@@ -99,9 +99,7 @@ void Juego::raycasting(/*Map &mapa,Jugador &jugador*/){
             float anguloPorStripe = anguloDeVista / ANCHO_CANVAS;
 
             for (int i = 0; i <= ANCHO_CANVAS; i++) {
-              Rayo rayo(anguloDeVista, ladoCelda/*,ANCHO_CANVAS*/, LARGO_PROYECTOR, anguloBarrido);
-
-              //como barremos antihorario, barremos de derecha a izquierda la pantalla, igual barre al revez
+                Rayo rayo(anguloDeVista, ladoCelda, LARGO_PROYECTOR, anguloBarrido);
                 float distancia = 0;
                 if (rayo.verificarInterseccionHorizontal(mapa, distancia, anguloJugador)) {
                     alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
@@ -112,16 +110,14 @@ void Juego::raycasting(/*Map &mapa,Jugador &jugador*/){
                 }
 
                   double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
-                  double drawEnd = drawStart + alturaParedProyectada - 20; // va a haber q sumarle la altura del coso azul de abajo
+                  double drawEnd = drawStart + alturaParedProyectada - 20;
 
                   SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
-              //  SDL_SetRenderDrawBlendMode(this->render,SDL_BLENDMODE_NONE);
                   SDL_RenderDrawLine(this->render, i, drawStart,i, drawEnd);
 
                   SDL_RenderPresent(this->render);
                   std::chrono::milliseconds duration(10);
-                  std::this_thread::sleep_for(duration);//sin esto se pinta todo
-              //  rayo.aumentarAnguloBarrido();
+                  std::this_thread::sleep_for(duration);//sin esto se vuelve loco
               anguloBarrido += anguloPorStripe;
             }
             SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);

@@ -4,8 +4,6 @@
 #include <iostream>
 
 //posy,posx en pixeles
-
-
 void Rayo::verificarCuadranteY(const float anguloJugador) {
     float anguloBarrido = anguloJugador;
     if (this->anguloBarrido < 2 * acos(0.0) / 6) {
@@ -38,8 +36,6 @@ Rayo::Rayo(float campoDeVision, int ladoCelda/*, int tamanio_fila_mapa*/, int la
         campoDeVision(campoDeVision), ladoCelda(ladoCelda), tamanio_fila_mapa(tamanio_fila_mapa),
         largoProyector(largoProyector) {
     this->distanciaProyector = (this->largoProyector / 2) / tan(this->campoDeVision / 2);
-    //this->ladoMapa = this->ladoCelda * this->tamanio_fila_mapa; // lado celda * tamnaio de cada fila
-    //this->anguloPorStripe = this->campoDeVision / this->tamanio_fila_mapa;
     this->anguloBarrido = anguloBarrido;
 }
 
@@ -48,8 +44,6 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
     int posX = 120, posY = 100;// en pixels
     float interseccionAX,interseccionAY,xa,ya;// el primer punto de interseccion al que desp se le suma ya y xa
     int xaMapa,yaMapa;
-
-    //pasar la posicion a metros
 
     this->verificarCuadranteY(anguloJugador);
 
@@ -69,7 +63,7 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
     xaMapa --;//cheq
     yaMapa--;
     while (!encontrePared && 0 < xaMapa && xaMapa < TAMANIO_FILA && 0 < yaMapa && yaMapa < TAMANIO_COLUMNA) {
-        if (mapa[xaMapa][yaMapa] == 1) {//cheq caoaz esta al revez
+        if (mapa[xaMapa][yaMapa] == 1) {
           std::cout << "posiciones h: " << xaMapa <<" y " << yaMapa << "\n";
 
             encontrePared = true;
