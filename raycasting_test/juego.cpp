@@ -95,10 +95,12 @@ void Juego::raycasting(/*Map &mapa,Jugador &jugador*/){
             float anguloJugador = 2 * acos(0.0) / 3;
             int alturaParedProyectada = 0;
             int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA - 10;//el -10 va para q dibuje alfo razzonable
-
-            Rayo rayo(anguloDeVista, ladoCelda,ANCHO_CANVAS, LARGO_PROYECTOR);
+            float anguloBarrido = 0;
+            float anguloPorStripe = anguloDeVista / ANCHO_CANVAS;
 
             for (int i = 0; i <= ANCHO_CANVAS; i++) {
+              Rayo rayo(anguloDeVista, ladoCelda/*,ANCHO_CANVAS*/, LARGO_PROYECTOR, anguloBarrido);
+
               //como barremos antihorario, barremos de derecha a izquierda la pantalla, igual barre al revez
                 float distancia = 0;
                 if (rayo.verificarInterseccionHorizontal(mapa, distancia, anguloJugador)) {
@@ -119,7 +121,8 @@ void Juego::raycasting(/*Map &mapa,Jugador &jugador*/){
                   SDL_RenderPresent(this->render);
                   std::chrono::milliseconds duration(10);
                   std::this_thread::sleep_for(duration);//sin esto se pinta todo
-                rayo.aumentarAnguloBarrido();
+              //  rayo.aumentarAnguloBarrido();
+              anguloBarrido += anguloPorStripe;
             }
             SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
 

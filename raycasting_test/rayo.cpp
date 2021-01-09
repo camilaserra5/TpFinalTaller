@@ -34,13 +34,13 @@ void Rayo::verificarCuadranteX(const float anguloJugador) {
     }
 }
 
-Rayo::Rayo(float campoDeVision, int ladoCelda, int tamanio_fila_mapa, int largoProyector) :
+Rayo::Rayo(float campoDeVision, int ladoCelda/*, int tamanio_fila_mapa*/, int largoProyector,float anguloBarrido) :
         campoDeVision(campoDeVision), ladoCelda(ladoCelda), tamanio_fila_mapa(tamanio_fila_mapa),
         largoProyector(largoProyector) {
     this->distanciaProyector = (this->largoProyector / 2) / tan(this->campoDeVision / 2);
     //this->ladoMapa = this->ladoCelda * this->tamanio_fila_mapa; // lado celda * tamnaio de cada fila
-    this->anguloPorStripe = this->campoDeVision / this->tamanio_fila_mapa;
-    this->anguloBarrido = this->anguloPorStripe;
+    //this->anguloPorStripe = this->campoDeVision / this->tamanio_fila_mapa;
+    this->anguloBarrido = anguloBarrido;
 }
 
 bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &distancia, const float anguloJugador) {
@@ -119,7 +119,7 @@ bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distan
             interseccionAX -= posX;
             interseccionAY -= posY;
             int distanciaDistorsionada = sqrt((interseccionAX * interseccionAX) + (interseccionAY * interseccionAY));
-            distancia = distanciaDistorsionada * cos(this->anguloBarrido) + 3;
+            distancia = distanciaDistorsionada * cos(this->anguloBarrido) + 0.1;
             std::cout << "Para la distancia vertical es: " << distancia << "con angulo: " << this->anguloBarrido <<"\n";
         }
         interseccionAY = floor(interseccionAY + ya);
