@@ -1,5 +1,6 @@
 #include "juego.h"
 #include "rayo.h"
+#include "map.h"
 #include <iostream>
 #include <thread>
 
@@ -111,16 +112,16 @@ void Juego::raycasting(/*Map &mapa,Jugador &jugador*/){
 
                   double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
                   double drawEnd = drawStart + alturaParedProyectada - 20;
+                  SDL_RenderPresent(this->render);
 
                   SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
                   SDL_RenderDrawLine(this->render, i, drawStart,i, drawEnd);
 
-                  SDL_RenderPresent(this->render);
                   std::chrono::milliseconds duration(10);
                   std::this_thread::sleep_for(duration);//sin esto se vuelve loco
               anguloBarrido += anguloPorStripe;
             }
-            SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
+            SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);// deberia estar en atualizar
 
             SDL_RenderClear(this->render);
 
