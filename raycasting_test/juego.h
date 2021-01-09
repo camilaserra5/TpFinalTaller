@@ -1,9 +1,12 @@
 #ifndef JUEGO_H
 #define JUEGO_H
+#define ANCHO_CANVAS 800
+#define ALTURA_CANVAS 320
 #include "objetoJuego.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "textura.h"
+#include "map.h"
 #include <list>
 
 class Juego {
@@ -30,7 +33,7 @@ public:
 
     void clean();
 
-    void raycasting();
+    void raycasting(Map& mapa);
 };
 
 #endif /*JUEGO_H*/

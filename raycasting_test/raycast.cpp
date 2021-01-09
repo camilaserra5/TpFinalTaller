@@ -9,6 +9,7 @@
 
 int main() {
   Juego *juego = new Juego();
+  Map mapa(20,20);
   int i = 1;
   try {
       juego->inicializar("Wolfstein", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
@@ -16,7 +17,7 @@ int main() {
           juego->handleEvents();
           juego->actualizar();
           juego->renderizar();
-          juego->raycasting();
+          juego->raycasting(mapa);
           //std::chrono::milliseconds duration(20);
           //std::this_thread::sleep_for(duration);
       }

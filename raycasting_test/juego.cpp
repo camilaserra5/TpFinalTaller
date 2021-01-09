@@ -1,14 +1,10 @@
 #include "juego.h"
 #include "rayo.h"
-#include "map.h"
 #include <iostream>
 #include <thread>
 
 
 #define EXITO 0
-
-#define ANCHO_CANVAS 800
-#define ALTURA_CANVAS 320
 #define TAMANIO_FILA 20
 #define TAMANIO_COLUMNA 20
 #define LARGO_PROYECTOR ANCHO_CANVAS
@@ -67,7 +63,7 @@ void Juego::clean() {
     SDL_Quit();
 }
 
-void Juego::raycasting(/*Map &mapa,Jugador &jugador*/){
+void Juego::raycasting(Map &mapaa/*,Jugador &jugador*/){
 
   int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
