@@ -39,7 +39,11 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
 }
 
 bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
-    Type tipo = mapa->operator()(posx, posy);
+    int posEnMapaJugadorx =  (mapa->getRowSize()*posx)/(mapa->getRowSize()*50);  // 50 seria el tamanio de la celda en pixeles
+                                                                                // esa info hya que ver quien la tiene. maybe mapa?
+    int posEnMapaJugadory = (mapa->getColSize()*posy)/(mapa->getColSize()*50);
+
+    Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadorx);
     if (tipo == Type::wall) {
         return false;
     } else if (tipo == Type::door) {
@@ -65,8 +69,12 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
 }
 
 Item *verificarItems(Map *mapa, int &posx, int &posy) {
-  Posicion posicion = Posicion(1,1,0.5);//va a depender de su posidion en el mapa
-    Type tipo = mapa->operator()(posx, posy);
+    int posEnMapaJugadorx =  (mapa->getRowSize()*posx)/(mapa->getRowSize()*50);  // 50 seria el tamanio de la celda en pixeles
+                                                                                // esa info hya que ver quien la tiene. maybe mapa?
+    int posEnMapaJugadory = (mapa->getColSize()*posy)/(mapa->getColSize()*50);
+
+    Posicion posicion = Posicion(1,1,0.5);//va a depender de su posidion en el mapa
+    Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadory);
     if (tipo == Type::comida) {
         return new Comida(posicion);
     } else if (tipo == Type::sangre) {
@@ -75,7 +83,6 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
         return new KitsMedicos(posicion);
     } else if (tipo == Type::balas) {
         return new Balas(posicion);
-        // faltan mas comandos, las armas!!
     } else if (tipo == Type::ametralladora) {
         return new Ametralladora(posicion);
     } else if (tipo == Type::canionDeCadena){

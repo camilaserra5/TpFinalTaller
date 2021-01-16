@@ -10,7 +10,7 @@
 #include "entidadPosicionable.h"
 
 
-class Arma : public EntidadPosicionable{
+class Arma{
 public:
     Arma(int distancia_max_atacable, int id) :
             distancia_max_atacable(distancia_max_atacable), id(id){}

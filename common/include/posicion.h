@@ -11,6 +11,9 @@ class Posicion{
     ~Posicion(){}
     int distanciaA(Posicion &posicion);
     bool intersectaConMiAngulo(Posicion &otroJugador);
+    void actualizar_posicion(int pixelesx, int pixelesy);
+    int pixelesEnX();
+    int pixelesEnY();
   private:
     int pixelesX;
     int pixelesY;

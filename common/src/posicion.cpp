@@ -15,3 +15,16 @@ bool Posicion::intersectaConMiAngulo(Posicion &otroJugador){
   int yOtroJugador = pendienteRecta * otroJugador.pixelesX + this->pixelesY;
   return (abs(yOtroJugador - otroJugador.pixelesY) <= DELTA_DISTANCIA);
 }
+
+void Posicion::actualizar_posicion(int pixelesX, int pixelesY){
+    this->pixelesX += pixelesX;
+    this->pixelesY += pixelesY;
+}
+
+int Posicion::pixelesEnX(){
+    return this->pixelesX;
+}
+
+int Posicion::pixelesEnY(){
+    return this->pixelesY;
+}
