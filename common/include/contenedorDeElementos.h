@@ -3,6 +3,7 @@
 #define CONTENEDOR_DE_ELEMENTOS
 
 #include <vector>
+#include "items/item.h"
 #include "items/comida.h"
 #include "items/balas.h"
 #include "items/sangre.h"
@@ -21,12 +22,13 @@ class ContenedorDeElementos {
     ContenedorDeElementos();
     ~ContenedorDeElementos();
 
-    void agregarElemento(EntidadPosicionable* elemento);
+    void agregarElemento(Item* elemento);
     //ElementoPosicionable actualizarElementos();
     //std::vector<ElementoPosicionable> elementoEnPosicion();
+    Item* buscarElemento(int& pox,int& posy);
 
   private:
-    std::vector<EntidadPosicionable*> elementos;
+    std::vector<Item*> elementos;
 };
 
 #endif

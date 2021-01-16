@@ -10,7 +10,15 @@ ContenedorDeElementos::ContenedorDeElementos():
 
 ContenedorDeElementos::~ContenedorDeElementos(){}
 
-void ContenedorDeElementos::agregarElemento(EntidadPosicionable* entidad){
+void ContenedorDeElementos::agregarElemento(Item* entidad){
 
     this->elementos.push_back(entidad);
+}
+
+Item* ContenedorDeElementos::buscarElemento(int& posx, int& posy){
+    for (int i = 0; i< this->elementos.size(); i++){
+          if (this->elementos[i]->estaCerca(posx, posy)){
+                return this->elementos[i];
+          }
+    }
 }
