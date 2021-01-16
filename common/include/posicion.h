@@ -14,6 +14,7 @@ class Posicion{
     void actualizar_posicion(int pixelesx, int pixelesy);
     int pixelesEnX();
     int pixelesEnY();
+    bool estaCerca(int& posx, int& posy);
   private:
     int pixelesX;
     int pixelesY;
