@@ -2,6 +2,7 @@
 #define NO_ITEM_H
 
 #include "item.h"
+#include <iostream>
 
 class NoItem : public Item {
 public:
@@ -9,7 +10,9 @@ public:
 
     ~NoItem() {}
 
-    void obtenerBeneficio(Jugador *jugador) override {}
+    void obtenerBeneficio(Jugador *jugador) override {
+        std::cout << "beneficio de no item\n";
+    }
 
 };
 

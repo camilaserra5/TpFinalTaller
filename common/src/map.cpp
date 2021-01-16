@@ -33,6 +33,7 @@ unsigned Map::getRowSize() const {
 unsigned Map::getColSize() const {
     return this->colSize;
 }
+// pre condicion: va a ver un item por celda por facilidad, ya que sino se pisan;
 void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned colNumber,
                                     Type value){
     srand(time(NULL));
@@ -41,7 +42,8 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     Posicion posicion = Posicion(posElementox, posElementoy, 0);
     if (value == Type::comida) {
       //  Comida comida = new Comida(posicion);
-        this->contenedorDeElementos.agregarElemento(new Comida(posicion));
+        Posicion prueba = Posicion(4,6, 0);
+        this->contenedorDeElementos.agregarElemento(new Comida(prueba));
     } else if (value == Type::sangre) {
         //Sangre sangre = new Sangre(posicion);
         this->contenedorDeElementos.agregarElemento(new Sangre(posicion));
@@ -65,6 +67,9 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
         this->contenedorDeElementos.agregarElemento(new NoItem(posicion));
     }
 
+}
+Item* Map::buscarElemento(int& posx, int& posy){
+    return this->contenedorDeElementos.buscarElemento(posx, posy);
 }
 
 void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type value) {

@@ -11,7 +11,9 @@ public:
     virtual ~Item() {}
 
     virtual void obtenerBeneficio(Jugador *jugador) = 0;
-
+    bool estaCerca(int& posx, int& posy){
+        return this->posicion.estaCerca(posx, posy);
+    }
   private:
     Posicion posicion;
 };
