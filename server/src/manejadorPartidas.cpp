@@ -48,6 +48,7 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
         //Map mapa = this->buscarMapa(archivoMapa);
         Map *mapa = new Map(20, 20);
         mapa->setValue(0,1, Type::comida);
+        std::cout << "ya setie elemnto";
         //int cant_jugadores = 1;
         Servidor *servidor = new Servidor(mapa, cant_jugadores);
         //  Cliente *cliente = new Cliente(servidor.obtenerColaEventos(), servidor.obtenerColaActualizaciones(),  nombreJugador);

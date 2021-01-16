@@ -43,6 +43,7 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     if (value == Type::comida) {
       //  Comida comida = new Comida(posicion);
         Posicion prueba = Posicion(4,6, 0);
+        std::cout << "agrego comuda\n";
         this->contenedorDeElementos.agregarElemento(new Comida(prueba));
     } else if (value == Type::sangre) {
         //Sangre sangre = new Sangre(posicion);
@@ -64,6 +65,7 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     } else if (value == Type::llave){
         this->contenedorDeElementos.agregarElemento(new Llave(posicion));
     } else {
+        std::cout << "agrego no item\n";
         this->contenedorDeElementos.agregarElemento(new NoItem(posicion));
     }
 
