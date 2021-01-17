@@ -11,6 +11,7 @@
 #include "items/tesoro.h"
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
+#include "armas/lanzacohete.h"
 #define TAM_CELDA 50
 
 Map::Map(unsigned rowSize, unsigned colSize): contenedorDeElementos(){
@@ -57,7 +58,7 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     } else if (value == Type::canionDeCadena){
         this->contenedorDeElementos.agregarElemento(new CanionDeCadena(posicion));
     } else if (value == Type::lanzaCohetes){
-        //return new lanzaCohetes();
+        this->contenedorDeElementos.agregarElemento(new LanzaCohetes(posicion));
     } else if (value == Type::tesoro){
         std::string tesoro("copa");
         int puntos = 50;

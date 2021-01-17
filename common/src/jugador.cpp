@@ -40,10 +40,7 @@ Jugador::~Jugador() {
 
 // recibo la posicion a moverse
 void Jugador::moverse(int posx, int posy) {
-    /*this->posx += posx;
-    this->posy += posy;
-    std::cout << "x: " << posx;
-    std::cout << "y: " << posy;*/
+    
     this->posicion.actualizar_posicion(posx, posy);
 }
 

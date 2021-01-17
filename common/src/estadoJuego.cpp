@@ -105,8 +105,8 @@ void EstadoJuego::moverse_a_derecha(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     int posEnJuegox = jugador->posEnX() + METROS_MOVIDOS;
     int posEnJuegoy = jugador->posEnY();
-    std::cout << "pos en x: " << posEnJuegox << "\n";
-    std::cout << "pos en y: " << posEnJuegoy << "\n";
+    std::cout << "pos x: " << posEnJuegox << "\n";
+    std::cout << "pos y: " << posEnJuegoy << "\n";
     if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
         item->obtenerBeneficio(jugador);

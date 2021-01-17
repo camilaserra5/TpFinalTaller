@@ -1,6 +1,7 @@
 #include "../include/posicion.h"
 #define DELTA_DISTANCIA 0.5
 #include <math.h>
+#include <iostream>
 
 int Posicion::distanciaA(Posicion &posicion){
   float x = this->pixelesX - posicion.pixelesX;
@@ -19,6 +20,8 @@ bool Posicion::intersectaConMiAngulo(Posicion &otroJugador){
 void Posicion::actualizar_posicion(int pixelesX, int pixelesY){
     this->pixelesX += pixelesX;
     this->pixelesY += pixelesY;
+    std::cout << "pixeles en x: "<< this->pixelesX;
+    std::cout << " pixeles en y " << this->pixelesY;
 }
 
 int Posicion::pixelesEnX(){
