@@ -34,7 +34,9 @@ int Posicion::pixelesEnY() {
     return this->pixelesY;
 }
 
-<<<<<<< HEAD
+<<<<<<<
+
+HEAD
 int Posicion::distanciaA(Posicion &posicion) {
     float x = this->pixelesX - posicion.pixelesX;
     float y = this->pixelesY - posicion.pixelesY;
@@ -47,16 +49,16 @@ bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
     float pendienteRecta = (yFinal - this->pixelesY) / (xFinal - this->pixelesX);
     int yOtroJugador = pendienteRecta * otroJugador.pixelesX + this->pixelesY;
     return (abs(yOtroJugador - otroJugador.pixelesY) <= DELTA_DISTANCIA);
-=======
+    =======
 // le creo un "cuerpo"(circulo) al objeto y veo si el otro objeto esta dentro de ese circulo;
 //ecuacion (x2 -x1)² + (y2 - y1)² < radio²
-bool Posicion::estaCerca(int &posx, int &posy) {
-    int radio = 5;
-    int posFinalx = posx - this->pixelesX;
-    int posFinaly = posy - this->pixelesY;
-    if (((posFinalx * posFinalx) + (posFinaly * posFinaly)) < radio * radio) {
-        return true;
+    bool Posicion::estaCerca(int &posx, int &posy) {
+        int radio = 5;
+        int posFinalx = posx - this->pixelesX;
+        int posFinaly = posy - this->pixelesY;
+        if (((posFinalx * posFinalx) + (posFinaly * posFinaly)) < radio * radio) {
+            return true;
+        }
+        return false;
+        >>>>>>> main
     }
-    return false;
->>>>>>> main
-}

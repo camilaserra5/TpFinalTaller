@@ -1,8 +1,5 @@
 #include "../include/contenedorDeElementos.h"
-<<<<<<< HEAD
-=======
 #include <iostream>
->>>>>>> main
 
 /*
 void ContenedorDeElementos::aniadirElemento(ElementoPosicionable &elemento){
@@ -12,15 +9,8 @@ void ContenedorDeElementos::aniadirElemento(ElementoPosicionable &elemento){
 
 ContenedorDeElementos::ContenedorDeElementos() :
         elementos() {}
-<<<<<<< HEAD
 
 ContenedorDeElementos::~ContenedorDeElementos() {}
-
-void ContenedorDeElementos::agregarElemento(EntidadPosicionable *entidad) {
-=======
-
-ContenedorDeElementos::~ContenedorDeElementos() {}
->>>>>>> main
 
 void ContenedorDeElementos::agregarElemento(Item *entidad) {
     std::cout << "agrego elemento\n";

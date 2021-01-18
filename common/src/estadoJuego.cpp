@@ -39,16 +39,12 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
 }
 
 bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
-<<<<<<< HEAD
-    Type tipo = mapa->operator()(posx, posy);
-=======
     int posEnMapaJugadorx =
             (mapa->getRowSize() * posx) / (mapa->getRowSize() * 50);  // 50 seria el tamanio de la celda en pixeles
     // esa info hya que ver quien la tiene. maybe mapa?
     int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * 50);
 
     Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadorx);
->>>>>>> main
     if (tipo == Type::wall) {
         return false;
     } else if (tipo == Type::door) {
@@ -74,10 +70,6 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
 }
 
 Item *verificarItems(Map *mapa, int &posx, int &posy) {
-<<<<<<< HEAD
-    Posicion posicion = Posicion(1, 1, 0.5);//va a depender de su posidion en el mapa
-    Type tipo = mapa->operator()(posx, posy);
-=======
     int posEnMapaJugadorx =
             (mapa->getRowSize() * posx) / (mapa->getRowSize() * 50);  // 50 seria el tamanio de la celda en pixeles
     // esa info hya que ver quien la tiene. maybe mapa?
@@ -88,7 +80,6 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
 /*
     Posicion posicion = Posicion(1,1,0.5);//va a depender de su posidion en el mapa
     Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadory);
->>>>>>> main
     if (tipo == Type::comida) {
         return new Comida(posicion);
     } else if (tipo == Type::sangre) {
@@ -99,14 +90,14 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
         return new Balas(posicion);
     } else if (tipo == Type::ametralladora) {
         return new Ametralladora(posicion);
-    } else if (tipo == Type::canionDeCadena) {
+    } else if (tipo == Type::canionDeCadena){
         return new CanionDeCadena(posicion);
-    } else if (tipo == Type::lanzaCohetes) {
+    } else if (tipo == Type::lanzaCohetes){
         //return new lanzaCohetes();
-    } else if (tipo == Type::tesoro) {
+    } else if (tipo == Type::tesoro){
         std::string tesoro("copa");
         int puntos = 50;
-        return new Tesoro(tesoro, puntos, posicion);
+        return new Tesoro(tesoro, puntos,posicion);
     } else {
         return new NoItem(posicion);
     }*/
