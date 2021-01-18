@@ -33,11 +33,15 @@ public:
 
     int getId();
 
+    void setPosicion(Posicion &posicion){this->posicion = posicion; }
+
     Posicion &getPosicion() { return this->posicion; }
 
     Arma *getArma() { return this->armaActual; }
 
     float getAnguloDeVista() { return this->angulo; }
+
+    //void setAnguloDeVista(float anguloJugador){this->angulo = anguloJugador; }
 
     bool tengollave(){
         return (this->llaves > 0);
@@ -62,8 +66,6 @@ private:
     int id;
     std::string nombre;
     int vida;
-    int posx;
-    int posy;
     std::vector<Arma *> armas;
     int balas;
     int puntaje;

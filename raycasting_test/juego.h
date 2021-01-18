@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "textura.h"
+#include "jugador.h"
 #include "map.h"
 #include <list>
 
@@ -33,7 +34,7 @@ public:
 
     void clean();
 
-    void raycasting(Map& mapa);
+    void raycasting(Map& mapa,Jugador &jugador);
 };
 
 #endif /*JUEGO_H*/
