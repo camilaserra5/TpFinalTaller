@@ -39,7 +39,7 @@ public:
 
     Arma *getArma() { return this->armaActual; }
 
-    float getAnguloDeVista() { return this->angulo; }
+    float getAnguloDeVista() { return this->posicion.getAnguloDeVista(); }
 
     //void setAnguloDeVista(float anguloJugador){this->angulo = anguloJugador; }
 

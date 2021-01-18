@@ -48,7 +48,7 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
 
     float anguloJugador = 2 * acos(0.0) / 3;
 
-    this->verificarCuadranteY(anguloJugador);
+    this->verificarCuadranteY(posJugador.getAnguloDeVista());
 
     if (this->abajo){
         interseccionAY = floor(posY/this->ladoCelda) * (this->ladoCelda) + this->ladoCelda;
@@ -93,7 +93,7 @@ bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distan
     int xaMapa,yaMapa;
     float anguloJugador = 2 * acos(0.0) / 3;
 
-    this->verificarCuadranteX(anguloJugador);
+    this->verificarCuadranteX(posJugador.getAnguloDeVista());
 
     if (this->izquierda){
         interseccionAX = floor(posX/this->ladoCelda) * (this->ladoCelda) + this->ladoCelda;

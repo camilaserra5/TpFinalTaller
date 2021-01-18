@@ -24,8 +24,8 @@ int main() {
           juego->actualizar();
           juego->renderizar();
           juego->raycasting(mapa,jugador);
-          //std::chrono::milliseconds duration(20);
-          //std::this_thread::sleep_for(duration);
+          std::chrono::milliseconds duration(20);
+          std::this_thread::sleep_for(duration);
       }
       juego->clean();
   } catch (...) {
