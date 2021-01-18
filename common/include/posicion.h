@@ -16,6 +16,7 @@ class Posicion{
     int pixelesEnY();
     float getAnguloDeVista(){ return this->anguloDeVista;}
     bool estaCerca(int& posx, int& posy);
+    void rotar(float anguloRotacion);
   private:
     int pixelesX;
     int pixelesY;

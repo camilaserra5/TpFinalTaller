@@ -24,6 +24,7 @@ int main() {
           juego->actualizar();
           juego->renderizar();
           juego->raycasting(mapa,jugador);
+          jugador.rotar(0.5 * acos(0.0));
           std::chrono::milliseconds duration(20);
           std::this_thread::sleep_for(duration);
       }

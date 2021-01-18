@@ -42,3 +42,14 @@ bool Posicion::estaCerca(int& posx, int& posy){
     }
     return false;
 }
+
+void Posicion::rotar(float anguloRotacion){
+    float anguloFinal = this->anguloDeVista + anguloRotacion;
+    if (anguloFinal < 0){
+      this->anguloDeVista =  4 * acos(0.0) + anguloFinal;
+    }else if(anguloFinal > 4 * acos(0.0)) {
+      this->anguloDeVista = anguloFinal - 4 * acos(0.0);
+    }else {
+      this->anguloDeVista = anguloFinal;
+    }
+}

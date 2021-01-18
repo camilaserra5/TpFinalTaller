@@ -20,7 +20,7 @@ void Rayo::verificarCuadranteY(const float anguloJugador) {
 
 void Rayo::verificarCuadranteX(const float anguloJugador) {
     float anguloBarrido = anguloJugador;
-    if (this->anguloBarrido < 2 * acos(0.0) / 6) {
+    if (this->anguloBarrido < 2 * acos(0.0) / 6) {///pi sobre seis ppor que es la mitad del rango de vista
         anguloBarrido = anguloJugador - this->anguloBarrido;
     } else {
         anguloBarrido = anguloJugador + this->anguloBarrido;
@@ -45,8 +45,6 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
     int posX = posJugador.pixelesEnX()/*120*/, posY = posJugador.pixelesEnY()/*100*/;// en pixels
     float interseccionAX,interseccionAY,xa,ya;// el primer punto de interseccion al que desp se le suma ya y xa
     int xaMapa,yaMapa;
-
-    float anguloJugador = 2 * acos(0.0) / 3;
 
     this->verificarCuadranteY(posJugador.getAnguloDeVista());
 
@@ -91,9 +89,9 @@ bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distan
     int posX = posJugador.pixelesEnX()/*120*/, posY = posJugador.pixelesEnY()/*100*/;// en pixels
     float interseccionAX,interseccionAY,xa,ya;// el primer punto de interseccion al que desp se le suma ya y xa
     int xaMapa,yaMapa;
-    float anguloJugador = 2 * acos(0.0) / 3;
 
     this->verificarCuadranteX(posJugador.getAnguloDeVista());
+    std::cout << "angulo:"<< posJugador.getAnguloDeVista();
 
     if (this->izquierda){
         interseccionAX = floor(posX/this->ladoCelda) * (this->ladoCelda) + this->ladoCelda;

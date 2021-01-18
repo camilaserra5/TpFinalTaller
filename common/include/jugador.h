@@ -15,6 +15,8 @@ public:
 
     void moverse(int posx, int posy);
 
+    void rotar(float anguloRotacion);
+
     void actualizar_vida(int &vidaActualizada);
 
     void agregar_item();
