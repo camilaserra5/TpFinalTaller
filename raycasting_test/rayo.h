@@ -1,7 +1,9 @@
 #ifndef RAYO_H
 #define RAY0_H
-#define TAMANIO_FILA 10
-#define TAMANIO_COLUMNA 10
+#define TAMANIO_FILA 20
+#define TAMANIO_COLUMNA 20
+
+#include "jugador.h"
 
 class Rayo {
 private:
@@ -24,11 +26,11 @@ private:
     void verificarCuadranteY(const float anguloJugador);
 
 public:
-    Rayo(float campoDeVision, int ladoCelda, int tamanio_fila_mapa, int largoProyector);
+    Rayo(float campoDeVision, int ladoCelda, /*int tamanio_fila_mapa, */int largoProyector, float anguloBarrido);
 
-    bool verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &distancia, const float anguloJugador);
+    bool verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
 
-    bool verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distancia, const float anguloJugador);
+    bool verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
 
     int getDistanciaProyector();
 

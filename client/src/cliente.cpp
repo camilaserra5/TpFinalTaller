@@ -1,32 +1,14 @@
 #include "../include/cliente.h"
+//#include "socket.h"
 #include <iostream>
-#include <fstream>
-#include <string>
 #include "../include/juego.h"
-#include "blocking_queue.h"
-#include "protected_queue.h"
-#include "../include/client_event_receiver.h"
-#include "../include/client_event_sender.h"
 
-#define BUFFER_TAM 50
-#define ERROR -1
+Cliente::Cliente(ProtectedQueue<Comando *> &cola_eventos, const char *host, const char *server_port) :
+        cola_eventos(cola_eventos) {}
 
-#define SOCKET_CERRADO 0
+Cliente::~Cliente() {}
 
-Cliente::Cliente(const char *host, const char *server_port) : socket() {
-    this->socket.conectar(host, server_port);
-}
-
-void Cliente::correr() {
-    //BlockingQueue<Comando *> event_queue;
-    //ProtectedQueue<Comando *> updates_queue;
-
-    ClientEventSender sender(this->socket);
-    sender.start();
-
-    ClientEventReceiver receiver(this->socket);
-    receiver.start();
-
+void Cliente::run() {
     //Comando* evento;
     //ACA IRIA UN HANDLER EVENT
     //this->cola_eventos.aniadir_comando(evento);
@@ -44,12 +26,4 @@ void Cliente::correr() {
     } catch (...) {
         std::cout << "error";
     }
-
-    sender.cerrar();
-    receiver.cerrar();
-
-    sender.join();
-    receiver.join();
 }
-
-Cliente::~Cliente() {}

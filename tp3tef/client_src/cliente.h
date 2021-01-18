@@ -12,6 +12,8 @@ private:
 
     void correr();
 
+    void procesar_respuesta_servidor();
+
 public:
     Cliente(const char *host, const char *server_port);
 

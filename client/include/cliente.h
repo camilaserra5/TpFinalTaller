@@ -1,25 +1,21 @@
-#ifndef CLIENTE_H
-#define CLIENTE_H
-
-#include "socket.h"
-#include <string>
-#include <sstream>
+#ifndef _CLIENTE_H
+#define _CLIENTE_H
+//#include "../../common_src/include/socket.h"
+//#include "../../common_src/include/thread.h"
+#include "protected_queue.h"
+#include "comandos/comando.h"
+#include <SDL2/SDL.h>
 
 class Cliente {
 private:
-    Socket socket;
-    std::stringstream mensaje_servidor;
-
-    void correr();
-
+    //Socket socket;
+    ProtectedQueue<Comando *> &cola_eventos;
 public:
-    Cliente(const char *host, const char *server_port);
-
-    void operator()() {
-        this->correr();
-    }
+    Cliente(ProtectedQueue<Comando *> &cola_eventos, const char *host, const char *server_port);
 
     ~Cliente();
+
+    void run();
 };
 
-#endif /*CLIENTE_H*/
+#endif

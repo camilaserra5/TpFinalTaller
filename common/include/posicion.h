@@ -16,6 +16,16 @@ public:
 
     bool intersectaConMiAngulo(Posicion &otroJugador);
 
+    void actualizar_posicion(int pixelesx, int pixelesy);
+
+    int pixelesEnX();
+
+    int pixelesEnY();
+
+    float getAnguloDeVista() { return this->anguloDeVista; }
+
+    bool estaCerca(int &posx, int &posy);
+
 private:
     int pixelesX;
     int pixelesY;

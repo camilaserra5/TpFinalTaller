@@ -5,12 +5,9 @@
 
 
 #define EXITO 0
-
-#define ANCHO_CANVAS 320
-#define ALTURA_CANVAS 320
-#define TAMANIO_FILA 10
-#define TAMANIO_COLUMNA 10
-#define LARGO_PROYECTOR 320
+#define TAMANIO_FILA 20
+#define TAMANIO_COLUMNA 20
+#define LARGO_PROYECTOR ANCHO_CANVAS
 #define ANCHO_PROYECTOR 20
 
 
@@ -29,6 +26,7 @@ void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int a
         this->corriendo = false;
     }
     this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png", this->render);
+
     ObjetoJuego *enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->render, 50, 50, 100, 100);
     this->objetos.push_back(enemigo);
 }
@@ -66,52 +64,60 @@ void Juego::clean() {
     SDL_Quit();
 }
 
-void Juego::raycasting() {
+void Juego::raycasting(Map &mapaa, Jugador &jugador) {
 
-    int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                               {1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-                                               {1, 0, 0, 1, 0, 1, 0, 0, 0, 1},
-                                               {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-                                               {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                               {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     };
 
-    float posJugadorX, posJugadorY, alturaJugador;
-    float anguloDeVista = 2 * acos(0.0) / 3;
-    float anguloJugador = 2 * acos(0.0) / 3;
+    float posJugadorX, posJugadorY/*, alturaJugador*/;//LO SABE EL JUGADOR
+    float rangoDeVista = 2 * acos(0.0) / 3;
     int alturaParedProyectada = 0;
-    int ladoCelda = ANCHO_CANVAS / TAMANIO_FILA;
+    int ladoCelda = ANCHO_CANVAS / TAMANIO_FILA - 10;//el -10 va para q dibuje alfo razzonable
+    float anguloBarrido = 0;
+    float anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
 
-    Rayo rayo(anguloDeVista, ladoCelda, /*TAMANIO_FILA*/ANCHO_CANVAS, LARGO_PROYECTOR);
-
-    for (int i = ANCHO_CANVAS; i > 0; i--) {
-        //como barremos antihorario, barremos de derecha a izquierda la pantalla, igual barre al revez
+    for (int i = 0; i <= ANCHO_CANVAS; i++) {
+        Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloBarrido);
         float distancia = 0;
-        if (rayo.verificarInterseccionHorizontal(mapa, distancia, anguloJugador)) {
+        if (rayo.verificarInterseccionHorizontal(mapa, distancia, jugador)) {
             alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
             std::cout << "la altura es: " << alturaParedProyectada << "\n";
-        } else if (rayo.verificarInterseccionVertical(mapa, distancia, anguloJugador)) {
+        } else if (rayo.verificarInterseccionVertical(mapa, distancia, jugador)) {
             alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
             std::cout << "la altura es: " << alturaParedProyectada << "\n";
         }
 
-        double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2));
-        double drawEnd = drawStart + alturaParedProyectada;
+        double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
+        double drawEnd = drawStart + alturaParedProyectada - 20;
+        SDL_RenderPresent(this->render);
 
         SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
-        //  SDL_SetRenderDrawBlendMode(this->render,SDL_BLENDMODE_NONE);
         SDL_RenderDrawLine(this->render, i, drawStart, i, drawEnd);
 
-        SDL_RenderPresent(this->render);
         std::chrono::milliseconds duration(10);
-        std::this_thread::sleep_for(duration);//sin esto se pinta todo
-        rayo.aumentarAnguloBarrido();
+        std::this_thread::sleep_for(duration);//sin esto se vuelve loco
+        anguloBarrido += anguloPorStripe;
     }
-    SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
+    SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);// deberia estar en atualizar
 
     SDL_RenderClear(this->render);
 

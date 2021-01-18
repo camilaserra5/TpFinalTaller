@@ -14,8 +14,7 @@ link_directories(~/TpFinalTaller/common/build)
 include_directories(~/TpFinalTaller/common/include)
 
 file(GLOB SOURCES src/*.cpp)
-add_executable(client
-        ${SOURCES})
+add_executable(client ${SOURCES})
 
 target_link_libraries(client ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads)
 

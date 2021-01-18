@@ -19,5 +19,5 @@ int Textura::renderizar(SDL_Renderer *render, const Lienzo &src, const Lienzo &d
             dest.getX(), dest.getY(),
             dest.getAncho(), dest.getAlto()
     };
-    return SDL_RenderCopy(render, this->textura, &sdlSrc, &sdlDest);
+    return SDL_RenderCopy(render, this->textura, NULL/*&sdlSrc*/, &sdlDest);
 }
