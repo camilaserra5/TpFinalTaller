@@ -3,6 +3,8 @@
 #define TAMANIO_FILA 20
 #define TAMANIO_COLUMNA 20
 
+#include "jugador.h"
+
 class Rayo {
 private:
     bool abajo = false;
@@ -26,9 +28,9 @@ private:
 public:
     Rayo(float campoDeVision, int ladoCelda, /*int tamanio_fila_mapa, */int largoProyector,float anguloBarrido);
 
-    bool verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &distancia, const float anguloJugador);
+    bool verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
 
-    bool verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distancia, const float anguloJugador);
+    bool verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
 
     int getDistanciaProyector();
 

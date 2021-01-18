@@ -11,6 +11,9 @@ class Posicion{
     ~Posicion(){}
     int distanciaA(Posicion &posicion);
     bool intersectaConMiAngulo(Posicion &otroJugador);
+    int getCoordenadaX(){ return this->pixelesX; }
+    int getCoordenadaY(){ return this->pixelesY; }
+
   private:
     int pixelesX;
     int pixelesY;

@@ -63,7 +63,7 @@ void Juego::clean() {
     SDL_Quit();
 }
 
-void Juego::raycasting(Map &mapaa/*,Jugador &jugador*/){
+void Juego::raycasting(Map &mapaa,Jugador &jugador){
 
   int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -87,21 +87,20 @@ void Juego::raycasting(Map &mapaa/*,Jugador &jugador*/){
                                               {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                             };
 
-            float posJugadorX, posJugadorY, alturaJugador;
-            float anguloDeVista = 2 * acos(0.0) / 3;
-            float anguloJugador = 2 * acos(0.0) / 3;
+            float posJugadorX, posJugadorY/*, alturaJugador*/;//LO SABE EL JUGADOR
+            float rangoDeVista = 2 * acos(0.0) / 3;
             int alturaParedProyectada = 0;
             int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA - 10;//el -10 va para q dibuje alfo razzonable
             float anguloBarrido = 0;
-            float anguloPorStripe = anguloDeVista / ANCHO_CANVAS;
+            float anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
 
             for (int i = 0; i <= ANCHO_CANVAS; i++) {
-                Rayo rayo(anguloDeVista, ladoCelda, LARGO_PROYECTOR, anguloBarrido);
+                Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloBarrido);
                 float distancia = 0;
-                if (rayo.verificarInterseccionHorizontal(mapa, distancia, anguloJugador)) {
+                if (rayo.verificarInterseccionHorizontal(mapa, distancia, jugador)) {
                     alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
                     std::cout << "la altura es: " << alturaParedProyectada << "\n";
-                } else if (rayo.verificarInterseccionVertical(mapa, distancia, anguloJugador)) {
+                } else if (rayo.verificarInterseccionVertical(mapa, distancia, jugador)) {
                     alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
                     std::cout << "la altura es: " << alturaParedProyectada << "\n";
                 }
