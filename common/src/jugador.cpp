@@ -89,3 +89,7 @@ void Jugador::sumarPuntos(int puntos) {
 void Jugador::agarrarLlave() {
     this->llaves += 1;
 }
+
+void Jugador::rotar(float anguloRotacion){
+  this->posicion.rotar(anguloRotacion);
+}

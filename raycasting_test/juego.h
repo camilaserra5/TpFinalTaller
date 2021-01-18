@@ -2,7 +2,6 @@
 #define JUEGO_H
 #define ANCHO_CANVAS 800
 #define ALTURA_CANVAS 320
-
 #include "objetoJuego.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -13,7 +12,7 @@
 
 class Juego {
 private:
-    std::list<ObjetoJuego *> objetos;
+    std::list<ObjetoJuego*> objetos;
     bool corriendo;
     SDL_Window *ventana;
     SDL_Renderer *render;
@@ -35,7 +34,7 @@ public:
 
     void clean();
 
-    void raycasting(Map &mapa, Jugador &jugador);
+    void raycasting(Map& mapa,Jugador &jugador);
 };
 
 #endif /*JUEGO_H*/
