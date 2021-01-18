@@ -33,7 +33,7 @@ public:
 
     int getId();
 
-    void setPosicion(Posicion &posicion){this->posicion = posicion; }
+    void setPosicion(Posicion &posicion){this->posicion = posicion;}
 
     Posicion &getPosicion() { return this->posicion; }
 
