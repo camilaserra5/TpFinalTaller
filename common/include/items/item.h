@@ -13,13 +13,10 @@ public:
 
     virtual void obtenerBeneficio(Jugador *jugador) = 0;
 
-<<<<<<< HEAD
-=======
     bool estaCerca(int &posx, int &posy) {
         return this->posicion.estaCerca(posx, posy);
     }
 
->>>>>>> main
 private:
     Posicion posicion;
 };
