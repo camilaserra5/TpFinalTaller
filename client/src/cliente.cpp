@@ -2,7 +2,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "juego.cpp"
+#include "../include/juego.h"
+#include "blocking_queue.h"
+#include "protected_queue.h"
+#include "../include/client_event_receiver.h"
+#include "../include/client_event_sender.h"
 
 #define BUFFER_TAM 50
 #define ERROR -1
@@ -14,6 +18,14 @@ Cliente::Cliente(const char *host, const char *server_port) : socket() {
 }
 
 void Cliente::correr() {
+    //BlockingQueue<Comando *> event_queue;
+    //ProtectedQueue<Comando *> updates_queue;
+
+    ClientEventSender sender(this->socket);
+    sender.start();
+
+    ClientEventReceiver receiver(this->socket);
+    receiver.start();
 
     //Comando* evento;
     //ACA IRIA UN HANDLER EVENT
@@ -33,6 +45,11 @@ void Cliente::correr() {
         std::cout << "error";
     }
 
+    sender.cerrar();
+    receiver.cerrar();
+
+    sender.join();
+    receiver.join();
 }
 
 Cliente::~Cliente() {}

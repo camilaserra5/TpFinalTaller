@@ -5,22 +5,21 @@
 #include <string>
 #include <sstream>
 
-class Cliente{
-	private: 
-		Socket socket;
-		std::stringstream mensaje_servidor;
-		
-		void correr();
+class Cliente {
+private:
+    Socket socket;
+    std::stringstream mensaje_servidor;
 
-		void procesar_respuesta_servidor();
+    void correr();
 
-	public:
-		Cliente(const char* host, const char* server_port);
+public:
+    Cliente(const char *host, const char *server_port);
 
-		void operator()() {
-            this->correr();
-        }
-		~Cliente();
+    void operator()() {
+        this->correr();
+    }
+
+    ~Cliente();
 };
 
 #endif /*CLIENTE_H*/

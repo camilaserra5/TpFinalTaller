@@ -20,15 +20,15 @@ public:
     ~BlockingQueue() {}
 
     void push(T objeto) {
-        std::lock_guard<std::mutex> l(this->m);
+        std::unique_lock<std::mutex> l(this->m);
         this->cola_datos.push(objeto);
         esta_vacia.notify_all();
     }
 
     T pop() {
-        std::lock_guard<std::mutex> l(this->m);
+        std::unique_lock<std::mutex> l(this->m);
         while (cola_datos.empty()) {
-            esta_vacia.wait(this->m);
+            esta_vacia.wait(l);
         }
         T objeto = this->cola_datos.front();
         this->cola_datos.pop();

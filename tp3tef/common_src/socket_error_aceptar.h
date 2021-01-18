@@ -6,7 +6,8 @@
 class SocketErrorAceptar : public std::exception {
 public:
     SocketErrorAceptar();
-    virtual~SocketErrorAceptar() noexcept;   
+
+    virtual~SocketErrorAceptar() noexcept;
 };
 
 #endif /*SOCKET_ERROR_ACEPTAR_H*/
