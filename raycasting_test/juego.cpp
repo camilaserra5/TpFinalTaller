@@ -25,8 +25,8 @@ void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int a
     } else {
         this->corriendo = false;
     }
-    this->texturaInferior = new Textura("../../client_src/resources/images/ParteInferior.png", this->render);
-    ObjetoJuego* enemigo = new ObjetoJuego("../../client_src/resources/images/Guard.png", this->render, /*50, 50,*/0,0,78,78/*100,100*/);//poner constantes
+    this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png", this->render);
+    ObjetoJuego* enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->render, /*50, 50,*/0,0,78,78/*100,100*/);//poner constantes
     this->objetos.push_back(enemigo);
 }
 
