@@ -11,7 +11,7 @@
 #include "items/tesoro.h"
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
-#include "armas/lanzacohete.h"
+#include "armas/lanzacohetes.h"
 #define TAM_CELDA 50
 
 Map::Map(unsigned rowSize, unsigned colSize): contenedorDeElementos(){
@@ -38,8 +38,17 @@ unsigned Map::getColSize() const {
 void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned colNumber,
                                     Type value){
     srand(time(NULL));
-    int posElementox =  (rowNumber*TAM_CELDA + rand() % ((1+rowNumber)*TAM_CELDA - rowNumber*TAM_CELDA));
-    int posElementoy = (colNumber*TAM_CELDA +rand()% ((1+ rowNumber)*TAM_CELDA - colNumber*TAM_CELDA));
+    int posElementox = 0;
+    int posElementoy = 0;
+    if (rowNumber == 0){
+        posElementox = (rowNumber*TAM_CELDA + rand() % ((1+rowNumber)*TAM_CELDA));
+    }
+     else if (colNumber == 0){
+        int posElementoy = (colNumber*TAM_CELDA +rand() % ((1+ rowNumber)*TAM_CELDA));
+    } else {
+        posElementox =  (rowNumber*TAM_CELDA + rand() % ((1+rowNumber)*TAM_CELDA - rowNumber*TAM_CELDA));
+        posElementoy = (colNumber*TAM_CELDA +rand() % ((1+ rowNumber)*TAM_CELDA - colNumber*TAM_CELDA));
+    }
     Posicion posicion = Posicion(posElementox, posElementoy, 0);
     if (value == Type::comida) {
       //  Comida comida = new Comida(posicion);

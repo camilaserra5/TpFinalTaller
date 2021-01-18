@@ -19,13 +19,11 @@ Jugador::Jugador(std::string& nombre, int& id) :
         nombre(nombre),
         id(id),
         vida(MAX_VIDA),
-        posx(POSX_INICIAL),
-        posy(POSY_INICIAL),
         armas(),
         puntaje(PUNTAJE_INICIAL),
         balas(CANT_INICAL_BALAS),
         armaActual(new Cuchillo()),
-        posicion(posx, posy, 50),
+        posicion(POSX_INICIAL, POSY_INICIAL, 50),
         llaves(0),
         cantidad_vidas(2){}
 
@@ -40,7 +38,7 @@ Jugador::~Jugador() {
 
 // recibo la posicion a moverse
 void Jugador::moverse(int posx, int posy) {
-    
+
     this->posicion.actualizar_posicion(posx, posy);
 }
 
