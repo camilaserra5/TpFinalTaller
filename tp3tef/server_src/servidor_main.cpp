@@ -7,23 +7,23 @@
 #define ARG_PORT 1
 #define ARG_ROOT 2
 
-static void mensaje_de_error_argumentos(){
+static void mensaje_de_error_argumentos() {
     printf("La cantidad de argumentos ingresados son incorrectos. ");
     printf("recuerde que es: ./<ejecutable> <puerto> <ruta de archivo>\n");
 }
 
-static bool verifica_argumentos(int argc, const char* argv[]){
+static bool verifica_argumentos(int argc, const char *argv[]) {
     bool verifica = true;
 
-    if (argc != ARGUMENTOS_CORRECTOS){
+    if (argc != ARGUMENTOS_CORRECTOS) {
         mensaje_de_error_argumentos();
         verifica = false;
     }
     return verifica;
 }
 
-int main(int argc, const char * argv[]){
-    if (!verifica_argumentos(argc, argv)){
+int main(int argc, const char *argv[]) {
+    if (!verifica_argumentos(argc, argv)) {
         return ERROR_ARGUMENTOS;
     }
     try {

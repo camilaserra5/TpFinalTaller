@@ -4,15 +4,17 @@
 
 #include "item.h"
 
-class Tesoro: public Item{
-    public:
-        Tesoro(std::string& tipoDeTesoro, int& puntos,Posicion &posicion);
-        ~Tesoro();
-        void obtenerBeneficio(Jugador* jugador) override;
+class Tesoro : public Item {
+public:
+    Tesoro(std::string &tipoDeTesoro, int &puntos, Posicion &posicion);
 
-    private:
-          std::string& tipoDeTesoro; //va a servir para dibujar calculo;
-          int puntos;
+    ~Tesoro();
+
+    void obtenerBeneficio(Jugador *jugador) override;
+
+private:
+    std::string &tipoDeTesoro; //va a servir para dibujar calculo;
+    int puntos;
 };
 
 #endif

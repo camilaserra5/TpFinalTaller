@@ -26,7 +26,8 @@ void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int a
         this->corriendo = false;
     }
     this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png", this->render);
-    ObjetoJuego* enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->render, /*50, 50,*/0,0,78,78/*100,100*/);//poner constantes
+    ObjetoJuego *enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->render, /*50, 50,*/0, 0, 78,
+                                           78/*100,100*/);//poner constantes
     this->objetos.push_back(enemigo);
 }
 
@@ -63,61 +64,61 @@ void Juego::clean() {
     SDL_Quit();
 }
 
-void Juego::raycasting(Map &mapaa,Jugador &jugador){
+void Juego::raycasting(Map &mapaa, Jugador &jugador) {
 
-  int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                            };
+    int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                               {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    };
 
-            float posJugadorX, posJugadorY/*, alturaJugador*/;//LO SABE EL JUGADOR
-            float rangoDeVista = 2 * acos(0.0) / 3;
-            int alturaParedProyectada = 0;
-            int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA - 10;//el -10 va para q dibuje alfo razzonable
-            float anguloBarrido = 0;
-            float anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
+    float posJugadorX, posJugadorY/*, alturaJugador*/;//LO SABE EL JUGADOR
+    float rangoDeVista = 2 * acos(0.0) / 3;
+    int alturaParedProyectada = 0;
+    int ladoCelda = ANCHO_CANVAS / TAMANIO_FILA - 10;//el -10 va para q dibuje alfo razzonable
+    float anguloBarrido = 0;
+    float anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
 
-            for (int i = 0; i <= ANCHO_CANVAS; i++) {
-                Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloBarrido);
-                float distancia = 0;
-                if (rayo.verificarInterseccionHorizontal(mapa, distancia, jugador)) {
-                    alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                    std::cout << "la altura es: " << alturaParedProyectada << "\n";
-                } else if (rayo.verificarInterseccionVertical(mapa, distancia, jugador)) {
-                    alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                    std::cout << "la altura es: " << alturaParedProyectada << "\n";
-                }
+    for (int i = 0; i <= ANCHO_CANVAS; i++) {
+        Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloBarrido);
+        float distancia = 0;
+        if (rayo.verificarInterseccionHorizontal(mapa, distancia, jugador)) {
+            alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
+            std::cout << "la altura es: " << alturaParedProyectada << "\n";
+        } else if (rayo.verificarInterseccionVertical(mapa, distancia, jugador)) {
+            alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
+            std::cout << "la altura es: " << alturaParedProyectada << "\n";
+        }
 
-                  double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
-                  double drawEnd = drawStart + alturaParedProyectada - 20;
-                  SDL_RenderPresent(this->render);
+        double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
+        double drawEnd = drawStart + alturaParedProyectada - 20;
+        SDL_RenderPresent(this->render);
 
-                  SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
-                  SDL_RenderDrawLine(this->render, i, drawStart,i, drawEnd);
+        SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
+        SDL_RenderDrawLine(this->render, i, drawStart, i, drawEnd);
 
-                  std::chrono::milliseconds duration(10);
-                  std::this_thread::sleep_for(duration);//sin esto se vuelve loco
-              anguloBarrido += anguloPorStripe;
-            }
-            SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);// deberia estar en atualizar
+        std::chrono::milliseconds duration(10);
+        std::this_thread::sleep_for(duration);//sin esto se vuelve loco
+        anguloBarrido += anguloPorStripe;
+    }
+    SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);// deberia estar en atualizar
 
-            SDL_RenderClear(this->render);
+    SDL_RenderClear(this->render);
 
 }

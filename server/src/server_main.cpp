@@ -20,15 +20,15 @@ int main(int argc, char *argv[]) {
     ManejadorPartidas manejadorPartidas;
     manejadorPartidas.agregarMapa(nombre_archivo);
 
-    bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores,nombre_partida, nombre_archivo);
-    if (estado){
-        std::cout<< "creo partida\n";
+    bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores, nombre_partida, nombre_archivo);
+    if (estado) {
+        std::cout << "creo partida\n";
     }
     std::chrono::milliseconds duration(10);
     std::this_thread::sleep_for(duration);
     bool estado2 = manejadorPartidas.agregarClienteAPartida(nombre, nombre_partida);
-    if (estado2){
-        std::cout <<"agreggo cliente a partida\n";
+    if (estado2) {
+        std::cout << "agreggo cliente a partida\n";
     }
 
     manejadorPartidas.run();

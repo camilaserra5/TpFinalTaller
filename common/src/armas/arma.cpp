@@ -27,6 +27,6 @@ int Arma::JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador *> &jug
     return idJugadorMasCercano;
 }
 
-bool Arma::esIgual(Arma* arma){
+bool Arma::esIgual(Arma *arma) {
     return (this->id == arma->id);
 }

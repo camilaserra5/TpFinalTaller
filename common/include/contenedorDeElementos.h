@@ -18,17 +18,19 @@
 
 class ContenedorDeElementos {
 
-    public:
+public:
     ContenedorDeElementos();
+
     ~ContenedorDeElementos();
 
-    void agregarElemento(Item* elemento);
+    void agregarElemento(Item *elemento);
+
     //ElementoPosicionable actualizarElementos();
     //std::vector<ElementoPosicionable> elementoEnPosicion();
-    Item* buscarElemento(int& pox,int& posy);
+    Item *buscarElemento(int &pox, int &posy);
 
-  private:
-    std::vector<Item*> elementos;
+private:
+    std::vector<Item *> elementos;
 };
 
 #endif

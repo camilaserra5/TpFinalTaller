@@ -26,7 +26,7 @@ private:
     void verificarCuadranteY(const float anguloJugador);
 
 public:
-    Rayo(float campoDeVision, int ladoCelda, /*int tamanio_fila_mapa, */int largoProyector,float anguloBarrido);
+    Rayo(float campoDeVision, int ladoCelda, /*int tamanio_fila_mapa, */int largoProyector, float anguloBarrido);
 
     bool verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
 

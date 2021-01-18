@@ -81,8 +81,8 @@ ProtectedQueue<Actualizacion> &Servidor::obtenerColaActualizaciones() {
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
 // servidor es partida
 
-void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones){
-  //serializa y manda por sockets a cada jugador
+void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones) {
+    //serializa y manda por sockets a cada jugador
 }
 
 void Servidor::run() {
@@ -97,9 +97,9 @@ void Servidor::run() {
         try {
             procesar_comandos(this->cola_comandos, this->estadoJuego);
         } catch (...) {
-          this->sigue_corriendo = false;
-        termine = true;
-      }
+            this->sigue_corriendo = false;
+            termine = true;
+        }
         this->enviar_actualizaciones(this->cola_actualizaciones);
         //std::chrono::milliseconds duration(10);
         //std::this_thread::sleep_for(duration);

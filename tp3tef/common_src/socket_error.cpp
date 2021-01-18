@@ -8,7 +8,7 @@ SocketError::SocketError(const std::string &error) noexcept {
     this->mensaje_error = error;
 }
 
-const char* SocketError::what() const noexcept{
+const char *SocketError::what() const noexcept {
     return this->mensaje_error.c_str();
 }
 

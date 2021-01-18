@@ -6,15 +6,15 @@
 #include "arma.h"
 #include "items/item.h"
 
-class LanzaCohetes: public Arma, public Item{
-    public:
-        LanzaCohetes(Posicion &posicion) : Arma(DISTANCIA_MAX, 1),Item (posicion) {}
+class LanzaCohetes : public Arma, public Item {
+public:
+    LanzaCohetes(Posicion &posicion) : Arma(DISTANCIA_MAX, 1), Item(posicion) {}
 
-        ~LanzaCohetes() {}
+    ~LanzaCohetes() {}
 
-        void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override{}
+    void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override {}
 
-        void obtenerBeneficio(Jugador* jugador) override{}
+    void obtenerBeneficio(Jugador *jugador) override {}
 };
 
 #endif
