@@ -42,10 +42,10 @@ Rayo::Rayo(float campoDeVision, int ladoCelda/*, int tamanio_fila_mapa*/, int la
 bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador) {
     bool encontrePared = false;
     Posicion posJugador = jugador.getPosicion();
-    int posX = posJugador.getCoordenadaX()/*120*/, posY = posJugador.getCoordenadaY()/*100*/;// en pixels
+    int posX = posJugador.pixelesEnX()/*120*/, posY = posJugador.pixelesEnY()/*100*/;// en pixels
     float interseccionAX,interseccionAY,xa,ya;// el primer punto de interseccion al que desp se le suma ya y xa
     int xaMapa,yaMapa;
-    
+
     float anguloJugador = 2 * acos(0.0) / 3;
 
     this->verificarCuadranteY(anguloJugador);
@@ -88,7 +88,7 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
 bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador) {
     bool encontrePared = false;
     Posicion posJugador = jugador.getPosicion();
-    int posX = posJugador.getCoordenadaX()/*120*/, posY = posJugador.getCoordenadaY()/*100*/;// en pixels
+    int posX = posJugador.pixelesEnX()/*120*/, posY = posJugador.pixelesEnY()/*100*/;// en pixels
     float interseccionAX,interseccionAY,xa,ya;// el primer punto de interseccion al que desp se le suma ya y xa
     int xaMapa,yaMapa;
     float anguloJugador = 2 * acos(0.0) / 3;
