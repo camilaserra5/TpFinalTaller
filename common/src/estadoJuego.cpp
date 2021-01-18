@@ -39,7 +39,11 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
 }
 
 bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
-    Type tipo = mapa->operator()(posx, posy);
+    int posEnMapaJugadorx =  (mapa->getRowSize()*posx)/(mapa->getRowSize()*50);  // 50 seria el tamanio de la celda en pixeles
+                                                                                // esa info hya que ver quien la tiene. maybe mapa?
+    int posEnMapaJugadory = (mapa->getColSize()*posy)/(mapa->getColSize()*50);
+
+    Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadorx);
     if (tipo == Type::wall) {
         return false;
     } else if (tipo == Type::door) {
@@ -59,14 +63,21 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
     } else if (tipo == Type::fakeDoor) {
         return false;
     } else {
-        std::cout << "puedo moverme";
+        std::cout << "puedo moverme\n";
         return true;
     }
 }
 
 Item *verificarItems(Map *mapa, int &posx, int &posy) {
-  Posicion posicion = Posicion(1,1,0.5);//va a depender de su posidion en el mapa
-    Type tipo = mapa->operator()(posx, posy);
+    int posEnMapaJugadorx =  (mapa->getRowSize()*posx)/(mapa->getRowSize()*50);  // 50 seria el tamanio de la celda en pixeles
+                                                                                // esa info hya que ver quien la tiene. maybe mapa?
+    int posEnMapaJugadory = (mapa->getColSize()*posy)/(mapa->getColSize()*50);
+    std::cout<< "\n verifico item\n";
+    return mapa->buscarElemento(posx, posy);
+
+/*
+    Posicion posicion = Posicion(1,1,0.5);//va a depender de su posidion en el mapa
+    Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadory);
     if (tipo == Type::comida) {
         return new Comida(posicion);
     } else if (tipo == Type::sangre) {
@@ -75,7 +86,6 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
         return new KitsMedicos(posicion);
     } else if (tipo == Type::balas) {
         return new Balas(posicion);
-        // faltan mas comandos, las armas!!
     } else if (tipo == Type::ametralladora) {
         return new Ametralladora(posicion);
     } else if (tipo == Type::canionDeCadena){
@@ -88,17 +98,15 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
         return new Tesoro(tesoro, puntos,posicion);
     } else {
         return new NoItem(posicion);
-    }
+    }*/
 }
 
 void EstadoJuego::moverse_a_derecha(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     int posEnJuegox = jugador->posEnX() + METROS_MOVIDOS;
     int posEnJuegoy = jugador->posEnY();
-    std::cout << "pos juador x antes de actualizar: " << jugador->posEnX();
-    std::cout << "pos jugador en y ants de actualzia: " << jugador->posEnY();
-    std::cout << "pos en x: " << posEnJuegox;
-    std::cout << "pos en y: " << posEnJuegoy;
+    std::cout << "pos x: " << posEnJuegox << "\n";
+    std::cout << "pos y: " << posEnJuegoy << "\n";
     if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
         item->obtenerBeneficio(jugador);

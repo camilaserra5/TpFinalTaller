@@ -40,10 +40,8 @@ Jugador::~Jugador() {
 
 // recibo la posicion a moverse
 void Jugador::moverse(int posx, int posy) {
-    this->posx += posx;
-    this->posy += posy;
-    std::cout << "x: " << posx;
-    std::cout << "y: " << posy;
+    
+    this->posicion.actualizar_posicion(posx, posy);
 }
 
 
@@ -78,11 +76,11 @@ void Jugador::agregar_balas(int &balas) {
 }
 
 int Jugador::posEnX() {
-    return this->posx;
+    return this->posicion.pixelesEnX();
 }
 
 int Jugador::posEnY() {
-    return this->posy;
+    return this->posicion.pixelesEnY();
 }
 
 void Jugador::sumarPuntos(int puntos){
