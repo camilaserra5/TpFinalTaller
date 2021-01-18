@@ -11,7 +11,7 @@
 #include "items/tesoro.h"
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
-#include "armas/lanzacohete.h"
+#include "armas/lanzacohetes.h"
 #define TAM_CELDA 50
 
 Map::Map(unsigned rowSize, unsigned colSize): contenedorDeElementos(){
