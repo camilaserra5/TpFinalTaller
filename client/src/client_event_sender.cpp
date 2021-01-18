@@ -5,8 +5,9 @@
 #include <algorithm>
 #include <vector>
 
-ClientEventSender::ClientEventSender(Socket &socket) :
-        socket(socket) {}
+ClientEventSender::ClientEventSender(Socket &socket,
+                                     BlockingQueue<Comando *> &events) :
+        socket(socket), events(events) {}
 
 void ClientEventSender::run() {
     while (this->running) {

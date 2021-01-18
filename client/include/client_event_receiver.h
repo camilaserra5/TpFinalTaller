@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <actualizacion.h>
 
 #include "thread.h"
 #include "socket.h"
@@ -12,11 +13,11 @@
 class ClientEventReceiver : public Thread {
 private:
     Socket &socket;
-    //ProtectedQueue<Comando *> &updates;
+    ProtectedQueue<Actualizacion*> &updates;
     bool running = true;
 
 public:
-    ClientEventReceiver(Socket &socket/*, ProtectedQueue<Comando *> &updates*/);
+    ClientEventReceiver(Socket &socket, ProtectedQueue<Actualizacion *> &updates);
 
     void run() override;
 

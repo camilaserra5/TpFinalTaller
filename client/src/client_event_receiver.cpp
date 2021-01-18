@@ -5,12 +5,14 @@
 #include <algorithm>
 #include <vector>
 
-ClientEventReceiver::ClientEventReceiver(Socket &socket) :
-        socket(socket) {}
+ClientEventReceiver::ClientEventReceiver(Socket &socket,
+                                         ProtectedQueue<Actualizacion *> &updates) :
+
+        socket(socket), updates(updates) {}
 
 void ClientEventReceiver::run() {
     while (this->running) {
-        Comando *update;
+        Actualizacion *update;
         // debería ser un protocolo en realidad
         //this->socket.recibir();
         //this->updates.aniadir_dato(update);

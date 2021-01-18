@@ -1,5 +1,5 @@
-#ifndef  _PROTECTED_QUEUE_
-#define _PROTECTED_QUEUE_
+#ifndef  _BLOCKING_QUEUE_
+#define _BLOCKING_QUEUE_
 
 #include <queue>
 #include <mutex>
