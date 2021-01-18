@@ -9,7 +9,7 @@
 #include "map.h"
 #include "estadoJuego.h"
 #include "jugador.h"
-#include "cliente.h"
+#include "old_cliente.h"
 
 class Servidor : public Thread {
 public:

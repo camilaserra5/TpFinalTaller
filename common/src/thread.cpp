@@ -1,7 +1,16 @@
+#include "thread.h"
 #include <utility>
-#include "../include/thread.h"
 
 Thread::Thread() {}
+
+void Thread::start() {
+    thread = std::thread(&Thread::run, this);
+}
+
+void Thread::join() {
+    if (thread.joinable())
+        thread.join();
+}
 
 Thread::Thread(Thread &&other) {
     this->thread = std::move(other.thread);
@@ -10,14 +19,6 @@ Thread::Thread(Thread &&other) {
 Thread &Thread::operator=(Thread &&other) {
     this->thread = std::move(other.thread);
     return *this;
-}
-
-void Thread::start() {
-    this->thread = std::thread(&Thread::run, this);
-}
-
-void Thread::join() {
-    this->thread.join();
 }
 
 Thread::~Thread() {}

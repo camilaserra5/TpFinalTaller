@@ -9,11 +9,10 @@
 #include "posicion.h"
 #include "entidadPosicionable.h"
 
-
-class Arma{
+class Arma {
 public:
     Arma(int distancia_max_atacable, int id) :
-            distancia_max_atacable(distancia_max_atacable), id(id){}
+            distancia_max_atacable(distancia_max_atacable), id(id) {}
 
     virtual ~Arma() {}
 
@@ -22,7 +21,8 @@ public:
     /*devuelve el id*/
     int JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador *> &jugadores);
 
-    bool esIgual(Arma* arma);
+    bool esIgual(Arma *arma);
+
 protected:
     int distancia_max_atacable;
 

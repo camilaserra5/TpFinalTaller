@@ -1,5 +1,6 @@
 #ifndef JUEGO_H
 #define JUEGO_H
+
 #include "objetoJuego.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -8,7 +9,7 @@
 
 class Juego {
 private:
-    std::list<ObjetoJuego*> objetos;
+    std::list<ObjetoJuego *> objetos;
     bool corriendo;
     SDL_Window *ventana;
     SDL_Renderer *render;

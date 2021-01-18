@@ -18,14 +18,8 @@ include_directories(~/TpFinalTaller/common/include)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(yaml-cpp)
 
+file(GLOB SOURCES src/*.cpp)
 add_executable(editor
-        src/editor_main.cpp
-        src/mainwindow.cpp
-        include/mainwindow.h
-        src/map_tiles_list.cpp
-        include/map_tiles_list.h
-        src/map_widget.cpp
-        include/map_widget.h
-        )
+        ${SOURCES})
 
 target_link_libraries(editor ${PROJECT_LINK_LIBS} Qt5::Widgets ${YAML_CPP_LIBRARIES})

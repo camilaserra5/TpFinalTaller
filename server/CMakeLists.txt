@@ -14,12 +14,9 @@ set(PROJECT_LINK_LIBS libcommons.a)
 link_directories(~/TpFinalTaller/common/build)
 include_directories(~/TpFinalTaller/common/include)
 find_package(yaml-cpp)
+file(GLOB SOURCES src/*.cpp)
 add_executable(server
-        src/servidor.cpp
-        src/cliente.cpp
-        src/server_main.cpp
-        src/manejadorPartidas.cpp
-        ${UIS_HEADERS})
+        ${SOURCES})
 
 target_link_libraries(server ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads ${YAML_CPP_LIBRARIES})
 

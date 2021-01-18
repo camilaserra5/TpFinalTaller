@@ -38,17 +38,18 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
     this->jugadores.insert(std::make_pair(id, jugador));
 }
 
-bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
-    int posEnMapaJugadorx =  (mapa->getRowSize()*posx)/(mapa->getRowSize()*50);  // 50 seria el tamanio de la celda en pixeles
-                                                                                // esa info hya que ver quien la tiene. maybe mapa?
-    int posEnMapaJugadory = (mapa->getColSize()*posy)/(mapa->getColSize()*50);
+bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
+    int posEnMapaJugadorx =
+            (mapa->getRowSize() * posx) / (mapa->getRowSize() * 50);  // 50 seria el tamanio de la celda en pixeles
+    // esa info hya que ver quien la tiene. maybe mapa?
+    int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * 50);
 
     Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadorx);
     if (tipo == Type::wall) {
         return false;
     } else if (tipo == Type::door) {
         // verifico si tengo llave sino no puedo avanzar;
-        if (jugador->tengollave()){
+        if (jugador->tengollave()) {
             // abrir puerta;
             jugador->usarLlave();
             return true;
@@ -56,7 +57,7 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
         return false;
     } else if (tipo == Type::keyDoor) {
         // me guardo la llave
-        Posicion posicion(1,1,1);//va a depender de su posidion en el mapa
+        Posicion posicion(1, 1, 1);//va a depender de su posidion en el mapa
         Llave llave(posicion);
         llave.obtenerBeneficio(jugador);
         return true;
@@ -69,10 +70,11 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador* jugador) {
 }
 
 Item *verificarItems(Map *mapa, int &posx, int &posy) {
-    int posEnMapaJugadorx =  (mapa->getRowSize()*posx)/(mapa->getRowSize()*50);  // 50 seria el tamanio de la celda en pixeles
-                                                                                // esa info hya que ver quien la tiene. maybe mapa?
-    int posEnMapaJugadory = (mapa->getColSize()*posy)/(mapa->getColSize()*50);
-    std::cout<< "\n verifico item\n";
+    int posEnMapaJugadorx =
+            (mapa->getRowSize() * posx) / (mapa->getRowSize() * 50);  // 50 seria el tamanio de la celda en pixeles
+    // esa info hya que ver quien la tiene. maybe mapa?
+    int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * 50);
+    std::cout << "\n verifico item\n";
     return mapa->buscarElemento(posx, posy);
 
 /*

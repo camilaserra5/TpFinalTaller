@@ -35,7 +35,7 @@ public:
 
     int getId();
 
-    void setPosicion(Posicion &posicion){this->posicion = posicion;}
+    void setPosicion(Posicion &posicion) { this->posicion = posicion; }
 
     Posicion &getPosicion() { return this->posicion; }
 
@@ -45,19 +45,19 @@ public:
 
     //void setAnguloDeVista(float anguloJugador){this->angulo = anguloJugador; }
 
-    bool tengollave(){
+    bool tengollave() {
         return (this->llaves > 0);
     }
 
-    void usarLlave(){
+    void usarLlave() {
         this->llaves += -1;
     }
 
-    bool estaMuerto(){
-        return (this->vida <=0);
+    bool estaMuerto() {
+        return (this->vida <= 0);
     }
 
-    bool poseeArma(Arma* arma);
+    bool poseeArma(Arma *arma);
 
     void agarrarLlave();
 

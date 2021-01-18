@@ -11,7 +11,7 @@ ManejadorPartidas::ManejadorPartidas() :
         esta_corriendo(true),
         mapas() {}
 
-void ManejadorPartidas::agregarMapa(std::string &archivoMapa){
+void ManejadorPartidas::agregarMapa(std::string &archivoMapa) {
     this->mapas.push_back(archivoMapa);
 }
 
@@ -20,8 +20,8 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
     int cant_mapas = this->mapas.size();
     bool encontre = false;
     //Map* mapa = new Map(1, 1);
-    Map mapa(20,20);
-    mapa.setValue(0,1, Type::comida);
+    Map mapa(20, 20);
+    mapa.setValue(0, 1, Type::comida);
     while (i < cant_mapas && !encontre) {
         int pos = this->mapas[i].find(archivoMapa);
         if (pos > -1) {
@@ -34,7 +34,7 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
 }
 
 bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
-                                     int& cant_jugadores, std::string &nombre_partida,
+                                     int &cant_jugadores, std::string &nombre_partida,
                                      std::string &archivoMapa) {
     if (partidas.count(nombre_partida) > 0) {
         //partida existe;
@@ -47,7 +47,7 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
         // capaz esta clase tiene el un vector de yamls
         //Map mapa = this->buscarMapa(archivoMapa);
         Map *mapa = new Map(20, 20);
-        mapa->setValue(0,1, Type::comida);
+        mapa->setValue(0, 1, Type::comida);
         std::cout << "ya setie elemnto";
         //int cant_jugadores = 1;
         Servidor *servidor = new Servidor(mapa, cant_jugadores);

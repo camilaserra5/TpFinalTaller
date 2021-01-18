@@ -7,21 +7,22 @@
 
 #include <string>
 
-class Servidor{
-	private: 
-		Socket socket;
-		std::string puerto;
-		Items_servidor items;
-		
-	public:
-		Servidor(const char* un_puerto, const char* una_ruta);
-		/*
-		 * Enlaza el socket y comienza a atender los clientes mientras que
-		 * no ingresen 'q'
-		 */
-		void correr();
+class Servidor {
+private:
+    Socket socket;
+    std::string puerto;
+    Items_servidor items;
 
-		~Servidor();
+public:
+    Servidor(const char *un_puerto, const char *una_ruta);
+
+    /*
+     * Enlaza el socket y comienza a atender los clientes mientras que
+     * no ingresen 'q'
+     */
+    void correr();
+
+    ~Servidor();
 };
 
 #endif /*SERVIDOR_H*/
