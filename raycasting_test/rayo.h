@@ -28,13 +28,15 @@ private:
 public:
     Rayo(float campoDeVision, int ladoCelda, /*int tamanio_fila_mapa, */int largoProyector,float anguloBarrido);
 
+    bool verificarInterseccion(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
+
     bool verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
 
     bool verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
 
     int getDistanciaProyector();
 
-    void aumentarAnguloBarrido();
+    void normalizarAngulo();
 };
 
 #endif

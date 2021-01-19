@@ -110,13 +110,13 @@ void Juego::raycasting(Map &mapaa,Jugador &jugador){
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -126,35 +126,31 @@ void Juego::raycasting(Map &mapaa,Jugador &jugador){
                                               {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                             };
 
-            float posJugadorX, posJugadorY/*, alturaJugador*/;//LO SABE EL JUGADOR
-            float rangoDeVista = 2 * acos(0.0) / 3;
-            int alturaParedProyectada = 0;
+            float rangoDeVista = 2 * acos(0.0) / 3;//60 grados
+            unsigned int alturaParedProyectada = 0;
             int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA - 10;//el -10 va para q dibuje alfo razzonable
-            float anguloBarrido = 0;
             float anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
+            float anguloJugador = jugador.getAnguloDeVista();
+            float anguloRayo = anguloJugador - (rangoDeVista / 2);
 
-            for (int i = 799; i >= 0; i--) {
-              std::cout <<"entro";
-                Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloBarrido);
+            for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
                 float distancia = 0;
-                if (rayo.verificarInterseccionHorizontal(mapa, distancia, jugador)) {
-                    alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                    std::cout << "la altura es: " << alturaParedProyectada << "\n";
-                } else if (rayo.verificarInterseccionVertical(mapa, distancia, jugador)) {
-                    alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                    std::cout << "la altura es: " << alturaParedProyectada << "\n";
-                }
+                Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo);
 
+                if (rayo.verificarInterseccion(mapa,distancia,jugador)){
+                  alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
+                }
                   double drawStart = round((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
                   double drawEnd = drawStart + alturaParedProyectada - 20;
-                  SDL_RenderPresent(this->render);
 
+                  SDL_RenderPresent(this->render);
                   SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
                   SDL_RenderDrawLine(this->render, i, drawStart,i, drawEnd);
 
                   std::chrono::milliseconds duration(10);
-                  std::this_thread::sleep_for(duration);//sin esto se vuelve loco
-              anguloBarrido += anguloPorStripe;
+                  std::this_thread::sleep_for(duration);
+
+                  anguloRayo += anguloPorStripe;
             }
             SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);// deberia estar en atualizar
 
