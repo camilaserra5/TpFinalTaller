@@ -17,7 +17,7 @@ class ObjetoJuego{
         ObjetoJuego(const char* rutaimg, SDL_Renderer* render, int x, int y, int ancho, int alto);
         ~ObjetoJuego(){}
         void renderizar();
-        void actualizar(int posx, int posy);
+        void actualizar(/*int posx, int posy*/);
 };
 
 #endif //OBJETOJUEGO_H

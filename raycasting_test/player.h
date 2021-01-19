@@ -3,7 +3,7 @@
 
 // no se si es un sprite;
 // falta ver tema imagen/arma
-
+/*
 class Player{
     public:
         Player(const char* rutaimg, SDL_Renderer* render, int id):
@@ -33,5 +33,5 @@ class Player{
       int id;
       ObjetoJuego objetoDibujable;
 };
-
+*/
 #endif

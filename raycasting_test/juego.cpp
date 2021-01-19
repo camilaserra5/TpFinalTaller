@@ -10,7 +10,6 @@
 #define LARGO_PROYECTOR ANCHO_CANVAS
 #define ANCHO_PROYECTOR 20
 
-
 void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen) {
     int flags = 0;
     if (fullscreen) {
@@ -25,19 +24,33 @@ void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int a
     } else {
         this->corriendo = false;
     }
-    this->texturaInferior = new Textura("../../client_src/resources/images/ParteInferior.png", this->render);
-    ObjetoJuego* enemigo = new ObjetoJuego("../../client_src/resources/images/Guard.png", this->render, /*50, 50,*/0,0,78,78/*100,100*/);//poner constantes
+    this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png", this->render);
+    ObjetoJuego *enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->render,  /*50, 50,*/0, 0,
+                                           78, 78/*100,100*/);
     this->objetos.push_back(enemigo);
 }
 
+void Juego::handleEvents() {
+    SDL_Event evento;
+    SDL_PollEvent(&evento);
+    switch (evento.type) {
+        case SDL_QUIT:
+            this->corriendo = false;
+            break;
+        default:
+            break;
+    }
+}
+
+/*
 void Juego::handleEvents(Player& player) {
     SDL_Event evento;
     while (SDL_PollEvent(&evento)){
 
-      switch (event.type) {
+      switch (evento.type) {
         case SDL_KEYDOWN:
             std::cout << "tecla preionada\n";
-            switch( event.key.keysym.sym ){
+            switch( evento.key.keysym.sym ){
                 // aca mandariamos la informacion o crearimos el evento;
                     case SDLK_LEFT:         // x, y, vida, angulo;
                         player.settear_estado(-1, 0, 100, 50); // esto es para probar que se cambia el estado
@@ -67,7 +80,7 @@ void Juego::handleEvents(Player& player) {
 
 
 }
-
+*/
 void Juego::actualizar() {
     this->objetos.front()->actualizar();
 }
@@ -94,8 +107,8 @@ void Juego::raycasting(Map &mapaa,Jugador &jugador){
   int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                              {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                              {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                               {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -120,7 +133,8 @@ void Juego::raycasting(Map &mapaa,Jugador &jugador){
             float anguloBarrido = 0;
             float anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
 
-            for (int i = 0; i <= ANCHO_CANVAS; i++) {
+            for (int i = 799; i >= 0; i--) {
+              std::cout <<"entro";
                 Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloBarrido);
                 float distancia = 0;
                 if (rayo.verificarInterseccionHorizontal(mapa, distancia, jugador)) {

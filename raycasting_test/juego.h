@@ -6,7 +6,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "textura.h"
-#include "player.h"
+#include "jugador.h"
 #include "map.h"
 #include <list>
 
@@ -26,7 +26,7 @@ public:
 
     bool estaCorriendo() { return corriendo; }
 
-    void handleEvents(Player player); // posible clase que maneje eventos
+    void handleEvents(/*Player player*/); // posible clase que maneje eventos
 
     void actualizar();
 

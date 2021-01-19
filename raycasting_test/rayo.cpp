@@ -14,7 +14,7 @@ Rayo::Rayo(float campoDeVision, int ladoCelda/*, int tamanio_fila_mapa*/, int la
 void Rayo::verificarCuadranteY(const float anguloJugador) {
     float anguloBarrido = anguloJugador;
     if (this->anguloBarrido < 2 * acos(0.0) / 6) {
-        anguloBarrido = anguloJugador - this->anguloBarrido;
+        anguloBarrido = anguloJugador - 2 * acos(0.0) / 6 + this->anguloBarrido;
     } else {
         anguloBarrido = anguloJugador + this->anguloBarrido;
     }
@@ -29,7 +29,7 @@ void Rayo::verificarCuadranteY(const float anguloJugador) {
 void Rayo::verificarCuadranteX(const float anguloJugador) {
     float anguloBarrido = anguloJugador;
     if (this->anguloBarrido < 2 * acos(0.0) / 6) {///pi sobre seis ppor que es la mitad del rango de vista
-        anguloBarrido = anguloJugador - this->anguloBarrido;
+        anguloBarrido = anguloJugador - 2 * acos(0.0) / 6 + this->anguloBarrido;
     } else {
         anguloBarrido = anguloJugador + this->anguloBarrido;
     }
@@ -73,7 +73,7 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
             interseccionAY -= posY;
             int distanciaDistorsionada = sqrt((interseccionAX * interseccionAX) + (interseccionAY * interseccionAY));
             distancia = distanciaDistorsionada * cos(this->anguloBarrido) + 3;
-            std::cout << "Para la distancia horizontal es: " << distancia  << "con angulo: " << this->anguloBarrido <<"\n";
+          //  std::cout << "Para la distancia horizontal es: " << distancia  << "con angulo: " << this->anguloBarrido <<"\n";
 
         }
         interseccionAX = floor(interseccionAX + xa);
@@ -118,7 +118,7 @@ bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distan
             interseccionAY -= posY;
             int distanciaDistorsionada = sqrt((interseccionAX * interseccionAX) + (interseccionAY * interseccionAY));
             distancia = distanciaDistorsionada * cos(this->anguloBarrido) + 3;
-            std::cout << "Para la distancia vertical es: " << distancia << "con angulo: " << this->anguloBarrido <<"\n";
+            //std::cout << "Para la distancia vertical es: " << distancia << "con angulo: " << this->anguloBarrido <<"\n";
         }
         interseccionAY = floor(interseccionAY + ya);
         interseccionAX += xa;
