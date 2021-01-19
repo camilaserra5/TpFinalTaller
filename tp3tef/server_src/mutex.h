@@ -1,21 +1,25 @@
 #ifndef MUTEX_H
 #define MUTEX_H
+
 #include <mutex>
 
 class Lock {
-    private:
-        std::mutex &m;
-        
-    public:
-        explicit Lock(std::mutex &m);
+private:
+    std::mutex &m;
 
-        ~Lock();
+public:
+    explicit Lock(std::mutex &m);
 
-    private:
-        Lock(const Lock&) = delete;
-        Lock& operator=(const Lock&) = delete;
-        Lock(Lock&&) = delete;
-        Lock& operator=(Lock&&) = delete;
+    ~Lock();
+
+private:
+    Lock(const Lock &) = delete;
+
+    Lock &operator=(const Lock &) = delete;
+
+    Lock(Lock &&) = delete;
+
+    Lock &operator=(Lock &&) = delete;
 };
 
 #endif /*MUTEX_H*/

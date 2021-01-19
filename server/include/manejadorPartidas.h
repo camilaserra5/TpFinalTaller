@@ -3,7 +3,7 @@
 
 #include "thread.h"
 #include "servidor.h"
-#include "cliente.h"
+#include "old_cliente.h"
 #include <atomic>
 #include <string>
 #include <map>
@@ -17,7 +17,7 @@ public:
     ~ManejadorPartidas();
 
     bool crearPartida(std::string &nombreJugador,
-                      int& cant_jugadores, std::string &nombre_partida,
+                      int &cant_jugadores, std::string &nombre_partida,
                       std::string &archivoMapa);
 
     bool agregarClienteAPartida(std::string &nombreJugador,
@@ -29,7 +29,7 @@ public:
 
     Map buscarMapa(std::string &archivoMapa);
 
-    void agregarMapa(std::string& archivoMapa);
+    void agregarMapa(std::string &archivoMapa);
 
 private:
     std::map<std::string, Servidor *> partidas;

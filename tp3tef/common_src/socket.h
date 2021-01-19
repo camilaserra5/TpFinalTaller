@@ -6,63 +6,68 @@
 
 
 class Socket {
-	private:
-		int filedescriptor;
-		explicit Socket(int fd);
+private:
+    int filedescriptor;
 
-	public:
-		Socket();
-		~Socket();
-		/*
-		 * Hace un shutdown y close del socket, si es que este es válido.
-		 */
-		void cerrar();
-		
-		Socket(const Socket &copia) = delete;
-		Socket & operator=(const Socket &copia) = delete;
+    explicit Socket(int fd);
 
-		Socket(Socket && otro) noexcept;
-		Socket& operator= (Socket &&other); 
+public:
+    Socket();
 
-		/*
-		 *Enlaza y deja en estado de "escuchar" las conexiones 
-		 *(maximo 7 conexiones en espera)
-		 */
-		void bind_and_listen(const char *servicio);
+    ~Socket();
 
-		/*
-		 *Acepta una conexión que estaba esperando. Devuelve un socket
-		 *por movimiento. Si falla lanza una excepcion.
-		 */
-		Socket aceptar();
+    /*
+     * Hace un shutdown y close del socket, si es que este es válido.
+     */
+    void cerrar();
 
-		/*
-		 *Conecta. Devolverá EXITO(0) si completó sus acciones o de
-		 *lo contrario ERROR(-1)
-		 */
-		void conectar(const char *host, const char *servicio);
+    Socket(const Socket &copia) = delete;
 
-		/*
-		 *Envia length cantidad de bytes del buffer. Lanza excepcion si ocurre
-		 *algún error. Retorna la cantidad de bytes enviados.
-		 */
-		unsigned int enviar(const char *buffer, size_t tamanio);
+    Socket &operator=(const Socket &copia) = delete;
 
-		/*
-		 *Recibe length cantidad de bytes del buffer.  Lanza excepcion si ocurre
-		 *algún error. Retorna la cantidad de bytes recibidos.
-		 */
-		unsigned int recibir(char* buffer, size_t tamanio);
+    Socket(Socket &&otro) noexcept;
 
-		/*
-		 *Hace un Shutdown en modo WR, escritura.
-		 */
-		void apagar_escritura();
+    Socket &operator=(Socket &&other);
 
-		/*
-		 *Hace un Shutdown en modo RD, lectura.
-		 */
-		void apagar_lectura();
+    /*
+     *Enlaza y deja en estado de "escuchar" las conexiones
+     *(maximo 7 conexiones en espera)
+     */
+    void bind_and_listen(const char *servicio);
+
+    /*
+     *Acepta una conexión que estaba esperando. Devuelve un socket
+     *por movimiento. Si falla lanza una excepcion.
+     */
+    Socket aceptar();
+
+    /*
+     *Conecta. Devolverá EXITO(0) si completó sus acciones o de
+     *lo contrario ERROR(-1)
+     */
+    void conectar(const char *host, const char *servicio);
+
+    /*
+     *Envia length cantidad de bytes del buffer. Lanza excepcion si ocurre
+     *algún error. Retorna la cantidad de bytes enviados.
+     */
+    unsigned int enviar(const char *buffer, size_t tamanio);
+
+    /*
+     *Recibe length cantidad de bytes del buffer.  Lanza excepcion si ocurre
+     *algún error. Retorna la cantidad de bytes recibidos.
+     */
+    unsigned int recibir(char *buffer, size_t tamanio);
+
+    /*
+     *Hace un Shutdown en modo WR, escritura.
+     */
+    void apagar_escritura();
+
+    /*
+     *Hace un Shutdown en modo RD, lectura.
+     */
+    void apagar_lectura();
 };
 
 #endif /*SOCKET_H*/

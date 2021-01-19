@@ -1,4 +1,4 @@
-#include "../include/cliente.h"
+#include "../include/old_cliente.h"
 #include "comandos/movimiento.h"
 #include "comandos/ataque.h"
 #include "comandos/item_tomado.h"

@@ -30,16 +30,42 @@ void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int a
     this->objetos.push_back(enemigo);
 }
 
-void Juego::handleEvents() {
+void Juego::handleEvents(Player& player) {
     SDL_Event evento;
-    SDL_PollEvent(&evento);
-    switch (evento.type) {
+    while (SDL_PollEvent(&evento)){
+
+      switch (event.type) {
+        case SDL_KEYDOWN:
+            std::cout << "tecla preionada\n";
+            switch( event.key.keysym.sym ){
+                // aca mandariamos la informacion o crearimos el evento;
+                    case SDLK_LEFT:         // x, y, vida, angulo;
+                        player.settear_estado(-1, 0, 100, 50); // esto es para probar que se cambia el estado
+                                                              // y se renderiza la imagen;
+                        break;
+                    case SDLK_RIGHT:
+                        player.settear_estado(1, 0, 100, 50);
+                        break;
+                    case SDLK_UP:
+                        player.settear_estado(0, 1, 100, 50);
+                        break;
+                    case SDLK_DOWN:
+                        player.settear_estado(0, -1, 100, 50);
+                        break;
+                    default:
+                        break;
+            break;
+        case SDL_KEYUP:
+            std::cout << "tecla despresionada\n";
+            break;
         case SDL_QUIT:
             this->corriendo = false;
             break;
         default:
             break;
-    }
+      }
+
+
 }
 
 void Juego::actualizar() {
