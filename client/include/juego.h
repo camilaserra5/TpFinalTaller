@@ -1,7 +1,6 @@
 #ifndef JUEGO_H
 #define JUEGO_H
 
-#include "objetoJuego.h"
 #include "thread.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -9,17 +8,19 @@
 #include "ventana.h"
 #include "blocking_queue.h"
 #include "comandos/comando.h"
+#include "modelo.h"
 #include <list>
 #include <string>
 
 class Juego : public Thread {
 private:
-    std::list<ObjetoJuego *> objetos;
     bool corriendo;
     Ventana* ventana;
     Textura *texturaInferior;
+    Modelo* modelo;
+
 public:
-    Juego(const std::string& titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen);
+    Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, int idJugador);
 
     ~Juego() {}
 

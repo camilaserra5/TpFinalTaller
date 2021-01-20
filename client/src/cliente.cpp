@@ -30,7 +30,7 @@ void Cliente::run() {
     //LO QUE RECIBA DE LA ACTUALIZACION HAY QUE DIBUJARLO.
     std::string nombre_juego("Wolfstein");
     int idJugador = 1111;
-    Juego *juego = new Juego(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+    Juego *juego = new Juego(nombre_juego, 800, 600, false, idJugador);
     ManejadorEventos manejador(idJugador, events);
 
     try {
