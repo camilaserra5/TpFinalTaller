@@ -9,11 +9,11 @@ ObjetoJuego::ObjetoJuego(const char *rutaimg, SDL_Renderer *render, int x, int y
     this->textura = new Textura(rutaimg, render);
 }
 
-void ObjetoJuego::actualizar() {
-    this->xpos++; //POR AHORA
-    this->ypos++; //POR AHORA
-    this->ancho = this->ancho * 2;
-    this->alto = this->alto * 2;
+void ObjetoJuego::actualizar(int posx, int posy) {
+    this->xpos = posx;
+    this->ypos = posy;
+    this->ancho = this->ancho;
+    this->alto = this->alto;
 }
 
 void ObjetoJuego::renderizar() {

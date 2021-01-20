@@ -25,20 +25,13 @@ Juego::Juego(const std::string& titulo, int xpos, int ypos, int ancho, int alto,
     this->objetos.push_back(enemigo);
 }
 
-void Juego::handleEvents() {
-    SDL_Event evento;
-    SDL_PollEvent(&evento);
-    switch (evento.type) {
-        case SDL_QUIT:
-            this->corriendo = false;
-            break;
-        default:
-            break;
-    }
+void Juego::run(){
+    this->actualizar();
+    this->renderizar();
+    this->clean();
 }
-
 void Juego::actualizar() {
-    this->objetos.front()->actualizar();
+    //this->objetos.front()->actualizar();
 }
 
 void Juego::renderizar() {
@@ -47,11 +40,13 @@ void Juego::renderizar() {
   /*  SDL_RenderClear(this->render);
     Lienzo posiciontexturaini(0, 0, 800, 40);
     Lienzo posiciontexturadest(0, 562, 800, 40);
-    this->texturaInferior->renderizar(this->render, posiciontexturaini, posiciontexturadest);
+    this->texturaInferior->renderizar(this->render
+  , posiciontexturaini, posiciontexturadest);
     this->objetos.front()->renderizar();
     SDL_RenderPresent(this->render);*/
 }
 
 void Juego::clean() {
       this->ventana->limpiar();
+      this->corriendo = false;
 }
