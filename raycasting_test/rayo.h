@@ -25,6 +25,8 @@ private:
 
     void verificarCuadranteY(const float anguloJugador);
 
+    bool hallarColision(int mapa[][TAMANIO_FILA],float &interseccionAX,float &interseccionAY,float &xa,float &ya);
+
 public:
     Rayo(float campoDeVision, int ladoCelda, /*int tamanio_fila_mapa, */int largoProyector,float anguloBarrido);
 
