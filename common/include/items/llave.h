@@ -12,7 +12,7 @@ public:
 
     ~Llave();
 
-    void obtenerBeneficio(Jugador *jugador) override;
+    void obtenerBeneficio(ContenedorDeElementos &contenedor,Jugador *jugador) override;
 
 };
 

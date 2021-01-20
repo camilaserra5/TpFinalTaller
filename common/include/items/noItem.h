@@ -10,7 +10,7 @@ public:
 
     ~NoItem() {}
 
-    void obtenerBeneficio(Jugador *jugador) override {
+    void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override {
         std::cout << "beneficio de no item\n";
     }
 

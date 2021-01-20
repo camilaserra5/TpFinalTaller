@@ -9,7 +9,7 @@ public:
 
     ~Comida();
 
-    void obtenerBeneficio(Jugador *jugador) override;
+    void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
 private:
     int puntos_de_vida;

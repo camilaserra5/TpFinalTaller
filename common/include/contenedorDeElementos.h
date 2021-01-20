@@ -13,7 +13,6 @@
 #include "items/tesoro.h"
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
-#include "entidadPosicionable.h"
 #include <string>
 
 class ContenedorDeElementos {
@@ -24,6 +23,8 @@ public:
     ~ContenedorDeElementos();
 
     void agregarElemento(Item *elemento);
+
+    void sacarElementoDePosicion(Posicion &posicion);
 
     //ElementoPosicionable actualizarElementos();
     //std::vector<ElementoPosicionable> elementoEnPosicion();

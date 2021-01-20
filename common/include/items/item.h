@@ -3,19 +3,23 @@
 
 #include "jugador.h"
 #include "posicion.h"
-#include "entidadPosicionable.h"
 
-class Item : public EntidadPosicionable {
+class ContenedorDeElementos;
+
+class Item{
 public:
     Item(Posicion &posicion) : posicion(posicion) {}
 
     virtual ~Item() {}
 
-    virtual void obtenerBeneficio(Jugador *jugador) = 0;
+    virtual void obtenerBeneficio(ContenedorDeElementos &contenedor,Jugador *jugador) = 0;
 
     bool estaCerca(int &posx, int &posy) {
         return this->posicion.estaCerca(posx, posy);
     }
+
+    void sacarDelMapa(ContenedorDeElementos &contenedor, Posicion &posicion);
+
 
 private:
     Posicion posicion;

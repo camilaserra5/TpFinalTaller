@@ -8,9 +8,10 @@ Comida::Comida(Posicion &posicion) : Item(posicion), puntos_de_vida(VIDA) {}
 
 Comida::~Comida() {}
 
-void Comida::obtenerBeneficio(Jugador *jugador) {
+void Comida::obtenerBeneficio(ContenedorDeElementos &contenedor,Jugador *jugador) {
     std::cout << "obtuve beneficio comida";
     if (jugador->puntos_de_vida() != VIDA_MAXIMA) {
         jugador->actualizar_vida(this->puntos_de_vida);
+        this->sacarDelMapa(contenedor);
     }
 }

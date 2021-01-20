@@ -25,10 +25,10 @@ private:
 
     void verificarCuadranteY(const float anguloJugador);
 
+public:
     bool hallarColision(int mapa[][TAMANIO_FILA],float &interseccionAX,float &interseccionAY,float &xa,float &ya);
 
-public:
-    Rayo(float campoDeVision, int ladoCelda, /*int tamanio_fila_mapa, */int largoProyector,float anguloBarrido);
+    Rayo(float campoDeVision, int ladoCelda, int largoProyector,float anguloBarrido);
 
     bool verificarInterseccion(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
 

@@ -72,6 +72,7 @@ private:
     int balas;
     int puntaje;
     float angulo = 0;
+    float velocidadDeRotacion;
     Arma *armaActual;
     int llaves;
     int cantidad_vidas;

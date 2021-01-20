@@ -10,7 +10,7 @@ public:
 
     ~Tesoro();
 
-    void obtenerBeneficio(Jugador *jugador) override;
+    void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
 private:
     std::string &tipoDeTesoro; //va a servir para dibujar calculo;

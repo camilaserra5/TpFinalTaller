@@ -7,6 +7,18 @@ void ContenedorDeElementos::aniadirElemento(ElementoPosicionable &elemento){
 }
 */
 
+void ContenedorDeElementos::sacarElementoDePosicion(Posicion &posicion){
+  std::vector<Item *> elementosFiltrados;
+  for (int i = 0; i < this->elementos.size(); i++) {
+      if (this->elementos[i]->posicion == posicion) {
+        delete this->elementos[i];
+      }else{
+        elementosFiltrados.push_back(this->elementos[i]);
+      }
+  }
+  this->clientes.swap(clientes_filtrados);
+}
+
 ContenedorDeElementos::ContenedorDeElementos() :
         elementos() {}
 

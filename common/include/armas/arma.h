@@ -7,7 +7,6 @@
 #include "jugador.h"
 #include <ctime>
 #include "posicion.h"
-#include "entidadPosicionable.h"
 
 class Arma {
 public:
