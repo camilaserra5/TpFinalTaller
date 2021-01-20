@@ -10,7 +10,7 @@ private:
     int tipo_de_movimiento;
     int idJugador;
 public:
-    Movimiento(int &idJugador, int &tipo_de_movimiento);
+    Movimiento(int &idJugador, int tipo_de_movimiento);
 
     void ejecutar(EstadoJuego &EstadoJuego) override;
 
