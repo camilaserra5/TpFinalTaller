@@ -1,30 +1,35 @@
 #ifndef JUEGO_H
 #define JUEGO_H
 
-#include "objetoJuego.h"
+#include "thread.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "textura.h"
+#include "ventana.h"
+#include "blocking_queue.h"
+#include "comandos/comando.h"
+#include "modelo.h"
 #include <list>
+#include <string>
 
-class Juego {
+class Juego : public Thread {
 private:
-    std::list<ObjetoJuego *> objetos;
     bool corriendo;
-    SDL_Window *ventana;
-    SDL_Renderer *render;
+    Ventana* ventana;
     Textura *texturaInferior;
+    Modelo* modelo;
+
 public:
-    Juego() {}
+    Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, int idJugador);
 
     ~Juego() {}
 
-    void inicializar(const char *titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen);
+    //void inicializar(const std::string& titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen);
 
     bool estaCorriendo() { return corriendo; }
 
-    void handleEvents();
-
+//    void handleEvents(int id, BlockingQueue<Comando*>& eventos);
+    void run() override;
     void actualizar();
 
     void renderizar();

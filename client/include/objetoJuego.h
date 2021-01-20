@@ -21,7 +21,7 @@ public:
 
     void renderizar();
 
-    void actualizar();
+    void actualizar(int posx, int posy);
 };
 
 #endif //OBJETOJUEGO_H

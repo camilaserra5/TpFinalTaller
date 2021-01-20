@@ -1,6 +1,6 @@
 #ifndef _CLIENTE_H
 #define _CLIENTE_H
-//#include "../../common_src/include/socket.h"
+#include "../../common/include/socket.h"
 //#include "../../common_src/include/thread.h"
 #include "protected_queue.h"
 #include "blocking_queue.h"

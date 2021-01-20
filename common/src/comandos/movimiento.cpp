@@ -5,7 +5,7 @@
 #define ARRIBA 2
 #define ABAJO -2
 
-Movimiento::Movimiento(int &idJugador, int &tipo_de_movimiento) :
+Movimiento::Movimiento(int &idJugador, int tipo_de_movimiento) :
         idJugador(idJugador),
         tipo_de_movimiento(tipo_de_movimiento) {}
 
