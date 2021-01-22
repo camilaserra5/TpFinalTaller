@@ -38,7 +38,7 @@ void Cliente::run() {
         while (juego->estaCorriendo()) {
 
             // clientEventSender.enviarEventos
-            juego->start();
+            juego->run();
             manejador.start(); // se manejan eventos;
             std::chrono::milliseconds duration(1000);
             std::this_thread::sleep_for(duration);
@@ -48,6 +48,6 @@ void Cliente::run() {
     } catch (...) {
         std::cout << "error";
     }
-    juego->join();
+  //  juego->join();
     manejador.join();
 }

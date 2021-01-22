@@ -15,7 +15,7 @@ class Player{
         vida(100),
         angulo(50),
         id(id),
-        objetoDibujable(rutaimg, render, posx, posy, 10, 10){}
+        objetoDibujable(rutaimg, render, 50, 50){}
 
         ~Player();
         // actualizacion
@@ -24,10 +24,9 @@ class Player{
             this->posy = posy;
             this->vida = vida;
             this->angulo = angulo;
-            this->objetoDibujable.actualizar(posx, posy);
         }
         void renderizar(){
-            this->objetoDibujable.renderizar();
+            this->objetoDibujable.renderizar(this->posx, this->posy, this->angulo);
         }
     private:
       int posx;

@@ -23,8 +23,7 @@ Juego::Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, in
     }
     this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png", this->ventana->obtener_render());
 
-    //ObjetoJuego *enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->ventana->obtener_render(),  /*50, 50,*/0, 0,
-                                    //       78, 78/*100,100*/);
+    //ObjetoJuego *enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->ventana->obtener_render(),  /*50, 50,*/0, 0, 78, 78/*100,100*/);
     //this->objetos.push_back(enemigo);
 }
 

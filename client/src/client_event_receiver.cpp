@@ -6,9 +6,9 @@
 #include <vector>
 
 ClientEventReceiver::ClientEventReceiver(Socket &socket,
-                                         ProtectedQueue<Actualizacion *> &updates) :
+                                         ProtectedQueue<Actualizacion *> &updates, Modelo& modelo)  :
 
-        socket(socket), updates(updates) {}
+        socket(socket), updates(updates), modelo(modelo) {}
 
 void ClientEventReceiver::run() {
     while (this->running) {
@@ -16,6 +16,25 @@ void ClientEventReceiver::run() {
         // debería ser un protocolo en realidad
         //this->socket.recibir();
         //this->updates.aniadir_dato(update);
+        // datos de jugador sacado de lo ue se recibe;
+        int x = 1;
+        int y = 2;
+        int vida = 10;
+        int angulo = 50;
+        int id;
+        this->modelo.actualizarJugador(x, y, vida, angulo, id/*arma*/);
+
+
+        /*
+          for (int i= 0; i<cantEntidades; i++){
+                int id;
+                Estado estado;
+               Type tipoDeObjeto;
+               int posx;
+               int posy;
+               this->modelo.actualizarEntidad(id, tipoDeObjeto, posx, posy, estado);
+          }
+          */
     }
 }
 
