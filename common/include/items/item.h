@@ -18,8 +18,11 @@ public:
         return this->posicion.estaCerca(posx, posy);
     }
 
-    void sacarDelMapa(ContenedorDeElementos &contenedor, Posicion &posicion);
+    void sacarDelMapa(ContenedorDeElementos &contenedor);
 
+    Posicion obtenerPosicion(){
+        return this->posicion;
+    }
 
 private:
     Posicion posicion;

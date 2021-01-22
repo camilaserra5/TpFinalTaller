@@ -17,6 +17,7 @@ class Posicion{
     float getAnguloDeVista(){ return this->anguloDeVista;}
     bool estaCerca(int& posx, int& posy);
     void rotar(float anguloRotacion);
+    bool operator==(Posicion& posicion);
   private:
     int pixelesX;
     int pixelesY;

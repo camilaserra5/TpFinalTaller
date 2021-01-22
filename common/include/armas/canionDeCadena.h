@@ -13,7 +13,7 @@ public:
 
     void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override;
 
-    void obtenerBeneficio(Jugador *jugador);
+    void obtenerBeneficio(ContenedorDeElementos& conteneor, Jugador *jugador);
 
 private:
     int cantidad_rafagas;

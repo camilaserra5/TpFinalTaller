@@ -2,7 +2,6 @@
 #define ACTUALIZACION_H
 
 #include "estadoJuego.h"
-#include "entidadPosicionable.h"
 #include <list>
 
 class Actualizacion {
@@ -16,7 +15,8 @@ public:
 
 private:
     EstadoJuego &estadoJuego;
-    std::list<EntidadPosicionable *> objetos;
+    std::list<Item*> items;
+    std::list<Jugador*> jugadores;
     int puntaje_actual;
     int vida_actual;
 };

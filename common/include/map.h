@@ -30,6 +30,10 @@ public:
 
     Item *buscarElemento(int &posx, int &posy);
 
+    ContenedorDeElementos& obtenerContenedor(){
+        return this->contenedorDeElementos;
+    };
+
     ~Map();
 
 private:

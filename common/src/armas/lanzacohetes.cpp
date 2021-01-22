@@ -28,7 +28,7 @@ void LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador, std::map<int,
   }
 }
 
-void LanzaCohetes::obtenerBeneficio(Jugador *jugador) {
+void LanzaCohetes::obtenerBeneficio(ContenedorDeElementos& contenedorDeElementos, Jugador *jugador) {
   if (!jugador->poseeArma(this)) {
       jugador->agregar_arma(this);
       // sacar arma del mapa;

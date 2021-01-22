@@ -63,6 +63,10 @@ public:
 
     void sumarPuntos(int puntos);
 
+    void gastarBalas(int cantBalas){
+        this->balas -=cantBalas;
+    }
+
 private:
     Posicion posicion;
     int id;

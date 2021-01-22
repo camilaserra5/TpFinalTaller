@@ -59,7 +59,7 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
         // me guardo la llave
         Posicion posicion(1, 1, 1);//va a depender de su posidion en el mapa
         Llave llave(posicion);
-        llave.obtenerBeneficio(jugador);
+        llave.obtenerBeneficio(mapa->obtenerContenedor(),jugador);
         return true;
     } else if (tipo == Type::fakeDoor) {
         return false;
@@ -111,7 +111,7 @@ void EstadoJuego::moverse_a_derecha(int idJugador) {
     std::cout << "pos y: " << posEnJuegoy << "\n";
     if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
-        item->obtenerBeneficio(jugador);
+        item->obtenerBeneficio(this->mapa->obtenerContenedor(), jugador);
         jugador->moverse(METROS_MOVIDOS, 0); // en jugador se recibe lo movido y se suma;
         delete item;
     } else {
@@ -126,7 +126,7 @@ void EstadoJuego::moverse_a_izquierda(int idJugador) {
     int posEnJuegoy = jugador->posEnY();
     if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
-        item->obtenerBeneficio(jugador);
+        item->obtenerBeneficio(this->mapa->obtenerContenedor(),jugador);
         jugador->moverse(-METROS_MOVIDOS, 0); // en jugador se recibe lo movido y se suma;
     } else {
         this->no_me_muevo(idJugador);
@@ -139,7 +139,7 @@ void EstadoJuego::moverse_arriba(int idJugador) {
     int posEnJuegoy = jugador->posEnY() + METROS_MOVIDOS;
     if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
-        item->obtenerBeneficio(jugador);
+        item->obtenerBeneficio(this->mapa->obtenerContenedor(),jugador);
         jugador->moverse(0, METROS_MOVIDOS); // en jugador se recibe lo movido y se suma;
     } else {
         this->no_me_muevo(idJugador);
@@ -152,7 +152,7 @@ void EstadoJuego::moverse_abajo(int idJugador) {
     int posEnJuegoy = jugador->posEnY() - METROS_MOVIDOS;
     if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
         Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
-        item->obtenerBeneficio(jugador);
+        item->obtenerBeneficio(this->mapa->obtenerContenedor(), jugador);
         jugador->moverse(0, -METROS_MOVIDOS); // en jugador se recibe lo movido y se suma;
     } else {
         this->no_me_muevo(idJugador);

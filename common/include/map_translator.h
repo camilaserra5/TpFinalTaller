@@ -2,7 +2,6 @@
 #define MAP_TRANSLATOR_H
 
 #include "map.h"
-#include "entidadPosicionable.h"
 #include <list>
 #include <string>
 #include <yaml-cpp/yaml.h>

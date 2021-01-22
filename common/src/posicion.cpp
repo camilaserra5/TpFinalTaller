@@ -53,3 +53,10 @@ void Posicion::rotar(float anguloRotacion){
       this->anguloDeVista = anguloFinal;
     }
 }
+
+bool Posicion::operator==(Posicion& otraPosicion){
+    if (this->pixelesX == otraPosicion.pixelesEnX() && this->pixelesY == otraPosicion.pixelesEnY()){
+          return true;
+    }
+    return false;
+}

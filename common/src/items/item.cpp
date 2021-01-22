@@ -1,5 +1,5 @@
-#include "../include/item.h"
+#include "../include/items/item.h"
 
-void Item::sacarDelMapa(ContenedorDeElementos &contenedor,Posicion &posicion){
-  contenedor.sacarElementoDePosicion(posicion);
+void Item::sacarDelMapa(ContenedorDeElementos &contenedor){
+//  contenedor.sacarElementoDePosicion(this->posicion);
 }
