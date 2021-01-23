@@ -7,6 +7,8 @@
 #include <string>
 #include "armas/arma.h"
 
+#define CANTIDAD_TOP_JUGADORES 5
+
 class EstadoJuego {
 public:
     EstadoJuego(Map *mapa);

@@ -22,7 +22,7 @@ Jugador::Jugador(std::string &nombre, int &id) :
         armas(),
         puntaje(PUNTAJE_INICIAL),
         balas(CANT_INICAL_BALAS),
-        armaActual(new Cuchillo()),
+        armaActual(new Pistola()),
         posicion(POSX_INICIAL, POSY_INICIAL, 50),
         llaves(0),
         cantidad_vidas(2) {}

@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "posicion.h"
+#include "estadistica.h"
 
 class Arma;
 
@@ -80,6 +81,7 @@ private:
     Arma *armaActual;
     int llaves;
     int cantidad_vidas;
+    Logro logro; //cambiar nombre je
 };
 
 #endif
