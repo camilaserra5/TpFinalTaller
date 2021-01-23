@@ -76,7 +76,7 @@ private:
     Arma *armaActual;
     int llaves;
     int cantidad_vidas;
-    Logro logro; //cambiar nombre je
+    Logro logro;
 };
 
 #endif

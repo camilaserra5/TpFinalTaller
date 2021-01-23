@@ -50,13 +50,16 @@ bool Rayo::verificarInterseccion(int mapa[][TAMANIO_FILA], float &distancia, Jug
 
 bool Rayo::hallarColision(int mapa[][TAMANIO_FILA],float &interseccionAX,float &interseccionAY,float &xa,float &ya){
   bool encontrePared = false;
-  int yaMapa = floor(interseccionAY/this->ladoCelda);
-  int xaMapa = floor(interseccionAX/this->ladoCelda);
+  int yaMapa = interseccionAY/this->ladoCelda;
+  int xaMapa = interseccionAX/this->ladoCelda;
+  std::cout << "parto de xa: " << xaMapa << " y: " << yaMapa << "\n";
+
 
   while (!encontrePared && 0 < xaMapa && xaMapa < TAMANIO_FILA && 0 < yaMapa && yaMapa < TAMANIO_COLUMNA) {
-      if (mapa[xaMapa][yaMapa] == 1) {
-        std::cout << "xa: " << xaMapa << " y: " << yaMapa << "\n";
 
+      if (mapa[xaMapa][yaMapa] == 1) {
+        std::cout << "llego en xa: " << xaMapa << " y: " << yaMapa << "\n";
+        
           encontrePared = true;
       }else{
         interseccionAX += xa;
@@ -83,13 +86,13 @@ bool Rayo::verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &dist
       }
 
     interseccionAX = posX + (posY-interseccionAY)/tan(this->anguloBarrido);
-    xa = floor(this->ladoCelda / tan(this->anguloBarrido));
+    xa = this->ladoCelda / tan(this->anguloBarrido);
 
     if ((this->izquierda && xa > 0) || (!this->izquierda && xa < 0)){
       xa = xa * (-1);
     }
 
-    std::cout << "llamo a hallar horizontal: ";
+    std::cout << "llamo a hallar horizontal\n";
 
     encontrePared = this->hallarColision(mapa,interseccionAX,interseccionAY,xa,ya);
     if (encontrePared){
@@ -118,12 +121,12 @@ bool Rayo::verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distan
       }
 
       interseccionAY = posY + (posX-interseccionAX)/tan(this->anguloBarrido);
-      ya = floor(this->ladoCelda / tan(this->anguloBarrido));
+      ya = this->ladoCelda / tan(this->anguloBarrido);
 
       if ((this->abajo && ya < 0) || (!this->abajo && ya > 0)){
         ya = -ya;
       }
-      std::cout << "llamo a hallar vertical: ";
+      std::cout << "llamo a hallar vertical: \n";
 
       encontrePared = this->hallarColision(mapa,interseccionAX,interseccionAY,xa,ya);
       if (encontrePared){

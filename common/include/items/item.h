@@ -24,7 +24,7 @@ public:
         return this->posicion;
     }
 
-private:
+protected:
     Posicion posicion;
 };
 

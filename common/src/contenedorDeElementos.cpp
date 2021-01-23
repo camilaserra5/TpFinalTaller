@@ -16,7 +16,7 @@ void ContenedorDeElementos::sacarElementoDePosicion(Posicion &posicion){
         elementosFiltrados.push_back(this->elementos[i]);
       }
   }
-  //this->clientes.swap(clientes_filtrados); ???
+  this->elementos.swap(elementosFiltrados);
 }
 
 ContenedorDeElementos::ContenedorDeElementos() :
