@@ -4,6 +4,7 @@
 #include "comando.h"
 #include "iserializable.h"
 #include "estadoJuego.h"
+#include <iostream>
 
 class Movimiento : public Comando, public ISerializable {
 private:
@@ -16,7 +17,7 @@ public:
 
     ~Movimiento();
 
-    void serializar() override {}
+    std::stringstream serializar() override {}
 
     void deserializar() override {}
 };

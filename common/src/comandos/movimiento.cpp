@@ -27,3 +27,8 @@ void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
     }
     std::cout << "me muevo lol\n";
 }
+/*
+std::stringstream Movimiento::serializar(){
+    std::stringstream informacion;
+    informacion <<
+}*/
