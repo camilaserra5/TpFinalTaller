@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include "posicion.h"
-#include "estadistica.h"
+#include "logro.h"
 
 class Arma;
 
@@ -67,6 +67,8 @@ public:
     void gastarBalas(int cantBalas){
         this->balas -=cantBalas;
     }
+
+    Logro& obtenerLogro();
 
 private:
     Posicion posicion;

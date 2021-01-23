@@ -8,7 +8,7 @@
 #define CANT_INICAL_BALAS 8
 #define PUNTAJE_INICIAL 0
 
-#include "armas/cuchillo.h"
+#include "armas/pistola.h"
 
 int Jugador::getId() {
     return this->id;
@@ -22,7 +22,7 @@ Jugador::Jugador(std::string &nombre, int &id) :
         armas(),
         puntaje(PUNTAJE_INICIAL),
         balas(CANT_INICAL_BALAS),
-        armaActual(new Pistola()),
+        armaActual(new Pistola(10/*arbitrario por que  no se porque recibe este parametroS*/)),
         posicion(POSX_INICIAL, POSY_INICIAL, 50),
         llaves(0),
         cantidad_vidas(2) {}
@@ -92,4 +92,8 @@ void Jugador::agarrarLlave() {
 
 void Jugador::rotar(float anguloRotacion){
   this->posicion.rotar(anguloRotacion);
+}
+
+Logro& Jugador::obtenerLogro(){
+  return this->logro;
 }
