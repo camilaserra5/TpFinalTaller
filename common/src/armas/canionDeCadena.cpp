@@ -9,12 +9,20 @@ void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador, std::map<in
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
         int cantidad_balas = this->cantidad_rafagas * BALAS_POR_RAFAGA;
-        for (int i = 0; i < cantidad_balas; i++) {
+        int i = 0;
+        bool jugadorMurio = false;
+        Jugador* jugadorAtacado = jugadores.at(idJugadorMasCercano);
+        while (i < cantidad_balas && !jugadorMurio) {
             //distancia influye en el danio y lode la precision
             int danio = (rand() % DANIO_MAX) + 1;
             danio = -danio;
-            jugadores.at(idJugadorMasCercano)->actualizar_vida(danio);
+            jugadorAtacado->actualizar_vida(danio);
+            if (jugadorAtacado->estaMuerto()){
+              jugadorMurio = true;
+              jugador->aniadirEnemigosMatados(1);
+            }
             //sleep(0.1);//chequear
+             i++;
         }
     }
 }

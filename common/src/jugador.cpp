@@ -6,7 +6,6 @@
 #define POSX_INICIAL 5
 #define POSY_INICIAL 5
 #define CANT_INICAL_BALAS 8
-#define PUNTAJE_INICIAL 0
 
 #include "armas/pistola.h"
 
@@ -20,7 +19,6 @@ Jugador::Jugador(std::string &nombre, int &id) :
         id(id),
         vida(MAX_VIDA),
         armas(),
-        puntaje(PUNTAJE_INICIAL),
         balas(CANT_INICAL_BALAS),
         armaActual(new Pistola(10/*arbitrario por que  no se porque recibe este parametroS*/)),
         posicion(POSX_INICIAL, POSY_INICIAL, 50),
@@ -83,7 +81,7 @@ int Jugador::posEnY() {
 }
 
 void Jugador::sumarPuntos(int puntos) {
-    this->puntaje += puntos;
+    this->logro.aniadirPuntosPorTesoro(puntos);
 }
 
 void Jugador::agarrarLlave() {
@@ -96,4 +94,33 @@ void Jugador::rotar(float anguloRotacion){
 
 Logro& Jugador::obtenerLogro(){
   return this->logro;
+}
+
+void Jugador::gastarBalas(int cantidadDeBalas){
+    this->balas -=cantidadDeBalas;
+    this->logro.aniadirBalasDisparadas(cantidadDeBalas);
+}
+
+float Jugador::getAnguloDeVista() { return this->posicion.getAnguloDeVista(); }
+
+Arma *Jugador::getArma() { return this->armaActual; }
+
+void Jugador::setPosicion(Posicion &posicion) { this->posicion = posicion; }
+
+Posicion &Jugador::getPosicion() { return this->posicion; }
+
+bool Jugador::tengollave() {
+    return (this->llaves > 0);
+}
+
+void Jugador::usarLlave() {
+    this->llaves += -1;
+}
+
+bool Jugador::estaMuerto() {
+    return (this->vida <= 0);
+}
+
+void Jugador::aniadirEnemigosMatados(int jugadoresMatados){
+  this->logro.aniadirEnemigosMatados(jugadoresMatados);
 }

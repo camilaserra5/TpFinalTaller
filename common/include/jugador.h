@@ -36,27 +36,21 @@ public:
 
     int getId();
 
-    void setPosicion(Posicion &posicion) { this->posicion = posicion; }
+    void setPosicion(Posicion &posicion);
 
-    Posicion &getPosicion() { return this->posicion; }
+    Posicion &getPosicion();
 
-    Arma *getArma() { return this->armaActual; }
+    Arma *getArma();
 
-    float getAnguloDeVista() { return this->posicion.getAnguloDeVista(); }
+    float getAnguloDeVista();
 
     //void setAnguloDeVista(float anguloJugador){this->angulo = anguloJugador; }
 
-    bool tengollave() {
-        return (this->llaves > 0);
-    }
+    bool tengollave();
 
-    void usarLlave() {
-        this->llaves += -1;
-    }
+    void usarLlave();
 
-    bool estaMuerto() {
-        return (this->vida <= 0);
-    }
+    bool estaMuerto();
 
     bool poseeArma(Arma *arma);
 
@@ -64,11 +58,11 @@ public:
 
     void sumarPuntos(int puntos);
 
-    void gastarBalas(int cantBalas){
-        this->balas -=cantBalas;
-    }
+    void gastarBalas(int cantidadDeBalas);
 
     Logro& obtenerLogro();
+
+    void aniadirEnemigosMatados(int jugadoresMatados);
 
 private:
     Posicion posicion;
@@ -77,7 +71,6 @@ private:
     int vida;
     std::vector<Arma *> armas;
     int balas;
-    int puntaje;
     float angulo = 0;
     float velocidadDeRotacion;
     Arma *armaActual;

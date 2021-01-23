@@ -13,8 +13,15 @@ bool Logro::operator==(Logro &logro){
   bool dispareMasBalas = (this->balasDisparadas == logro.balasDisparadas? true:false);
   return (mateMasEnemigos && tengoMasPuntosPorTesoro && dispareMasBalas);
 }
-/*
-void aniadirBalasDisparadas(int cantidadDeBalas);
-void aniadirPuntosPorTesoro(int puntos); //cada tesoro sabe cuantos puntos
-void aniadirEnemigosMatados(int cantidadDeEnemigos);
-*/
+
+void Logro::aniadirBalasDisparadas(int cantidadDeBalas){
+  this->balasDisparadas += cantidadDeBalas;
+}
+
+void Logro::aniadirPuntosPorTesoro(int puntos){
+  this->puntosTotalesPorTesoros += puntos;
+} //cada tesoro sabe cuantos puntos
+
+void Logro::aniadirEnemigosMatados(int cantidadDeEnemigos){
+  this->enemigosMatados += cantidadDeEnemigos;
+}
