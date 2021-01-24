@@ -1,10 +1,7 @@
 #include "../include/manejador_eventos.h"
 #include "../include/player.h"
 
-#define MOV_ABAJO -2
-#define MOV_ARRIBA 2
-#define MOV_DERECHA 1
-#define MOV_IZQUIERDA -1
+#include "comandos/movimiento.h"
 #include <iostream>
 
 ManejadorEventos::ManejadorEventos(int idJugador, BlockingQueue<Comando*>& eventos):
