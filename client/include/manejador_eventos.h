@@ -14,7 +14,7 @@ class ManejadorEventos: public Thread{
           void run() override;
           void detectarEventos(SDL_Event& event);
           void stop();
-          void crearMovimiento(int direccion);
+          void crearMovimiento(Accion direccion);
 
     private:
         int idJugador;

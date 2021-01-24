@@ -3,8 +3,9 @@
 
 #include "estadoJuego.h"
 #include <list>
+#include "iserializable.h"
 
-class Actualizacion {
+class Actualizacion : public ISerializable {
 public:
     Actualizacion(EstadoJuego &estadoJuego/*,std::list<EntidadPosicionable*> objetos*/) :
             estadoJuego(estadoJuego) {}
@@ -12,6 +13,11 @@ public:
       //quizas se guarda la informacion de los rayos para dinujar, tipo un vector de alturas
       //y los jugadores que estan en su FOV junto con los items
     }*/
+    std::stringstream serializar() override{
+      std::stringstream info;
+      return info;
+    }
+    void deserializar() override {}
 
 private:
     EstadoJuego &estadoJuego;

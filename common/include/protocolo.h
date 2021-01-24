@@ -3,21 +3,21 @@
 
 
 #include "socket.h"
-#include "comando.h"
+#include "comandos/comando.h"
 #include <iostream>
 
 class Protocolo{
     public:
-        Protocolo(Socket& socket): socket(socket){}
-        ~Protocolo();
-        void enviar(Comando& comando){
-            std::stringstream informacion = comando.serializar();
+        Protocolo(Socket socket): socket(std::move(socket)){}
+        ~Protocolo(){};
+        void enviar(Comando* comando){
+            std::stringstream informacion = comando->serializar();
             // socket.send(informacion);
         }
         void recibir();
 
     private:
-          Socket& socket;
+          Socket socket;
 };
 
 #endif

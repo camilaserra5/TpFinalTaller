@@ -12,7 +12,7 @@ ClientEventSender::ClientEventSender(Socket &socket,
 
 void ClientEventSender::run() {
     while (this->running) {
-        Comando *event = this->events.pop();
+        Comando *evento = this->events.pop();
         // debería ser protocolo en lugar de socket?
         protocolo.enviar(evento);
         //this->socket.enviar(evento);

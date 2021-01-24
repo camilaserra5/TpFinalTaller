@@ -51,7 +51,7 @@ void Socket::apagar_lectura() {
     ::shutdown(this->filedescriptor, SHUT_RD);
 }
 
-Socket::Socket(Socket &&otro) noexcept: filedescriptor(otro.filedescriptor) {
+Socket::Socket(Socket &&otro) : filedescriptor(otro.filedescriptor) {
     otro.filedescriptor = FD_INVALIDO;
 }
 

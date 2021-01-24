@@ -25,7 +25,7 @@ public:
 
     Socket &operator=(const Socket &copia) = delete;
 
-    Socket(Socket &&otro) noexcept;
+    Socket(Socket &&otro);
 
     Socket &operator=(Socket &&other);
 

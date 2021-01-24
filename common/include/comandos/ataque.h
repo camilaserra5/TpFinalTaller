@@ -3,20 +3,19 @@
 #define DANIO_MAX 10
 
 #include "comandos/comando.h"
-#include "iserializable.h"
+#include <iostream>
 
-class Ataque : public Comando, public ISerializable {
+class Ataque : public Comando {
 private:
-    int destinox;
-    int destinoy;
-    int danio;
+  //  int destinox;
+    //int destinoy;
     int idJugador;
 public:
     Ataque(int idJugador) : idJugador(idJugador) {}
 
     ~Ataque() {}
 
-    void serializar() override {}
+    std::stringstream serializar() override;
 
     void deserializar() override {}
 
