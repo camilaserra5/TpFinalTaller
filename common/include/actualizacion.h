@@ -22,7 +22,6 @@ public:
 private:
     EstadoJuego &estadoJuego;
     std::list<Item*> items;
-    std::list<Jugador*> jugadores;
     int puntaje_actual;
     int vida_actual;
 };

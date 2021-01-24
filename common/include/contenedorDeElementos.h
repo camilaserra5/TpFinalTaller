@@ -26,8 +26,6 @@ public:
 
     void sacarElementoDePosicion(Posicion &posicion);
 
-    //ElementoPosicionable actualizarElementos();
-    //std::vector<ElementoPosicionable> elementoEnPosicion();
     Item *buscarElemento(int &pox, int &posy);
 
 private:

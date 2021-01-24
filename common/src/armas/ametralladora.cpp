@@ -14,6 +14,7 @@ void Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int
       Jugador* jugadorAtacado = jugadores.at(idJugadorMasCercano);
         while ( i < cantidad_balas && !jugadorMurio) {
             //distancia influye en el danio y lode la precision
+          //  int danioPorDistancia = 1 / (jugador->distanciaA(jugadorAtacado));
             int danio = (rand() % DANIO_MAX) + 1;
             danio = -danio;
             jugadorAtacado->actualizar_vida(danio);

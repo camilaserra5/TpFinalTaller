@@ -105,5 +105,6 @@ void Servidor::run() {
         //std::this_thread::sleep_for(duration);
         termine = true;
     }
-    this->sigue_corriendo = false;
+    //mostramos el ranking, podemos mandar una actualizacion con los jugadores que ganaron
+  //  this->sigue_corriendo = false; creo que no va esta linea
 }
