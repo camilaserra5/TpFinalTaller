@@ -29,7 +29,6 @@ public:
     ContenedorDeElementos& obtenerContenedor(){
         return this->contenedorDeElementos;
     };
-
     ~Map();
 
 private:

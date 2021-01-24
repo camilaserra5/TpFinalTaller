@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include "protocolo.h"
+#include <sstream>
 
 ClientEventSender::ClientEventSender(Socket &socket,
                                      BlockingQueue<Comando *> &events) :
@@ -14,7 +15,8 @@ void ClientEventSender::run() {
     while (this->running) {
         Comando *evento = this->events.pop();
         // debería ser protocolo en lugar de socket?
-        protocolo.enviar(evento);
+        std::stringstream informacion = evento->serializar();
+        protocolo.enviar(informacion);
         //this->socket.enviar(evento);
     }
 }
