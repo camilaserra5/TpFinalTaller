@@ -1,7 +1,7 @@
 #include "../include/old_cliente.h"
 #include "comandos/movimiento.h"
 #include "comandos/ataque.h"
-#include "comandos/item_tomado.h"
+
 
 #include <mutex>
 
@@ -23,15 +23,13 @@ void Cliente::actualizar(const Actualizacion &actualizacion) {
 }
 
 void Cliente::run() {
-    int tipo_de_movimiento = 1;
+
     int id = 111;
-    Comando *movimiento = new Movimiento(id, tipo_de_movimiento);
+    Comando *movimiento = new Movimiento(id, Accion::moverDerecha);
     Comando *ataque = new Ataque(id);
-    Comando *itemTomado = new ItemTomado(id);
 
     this->cola_comandos.aniadir_dato(movimiento);
     this->cola_comandos.aniadir_dato(ataque);
-    this->cola_comandos.aniadir_dato(itemTomado);
     std::cout << "agrege comandos a cola\n";
     std::chrono::milliseconds duration(1100);
     std::this_thread::sleep_for(duration);

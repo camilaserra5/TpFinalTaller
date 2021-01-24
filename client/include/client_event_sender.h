@@ -9,12 +9,14 @@
 #include "socket.h"
 #include "blocking_queue.h"
 #include "comandos/comando.h"
+#include "protocolo.h"
 
 class ClientEventSender : public Thread {
 private:
     Socket &socket;
     BlockingQueue<Comando *> &events;
     bool running = true;
+    Protocolo protocolo;
 
 public:
     ClientEventSender(Socket &socket, BlockingQueue<Comando *> &events);

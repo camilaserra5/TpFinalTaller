@@ -3,14 +3,19 @@
 
 #include <iostream>
 #include "estadoJuego.h"
+#include "iserializable.h"
 
-class Comando {
+class Comando : public ISerializable{
 public:
     Comando() {}
 
     virtual ~Comando() {}
 
     virtual void ejecutar(EstadoJuego &estadoJuego) = 0; //deberia devolver una actualizacion en lugar de viod
+
+  //  std::stringstream serializar(){}
+
+
 private:
     int idJugador;
 };

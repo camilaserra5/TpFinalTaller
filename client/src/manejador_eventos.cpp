@@ -26,7 +26,7 @@ void ManejadorEventos::run(){
     }
 }
 
-void ManejadorEventos::crearMovimiento(int direccion){
+void ManejadorEventos::crearMovimiento(Accion direccion){
     Comando* movimiento = new Movimiento(this->idJugador, direccion);
     this->eventos.push(movimiento);
 }
@@ -38,23 +38,23 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
                   // aca mandariamos la informacion o crearimos el evento;
                       case SDLK_LEFT:         // x, y, vida, angulo;
 
-                          crearMovimiento(MOV_IZQUIERDA);
+                          crearMovimiento(Accion::moverIzquierda);
                         //  player.settear_estado(-1, 0, 100, 50); // esto es para probar que se cambia el estado
                                                                 // y se renderiza la imagen;
                             std::cout << "me muevo a izquierda\n";
                           break;
                       case SDLK_RIGHT:
-                          crearMovimiento(MOV_DERECHA);
+                          crearMovimiento(Accion::moverDerecha);
                         //  player.settear_estado(1, 0, 100, 50);
                         std::cout << "me muevo a derecha\n";
                           break;
                       case SDLK_UP:
-                          crearMovimiento(MOV_ARRIBA);
+                          crearMovimiento(Accion::moverArriba);
                         //  player.settear_estado(0, 1, 100, 50);
                         std::cout << "me muevo arriba\n";
                           break;
                       case SDLK_DOWN:
-                          crearMovimiento(MOV_ABAJO);
+                          crearMovimiento(Accion::moverAbajo);
                         //  player.settear_estado(0, -1, 100, 50);
                         std::cout << "me muevo abajo\n";
                           break;
