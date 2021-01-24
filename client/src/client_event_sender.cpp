@@ -4,15 +4,17 @@
 #include <utility>
 #include <algorithm>
 #include <vector>
+#include "protocolo.h"
 
 ClientEventSender::ClientEventSender(Socket &socket,
                                      BlockingQueue<Comando *> &events) :
-        socket(socket), events(events) {}
+        socket(socket), events(events), protocolo(std::move(socket)) {}
 
 void ClientEventSender::run() {
     while (this->running) {
-        //Comando *event = this->events.pop();
+        Comando *event = this->events.pop();
         // debería ser protocolo en lugar de socket?
+        protocolo.enviar(evento);
         //this->socket.enviar(evento);
     }
 }
