@@ -3,8 +3,11 @@
 
 
 #include "socket.h"
-#include "comandos/comando.h"
+
+#include "comandos/ataque.h"
+#include "comandos/movimiento.h"
 #include <iostream>
+#define TAMANIO 100
 
 class Protocolo{
     public:
@@ -12,9 +15,40 @@ class Protocolo{
         ~Protocolo(){};
         void enviar(Comando* comando){
             std::stringstream informacion = comando->serializar();
-            // socket.send(informacion);
+            std::string buffer = informacion.str();
+             socket.enviar(buffer.c_str(),buffer.size());
         }
-        void recibir();
+        std::stringstream recibir(){
+            char buffer[TAMANIO];
+            std::stringstream informacion;
+            int cant_recibidos = socket.recibir(buffer, TAMANIO);
+            while (cant_recibidos >0){
+                informacion.write(buffer, cant_recibidos);
+                cant_recibidos = socket.recibir(buffer, TAMANIO);
+            }
+            return informacion;
+        }
+        Comando* deserializarComando(std::stringstream& informacion){
+
+            if (informacion.str()[0] == static_cast<int>(Accion::ataque)){
+                // verificar temas de los bytes;
+                // byte 1 tipo de accion , byte 2 id jugador, byte 3 tipo de ivimiento;
+                return new Ataque(informacion.str()[1]);
+            } else{
+                Accion accion;
+                if (informacion.str()[2] == static_cast<int>(Accion::moverDerecha)){
+                    accion = Accion::moverDerecha;
+                } else if (informacion.str()[2] == static_cast<int>(Accion::moverIzquierda)){
+                    accion = Accion::moverIzquierda;
+                } else if (informacion.str()[2] == static_cast<int>(Accion::moverArriba)){
+                    accion = Accion::moverArriba;
+                } else {
+                    accion = Accion::moverAbajo;
+                }
+                int id = informacion.str()[1];
+                return new Movimiento(id, accion);
+            }
+        }
 
     private:
           Socket socket;

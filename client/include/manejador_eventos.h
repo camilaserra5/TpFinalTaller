@@ -6,7 +6,6 @@
 #include <SDL2/SDL.h>
 #include "blocking_queue.h"
 #include "comandos/comando.h"
-#include "comandos/movimiento.h"
 class ManejadorEventos: public Thread{
     public:
           ManejadorEventos(int id, BlockingQueue<Comando*>& eventos);
