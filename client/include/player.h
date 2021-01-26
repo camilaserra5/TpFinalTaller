@@ -6,16 +6,21 @@
 #include "sprite.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <map>
 
 class Player{
     public:
         Player(const char* rutaimg, SDL_Renderer* render, int id):
-        posx(0),
-        posy(0),
-        vida(100),
-        angulo(50),
-        id(id),                 
-        sprite(render, rutaimg, 3, 3, 65, 60){}
+        posx(0), posy(0), vida(100), angulo(50), id(id){
+            Sprite spriteCuchillo = Sprite(render, rutaimg, 1, 0, 65, 60);
+            Sprite spritePistola = Sprite(render, rutaimg, 0, 1, 65, 60);
+            Sprite spriteAmetralladora = Sprite(render, rutaimg, 0, 2, 65, 60);
+            Sprite spriteCanion = Sprite(render, rutaimg, 0, 3, 65, 60);
+            this->sprites.insert(std::make_pair("cuchillo", spriteCuchillo));
+            this->sprites.insert(std::make_pair("pistola", spritePistola));
+            this->sprites.insert(std::make_pair("ametralladora", spriteAmetralladora));
+            this->sprites.insert(std::make_pair("canion", spriteCanion));
+        }
 
         ~Player();
         // actualizacion
@@ -26,7 +31,7 @@ class Player{
             this->angulo = angulo;
         }
         void renderizar(){
-            this->sprite.renderizar(this->posx, this->posy, this->angulo);
+            this->sprites.find("pistola")->second.renderizar(this->posx, this->posy, this->angulo);
         }
     private:
       int posx;
@@ -34,7 +39,7 @@ class Player{
       int vida;
       int angulo;
       int id;
-      Sprite sprite;
+      std::map<std::string, Sprite> sprites;
 };
 
 #endif
