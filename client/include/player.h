@@ -3,7 +3,7 @@
 
 // no se si es un sprite;
 // falta ver tema imagen/arma
-#include "objetoJuego.h"
+#include "sprite.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -14,8 +14,8 @@ class Player{
         posy(0),
         vida(100),
         angulo(50),
-        id(id),
-        objetoDibujable(rutaimg, render, 50, 50){}
+        id(id),                 
+        sprite(render, rutaimg, 3, 3, 65, 60){}
 
         ~Player();
         // actualizacion
@@ -26,7 +26,7 @@ class Player{
             this->angulo = angulo;
         }
         void renderizar(){
-            this->objetoDibujable.renderizar(this->posx, this->posy, this->angulo);
+            this->sprite.renderizar(this->posx, this->posy, this->angulo);
         }
     private:
       int posx;
@@ -34,7 +34,7 @@ class Player{
       int vida;
       int angulo;
       int id;
-      ObjetoJuego objetoDibujable;
+      Sprite sprite;
 };
 
 #endif
