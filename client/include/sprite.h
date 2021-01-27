@@ -3,28 +3,36 @@
 
 
 #include "textura.h"
-#include ""
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
-/*
+
 class Sprite{
     private:
         Textura* textura;
-        std::vector<SDL_Rect> frames
+        SDL_Rect infoSprite;
 
     public:
 
-        Sprite(SDL_Renderer* render, const char* rutaimg, int frames, int frames_a, int frames_l,
-                int ancho largo){
-                SDL_Rect rect = {0, 0, frame_h, frame_w};
-                for (int i = 0; i < frames; i++) {
-                    this->frames.push_back(rect);
-                    rect.x += frame_a;
+        Sprite(SDL_Renderer* render, const char* rutaimg, int x, int y, int h, int w){
 
-          }
-        Sprite(SDL_Renderer* render, int ancho, int largo, const char* rutaimg,
-              int cantFrames, int velocidad);
-        ~Sprite();
-        void renderizar(int x, int y, int angulo);
+            this->infoSprite.x = x* w;
+            this->infoSprite.y = y* h;
+            this->infoSprite.w = w;
+            this->infoSprite.h = h;
+            this->textura = new Textura(rutaimg,render);
 
-}
-*/
+        }
+        ~Sprite(){}
+        void renderizar(int x, int y, int angulo){
+            SDL_Rect destino;
+            destino.x = x;
+            destino.y = y;
+            destino.h = this->infoSprite.h;
+            destino.w = this->infoSprite.w;
+            this->textura->renderizar(&this->infoSprite, destino);
+        }
+
+};
+
+#endif

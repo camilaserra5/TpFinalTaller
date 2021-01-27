@@ -14,16 +14,12 @@ public:
       //y los jugadores que estan en su FOV junto con los items
     }*/
     std::stringstream serializar() override{
-      std::stringstream info;
-      return info;
+        return this->estadoJuego.serializar();
     }
     void deserializar() override {}
 
 private:
     EstadoJuego &estadoJuego;
-    std::list<Item*> items;
-    int puntaje_actual;
-    int vida_actual;
 };
 
 #endif

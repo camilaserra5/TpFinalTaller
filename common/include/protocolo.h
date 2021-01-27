@@ -13,8 +13,8 @@ class Protocolo{
     public:
         Protocolo(Socket socket): socket(std::move(socket)){}
         ~Protocolo(){};
-        void enviar(Comando* comando){
-            std::stringstream informacion = comando->serializar();
+
+        void enviar(std::stringstream& informacion){
             std::string buffer = informacion.str();
              socket.enviar(buffer.c_str(),buffer.size());
         }

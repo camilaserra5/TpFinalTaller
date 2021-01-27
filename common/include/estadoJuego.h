@@ -6,10 +6,11 @@
 #include <map>
 #include <string>
 #include "armas/arma.h"
+#include "iserializable.h"
 
 #define CANTIDAD_TOP_JUGADORES 5
 
-class EstadoJuego {
+class EstadoJuego : public ISerializable{
 public:
     EstadoJuego(Map *mapa);
 
@@ -28,6 +29,13 @@ public:
     void agregarJugador(std::string &nombreJugador, int &id);
 
     void realizarAtaque(int idJugador);
+
+    std::stringstream serializar(){
+        std::stringstream informacion;
+        return informacion;
+        //mapa->serializar();
+    }
+    void deserializar(){}
 
 private:
     Map *mapa;
