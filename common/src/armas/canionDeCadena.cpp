@@ -34,3 +34,7 @@ void CanionDeCadena::obtenerBeneficio(ContenedorDeElementos& contendor, Jugador 
         //sacar el arma del juego;
     }
 }
+
+bool CanionDeCadena::esPistola(){
+  return false;
+}

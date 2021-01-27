@@ -28,10 +28,9 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
     bool termine = false;
     while (!termine) {
         try {
-            
             Comando *comando = cola_comandos.obtener_dato(); // el comandos va a tener quien le envio lo que tiene que hacer, osea el id
             comando->ejecutar(estadoJuego);
-            Actualizacion actualizacion(estadoJuego);
+            Actualizacion actualizacion(estadoJuego);//no conviene puntero??
             this->cola_actualizaciones.aniadir_dato(actualizacion);
             delete comando;
         } catch (const std::exception &exception) {

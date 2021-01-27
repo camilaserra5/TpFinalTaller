@@ -11,6 +11,7 @@
 
 class Player{
     public:
+<<<<<<< HEAD
         Player(const char* rutaimg, SDL_Renderer* render, int id):
         posx(0), posy(0), vida(100),nivel(1), puntaje(100), angulo(50), id(id),
         infoJugador(render, vida,nivel, puntaje){
@@ -38,6 +39,15 @@ class Player{
             this->infoJugador.renderizar();
 
         }
+=======
+        Player(const char* rutaimg, SDL_Renderer* render, int id);
+
+        ~Player();
+        // actualizacion
+        void settear_estado(int posx, int posy, int vida, int angulo);
+        void renderizar();
+
+>>>>>>> d736525b05b728bc0dd858bb4c0f59e77974ade9
     private:
       int posx;
       int posy;
