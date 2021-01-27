@@ -82,7 +82,7 @@ void Client::run() {
         std::string port;
         std::string socket_text = "Connecting...";
         int step = 0;
-        while (step < 3) {
+        while (step < 4) {
             if (SDL_PollEvent(&e)) {
                 if (e.type == SDL_QUIT) {
                     exit(0);
@@ -123,19 +123,15 @@ void Client::run() {
             SDL_RenderPresent(renderer);
             if (step == 2) {
                 try {
-                    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "CONNECTING");
                     this->socket.conectar(ip.c_str(), port.c_str());
-                    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "CONNECTING");
                     step++;
                 } catch (std::exception &exc) {
-                    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "CONNECTING");
-                    socket_text = "Error connecting";
+                    socket_text = "Error connecting, press enter to start again";
                     ip = "";
                     port = "";
                     step++;
                 }
             }
-
         }
 
 
