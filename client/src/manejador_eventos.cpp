@@ -62,6 +62,7 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
               break;
           case SDL_QUIT:
               this->corriendo = false;
+              exit(0);
               break;
           default:
               break;
