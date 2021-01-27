@@ -30,7 +30,7 @@ public:
 
 //    void handleEvents(int id, BlockingQueue<Comando*>& eventos);
     void run() override;
-    void actualizar();
+    void actualizar(/*temporal int idArma*/);
 
     void renderizar();
 

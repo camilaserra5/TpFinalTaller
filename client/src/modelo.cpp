@@ -14,11 +14,12 @@ void Modelo::inicializar(){
       this->jugadores.insert(std::make_pair(this->idJugador, player));
 }
 
-void Modelo::renderizar(){
-      this->jugadores[this->idJugador]->settear_estado(200,200, 100, 50);
-    this->jugadores[this->idJugador]->renderizar();
+void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int id, int idArma){
+    this->jugadores[id]->settear_estado(x,y,vida,angulo, idArma);
 }
 
-void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int id){
-      this->jugadores[id]->settear_estado(x,y,vida,angulo/*tipo de arma*/);
+void Modelo::renderizar(){
+      this->jugadores[this->idJugador]->renderizar();
 }
+
+
