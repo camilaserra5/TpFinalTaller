@@ -13,7 +13,12 @@ Juego::Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, in
         this->render = SDL_CreateRenderer(this->ventana, -1, 0);
         SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
         SDL_RenderClear(this->render);*/
+        if (TTF_Init() == -1) {
+            printf("Failed to init TTF\n");
+            exit(1);
+        }
 
+        
         this->ventana =  new Ventana(titulo, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ancho, alto, flags);
         this->modelo = new Modelo(this->ventana, idJugador);
         modelo->inicializar(); // recibiria el yaml
