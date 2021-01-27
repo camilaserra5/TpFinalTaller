@@ -129,20 +129,19 @@ void Juego::raycasting(Map &mapaa,Jugador &jugador){
                                             /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
                                             };
 
-            float rangoDeVista = 2 * acos(0.0) / 3;//60 grados
+            double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
             unsigned int alturaParedProyectada = 0;
             int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;//el -10 va para q dibuje alfo razzonable
-            float anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
-            float anguloJugador = jugador.getAnguloDeVista();
-            float anguloRayo = anguloJugador - (rangoDeVista / 2);
+            double anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
+            double anguloJugador = jugador.getAnguloDeVista();
+            double anguloRayo = anguloJugador - (rangoDeVista / 2);
 
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
-                float distancia = 0;
+                double distancia = 0;
                 Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo);
 
                 if (rayo.verificarInterseccion(mapa,distancia,jugador)){
                   alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                  std::cout << "altura: " << alturaParedProyectada << "\n";
                 }
                   double drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
                   double drawEnd = drawStart + alturaParedProyectada - 20;
@@ -156,9 +155,9 @@ void Juego::raycasting(Map &mapaa,Jugador &jugador){
 
                   anguloRayo += anguloPorStripe;
             }
-            std::cout << "==================termina=========================\n";
             SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);// deberia estar en atualizar
 
             SDL_RenderClear(this->render);
+            std::cout << "terminee============================================================\n";
 
 }
