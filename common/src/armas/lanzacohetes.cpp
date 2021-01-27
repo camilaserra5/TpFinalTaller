@@ -38,4 +38,9 @@ void LanzaCohetes::obtenerBeneficio(ContenedorDeElementos& contenedorDeElementos
       jugador->agregar_arma(this);
       // sacar arma del mapa;
   }
+
 }
+
+  bool LanzaCohetes::esPistola(){
+    return false;
+  }

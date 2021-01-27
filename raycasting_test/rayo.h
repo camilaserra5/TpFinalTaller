@@ -9,32 +9,30 @@ class Rayo {
 private:
     bool abajo = false;
     bool izquierda = false;
-    float xa;
-    float ya;
-    float campoDeVision;
-    float anguloBarrido;
+    double xa;
+    double ya;
+    double campoDeVision;
+    double anguloBarrido;
     int largoProyector;
     int alturaProyector;
     int distanciaProyector;
-    float anguloPorStripe;
+    double anguloPorStripe;
     int ladoCelda;
     int ladoMapa;
     int tamanio_fila_mapa;
 
-    void verificarCuadranteX(const float anguloJugador);
-
-    void verificarCuadranteY(const float anguloJugador);
+    void verificarCuadrante(const double anguloJugador);
 
 public:
-    bool hallarColision(int mapa[][TAMANIO_FILA],float &interseccionAX,float &interseccionAY,float &xa,float &ya);
+    bool hallarColision(int mapa[][TAMANIO_FILA],double &interseccionAX,double &interseccionAY,double &xa,double &ya);
 
-    Rayo(float campoDeVision, int ladoCelda, int largoProyector,float anguloBarrido);
+    Rayo(double campoDeVision, int ladoCelda, int largoProyector,double anguloBarrido);
 
-    bool verificarInterseccion(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
+    bool verificarInterseccion(int mapa[][TAMANIO_FILA], double &distancia, Jugador &jugador);
 
-    bool verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
+    bool verificarInterseccionHorizontal(int mapa[][TAMANIO_FILA], double &distancia, Jugador &jugador);
 
-    bool verificarInterseccionVertical(int mapa[][TAMANIO_FILA], float &distancia, Jugador &jugador);
+    bool verificarInterseccionVertical(int mapa[][TAMANIO_FILA], double &distancia, Jugador &jugador);
 
     int getDistanciaProyector();
 

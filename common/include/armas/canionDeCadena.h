@@ -15,6 +15,8 @@ public:
 
     void obtenerBeneficio(ContenedorDeElementos& conteneor, Jugador *jugador);
 
+    bool esPistola() override;
+
 private:
     int cantidad_rafagas;
 };

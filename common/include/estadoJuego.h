@@ -36,6 +36,8 @@ public:
         //mapa->serializar();
     }
     void deserializar(){}
+    
+    void verificarJugadoresMuertos();
 
 private:
     Map *mapa;
