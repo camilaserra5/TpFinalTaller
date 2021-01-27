@@ -35,3 +35,7 @@ void Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Juga
         }
     }
 }
+
+bool Pistola::esPistola(){
+  return true;
+}

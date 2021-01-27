@@ -12,6 +12,8 @@ public:
 
     void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override;
 
+    bool esPistola() override;
+
 private:
     int precision;
     int probalidad_acierto;

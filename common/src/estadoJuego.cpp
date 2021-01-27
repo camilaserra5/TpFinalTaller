@@ -163,3 +163,20 @@ void EstadoJuego::no_me_muevo(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
     jugador->moverse(0, 0);
 }
+
+void EstadoJuego::verificarJugadoresMuertos(){
+  std::map<int,Jugador*>::iterator it;
+  for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it){
+      if (it->second->estaMuerto()){
+        Arma *arma = it->second->getArma();
+        if (!arma->esPistola()){
+          //Item* item = arma;
+        //  this->mapa->agregarElemento(item);//como lo pasamos a item
+        }
+        this->mapa->agregarElemento(new Balas(it->second->getPosicion(),10/*cte*/));
+        if (it->second->tengollave()){
+          this->mapa->agregarElemento(new Llave(it->second->getPosicion()));//hay que cambiarlo a que el jugador se guarde una llave
+        }
+      }
+  }
+}

@@ -31,6 +31,8 @@ public:
     };
     ~Map();
 
+    void agregarElemento(Item* item);
+
 private:
     unsigned rowSize;
     unsigned colSize;
