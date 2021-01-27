@@ -7,11 +7,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <map>
+#include "informacionJugador.h"
 
 class Player{
     public:
         Player(const char* rutaimg, SDL_Renderer* render, int id):
-        posx(0), posy(0), vida(100), angulo(50), id(id){
+        posx(0), posy(0), vida(100),nivel(1), puntaje(100), angulo(50), id(id),
+        infoJugador(render, vida,nivel, puntaje){
             Sprite spriteCuchillo = Sprite(render, rutaimg, 1, 0, 65, 60);
             Sprite spritePistola = Sprite(render, rutaimg, 0, 1, 65, 60);
             Sprite spriteAmetralladora = Sprite(render, rutaimg, 0, 2, 65, 60);
@@ -29,16 +31,22 @@ class Player{
             this->posy = posy;
             this->vida = vida;
             this->angulo = angulo;
+            this->infoJugador.actualizarDatosJugador(vida, nivel, puntaje);
         }
         void renderizar(){
             this->sprites.find("pistola")->second.renderizar(this->posx, this->posy, this->angulo);
+            this->infoJugador.renderizar();
+
         }
     private:
       int posx;
       int posy;
       int vida;
+      int nivel;
+      int puntaje;
       int angulo;
       int id;
+      InfoJugador infoJugador;
       std::map<std::string, Sprite> sprites;
 };
 

@@ -22,7 +22,7 @@ private:
 public:
     Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, int idJugador);
 
-    ~Juego() {}
+    ~Juego();
 
     //void inicializar(const std::string& titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen);
 

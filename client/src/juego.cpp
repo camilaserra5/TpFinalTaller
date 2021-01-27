@@ -52,6 +52,8 @@ void Juego::renderizar() {
     SDL_RenderPresent(this->render);*/
 }
 
+Juego::~Juego(){}
+
 void Juego::clean() {
       this->ventana->limpiar();
       this->corriendo = false;

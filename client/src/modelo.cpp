@@ -16,7 +16,7 @@ void Modelo::inicializar(){
 
 void Modelo::renderizar(){
       this->jugadores[this->idJugador]->settear_estado(200,200, 100, 50);
-    this->jugadores[this->idJugador]->renderizar();
+      this->jugadores[this->idJugador]->renderizar();
 }
 
 void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int id){
