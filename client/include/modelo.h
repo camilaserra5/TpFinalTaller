@@ -4,6 +4,7 @@
 #include "ventana.h"
 #include "player.h"
 #include <map>
+#include "objetoJuego.h"
 
 class Modelo{
     public:
