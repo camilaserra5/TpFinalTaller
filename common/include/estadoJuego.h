@@ -36,8 +36,11 @@ public:
         //mapa->serializar();
     }
     void deserializar(){}
-    
+
     void verificarJugadoresMuertos();
+
+    void buscarItemsEnPosJugador(Jugador* jugador,int& posX,int& posY, int& xFinal, int& yFinal);
+
 
 private:
     Map *mapa;

@@ -42,45 +42,6 @@ void Juego::handleEvents() {
     }
 }
 
-/*
-void Juego::handleEvents(Player& player) {
-    SDL_Event evento;
-    while (SDL_PollEvent(&evento)){
-
-      switch (evento.type) {
-        case SDL_KEYDOWN:
-            std::cout << "tecla preionada\n";
-            switch( evento.key.keysym.sym ){
-                // aca mandariamos la informacion o crearimos el evento;
-                    case SDLK_LEFT:         // x, y, vida, angulo;
-                        player.settear_estado(-1, 0, 100, 50); // esto es para probar que se cambia el estado
-                                                              // y se renderiza la imagen;
-                        break;
-                    case SDLK_RIGHT:
-                        player.settear_estado(1, 0, 100, 50);
-                        break;
-                    case SDLK_UP:
-                        player.settear_estado(0, 1, 100, 50);
-                        break;
-                    case SDLK_DOWN:
-                        player.settear_estado(0, -1, 100, 50);
-                        break;
-                    default:
-                        break;
-            break;
-        case SDL_KEYUP:
-            std::cout << "tecla despresionada\n";
-            break;
-        case SDL_QUIT:
-            this->corriendo = false;
-            break;
-        default:
-            break;
-      }
-
-
-}
-*/
 void Juego::actualizar() {
     this->objetos.front()->actualizar();
 }
@@ -135,16 +96,25 @@ void Juego::raycasting(Map &mapaa,Jugador &jugador){
             double anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
             double anguloJugador = jugador.getAnguloDeVista();
             double anguloRayo = anguloJugador - (rangoDeVista / 2);
+            Posicion& posJugador = jugador.getPosicion();
+            double offsetWall = 0;
 
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
-                double distancia = 0;
-                Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo);
+                double distancia = 0,drawStart,drawEnd;
+                Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo,posJugador);
 
-                if (rayo.verificarInterseccion(mapa,distancia,jugador)){
-                  alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                }
-                  double drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
-                  double drawEnd = drawStart + alturaParedProyectada - 20;
+                rayo.verificarInterseccion(mapa,distancia,jugador,offsetWall);
+                alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
+
+                //  if (alturaParedProyectada > 600){
+                  //    drawStart = 600 - 1;
+                  //    drawEnd = 0;
+                //  }else{
+                    drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
+                    drawEnd = drawStart + alturaParedProyectada - 20;
+            //      }
+
+                  std::cout << "altura: " << alturaParedProyectada << "\n";
 
                   SDL_RenderPresent(this->render);
                   SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);

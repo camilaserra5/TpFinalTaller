@@ -14,7 +14,6 @@
 #include "armas/lanzacohetes.h"
 
 #define TAM_CELDA 50
-
 Map::Map(unsigned rowSize, unsigned colSize) : contenedorDeElementos() {
     if (rowSize < 1 || colSize < 1) {
         throw std::runtime_error("Invalid map");
