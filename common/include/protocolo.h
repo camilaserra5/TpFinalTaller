@@ -32,6 +32,12 @@ public:
         return informacion;
     }
 
+    std::vector<char> recibirBinario() {
+        std::string someString = recibir().str();
+        std::vector<char> informacion(someString.begin(), someString.end());
+        return informacion;
+    }
+
     Comando *deserializarComando(std::stringstream &informacion) {
 
         if (informacion.str()[0] == static_cast<int>(Accion::ataque)) {

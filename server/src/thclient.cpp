@@ -1,4 +1,4 @@
-#include "thclient.h"
+#include "../include/thclient.h"
 #include "socket.h"
 #include <string>
 #include <utility>
@@ -7,10 +7,11 @@
 #define ERROR -1
 #define SOCKET_CERRADO 0
 
-ThClient::ThClient(Socket un_socket) :
+ThClient::ThClient(Socket un_socket, ManejadorPartidas *manejadorDePartidas) :
         socket(std::move(un_socket)),
         keep_talking(true),
-        is_running(true) {}
+        is_running(true),
+        manejadorDePartidas(manejadorDePartidas) {}
 
 ThClient::~ThClient() {
     this->join();
@@ -48,17 +49,24 @@ bool ThClient::is_dead() {
 }
 
 void ThClient::run() {
+    std::cerr << "envio partidas\n";
+    std::vector<char> partidas = this->manejadorDePartidas->serializar();
+    for (int i = 0; i < partidas.size(); i++) {
+        std::cerr << partidas[i];
+    }
+    std::cerr << "\nfin envio partidas";
+    this->socket.enviar(reinterpret_cast<char *>(partidas.data()), partidas.size());
     while (this->keep_talking) {
-        procesar_pedido();
+
+        /*procesar_pedido();
 
         std::string mensaje = this->mensaje_cliente.str();
         if (mensaje.size() != 0) {
             mensaje.erase(mensaje.size() - 1);
         }
 
-        this->socket.apagar_escritura();
-        this->mensaje_cliente.clear();
 
+        this->keep_talking = false;*/
         this->keep_talking = false;
     }
     this->socket.cerrar();
