@@ -1,15 +1,17 @@
 #include "../include/objetoJuego.h"
 
-ObjetoJuego::ObjetoJuego(const char *rutaimg, SDL_Renderer *render, int ancho, int alto) :
-        alto(alto),
-        ancho(ancho),
-        render(render) {
-    this->textura = new Textura(rutaimg, render);
+ObjetoJuego::ObjetoJuego(Sprite sprite) :
+        sprite(sprite),
+        posx(0), posy(0),
+        angulo(0){}
+
+ObjetoJuego::~ObjetoJuego(){}
+
+void ObjetoJuego::renderizar() {
+    this->sprite.renderizar(this->posx, this->posy, this->angulo);
 }
 
-
-void ObjetoJuego::renderizar(int posx, int posy, int angulo) {
-    SDL_Rect lienzosrc{0, 0, 30, 30};
-    SDL_Rect lienzodest{posx, posy, this->ancho, this->alto};
-    this->textura->renderizar(&lienzosrc, (lienzodest));
+void ObjetoJuego::settear_estado(int posx, int posy){
+    this->posx = posy;
+    this->posy = posy;
 }

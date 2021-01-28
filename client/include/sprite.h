@@ -10,12 +10,14 @@ class Sprite{
     private:
         Textura* textura;
         SDL_Rect infoSprite;
+        SDL_Rect destino;
 
     public:
 
         Sprite(SDL_Renderer* render, const char* rutaimg, int x, int y, int h, int w);
         ~Sprite(){}
         void renderizar(int x, int y, int angulo);
+        void reescalar(int escalarw, int escalarh);
 
 };
 
