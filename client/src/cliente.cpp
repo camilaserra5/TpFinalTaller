@@ -38,6 +38,11 @@ void Cliente::run() {
         while (juego->estaCorriendo()) {
 
             // clientEventSender.enviarEventos
+            if (!manejador.esta_vivo()) {
+                juego->clean();
+                SDL_Quit();
+                exit(1);
+            }
             juego->run();
             manejador.start(); // se manejan eventos;
             std::chrono::milliseconds duration(1000);

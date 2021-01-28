@@ -33,7 +33,7 @@ Client::Client() {
         exit(1);
     }
 
-    fonts.addFont("wolfstein", "../resources/fonts/wolfenstein.ttf", 60);
+    fonts.addFont("wolfstein", "../../resources/fuentes/wolfenstein.ttf", 60);
 
     this->renderer = SDL_CreateRenderer(this->window, -1, rendererFlags);
 
@@ -56,7 +56,7 @@ void disp_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, 
 }
 
 void Client::run() {
-    Background background("../resources/images/background.png", this->renderer);
+    Background background("../../client/resources/images/background.png", this->renderer);
     background.drawBackground();
     while (1) {
         SDL_Event e;
