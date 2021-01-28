@@ -5,7 +5,7 @@
 #include "estadoJuego.h"
 #include <iostream>
 
-class Movimiento : public Comando{
+class Movimiento : public Comando {
 private:
     Accion tipo_de_movimiento;
     int idJugador;
@@ -16,9 +16,12 @@ public:
 
     ~Movimiento();
 
-    std::stringstream serializar() override;
+    std::vector<char> serializar() {
+        std::vector<char> info;
+        return info;
+    }
 
-    void deserializar() override {}
+    void deserializar(std::vector<char> serializado) {}
 };
 
 #endif

@@ -7,18 +7,21 @@
 class Rotacion : public Comando, public ISerializable {
 
 private:
-  //Accion sentidoDeRotacion;
+    //Accion sentidoDeRotacion;
 public:
 
-  Rotacion(Accion sentidoDeRotacion): sentidoDeRotacion(sentidoDeRotacion){}
+    Rotacion(Accion sentidoDeRotacion) : sentidoDeRotacion(sentidoDeRotacion) {}
 
-  std::stringstreamvoid serializar() override{}
+    std::vector<char> serializar() {
+        std::vector<char> info;
+        return info;
+    }
 
-  void deserializar(/*std::stringstream secuencia*/)override{}
+    void deserializar(std::vector<char> serializado) {}
 
-  void ejecutar(EstadoJuego &EstadoJuego) override{}
+    void ejecutar(EstadoJuego &EstadoJuego) override {}
 
-  ~Rotacion();
+    ~Rotacion();
 };
 
 #endif

@@ -6,7 +6,7 @@
 #include <vector>
 
 ClientEventReceiver::ClientEventReceiver(Socket &socket,
-                                         ProtectedQueue<Actualizacion *> &updates, Modelo& modelo)  :
+                                         ProtectedQueue<Actualizacion *> &updates, Modelo &modelo) :
 
         socket(socket), updates(updates), modelo(modelo) {}
 
@@ -22,7 +22,7 @@ void ClientEventReceiver::run() {
         int vida = 10;
         int angulo = 50;
         int id;
-        this->modelo.actualizarJugador(x, y, vida, angulo, id/*arma*/);
+        this->modelo.actualizarJugador(x, y, vida, angulo, id/*arma*/, 1);
 
 
         /*

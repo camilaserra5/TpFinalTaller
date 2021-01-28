@@ -7,7 +7,7 @@ KitsMedicos::KitsMedicos(Posicion &posicion) : Item(posicion), puntos_de_vida(VI
 
 KitsMedicos::~KitsMedicos() {}
 
-void KitsMedicos::obtenerBeneficio(ContenedorDeElementos &contenedor,Jugador *jugador) {
+void KitsMedicos::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {
     if (jugador->puntos_de_vida() == VIDA_MAXIMA) {
         jugador->actualizar_vida(this->puntos_de_vida);
     }

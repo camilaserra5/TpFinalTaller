@@ -15,8 +15,8 @@ void ClientEventSender::run() {
     while (this->running) {
         Comando *evento = this->events.pop();
         // debería ser protocolo en lugar de socket?
-        std::stringstream informacion = evento->serializar();
-        protocolo.enviar(informacion);
+        std::vector<char> informacion = evento->serializar();
+        //protocolo.enviar(informacion);
         //this->socket.enviar(evento);
     }
 }

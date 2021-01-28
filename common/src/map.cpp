@@ -61,7 +61,7 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     } else if (value == Type::kitsMedicos) {
         this->contenedorDeElementos.agregarElemento(new KitsMedicos(posicion));
     } else if (value == Type::balas) {
-        this->contenedorDeElementos.agregarElemento(new Balas(posicion,BALAS));
+        this->contenedorDeElementos.agregarElemento(new Balas(posicion, BALAS));
     } else if (value == Type::ametralladora) {
         this->contenedorDeElementos.agregarElemento(new Ametralladora(posicion));
     } else if (value == Type::canionDeCadena) {
@@ -81,8 +81,8 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
 
 }
 
-void Map::agregarElemento(Item* item){
-  this->agregarElemento(item);
+void Map::agregarElemento(Item *item) {
+    this->agregarElemento(item);
 }
 
 Item *Map::buscarElemento(int &posx, int &posy) {

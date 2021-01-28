@@ -63,7 +63,7 @@ void Juego::clean() {
     SDL_Quit();
 }
 
-void Juego::raycasting(Map &mapaa,Jugador &jugador){
+void Juego::raycasting(Map &mapaa, Jugador &jugador) {
 
 // x = fila / y = columna
 

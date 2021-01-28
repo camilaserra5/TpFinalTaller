@@ -10,7 +10,7 @@
 
 #define CANTIDAD_TOP_JUGADORES 5
 
-class EstadoJuego : public ISerializable{
+class EstadoJuego : public ISerializable {
 public:
     EstadoJuego(Map *mapa);
 
@@ -30,12 +30,22 @@ public:
 
     void realizarAtaque(int idJugador);
 
-    std::stringstream serializar(){
-        std::stringstream informacion;
+    std::vector<char> serializar() {
+        std::vector<char> informacion;
+        std::vector<char> mapaSerializado = mapa->serializar();
+        informacion.insert(informacion.end(), mapaSerializado.begin(), mapaSerializado.end());
+
+        informacion.push_back(jugadores.size());
+        std::map<int, Jugador *>::iterator it;
+        for (it = jugadores.begin(); it != jugadores.end(); ++it) {
+            Jugador jugador = *it->second;
+            std::vector<char> jugadorSerializado = jugador.serializar();
+            informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
+        }
         return informacion;
-        //mapa->serializar();
     }
-    void deserializar(){}
+
+    void deserializar(std::vector<char> serializado) {}
 
     void verificarJugadoresMuertos();
 

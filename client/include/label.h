@@ -11,6 +11,8 @@ public:
 
     void setLabelText();
 
+    void actualizarTexto(std::string texto);
+
     void draw();
 
     ~Label();

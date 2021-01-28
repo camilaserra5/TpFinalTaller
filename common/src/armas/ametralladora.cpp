@@ -2,8 +2,8 @@
 
 #define BALAS_POR_RAFAGA 5
 
-bool Ametralladora::esPistola(){
-  return false;
+bool Ametralladora::esPistola() {
+    return false;
 }
 
 void Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
@@ -12,25 +12,25 @@ void Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
-      int i = 0;
-      bool jugadorMurio = false;
-      Jugador* jugadorAtacado = jugadores.at(idJugadorMasCercano);
-        while ( i < cantidad_balas && !jugadorMurio) {
+        int i = 0;
+        bool jugadorMurio = false;
+        Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
+        while (i < cantidad_balas && !jugadorMurio) {
             //distancia influye en el danio y lode la precision
-          //  int danioPorDistancia = 1 / (jugador->distanciaA(jugadorAtacado));
+            //  int danioPorDistancia = 1 / (jugador->distanciaA(jugadorAtacado));
             int danio = (rand() % DANIO_MAX) + 1;
             danio = -danio;
             jugadorAtacado->actualizar_vida(danio);
-            if (jugadorAtacado->estaMuerto()){
-              jugadorMurio = true;
-              jugador->aniadirEnemigosMatados(1);
+            if (jugadorAtacado->estaMuerto()) {
+                jugadorMurio = true;
+                jugador->aniadirEnemigosMatados(1);
             }
             i++;
         }
     }
 }
 
-void Ametralladora::obtenerBeneficio(ContenedorDeElementos& contenedor, Jugador *jugador) {
+void Ametralladora::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {
     if (!jugador->poseeArma(this)) {
         jugador->agregar_arma(this);
         // sacar arma del mapa;

@@ -60,10 +60,22 @@ public:
 
     void gastarBalas(int cantidadDeBalas);
 
-    Logro& obtenerLogro();
+    Logro &obtenerLogro();
 
     void aniadirEnemigosMatados(int jugadoresMatados);
 
+    std::vector<char> serializar() {
+        std::vector<char> informacion;
+
+        return informacion;
+    }
+
+    void deserializar(std::vector<char> serializado) {}
+
+// juagdor serializacion;
+    // id -> int;
+    // pos -> 2 ini
+    // nomnre -> string -> primeor longitud (int) y luego los bytes(chars);
 private:
     Posicion posicion;
     int id;

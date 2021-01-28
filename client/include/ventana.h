@@ -7,19 +7,24 @@
 #include "textura.h"
 
 class Ventana {
-    public:
-        Ventana(const std::string& titulo, int x, int y, int ancho, int alto, int flags);
-        ~Ventana();
-        SDL_Renderer* obtener_render();
-        void renderizar(Textura* textura);
-        void actualizar();
-        void limpiar();
+public:
+    Ventana(const std::string &titulo, int x, int y, int ancho, int alto, int flags);
 
-    private:
-      SDL_Window* ventana;
-      SDL_Renderer *render;
-      int x;
-      int y;
+    ~Ventana();
+
+    SDL_Renderer *obtener_render();
+
+    void renderizar(Textura *textura);
+
+    void actualizar();
+
+    void limpiar();
+
+private:
+    SDL_Window *ventana;
+    SDL_Renderer *render;
+    int x;
+    int y;
 };
 
 #endif

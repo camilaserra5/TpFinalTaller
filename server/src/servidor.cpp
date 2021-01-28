@@ -89,7 +89,7 @@ void Servidor::run() {
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     bool termine = false;
-    std::chrono::milliseconds duration(1000);
+    std::chrono::milliseconds duration(30);
     std::this_thread::sleep_for(duration);
     while (!termine) {
         //el while va a depender del obtener comandos con un try catch
@@ -106,5 +106,5 @@ void Servidor::run() {
         termine = true;
     }
     //mostramos el ranking, podemos mandar una actualizacion con los jugadores que ganaron
-  //  this->sigue_corriendo = false; creo que no va esta linea
+    //  this->sigue_corriendo = false; creo que no va esta linea
 }

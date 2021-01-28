@@ -13,9 +13,10 @@
 #include "items/tesoro.h"
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
+#include "iserializable.h"
 #include <string>
 
-class ContenedorDeElementos {
+class ContenedorDeElementos : public ISerializable {
 
 public:
     ContenedorDeElementos();
@@ -27,6 +28,18 @@ public:
     void sacarElementoDePosicion(Posicion &posicion);
 
     Item *buscarElemento(int &pox, int &posy);
+
+    std::vector<char> serializar() {
+        std::vector<char> informacion;
+        informacion.push_back(elementos.size());
+        for (std::vector<Item *>::iterator it = elementos.begin(); it != elementos.end(); ++it) {
+            std::vector<char> itemSerializado = ((Item *) *it)->serializar();
+            informacion.insert(informacion.end(), itemSerializado.begin(), itemSerializado.end());
+        }
+        return informacion;
+    }
+
+    void deserializar(std::vector<char> serializado) {}
 
 private:
     std::vector<Item *> elementos;

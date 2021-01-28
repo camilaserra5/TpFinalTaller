@@ -14,17 +14,17 @@ Cuchillo::~Cuchillo() {}
 void Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
-    Jugador* jugadorAtacado = jugadores.at(idJugadorMasCercano);
+    Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
         int danio = (rand() % DANIO_MAX) + 1;
         danio = -danio;
         jugadorAtacado->actualizar_vida(danio);
-        if (jugadorAtacado->estaMuerto()){
-          jugador->aniadirEnemigosMatados(1);
+        if (jugadorAtacado->estaMuerto()) {
+            jugador->aniadirEnemigosMatados(1);
         }
     }
 }
 
-bool Cuchillo::esPistola(){
-  return false;
+bool Cuchillo::esPistola() {
+    return false;
 }

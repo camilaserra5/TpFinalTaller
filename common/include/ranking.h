@@ -5,11 +5,11 @@
 #include "jugador.h"
 #include <map>
 
-class Ranking{
+class Ranking {
 
 public:
-  /*devuelve el top cantidadJugadores de los jugadores post partida en orden de mejor a peor*/
-  std::vector<int> obtenerTopJugadores(int cantidadTopJugadores,std::map<int, Jugador *> &jugadores);
+    /*devuelve el top cantidadJugadores de los jugadores post partida en orden de mejor a peor*/
+    std::vector<int> obtenerTopJugadores(int cantidadTopJugadores, std::map<int, Jugador *> &jugadores);
 };
 
 #endif

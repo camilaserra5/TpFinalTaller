@@ -5,7 +5,7 @@
 #include "estadoJuego.h"
 #include "iserializable.h"
 
-class Comando : public ISerializable{
+class Comando : public ISerializable {
 public:
     Comando() {}
 
@@ -13,7 +13,7 @@ public:
 
     virtual void ejecutar(EstadoJuego &estadoJuego) = 0; //deberia devolver una actualizacion en lugar de viod
 
-  //  std::stringstream serializar(){}
+    //  std::stringstream serializar(){}
 
 
 private:

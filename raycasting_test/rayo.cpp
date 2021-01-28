@@ -13,7 +13,7 @@ Rayo::Rayo(double campoDeVision, int ladoCelda, int largoProyector,double angulo
     this->normalizarAngulo();
 }
 
-void Rayo::normalizarAngulo(){
+void Rayo::normalizarAngulo() {
 
   if (this->anguloBarrido < 0){
     this->anguloBarrido = this->anguloBarrido + (4.0 * acos(0.0));

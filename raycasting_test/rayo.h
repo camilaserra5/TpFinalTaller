@@ -34,7 +34,8 @@ private:
     double verificarInterseccionCuartoCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA],double& offset);
 
 public:
-    bool hallarColision(int mapa[][TAMANIO_FILA],double &interseccionAX,double &interseccionAY,double &xa,double &ya);
+    bool
+    hallarColision(int mapa[][TAMANIO_FILA], double &interseccionAX, double &interseccionAY, double &xa, double &ya);
 
     Rayo(double campoDeVision, int ladoCelda, int largoProyector,double anguloBarrido,Posicion& posicion);
 
