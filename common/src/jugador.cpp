@@ -88,16 +88,16 @@ void Jugador::agarrarLlave() {
     this->llaves += 1;
 }
 
-void Jugador::rotar(float anguloRotacion){
-  this->posicion.rotar(anguloRotacion);
+void Jugador::rotar(float anguloRotacion) {
+    this->posicion.rotar(anguloRotacion);
 }
 
-Logro& Jugador::obtenerLogro(){
-  return this->logro;
+Logro &Jugador::obtenerLogro() {
+    return this->logro;
 }
 
-void Jugador::gastarBalas(int cantidadDeBalas){
-    this->balas -=cantidadDeBalas;
+void Jugador::gastarBalas(int cantidadDeBalas) {
+    this->balas -= cantidadDeBalas;
     this->logro.aniadirBalasDisparadas(cantidadDeBalas);
 }
 
@@ -121,6 +121,6 @@ bool Jugador::estaMuerto() {
     return (this->vida <= 0);
 }
 
-void Jugador::aniadirEnemigosMatados(int jugadoresMatados){
-  this->logro.aniadirEnemigosMatados(jugadoresMatados);
+void Jugador::aniadirEnemigosMatados(int jugadoresMatados) {
+    this->logro.aniadirEnemigosMatados(jugadoresMatados);
 }

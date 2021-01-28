@@ -2,6 +2,6 @@
 
 Llave::~Llave() {}
 
-void Llave::obtenerBeneficio(ContenedorDeElementos &contenedor,Jugador *jugador) {
+void Llave::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {
     jugador->agarrarLlave();
 }

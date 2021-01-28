@@ -4,6 +4,7 @@
 #include "SDL2/SDL_ttf.h"
 #include "../include/label.h"
 #include <sstream>
+#include <protocolo.h>
 
 Client::Client() {
     int rendererFlags, windowFlags;
@@ -134,26 +135,49 @@ void Client::run() {
             }
         }
 
+        Protocolo protocolo(std::move(socket));
+        std::cout << "recibo partidas";
+        std::vector<char> partidas = protocolo.recibirBinario();
+        std::vector<std::string> partis;
+        char cantidadPartidas = partidas[0];
+        int j = 1;
+        for (int i = 0; i < cantidadPartidas; i++) {
+            std::string nombre;
+            for (int k = 0; k < partidas[j]; k++) {
+                nombre += partidas[++j];
+            }
+            partis.push_back("Partida:" + nombre + " " + partidas[++j] + "/" + partidas[++j]);
+        }
+
         int conti = true;
         while (conti) {
             if (SDL_PollEvent(&e)) {
                 if (e.type == SDL_QUIT) {
                     exit(0);
                 } else if (e.type == SDL_KEYDOWN) {
-                    if (e.key.keysym.sym == SDLK_RETURN) {
-                        conti = false;
+                    if (e.key.keysym.sym == SDLK_n) {
                     }
                 }
             }
+
             SDL_Delay(16);
             SDL_RenderClear(renderer);
             background.drawBackground();
-            disp_text("CONNECTED :)", fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
-                      SCREEN_HEIGHT / 2);
+
+            disp_text("Press N to create a new game", fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
+                      SCREEN_HEIGHT / 6);
+
+
+            disp_text(partis.front(), fonts.getFont("wolfstein"),
+                      this->renderer, SCREEN_WIDTH / 3,
+                      SCREEN_HEIGHT * 3 / 6);
+
+
             SDL_RenderPresent(renderer);
         }
 
     }
+
 }
 
 Client::~Client() {

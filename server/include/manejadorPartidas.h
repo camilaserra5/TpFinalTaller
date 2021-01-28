@@ -10,7 +10,7 @@
 #include <vector>
 #include "map.h"
 
-class ManejadorPartidas : public Thread {
+class ManejadorPartidas : public Thread, public ISerializable {
 public:
     ManejadorPartidas();
 
@@ -22,6 +22,22 @@ public:
 
     bool agregarClienteAPartida(std::string &nombreJugador,
                                 std::string &nombre_partida);
+
+    std::vector<char> serializar() {
+        std::vector<char> informacion;
+        informacion.push_back((char) this->partidas.size());
+        std::map<std::string, Servidor *>::iterator it;
+        for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
+            std::pair<std::string, Servidor *> pair = *it;
+            informacion.push_back(pair.first.size());
+            informacion.insert(informacion.end(), pair.first.begin(), pair.first.end());
+            std::vector<char> partidaSerializada = pair.second->serializar();
+            informacion.insert(informacion.end(), partidaSerializada.begin(), partidaSerializada.end());
+        }
+        return informacion;
+    }
+
+    void deserializar(std::vector<char> serializado) {}
 
     void run();
 

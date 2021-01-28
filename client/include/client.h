@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include "../include/fonts.h"
 #include "socket.h"
+
 #define SCREEN_WIDTH   1280
 #define SCREEN_HEIGHT  720
 

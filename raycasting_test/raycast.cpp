@@ -11,8 +11,8 @@ int main() {
   Map mapa(20,20);
   std::string nombre = "Sol";
   int id = 1;
-  float anguloJugador = 0;
-  int pixelesX = 400, pixelesY = 400;
+  float anguloJugador = (0.5 * acos(0.0)) + acos(0.0);
+  int pixelesX = 82, pixelesY = 80;
   Posicion posicion(pixelesX,pixelesY,anguloJugador);
   Jugador jugador(nombre,id);
   jugador.setPosicion(posicion);

@@ -9,7 +9,7 @@ public:
 
     ~KitsMedicos();
 
-    void obtenerBeneficio(ContenedorDeElementos &contenedor,Jugador *jugador) override;
+    void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
 
 private:

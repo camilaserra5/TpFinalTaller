@@ -8,9 +8,10 @@ Label::Label(int xpos, int ypos, std::string text, TTF_Font *font, SDL_Color &co
     this->pos.y = ypos;
 }
 
-void Label::actualizarTexto(std::string texto){
+void Label::actualizarTexto(std::string texto) {
     this->label = texto;
 }
+
 void Label::setLabelText() {
 
     SDL_Surface *surface = TTF_RenderText_Blended(font, label.c_str(), textColor);

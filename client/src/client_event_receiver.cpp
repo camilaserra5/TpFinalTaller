@@ -6,7 +6,7 @@
 #include <vector>
 
 ClientEventReceiver::ClientEventReceiver(Socket &socket,
-                                         ProtectedQueue<Actualizacion *> &updates, Modelo& modelo)  :
+                                         ProtectedQueue<Actualizacion *> &updates, Modelo &modelo) :
 
         socket(socket), updates(updates), modelo(modelo) {}
 

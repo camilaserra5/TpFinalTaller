@@ -8,14 +8,16 @@
 
 #include "socket.h"
 #include "thclient.h"
+#include "manejadorPartidas.h"
 
 class Aceptador : public Thread {
 private:
     Socket &socket_listener;
+    ManejadorPartidas *manejadorPartidas;
     std::vector<ThClient *> clientes;
 
 public:
-    Aceptador(Socket &un_socket);
+    Aceptador(Socket &un_socket, ManejadorPartidas *manejadorPartidas);
 
     /*
      * Aceptara los clientes que quieren conectarse al servidor.

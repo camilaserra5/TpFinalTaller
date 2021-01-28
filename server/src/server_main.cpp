@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
-#include <aceptador.h>
 #include "socket.h"
 #include "../include/old_cliente.h"
 #include "../include/servidor.h"
 #include "yaml-cpp/yaml.h"
 #include "../include/manejadorPartidas.h"
 #include "../include/parser.h"
-#include "../../tp3tef/server_src/aceptador.h"
+#include "../include/aceptador.h"
+
 
 #define ARGUMENTOS_CORRECTOS 2
 #define ERROR_ARGUMENTOS 1
@@ -37,7 +37,24 @@ int main(int argc, const char *argv[]) {
         std::cerr << " puerto: " << port;
         Socket socket;
         socket.bind_and_listen(port.c_str());
-        Aceptador aceptador(socket);
+
+        /////
+        std::string nombreJugador = "juan";
+        std::string nombre = "pepe";
+        std::string nombre_partida = "grecia";
+        std::string nombre_archivo = "archivo.yaml";
+        int cant_jugadores = 2;
+
+        ManejadorPartidas manejadorPartidas;
+        manejadorPartidas.agregarMapa(nombre_archivo);
+
+        bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores, nombre_partida, nombre_archivo);
+        if (estado) {
+            std::cout << "creo partida\n";
+        }
+        /////
+
+        Aceptador aceptador(socket, &manejadorPartidas);
         aceptador.start();
     } catch (std::exception &exc) {
         std::cout << exc.what() << std::endl;

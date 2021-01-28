@@ -7,13 +7,13 @@
 
 class Textura {
     SDL_Texture *textura;
-    SDL_Renderer* render;
+    SDL_Renderer *render;
 public:
     Textura(const char *archivo, SDL_Renderer *un_render);
 
     ~Textura() {}
 
-    int renderizar(SDL_Rect* infoSprite, SDL_Rect destino) const;
+    int renderizar(SDL_Rect *infoSprite, SDL_Rect destino) const;
 };
 
 #endif //TEXTURA_H
