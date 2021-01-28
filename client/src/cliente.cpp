@@ -34,9 +34,7 @@ void Cliente::run() {
     ManejadorEventos manejador(idJugador, events);
 
     try {
-      //  juego->inicializar(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
         while (juego->estaCorriendo()) {
-
             // clientEventSender.enviarEventos
             if (!manejador.esta_vivo()) {
                 juego->clean();
@@ -47,7 +45,6 @@ void Cliente::run() {
             manejador.start(); // se manejan eventos;
             std::chrono::milliseconds duration(1000);
             std::this_thread::sleep_for(duration);
-
         }
         juego->clean();
     } catch (...) {
