@@ -23,15 +23,16 @@ void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
         estadoJuego.no_me_muevo(this->idJugador);
     }
 }
-
+/*
 std::stringstream Movimiento::serializar(){
     std::stringstream informacion;
     // vector concatenamos caracteres;
-    /* 
+
     std::vector<char> informacion;
     informacion.insert(static_cast<int>(this->tipo_de_movimiento));
-    informacion.insert( this->idJugador); */
+    informacion.insert( this->idJugador);
     informacion <<  static_cast<int>(this->tipo_de_movimiento);
     informacion << this->idJugador;
     return informacion;
 }
+*/

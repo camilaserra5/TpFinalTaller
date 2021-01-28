@@ -1,12 +1,13 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+#include <iserializable.h>
 #include "jugador.h"
 #include "posicion.h"
 
 class ContenedorDeElementos;
 
-class Item{
+class Item : public ISerializable {
 public:
     Item(Posicion &posicion) : posicion(posicion) {}
 
@@ -23,6 +24,15 @@ public:
     Posicion obtenerPosicion(){
         return this->posicion;
     }
+
+    std::vector<char> serializar() {
+        std::vector<char> informacion;
+        informacion.push_back(posicion.pixelesEnX());
+        informacion.push_back(posicion.pixelesEnY());
+        return informacion;
+    }
+
+    void deserializar(std::vector<char> serializado) {}
 
 protected:
     Posicion posicion;

@@ -15,9 +15,12 @@ public:
 
     ~Ataque() {}
 
-    std::stringstream serializar() override;
+    std::vector<char> serializar() {
+        std::vector<char> info;
+        return info;
+    }
 
-    void deserializar() override {}
+    void deserializar(std::vector<char> serializado) {}
 
     void ejecutar(EstadoJuego &estadoJuego) override;
 };
