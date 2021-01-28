@@ -5,7 +5,7 @@
 #include "map.h"
 
 class MapTilesList : public QListWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit MapTilesList(int pieceSize, QWidget *parent = nullptr);
@@ -16,13 +16,14 @@ public:
 
     ~MapTilesList();
 
-signals:
+    signals:
 
-    void tileDoubleClicked(int, QPixmap);
+            void tileDoubleClicked(int, QPixmap);
 
-public slots:
+public
+    slots:
 
-    void itemDoubleClicked(QListWidgetItem *item);
+            void itemDoubleClicked(QListWidgetItem * item);
 
 protected:
 

@@ -15,11 +15,11 @@ class ClientEventReceiver : public Thread {
 private:
     Socket &socket;
     Modelo &modelo;
-    ProtectedQueue<Actualizacion*> &updates;
+    ProtectedQueue<Actualizacion *> &updates;
     bool running = true;
 
 public:
-    ClientEventReceiver(Socket &socket, ProtectedQueue<Actualizacion *> &updates, Modelo& modelo);
+    ClientEventReceiver(Socket &socket, ProtectedQueue<Actualizacion *> &updates, Modelo &modelo);
 
     void run() override;
 

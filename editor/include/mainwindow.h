@@ -12,7 +12,7 @@ class MapWidget;
 class QListWidgetItem;
 
 class MainWindow : public QMainWindow {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
@@ -21,9 +21,10 @@ public:
 
     ~MainWindow();
 
-public slots:
+public
+    slots:
 
-    void openMap();
+            void openMap();
 
     void newMap();
 

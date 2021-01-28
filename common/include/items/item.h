@@ -13,7 +13,7 @@ public:
 
     virtual ~Item() {}
 
-    virtual void obtenerBeneficio(ContenedorDeElementos &contenedor,Jugador *jugador) = 0;
+    virtual void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) = 0;
 
     bool estaCerca(int &posx, int &posy) {
         return this->posicion.estaCerca(posx, posy);
@@ -21,7 +21,7 @@ public:
 
     void sacarDelMapa(ContenedorDeElementos &contenedor);
 
-    Posicion obtenerPosicion(){
+    Posicion obtenerPosicion() {
         return this->posicion;
     }
 

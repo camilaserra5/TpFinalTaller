@@ -1,9 +1,11 @@
 #include "../include/juego.h"
+
 #define EXITO 0
+
 #include "SDL2/SDL_ttf.h"
 #include <SDL2/SDL.h>
 
-Juego::Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, int idJugador) {
+Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, int idJugador) {
     int flags = 0;
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
@@ -16,26 +18,28 @@ Juego::Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, in
             exit(1);
         }
 
-        this->ventana =  new Ventana(titulo, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ancho, alto, flags);
+        this->ventana = new Ventana(titulo, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ancho, alto, flags);
         this->modelo = new Modelo(this->ventana, idJugador);
         modelo->inicializar();
-        this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png", this->ventana->obtener_render());
+        this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png",
+                                            this->ventana->obtener_render());
         this->corriendo = true;
     } else {
         this->corriendo = false;
     }
 }
 
-void Juego::run(){
-    try{
+void Juego::run() {
+    try {
         this->clean();
         this->renderizar();
         this->actualizar(/*1*/);
-    }catch(...){
+    } catch (...) {
         this->corriendo = false;
     }
 
 }
+
 void Juego::actualizar(/*temporal int idArma*/) {
     this->ventana->actualizar();
 }
@@ -46,9 +50,9 @@ void Juego::renderizar() {
 
 }
 
-Juego::~Juego(){}
+Juego::~Juego() {}
 
 void Juego::clean() {
-      this->ventana->limpiar();
-      this->corriendo = false;
+    this->ventana->limpiar();
+    this->corriendo = false;
 }

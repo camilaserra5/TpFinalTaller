@@ -8,6 +8,6 @@ Tesoro::Tesoro(std::string &tipoDeTesoro, int &puntos, Posicion &posicion) :
 
 Tesoro::~Tesoro() {}
 
-void Tesoro::obtenerBeneficio(ContenedorDeElementos &contenedor,Jugador *jugador) {
+void Tesoro::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {
     jugador->sumarPuntos(this->puntos);
 }

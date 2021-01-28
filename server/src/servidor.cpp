@@ -106,5 +106,5 @@ void Servidor::run() {
         termine = true;
     }
     //mostramos el ranking, podemos mandar una actualizacion con los jugadores que ganaron
-  //  this->sigue_corriendo = false; creo que no va esta linea
+    //  this->sigue_corriendo = false; creo que no va esta linea
 }

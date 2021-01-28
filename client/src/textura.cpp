@@ -11,7 +11,7 @@ Textura::Textura(const char *archivo, SDL_Renderer *un_render) {
     this->render = un_render;
 }
 
-int Textura::renderizar(SDL_Rect* infoSprite, SDL_Rect destino) const {
+int Textura::renderizar(SDL_Rect *infoSprite, SDL_Rect destino) const {
 
     return SDL_RenderCopy(this->render, this->textura, infoSprite, &destino);
 }

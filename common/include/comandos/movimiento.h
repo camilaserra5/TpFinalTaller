@@ -5,7 +5,7 @@
 #include "estadoJuego.h"
 #include <iostream>
 
-class Movimiento : public Comando{
+class Movimiento : public Comando {
 private:
     Accion tipo_de_movimiento;
     int idJugador;

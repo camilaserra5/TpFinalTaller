@@ -102,62 +102,81 @@ void Juego::clean() {
     SDL_Quit();
 }
 
-void Juego::raycasting(Map &mapaa,Jugador &jugador){
+void Juego::raycasting(Map &mapaa, Jugador &jugador) {
 
 // x = fila / y = columna
 
-  int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                       /*1*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*2*/   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                     /*3*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*4*/     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                   /*5*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*6*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*7*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*8*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*9*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*10*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*11*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                /*12*/        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                            /*13*/            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                            /*14*/            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*15*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*16*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*17*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*18*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*19*/  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                            /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
-                                            };
+    int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            /*1*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*2*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*3*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*4*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*5*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*6*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*7*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*8*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*9*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*10*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*11*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*12*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*13*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*14*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*15*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*16*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*17*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*18*/
+                                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            /*19*/
+                                               {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
+    };
 
-            double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
-            unsigned int alturaParedProyectada = 0;
-            int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;//el -10 va para q dibuje alfo razzonable
-            double anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
-            double anguloJugador = jugador.getAnguloDeVista();
-            double anguloRayo = anguloJugador - (rangoDeVista / 2);
+    double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
+    unsigned int alturaParedProyectada = 0;
+    int ladoCelda = ANCHO_CANVAS / TAMANIO_FILA;//el -10 va para q dibuje alfo razzonable
+    double anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
+    double anguloJugador = jugador.getAnguloDeVista();
+    double anguloRayo = anguloJugador - (rangoDeVista / 2);
 
-            for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
-                double distancia = 0;
-                Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo);
+    for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
+        double distancia = 0;
+        Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo);
 
-                if (rayo.verificarInterseccion(mapa,distancia,jugador)){
-                  alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                }
-                  double drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
-                  double drawEnd = drawStart + alturaParedProyectada - 20;
+        if (rayo.verificarInterseccion(mapa, distancia, jugador)) {
+            alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
+        }
+        double drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
+        double drawEnd = drawStart + alturaParedProyectada - 20;
 
-                  SDL_RenderPresent(this->render);
-                  SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
-                  SDL_RenderDrawLine(this->render, i, drawStart,i, drawEnd);
+        SDL_RenderPresent(this->render);
+        SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
+        SDL_RenderDrawLine(this->render, i, drawStart, i, drawEnd);
 
-                  std::chrono::milliseconds duration(10);
-                  std::this_thread::sleep_for(duration);
+        std::chrono::milliseconds duration(10);
+        std::this_thread::sleep_for(duration);
 
-                  anguloRayo += anguloPorStripe;
-            }
-            SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);// deberia estar en atualizar
+        anguloRayo += anguloPorStripe;
+    }
+    SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);// deberia estar en atualizar
 
-            SDL_RenderClear(this->render);
-            std::cout << "terminee============================================================\n";
+    SDL_RenderClear(this->render);
+    std::cout << "terminee============================================================\n";
 
 }

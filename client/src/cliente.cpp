@@ -9,14 +9,14 @@
 #include <string>
 
 Cliente::Cliente(const char *host, const char *server_port) : socket() {
-  //  this->socket.conectar(host, server_port);
+    //  this->socket.conectar(host, server_port);
 }
 
 Cliente::~Cliente() {}
 
 void Cliente::run() {
     BlockingQueue<Comando *> events;
-  //  ClientEventSender clientEventSender(socket, events);
+    //  ClientEventSender clientEventSender(socket, events);
     //clientEventSender.run();
 
     ProtectedQueue<Actualizacion *> updates;
@@ -34,7 +34,7 @@ void Cliente::run() {
     ManejadorEventos manejador(idJugador, events);
 
     try {
-      //  juego->inicializar(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+        //  juego->inicializar(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
         while (juego->estaCorriendo()) {
 
             // clientEventSender.enviarEventos
@@ -48,6 +48,6 @@ void Cliente::run() {
     } catch (...) {
         std::cout << "error";
     }
-  //  juego->join();
+    //  juego->join();
     manejador.join();
 }
