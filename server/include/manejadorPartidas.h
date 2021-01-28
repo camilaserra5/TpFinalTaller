@@ -25,7 +25,7 @@ public:
 
     std::vector<char> serializar() {
         std::vector<char> informacion;
-        informacion.push_back((char)this->partidas.size());
+        informacion.push_back((char) this->partidas.size());
         std::map<std::string, Servidor *>::iterator it;
         for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
             std::pair<std::string, Servidor *> pair = *it;

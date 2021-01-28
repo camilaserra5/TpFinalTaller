@@ -38,8 +38,8 @@ public:
 
     std::vector<char> serializar() {
         std::vector<char> informacion;
-        informacion.push_back((char)jugadores.size()); //jugadores metidos
-        informacion.push_back((char)cant_jugadores); // cantidad total disponible
+        informacion.push_back((char) jugadores.size()); //jugadores metidos
+        informacion.push_back((char) cant_jugadores); // cantidad total disponible
         return informacion;
     }
 

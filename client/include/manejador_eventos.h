@@ -6,19 +6,27 @@
 #include <SDL2/SDL.h>
 #include "blocking_queue.h"
 #include "comandos/comando.h"
-class ManejadorEventos: public Thread{
-    public:
-          ManejadorEventos(int id, BlockingQueue<Comando*>& eventos);
-          ~ManejadorEventos();
-          void run() override;
-          void detectarEventos(SDL_Event& event);
-          void stop();
-          void crearMovimiento(Accion direccion);
-          bool esta_vivo();
-    private:
-        int idJugador;
-        BlockingQueue<Comando*>& eventos;
-        bool corriendo;
+
+class ManejadorEventos : public Thread {
+public:
+    ManejadorEventos(int id, BlockingQueue<Comando *> &eventos);
+
+    ~ManejadorEventos();
+
+    void run() override;
+
+    void detectarEventos(SDL_Event &event);
+
+    void stop();
+
+    void crearMovimiento(Accion direccion);
+
+    bool esta_vivo();
+
+private:
+    int idJugador;
+    BlockingQueue<Comando *> &eventos;
+    bool corriendo;
 
 };
 
