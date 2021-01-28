@@ -35,6 +35,7 @@ public:
 
     void serializarMapa(){
         // mandar la longitud despues los elementos;
+        //longitud mapa, luego celdas
     }
 
 private:

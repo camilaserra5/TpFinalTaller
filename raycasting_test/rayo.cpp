@@ -6,7 +6,7 @@
 Rayo::Rayo(double campoDeVision, int ladoCelda/*, int tamanio_fila_mapa*/, int largoProyector,double anguloBarrido) :
         campoDeVision(campoDeVision), ladoCelda(ladoCelda), tamanio_fila_mapa(tamanio_fila_mapa),
         largoProyector(largoProyector) {
-    this->distanciaProyector = (this->largoProyector / 2) / tan(this->campoDeVision / 2);
+    this->distanciaProyector = (this->largoProyector / 2.0) / tan(this->campoDeVision / 2.0);
     this->anguloBarrido = anguloBarrido;
     this->normalizarAngulo();
 }
@@ -14,9 +14,9 @@ Rayo::Rayo(double campoDeVision, int ladoCelda/*, int tamanio_fila_mapa*/, int l
 void Rayo::normalizarAngulo(){
 
   if (this->anguloBarrido < 0){
-    this->anguloBarrido = this->anguloBarrido + (4 * acos(0.0));
-  }else if (this->anguloBarrido > 4 * acos(0.0)){
-    this->anguloBarrido = this->anguloBarrido - 4 * acos(0.0);
+    this->anguloBarrido = this->anguloBarrido + (4.0 * acos(0.0));
+  }else if (this->anguloBarrido > 4.0 * acos(0.0)){
+    this->anguloBarrido = this->anguloBarrido - 4.0 * acos(0.0);
   }
 }
 
