@@ -9,6 +9,10 @@ void Fonts::addFont(std::string id, std::string path, int fontSize) {
 }
 
 TTF_Font *Fonts::getFont(std::string id) {
+    if(!fonts[id]) {
+        printf("TTF_OpenFont: %s\n", TTF_GetError());
+        return NULL;
+    }
     return fonts[id];
 }
 

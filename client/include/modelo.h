@@ -12,7 +12,7 @@ class Modelo{
           ~Modelo();
           void inicializar(); // viene los datos todos los jugadores?
           void renderizar();
-          void actualizarJugador(int x, int y, int vida, int angulo, int id, int idArma);
+          void actualizarJugador(int x, int y, int vida, int angulo,int id, int idArma);
     private:
             Ventana* ventana;
             int idJugador;

@@ -1,6 +1,6 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
-
+#include "informacionJugador.h"
 // no se si es un sprite;
 // falta ver tema imagen/arma
 #include "sprite.h"
@@ -22,9 +22,13 @@ class Player{
         int posx;
         int posy;
         int vida;
+        int nivel;
+        int puntaje;
         int angulo;
         int id;
         int idArmaActual;
+        InfoJugador infoJugador;
+        int cantVidas;
         std::map<int, Sprite> sprites;
 };
 

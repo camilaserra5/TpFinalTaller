@@ -1,6 +1,7 @@
 #include "../include/juego.h"
 #define EXITO 0
-
+#include "SDL2/SDL_ttf.h"
+#include <SDL2/SDL.h>
 
 Juego::Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, int idJugador) {
     int flags = 0;
@@ -9,7 +10,7 @@ Juego::Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, in
     }
     if (SDL_Init(SDL_INIT_EVERYTHING) == EXITO) {
 
-      
+
         if (TTF_Init() == -1) {
             printf("Failed to init TTF\n");
             exit(1);

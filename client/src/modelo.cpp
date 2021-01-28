@@ -15,10 +15,10 @@ void Modelo::inicializar(){
 }
 
 void Modelo::renderizar(){
-    this->jugadores[this->idJugador]->settear_estado(200,200, 100, 50);
+    this->jugadores[this->idJugador]->settear_estado(200,200, 100, 50, 4);
     this->jugadores[this->idJugador]->renderizar();
 }
 
-void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int id){
-    this->jugadores[id]->settear_estado(x,y,vida,angulo/*tipo de arma*/);
+void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int id, int arma){
+    this->jugadores[id]->settear_estado(x,y,vida,angulo, arma);
 }
