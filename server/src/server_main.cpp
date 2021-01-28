@@ -1,15 +1,54 @@
 #include <iostream>
 #include <string>
+#include <aceptador.h>
 #include "socket.h"
 #include "../include/old_cliente.h"
 #include "../include/servidor.h"
 #include "yaml-cpp/yaml.h"
 #include "../include/manejadorPartidas.h"
+#include "../include/parser.h"
+#include "../../tp3tef/server_src/aceptador.h"
 
-#define OK_CODE 0
-#define ERR_CODE 1
-#define USAGE "Uso: ./server <config_file>"
+#define ARGUMENTOS_CORRECTOS 2
+#define ERROR_ARGUMENTOS 1
+#define ARG_PORT 1
 
+
+static void mensaje_de_error_argumentos() {
+    printf("La cantidad de argumentos ingresados son incorrectos. ");
+    printf("Recuerde que es: ./<ejecutable> <archivo de configuracion>\n");
+}
+
+static bool verifica_argumentos(int argc, const char *argv[]) {
+    if (argc != ARGUMENTOS_CORRECTOS) {
+        mensaje_de_error_argumentos();
+        return false;
+    }
+    return true;
+}
+
+int main(int argc, const char *argv[]) {
+    if (!verifica_argumentos(argc, argv)) {
+        return ERROR_ARGUMENTOS;
+    }
+    try {
+        Parser parser(argv[ARG_PORT]);
+        std::string port = parser.obtenerPuerto();
+        std::cerr << " puerto: " << port;
+        Socket socket;
+        socket.bind_and_listen(port.c_str());
+        Aceptador aceptador(socket);
+        aceptador.start();
+    } catch (std::exception &exc) {
+        std::cout << exc.what() << std::endl;
+        return 0;
+    }
+
+    return 0;
+}
+
+/*
+ *
 int main(int argc, char *argv[]) {
     std::string nombreJugador = "juan";
     std::string nombre = "pepe";
@@ -34,3 +73,4 @@ int main(int argc, char *argv[]) {
     manejadorPartidas.run();
     return OK_CODE;
 }
+ */
