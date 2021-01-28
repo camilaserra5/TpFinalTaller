@@ -10,7 +10,7 @@ public:
 
       InfoJugador(SDL_Renderer* render, int vida, int nivel, int puntaje, int cantVidas){
           Fonts fuentes;
-          fuentes.addFont("info", "/home/agustina/TpFinalTaller/resources/fuentes/Nougat.ttf", 35);
+          fuentes.addFont("info", "../../resources/fuentes/Nougat.ttf", 35);
 
           SDL_Color blanco = {255, 255, 255, 255};
           std::string vidainfo = std::to_string(vida);
