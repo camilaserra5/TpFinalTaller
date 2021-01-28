@@ -26,6 +26,7 @@ void Player::settear_estado(int posx, int posy, int vida, int angulo, int idArma
         this->infoJugador.actualizarDatosJugador(vida, nivel, puntaje, this->cantVidas);
 }
 void Player::renderizar(){
+        this->sprites.find(this->idArmaActual)->second.reescalar(2, 2);
         this->sprites.find(this->idArmaActual)->second.renderizar(this->posx, this->posy, this->angulo);
         this->infoJugador.renderizar();
 }

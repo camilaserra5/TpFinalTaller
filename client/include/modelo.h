@@ -5,6 +5,7 @@
 #include "player.h"
 #include <map>
 #include "objetoJuego.h"
+#include "objetosJuego.h"
 
 class Modelo{
     public:
@@ -13,6 +14,8 @@ class Modelo{
           void inicializar(); // viene los datos todos los jugadores?
           void renderizar();
           void actualizarJugador(int x, int y, int vida, int angulo,int id, int idArma);
+          ObjetoJuego* crearObjeto(Type tipo);
+          void actualizarObjeto(int id, Type tipo, int posx, int posy);
     private:
             Ventana* ventana;
             int idJugador;
