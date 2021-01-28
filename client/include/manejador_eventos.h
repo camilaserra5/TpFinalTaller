@@ -14,7 +14,7 @@ class ManejadorEventos: public Thread{
           void detectarEventos(SDL_Event& event);
           void stop();
           void crearMovimiento(Accion direccion);
-
+          bool esta_vivo();
     private:
         int idJugador;
         BlockingQueue<Comando*>& eventos;

@@ -61,9 +61,9 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
               std::cout << "tecla despresionada\n";
               break;
           case SDL_QUIT:
-              this->corriendo = false;
-              exit(1);
-              SDL_Quit();
+              this->stop();
+              /*SDL_Quit();
+              exit(1);*/
               break;
           default:
               break;
@@ -72,4 +72,8 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
 
 void ManejadorEventos::stop(){
     this->corriendo = false;
+}
+
+bool ManejadorEventos::esta_vivo() {
+    return this->corriendo;
 }
