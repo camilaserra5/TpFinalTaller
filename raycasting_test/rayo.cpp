@@ -21,7 +21,7 @@ void Rayo::normalizarAngulo(){
 }
 
 void Rayo::verificarCuadrante(const double anguloJugador) {
-    if (0 <= this->anguloBarrido && this->anguloBarrido <= 2 * acos(0.0)) {
+    if (0 <= this->anguloBarrido && this->anguloBarrido <= 2.0 * acos(0.0)) {
         this->abajo = false;
         std::cout << "arriba\n";
     } else {
@@ -29,7 +29,7 @@ void Rayo::verificarCuadrante(const double anguloJugador) {
         std::cout << "abajo\n";
 
     }
-    if (acos(0.0) <= this->anguloBarrido && this->anguloBarrido <= 3 * acos(0.0)) {
+    if (acos(0.0) <= this->anguloBarrido && this->anguloBarrido <= 3.0 * acos(0.0)) {
         this->izquierda = true;
         std::cout << "izq\n";
     } else {

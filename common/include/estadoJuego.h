@@ -31,12 +31,13 @@ public:
     void realizarAtaque(int idJugador);
 
     std::stringstream serializar(){
+        
         std::stringstream informacion;
         return informacion;
         //mapa->serializar();
     }
     void deserializar(){}
-    
+
     void verificarJugadoresMuertos();
 
 private:

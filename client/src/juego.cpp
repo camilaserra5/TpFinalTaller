@@ -8,25 +8,22 @@ Juego::Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, in
         flags = SDL_WINDOW_FULLSCREEN;
     }
     if (SDL_Init(SDL_INIT_EVERYTHING) == EXITO) {
-      /*
-        this->ventana = SDL_CreateWindow(titulo, xpos, ypos, ancho, alto, flags);
-        this->render = SDL_CreateRenderer(this->ventana, -1, 0);
-        SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
-        SDL_RenderClear(this->render);*/
+
+      
         if (TTF_Init() == -1) {
             printf("Failed to init TTF\n");
             exit(1);
         }
 
-        
         this->ventana =  new Ventana(titulo, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ancho, alto, flags);
         this->modelo = new Modelo(this->ventana, idJugador);
         modelo->inicializar(); // recibiria el yaml
+        this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png", this->ventana->obtener_render());
         this->corriendo = true;
     } else {
         this->corriendo = false;
     }
-    this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png", this->ventana->obtener_render());
+
 
     //ObjetoJuego *enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->ventana->obtener_render(),  /*50, 50,*/0, 0, 78, 78/*100,100*/);
     //this->objetos.push_back(enemigo);

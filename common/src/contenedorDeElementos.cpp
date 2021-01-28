@@ -31,3 +31,6 @@ Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
         }
     }
 }
+// serializar items 3 enteros;
+              // pos x, posy, id;
+              //primero mandar la longutid de la cantidad de items y luego los items;

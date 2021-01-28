@@ -17,7 +17,8 @@ public:
           std::string puntajeinfo = std::to_string(puntaje);
           //Label label(500, 0, vidainfo, fuentes.getFont("info"), blanco, render);
           this->vida = new Label(400, 400, "PEPEEE", fuentes.getFont("info"), blanco, render);
-
+          this->nivel = new Label(600, 600, nivelinfo, fuentes.getFont("info"), blanco, render);
+          this->puntaje = new Label(500, 600, puntajeinfo, fuentes.getFont("info"), blanco, render);
           //this->nivel = Texto(ventana, nivel);
           //this->puntaje = Texto(ventana, puntaje);
       }
@@ -31,15 +32,17 @@ public:
       void renderizar(){
           this->vida->setLabelText();
           this->vida->draw();
-          //this->nivel.renderizar();
-          //his->puntaje.renderizar();
+          this->nivel->setLabelText();
+          this->nivel->draw();
+          this->puntaje->setLabelText();
+          this->puntaje->draw();
 
       }
 
 private:
         Label* vida;
-        //Label nivel;
-        //Label puntaje;
+        Label* nivel;
+        Label* puntaje;
 
 
 };

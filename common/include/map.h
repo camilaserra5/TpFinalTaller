@@ -11,7 +11,7 @@
 
 class Map {
 public:
-
+//largo preconcatenado
     Map(unsigned rowSize, unsigned colSize);
 
     unsigned getRowSize() const;
@@ -32,6 +32,10 @@ public:
     ~Map();
 
     void agregarElemento(Item* item);
+
+    void serializarMapa(){
+        // mandar la longitud despues los elementos;
+    }
 
 private:
     unsigned rowSize;
