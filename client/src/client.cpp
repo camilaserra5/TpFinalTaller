@@ -124,7 +124,7 @@ void Client::run() {
             if (step == 2) {
                 try {
                     this->socket.conectar(ip.c_str(), port.c_str());
-                    step++;
+                    step = 4;
                 } catch (std::exception &exc) {
                     socket_text = "Error connecting, press enter to start again";
                     ip = "";
@@ -134,6 +134,24 @@ void Client::run() {
             }
         }
 
+        int conti = true;
+        while (conti) {
+            if (SDL_PollEvent(&e)) {
+                if (e.type == SDL_QUIT) {
+                    exit(0);
+                } else if (e.type == SDL_KEYDOWN) {
+                    if (e.key.keysym.sym == SDLK_RETURN) {
+                        conti = false;
+                    }
+                }
+            }
+            SDL_Delay(16);
+            SDL_RenderClear(renderer);
+            background.drawBackground();
+            disp_text("CONNECTED :)", fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
+                      SCREEN_HEIGHT / 2);
+            SDL_RenderPresent(renderer);
+        }
 
     }
 }
