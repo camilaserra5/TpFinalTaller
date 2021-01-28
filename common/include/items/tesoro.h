@@ -13,7 +13,6 @@ public:
     void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
 
-
 private:
     std::string &tipoDeTesoro; //va a servir para dibujar calculo;
     int puntos;

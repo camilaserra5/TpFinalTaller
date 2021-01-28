@@ -1,13 +1,10 @@
-#include "aceptador.h"
-#include "thclient.h"
-#include <iostream>
-
+#include "../include/aceptador.h"
 #include <utility>
 #include <vector>
 #include "socket_error_aceptar.h"
 
-Aceptador::Aceptador(Socket &un_socket) :
-        socket_listener(un_socket) {}
+Aceptador::Aceptador(Socket &un_socket, ManejadorPartidas *manejadorPartidas) :
+        socket_listener(un_socket), manejadorPartidas(manejadorPartidas) {}
 
 static void liberar_terminados(std::vector<ThClient *> &clientes) {
     std::vector<ThClient *> temp;
@@ -28,8 +25,10 @@ void Aceptador::run() {
     bool socket_es_valido = true;
     while (socket_es_valido) {
         try {
+            std::cerr << "acepto cliente";
             Socket peer = this->socket_listener.aceptar();
-            clientes.push_back(new ThClient(std::move(peer)));
+            std::cerr << "agrego cliente";
+            clientes.push_back(new ThClient(std::move(peer), this->manejadorPartidas));
             clientes.back()->start();
             liberar_terminados(clientes);
         } catch (SocketErrorAceptar &exc) {

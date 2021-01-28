@@ -15,21 +15,20 @@
 class Juego : public Thread {
 private:
     bool corriendo;
-    Ventana* ventana;
+    Ventana *ventana;
     Textura *texturaInferior;
-    Modelo* modelo;
+    Modelo *modelo;
 
 public:
-    Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, int idJugador);
+    Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, int idJugador);
 
     ~Juego();
-
-    //void inicializar(const std::string& titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen);
 
     bool estaCorriendo() { return corriendo; }
 
 //    void handleEvents(int id, BlockingQueue<Comando*>& eventos);
     void run() override;
+
     void actualizar(/*temporal int idArma*/);
 
     void renderizar();

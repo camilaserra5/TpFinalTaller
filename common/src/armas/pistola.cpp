@@ -21,21 +21,21 @@ void Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Juga
         int cantidad_balas = this->cantidad_rafagas * BALAS_POR_RAFAGA;
         int i = 0;
         bool jugadorMurio = false;
-        Jugador* jugadorAtacado = jugadores.at(idJugadorMasCercano);
-        while ( i < cantidad_balas && !jugadorMurio) {
+        Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
+        while (i < cantidad_balas && !jugadorMurio) {
             //distancia influye en el danio y lode la precision
             int danio = (rand() % DANIO_MAX) + 1;
             danio = -danio;
             jugadorAtacado->actualizar_vida(danio);
-            if (jugadorAtacado->estaMuerto()){
-              jugadorMurio = true;
-              jugador->aniadirEnemigosMatados(1);
+            if (jugadorAtacado->estaMuerto()) {
+                jugadorMurio = true;
+                jugador->aniadirEnemigosMatados(1);
             }
             i++;
         }
     }
 }
 
-bool Pistola::esPistola(){
-  return true;
+bool Pistola::esPistola() {
+    return true;
 }

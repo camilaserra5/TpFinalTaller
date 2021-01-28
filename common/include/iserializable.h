@@ -5,6 +5,7 @@
 #include "objetosJuego.h"
 #include <sstream>
 #include <vector>
+
 class ISerializable {
 public:
     virtual std::vector<char> serializar() = 0;

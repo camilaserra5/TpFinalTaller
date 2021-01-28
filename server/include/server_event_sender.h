@@ -9,22 +9,23 @@
 #include "protocolo.h"
 
 
-class Server_Event_Sender : public Thread{
-    public:
-        Server_Event_Sender(BlockingQueue<Actualizacion*>& actualizaciones, Socket& socket):
-            actualizaciones(actualizaciones), protocolo(std::move(socket)), corriendo(true){}
+class Server_Event_Sender : public Thread {
+public:
+    Server_Event_Sender(BlockingQueue<Actualizacion *> &actualizaciones, Socket &socket) :
+            actualizaciones(actualizaciones), protocolo(std::move(socket)), corriendo(true) {}
 
-        ~Server_Event_Sender(){}
+    ~Server_Event_Sender() {}
 
-        void run() override;
+    void run() override;
 
-        void cerrar(){
-            this->corriendo = false;
-        }
-    private:
-        BlockingQueue<Actualizacion*>& actualizaciones;
-        Protocolo protocolo;
-        bool corriendo; // deberian ser atomic??
+    void cerrar() {
+        this->corriendo = false;
+    }
+
+private:
+    BlockingQueue<Actualizacion *> &actualizaciones;
+    Protocolo protocolo;
+    bool corriendo; // deberian ser atomic??
 };
 
 #endif

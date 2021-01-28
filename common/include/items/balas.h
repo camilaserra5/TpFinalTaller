@@ -7,11 +7,11 @@
 
 class Balas : public Item {
 public:
-    Balas(Posicion &posicion,int cantidad);
+    Balas(Posicion &posicion, int cantidad);
 
     ~Balas();
 
-    void obtenerBeneficio(ContenedorDeElementos &contenedor,Jugador *jugador) override;
+    void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
 private:
     int cant_balas;

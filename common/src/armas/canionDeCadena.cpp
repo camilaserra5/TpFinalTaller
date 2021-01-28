@@ -11,30 +11,30 @@ void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador, std::map<in
         int cantidad_balas = this->cantidad_rafagas * BALAS_POR_RAFAGA;
         int i = 0;
         bool jugadorMurio = false;
-        Jugador* jugadorAtacado = jugadores.at(idJugadorMasCercano);
+        Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
         while (i < cantidad_balas && !jugadorMurio) {
             //distancia influye en el danio y lode la precision
             int danio = (rand() % DANIO_MAX) + 1;
             danio = -danio;
             jugadorAtacado->actualizar_vida(danio);
-            if (jugadorAtacado->estaMuerto()){
-              jugadorMurio = true;
-              jugador->aniadirEnemigosMatados(1);
+            if (jugadorAtacado->estaMuerto()) {
+                jugadorMurio = true;
+                jugador->aniadirEnemigosMatados(1);
             }
             //sleep(0.1);//chequear
-             i++;
+            i++;
         }
     }
 }
 
 
-void CanionDeCadena::obtenerBeneficio(ContenedorDeElementos& contendor, Jugador *jugador) {
+void CanionDeCadena::obtenerBeneficio(ContenedorDeElementos &contendor, Jugador *jugador) {
     if (!jugador->poseeArma(this)) {
         jugador->agregar_arma(this);
         //sacar el arma del juego;
     }
 }
 
-bool CanionDeCadena::esPistola(){
-  return false;
+bool CanionDeCadena::esPistola() {
+    return false;
 }

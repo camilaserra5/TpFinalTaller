@@ -7,7 +7,7 @@
 
 class Ataque : public Comando {
 private:
-  //  int destinox;
+    //  int destinox;
     //int destinoy;
     int idJugador;
 public:

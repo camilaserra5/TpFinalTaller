@@ -2,15 +2,15 @@
 #include <sstream>
 
 
-void Server_Event_Receiver::run(){
+void Server_Event_Receiver::run() {
 
-    while(this->corriendo){
-        try{
-            std::stringstream informacion= this->protocolo.recibir();
-            Comando* comando = protocolo.deserializarComando(informacion);
+    while (this->corriendo) {
+        try {
+            std::stringstream informacion = this->protocolo.recibir();
+            Comando *comando = protocolo.deserializarComando(informacion);
             this->comandos.aniadir_dato(comando);
 
-        }catch(...){
+        } catch (...) {
             this->corriendo = false;
         }
     }

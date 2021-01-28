@@ -7,21 +7,23 @@
 #include "comandos/comando.h"
 #include "protocolo.h"
 
-class Server_Event_Receiver : public Thread{
-    public:
-        Server_Event_Receiver(ProtectedQueue<Comando*>& comandos, Socket& socket):
-          comandos(comandos), protocolo(std::move(socket)),corriendo(true){}
-        ~Server_Event_Receiver(){}
-        void run() override;
+class Server_Event_Receiver : public Thread {
+public:
+    Server_Event_Receiver(ProtectedQueue<Comando *> &comandos, Socket &socket) :
+            comandos(comandos), protocolo(std::move(socket)), corriendo(true) {}
 
-        void cerrar(){
-            this->corriendo = false;
-        }
+    ~Server_Event_Receiver() {}
 
-    private:
-          ProtectedQueue<Comando*>& comandos;
-          Protocolo protocolo;
-          bool corriendo;
+    void run() override;
+
+    void cerrar() {
+        this->corriendo = false;
+    }
+
+private:
+    ProtectedQueue<Comando *> &comandos;
+    Protocolo protocolo;
+    bool corriendo;
 
 };
 
