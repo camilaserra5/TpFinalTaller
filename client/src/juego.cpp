@@ -32,12 +32,11 @@ Juego::Juego(const std::string& titulo, int ancho, int alto, bool fullscreen, in
 void Juego::run(){
     this->clean();
     this->renderizar();
-    this->actualizar();
+    this->actualizar(/*1*/);
 
 }
-void Juego::actualizar() {
+void Juego::actualizar(/*temporal int idArma*/) {
     //this->objetos.front()->actualizar();
-
     this->ventana->actualizar();
 }
 

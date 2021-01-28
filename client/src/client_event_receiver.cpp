@@ -22,7 +22,7 @@ void ClientEventReceiver::run() {
         int vida = 10;
         int angulo = 50;
         int id;
-        this->modelo.actualizarJugador(x, y, vida, angulo, id/*arma*/);
+        this->modelo.actualizarJugador(x, y, vida, angulo, id/*arma*/, 1);
 
 
         /*
