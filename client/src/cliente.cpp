@@ -39,9 +39,7 @@ void Cliente::run() {
 
             // clientEventSender.enviarEventos
             if (!manejador.esta_vivo()) {
-                std::cout << "CHAN";
                 juego->clean();
-                std::cout << "no me quiero ir senio stark";
                 SDL_Quit();
                 exit(1);
             }
