@@ -17,7 +17,7 @@ void ClientEventReceiver::run() {
         //this->protocolo.recibir();
         //this->updates.aniadir_dato(update);
         // datos de jugador sacado de lo ue se recibe;
-        std::vector<char> informacion = protocolo.recibir();
+        //std::vector<char> informacion = protocolo.recibir();
         //primero mapa/
         //despues items
         //despues jugadores

@@ -49,7 +49,7 @@ public:
 
     void verificarJugadoresMuertos();
 
-    void buscarItemsEnPosJugador(Jugador* jugador,int& posX,int& posY, int& xFinal, int& yFinal);
+    void buscarItemsEnPosJugador(Jugador* jugador,int& posX,int& posY, int xFinal, int yFinal);
 
 
 private:
