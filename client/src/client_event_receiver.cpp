@@ -14,9 +14,13 @@ void ClientEventReceiver::run() {
     while (this->running) {
         Actualizacion *update;
         // debería ser un protocolo en realidad
-        //this->socket.recibir();
+        //this->protocolo.recibir();
         //this->updates.aniadir_dato(update);
         // datos de jugador sacado de lo ue se recibe;
+        //std::vector<char> informacion = protocolo.recibir();
+        //primero mapa/
+        //despues items
+        //despues jugadores
         int x = 1;
         int y = 2;
         int vida = 10;

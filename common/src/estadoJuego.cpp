@@ -103,14 +103,14 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
     }*/
 }
 
-void EstadoJuego::buscarItemsEnPosJugador(Jugador* jugador,int& posX,int& posY, int& xFinal, int& yFinal){
-  if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
-      Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
+void EstadoJuego::buscarItemsEnPosJugador(Jugador* jugador,int& posX,int& posY, int xFinal, int yFinal){
+  if (puedo_moverme(this->mapa, posX, posY, jugador)) {
+      Item *item = verificarItems(this->mapa, posX, posY);
       item->obtenerBeneficio(this->mapa->obtenerContenedor(), jugador);
       jugador->moverse(xFinal, yFinal); // en jugador se recibe lo movido y se suma;
       delete item;
   } else {
-      this->no_me_muevo(idJugador);
+      jugador->moverse(0,0);
   }
 }
 

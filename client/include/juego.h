@@ -24,8 +24,6 @@ public:
 
     ~Juego();
 
-    //void inicializar(const std::string& titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen);
-
     bool estaCorriendo() { return corriendo; }
 
 //    void handleEvents(int id, BlockingQueue<Comando*>& eventos);
