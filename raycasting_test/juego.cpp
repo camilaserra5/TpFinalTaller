@@ -92,7 +92,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                                             };
             SDL_Renderer *render = this->ventana->obtener_render();
 
-          //  Textura* wall = new Textura("../../editor/resources/wall1.jpg",render);
+            Textura* wall = new Textura("../../editor/resources/wall1.jpg",render);
             double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
             unsigned int alturaParedProyectada = 0;
             int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;
@@ -104,7 +104,6 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
                 double distancia = 0,drawStart,drawEnd;
                 Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo,posJugador);
-
                 rayo.verificarInterseccion(mapa,distancia,jugador);
                 alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
 
@@ -116,10 +115,10 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                     drawEnd = drawStart + alturaParedProyectada - 20;
             //      }
 
-
-                /*  SDL_RenderPresent(render);
+/*
+                  SDL_RenderPresent(render);
                   SDL_Rect wallDimension;
-                  wallDimension.x = rayo.getOffset();
+                  wallDimension.x = (int)rayo.getOffset() % ladoCelda;
                   wallDimension.y = 0;
                   wallDimension.w = 1;
                   wallDimension.h = alturaParedProyectada;
@@ -129,17 +128,19 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                   wallDest.y = drawStart;
                   wallDest.w = i;
                   wallDest.h = drawEnd;
-                  wall->renderizar(&wallDimension,wallDest);*/
+                  wall->renderizar(&wallDimension,wallDest);
+*/
                   SDL_RenderPresent(render);
+                  SDL_SetRenderDrawColor(render, 0, 0, 10, 0);
+                  SDL_RenderDrawLine(render, i,552,i,drawEnd - 1);
                   SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
                   SDL_RenderDrawLine(render, i, drawStart,i, drawEnd);
 
-                  std::chrono::milliseconds duration(10);
-                  std::this_thread::sleep_for(duration);
-
+                //  std::chrono::milliseconds duration(10);
+              //    std::this_thread::sleep_for(duration);
                   anguloRayo += anguloPorStripe;
             }
             SDL_RenderClear(render);
             SDL_SetRenderDrawColor(render, 157, 97, 70, 255);// deberia estar en atualizar
-          ///  delete wall;
+            delete wall;
 }

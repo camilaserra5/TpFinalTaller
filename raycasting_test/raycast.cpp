@@ -17,7 +17,7 @@ int main() {
   try {
       while (juego->estaCorriendo()) {
           juego->run();
-          std::chrono::milliseconds duration(20);
+          std::chrono::milliseconds duration(30);
           std::this_thread::sleep_for(duration);
       }
       juego->clean();
