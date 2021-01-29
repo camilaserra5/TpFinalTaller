@@ -54,7 +54,6 @@ void Juego::actualizar(/*temporal int idArma*/) {
 void Juego::renderizar() {
     this->ventana->renderizar(this->texturaInferior);
     this->modelo->renderizar();
-
 }
 
 Juego::~Juego() {}
@@ -102,7 +101,8 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
             Posicion& posJugador = jugador.getPosicion();
 
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
-                double distancia = 0,drawStart,drawEnd;
+                double distancia = 0;
+                int drawStart,drawEnd;
                 Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo,posJugador);
                 rayo.verificarInterseccion(mapa,distancia,jugador);
                 alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
@@ -114,11 +114,18 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                     drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
                     drawEnd = drawStart + alturaParedProyectada - 20;
             //      }
-
-/*
+            /*
+            SDL_Texture *img = NULL;
+            img = IMG_LoadTexture(render, "../../editor/resources/wall1.jpg");
+            int width = 1;
+	          SDL_QueryTexture(img, NULL,NULL, &width, &drawEnd);
+            SDL_Rect texr; texr.x = i; texr.y = 0; texr.w = width; texr.h = drawEnd - drawStart;
+            SDL_RenderCopy(render, img, NULL, &texr);
+            SDL_RenderPresent(render);
+*/
                   SDL_RenderPresent(render);
                   SDL_Rect wallDimension;
-                  wallDimension.x = (int)rayo.getOffset() % ladoCelda;
+                  wallDimension.x = (int)rayo.getOffset() % 64;
                   wallDimension.y = 0;
                   wallDimension.w = 1;
                   wallDimension.h = alturaParedProyectada;
@@ -126,18 +133,18 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                   SDL_Rect wallDest;
                   wallDest.x = i;
                   wallDest.y = drawStart;
-                  wallDest.w = i;
+                  wallDest.w = 1;
                   wallDest.h = drawEnd;
                   wall->renderizar(&wallDimension,wallDest);
-*/
+/*
                   SDL_RenderPresent(render);
                   SDL_SetRenderDrawColor(render, 0, 0, 10, 0);
                   SDL_RenderDrawLine(render, i,552,i,drawEnd - 1);
                   SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
                   SDL_RenderDrawLine(render, i, drawStart,i, drawEnd);
-
-                //  std::chrono::milliseconds duration(10);
-              //    std::this_thread::sleep_for(duration);
+*/
+                  std::chrono::milliseconds duration(20);
+                  std::this_thread::sleep_for(duration);
                   anguloRayo += anguloPorStripe;
             }
             SDL_RenderClear(render);
