@@ -22,7 +22,7 @@ private:
     int tamanio_fila_mapa;
     double posXMapa;
     double posYMapa;
-    double offset;
+    int offset;
     double x_h;
     double y_v;
 
@@ -51,7 +51,7 @@ public:
 
     void normalizarAngulo();
 
-    double getOffset();
+    int getOffset();
 };
 
 #endif

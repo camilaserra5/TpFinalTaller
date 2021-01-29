@@ -40,7 +40,7 @@ void Juego::run() {
         this->renderizar();
         this->actualizar(/*1*/);
         this->raycasting(mapa,this->jugador);
-        this->jugador.rotar(0.5 * acos(0.0));
+        //this->jugador.rotar(0.5 * acos(0.0));
     } catch (...) {
         this->corriendo = false;
     }
@@ -68,10 +68,10 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
 // x = fila / y = columna
 
   int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                       /*1*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*2*/   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                     /*3*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*4*/     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                       /*1*/  {1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                      /*2*/   {1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                     /*3*/    {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                    /*4*/     {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                    /*5*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                   /*6*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                   /*7*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -91,7 +91,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                                             };
             SDL_Renderer *render = this->ventana->obtener_render();
 
-            Textura* wall = new Textura("../../editor/resources/wall1.jpg",render);
+            Textura* wall = new Textura("../../editor/resources/wall3.jpg",render);
             double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
             unsigned int alturaParedProyectada = 0;
             int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;
@@ -123,9 +123,11 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
             SDL_RenderCopy(render, img, NULL, &texr);
             SDL_RenderPresent(render);
 */
+
                   SDL_RenderPresent(render);
                   SDL_Rect wallDimension;
-                  wallDimension.x = (int)rayo.getOffset() % 64;
+                  std::cout << "el offset es: " << rayo.getOffset();
+                  wallDimension.x = rayo.getOffset() % 64;
                   wallDimension.y = 0;
                   wallDimension.w = 1;
                   wallDimension.h = alturaParedProyectada;
@@ -134,14 +136,16 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                   wallDest.x = i;
                   wallDest.y = drawStart;
                   wallDest.w = 1;
-                  wallDest.h = drawEnd;
+                  wallDest.h = drawEnd - drawStart;
                   wall->renderizar(&wallDimension,wallDest);
-/*
+
                   SDL_RenderPresent(render);
-                  SDL_SetRenderDrawColor(render, 0, 0, 10, 0);
-                  SDL_RenderDrawLine(render, i,552,i,drawEnd - 1);
+        /*          SDL_SetRenderDrawColor(render, 0, 90, 10, 80);
+                  SDL_RenderDrawLine(render, i,552,i,drawEnd + 1);
                   SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
                   SDL_RenderDrawLine(render, i, drawStart,i, drawEnd);
+                  SDL_SetRenderDrawColor(render, 0, 0, 200, 80);
+                  SDL_RenderDrawLine(render, i,0,i,drawStart - 1);
 */
                   std::chrono::milliseconds duration(20);
                   std::this_thread::sleep_for(duration);
