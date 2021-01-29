@@ -25,21 +25,17 @@ void Rayo::normalizarAngulo() {
 void Rayo::verificarCuadrante(const double anguloJugador) {
     if (0.0 <= this->anguloBarrido && this->anguloBarrido <= 2.0 * acos(0.0)) {
         this->abajo = false;
-    //    std::cout << "arriba\n";
     } else {
         this->abajo = true;
-    //    std::cout << "abajo\n";
     }
     if (acos(0.0) <= this->anguloBarrido && this->anguloBarrido <= 3.0 * acos(0.0)) {
         this->izquierda = true;
-    //    std::cout << "izq\n";
     } else {
         this->izquierda = false;
-    //    std::cout << "der\n";
     }
 }
 
-void Rayo::verificarInterseccion(int mapa[][TAMANIO_FILA], double &distancia, Jugador &jugador,double& offset){
+void Rayo::verificarInterseccion(int mapa[][TAMANIO_FILA], double &distancia, Jugador &jugador){
   double distanciaHorizontal = this->ladoCelda * TAMANIO_FILA, distanciaVertical = this->ladoCelda * TAMANIO_COLUMNA;
   this->verificarCuadrante(jugador.getAnguloDeVista());
   if (!this->abajo && !this->izquierda){
@@ -53,11 +49,10 @@ void Rayo::verificarInterseccion(int mapa[][TAMANIO_FILA], double &distancia, Ju
   }
 }
 
-double Rayo::verificarInterseccionPrimerCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA],double& offset){
-  std::cout << "primerCuad\n";
-    double dy,dx,tileStep = 1.0,xStep,yStep,distanciaHorizontal = 1000.0,distanciaVertical = 1000.0,x,y;
+double Rayo::verificarInterseccionPrimerCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA]){
+    double dy,dx,x_h,y_v,tileStep = 1.0,xStep,yStep,distanciaHorizontal = 1000.0,distanciaVertical = 1000.0,x,y;
     double tangente = abs(tan(this->anguloBarrido));
-
+    std::cout << "primer cuad\n";
     /*parametros horizontales*/
     dy = -std::modf (this->posYMapa,&y);
     y = floor(y) - 0.025;
@@ -78,19 +73,18 @@ double Rayo::verificarInterseccionPrimerCuadrante(Jugador& jugador,int mapa[][TA
     }
     distanciaVertical = this->verificarInterseccionVertical(jugador,mapa,x,dx,xStep,yStep,tangente);
     if (distanciaHorizontal < distanciaVertical){
-      //offset = x_h;
+      this->offset = this->x_h;
       return distanciaHorizontal;
     }else{
-      //offset = y_h;
+      this->offset = this->y_v;
       return distanciaVertical;
     }
 }
 
-double Rayo::verificarInterseccionSegundoCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA],double& offset){
-  std::cout << "segCuad\n";
-
-    double dy,dx,tileStep = 1.0,xStep,yStep,distanciaHorizontal = 1000.0,distanciaVertical = 1000.0,x,y;
+double Rayo::verificarInterseccionSegundoCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA]){
+    double dy,dx,x_h,y_v,tileStep = 1.0,xStep,yStep,distanciaHorizontal = 1000.0,distanciaVertical = 1000.0,x,y;
     double tangente = abs(tan(this->anguloBarrido));
+    std::cout << "segundo cuad\n";
 
     /*parametros horizontales*/
     dy = -std::modf (this->posYMapa,&y);//creo que deberia ser negativo el diferencial
@@ -111,14 +105,19 @@ double Rayo::verificarInterseccionSegundoCuadrante(Jugador& jugador,int mapa[][T
       yStep = -yStep;
     }
     distanciaVertical = this->verificarInterseccionVertical(jugador,mapa,x,dx,xStep,yStep,tangente);
-    return (distanciaHorizontal < distanciaVertical? distanciaHorizontal : distanciaVertical);
+    if (distanciaHorizontal < distanciaVertical){
+      this->offset = this->x_h;
+      return distanciaHorizontal;
+    }else{
+      this->offset = this->y_v;
+      return distanciaVertical;
+    }
 }
 
-double Rayo::verificarInterseccionTercerCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA],double& offset){
-  std::cout << "tercerCuad\n";
+double Rayo::verificarInterseccionTercerCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA]){
   double tangente = abs(tan(this->anguloBarrido));
-  double dy,dx,tileStep = 1.0,xStep,yStep,distanciaHorizontal = 1000.0,distanciaVertical = 1000.0,x,y;
-
+  double dy,dx,x_h,y_v,tileStep = 1.0,xStep,yStep,distanciaHorizontal = 1000.0,distanciaVertical = 1000.0,x,y;
+std::cout << "tercer cuad\n";
     /*parametros horizontales*/
     dy = 1.0 - std::modf (this->posYMapa,&y);
     xStep = 1.0 / tan(this->anguloBarrido);
@@ -126,11 +125,11 @@ double Rayo::verificarInterseccionTercerCuadrante(Jugador& jugador,int mapa[][TA
     if (xStep > 0.0){
       xStep = -xStep;
     }
-    yStep = -tileStep;
+    yStep = tileStep;//pos o neg?? (estaba neg)
     distanciaHorizontal = this->verificarInterseccionHorizontal(jugador,mapa,y,dy,xStep,yStep,tangente);
 
     /*parametros para vertical*/
-    dx = std::modf(this->posXMapa,&x);
+    dx = -std::modf(this->posXMapa,&x);// pos o neg???
     x = floor(x) - 0.025;
     xStep = -tileStep;
     yStep = tan(this->anguloBarrido);
@@ -138,13 +137,19 @@ double Rayo::verificarInterseccionTercerCuadrante(Jugador& jugador,int mapa[][TA
       yStep = -yStep;
     }
     distanciaVertical = this->verificarInterseccionVertical(jugador,mapa,x,dx,xStep,yStep,tangente);
-    return (distanciaHorizontal < distanciaVertical? distanciaHorizontal : distanciaVertical);
+    if (distanciaHorizontal < distanciaVertical){
+      this->offset = this->x_h;
+      return distanciaHorizontal;
+    }else{
+      this->offset = this->y_v;
+      return distanciaVertical;
+    }
 }
 
-double Rayo::verificarInterseccionCuartoCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA],double& offset){
-    double dy,dx,tileStep = 1.0,xStep,yStep,distanciaHorizontal = 1000.0,distanciaVertical = 1000.0,x,y;
+double Rayo::verificarInterseccionCuartoCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA]){
+    double dy,dx,x_h,y_v,tileStep = 1.0,xStep,yStep,distanciaHorizontal = 1000.0,distanciaVertical = 1000.0,x,y;
     double tangente = abs(tan(this->anguloBarrido));
-    std::cout << "cuartoCuad\n";
+    std::cout << "cuarto cuad\n";
 
     /*parametros horizontales*/
     dy = 1.0 - std::modf (this->posYMapa,&y);
@@ -160,35 +165,35 @@ double Rayo::verificarInterseccionCuartoCuadrante(Jugador& jugador,int mapa[][TA
     dx = 1.0 - std::modf(this->posXMapa,&x);
     xStep = tileStep;
     x = floor(x) + 1.0;
-    yStep = - tan(this->anguloBarrido);
+    yStep = tan(this->anguloBarrido);
     if (yStep < 0){
       yStep = -yStep;
     }
     distanciaVertical = this->verificarInterseccionVertical(jugador,mapa,x,dx,xStep,yStep,tangente);
-    return (distanciaHorizontal < distanciaVertical? distanciaHorizontal : distanciaVertical);
+    if (distanciaHorizontal < distanciaVertical){
+      this->offset = this->x_h;
+      return distanciaHorizontal;
+    }else{
+      this->offset = this->y_v;
+      return distanciaVertical;
+    }
 }
 
 bool Rayo::hallarColision(int mapa[][TAMANIO_FILA],double &interseccionAX,double &interseccionAY,double &xStep,double &yStep){
   bool encontrePared = false;
-  int yaMapa = interseccionAY;
-  int xaMapa = interseccionAX;
-  //std::cout << "steps xa: " << xStep << " y: " << yStep << "\n";
-  //std::cout << "entro en: " << interseccionAX << "y: " << interseccionAY << "\n";
+  int yaMapa = floor(interseccionAY);
+  int xaMapa = floor(interseccionAX);
 
   while (!encontrePared && 0 <= xaMapa && xaMapa < TAMANIO_FILA && 0 <= yaMapa && yaMapa < TAMANIO_COLUMNA) {
-  //  std::cout << "avance xa: " << xa << " y: " << ya << "\n";
       if (mapa[yaMapa][xaMapa] == 1) {
-          std::cout << "llego en xa: " << xaMapa << " y: " << yaMapa << "\n";
           encontrePared = true;
       }else{
         interseccionAY += yStep;
         interseccionAX += xStep;
-        yaMapa = interseccionAY;
-        xaMapa = interseccionAX;
-        std::cout << "paso por en xa: " << interseccionAX << " y: " << interseccionAY << "\n";
+        yaMapa = floor(interseccionAY);
+        xaMapa = floor(interseccionAX);
       }
   }
-  std::cout << "salgo\n";
   return encontrePared;
 }
 
@@ -197,16 +202,13 @@ double Rayo::verificarInterseccionHorizontal(Jugador& jugador,int mapa[][TAMANIO
     double x,distancia = this->ladoCelda * TAMANIO_FILA;
 
     x = this->posXMapa + (dy / tg);
-  //  std::cout << "x horizontal: " << x << "y horizontal: " << y << "\n";
-  //  std::cout << "avance xa: " << xStep << " y: " << yStep << "\n";
     encontrePared = this->hallarColision(mapa,x,y,xStep,yStep);
     if (encontrePared){
+      this->x_h = x;
       x -= this->posXMapa;
       y -= this->posYMapa;
       double distanciaDistorsionada = this->ladoCelda * sqrt((x * x) + (y * y));
       distancia = distanciaDistorsionada * cos(jugador.getAnguloDeVista() - this->anguloBarrido) + 1;
-      //std::cout << "distancia: " << distancia << "\n";
-
     }
     return distancia;
 }
@@ -215,11 +217,9 @@ double Rayo::verificarInterseccionVertical(Jugador& jugador,int mapa[][TAMANIO_F
     bool encontrePared = false;
     double y,distancia = this->ladoCelda * TAMANIO_COLUMNA;
     y = this->posYMapa + (dx * tg);
-  //  std::cout << "x vertical: " << x << "y vertical: " << y << "\n";
-  //  std::cout << "avance xa: " << xStep << " y: " << yStep << "\n";
-
       encontrePared = this->hallarColision(mapa,x,y,xStep,yStep);
       if (encontrePared){
+        this->y_v = y;
         x -= this->posXMapa;
         y -= this->posYMapa;
         double distanciaDistorsionada = this->ladoCelda * sqrt((x * x) + (y * y));
@@ -230,4 +230,8 @@ double Rayo::verificarInterseccionVertical(Jugador& jugador,int mapa[][TAMANIO_F
 
 int Rayo::getDistanciaProyector() {
     return this->distanciaProyector;
+}
+
+double Rayo::getOffset(){
+  return this->offset;
 }

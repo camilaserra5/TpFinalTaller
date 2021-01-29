@@ -1,41 +1,48 @@
 #ifndef JUEGO_H
 #define JUEGO_H
-#define ANCHO_CANVAS 800
-#define ALTURA_CANVAS 320
+#include "rayo.h"
 
-#include "objetoJuego.h"
+#include "map.h"
+#include "thread.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "textura.h"
-#include "jugador.h"
-#include "map.h"
+#include "../client/include/textura.h"
+#include "../client/include/ventana.h"
+#include "blocking_queue.h"
+#include "comandos/comando.h"
+#include "../client/include/modelo.h"
 #include <list>
+#include <string>
 
-class Juego {
+#define ANCHO_CANVAS 800
+
+class Juego : public Thread {
 private:
-    std::list<ObjetoJuego *> objetos;
     bool corriendo;
-    SDL_Window *ventana;
-    SDL_Renderer *render;
+    Ventana *ventana;
     Textura *texturaInferior;
+    Modelo *modelo;
+    Jugador& jugador;
+
 public:
-    Juego() {}
+    Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, int idJugador,Jugador& jugador);
 
-    ~Juego() {}
+    ~Juego();
 
-    void inicializar(const char *titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen);
+    //void inicializar(const std::string& titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen);
 
     bool estaCorriendo() { return corriendo; }
 
-    void handleEvents(/*Player player*/); // posible clase que maneje eventos
+//    void handleEvents(int id, BlockingQueue<Comando*>& eventos);
+    void run() override;
 
-    void actualizar();
+    void actualizar(/*temporal int idArma*/);
 
     void renderizar();
 
     void clean();
 
-    void raycasting(Map &mapa, Jugador &jugador);
+    void raycasting(Map& mapaa, Jugador& jugador);
 };
 
 #endif /*JUEGO_H*/

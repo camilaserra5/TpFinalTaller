@@ -18,9 +18,18 @@ add_executable(raycasting_test
         raycast.cpp
         rayo.cpp
         juego.cpp
-        objetoJuego.cpp
         lienzo.cpp
-        textura.cpp
+        ../client/src/modelo.cpp
+        ../client/src/textura.cpp
+        ../client/src/ventana.cpp
+        ../client/src/sprite.cpp
+        ../client/src/player.cpp
+        ../client/src/objetoJuego.cpp
+        ../client/src/label.cpp
+        ../client/src/fonts.cpp
+        ../client/src/scene.cpp
+
+
         ${UIS_HEADERS})
 
-target_link_libraries(raycasting_test ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads ${YAML_CPP_LIBRARIES})
+target_link_libraries(raycasting_test ${PROJECT_LINK_LIBS} SDL2 SDL2_image SDL2_ttf Threads::Threads ${YAML_CPP_LIBRARIES})

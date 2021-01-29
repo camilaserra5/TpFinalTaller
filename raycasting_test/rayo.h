@@ -22,24 +22,26 @@ private:
     int tamanio_fila_mapa;
     double posXMapa;
     double posYMapa;
+    double offset;
+    double x_h;
+    double y_v;
 
     void verificarCuadrante(const double anguloJugador);
 
-    double verificarInterseccionPrimerCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA],double& offset);
+    double verificarInterseccionPrimerCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA]);
 
-    double verificarInterseccionSegundoCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA],double& offset);
+    double verificarInterseccionSegundoCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA]);
 
-    double verificarInterseccionTercerCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA],double& offset);
+    double verificarInterseccionTercerCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA]);
 
-    double verificarInterseccionCuartoCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA],double& offset);
+    double verificarInterseccionCuartoCuadrante(Jugador& jugador,int mapa[][TAMANIO_FILA]);
 
 public:
-    bool
-    hallarColision(int mapa[][TAMANIO_FILA], double &interseccionAX, double &interseccionAY, double &xa, double &ya);
+    bool hallarColision(int mapa[][TAMANIO_FILA], double &interseccionAX, double &interseccionAY, double &xa, double &ya);
 
     Rayo(double campoDeVision, int ladoCelda, int largoProyector,double anguloBarrido,Posicion& posicion);
 
-    void verificarInterseccion(int mapa[][TAMANIO_FILA], double &distancia, Jugador &jugador,double& offset);
+    void verificarInterseccion(int mapa[][TAMANIO_FILA], double &distancia, Jugador &jugador);
 
     double verificarInterseccionHorizontal(Jugador& jugador,int mapa[][TAMANIO_FILA], double& y,double& dy,double& xStep,double& yStep,double& tg);
 
@@ -48,6 +50,8 @@ public:
     int getDistanciaProyector();
 
     void normalizarAngulo();
+
+    double getOffset();
 };
 
 #endif

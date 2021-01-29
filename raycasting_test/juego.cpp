@@ -1,8 +1,4 @@
 #include "juego.h"
-#include "rayo.h"
-#include <iostream>
-#include <thread>
-
 
 #define EXITO 0
 #define TAMANIO_FILA 20
@@ -10,57 +6,62 @@
 #define LARGO_PROYECTOR ANCHO_CANVAS
 #define ANCHO_PROYECTOR 20
 
-void Juego::inicializar(const char *titulo, int xpos, int ypos, int ancho, int alto, bool fullscreen) {
+#include "SDL2/SDL_ttf.h"
+#include <SDL2/SDL.h>
+
+Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, int idJugador, Jugador& jugador): jugador(jugador) {
     int flags = 0;
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
     }
     if (SDL_Init(SDL_INIT_EVERYTHING) == EXITO) {
-        this->ventana = SDL_CreateWindow(titulo, xpos, ypos, ancho, alto, flags);
-        this->render = SDL_CreateRenderer(this->ventana, -1, 0);
-        SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
-        SDL_RenderClear(this->render);
+
+
+        if (TTF_Init() == -1) {
+            printf("Failed to init TTF\n");
+            exit(1);
+        }
+
+        this->ventana = new Ventana(titulo, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ancho, alto, flags);
+        this->modelo = new Modelo(this->ventana, idJugador);
+        modelo->inicializar();
+        this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png",
+                                            this->ventana->obtener_render());
         this->corriendo = true;
     } else {
         this->corriendo = false;
     }
-    this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png", this->render);
-    ObjetoJuego *enemigo = new ObjetoJuego("../../client/resources/images/Guard.png", this->render,  /*50, 50,*/0, 0,
-                                           78, 78/*100,100*/);
-    this->objetos.push_back(enemigo);
 }
 
-void Juego::handleEvents() {
-    SDL_Event evento;
-    SDL_PollEvent(&evento);
-    switch (evento.type) {
-        case SDL_QUIT:
-            this->corriendo = false;
-            break;
-        default:
-            break;
+void Juego::run() {
+  Map mapa(20,20);
+    try {
+        this->clean();
+        this->renderizar();
+        this->actualizar(/*1*/);
+        this->raycasting(mapa,this->jugador);
+        this->jugador.rotar(0.5 * acos(0.0));
+    } catch (...) {
+        this->corriendo = false;
     }
+
 }
 
-void Juego::actualizar() {
-    this->objetos.front()->actualizar();
+void Juego::actualizar(/*temporal int idArma*/) {
+    this->ventana->actualizar();
 }
 
 void Juego::renderizar() {
-    SDL_RenderClear(this->render);
-    Lienzo posiciontexturaini(0, 0, 800, 40);
-    Lienzo posiciontexturadest(0, 562, 800, 40);
-    this->texturaInferior->renderizar(this->render, posiciontexturaini, posiciontexturadest);
-    this->objetos.front()->renderizar();
+    this->ventana->renderizar(this->texturaInferior);
+    this->modelo->renderizar();
 
-    SDL_RenderDrawPoint(this->render, 400, 300); //Renders on middle of screen.
-    SDL_RenderPresent(this->render);
 }
 
+Juego::~Juego() {}
+
 void Juego::clean() {
-    SDL_DestroyWindow(this->ventana);
-    SDL_DestroyRenderer(this->render);
-    SDL_Quit();
+    this->ventana->limpiar();
+    //this->corriendo = false;
 }
 
 void Juego::raycasting(Map &mapaa, Jugador &jugador) {
@@ -89,21 +90,22 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                                       /*19*/  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                             /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
                                             };
+            SDL_Renderer *render = this->ventana->obtener_render();
 
+          //  Textura* wall = new Textura("../../editor/resources/wall1.jpg",render);
             double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
             unsigned int alturaParedProyectada = 0;
-            int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;//el -10 va para q dibuje alfo razzonable
+            int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;
             double anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
             double anguloJugador = jugador.getAnguloDeVista();
             double anguloRayo = anguloJugador - (rangoDeVista / 2);
             Posicion& posJugador = jugador.getPosicion();
-            double offsetWall = 0;
 
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
                 double distancia = 0,drawStart,drawEnd;
                 Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo,posJugador);
 
-                rayo.verificarInterseccion(mapa,distancia,jugador,offsetWall);
+                rayo.verificarInterseccion(mapa,distancia,jugador);
                 alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
 
                 //  if (alturaParedProyectada > 600){
@@ -114,20 +116,30 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                     drawEnd = drawStart + alturaParedProyectada - 20;
             //      }
 
-                  std::cout << "altura: " << alturaParedProyectada << "\n";
 
-                  SDL_RenderPresent(this->render);
-                  SDL_SetRenderDrawColor(this->render, 255, 255, 255, SDL_ALPHA_OPAQUE);
-                  SDL_RenderDrawLine(this->render, i, drawStart,i, drawEnd);
+                /*  SDL_RenderPresent(render);
+                  SDL_Rect wallDimension;
+                  wallDimension.x = rayo.getOffset();
+                  wallDimension.y = 0;
+                  wallDimension.w = 1;
+                  wallDimension.h = alturaParedProyectada;
+
+                  SDL_Rect wallDest;
+                  wallDest.x = i;
+                  wallDest.y = drawStart;
+                  wallDest.w = i;
+                  wallDest.h = drawEnd;
+                  wall->renderizar(&wallDimension,wallDest);*/
+                  SDL_RenderPresent(render);
+                  SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
+                  SDL_RenderDrawLine(render, i, drawStart,i, drawEnd);
 
                   std::chrono::milliseconds duration(10);
                   std::this_thread::sleep_for(duration);
 
                   anguloRayo += anguloPorStripe;
             }
-            SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);// deberia estar en atualizar
-
-            SDL_RenderClear(this->render);
-            std::cout << "terminee============================================================\n";
-
+            SDL_RenderClear(render);
+            SDL_SetRenderDrawColor(render, 157, 97, 70, 255);// deberia estar en atualizar
+          ///  delete wall;
 }
