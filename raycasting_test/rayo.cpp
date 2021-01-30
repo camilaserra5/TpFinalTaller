@@ -183,8 +183,10 @@ bool Rayo::hallarColision(int mapa[][TAMANIO_FILA],double &interseccionAX,double
   bool encontrePared = false;
   int yaMapa = floor(interseccionAY);
   int xaMapa = floor(interseccionAX);
-
+  //std::cout << "entro en x: " << xaMapa << " y: " << yaMapa << "\n";
   while (!encontrePared && 0 <= xaMapa && xaMapa < TAMANIO_FILA && 0 <= yaMapa && yaMapa < TAMANIO_COLUMNA) {
+    std::cout << "paso por x: " << xaMapa << " y: " << yaMapa << "\n";
+
       if (mapa[yaMapa][xaMapa] == 1) {
           encontrePared = true;
       }else{

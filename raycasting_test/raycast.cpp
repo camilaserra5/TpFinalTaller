@@ -7,8 +7,8 @@
 int main() {
   std::string nombre = "Sol";
   int id = 1;
-  float anguloJugador =  (4.0/3.0) * acos(0.0); //+ /* 2.0 * (acos(0.0))*/;
-  int pixelesX = 200, pixelesY = 200;
+  float anguloJugador =  3.0 * acos(0.0); //+ /* 2.0 * (acos(0.0))*/;
+  int pixelesX = 80, pixelesY = 80;
   Posicion posicion(pixelesX,pixelesY,anguloJugador);
   Jugador jugador(nombre,id);
   jugador.setPosicion(posicion);

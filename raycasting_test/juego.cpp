@@ -40,7 +40,7 @@ void Juego::run() {
         this->renderizar();
         this->actualizar(/*1*/);
         this->raycasting(mapa,this->jugador);
-        //this->jugador.rotar(0.5 * acos(0.0));
+      //  this->jugador.rotar(0.5 * acos(0.0));
     } catch (...) {
         this->corriendo = false;
     }
@@ -69,20 +69,20 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
 
   int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                        /*1*/  {1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*2*/   {1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                     /*3*/    {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*4*/     {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                   /*5*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*6*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*7*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                      /*2*/   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                     /*3*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                    /*4*/     {1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                   /*5*/      {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
+                                  /*6*/       {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
+                                  /*7*/       {1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1},
                                   /*8*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                   /*9*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                   /*10*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                   /*11*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                 /*12*/        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                            /*13*/            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                            /*14*/            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*15*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                            /*13*/            {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                            /*14*/            {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                    /*15*/    {1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                     /*16*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                       /*17*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                       /*18*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -114,19 +114,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                     drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
                     drawEnd = drawStart + alturaParedProyectada - 20;
             //      }
-            /*
-            SDL_Texture *img = NULL;
-            img = IMG_LoadTexture(render, "../../editor/resources/wall1.jpg");
-            int width = 1;
-	          SDL_QueryTexture(img, NULL,NULL, &width, &drawEnd);
-            SDL_Rect texr; texr.x = i; texr.y = 0; texr.w = width; texr.h = drawEnd - drawStart;
-            SDL_RenderCopy(render, img, NULL, &texr);
-            SDL_RenderPresent(render);
-*/
-
-                  SDL_RenderPresent(render);
                   SDL_Rect wallDimension;
-                  std::cout << "el offset es: " << rayo.getOffset();
                   wallDimension.x = rayo.getOffset() % 64;
                   wallDimension.y = 0;
                   wallDimension.w = 1;
@@ -138,8 +126,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                   wallDest.w = 1;
                   wallDest.h = drawEnd - drawStart;
                   wall->renderizar(&wallDimension,wallDest);
-
-                  SDL_RenderPresent(render);
+                  this->ventana->actualizar();
         /*          SDL_SetRenderDrawColor(render, 0, 90, 10, 80);
                   SDL_RenderDrawLine(render, i,552,i,drawEnd + 1);
                   SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
@@ -151,7 +138,6 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                   std::this_thread::sleep_for(duration);
                   anguloRayo += anguloPorStripe;
             }
-            SDL_RenderClear(render);
-            SDL_SetRenderDrawColor(render, 157, 97, 70, 255);// deberia estar en atualizar
+            //SDL_SetRenderDrawColor(render, 157, 97, 70, 255);// deberia estar en atualizar
             delete wall;
 }
