@@ -7,7 +7,7 @@ Ventana::Ventana(const std::string &titulo, int x, int y, int ancho, int alto, i
     if (!this->ventana) {
         throw std::runtime_error("Error: No se creo la ventana");
     }
-    SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
+    SDL_SetRenderDrawColor(this->render, 30, 30, 30, 50);//color tipo gris
     SDL_RenderClear(this->render);
 }
 

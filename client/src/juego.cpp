@@ -5,6 +5,8 @@
 #include "SDL2/SDL_ttf.h"
 #include <SDL2/SDL.h>
 
+#define LOWER_TEXTURE_ROOT "../../client/resources/images/ParteInferior.png"
+
 Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, int idJugador) {
     int flags = 0;
     if (fullscreen) {
@@ -21,7 +23,7 @@ Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, in
         this->ventana = new Ventana(titulo, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ancho, alto, flags);
         this->modelo = new Modelo(this->ventana, idJugador);
         modelo->inicializar();
-        this->texturaInferior = new Textura("../../client/resources/images/ParteInferior.png",
+        this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT,
                                             this->ventana->obtener_render());
         this->corriendo = true;
     } else {

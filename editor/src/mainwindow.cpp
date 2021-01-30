@@ -8,6 +8,9 @@
 #include "map.h"
 #include "map_translator.h"
 #include <yaml-cpp/yaml.h>
+#define WOODEN_WALL_ROOT "../../editor/resources/wall2.jpg"
+#define BLUE_STONE_WALL_ROOT "../../editor/resources/wall1.jpg"
+#define GRAY_STONE_WALL_ROOT "../../editor/resources/wall3.jpg"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     setupMenus();
@@ -41,19 +44,19 @@ void MainWindow::openMap() {
             if (Type::wall == type) {
                 QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
                 QPixmap newImage;
-                newImage.load(QStringLiteral("../../editor/resources/wall1.jpg"));
+                newImage.load(QStringLiteral(BLUE_STONE_WALL_ROOT));
                 QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
                 mapWidget->addTile(point, pixmap, static_cast<int >(map(i, j)));
             } else if (Type::door == type) {
                 QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
                 QPixmap newImage;
-                newImage.load(QStringLiteral("../../editor/resources/wall2.jpg"));
+                newImage.load(QStringLiteral(WOODEN_WALL_ROOT));
                 QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
                 mapWidget->addTile(point, pixmap, static_cast<int >(map(i, j)));
             } else if (Type::fakeDoor == type) {
                 QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
                 QPixmap newImage;
-                newImage.load(QStringLiteral("../../editor/resources/wall3.jpg"));
+                newImage.load(QStringLiteral(GRAY_STONE_WALL_ROOT));
                 QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
                 mapWidget->addTile(point, pixmap, static_cast<int >(map(i, j)));
             }
