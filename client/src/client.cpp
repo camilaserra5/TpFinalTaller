@@ -6,6 +6,9 @@
 #include <sstream>
 #include <protocolo.h>
 
+#define WOLFSTEIN_TTF_ROOT "../../resources/fuentes/wolfenstein.ttf"
+#define BACKGROUND_IMAGE_ROOT "../../client/resources/images/background.png"
+
 Client::Client() {
     int rendererFlags, windowFlags;
 
@@ -33,7 +36,7 @@ Client::Client() {
         exit(1);
     }
 
-    fonts.addFont("wolfstein", "../../resources/fuentes/wolfenstein.ttf", 60);
+    fonts.addFont("wolfstein", WOLFSTEIN_TTF_ROOT, 60);
 
     this->renderer = SDL_CreateRenderer(this->window, -1, rendererFlags);
 
@@ -56,7 +59,7 @@ void disp_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, 
 }
 
 void Client::run() {
-    Background background("../../client/resources/images/background.png", this->renderer);
+    Background background(BACKGROUND_IMAGE_ROOT, this->renderer);
     background.drawBackground();
     while (1) {
         SDL_Event e;

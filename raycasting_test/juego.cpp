@@ -5,6 +5,9 @@
 #define TAMANIO_COLUMNA 20
 #define LARGO_PROYECTOR ANCHO_CANVAS
 #define ANCHO_PROYECTOR 20
+#define WOODEN_WALL_ROOT "../../editor/resources/wall2.jpg"
+#define BLUE_STONE_WALL_ROOT "../../editor/resources/wall1.jpg"
+#define GRAY_STONE_WALL_ROOT "../../editor/resources/wall3.jpg"
 
 #include "SDL2/SDL_ttf.h"
 #include <SDL2/SDL.h>
@@ -92,7 +95,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                                             };
             SDL_Renderer *render = this->ventana->obtener_render();
 
-            Textura* wall = new Textura("../../editor/resources/wall3.jpg",render);
+            Textura* wall = new Textura(GRAY_STONE_WALL_ROOT,render);
             double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
             unsigned int alturaParedProyectada = 0;
             int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;
