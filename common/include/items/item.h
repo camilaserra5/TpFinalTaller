@@ -25,14 +25,13 @@ public:
         return this->posicion;
     }
 
-    std::vector<char> serializar() {
-        std::vector<char> informacion;
-        informacion.push_back(posicion.pixelesEnX());
-        informacion.push_back(posicion.pixelesEnY());
-        return informacion;
+    std::vector<char> serializar() override {
+        return this->posicion.serializar();
     }
 
-    void deserializar(std::vector<char> serializado) {}
+    void deserializar(std::vector<char> serializado) override {
+        this->posicion.deserializar(serializado);
+    }
 
 protected:
     Posicion posicion;
