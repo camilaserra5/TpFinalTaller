@@ -8,7 +8,7 @@
 #include "../include/manejador_eventos.h"
 #include <string>
 
-Cliente::Cliente(const char *host, const char *server_port) : socket() {
+Cliente::Cliente(const char *host, const char *server_port) : socket(), corriendo(true) {
     //  this->socket.conectar(host, server_port);
 }
 
@@ -31,28 +31,30 @@ void Cliente::run() {
     std::string nombre_juego("Wolfstein");
     int idJugador = 1111;
     Juego *juego = new Juego(nombre_juego, 800, 600, false, idJugador);
-    ManejadorEventos manejador(idJugador, events);
+    ManejadorEventos* manejador = new ManejadorEventos(idJugador, events);
 
     try {
         //  juego->inicializar(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
-        while (juego->estaCorriendo()) {
+        juego->start();
+        manejador->start();
+        while (this->corriendo) {
 
             // clientEventSender.enviarEventos
-            if (!manejador.esta_vivo()) {
-                juego->clean();
-                SDL_Quit();
-                exit(1);
+             // hay error cuando se hace juego->start;
+            if (!manejador->esta_vivo()) {
+                juego->join(); //
+                juego->cerrar();
+
             }
-            juego->run();
-            manejador.start(); // se manejan eventos;
-            std::chrono::milliseconds duration(1000);
-            std::this_thread::sleep_for(duration);
+             // se manejan eventos;
 
         }
-        juego->clean();
     } catch (...) {
         std::cout << "error";
+        this->corriendo = false;
+        manejador->join();
     }
     //  juego->join();
-    manejador.join();
+
+
 }

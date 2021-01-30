@@ -37,6 +37,8 @@ void Juego::run() {
               this->clean();
               this->renderizar();
               this->actualizar(/*1*/);
+              std::chrono::milliseconds duration(100);
+              std::this_thread::sleep_for(duration);
         } catch (...) {
             this->corriendo = false;
         }
