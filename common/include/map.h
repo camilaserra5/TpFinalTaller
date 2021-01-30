@@ -49,7 +49,7 @@ public:
         return informacion;
     }
 
-    void deserializar(std::vector<char> serializado) override {
+    void deserializar(std::vector<char> &serializado) override {
         this->rowSize = (int) serializado[0];
         this->colSize = (int) serializado[1];
         int idx = 2;

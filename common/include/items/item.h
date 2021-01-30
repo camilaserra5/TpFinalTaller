@@ -29,7 +29,7 @@ public:
         return this->posicion.serializar();
     }
 
-    void deserializar(std::vector<char> serializado) override {
+    void deserializar(std::vector<char> &serializado) override {
         this->posicion.deserializar(serializado);
     }
 

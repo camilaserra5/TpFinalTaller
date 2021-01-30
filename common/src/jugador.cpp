@@ -8,6 +8,8 @@
 #define CANT_INICAL_BALAS 8
 
 #include "armas/pistola.h"
+#include "armas/lanzacohetes.h"
+#define VELOCIDAD_DE_ROTACION 0.25 * acos(0.0)
 
 int Jugador::getId() {
     return this->id;
@@ -22,6 +24,7 @@ Jugador::Jugador(std::string &nombre, int &id) :
         balas(CANT_INICAL_BALAS),
         armaActual(new Pistola(10/*arbitrario por que  no se porque recibe este parametroS*/)),
         posicion(POSX_INICIAL, POSY_INICIAL, 50),
+        velocidadDeRotacion(VELOCIDAD_DE_ROTACION)
         llaves(0),
         cantidad_vidas(2) {}
 
@@ -47,7 +50,7 @@ void Jugador::actualizar_vida(int &vidaActualizada) {
 }
 
 void Jugador::agregar_arma(Arma *arma) {
-    this->armas.push_back(arma);
+    this->armas.insert(std::make_pair(arma->getId(),arma));
 }
 
 bool Jugador::poseeArma(Arma *arma) {
@@ -88,8 +91,19 @@ void Jugador::agarrarLlave() {
     this->llaves += 1;
 }
 
-void Jugador::rotar(float anguloRotacion) {
-    this->posicion.rotar(anguloRotacion);
+void Jugador::actualizarArma(){
+  Posicion posDefault(0,0,0);
+  Arma* lanzacohetes = new LanzaCohetes(posDefault);
+  if (this->balas < BALAS_PARA_LANZACOHETES && this->armaActual->esIgual(lanzacohetes) && this->balas > 0){
+      this->armaActual = this->armas.at(ID_PISTOLA);
+  }else{
+    this->armaActual = this->armas.at(ID_CUCHILLO);
+  }
+  delete lanzacohetes;
+}
+
+void Jugador::rotar() {
+    this->posicion.rotar(this->velocidadDeRotacion);
 }
 
 Logro &Jugador::obtenerLogro() {

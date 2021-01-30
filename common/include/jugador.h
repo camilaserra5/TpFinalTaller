@@ -5,6 +5,7 @@
 #include <string>
 #include "posicion.h"
 #include "logro.h"
+#include <map>
 
 class Arma;
 
@@ -44,6 +45,8 @@ public:
 
     float getAnguloDeVista();
 
+    void actualizarArma();
+
     //void setAnguloDeVista(float anguloJugador){this->angulo = anguloJugador; }
 
     bool tengollave();
@@ -70,7 +73,7 @@ public:
         return informacion;
     }
 
-    void deserializar(std::vector<char> serializado) {}
+    void deserializar(std::vector<char>& serializado) {}
 
 // juagdor serializacion;
     // id -> int;
@@ -81,7 +84,7 @@ private:
     int id;
     std::string nombre;
     int vida;
-    std::vector<Arma *> armas;
+    std::map<int,Arma*> armas;
     int balas;
     float angulo = 0;
     float velocidadDeRotacion;

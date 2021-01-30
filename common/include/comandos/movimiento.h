@@ -21,7 +21,7 @@ public:
         return info;
     }
 
-    void deserializar(std::vector<char> serializado) {}
+    void deserializar(std::vector<char>& serializado) {}
 };
 
 #endif

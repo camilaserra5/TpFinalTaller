@@ -21,6 +21,7 @@ void verificarJugadoresEnRango(Posicion &posicionImpacto, std::map<int, Jugador 
 }
 
 void LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
+    /*no cheqyeo las balas porque si no tiene 5 no podria tener un lanzacohetes*/
     jugador->gastarBalas(BALAS_POR_LANZACOHETES);
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
 
@@ -32,6 +33,7 @@ void LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador, std::map<int,
         Posicion posPared(xPared, yPared, 0);
         verificarJugadoresEnRango(posPared, jugadores, jugador);
     }
+    jugador->actualizarArma();
 }
 
 void LanzaCohetes::obtenerBeneficio(ContenedorDeElementos &contenedorDeElementos, Jugador *jugador) {

@@ -13,6 +13,11 @@
 
 #define METROS_MOVIDOS 1 // de acuanto se mueve el jugador
 
+void EstadoJuego::rotar(int idJugador){
+  Jugador *jugador = this->jugadores.at(idJugador);
+  jugador->rotar();
+}
+
 void EstadoJuego::realizarAtaque(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
     Arma *arma = jugador->getArma();

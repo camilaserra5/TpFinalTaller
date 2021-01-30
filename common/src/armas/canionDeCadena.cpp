@@ -25,6 +25,7 @@ void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador, std::map<in
             i++;
         }
     }
+    jugador->actualizarArma();
 }
 
 

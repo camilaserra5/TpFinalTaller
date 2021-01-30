@@ -39,7 +39,7 @@ public:
         return informacion;
     }
 
-    void deserializar(std::vector<char> serializado) override {
+    void deserializar(std::vector<char>& serializado) override {
         char size = serializado[0];
 
         int ult = 1;

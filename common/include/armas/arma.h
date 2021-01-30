@@ -3,6 +3,13 @@
 #define NO_HAY_JUGADOR_CERCANO -1
 #define DANIO_MAX 10
 
+#define ID_CUCHILLO 3
+#define ID_PISTOLA 4
+#define ID_AMETRALLADORA 1
+#define ID_LANZACOHETES 5
+#define ID_CANION_DE_CADENA 2
+#define BALAS_PARA_LANZACOHETES 5
+
 #include <map>
 #include "jugador.h"
 #include <ctime>
@@ -23,6 +30,8 @@ public:
     bool esIgual(Arma *arma);
 
     virtual bool esPistola() = 0;
+
+    int getId();
 
 protected:
     int distancia_max_atacable;
