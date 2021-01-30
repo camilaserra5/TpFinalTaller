@@ -18,7 +18,7 @@ include_directories(~/TpFinalTaller/common/include)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(yaml-cpp)
 
-file(GLOB SOURCES src/*.cpp)
+file(GLOB SOURCES src/*.cpp include/*.h)
 add_executable(editor
         ${SOURCES})
 
