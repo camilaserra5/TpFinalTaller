@@ -9,7 +9,7 @@
 
 #include "armas/pistola.h"
 #include "armas/lanzacohetes.h"
-
+#define VELOCIDAD_DE_ROTACION 0.25 * acos(0.0)
 
 int Jugador::getId() {
     return this->id;
@@ -24,6 +24,7 @@ Jugador::Jugador(std::string &nombre, int &id) :
         balas(CANT_INICAL_BALAS),
         armaActual(new Pistola(10/*arbitrario por que  no se porque recibe este parametroS*/)),
         posicion(POSX_INICIAL, POSY_INICIAL, 50),
+        velocidadDeRotacion(VELOCIDAD_DE_ROTACION)
         llaves(0),
         cantidad_vidas(2) {}
 
@@ -101,8 +102,8 @@ void Jugador::actualizarArma(){
   delete lanzacohetes;
 }
 
-void Jugador::rotar(float anguloRotacion) {
-    this->posicion.rotar(anguloRotacion);
+void Jugador::rotar() {
+    this->posicion.rotar(this->velocidadDeRotacion);
 }
 
 Logro &Jugador::obtenerLogro() {

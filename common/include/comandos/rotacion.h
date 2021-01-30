@@ -4,10 +4,10 @@
 #include "comando.h"
 #include "iserializable.h"
 
-class Rotacion : public Comando, public ISerializable {
+class Rotacion : public Comando {
 
 private:
-    //Accion sentidoDeRotacion;
+    Accion sentidoDeRotacion;
 public:
 
     Rotacion(Accion sentidoDeRotacion) : sentidoDeRotacion(sentidoDeRotacion) {}
@@ -17,11 +17,11 @@ public:
         return info;
     }
 
-    void deserializar(std::vector<char> serializado) {}
+    void deserializar(std::vector<char>& serializado);
 
-    void ejecutar(EstadoJuego &EstadoJuego) override {}
+    void ejecutar(EstadoJuego &EstadoJuego) override;
 
-    ~Rotacion();
+    ~Rotacion(){}
 };
 
 #endif

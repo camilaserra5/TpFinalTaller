@@ -51,7 +51,7 @@ public:
         return informacion;
     }
 
-    void deserializar(std::vector<char> serializado) {}
+    void deserializar(std::vector<char>& serializado) {}
 
 private:
     unsigned rowSize;

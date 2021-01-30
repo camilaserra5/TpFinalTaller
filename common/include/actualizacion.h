@@ -20,7 +20,7 @@ public:
         return this->estadoJuego.serializar();
     }
 
-    void deserializar(std::vector<char> serializado) override {}
+    void deserializar(std::vector<char>& serializado) override {}
 
 private:
     EstadoJuego &estadoJuego;
