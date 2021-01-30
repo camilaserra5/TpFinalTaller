@@ -14,8 +14,8 @@
 #include <list>
 #include <string>
 
-#define ANCHO_CANVAS 640
-#define ALTURA_CANVAS 400
+#define ANCHO_CANVAS 800
+#define ALTURA_CANVAS 600
 
 class Juego : public Thread {
 private:
