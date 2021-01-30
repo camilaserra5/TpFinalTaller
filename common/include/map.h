@@ -35,9 +35,7 @@ public:
 
     void agregarElemento(Item *item);
 
-    std::vector<char> serializar() {
-        // mandar la longitud despues los elementos;
-        //longitud mapa, luego celdasreturn mapa.serializar();
+    std::vector<char> serializar() override {
         std::vector<char> informacion;
         informacion.push_back(this->rowSize);
         informacion.push_back(this->colSize);
@@ -51,7 +49,19 @@ public:
         return informacion;
     }
 
-    void deserializar(std::vector<char>& serializado) {}
+    void deserializar(std::vector<char> &serializado) override {
+        this->rowSize = (int) serializado[0];
+        this->colSize = (int) serializado[1];
+        int idx = 2;
+        for (unsigned i = 0; i < rowSize; i++) {
+            for (unsigned j = 0; j < colSize; j++) {
+                setValue(i, j, static_cast<Type>(serializado[idx++]));
+            }
+        }
+        std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx,
+                                                           serializado.end());
+        this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
+    }
 
 private:
     unsigned rowSize;

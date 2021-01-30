@@ -43,7 +43,8 @@ public:
         return informacion;
     }
 
-    void deserializar(std::vector<char> serializado) {}
+    void deserializar(std::vector<char> serializado) {
+    }
 
     void enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones);
 
