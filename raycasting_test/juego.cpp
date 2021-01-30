@@ -38,8 +38,9 @@ void Juego::run() {
     try {
         this->clean();
         this->renderizar();
+        this->raycasting(mapa,this->jugador);
         this->actualizar(/*1*/);
-        this->raycasting(mapa,this->jugador);//deberia ir antes que renderizar para que se dibuje atras del mapa
+//deberia ir antes que renderizar para que se dibuje atras del mapa
         this->jugador.rotar(0.5 * acos(0.0));
     } catch (...) {
         this->corriendo = false;
