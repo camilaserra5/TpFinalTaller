@@ -20,6 +20,8 @@ public:
 
     void limpiar();
 
+    void cerrar();
+
 private:
     SDL_Window *ventana;
     SDL_Renderer *render;

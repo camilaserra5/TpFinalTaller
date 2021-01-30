@@ -12,8 +12,16 @@ Ventana::Ventana(const std::string &titulo, int x, int y, int ancho, int alto, i
 }
 
 Ventana::~Ventana() {
-    SDL_DestroyRenderer(this->render);
-    SDL_DestroyWindow(this->ventana);
+}
+void Ventana::cerrar(){
+  SDL_DestroyRenderer(this->render);
+  SDL_DestroyWindow(this->ventana);
+  this->ventana = NULL;
+	this->render= NULL;
+
+	//Quit SDL subsystems
+	IMG_Quit();
+	SDL_Quit();
 }
 
 SDL_Renderer *Ventana::obtener_render() {

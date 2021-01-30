@@ -1,4 +1,5 @@
 #include "../include/modelo.h"
+#include <iostream>
 
 #define SPRITES_OBJETOS_ANCHO 320
 #define SPRITES_OBJETOS_LARGO 650
@@ -10,7 +11,8 @@ Modelo::Modelo(Ventana *ventana, int idJugador) :
         ventana(ventana),
         idJugador(idJugador),
         jugadores(),
-        entidades() {}
+        entidades(),
+        x(0){}
 
 Modelo::~Modelo() {}
 
@@ -24,6 +26,9 @@ void Modelo::renderizar() {
     this->jugadores[this->idJugador]->settear_estado(318, 420, 100, 50, 4);
     Player* jugador = this->jugadores[this->idJugador];
     jugador->renderizar();
+
+    //jugador->dejarDeDisparar();
+
 }
 
 void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {

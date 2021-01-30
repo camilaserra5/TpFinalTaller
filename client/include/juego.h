@@ -34,6 +34,8 @@ public:
     void renderizar();
 
     void clean();
+
+    void cerrar();
 };
 
 #endif /*JUEGO_H*/

@@ -30,7 +30,9 @@ void Player::settear_estado(int posx, int posy, int vida, int angulo, int idArma
 void Player::renderizar() {
 
     if(disparando){
-          this->animacion.renderizar(this->posx, this->posy);
+          bool termine = this->animacion.renderizar(this->posx, this->posy);
+          termine ? this->disparando = false: this->disparando = true;
+
     } else {
 
         this->sprites.find(this->idArmaActual)->second.reescalar(2, 2);
