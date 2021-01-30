@@ -20,6 +20,7 @@ public:
 
 private:
     Socket socket;
+    bool corriendo;
 
 };
 

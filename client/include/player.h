@@ -2,14 +2,9 @@
 #define _PLAYER_H
 
 #include "informacionJugador.h"
-// no se si es un sprite;
-// falta ver tema imagen/arma
-#include "sprite.h"
+#include "armaAnimada.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <map>
-#include <string>
-#include "animacion.h"
 
 class Player {
 public:
@@ -35,12 +30,10 @@ private:
     int puntaje;
     int angulo;
     int id;
-    int idArmaActual;
-    Animacion animacion;
+    ArmaAnimada arma;
     InfoJugador infoJugador;
     int cantVidas;
     bool disparando;
-    std::map<int, Sprite> sprites;
 };
 
 #endif
