@@ -22,6 +22,10 @@ public:
 
     void reescalar(int escalarw, int escalarh);
 
+    void setFrame(int frame){
+        this->infoSprite.x = frame*this->infoSprite.w; 
+    }
+
 };
 
 #endif

@@ -22,7 +22,8 @@ void Modelo::inicializar() {
 
 void Modelo::renderizar() {
     this->jugadores[this->idJugador]->settear_estado(318, 420, 100, 50, 4);
-    this->jugadores[this->idJugador]->renderizar();
+    Player* jugador = this->jugadores[this->idJugador];
+    jugador->renderizar();
 }
 
 void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {

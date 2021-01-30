@@ -9,6 +9,7 @@
 #include <SDL2/SDL_image.h>
 #include <map>
 #include <string>
+#include "animacion.h"
 
 class Player {
 public:
@@ -31,8 +32,10 @@ private:
     int angulo;
     int id;
     int idArmaActual;
+    Animacion animacion;
     InfoJugador infoJugador;
     int cantVidas;
+    bool disparando;
     std::map<int, Sprite> sprites;
 };
 

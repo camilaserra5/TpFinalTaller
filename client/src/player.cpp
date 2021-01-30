@@ -7,7 +7,7 @@
 Player::Player(const char *rutaimg, SDL_Renderer *render, int id) :
         posx(0), posy(0), vida(100), nivel(1), puntaje(50), cantVidas(3),
         infoJugador(render, vida, nivel, puntaje, cantVidas), angulo(50),
-        id(id), idArmaActual(4) {
+        id(id), idArmaActual(4), animacion(render, rutaimg, 5, 65, 60, 2), disparando(true) {
     Sprite spriteCuchillo = Sprite(render, rutaimg, 1, 0, 65, 60);
     Sprite spritePistola = Sprite(render, rutaimg, 0, 1, 65, 60);
     Sprite spriteAmetralladora = Sprite(render, rutaimg, 0, 2, 65, 60);
@@ -28,8 +28,15 @@ void Player::settear_estado(int posx, int posy, int vida, int angulo, int idArma
 }
 
 void Player::renderizar() {
-    this->sprites.find(this->idArmaActual)->second.reescalar(2, 2);
-    this->sprites.find(this->idArmaActual)->second.renderizar(this->posx, this->posy, this->angulo);
+
+    if(disparando){
+          this->animacion.renderizar(this->posx, this->posy);
+    } else {
+
+        this->sprites.find(this->idArmaActual)->second.reescalar(2, 2);
+        this->sprites.find(this->idArmaActual)->second.renderizar(this->posx, this->posy, this->angulo);
+    }
+
     this->infoJugador.renderizar();
 }
 
