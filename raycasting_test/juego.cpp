@@ -39,8 +39,8 @@ void Juego::run() {
         this->clean();
         this->renderizar();
         this->actualizar(/*1*/);
-        this->raycasting(mapa,this->jugador);
-      //  this->jugador.rotar(0.5 * acos(0.0));
+        this->raycasting(mapa,this->jugador);//deberia ir antes que renderizar para que se dibuje atras del mapa
+        this->jugador.rotar(0.5 * acos(0.0));
     } catch (...) {
         this->corriendo = false;
     }
@@ -127,13 +127,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                   wallDest.h = drawEnd - drawStart;
                   wall->renderizar(&wallDimension,wallDest);
                   this->ventana->actualizar();
-        /*          SDL_SetRenderDrawColor(render, 0, 90, 10, 80);
-                  SDL_RenderDrawLine(render, i,552,i,drawEnd + 1);
-                  SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
-                  SDL_RenderDrawLine(render, i, drawStart,i, drawEnd);
-                  SDL_SetRenderDrawColor(render, 0, 0, 200, 80);
-                  SDL_RenderDrawLine(render, i,0,i,drawStart - 1);
-*/
+
                   std::chrono::milliseconds duration(20);
                   std::this_thread::sleep_for(duration);
                   anguloRayo += anguloPorStripe;
