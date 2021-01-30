@@ -15,6 +15,9 @@ class Animacion{
           std::vector<SDL_Rect> frames;
           int frame_h;
           int frame_w;
+          int frameActual;
+          int tiempoViejo;
+          int velocidad;
 
     public:
         Animacion(SDL_Renderer* render,
@@ -32,17 +35,27 @@ class Animacion{
           this->textura = new Textura(rutaimg, render);
           this->frame_h = frame_h;
           this->frame_w = frame_w;
+          this->frameActual = 0;
+          this->velocidad = 1000;
+          this->tiempoViejo = 0;
        }
         ~Animacion(){}
 
-    void renderizar(int posx, int posy){
-        static float counter;
-        if (int(counter) > frames.size())
-            counter = 0;
-        SDL_Rect r = {posx, posy, this->frame_h*2, this->frame_w*2}; // Donde se renderiza
-        textura->renderizar(&frames[counter], r);
-        counter = counter + 0.065;
+    bool  renderizar(int posx, int posy){
+          bool termine = false;
+          if (tiempoViejo + velocidad > SDL_GetTicks()){
+              termine = true;
+          }
+          tiempoViejo = SDL_GetTicks();
 
+        if (this->frameActual >= frames.size()){
+              this->frameActual = 0;
+          }
+          SDL_Rect r = {posx, posy, this->frame_h*2, this->frame_w*2}; // Donde se renderiza
+          textura->renderizar(&frames[this->frameActual], r);
+          this->frameActual ++;
+          SDL_Delay(100);
+          return termine;
     }
 };
 

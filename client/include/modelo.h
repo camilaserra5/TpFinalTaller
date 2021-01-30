@@ -27,6 +27,7 @@ private:
     int idJugador;
     std::map<int, Player *> jugadores;
     std::map<int, ObjetoJuego *> entidades;
+    int x;
     // mapa de entidades dibujables;
 
 };

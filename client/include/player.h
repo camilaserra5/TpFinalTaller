@@ -23,6 +23,10 @@ public:
 
     void settear_estado(int posx, int posy, int vida, int angulo, int arma);
 
+    void dejarDeDisparar(){
+        this->disparando = false;
+    }
+
 private:
     int posx;
     int posy;

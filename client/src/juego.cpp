@@ -30,12 +30,14 @@ Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, in
 }
 
 void Juego::run() {
-    try {
-        this->clean();
-        this->renderizar();
-        this->actualizar(/*1*/);
-    } catch (...) {
-        this->corriendo = false;
+    while(this->corriendo){
+        try {
+              this->clean();
+              this->renderizar();
+              this->actualizar(/*1*/);
+        } catch (...) {
+            this->corriendo = false;
+        }
     }
 
 }
@@ -52,7 +54,11 @@ void Juego::renderizar() {
 
 Juego::~Juego() {}
 
+void Juego::cerrar(){
+    this->corriendo = false;
+    this->ventana->cerrar();
+};
 void Juego::clean() {
     this->ventana->limpiar();
-    this->corriendo = false;
+  //  this->corriendo = false;
 }
