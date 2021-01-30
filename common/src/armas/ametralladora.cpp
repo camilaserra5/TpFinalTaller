@@ -28,6 +28,8 @@ void Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int
             i++;
         }
     }
+    jugador->actualizarArma();
+
 }
 
 void Ametralladora::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {

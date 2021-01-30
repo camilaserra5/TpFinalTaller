@@ -34,6 +34,7 @@ void Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Juga
             i++;
         }
     }
+    jugador->actualizarArma();
 }
 
 bool Pistola::esPistola() {

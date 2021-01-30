@@ -8,6 +8,8 @@
 #define CANT_INICAL_BALAS 8
 
 #include "armas/pistola.h"
+#include "armas/lanzacohetes.h"
+
 
 int Jugador::getId() {
     return this->id;
@@ -47,7 +49,7 @@ void Jugador::actualizar_vida(int &vidaActualizada) {
 }
 
 void Jugador::agregar_arma(Arma *arma) {
-    this->armas.push_back(arma);
+    this->armas.insert(std::make_pair(arma->getId(),arma));
 }
 
 bool Jugador::poseeArma(Arma *arma) {
@@ -86,6 +88,17 @@ void Jugador::sumarPuntos(int puntos) {
 
 void Jugador::agarrarLlave() {
     this->llaves += 1;
+}
+
+void Jugador::actualizarArma(){
+  Posicion posDefault(0,0,0);
+  Arma* lanzacohetes = new LanzaCohetes(posDefault);
+  if (this->balas < BALAS_PARA_LANZACOHETES && this->armaActual->esIgual(lanzacohetes) && this->balas > 0){
+      this->armaActual = this->armas.at(ID_PISTOLA);
+  }else{
+    this->armaActual = this->armas.at(ID_CUCHILLO);
+  }
+  delete lanzacohetes;
 }
 
 void Jugador::rotar(float anguloRotacion) {

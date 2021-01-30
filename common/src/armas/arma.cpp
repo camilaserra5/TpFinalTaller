@@ -30,3 +30,7 @@ int Arma::JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador *> &jug
 bool Arma::esIgual(Arma *arma) {
     return (this->id == arma->id);
 }
+
+int Arma::getId(){
+  return this->id;
+}
