@@ -10,22 +10,31 @@
 Modelo::Modelo(Ventana *ventana, int idJugador) :
         ventana(ventana),
         idJugador(idJugador),
-        jugadores(),
+        jugador(),
+        enemigos(),
         entidades(),
         x(0){}
 
 Modelo::~Modelo() {}
 
 void Modelo::inicializar() {
-    Player *player = new Player("../../client/resources/images/Weapons.png", this->ventana->obtener_render(),
+    this->jugador = new Player("../../client/resources/images/Weapons.png", this->ventana->obtener_render(),
                                 this->idJugador);
-    this->jugadores.insert(std::make_pair(this->idJugador, player));
+    Enemigo* enemigo = new Enemigo(this->ventana->obtener_render(), 4);
+    this->enemigos.push_back(enemigo);
+
 }
 
 void Modelo::renderizar() {
-    this->jugadores[this->idJugador]->settear_estado(318, 420, 100, 50, 4);
-    Player* jugador = this->jugadores[this->idJugador];
-    jugador->renderizar();
+    this->jugador->settear_estado(318, 420, 100, 50, 4);
+    this->jugador->renderizar();
+    // verificar items si estan en posicion;
+    // verificar enemigos si estan en posicion correcta;
+    for (int i=0; i<this->enemigos.size(); i++){
+          this->enemigos[i]->actualizar(500, 300, 4, 0, 90, 100);
+          this->enemigos[i]->renderizar();
+    }
+
 
     //jugador->dejarDeDisparar();
 
@@ -42,7 +51,7 @@ void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
 }
 
 void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int id, int arma) {
-    this->jugadores[id]->settear_estado(x, y, vida, angulo, arma);
+    this->jugador->settear_estado(x, y, vida, angulo, arma);
 }
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {

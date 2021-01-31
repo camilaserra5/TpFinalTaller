@@ -7,7 +7,7 @@ Ventana::Ventana(const std::string &titulo, int x, int y, int ancho, int alto, i
     if (!this->ventana) {
         throw std::runtime_error("Error: No se creo la ventana");
     }
-    SDL_SetRenderDrawColor(this->render, 30, 30, 30, 50);//color tipo gris
+    SDL_SetRenderDrawColor(this->render, 157, 97, 70, 255);
     SDL_RenderClear(this->render);
 }
 
@@ -17,11 +17,12 @@ void Ventana::cerrar(){
   SDL_DestroyRenderer(this->render);
   SDL_DestroyWindow(this->ventana);
   this->ventana = NULL;
-	this->render= NULL;
+	this->render = NULL;
 
 	//Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
+  exit(1);
 }
 
 SDL_Renderer *Ventana::obtener_render() {
@@ -31,7 +32,7 @@ SDL_Renderer *Ventana::obtener_render() {
 void Ventana::renderizar(Textura *texturaInferior) {
     //Lienzo posiciontexturaini(0, 0, 800, 40);
     SDL_Rect posiciontexturadest{0, 550, 800, 60};
-    texturaInferior->renderizar(NULL, posiciontexturadest);
+    texturaInferior->renderizar(NULL, posiciontexturadest, 0, NULL);
 }
 
 void Ventana::actualizar() {
