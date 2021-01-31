@@ -30,7 +30,6 @@ add_executable(raycasting_test
         ../client/src/scene.cpp
         ../client/src/armaAnimada.cpp
         ../client/src/enemigo.cpp
-        ../client/src/animacion.cpp
 
         ${UIS_HEADERS})
 
