@@ -28,7 +28,7 @@ add_executable(raycasting_test
         ../client/src/label.cpp
         ../client/src/fonts.cpp
         ../client/src/scene.cpp
-        ../client/src/ArmaAnimada.cpp
+        ../client/src/armaAnimada.cpp
         ${UIS_HEADERS})
 
 target_link_libraries(raycasting_test ${PROJECT_LINK_LIBS} SDL2 SDL2_image SDL2_ttf Threads::Threads ${YAML_CPP_LIBRARIES})
