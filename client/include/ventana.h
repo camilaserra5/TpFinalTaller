@@ -12,7 +12,7 @@ public:
 
     ~Ventana();
 
-    SDL_Renderer *obtener_render();
+    SDL_Renderer* obtener_render();
 
     void renderizar(Textura *textura);
 

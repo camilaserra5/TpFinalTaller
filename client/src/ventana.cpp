@@ -25,8 +25,8 @@ void Ventana::cerrar(){
   exit(1);
 }
 
-SDL_Renderer *Ventana::obtener_render() {
-    return this->render;
+SDL_Renderer* Ventana::obtener_render() {
+      return this->render;
 }
 
 void Ventana::renderizar(Textura *texturaInferior) {

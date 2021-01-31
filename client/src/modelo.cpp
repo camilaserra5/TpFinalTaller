@@ -32,6 +32,7 @@ void Modelo::renderizar() {
     this->jugador->renderizar();
     // verificar items si estan en posicion;
     // verificar enemigos si estan en posicion correcta;
+    
     for (int i=0; i<this->enemigos.size(); i++){
       int posx(500), posy(300),idArma(4),anguloEnemigo(0),anguloJugador(90),vida(100);
           this->enemigos[i]->actualizar(posx, posy, idArma, anguloEnemigo, anguloJugador, vida);

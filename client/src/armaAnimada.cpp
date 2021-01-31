@@ -30,7 +30,7 @@ ArmaAnimada::ArmaAnimada(SDL_Renderer* render){
 
 ArmaAnimada::~ArmaAnimada(){}
 
-void ArmaAnimada::actualizar(int& armaActual){
+void ArmaAnimada::actualizar(int armaActual){
     this->armaActual = armaActual;
 }
 
