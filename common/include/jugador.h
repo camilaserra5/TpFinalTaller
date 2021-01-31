@@ -79,6 +79,12 @@ public:
     // id -> int;
     // pos -> 2 ini
     // nomnre -> string -> primeor longitud (int) y luego los bytes(chars);
+    //vida -> int;
+    //angulo-> float?;
+    //arma -> int (id)
+    //posicion pero se serializa solo;
+    //puntaje -> int (lo obtenemos de logro)
+    //nivel -> int
 private:
     Posicion posicion;
     int id;
