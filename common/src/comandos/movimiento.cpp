@@ -4,7 +4,7 @@
 #include "objetosJuego.h"
 
 Movimiento::Movimiento(int &idJugador, Accion tipo_de_movimiento) :
-        idJugador(idJugador),
+        Comando(idJugador),
         tipo_de_movimiento(tipo_de_movimiento) {}
 
 Movimiento::~Movimiento() {}

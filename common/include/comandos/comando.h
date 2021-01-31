@@ -7,7 +7,7 @@
 
 class Comando : public ISerializable {
 public:
-    Comando() {}
+    Comando(int idJugador): idJugador(idJugador) {}
 
     virtual ~Comando() {}
 
@@ -16,7 +16,7 @@ public:
     //  std::stringstream serializar(){}
 
 
-private:
+protected:
     int idJugador;
 };
 

@@ -9,9 +9,8 @@ class Ataque : public Comando {
 private:
     //  int destinox;
     //int destinoy;
-    int idJugador;
 public:
-    Ataque(int idJugador) : idJugador(idJugador) {}
+    Ataque(int idJugador) : Comando(idJugador) {}
 
     ~Ataque() {}
 

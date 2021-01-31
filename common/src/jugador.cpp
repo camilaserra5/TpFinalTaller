@@ -1,7 +1,7 @@
 #include "../include/jugador.h"
 // hay que verificar que la pos del jugador al incio sea random y valida;
 #include <iostream>
-
+#include <math.h>
 #define MAX_VIDA 100
 #define POSX_INICIAL 5
 #define POSY_INICIAL 5
@@ -24,7 +24,7 @@ Jugador::Jugador(std::string &nombre, int &id) :
         balas(CANT_INICAL_BALAS),
         armaActual(new Pistola(10/*arbitrario por que  no se porque recibe este parametroS*/)),
         posicion(POSX_INICIAL, POSY_INICIAL, 50),
-        velocidadDeRotacion(VELOCIDAD_DE_ROTACION)
+        velocidadDeRotacion(VELOCIDAD_DE_ROTACION),
         llaves(0),
         cantidad_vidas(2) {}
 

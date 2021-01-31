@@ -17,7 +17,7 @@ public:
 
     void moverse(int posx, int posy);
 
-    void rotar(float anguloRotacion);
+    void rotar();
 
     void actualizar_vida(int &vidaActualizada);
 

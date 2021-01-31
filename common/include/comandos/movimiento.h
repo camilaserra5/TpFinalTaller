@@ -8,7 +8,6 @@
 class Movimiento : public Comando {
 private:
     Accion tipo_de_movimiento;
-    int idJugador;
 public:
     Movimiento(int &idJugador, Accion tipo_de_movimiento);
 

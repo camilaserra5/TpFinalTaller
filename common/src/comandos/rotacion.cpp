@@ -1,9 +1,9 @@
 #include "../include/comandos/rotacion.h"
 
-void deserializar(std::vector<char>& serializado) {
+void Rotacion::deserializar(std::vector<char>& serializado) {
 
 }
 
-void ejecutar(EstadoJuego &EstadoJuego){
+void Rotacion::ejecutar(EstadoJuego &estadoJuego){
   estadoJuego.rotar(this->idJugador);
 }

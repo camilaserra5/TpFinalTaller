@@ -10,7 +10,9 @@ private:
     Accion sentidoDeRotacion;
 public:
 
-    Rotacion(Accion sentidoDeRotacion) : sentidoDeRotacion(sentidoDeRotacion) {}
+    Rotacion(int idJugador,Accion sentidoDeRotacion) :
+    Comando(idJugador),
+    sentidoDeRotacion(sentidoDeRotacion) {}
 
     std::vector<char> serializar() {
         std::vector<char> info;

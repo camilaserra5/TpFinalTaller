@@ -16,6 +16,8 @@ public:
 
     ~EstadoJuego();
 
+    void rotar(int idJugador);
+
     void moverse_a_derecha(int idJugador);
 
     void moverse_a_izquierda(int idJugador);
