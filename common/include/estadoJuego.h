@@ -47,7 +47,7 @@ public:
         return informacion;
     }
 
-    void deserializar(std::vector<char> informacion) {
+    void deserializar(std::vector<char>& informacion) {
         char jugadoresSize = informacion[0];
         int ult = 1;
         for (int i = 0; i < jugadoresSize; i++) {

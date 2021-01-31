@@ -44,7 +44,7 @@ void Juego::run() {
         this->raycasting(mapa,this->jugador);
         this->actualizar(/*1*/);
 //deberia ir antes que renderizar para que se dibuje atras del mapa
-        this->jugador.rotar(0.5 * acos(0.0));
+        //this->jugador.rotar(0.5 * acos(0.0));
     } catch (...) {
         this->corriendo = false;
     }
@@ -129,7 +129,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                   wallDest.y = drawStart;
                   wallDest.w = 1;
                   wallDest.h = drawEnd - drawStart;
-                  wall->renderizar(&wallDimension,wallDest);
+                  wall->renderizar(&wallDimension,wallDest, 0);
                   this->ventana->actualizar();
 
                   std::chrono::milliseconds duration(20);

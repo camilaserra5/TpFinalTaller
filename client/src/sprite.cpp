@@ -13,10 +13,10 @@ Sprite::Sprite(SDL_Renderer *render, const char *rutaimg, int x, int y, int h, i
     this->textura = new Textura(rutaimg, render);
 }
 
-void Sprite::renderizar(int x, int y, int angulo) {
+void Sprite::renderizar(int x, int y, int angulo, SDL_Point* centro) {
     this->destino.x = x;
     this->destino.y = y;
-    this->textura->renderizar(&this->infoSprite, this->destino);
+    this->textura->renderizar(&this->infoSprite, this->destino, angulo, centro);
 }
 
 void Sprite::reescalar(int escalarw, int escalarh) {

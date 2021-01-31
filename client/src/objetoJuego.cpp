@@ -8,7 +8,7 @@ ObjetoJuego::ObjetoJuego(Sprite sprite) :
 ObjetoJuego::~ObjetoJuego() {}
 
 void ObjetoJuego::renderizar() {
-    this->sprite.renderizar(this->posx, this->posy, this->angulo);
+    this->sprite.renderizar(this->posx, this->posy, this->angulo, NULL);
 }
 
 void ObjetoJuego::settear_estado(int posx, int posy) {

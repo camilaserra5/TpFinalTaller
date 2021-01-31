@@ -6,6 +6,7 @@
 #include <map>
 #include "objetoJuego.h"
 #include "objetosJuego.h"
+#include "enemigo.h"
 
 class Modelo {
 public:
@@ -25,8 +26,9 @@ public:
 private:
     Ventana *ventana;
     int idJugador;
-    std::map<int, Player *> jugadores;
+    Player* jugador;
     std::map<int, ObjetoJuego *> entidades;
+    std::vector<Enemigo*> enemigos;
     int x;
     // mapa de entidades dibujables;
 

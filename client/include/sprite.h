@@ -18,12 +18,12 @@ public:
 
     ~Sprite() {}
 
-    void renderizar(int x, int y, int angulo);
+    void renderizar(int x, int y, int angulo, SDL_Point* centro);
 
     void reescalar(int escalarw, int escalarh);
 
     void setFrame(int frame){
-        this->infoSprite.x = frame*this->infoSprite.w; 
+        this->infoSprite.x = frame*this->infoSprite.w;
     }
 
 };

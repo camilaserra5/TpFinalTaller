@@ -6,20 +6,23 @@
 #include "animacion.h"
 #include <map>
 #include <string>
+#include <utility>
+#include <vector>
 
 class Enemigo{
 public:
       Enemigo(SDL_Renderer* render, int idArmaJugador);
       ~Enemigo();
-      void actualizar(int posx, int posy);
+      void actualizar(int posx, int posy, int idArma, int anguloEnemigo, int anguloJugador, int vida);
       void renderizar();
+      int verificarEstado(int posxViejo, int posyViejo, int posxNuevo, int posyNuevo);
 private:
       int idArma;
       int posx;
       int posy;
       int angulo;
       int anguloJugador;
-      std::multimap<int, std::pair<std::string, Animacion>> enemigos;
+      std::multimap<int, std::vector<Animacion>> enemigos;
 };
 
 #endif
