@@ -11,7 +11,11 @@ class ArmaAnimada{
     public:
           ArmaAnimada(SDL_Renderer* render);
           ~ArmaAnimada();
+<<<<<<< HEAD
           void renderizar(bool& disparando);
+=======
+          void renderizar(bool disparando);
+>>>>>>> 4269baa58c62fc635ff9f9b799dfc21193b8979b
           void actualizar(int idArma);
 
     private:

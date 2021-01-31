@@ -20,22 +20,21 @@ Modelo::~Modelo() {}
 void Modelo::inicializar() {
     this->jugador = new Player("../../client/resources/images/Weapons.png", this->ventana->obtener_render(),
                                 this->idJugador);
-    int armaJugador(4);
-    Enemigo* enemigo = new Enemigo(this->ventana->obtener_render(), armaJugador);
+    Enemigo* enemigo = new Enemigo(this->ventana->obtener_render(), 4);
     this->enemigos.push_back(enemigo);
 
 }
 
 void Modelo::renderizar() {
   int posx(318),posy(420),vida(100),angulo(50),idArma(4);
-    this->jugador->settear_estado(posx, posy, vida, angulo, idArma);
+    this->jugador->settear_estado(318, 420, 100, 50, 4);
     this->jugador->renderizar();
     // verificar items si estan en posicion;
     // verificar enemigos si estan en posicion correcta;
     
     for (int i=0; i<this->enemigos.size(); i++){
       int posx(500), posy(300),idArma(4),anguloEnemigo(0),anguloJugador(90),vida(100);
-          this->enemigos[i]->actualizar(posx, posy, idArma, anguloEnemigo, anguloJugador, vida);
+          this->enemigos[i]->actualizar(500, 300, 4, 0, 90, 100);
           this->enemigos[i]->renderizar();
     }
 

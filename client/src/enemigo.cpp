@@ -8,7 +8,7 @@
 #define MOVERSE 1
 #define DISPARAR 2
 
-Enemigo::Enemigo(SDL_Renderer* render, int& idArmaJugador):
+Enemigo::Enemigo(SDL_Renderer* render, int idArmaJugador):
           idArma(idArmaJugador), posx(0), posy(0),
           angulo(0), anguloJugador(0){
               // guardia
@@ -26,7 +26,7 @@ Enemigo::Enemigo(SDL_Renderer* render, int& idArmaJugador):
 
 Enemigo::~Enemigo(){}
 
-void Enemigo::actualizar(int& posx, int& posy, int& idArmaJugador, int& anguloEnemigo,int& anguloJugador, int& vida){
+void Enemigo::actualizar(int posx, int posy, int idArmaJugador, int anguloEnemigo,int anguloJugador, int vida){
       this->angulo = verificarEstado(this->posx, this->posy, posx, posy);
       this->posx = posx;
       this->posy = posy;
@@ -34,7 +34,7 @@ void Enemigo::actualizar(int& posx, int& posy, int& idArmaJugador, int& anguloEn
       this->anguloJugador = anguloJugador;
       this->angulo = anguloEnemigo;
 }
-  int Enemigo::verificarEstado(int& posxVieja, int& posyVieja, int& posxNueva, int& posyNueva){
+  int Enemigo::verificarEstado(int posxVieja, int posyVieja, int posxNueva, int posyNueva){
       if (posxVieja == posxNueva && posyVieja == posyNueva){
           // no me movi;
                 return this->angulo = 0;

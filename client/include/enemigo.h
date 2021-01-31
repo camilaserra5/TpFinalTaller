@@ -11,11 +11,11 @@
 
 class Enemigo{
 public:
-      Enemigo(SDL_Renderer* render, int& idArmaJugador);
+      Enemigo(SDL_Renderer* render, int idArmaJugador);
       ~Enemigo();
-      void actualizar(int& posx, int& posy, int& idArma, int& anguloEnemigo, int& anguloJugador, int& vida);
+      void actualizar(int posx, int posy, int idArma, int anguloEnemigo, int anguloJugador, int vida);
       void renderizar();
-      int verificarEstado(int& posxViejo, int& posyViejo, int& posxNuevo, int& posyNuevo);
+      int verificarEstado(int posxViejo, int posyViejo, int posxNuevo, int posyNuevo);
 private:
       int idArma;
       int posx;
