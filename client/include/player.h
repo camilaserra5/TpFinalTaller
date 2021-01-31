@@ -8,15 +8,15 @@
 
 class Player {
 public:
-    Player(const char *rutaimg, SDL_Renderer *render, int id);
+    Player(const char *rutaimg, SDL_Renderer *render, int& id);
 
     ~Player();
 
-    void actualizacion(int posx, int posy, int vida, int angulo, int arma);
+    void actualizacion(int& posx, int& posy, int& vida, int& angulo, int& arma);
 
     void renderizar();
 
-    void settear_estado(int posx, int posy, int vida, int angulo, int arma);
+    void settear_estado(int& posx, int& posy, int& vida, int& angulo, int& arma);
 
     void dejarDeDisparar(){
         this->disparando = false;

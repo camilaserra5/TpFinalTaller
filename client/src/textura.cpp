@@ -11,7 +11,7 @@ Textura::Textura(const char *archivo, SDL_Renderer *un_render) {
     this->render = un_render;
 }
 
-int Textura::renderizar(SDL_Rect *infoSprite, SDL_Rect destino, int angulo, SDL_Point* centro) const {
+int Textura::renderizar(SDL_Rect *infoSprite, SDL_Rect& destino, int angulo, SDL_Point* centro) const {
 
     try{
 

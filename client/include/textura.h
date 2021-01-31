@@ -13,7 +13,7 @@ public:
 
     ~Textura() {}
 
-    int renderizar(SDL_Rect *infoSprite, SDL_Rect destino, int angulo, SDL_Point* centro) const;
+    int renderizar(SDL_Rect *infoSprite, SDL_Rect& destino, int angulo, SDL_Point* centro) const;
 };
 
 #endif //TEXTURA_H

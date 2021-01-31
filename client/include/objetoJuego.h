@@ -11,13 +11,13 @@ private:
     Sprite sprite;
 
 public:
-    ObjetoJuego(Sprite sprite);
+    ObjetoJuego(Sprite&& sprite); //a chequear esa doble referencia, pero es por el stdmove
 
     ~ObjetoJuego();
 
     void renderizar();
 
-    void settear_estado(int posx, int posy);
+    void settear_estado(int& posx, int& posy);
 
 };
 

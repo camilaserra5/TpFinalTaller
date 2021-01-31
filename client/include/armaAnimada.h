@@ -11,8 +11,8 @@ class ArmaAnimada{
     public:
           ArmaAnimada(SDL_Renderer* render);
           ~ArmaAnimada();
-          void renderizar(bool disparando);
-          void actualizar(int idArma);
+          void renderizar(bool& disparando);
+          void actualizar(int& idArma);
 
     private:
           std::map<int, Sprite> sprites;

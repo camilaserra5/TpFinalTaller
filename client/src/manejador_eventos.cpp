@@ -4,7 +4,7 @@
 #include "comandos/movimiento.h"
 #include <iostream>
 
-ManejadorEventos::ManejadorEventos(int idJugador, BlockingQueue<Comando*>& eventos):
+ManejadorEventos::ManejadorEventos(int& idJugador, BlockingQueue<Comando*>& eventos):
     idJugador(idJugador),
     eventos(eventos),
     corriendo(true){}

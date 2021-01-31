@@ -25,10 +25,10 @@ class Animacion{
                                int frames,
                                int frame_h,
                                int frame_w,
-                              int fila);
+                              int fila, int columna);
         ~Animacion(){}
 
-    bool  renderizar(int posx, int posy);
+    bool renderizar(int posx, int posy, int angulo, SDL_Point* centro);
 };
 
 #endif

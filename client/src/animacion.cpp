@@ -5,22 +5,30 @@ Animacion::Animacion(SDL_Renderer* render,
                        int frames,
                        int frame_h,
                        int frame_w,
-                      int fila){
+                      int fila, int columna){
 
-  SDL_Rect rect = {0, fila*frame_h, frame_h, frame_w};
-  for (int i = 0; i < frames; i++) {
-      this->frames.push_back(rect);
-      rect.x += frame_w;
-  }
-  this->textura = new Textura(rutaimg, render);
-  this->frame_h = frame_h;
-  this->frame_w = frame_w;
-  this->frameActual = 0;
-  this->velocidad = 1000;
-  this->tiempoViejo = 0;
+                        if (fila > -1){
+                            SDL_Rect rect = {0, fila*frame_h, frame_h, frame_w};
+                            for (int i = 0; i < frames; i++) {
+                                this->frames.push_back(rect);
+                                rect.x += frame_w;
+                            }
+                        } else {
+                            SDL_Rect rect = {columna*frame_w, 0 , frame_h, frame_w};
+                            for (int i = 0; i< frames; i++){
+                                  this->frames.push_back(rect);
+                                  rect.y +=frame_h;
+                            }
+                            this->textura = new Textura(rutaimg, render);
+                            this->frame_h = frame_h;
+                            this->frame_w = frame_w;
+                            this->frameActual = 0;
+                            this->velocidad = 1000;
+                            this->tiempoViejo = 0;
+                          }
 }
 
-bool  Animacion::renderizar(int posx, int posy){
+bool  Animacion::renderizar(int posx, int posy, int angulo, SDL_Point* centro){
       bool termine = false;
       if (tiempoViejo + velocidad > SDL_GetTicks()){
           termine = true;
@@ -31,7 +39,7 @@ bool  Animacion::renderizar(int posx, int posy){
           this->frameActual = 0;
       }
       SDL_Rect r = {posx, posy, this->frame_h*2, this->frame_w*2}; // Donde se renderiza
-      textura->renderizar(&frames[this->frameActual], r);
+      textura->renderizar(&frames[this->frameActual], r, angulo, centro);
       this->frameActual ++;
       SDL_Delay(100);
       return termine;

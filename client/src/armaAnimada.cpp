@@ -30,11 +30,11 @@ ArmaAnimada::ArmaAnimada(SDL_Renderer* render){
 
 ArmaAnimada::~ArmaAnimada(){}
 
-void ArmaAnimada::actualizar(int armaActual){
+void ArmaAnimada::actualizar(int& armaActual){
     this->armaActual = armaActual;
 }
 
-void ArmaAnimada::renderizar(bool disparando){
+void ArmaAnimada::renderizar(bool& disparando){
       if(disparando){
             bool termine = this->animaciones.find(this->armaActual)->second.renderizar(POSX, POSY, 0, NULL);
             //termine ? this->disparando = false: this->disparando = true;
