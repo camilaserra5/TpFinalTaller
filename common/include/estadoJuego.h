@@ -34,9 +34,6 @@ public:
 
     std::vector<char> serializar() {
         std::vector<char> informacion;
-        std::vector<char> mapaSerializado = mapa->serializar();
-        informacion.insert(informacion.end(), mapaSerializado.begin(), mapaSerializado.end());
-
         informacion.push_back(jugadores.size());
         std::map<int, Jugador *>::iterator it;
         for (it = jugadores.begin(); it != jugadores.end(); ++it) {
@@ -44,14 +41,32 @@ public:
             std::vector<char> jugadorSerializado = jugador.serializar();
             informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
         }
+
+        std::vector<char> mapaSerializado = mapa->serializar();
+        informacion.insert(informacion.end(), mapaSerializado.begin(), mapaSerializado.end());
         return informacion;
     }
 
-    void deserializar(std::vector<char> serializado) {}
+    void deserializar(std::vector<char> informacion) {
+        char jugadoresSize = informacion[0];
+        int ult = 1;
+        for (int i = 0; i < jugadoresSize; i++) {
+            std::vector<char> jugadorSerializado(informacion.begin() + ult,
+                                                 informacion.begin() + ult + 3);
+            Jugador *jugador;
+            jugador->deserializar(jugadorSerializado);
+            this->jugadores.insert(std::make_pair(jugador->getId(), jugador));
+            ult = ult + 3;
+        }
+
+        std::vector<char> mapaSerializado(informacion.begin() + ult,
+                                          informacion.end());
+        this->mapa->deserializar(mapaSerializado);
+    }
 
     void verificarJugadoresMuertos();
 
-    void buscarItemsEnPosJugador(Jugador* jugador,int& posX,int& posY, int xFinal, int yFinal);
+    void buscarItemsEnPosJugador(Jugador *jugador, int &posX, int &posY, int xFinal, int yFinal);
 
 
 private:
