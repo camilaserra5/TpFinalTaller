@@ -63,3 +63,7 @@ bool Posicion::operator==(Posicion &otraPosicion) {
     }
     return false;
 }
+
+void Posicion::setAngulo(float angulo){
+  this->anguloDeVista = angulo;
+}

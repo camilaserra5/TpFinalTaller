@@ -19,6 +19,12 @@ void Sprite::renderizar(int x, int y, int angulo, SDL_Point* centro) {
     this->textura->renderizar(&this->infoSprite, this->destino, angulo, centro);
 }
 
+void Sprite::renderizarColumna(SDL_Rect dimension,SDL_Rect& dest){
+  dimension.x += this->infoSprite.x;
+  dimension.y += this->infoSprite.y;//cheqeuar
+  this->textura->renderizar(&dimension,dest,0,NULL);
+}
+
 void Sprite::reescalar(int escalarw, int escalarh) {
     this->destino.h = this->destino.h * escalarh;
     this->destino.w = this->destino.w * escalarw;
