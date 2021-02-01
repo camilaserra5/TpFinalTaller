@@ -6,11 +6,7 @@
 
 #define SPRITES_OBJETOS_ANCHO 320
 #define SPRITES_OBJETOS_LARGO 650
-<<<<<<< HEAD
 #define SPRITE_OBJETOS "../../client/resourses/images/Objects.png"
-=======
-#define SPRITE_OBJETOS "../../client/resources/images/Objects.png"
->>>>>>> ccba88ba9c2f14640579f418dae5247eae15b8c3
 #define FRAMESX 5
 #define FRAMESY 10
 
@@ -29,8 +25,8 @@ void Modelo::inicializar() {
                                 this->idJugador);
     Enemigo* enemigo = new Enemigo(this->ventana->obtener_render(), 4);
     this->enemigos.insert(std::make_pair(111,enemigo));
-    ObjetoJuego* comida = crearObjeto(static_cast<int>(Type::comida));
-    this->entidades.insert(std::make_pair(static_cast<int>(Type::comida),comida));
+    ObjetoJuego* comida = crearObjeto(Type::comida);
+    this->entidades.insert(std::make_pair(1,comida));
 }
 
 std::vector<double>& Modelo::getZBuffer(){
@@ -135,11 +131,7 @@ void Modelo::verificarObjetosEnRangoDeVista(){
 void Modelo::renderizar() {
     this->jugador->actualizar(318, 420, 100, 0, 4, false, 50, 3, 5);
     this->jugador->renderizar();
-<<<<<<< HEAD
-
-=======
   //  this->verificarObjetosEnRangoDeVista();
->>>>>>> ccba88ba9c2f14640579f418dae5247eae15b8c3
     //this->verificarObjetosEnRangoDeVista();
     // verificar items si estan en posicion;
     // verificar enemigos si estan en posicion correcta;
@@ -169,7 +161,7 @@ void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
     this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador, vida, disparando);
 }
 
-void Modelo::actualizarObjeto(int id,Type tipo int posx, int posy) {
+void Modelo::actualizarObjeto(int id,Type tipo, int posx, int posy) {
 
     if (entidades[id] == NULL) {
         ObjetoJuego *objeto = this->crearObjeto(tipo);
