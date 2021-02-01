@@ -129,7 +129,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                   wallDest.y = drawStart;
                   wallDest.w = 1;
                   wallDest.h = drawEnd - drawStart;
-                  wall->renderizar(&wallDimension,wallDest, 0);
+                  wall->renderizar(&wallDimension,wallDest, 0,NULL/*CHEQUEAR*/);
                   this->ventana->actualizar();
 
                   std::chrono::milliseconds duration(20);

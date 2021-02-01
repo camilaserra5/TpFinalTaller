@@ -10,7 +10,7 @@
 
 class ManejadorEventos : public Thread {
 public:
-    ManejadorEventos(int id, BlockingQueue<Comando *> &eventos);
+    ManejadorEventos(int& id, BlockingQueue<Comando *> &eventos);
 
     ~ManejadorEventos();
 

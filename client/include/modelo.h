@@ -15,6 +15,7 @@ public:
     ~Modelo();
 
     void inicializar(); // viene los datos todos los jugadores?
+
     void renderizar();
 
     void actualizarJugador(int x, int y, int vida, int angulo, int id, int idArma);
@@ -22,6 +23,8 @@ public:
     ObjetoJuego *crearObjeto(Type tipo);
 
     void actualizarObjeto(int id, Type tipo, int posx, int posy);
+
+    void verificarObjetosEnRangoDeVista();
 
 private:
     Ventana *ventana;

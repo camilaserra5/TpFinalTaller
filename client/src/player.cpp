@@ -21,6 +21,7 @@ void Player::settear_estado(int posx, int posy, int vida, int angulo, int idArma
 }
 
 void Player::renderizar() {
+  
     this->arma.renderizar(disparando);
     this->infoJugador.renderizar();
 }

@@ -26,7 +26,7 @@ Enemigo::Enemigo(SDL_Renderer* render, int idArmaJugador):
 
 Enemigo::~Enemigo(){}
 
-void Enemigo::actualizar(int posx, int posy, int idArmaJugador, int anguloEnemigo,  int anguloJugador, int vida){
+void Enemigo::actualizar(int posx, int posy, int idArmaJugador, int anguloEnemigo,int anguloJugador, int vida){
       this->angulo = verificarEstado(this->posx, this->posy, posx, posy);
       this->posx = posx;
       this->posy = posy;

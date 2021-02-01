@@ -8,11 +8,11 @@
 
 class Ventana {
 public:
-    Ventana(const std::string &titulo, int x, int y, int ancho, int alto, int flags);
+    Ventana(const std::string &titulo, int x, int y, int& ancho, int& alto, int& flags);
 
     ~Ventana();
 
-    SDL_Renderer *obtener_render();
+    SDL_Renderer* obtener_render();
 
     void renderizar(Textura *textura);
 
