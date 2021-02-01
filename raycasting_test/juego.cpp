@@ -8,6 +8,8 @@
 #define WOODEN_WALL_ROOT "../../editor/resources/wall2.jpg"
 #define BLUE_STONE_WALL_ROOT "../../editor/resources/wall1.jpg"
 #define GRAY_STONE_WALL_ROOT "../../editor/resources/wall3.jpg"
+#define PUERTA_ROOT "../../editor/resources/puerta.png"
+
 
 #include "SDL2/SDL_ttf.h"
 #include <SDL2/SDL.h>
@@ -94,7 +96,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                                             /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
                                             };
             SDL_Renderer *render = this->ventana->obtener_render();
-            Textura* wall = new Textura(GRAY_STONE_WALL_ROOT,render);
+            Textura* wall = new Textura(PUERTA_ROOT,render);
             Posicion& posJugador = jugador.getPosicion();
 
             /*******PARAMETROS DE RAYCASTING********/
@@ -106,7 +108,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
             SDL_Rect wallDimension,wallDest;
 
 
-            std::list<double>& zbuffer = this->modelo->getZBuffer();
+            std::vector<double>& zbuffer = this->modelo->getZBuffer();
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
                 unsigned int alturaParedProyectada = 0;
                 double distancia = 0;
@@ -114,7 +116,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                 Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo,posJugador);
                 rayo.verificarInterseccion(mapa,distancia,jugador);
                 alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                zbuffer.push_front(alturaParedProyectada);
+                zbuffer.push_back(alturaParedProyectada);
                 if (drawStart > ALTURA_CANVAS){
                     drawStart = 600 - 1;
                     drawEnd = 0;
@@ -132,7 +134,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                 wallDest.y = drawStart;
                 wallDest.w = 1;
                 wallDest.h = drawEnd - drawStart;
-                
+
                 wall->renderizar(&wallDimension,wallDest, 0,NULL/*CHEQUEAR*/);
                 this->ventana->actualizar();
 

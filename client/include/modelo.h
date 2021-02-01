@@ -7,7 +7,7 @@
 #include "objetoJuego.h"
 #include "objetosJuego.h"
 #include "enemigo.h"
-#include <list>
+#include <vector>
 
 class Modelo {
 public:
@@ -19,6 +19,8 @@ public:
 
     void renderizar();
 
+    void renderizarSprite(int& anchoTexturaFoto,int& anchuraColumna,int& x,int& y1,int& alturaTexturaFoto,int& distanciaAItem);
+
     void actualizarJugador(int x, int y, int vida, int angulo, int id, int idArma);
 
     ObjetoJuego *crearObjeto(Type tipo);
@@ -27,7 +29,12 @@ public:
 
     void verificarObjetosEnRangoDeVista();
 
-    std::list<double>& getZBuffer();
+    std::vector<double>& getZBuffer();
+
+    void verificarEnemigosEnRango();
+
+    void verificarItemsEnRango();
+
 
 private:
     Ventana *ventana;
@@ -36,7 +43,7 @@ private:
     std::map<int, ObjetoJuego *> entidades;
     std::vector<Enemigo*> enemigos;
     int x;
-    std::list<double> zbuffer;
+    std::vector<double> zbuffer;
     // mapa de entidades dibujables;
 
 };
