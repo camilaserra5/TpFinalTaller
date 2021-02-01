@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include "blocking_queue.h"
 #include "comandos/comando.h"
+#include "sonido.h"
 
 class ManejadorEventos : public Thread {
 public:
@@ -27,7 +28,7 @@ private:
     int idJugador;
     BlockingQueue<Comando *> &eventos;
     bool corriendo;
-
+    Sonido sonidoAmbiente;
 };
 
 #endif

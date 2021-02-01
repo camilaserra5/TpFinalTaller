@@ -7,7 +7,8 @@
 ManejadorEventos::ManejadorEventos(int idJugador, BlockingQueue<Comando*>& eventos):
     idJugador(idJugador),
     eventos(eventos),
-    corriendo(true){}
+    corriendo(true),
+    sonidoAmbiente("../resources/sonidos/wolfenstein-3d-title-theme.wav"){}
 
 ManejadorEventos::~ManejadorEventos(){}
 
@@ -54,6 +55,10 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
                           crearMovimiento(Accion::moverAbajo);
                         //  player.settear_estado(0, -1, 100, 50);
                         std::cout << "me muevo abajo\n";
+                          break;
+                      case SDLK_SPACE:
+                          sonidoAmbiente.play();
+                        std::cout << "ESPACIO\n";
                           break;
               }
               break;
