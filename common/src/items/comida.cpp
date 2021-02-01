@@ -16,3 +16,7 @@ void Comida::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugado
         //contenedor.sacarElementoDePosicion(this->posicion);
     }
 }
+
+Type Comida::getTipo(){
+    return Type::comida;
+}

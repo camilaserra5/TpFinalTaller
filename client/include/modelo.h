@@ -28,9 +28,9 @@ public:
                             int posx, int posy, int idArma,
                             int anguloJgador, int angulo);
 
-    ObjetoJuego *crearObjeto(int tipo);
+    ObjetoJuego *crearObjeto(Type tipo);
 
-    void actualizarObjeto(int id,  int posx, int posy);
+    void actualizarObjeto(int id, Type tipo, int posx, int posy);
 
     void verificarObjetosEnRangoDeVista();
 

@@ -57,9 +57,10 @@ void ClientEventReceiver::run() {
           for (int i = 0; i< items.size(); i++){
               Item* item = items[i];
               int idI = item->getId();
+              Type tipo = item->getTipo();
               int posxI = item->obtenerPosicion().pixelesEnX();
               int posyI = item->obtenerPosicion().pixelesEnY();
-              modelo.actualizarObjeto(idI, posxI, posyI);
+              modelo.actualizarObjeto(idI, tipo, posxI, posyI);
           }
 
       }

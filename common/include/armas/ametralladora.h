@@ -17,6 +17,8 @@ public:
 
     bool esPistola() override;
 
+    Type getTipo() override;
+
 
 private:
     int cantidad_rafagas;

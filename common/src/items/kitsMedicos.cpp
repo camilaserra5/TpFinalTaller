@@ -12,3 +12,7 @@ void KitsMedicos::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *j
         jugador->actualizar_vida(this->puntos_de_vida);
     }
 }
+
+Type KitsMedicos::getTipo(){
+    return Type::kitsMedicos;
+}

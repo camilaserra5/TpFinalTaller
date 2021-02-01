@@ -13,6 +13,8 @@ public:
 
     void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
+    Type getTipo() override;
+
 private:
     int cant_balas;
 };

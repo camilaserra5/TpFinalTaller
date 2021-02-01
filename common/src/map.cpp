@@ -55,37 +55,36 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     }
     Posicion posicion = Posicion(posElementox, posElementoy, 0);
     if (value == Type::comida) {
-        //  Comida comida = new Comida(posicion);
-        Posicion prueba = Posicion(4, 6, 0);
-        std::cout << "agrego comuda\n";
-        this->contenedorDeElementos.agregarElemento(new Comida(posicion,static_cast<int>(Type::comida)));
+
+
+        this->contenedorDeElementos.agregarElemento(new Comida(posicion,1));
     } else if (value == Type::sangre) {
-        //Sangre sangre = new Sangre(posicion);
-        this->contenedorDeElementos.agregarElemento(new Sangre(posicion,static_cast<int>(Type::sangre)));
+
+        this->contenedorDeElementos.agregarElemento(new Sangre(posicion,2));
     } else if (value == Type::kitsMedicos) {
-        this->contenedorDeElementos.agregarElemento(new KitsMedicos(posicion, static_cast<int>(Type::kitsMedicos)));
+        this->contenedorDeElementos.agregarElemento(new KitsMedicos(posicion, 3));
     } else if (value == Type::balas) {
-        this->contenedorDeElementos.agregarElemento(new Balas(posicion, BALAS, static_cast<int>(Type::balas)));
+        this->contenedorDeElementos.agregarElemento(new Balas(posicion, BALAS, 4));
     } else if (value == Type::ametralladora) {
-        this->contenedorDeElementos.agregarElemento(new Ametralladora(posicion, static_cast<int>(Type::ametralladora)));
+        this->contenedorDeElementos.agregarElemento(new Ametralladora(posicion, 5));
     } else if (value == Type::canionDeCadena) {
-        this->contenedorDeElementos.agregarElemento(new CanionDeCadena(posicion, static_cast<int>(Type::canionDeCadena)));
+        this->contenedorDeElementos.agregarElemento(new CanionDeCadena(posicion, 6));
     } else if (value == Type::lanzaCohetes) {
-        this->contenedorDeElementos.agregarElemento(new LanzaCohetes(posicion, static_cast<int>(Type::lanzaCohetes)));
+        this->contenedorDeElementos.agregarElemento(new LanzaCohetes(posicion, 7));
     } else if (value == Type::cruz){
 
-        this->contenedorDeElementos.agregarElemento(new Tesoro(static_cast<int>(Type::cruz), PUNTOS_CRUZ, posicion));
+        this->contenedorDeElementos.agregarElemento(new Tesoro(8,Type::cruz, PUNTOS_CRUZ, posicion));
     } else if (value == Type::copa) {
 
-        this->contenedorDeElementos.agregarElemento(new Tesoro(static_cast<int>(Type::copa), PUNTOS_COPA, posicion));
+        this->contenedorDeElementos.agregarElemento(new Tesoro(9,Type::copa, PUNTOS_COPA, posicion));
     } else if (value == Type::cofre){
 
-        this->contenedorDeElementos.agregarElemento(new Tesoro(static_cast<int>(Type::cofre), PUNTOS_COFRE, posicion));
+        this->contenedorDeElementos.agregarElemento(new Tesoro(10,Type::cofre, PUNTOS_COFRE, posicion));
     } else if (value == Type::corona){
 
-        this->contenedorDeElementos.agregarElemento(new Tesoro(static_cast<int>(Type::corona), PUNTOS_CORONA, posicion));
+        this->contenedorDeElementos.agregarElemento(new Tesoro(11,Type::corona, PUNTOS_CORONA, posicion));
     } else if (value == Type::llave) {
-        this->contenedorDeElementos.agregarElemento(new Llave(posicion,static_cast<int>(Type::llave)));
+        this->contenedorDeElementos.agregarElemento(new Llave(posicion,12));
     } else {
         std::cout << "agrego no item\n";
         this->contenedorDeElementos.agregarElemento(new NoItem(posicion, 1000));

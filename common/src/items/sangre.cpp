@@ -12,3 +12,7 @@ void Sangre::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugado
         jugador->actualizar_vida(this->puntos_de_vida);
     }
 }
+
+Type Sangre::getTipo(){
+    return Type::sangre;
+}

@@ -11,6 +11,8 @@ public:
 
     void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
+    Type getTipo() override;
+
 private:
     int puntos_de_vida;
 };

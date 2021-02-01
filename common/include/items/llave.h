@@ -14,6 +14,8 @@ public:
 
     void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
+    Type getTipo() override;
+
 };
 
 #endif

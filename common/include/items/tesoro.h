@@ -6,15 +6,16 @@
 
 class Tesoro : public Item {
 public:
-    Tesoro(int id, int puntos, Posicion &posicion);
+    Tesoro(int id, Type tipo, int puntos, Posicion &posicion);
 
     ~Tesoro();
 
     void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
-
+    Type getTipo() override;
 private:
     int puntos;
+    Type tipo;
 };
 
 #endif

@@ -13,3 +13,6 @@ void Balas::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador
         //sacar del mapa
     }
 }
+Type Balas::getTipo(){
+    return Type::balas;
+}

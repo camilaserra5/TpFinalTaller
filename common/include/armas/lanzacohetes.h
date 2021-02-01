@@ -18,6 +18,8 @@ public:
 
     bool esPistola() override;
 
+    Type getTipo() override;
+
 };
 
 #endif

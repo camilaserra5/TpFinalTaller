@@ -14,6 +14,10 @@ public:
         std::cout << "beneficio de no item\n";
     }
 
+    Type getTipo() override{
+        return Type::noItem;
+    }
+
 };
 
 #endif

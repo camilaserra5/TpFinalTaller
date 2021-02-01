@@ -4,6 +4,7 @@
 #include <iserializable.h>
 #include "jugador.h"
 #include "posicion.h"
+#include "objetosJuego.h"
 
 class ContenedorDeElementos;
 
@@ -35,6 +36,8 @@ public:
     int getId(){
         return this->id;
     }
+
+    virtual Type getTipo() = 0;
 
 
 protected:
