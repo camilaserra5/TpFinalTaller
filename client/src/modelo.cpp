@@ -1,6 +1,7 @@
 #include "../include/modelo.h"
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 //#include "rayo.h"
 
 #define SPRITES_OBJETOS_ANCHO 320
@@ -27,12 +28,13 @@ void Modelo::inicializar() {
 
 }
 
-std::list<double>& Modelo::getZBuffer(){
+std::vector<double>& Modelo::getZBuffer(){
   return this->zbuffer;
 }
 
-/*
+
 void normalizarAnguloEnRango(double& diferenciaAngulo,bool& esVisible){
+  double pi = 2 * acos(0.0);
   if (diferenciaAngulo < -pi){
     diferenciaAngulo += 2 * pi;
   } else if (diferenciaAngulo > pi){
@@ -44,44 +46,57 @@ void normalizarAnguloEnRango(double& diferenciaAngulo,bool& esVisible){
   }
 }
 
-void Modelo::renderizar(int& anchoTexturaFoto,int& anchuraColumna,int& x,int& y1,int& alturaTexturaFoto,std::vector<int>& zbuffer,int& distanciaObjeto){
+void Modelo::renderizarSprite(int& anchoTexturaFoto,int& anchuraColumna,int& x,int& y1,int& alturaTexturaFoto,int& distanciaObjeto){
   for (int i = 0; i < anchoTexturaFoto; i++){
     for (int j = 0; j < anchuraColumna; j++){
       int posBuffer = x + (i - 1) * anchuraColumna + j;
-      if (zbuffer[posBuffer] > distanciaObjeto){
+      if (this->zbuffer[posBuffer] > distanciaObjeto){
         //toda la bola de sdl de dibujar una columna (como las paredes de raycasting)
       }
     }
   }
 }
 
+bool compararDistanciasSprites(ObjetoJuego* objeto1,ObjetoJuego* objeto2){
+  return (objeto1->getDistanciaParcialAJugador() < objeto2->getDistanciaParcialAJugador());
+}
+
 void Modelo::verificarItemsEnRango(){
-  double anguloJugador = jugador.getAnguloDeVista();
   double pi = 2 * acos(0.0);
+  double anguloJugador = jugador->getAnguloDeVista();
   bool esVisible = false;
-  std::map<int, ObjetoJuego *>::iterator it
+  std::map<int, ObjetoJuego *>::iterator it;
+  std::vector<ObjetoJuego*> itemsVisibles;
+  int altoCelda = 40;//epues pasarlo
+  double distanciaPlanoProyeccion = (800 / 2) / tan(pi/6.0);//sale de raycasting
   for (it = this->entidades.begin(); it != this->entidades.end(); ++it){
-    Posicion& posItem = it->second.getPosicion();
+    Posicion& posItem = it->second->getPosicion();
     double anguloItem = atan(posItem.pixelesEnY()/posItem.pixelesEnX());
     double diferenciaAngulo = anguloJugador - anguloItem;
     normalizarAnguloEnRango(diferenciaAngulo,esVisible);
+    double distanciaAItem = posItem.distanciaA(this->jugador->getPosicion());
+    double alturaSprite = altoCelda / distanciaPlanoProyeccion * distanciaAItem;
     if (esVisible){
-      int altoCelda = 40;//epues pasarlo
-      double distanciaPlanoProyeccion = (ANCHO_CANVAS / 2) / tan(pi/6.0);//sale de raycasting
-      double distanciaAItem = posItem.distanciaA(this->jugador.getPosicion());
-      double alturaSprite = altoCelda / distanciaPlanoProyeccion * distanciaAItem;
+      it->second.setDistanciaParcialAJugador(distanciaAItem);
+      itemsVisibles.push_back(it->second);
+    }
+  }
+   std::sort(this->itemsVisibles.begin(), this->itemsVisibles.end(),compararDistanciasSprites);
+
+  int cantidadItemsVisibles = itemsVisibles.size();
+  for (int i = 0;i < cantidadItemsVisibles; i++){
+
+
       int y0 = (ANCHO_CANVAS / 2) - alturaSprite / 2;
       int y1 = y0 + alturaSprite;
       int alturaTexturaDibujo = y1 - y0;
       int anchoTexturaDibujo = alturaTextura;
       int anchoTexturaFoto = 64;//a qchequeer3
       int alturaTexturaFoto = 64;//a chequear
-      int x0 = tan(anguloItem) * alturaCelda;
-      int x = (ANCHO_CANVAS / 2) + x0 - (anchoTextura / 2);
+      int x0 = tan(anguloItem) * altoCelda;
+      int x = (ANCHO_CANVAS / 2) + x0 - (anchoTexturaFoto / 2);
       int anchuraColumna = alturaTexturaDibujo / alturaTexturaFoto;
-      this->renderizar(anchoTexturaFoto,anchuraColumna,x,y1,alturaTexturaFoto,zbuffer,distanciaAItem);
-      //primero en realidad hay que guardar los sprites en orden de distancia y despues losq dibujamoss
-    }
+      this->renderizarSprite(anchoTexturaFoto,anchuraColumna,x,y1,alturaTexturaFoto,distanciaAItem);
   }
 }
 
@@ -94,7 +109,7 @@ void Modelo::verificarObjetosEnRangoDeVista(){
   this->verificarEnemigosEnRango();
 }
 
-*/
+
 void Modelo::renderizar() {
   int posx(318),posy(420),vida(100),angulo(50),idArma(4);
     this->jugador->actualizar(318, 420, 100, 50, 4, false, 50, 3, 5);
