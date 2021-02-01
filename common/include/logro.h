@@ -17,6 +17,10 @@ public:
     void aniadirPuntosPorTesoro(int puntos); //cada tesoro sabe cuantos puntos
     void aniadirEnemigosMatados(int cantidadDeEnemigos);
 
+    int obtener_puntaje(){
+        return puntosTotalesPorTesoros;
+    }
+
 private:
     int enemigosMatados = 0;
     int puntosTotalesPorTesoros = 0; //no se si se acumula o deberia compararse uno por uno, sino decision de implementacion: se acumula

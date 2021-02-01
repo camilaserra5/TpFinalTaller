@@ -6,7 +6,7 @@
 
 class Tesoro : public Item {
 public:
-    Tesoro(std::string &tipoDeTesoro, int &puntos, Posicion &posicion);
+    Tesoro(int id, int puntos, Posicion &posicion);
 
     ~Tesoro();
 
@@ -14,7 +14,6 @@ public:
 
 
 private:
-    std::string &tipoDeTesoro; //va a servir para dibujar calculo;
     int puntos;
 };
 

@@ -9,7 +9,7 @@ class ContenedorDeElementos;
 
 class Item : public ISerializable {
 public:
-    Item(Posicion &posicion) : posicion(posicion) {}
+    Item(Posicion &posicion, int id) : posicion(posicion), id(id) {}
 
     virtual ~Item() {}
 
@@ -32,9 +32,14 @@ public:
     void deserializar(std::vector<char> &serializado) override {
         this->posicion.deserializar(serializado);
     }
+    int getId(){
+        return this->id;
+    }
+
 
 protected:
     Posicion posicion;
+    int id;
 };
 
 #endif

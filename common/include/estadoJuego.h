@@ -68,6 +68,13 @@ public:
 
     void abrirPuerta(int idJugador);
 
+    std::map<int, Jugador*>& obtenerJugadores(){
+        return this->jugadores;
+    }
+    Map* obtenerMapa(){
+        return this->mapa;
+    }
+
 
 private:
     Map *mapa;

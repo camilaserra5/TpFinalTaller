@@ -3,7 +3,7 @@
 #define MAX_BALAS 25
 
 
-Balas::Balas(Posicion &posicion, int cantidad_balas) : Item(posicion), cant_balas(cantidad_balas) {}
+Balas::Balas(Posicion &posicion, int cantidad_balas, int id) : Item(posicion, id), cant_balas(cantidad_balas) {}
 
 Balas::~Balas() {}
 

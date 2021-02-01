@@ -7,7 +7,7 @@
 
 class CanionDeCadena : public Arma, public Item {
 public:
-    CanionDeCadena(Posicion &posicion) : Arma(DISTANCIA_MAX, 2), Item(posicion) {}
+    CanionDeCadena(Posicion &posicion, int id) : Arma(DISTANCIA_MAX, 2), Item(posicion, id) {}
 
     ~CanionDeCadena() {}
 

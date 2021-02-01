@@ -7,7 +7,7 @@
 
 class Balas : public Item {
 public:
-    Balas(Posicion &posicion, int cantidad);
+    Balas(Posicion &posicion, int cantidad, int id);
 
     ~Balas();
 

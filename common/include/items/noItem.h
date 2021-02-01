@@ -6,7 +6,7 @@
 
 class NoItem : public Item {
 public:
-    NoItem(Posicion &posicion) : Item(posicion) {}
+    NoItem(Posicion &posicion, int id) : Item(posicion, id) {}
 
     ~NoItem() {}
 
