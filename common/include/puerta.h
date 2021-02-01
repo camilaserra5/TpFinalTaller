@@ -13,7 +13,7 @@ class Puerta{
       ~Puerta();
       void abrir();
       void cerrar();
-      bool puedeSerAbierta(Posicion& posicion,bool jugadorTieneLlave);
+      bool puedeSerAbierta(Posicion& posicionJugador,bool jugadorTieneLlave);
 };
 
 #endif
