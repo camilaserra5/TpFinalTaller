@@ -7,6 +7,7 @@
 #include "objetosJuego.h"
 #include "iserializable.h"
 #include <iostream>
+#include "puerta.h"
 // faltaria agregar una posicion para los jugadores
 // tambien el tema de los itemas(comida, sangre, todas las armas);
 
@@ -62,6 +63,8 @@ public:
                                                            serializado.end());
         this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
     }
+
+    Puerta& puertaMasCercana(Posicion& posicionJugador);
 
 private:
     unsigned rowSize;

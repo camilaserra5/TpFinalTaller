@@ -10,14 +10,16 @@
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
 #include "iostream"
+#include "puerta.h"
 
 #define METROS_MOVIDOS 1 // de acuanto se mueve el jugador
 
 void EstadoJuego::abrirPuerta(int idJugador){
   Jugador* jugador = this->jugadores.at(idJugador);
-  //obtengo la puerta mas proxima al jugador
-  if (jugador->tengollave() /* || !puerta.necesitaLlave()*/){
-    //cambio el estado de la puerta que esta en la posicion mas proxima al jugador
+  Posicion& posJugador = jugador->getPosicion();
+  Puerta& puertaMasCercana = this->mapa->puertaMasCercana(posJugador);//obtengo la puerta mas proxima al jugador
+  if (puertaMasCercana.puedeSerAbierta(posJugador,jugador->tengollave())){
+    puertaMasCercana.abrir();
   }
 }
 

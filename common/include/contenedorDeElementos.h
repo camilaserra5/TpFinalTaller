@@ -54,7 +54,8 @@ public:
     }
 
 private:
-    std::vector<Item *> elementos;
+    std::vector<Item*> elementos;
+    //std::vector<Puerta> puertas;
 };
 
 #endif
