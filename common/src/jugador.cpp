@@ -102,8 +102,8 @@ void Jugador::actualizarArma(){
   delete lanzacohetes;
 }
 
-void Jugador::rotar() {
-    this->posicion.rotar(this->velocidadDeRotacion);
+void Jugador::rotar(int sentido) {
+    this->posicion.rotar(sentido * this->velocidadDeRotacion);
 }
 
 Logro &Jugador::obtenerLogro() {

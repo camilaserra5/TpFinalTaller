@@ -16,11 +16,9 @@ public:
 
     ~EstadoJuego();
 
-    void rotar(int idJugador);
+    void rotar_a_derecha(int idJugador);
 
-    void moverse_a_derecha(int idJugador);
-
-    void moverse_a_izquierda(int idJugador);
+    void rotar_a_izquierda(int idJugador);
 
     void moverse_arriba(int idJugador);
 
@@ -66,7 +64,7 @@ public:
 
     void verificarJugadoresMuertos();
 
-    void buscarItemsEnPosJugador(Jugador *jugador, int &posX, int &posY, int xFinal, int yFinal);
+    void verificarMovimientoJugador(Jugador* jugador,int& posX,int& posY);
 
     void abrirPuerta(int idJugador);
 

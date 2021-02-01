@@ -25,7 +25,7 @@ void Cliente::actualizar(const Actualizacion &actualizacion) {
 void Cliente::run() {
 
     int id = 111;
-    Comando *movimiento = new Movimiento(id, Accion::moverDerecha);
+    Comando *movimiento = new Movimiento(id, Accion::rotarDerecha);
     Comando *ataque = new Ataque(id);
 
     this->cola_comandos.aniadir_dato(movimiento);

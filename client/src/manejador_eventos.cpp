@@ -49,15 +49,15 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
                   // aca mandariamos la informacion o crearimos el evento;
                       case SDLK_LEFT:         // x, y, vida, angulo;
 
-                          crearMovimiento(Accion::moverIzquierda);
+                          crearMovimiento(Accion::rotarIzquierda);
                         //  player.settear_estado(-1, 0, 100, 50); // esto es para probar que se cambia el estado
                                                                 // y se renderiza la imagen;
-                            std::cout << "me muevo a izquierda\n";
+                            std::cout << "me roto a izquierda\n";
                           break;
                       case SDLK_RIGHT:
-                          crearMovimiento(Accion::moverDerecha);
+                          crearMovimiento(Accion::rotarDerecha);
                         //  player.settear_estado(1, 0, 100, 50);
-                        std::cout << "me muevo a derecha\n";
+                        std::cout << "me roto a derecha\n";
                           break;
                       case SDLK_UP:
                           crearMovimiento(Accion::moverArriba);
