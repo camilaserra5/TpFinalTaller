@@ -7,11 +7,11 @@ ObjetoJuego::ObjetoJuego(Sprite&& sprite) :
 ObjetoJuego::~ObjetoJuego() {}
 
 void ObjetoJuego::renderizar() {
-    this->sprite.renderizar(this->posicion.pixelesEnX(), this->posicion.pixelesEnY(), this->angulo, NULL);
+    this->sprite.renderizar(this->posicion.pixelesEnX(), this->posicion.pixelesEnY(), this->posicion.getAnguloDeVista(), NULL);
 }
 
-void ObjetoJuego::settear_estado(int& posx, int& posy) {
-  this->posicion.actualizarPosicion(posx,posy);
+void ObjetoJuego::settear_estado(int posx, int posy) {
+  this->posicion.actualizar_posicion(posx,posy);
 }
 
 void ObjetoJuego::setDistanciaParcialAJugador(int& distancia){
@@ -24,4 +24,8 @@ int ObjetoJuego::getDistanciaParcialAJugador(){
 
 Posicion& ObjetoJuego::getPosicion(){
     return this->posicion;
+}
+
+void ObjetoJuego::renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest){
+  this->sprite.renderizarColumna(dimension,dest);
 }

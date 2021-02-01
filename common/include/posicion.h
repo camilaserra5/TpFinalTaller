@@ -23,6 +23,8 @@ public:
 
     int pixelesEnY();
 
+    void setAngulo(float angulo);
+
     float getAnguloDeVista() { return this->anguloDeVista; }
 
     bool estaCerca(int &posx, int &posy);

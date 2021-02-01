@@ -19,7 +19,7 @@ public:
 
     void renderizar();
 
-    void renderizarSprite(int& anchoTexturaFoto,int& anchuraColumna,int& x,int& y1,int& alturaTexturaFoto,int& distanciaAItem);
+    void renderizarSprite(ObjetoJuego* objeto,int& anchoTexturaFoto,int& anchuraColumna,int& x,int& y1,int& alturaTexturaFoto,int& distanciaAItem);
 
     void actualizarJugador(int x, int y, int vida, int angulo, int idArma,
                             bool disparando, int puntaje, int cantVidas,

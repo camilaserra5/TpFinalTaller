@@ -9,18 +9,17 @@
 #define BALAS_INICIAL 5
 
 Player::Player(const char *rutaimg, SDL_Renderer *render, int id) :
-        posx(0), posy(0),
+        posicion(0,0,0),
         infoJugador(render, VIDA_MAX, NIVEL, PUNTAJE_INICIAL, CANT_VIDA_MAX, BALAS_INICIAL),
-        angulo(50), id(id), arma(render), disparando(true) {
+        id(id), arma(render), disparando(true) {
 
 }
 
-void Player::actualizar(int posx, int posy, int vida, int angulo, int idArma,
+void Player::actualizar(int posx, int posy, int vida, float angulo, int idArma,
                         bool disparando, int puntaje,int cantVidas,int balas) {
-    this->posx = posx;
-    this->posy = posy;
+    this->posicion.actualizar_posicion(posx,posy);
+    this->posicion.setAngulo(angulo);
     this->vida = vida;
-    this->angulo = angulo;
     this->arma.actualizar(idArma);
     this->disparando = disparando;
     this->infoJugador.actualizarDatosJugador(vida, nivel, puntaje, cantVidas, balas);
@@ -29,4 +28,12 @@ void Player::actualizar(int posx, int posy, int vida, int angulo, int idArma,
 void Player::renderizar() {
     this->arma.renderizar(disparando);
     this->infoJugador.renderizar();
+}
+
+Posicion& Player::getPosicion(){
+  return this->posicion;
+}
+
+float Player::getAnguloDeVista(){
+    return this->posicion.getAnguloDeVista();
 }

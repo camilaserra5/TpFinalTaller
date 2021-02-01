@@ -107,7 +107,6 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
             double anguloRayo = anguloJugador - (rangoDeVista / 2);
             SDL_Rect wallDimension,wallDest;
 
-
             std::vector<double>& zbuffer = this->modelo->getZBuffer();
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
                 unsigned int alturaParedProyectada = 0;
