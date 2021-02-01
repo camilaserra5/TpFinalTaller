@@ -21,7 +21,7 @@ public:
         socket.enviar(buffer.c_str(), buffer.size());
     }
 
-    std::stringstream recibir() {
+    std::stringstream recibir_aux() {
         char buffer[TAMANIO];
         std::stringstream informacion;
         int cant_recibidos = socket.recibir(buffer, TAMANIO);
@@ -32,8 +32,8 @@ public:
         return informacion;
     }
 
-    std::vector<char> recibirBinario() {
-        std::string someString = recibir().str();
+    std::vector<char> recibir() {
+        std::string someString = recibir_aux().str();
         std::vector<char> informacion(someString.begin(), someString.end());
         return informacion;
     }

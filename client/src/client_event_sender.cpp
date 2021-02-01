@@ -7,9 +7,9 @@
 #include "protocolo.h"
 #include <sstream>
 
-ClientEventSender::ClientEventSender(Socket &socket,
+ClientEventSender::ClientEventSender(Socket& socket,
                                      BlockingQueue<Comando *> &events) :
-        socket(socket), events(events), protocolo(std::move(socket)) {}
+        events(events), protocolo(std::move(socket)) {}
 
 void ClientEventSender::run() {
     while (this->running) {

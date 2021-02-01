@@ -23,7 +23,7 @@ void Modelo::inicializar() {
     this->jugador = new Player("../../client/resources/images/Weapons.png", this->ventana->obtener_render(),
                                 this->idJugador);
     Enemigo* enemigo = new Enemigo(this->ventana->obtener_render(), 4);
-    this->enemigos.push_back(enemigo);
+    this->enemigos.insert(std::make_pair(111,enemigo));
 
 }
 /*
@@ -92,79 +92,88 @@ void Modelo::verificarObjetosEnRangoDeVista(){
 */
 void Modelo::renderizar() {
   int posx(318),posy(420),vida(100),angulo(50),idArma(4);
-    this->jugador->settear_estado(318, 420, 100, 50, 4);
+    this->jugador->actualizar(318, 420, 100, 50, 4, false, 50, 3, 5);
     this->jugador->renderizar();
-    this->verificarObjetosEnRangoDeVista();
+  //  this->verificarObjetosEnRangoDeVista();
     // verificar items si estan en posicion;
     // verificar enemigos si estan en posicion correcta;
 
-    for (int i=0; i<this->enemigos.size(); i++){
+    for (std::map<int,Enemigo*>::iterator it=enemigos.begin(); it!=enemigos.end(); ++it){
       int posx(500), posy(300),idArma(4),anguloEnemigo(0),anguloJugador(90),vida(100);
-          this->enemigos[i]->actualizar(500, 300, 4, 0, 90, 100);
-          this->enemigos[i]->renderizar();
+          it->second->actualizar(500, 300, 4, 0, 90, 100, true);
+          it->second->renderizar();
     }
-
-
-    //jugador->dejarDeDisparar();
-
 }
 
-void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
+void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int idArma,
+                        bool disparando, int puntaje, int cantVidas,
+                        int balas){
+    this->jugador->actualizar(x, y, vida, angulo, idArma, disparando, puntaje, cantVidas, balas);
+}
+
+void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
+                        int posx, int posy, int idArma,
+                        int anguloJugador, int angulo){
+
+    if (this->enemigos[id] == NULL){
+          Enemigo* enemigo = new Enemigo(this->ventana->obtener_render(), 4);
+    }
+    this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador, vida, disparando);
+}
+
+void Modelo::actualizarObjeto(int id, int posx, int posy) {
 
     if (entidades[id] == NULL) {
-        ObjetoJuego *objeto = this->crearObjeto(tipo);
+        ObjetoJuego *objeto = this->crearObjeto(id);
         this->entidades[id] = objeto;
     }
     this->entidades[id]->settear_estado(posx, posy);
 
 }
 
-void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int id, int arma) {
-    this->jugador->settear_estado(x, y, vida, angulo, arma);
-}
 
-ObjetoJuego *Modelo::crearObjeto(Type tipo) {
-    if (tipo == Type::comida) {
+ObjetoJuego *Modelo::crearObjeto(int tipo) {
+    if (tipo == static_cast<int>(Type::comida)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 5, 1, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::kitsMedicos) {
+    } else if (tipo == static_cast<int>(Type::kitsMedicos)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 5, 2, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::llave) {
+    } else if (tipo == static_cast<int>(Type::llave)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 4, 2, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::balas) {
+    } else if (tipo == static_cast<int>(Type::balas)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 5, 3, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::sangre) {
+    } else if (tipo == static_cast<int>(Type::sangre)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 8, 0, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::cruz) {
+    } else if (tipo == static_cast<int>(Type::cruz)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 1, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::copa) {
+    } else if (tipo == static_cast<int>(Type::copa)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::cofre) {
+    } else if (tipo == static_cast<int>(Type::cofre)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::corona) {
+    } else if (tipo == static_cast<int>(Type::corona)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::ametralladora) {
+    } else if (tipo == static_cast<int>(Type::ametralladora)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 6, 4, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::lanzaCohetes) {
+    } else if (tipo == static_cast<int>(Type::lanzaCohetes)) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 0, SPRITES_OBJETOS_LARGO / FRAMESY,
                       SPRITES_OBJETOS_ANCHO / FRAMESX);
         return new ObjetoJuego(std::move(sprite));

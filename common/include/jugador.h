@@ -7,6 +7,7 @@
 #include "logro.h"
 #include <map>
 
+
 class Arma;
 
 class Jugador {
@@ -67,9 +68,20 @@ public:
 
     void aniadirEnemigosMatados(int jugadoresMatados);
 
+    bool estaDisparando();
+
     std::vector<char> serializar() {
         std::vector<char> informacion;
-
+        informacion.push_back(this->id);
+        informacion.push_back(this->posicion.pixelesEnX());
+        informacion.push_back(this->posicion.pixelesEnY());
+        informacion.push_back(this->vida);
+        informacion.push_back(this->posicion.getAnguloDeVista());
+        informacion.push_back(this->armaActual);
+        informacion.push_back(this->disparando); // booleano
+        informacion.push_back(this->logro.obtener_puntaje());
+        informacion.push_back(this->cantidad_vidas);
+        informacion.push_back(this->balas);
         return informacion;
     }
 
@@ -92,12 +104,12 @@ private:
     int vida;
     std::map<int,Arma*> armas;
     int balas;
-    float angulo = 0;
     float velocidadDeRotacion;
-    Arma *armaActual;
+    int armaActual;
     int llaves;
     int cantidad_vidas;
     Logro logro;
+    bool disparando;
 };
 
 #endif

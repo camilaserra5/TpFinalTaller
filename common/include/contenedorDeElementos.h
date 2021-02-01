@@ -52,6 +52,10 @@ public:
             ult = ult + 2;
         }
     }
+    std::vector<Item*>& obtenerItems(){
+          return this->elementos;
+    }
+
 
 private:
     std::vector<Item *> elementos;

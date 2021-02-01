@@ -68,6 +68,13 @@ public:
 
     void buscarItemsEnPosJugador(Jugador *jugador, int &posX, int &posY, int xFinal, int yFinal);
 
+    std::map<int, Jugador*>& obtenerJugadores(){
+        return this->jugadores;
+    }
+    Map* obtenerMapa(){
+        return this->mapa;
+    }
+
 
 private:
     Map *mapa;

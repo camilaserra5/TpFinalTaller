@@ -13,7 +13,8 @@ class Enemigo{
 public:
       Enemigo(SDL_Renderer* render, int idArmaJugador);
       ~Enemigo();
-      void actualizar(int posx, int posy, int idArma, int anguloEnemigo, int anguloJugador, int vida);
+      void actualizar(int posx, int posy, int idArma, int anguloEnemigo,
+                      int anguloJugador, int vida, bool disparando);
       void renderizar();
       int verificarEstado(int posxViejo, int posyViejo, int posxNuevo, int posyNuevo);
 private:
@@ -22,6 +23,7 @@ private:
       int posy;
       int angulo;
       int anguloJugador;
+      bool disparando;
       std::multimap<int, std::vector<Animacion>> enemigos;
 };
 

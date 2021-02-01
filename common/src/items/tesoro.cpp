@@ -1,9 +1,8 @@
 #include "items/tesoro.h"
 
 
-Tesoro::Tesoro(std::string &tipoDeTesoro, int &puntos, Posicion &posicion) :
-        Item(posicion),
-        tipoDeTesoro(tipoDeTesoro),
+Tesoro::Tesoro(int id, int puntos, Posicion &posicion) :
+        Item(posicion, id),
         puntos(puntos) {}
 
 Tesoro::~Tesoro() {}

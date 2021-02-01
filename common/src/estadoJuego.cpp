@@ -60,12 +60,6 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
             return true;
         }
         return false;
-    } else if (tipo == Type::keyDoor) {
-        // me guardo la llave
-        Posicion posicion(1, 1, 1);//va a depender de su posidion en el mapa
-        Llave llave(posicion);
-        llave.obtenerBeneficio(mapa->obtenerContenedor(), jugador);
-        return true;
     } else if (tipo == Type::fakeDoor) {
         return false;
     } else {
@@ -199,10 +193,10 @@ void EstadoJuego::verificarJugadoresMuertos() {
                 //Item* item = arma;
                 //  this->mapa->agregarElemento(item);//como lo pasamos a item
             }
-            this->mapa->agregarElemento(new Balas(it->second->getPosicion(), 10/*cte*/));
+            this->mapa->agregarElemento(new Balas(it->second->getPosicion(), 10/*cte*/, static_cast<int>(Type::balas)));
             if (it->second->tengollave()) {
                 this->mapa->agregarElemento(
-                        new Llave(it->second->getPosicion()));//hay que cambiarlo a que el jugador se guarde una llave
+                        new Llave(it->second->getPosicion(), static_cast<int>(Type::keyDoor)));//hay que cambiarlo a que el jugador se guarde una llave
             }
         }
     }

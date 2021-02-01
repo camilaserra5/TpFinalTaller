@@ -18,11 +18,16 @@ public:
 
     void renderizar();
 
-    void actualizarJugador(int x, int y, int vida, int angulo, int id, int idArma);
+    void actualizarJugador(int x, int y, int vida, int angulo, int idArma,
+                            bool disparando, int puntaje, int cantVidas,
+                            int balas);
+    void actualizarEnemigo(int id, int vida, bool disparando,
+                            int posx, int posy, int idArma,
+                            int anguloJgador, int angulo);
 
-    ObjetoJuego *crearObjeto(Type tipo);
+    ObjetoJuego *crearObjeto(int tipo);
 
-    void actualizarObjeto(int id, Type tipo, int posx, int posy);
+    void actualizarObjeto(int id,  int posx, int posy);
 
     void verificarObjetosEnRangoDeVista();
 
@@ -31,7 +36,7 @@ private:
     int idJugador;
     Player* jugador;
     std::map<int, ObjetoJuego *> entidades;
-    std::vector<Enemigo*> enemigos;
+    std::map<int, Enemigo*> enemigos;
     int x;
     // mapa de entidades dibujables;
 

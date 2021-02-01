@@ -13,13 +13,13 @@
 
 class ClientEventSender : public Thread {
 private:
-    Socket &socket;
+
     BlockingQueue<Comando *> &events;
     bool running = true;
     Protocolo protocolo;
 
 public:
-    ClientEventSender(Socket &socket, BlockingQueue<Comando *> &events);
+    ClientEventSender(Socket& socket, BlockingQueue<Comando *> &events);
 
     void run() override;
 

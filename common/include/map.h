@@ -62,6 +62,9 @@ public:
                                                            serializado.end());
         this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
     }
+    std::vector<Item*>& obtenerItems(){
+        return this->contenedorDeElementos.obtenerItems();
+    }
 
 private:
     unsigned rowSize;

@@ -10,16 +10,19 @@
 #include "protected_queue.h"
 #include "comandos/comando.h"
 #include "modelo.h"
+#include "protocolo.h"
 
 class ClientEventReceiver : public Thread {
 private:
-    Socket &socket;
+    Protocolo protocolo;
     Modelo &modelo;
     ProtectedQueue<Actualizacion *> &updates;
     bool running = true;
+    int idJugador;
 
 public:
-    ClientEventReceiver(Socket &socket, ProtectedQueue<Actualizacion *> &updates, Modelo &modelo);
+    ClientEventReceiver(Socket& socket, ProtectedQueue<Actualizacion *> &updates,
+                        Modelo &modelo, int idJugador);
 
     void run() override;
 
