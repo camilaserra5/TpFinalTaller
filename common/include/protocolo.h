@@ -46,10 +46,10 @@ public:
             return new Ataque(informacion.str()[1]);
         } else {
             Accion accion;
-            if (informacion.str()[2] == static_cast<int>(Accion::moverDerecha)) {
-                accion = Accion::moverDerecha;
-            } else if (informacion.str()[2] == static_cast<int>(Accion::moverIzquierda)) {
-                accion = Accion::moverIzquierda;
+            if (informacion.str()[2] == static_cast<int>(Accion::rotarDerecha)) {
+                accion = Accion::rotarDerecha;
+            } else if (informacion.str()[2] == static_cast<int>(Accion::rotarIzquierda)) {
+                accion = Accion::rotarIzquierda;
             } else if (informacion.str()[2] == static_cast<int>(Accion::moverArriba)) {
                 accion = Accion::moverArriba;
             } else {

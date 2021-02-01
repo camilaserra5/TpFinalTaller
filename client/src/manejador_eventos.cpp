@@ -2,6 +2,8 @@
 #include "../include/player.h"
 
 #include "comandos/movimiento.h"
+#include "comandos/ataque.h"
+#include "comandos/aperturaDePuerta.h"
 #include <iostream>
 
 ManejadorEventos::ManejadorEventos(int& idJugador, BlockingQueue<Comando*>& eventos):
@@ -28,6 +30,17 @@ void ManejadorEventos::crearMovimiento(Accion direccion){
     Comando* movimiento = new Movimiento(this->idJugador, direccion);
     this->eventos.push(movimiento);
 }
+
+void ManejadorEventos::crearAtaque(){
+    Comando* ataque = new Ataque(this->idJugador);
+    this->eventos.push(ataque);
+}
+
+void ManejadorEventos::crearAperturaDePuerta(){
+    Comando* apertura = new AperturaDePuerta(this->idJugador);
+    this->eventos.push(apertura);
+}
+
 void ManejadorEventos::detectarEventos(SDL_Event& evento){
       switch (evento.type) {
           case SDL_KEYDOWN:
@@ -36,15 +49,15 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
                   // aca mandariamos la informacion o crearimos el evento;
                       case SDLK_LEFT:         // x, y, vida, angulo;
 
-                          crearMovimiento(Accion::moverIzquierda);
+                          crearMovimiento(Accion::rotarIzquierda);
                         //  player.settear_estado(-1, 0, 100, 50); // esto es para probar que se cambia el estado
                                                                 // y se renderiza la imagen;
-                            std::cout << "me muevo a izquierda\n";
+                            std::cout << "me roto a izquierda\n";
                           break;
                       case SDLK_RIGHT:
-                          crearMovimiento(Accion::moverDerecha);
+                          crearMovimiento(Accion::rotarDerecha);
                         //  player.settear_estado(1, 0, 100, 50);
-                        std::cout << "me muevo a derecha\n";
+                        std::cout << "me roto a derecha\n";
                           break;
                       case SDLK_UP:
                           crearMovimiento(Accion::moverArriba);
@@ -60,6 +73,9 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
                           sonidoAmbiente.play();
                         std::cout << "ESPACIO\n";
                           break;
+                      case SDLK_PERIOD: //tecla "."
+                        crearAtaque();
+                        break;
               }
               break;
           case SDL_KEYUP:
@@ -67,6 +83,9 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
               break;
           case SDL_QUIT:
               this->stop();
+              break;
+          case SDLK_SPACE:
+              crearAperturaDePuerta();
               break;
           default:
               break;

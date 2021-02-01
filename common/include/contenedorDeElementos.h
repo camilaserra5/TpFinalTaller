@@ -3,6 +3,7 @@
 #define CONTENEDOR_DE_ELEMENTOS
 
 #include <vector>
+#include "puerta.h"
 #include "items/item.h"
 #include "items/comida.h"
 #include "items/balas.h"
@@ -57,8 +58,12 @@ public:
     }
 
 
+    bool hayPuertas();
+
+    Puerta& puertaMasCercana(Posicion& posicionJugador,double& distancia);
 private:
-    std::vector<Item *> elementos;
+    std::vector<Item*> elementos;
+    std::vector<Puerta> puertas;
 };
 
 #endif

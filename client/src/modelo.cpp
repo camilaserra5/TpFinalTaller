@@ -26,6 +26,11 @@ void Modelo::inicializar() {
     this->enemigos.insert(std::make_pair(111,enemigo));
 
 }
+
+std::list<double>& Modelo::getZBuffer(){
+  return this->zbuffer;
+}
+
 /*
 void normalizarAnguloEnRango(double& diferenciaAngulo,bool& esVisible){
   if (diferenciaAngulo < -pi){
@@ -94,7 +99,11 @@ void Modelo::renderizar() {
   int posx(318),posy(420),vida(100),angulo(50),idArma(4);
     this->jugador->actualizar(318, 420, 100, 50, 4, false, 50, 3, 5);
     this->jugador->renderizar();
+<<<<<<< HEAD
   //  this->verificarObjetosEnRangoDeVista();
+=======
+    //this->verificarObjetosEnRangoDeVista();
+>>>>>>> d8aecd81748cf343995b309aec1d34769e4452b6
     // verificar items si estan en posicion;
     // verificar enemigos si estan en posicion correcta;
 

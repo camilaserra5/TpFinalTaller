@@ -24,6 +24,10 @@ public:
 
     bool esta_vivo();
 
+    void crearAtaque();
+
+    void crearAperturaDePuerta();
+
 private:
     int idJugador;
     BlockingQueue<Comando *> &eventos;
