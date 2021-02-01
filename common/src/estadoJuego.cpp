@@ -17,9 +17,12 @@
 void EstadoJuego::abrirPuerta(int idJugador){
   Jugador* jugador = this->jugadores.at(idJugador);
   Posicion& posJugador = jugador->getPosicion();
-  Puerta& puertaMasCercana = this->mapa->puertaMasCercana(posJugador);//obtengo la puerta mas proxima al jugador
-  if (puertaMasCercana.puedeSerAbierta(posJugador,jugador->tengollave())){
-    puertaMasCercana.abrir();
+  double distancia;
+  if (this->mapa->hayPuertas()){
+    Puerta& puertaMasCercana = this->mapa->puertaMasCercana(posJugador,distancia);//obtengo la puerta mas proxima al jugador
+    if (puertaMasCercana.puedeSerAbierta(jugador->tengollave(),distancia)){
+      puertaMasCercana.abrir();
+    }
   }
 }
 

@@ -1,11 +1,23 @@
 #include "../include/contenedorDeElementos.h"
 #include <iostream>
 
+Puerta& ContenedorDeElementos::puertaMasCercana(Posicion& posicionJugador,double& distancia){
+  int cantPuertas = this->puertas.size();
+  int posPuertaMasCercana = 0;
+  distancia = this->puertas[0].distanciaA(posicionJugador);
+    for (int i = 1; i < cantPuertas; i++){
+      double distanciaParcial = this->puertas[i].distanciaA(posicionJugador);
+      if (distanciaParcial < distancia){
+          distancia = distanciaParcial;
+          posPuertaMasCercana = i;
+      }
+    }
+    return this->puertas[posPuertaMasCercana];
+}
 
 void ContenedorDeElementos::agregarElemento(Item *item) {
     this->elementos.push_back(item);
 }
-
 
 void ContenedorDeElementos::sacarElementoDePosicion(Posicion &posicion) {
     std::vector<Item *> elementosFiltrados;
@@ -30,6 +42,10 @@ Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
             return this->elementos[i];
         }
     }
+}
+
+bool ContenedorDeElementos::hayPuertas(){
+  return (this->puertas.size() > 0);
 }
 // serializar items 3 enteros;
 // pos x, posy, id;

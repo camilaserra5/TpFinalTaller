@@ -10,7 +10,10 @@ void Puerta::cerrar(){
   this->abierta = false;
 }
 
-bool Puerta::puedeSerAbierta(Posicion& posicionJugador,bool jugadorTieneLlave){
-  double distancia = this->posicion.distanciaA(posicionJugador);
+bool Puerta::puedeSerAbierta(bool jugadorTieneLlave,double& distancia)const {
   return (distancia <= DISTANCIA_APERTURA && ((jugadorTieneLlave && this->necesitaLlave) || (!this->necesitaLlave)));
+}
+
+double Puerta::distanciaA(Posicion& posicion){
+    return this->posicion.distanciaA(posicion);
 }

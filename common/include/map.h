@@ -64,7 +64,9 @@ public:
         this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
     }
 
-    Puerta& puertaMasCercana(Posicion& posicionJugador);
+    Puerta& puertaMasCercana(Posicion& posicionJugador,double& distancia);
+
+    bool hayPuertas();
 
 private:
     unsigned rowSize;

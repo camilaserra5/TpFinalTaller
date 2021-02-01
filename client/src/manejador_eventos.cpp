@@ -2,6 +2,8 @@
 #include "../include/player.h"
 
 #include "comandos/movimiento.h"
+#include "comandos/ataque.h"
+#include "comandos/aperturaDePuerta.h"
 #include <iostream>
 
 ManejadorEventos::ManejadorEventos(int& idJugador, BlockingQueue<Comando*>& eventos):

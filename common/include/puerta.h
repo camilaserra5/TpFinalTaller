@@ -9,11 +9,12 @@ class Puerta{
       bool necesitaLlave;
       Posicion posicion;//es el punto medio de la puerta, siempre va a estar en y = 0 o x = 0
     public:
-      Puerta();
-      ~Puerta();
+      Puerta(bool necesitaLlave,Posicion& posicion): abierta(false),necesitaLlave(necesitaLlave),posicion(posicion){}
+      ~Puerta(){}
       void abrir();
       void cerrar();
-      bool puedeSerAbierta(Posicion& posicionJugador,bool jugadorTieneLlave);
+      bool puedeSerAbierta(bool jugadorTieneLlave,double& distancia) const;
+      double distanciaA(Posicion& posicion);
 };
 
 #endif

@@ -101,3 +101,12 @@ Type &Map::operator()(const unsigned rowNumber, const unsigned colNumber) {
 Map::~Map() {
 
 }
+
+bool Map::hayPuertas(){
+    return this->contenedorDeElementos.hayPuertas();
+}
+
+Puerta& Map::puertaMasCercana(Posicion& posicionJugador,double& distancia){
+  return this->contenedorDeElementos.puertaMasCercana(posicionJugador,distancia);
+
+}
