@@ -103,6 +103,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
             double anguloJugador = jugador.getAnguloDeVista();
             double anguloRayo = anguloJugador - (rangoDeVista / 2);
             Posicion& posJugador = jugador.getPosicion();
+            std::list<double> zbuffer;// std::list<double>& zbuffer = modelo.getZBuffer();
 
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
                 double distancia = 0;
@@ -110,7 +111,8 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                 Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo,posJugador);
                 rayo.verificarInterseccion(mapa,distancia,jugador);
                 alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-
+                zbuffer.push_front(alturaParedProyectada);
+                //despues este buffer se lo guarda el modelo
                 //  if (alturaParedProyectada > 600){
                   //    drawStart = 600 - 1;
                   //    drawEnd = 0;
