@@ -7,6 +7,7 @@
 #include "objetoJuego.h"
 #include "objetosJuego.h"
 #include "enemigo.h"
+#include <list>
 
 class Modelo {
 public:
@@ -26,6 +27,8 @@ public:
 
     void verificarObjetosEnRangoDeVista();
 
+    std::list<double>& getZBuffer();
+
 private:
     Ventana *ventana;
     int idJugador;
@@ -33,6 +36,7 @@ private:
     std::map<int, ObjetoJuego *> entidades;
     std::vector<Enemigo*> enemigos;
     int x;
+    std::list<double> zbuffer;
     // mapa de entidades dibujables;
 
 };

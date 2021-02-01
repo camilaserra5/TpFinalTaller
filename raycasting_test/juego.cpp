@@ -94,50 +94,52 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                                             /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
                                             };
             SDL_Renderer *render = this->ventana->obtener_render();
-
             Textura* wall = new Textura(GRAY_STONE_WALL_ROOT,render);
+            Posicion& posJugador = jugador.getPosicion();
+
+            /*******PARAMETROS DE RAYCASTING********/
             double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
-            unsigned int alturaParedProyectada = 0;
             int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;
             double anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
             double anguloJugador = jugador.getAnguloDeVista();
             double anguloRayo = anguloJugador - (rangoDeVista / 2);
-            Posicion& posJugador = jugador.getPosicion();
-            std::list<double> zbuffer;// std::list<double>& zbuffer = modelo.getZBuffer();
+            SDL_Rect wallDimension,wallDest;
 
+
+            std::list<double>& zbuffer = this->modelo->getZBuffer();
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
+                unsigned int alturaParedProyectada = 0;
                 double distancia = 0;
                 int drawStart,drawEnd;
                 Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo,posJugador);
                 rayo.verificarInterseccion(mapa,distancia,jugador);
                 alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
                 zbuffer.push_front(alturaParedProyectada);
-                //despues este buffer se lo guarda el modelo
-                //  if (alturaParedProyectada > 600){
-                  //    drawStart = 600 - 1;
-                  //    drawEnd = 0;
-                //  }else{
+                if (drawStart > ALTURA_CANVAS){
+                    drawStart = 600 - 1;
+                    drawEnd = 0;
+                }else{
                     drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
                     drawEnd = drawStart + alturaParedProyectada - 20;
-            //      }
-                  SDL_Rect wallDimension;
-                  wallDimension.x = rayo.getOffset() % 64;
-                  wallDimension.y = 0;
-                  wallDimension.w = 1;
-                  wallDimension.h = alturaParedProyectada;
+                }
 
-                  SDL_Rect wallDest;
-                  wallDest.x = i;
-                  wallDest.y = drawStart;
-                  wallDest.w = 1;
-                  wallDest.h = drawEnd - drawStart;
-                  wall->renderizar(&wallDimension,wallDest, 0,NULL/*CHEQUEAR*/);
-                  this->ventana->actualizar();
+                wallDimension.x = rayo.getOffset() % 64;
+                wallDimension.y = 0;
+                wallDimension.w = 1;
+                wallDimension.h = alturaParedProyectada;
 
-                  std::chrono::milliseconds duration(20);
-                  std::this_thread::sleep_for(duration);
-                  anguloRayo += anguloPorStripe;
+                wallDest.x = i;
+                wallDest.y = drawStart;
+                wallDest.w = 1;
+                wallDest.h = drawEnd - drawStart;
+                
+                wall->renderizar(&wallDimension,wallDest, 0,NULL/*CHEQUEAR*/);
+                this->ventana->actualizar();
+
+                std::chrono::milliseconds duration(20);
+                std::this_thread::sleep_for(duration);
+                anguloRayo += anguloPorStripe;
             }
-            //SDL_SetRenderDrawColor(render, 157, 97, 70, 255);// deberia estar en atualizar
+            SDL_SetRenderDrawColor(render, 157, 97, 70, 255);// deberia estar en atualizar
             delete wall;
 }

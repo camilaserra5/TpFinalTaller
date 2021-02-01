@@ -26,6 +26,11 @@ void Modelo::inicializar() {
     this->enemigos.push_back(enemigo);
 
 }
+
+std::list<double>& Modelo::getZBuffer(){
+  return this->zbuffer;
+}
+
 /*
 void normalizarAnguloEnRango(double& diferenciaAngulo,bool& esVisible){
   if (diferenciaAngulo < -pi){
