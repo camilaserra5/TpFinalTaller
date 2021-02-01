@@ -55,6 +55,4 @@ void Cliente::run() {
         manejador->join();
     }
     //  juego->join();
-
-
 }
