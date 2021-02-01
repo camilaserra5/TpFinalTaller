@@ -27,6 +27,17 @@ void ManejadorEventos::crearMovimiento(Accion direccion){
     Comando* movimiento = new Movimiento(this->idJugador, direccion);
     this->eventos.push(movimiento);
 }
+
+void ManejadorEventos::crearAtaque(){
+    Comando* ataque = new Ataque(this->idJugador);
+    this->eventos.push(ataque);
+}
+
+void ManejadorEventos::crearAperturaDePuerta(){
+    Comando* apertura = new AperturaDePuerta(this->idJugador);
+    this->eventos.push(apertura);
+}
+
 void ManejadorEventos::detectarEventos(SDL_Event& evento){
       switch (evento.type) {
           case SDL_KEYDOWN:
@@ -55,6 +66,9 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
                         //  player.settear_estado(0, -1, 100, 50);
                         std::cout << "me muevo abajo\n";
                           break;
+                      case SDLK_PERIOD: //tecla "."
+                          crearAtaque();
+                          break;
               }
               break;
           case SDL_KEYUP:
@@ -62,6 +76,9 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
               break;
           case SDL_QUIT:
               this->stop();
+              break;
+          case SDLK_SPACE:
+              crearAperturaDePuerta();
               break;
           default:
               break;

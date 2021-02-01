@@ -13,6 +13,14 @@
 
 #define METROS_MOVIDOS 1 // de acuanto se mueve el jugador
 
+void EstadoJuego::abrirPuerta(int idJugador){
+  Jugador* jugador = this->jugadores.at(idJugador);
+  //obtengo la puerta mas proxima al jugador
+  if (jugador->tengollave() /* || !puerta.necesitaLlave()*/){
+    //cambio el estado de la puerta que esta en la posicion mas proxima al jugador
+  }
+}
+
 void EstadoJuego::rotar(int idJugador){
   Jugador *jugador = this->jugadores.at(idJugador);
   jugador->rotar();

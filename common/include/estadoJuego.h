@@ -68,6 +68,8 @@ public:
 
     void buscarItemsEnPosJugador(Jugador *jugador, int &posX, int &posY, int xFinal, int yFinal);
 
+    void abrirPuerta(int idJugador);
+
 
 private:
     Map *mapa;
