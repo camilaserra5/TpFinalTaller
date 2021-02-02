@@ -29,8 +29,8 @@ void Modelo::inicializar() {
                                 this->idJugador);
     Enemigo* enemigo = new Enemigo(this->ventana->obtener_render(), 4);
     this->enemigos.insert(std::make_pair(111,enemigo));
-  //  ObjetoJuego* comida = crearObjeto(Type::comida);
-  //  this->entidades.insert(std::make_pair(1,comida));
+    ObjetoJuego* comida = crearObjeto(Type::comida);
+    this->entidades.insert(std::make_pair(1,comida));
 }
 
 std::vector<double>& Modelo::getZBuffer(){
@@ -151,15 +151,14 @@ void Modelo::renderizar() {
           it->second->actualizar(500, 300, 4, 0, 0, 100, true);
           it->second->renderizar();
     }
-<<<<<<< HEAD
+
   //  ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
-  //  objeto->settear_estado(400, 420);
+    //objeto->settear_estado(400, 420);
     //verificarObjetosEnRangoDeVista();
-=======
     ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
-    objeto->settear_estado(325, 420);
-    verificarObjetosEnRangoDeVista();
->>>>>>> fceb13202c412af7504bf6522bdc3b82a5be07ef
+    objeto->settear_estado(325, 450);
+    objeto->renderizar();
+  //  verificarObjetosEnRangoDeVista();\
 }
 
 void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int idArma,
