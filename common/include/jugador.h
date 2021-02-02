@@ -71,6 +71,10 @@ public:
 
     bool estaDisparando();
 
+    void actualizarNuevaVida();
+
+    int cant_de_vida();
+
     std::vector<char> serializar() override {
         std::vector<char> informacion;
         informacion.push_back(this->id);
