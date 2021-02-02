@@ -48,6 +48,7 @@ void Jugador::moverse(int posx, int posy) {
 
 // recibo cuando gano de vida + o cuanto pierdo -
 void Jugador::actualizar_vida(int &vidaActualizada) {
+
     this->vida += vidaActualizada;
 }
 
@@ -134,7 +135,8 @@ void Jugador::usarLlave() {
 }
 
 bool Jugador::estaMuerto() {
-    return (this->vida <= 0);
+
+    return (this->vida <=0);
 }
 
 void Jugador::aniadirEnemigosMatados(int jugadoresMatados) {
@@ -143,4 +145,13 @@ void Jugador::aniadirEnemigosMatados(int jugadoresMatados) {
 
 bool Jugador::estaDisparando(){
     this->disparando;
+}
+
+void Jugador::actualizarNuevaVida(){
+    this->vida = MAX_VIDA;
+    this->cantidad_vidas -=1;
+}
+
+int Jugador::cant_de_vida(){
+    return this->cantidad_vidas;
 }

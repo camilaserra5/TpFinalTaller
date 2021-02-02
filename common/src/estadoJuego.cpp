@@ -162,6 +162,9 @@ void EstadoJuego::verificarJugadoresMuertos() {
     std::map<int, Jugador *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if (it->second->estaMuerto()) {
+            if (it->second->cant_de_vida()>0){
+                it->second->actualizarNuevaVida();
+            }
             Arma *arma = it->second->getArma();
             if (!arma->esPistola()) {
                 //Item* item = arma;

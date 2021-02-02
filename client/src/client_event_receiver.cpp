@@ -32,7 +32,7 @@ void ClientEventReceiver::run() {
           int idArma = jugador->getArma()->getId();
           int puntaje = jugador->obtenerLogro().obtener_puntaje();
           bool disparando = jugador->estaDisparando();
-          int cantVidas = jugador->puntos_de_vida();
+          int cantVidas = jugador->cant_de_vida();
           int balas = jugador->cantidad_balas();
           modelo.actualizarJugador(posx, posy, vida, angulo, idArma,
                                   disparando, puntaje, cantVidas, balas);

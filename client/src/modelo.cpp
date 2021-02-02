@@ -152,8 +152,8 @@ void Modelo::renderizar() {
           it->second->renderizar();
     }
     ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
-    //objeto->settear_estado(325, 420);
-  //  verificarObjetosEnRangoDeVista();
+    objeto->settear_estado(325, 420);
+    verificarObjetosEnRangoDeVista();
 }
 
 void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int idArma,
