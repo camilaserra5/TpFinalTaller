@@ -10,8 +10,8 @@ public:
 
     ~NoItem() {}
 
-    void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override {
-        std::cout << "beneficio de no item\n";
+    bool obtenerBeneficio(Jugador *jugador) override{
+        return false;
     }
 
     Type getTipo() override{

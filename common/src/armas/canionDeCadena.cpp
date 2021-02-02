@@ -29,14 +29,11 @@ void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador, std::map<in
 }
 
 
-void CanionDeCadena::obtenerBeneficio(ContenedorDeElementos &contendor, Jugador *jugador) {
+bool CanionDeCadena::obtenerBeneficio(Jugador *jugador) {
     if (!jugador->poseeArma(this)) {
         jugador->agregar_arma(this);
-        //sacar el arma del juego;
+        return true;
     }
-}
-
-bool CanionDeCadena::esPistola() {
     return false;
 }
 

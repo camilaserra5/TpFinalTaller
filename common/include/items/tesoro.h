@@ -10,7 +10,7 @@ public:
 
     ~Tesoro();
 
-    void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
+    bool obtenerBeneficio(Jugador *jugador) override;
 
     Type getTipo() override;
 private:

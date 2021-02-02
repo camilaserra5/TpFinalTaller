@@ -9,6 +9,7 @@
 #include "items/tesoro.h"
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
+#include "armas/pistola.h"
 #include "iostream"
 #include "puerta.h"
 #include <math.h>
@@ -114,9 +115,13 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
 }
 
 void EstadoJuego::verificarMovimientoJugador(Jugador* jugador,int& xFinal,int& yFinal){
+  bool obtuvoBeneficio = false;
   if (puedo_moverme(this->mapa, xFinal, yFinal, jugador)) {
       Item *item = verificarItems(this->mapa, xFinal, yFinal);
-      item->obtenerBeneficio(this->mapa->obtenerContenedor(), jugador);
+      obtuvoBeneficio = item->obtenerBeneficio(jugador);
+      if (obtuvoBeneficio){
+        this->mapa->sacarDelMapa(item->getPosicion());
+      }
       jugador->moverse(xFinal, yFinal); // en jugador se recibe lo movido y se suma;
       delete item;// a cheqeuar
   }
@@ -166,10 +171,12 @@ void EstadoJuego::verificarJugadoresMuertos() {
                 it->second->actualizarNuevaVida();
             }
             Arma *arma = it->second->getArma();
-            if (!arma->esPistola()) {
+            Arma* pistola = new Pistola();
+            if (arma->esIgual(pistola)){
                 //Item* item = arma;
                 //  this->mapa->agregarElemento(item);//como lo pasamos a item
             }
+            delete pistola;
             this->mapa->agregarElemento(new Balas(it->second->getPosicion(), 10/*cte*/, static_cast<int>(Type::balas)));
             if (it->second->tengollave()) {
                 this->mapa->agregarElemento(

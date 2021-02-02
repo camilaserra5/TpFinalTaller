@@ -14,13 +14,11 @@ public:
 
     virtual ~Item() {}
 
-    virtual void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) = 0;
+    virtual bool obtenerBeneficio(Jugador *jugador) = 0;
 
     bool estaCerca(int &posx, int &posy) {
         return this->posicion.estaCerca(posx, posy);
     }
-
-    void sacarDelMapa(ContenedorDeElementos &contenedor);
 
     Posicion obtenerPosicion() {
         return this->posicion;
@@ -45,6 +43,10 @@ public:
     }
 
     virtual Type getTipo() = 0;
+
+    Posicion& getPosicion(){
+      return this->posicion;
+    }
 
 
 protected:

@@ -13,11 +13,9 @@ public:
 
     void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override;
 
-    void obtenerBeneficio(ContenedorDeElementos &conteneor, Jugador *jugador);
+    bool obtenerBeneficio(Jugador *jugador);
 
-    bool esPistola() override;
-
-    Type getTipo() override; 
+    Type getTipo() override;
 
 private:
     int cantidad_rafagas;

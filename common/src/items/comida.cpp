@@ -8,13 +8,13 @@ Comida::Comida(Posicion &posicion, int id) : Item(posicion, id), puntos_de_vida(
 
 Comida::~Comida() {}
 
-void Comida::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {
+bool Comida::obtenerBeneficio(Jugador *jugador) {
     std::cout << "obtuve beneficio comida";
     if (jugador->puntos_de_vida() != VIDA_MAXIMA) {
         jugador->actualizar_vida(this->puntos_de_vida);
-        //  this->sacarDelMapa(contenedor);
-        //contenedor.sacarElementoDePosicion(this->posicion);
+        return true;
     }
+    return false;
 }
 
 Type Comida::getTipo(){

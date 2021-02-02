@@ -160,7 +160,7 @@ void Modelo::renderizar() {
 
     ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
     objeto->settear_estado(500, 420);
-  //  verificarObjetosEnRangoDeVista();
+    verificarObjetosEnRangoDeVista();
     //sprite.reescalar(2,2);
   //  sprite.renderizar(250, 400, 0, NULL);
 
@@ -241,7 +241,7 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     } else if(tipo == Type::barril){
       Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 2, 7, SPRITES_OBJETOS_LARGO,
                     SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite))
+        return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::agua){
       Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 2, 0, SPRITES_OBJETOS_LARGO,
                     SPRITES_OBJETOS_ANCHO);

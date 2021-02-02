@@ -2,10 +2,6 @@
 
 #define BALAS_POR_RAFAGA 5
 
-bool Ametralladora::esPistola() {
-    return false;
-}
-
 void Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     int cantidad_balas = this->cantidad_rafagas * BALAS_POR_RAFAGA;
     jugador->gastarBalas(cantidad_balas);
@@ -32,12 +28,12 @@ void Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int
 
 }
 
-void Ametralladora::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {
+bool Ametralladora::obtenerBeneficio(Jugador *jugador) {
     if (!jugador->poseeArma(this)) {
         jugador->agregar_arma(this);
-        // sacar arma del mapa;
+        return true;
     }
-
+    return false;
 }
 
 Type Ametralladora::getTipo(){

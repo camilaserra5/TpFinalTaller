@@ -8,8 +8,9 @@ Tesoro::Tesoro(int id, Type tipo,int puntos, Posicion &posicion) :
 
 Tesoro::~Tesoro() {}
 
-void Tesoro::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {
+bool Tesoro::obtenerBeneficio(Jugador *jugador) {
     jugador->sumarPuntos(this->puntos);
+    return true;
 }
 
 Type Tesoro::getTipo(){
