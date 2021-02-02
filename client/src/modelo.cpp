@@ -143,15 +143,9 @@ void Modelo::renderizar() {
           it->second->actualizar(500, 300, 4, 0, 0, 100, true);
           it->second->renderizar();
     }
-<<<<<<< HEAD
-  //  ObjetoJuego* objeto = entidades.at(static_cast<int>(Type::comida));//cambiar lo de las keys
-  //  objeto->settear_estado(400, 420);
-  //  verificarObjetosEnRangoDeVista();
-=======
     ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
     objeto->settear_estado(400, 420);
     verificarObjetosEnRangoDeVista();
->>>>>>> c2b27e61f91a49b972283761316807175d170040
 }
 
 void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int idArma,
