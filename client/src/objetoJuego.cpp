@@ -1,6 +1,6 @@
 #include "../include/objetoJuego.h"
 
-ObjetoJuego::ObjetoJuego(Sprite&& sprite) :
+ObjetoJuego::ObjetoJuego(Sprite sprite) :
         sprite(sprite),
         posicion(0,0,0){}
 
@@ -28,4 +28,8 @@ Posicion& ObjetoJuego::getPosicion(){
 
 void ObjetoJuego::renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest){
   this->sprite.renderizarColumna(dimension,dest);
+}
+
+void ObjetoJuego::reescalar(int escalarw, int escalarh){
+    this->sprite.reescalar(escalarw, escalarh);
 }

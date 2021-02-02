@@ -24,7 +24,6 @@ void Sprite::renderizarColumna(SDL_Rect dimension,SDL_Rect& dest){
   dimension.x += this->infoSprite.x;
   dimension.y += this->infoSprite.y;//cheqeuar
   std::cout << dimension.x << " y " <<dimension.y <<"\n";
-  
   this->textura->renderizar(&dimension,dest,0,NULL);
 }
 

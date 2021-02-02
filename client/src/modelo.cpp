@@ -4,8 +4,8 @@
 #include <algorithm>
 //#include "rayo.h"
 
-#define SPRITES_OBJETOS_ANCHO 320
-#define SPRITES_OBJETOS_LARGO 650
+#define SPRITES_OBJETOS_ANCHO  65
+#define SPRITES_OBJETOS_LARGO 73
 #define SPRITE_OBJETOS "../../client/resources/images/Objects.png"
 #define FRAMESX 5
 #define FRAMESY 10
@@ -151,20 +151,22 @@ void Modelo::renderizar() {
           it->second->actualizar(500, 300, 4, 0, 0, 100, true);
           it->second->renderizar();
     }
-<<<<<<< HEAD
+
 
   //  ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
     //objeto->settear_estado(400, 420);
-    //verificarObjetosEnRangoDeVista();
-    ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
-    objeto->settear_estado(325, 450);
-    objeto->renderizar();
+    //verificarObjetosEnRangoDeVista()
   //  verificarObjetosEnRangoDeVista();\
-=======
-    ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
-    objeto->settear_estado(325, 420);
+
+    ObjetoJuego* objeto = this->crearObjeto(Type::comida);
+    objeto->settear_estado(400, 420);
     verificarObjetosEnRangoDeVista();
->>>>>>> c0e01d34a78deb178b57767b749f1e1b6f62483c
+//  Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 0, 2, SPRITES_OBJETOS_LARGO,
+  //              SPRITES_OBJETOS_ANCHO);
+    //verificarObjetosEnRangoDeVista();
+    //sprite.reescalar(2,2);
+  //  sprite.renderizar(250, 400, 0, NULL);
+
 }
 
 void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int idArma,

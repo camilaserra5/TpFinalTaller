@@ -15,6 +15,7 @@
 #include "../include/musica.h"
 #include "../include/audio.h"
 
+
 #define LOWER_TEXTURE_ROOT "../../client/resources/images/ParteInferior.png"
 
 Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, int idJugador) {

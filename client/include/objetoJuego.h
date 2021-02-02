@@ -11,7 +11,7 @@ private:
     int distanciaParcialAJugador;
 
 public:
-    ObjetoJuego(Sprite&& sprite); //a chequear esa doble referencia, pero es por el stdmove
+    ObjetoJuego(Sprite sprite); //a chequear esa doble referencia, pero es por el stdmove
 
     ~ObjetoJuego();
 
@@ -26,6 +26,8 @@ public:
     Posicion& getPosicion();
 
     void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest);
+
+    void reescalar(int escalarw, int escalarh);
 };
 
 #endif //OBJETOJUEGO_H
