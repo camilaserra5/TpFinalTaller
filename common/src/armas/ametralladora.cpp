@@ -43,12 +43,12 @@ void Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int
 
 }
 
-void Ametralladora::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {
+bool Ametralladora::obtenerBeneficio(Jugador *jugador) {
     if (!jugador->poseeArma(this)) {
         jugador->agregar_arma(this);
-        // sacar arma del mapa;
+        return true;
     }
-
+    return false;
 }
 
 Type Ametralladora::getTipo(){

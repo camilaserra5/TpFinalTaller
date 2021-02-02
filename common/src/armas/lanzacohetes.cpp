@@ -36,16 +36,12 @@ void LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador, std::map<int,
     jugador->actualizarArma();
 }
 
-void LanzaCohetes::obtenerBeneficio(ContenedorDeElementos &contenedorDeElementos, Jugador *jugador) {
+bool LanzaCohetes::obtenerBeneficio(Jugador *jugador) {
     if (!jugador->poseeArma(this)) {
         jugador->agregar_arma(this);
         // sacar arma del mapa;
     }
 
-}
-
-bool LanzaCohetes::esPistola() {
-    return false;
 }
 
 Type LanzaCohetes::getTipo(){

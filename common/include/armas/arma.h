@@ -30,8 +30,6 @@ public:
 
     bool esIgual(Arma *arma);
 
-    virtual bool esPistola() = 0;
-
     int getId();
 
 protected:

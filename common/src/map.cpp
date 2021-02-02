@@ -18,6 +18,11 @@
 #define PUNTOS_COPA 50
 #define PUNTOS_COFRE 100
 #define PUNTOS_CORONA 200
+
+void Map::sacarDelMapa(Posicion& posicion){
+  this->contenedorDeElementos.sacarElementoDePosicion(posicion);
+}
+
 Map::Map(unsigned rowSize, unsigned colSize) : contenedorDeElementos() {
     if (rowSize < 1 || colSize < 1) {
         throw std::runtime_error("Invalid map");

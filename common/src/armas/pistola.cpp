@@ -4,11 +4,10 @@
 #define DISTANCIA_MAX 2000000
 #define BALAS_POR_RAFAGA 1
 
-Pistola::Pistola(int cantidad_rafagas) :
+Pistola::Pistola() :
         Arma(DISTANCIA_MAX, 4),
         precision(10),
-        probalidad_acierto(10),
-        cantidad_rafagas(cantidad_rafagas) {}
+        probalidad_acierto(10) {}
 
 Pistola::~Pistola() {}
 
@@ -35,8 +34,4 @@ void Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Juga
         }
     }
     jugador->actualizarArma();
-}
-
-bool Pistola::esPistola() {
-    return true;
 }

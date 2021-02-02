@@ -14,7 +14,7 @@ public:
 
     void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override;
 
-    void obtenerBeneficio(ContenedorDeElementos &conteneor, Jugador *jugador);
+    bool obtenerBeneficio(Jugador *jugador);
 
     void atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores);
 

@@ -14,11 +14,15 @@ public:
 
     void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override;
 
+<<<<<<< HEAD
     void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
     void atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores);
 
     bool esPistola() override;
+=======
+    bool obtenerBeneficio(Jugador *jugador) override;
+>>>>>>> 4cd25eec6ef639deacd5706c9b803ebd61581678
 
     Type getTipo() override;
 

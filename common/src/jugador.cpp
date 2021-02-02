@@ -28,7 +28,7 @@ Jugador::Jugador(std::string &nombre, int &id) :
         llaves(0),
         cantidad_vidas(2),
         disparando(false) {
-            this->armas.insert(std::make_pair(armaActual, new Pistola(10)));
+            this->armas.insert(std::make_pair(armaActual, new Pistola()));
         }
 
 Jugador::~Jugador() {

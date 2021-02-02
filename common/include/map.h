@@ -32,6 +32,8 @@ public:
         return this->contenedorDeElementos;
     };
 
+    void sacarDelMapa(Posicion& posicion);
+
     ~Map();
 
     void agregarElemento(Item *item);
