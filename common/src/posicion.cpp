@@ -20,8 +20,8 @@ bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
 }
 
 void Posicion::actualizar_posicion(int pixelesX, int pixelesY) {
-    this->pixelesX += pixelesX;
-    this->pixelesY += pixelesY;
+    this->pixelesX = pixelesX;
+    this->pixelesY = pixelesY;
 }
 
 int Posicion::pixelesEnX() {

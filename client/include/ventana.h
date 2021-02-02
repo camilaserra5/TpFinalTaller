@@ -6,6 +6,9 @@
 #include <string>
 #include "textura.h"
 
+#define ANCHO_CANVAS 800
+#define ALTURA_CANVAS 600
+
 class Ventana {
 public:
     Ventana(const std::string &titulo, int x, int y, int& ancho, int& alto, int& flags);

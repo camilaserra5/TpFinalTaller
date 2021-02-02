@@ -40,6 +40,8 @@ public:
 
     void verificarItemsEnRango();
 
+    Player& getPlayer();
+
 
 private:
     Ventana *ventana;
