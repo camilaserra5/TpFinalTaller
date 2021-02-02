@@ -8,7 +8,7 @@ Musica::Musica(const std::string &archivo) {
         throw std::runtime_error("Fallo al abrir archivo de musica");
 }
 
-void Musica::play(int loop = 0) {
+void Musica::play(int loop) {
     Mix_PlayMusic(this->musicaPtr, loop);
 }
 

@@ -94,7 +94,7 @@ void Modelo::renderizar() {
   int posx(318),posy(420),vida(100),angulo(50),idArma(4);
     this->jugador->settear_estado(318, 420, 100, 50, 4);
     this->jugador->renderizar();
-    this->verificarObjetosEnRangoDeVista();
+//    this->verificarObjetosEnRangoDeVista();
     // verificar items si estan en posicion;
     // verificar enemigos si estan en posicion correcta;
 
