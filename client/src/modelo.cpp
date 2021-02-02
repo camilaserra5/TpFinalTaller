@@ -6,7 +6,7 @@
 
 #define SPRITES_OBJETOS_ANCHO 320
 #define SPRITES_OBJETOS_LARGO 650
-#define SPRITE_OBJETOS "../../client/resourses/images/Objects.png"
+#define SPRITE_OBJETOS "../../client/resources/images/Objects.png"
 #define FRAMESX 5
 #define FRAMESY 10
 
@@ -52,6 +52,7 @@ int tamanioBuffer = zbuffer.size();
   for (int i = 0; i < anchoTexturaFoto; i++){
     for (int j = 0; j < anchuraColumna; j++){
       int posBuffer = x + (i - 1) * anchuraColumna + j;
+      std::cout << "numero: " << tamanioBuffer - 1 -posBuffer << "\n";
       if (this->zbuffer[tamanioBuffer - 1 -posBuffer] > distanciaObjeto){
         SDL_Rect dimension,dest;
 
@@ -101,8 +102,10 @@ void Modelo::verificarItemsEnRango(){
 
   int cantidadItemsVisibles = itemsVisibles.size();
   for (int i = 0;i < cantidadItemsVisibles; i++){
-    Posicion& posItem = it->second->getPosicion();//refactorizar
-    double anguloItem = atan(posItem.pixelesEnY()/posItem.pixelesEnX());//refactorizar
+    Posicion& posItem = itemsVisibles[i]->getPosicion();//refactorizar
+    double pixelesY = posItem.pixelesEnY();
+    double pixelesX = posItem.pixelesEnX();
+    double anguloItem = atan(pixelesY/pixelesX);//refactorizar
     int distancia = itemsVisibles[i]->getDistanciaParcialAJugador();
       double alturaSprite = altoCelda / distanciaPlanoProyeccion * distancia;
       int y0 = (800 / 2) - alturaSprite / 2;// el 800 es el ancho canvas
@@ -140,9 +143,15 @@ void Modelo::renderizar() {
           it->second->actualizar(500, 300, 4, 0, 0, 100, true);
           it->second->renderizar();
     }
+<<<<<<< HEAD
   //  ObjetoJuego* objeto = entidades.at(static_cast<int>(Type::comida));//cambiar lo de las keys
   //  objeto->settear_estado(400, 420);
   //  verificarObjetosEnRangoDeVista();
+=======
+    ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
+    objeto->settear_estado(400, 420);
+    verificarObjetosEnRangoDeVista();
+>>>>>>> c2b27e61f91a49b972283761316807175d170040
 }
 
 void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int idArma,
