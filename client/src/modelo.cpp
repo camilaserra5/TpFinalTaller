@@ -199,45 +199,73 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::kitsMedicos) {
-        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 5, 2, SPRITES_OBJETOS_LARGO / FRAMESY,
-                      SPRITES_OBJETOS_ANCHO / FRAMESX);
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 5, 2, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::llave) {
-        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 4, 2, SPRITES_OBJETOS_LARGO / FRAMESY,
-                      SPRITES_OBJETOS_ANCHO / FRAMESX);
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 4, 2, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::balas) {
-        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 5, 3, SPRITES_OBJETOS_LARGO / FRAMESY,
-                      SPRITES_OBJETOS_ANCHO / FRAMESX);
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 5, 3, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::sangre) {
-        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 8, 0, SPRITES_OBJETOS_LARGO / FRAMESY,
-                      SPRITES_OBJETOS_ANCHO / FRAMESX);
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 8, 0, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::cruz) {
-        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 1, SPRITES_OBJETOS_LARGO / FRAMESY,
-                      SPRITES_OBJETOS_ANCHO / FRAMESX);
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 1, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::copa) {
-        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO / FRAMESY,
-                      SPRITES_OBJETOS_ANCHO / FRAMESX);
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::cofre) {
-        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO / FRAMESY,
-                      SPRITES_OBJETOS_ANCHO / FRAMESX);
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::corona) {
-        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO / FRAMESY,
-                      SPRITES_OBJETOS_ANCHO / FRAMESX);
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::ametralladora) {
-        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 6, 4, SPRITES_OBJETOS_LARGO / FRAMESY,
-                      SPRITES_OBJETOS_ANCHO / FRAMESX);
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 6, 4, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo == Type::lanzaCohetes) {
-        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 0, SPRITES_OBJETOS_LARGO / FRAMESY,
-                      SPRITES_OBJETOS_ANCHO / FRAMESX);
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 7, 0, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
+    } else if(tipo == Type::barril){
+      Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 2, 7, SPRITES_OBJETOS_LARGO,
+                    SPRITES_OBJETOS_ANCHO);
+        return new ObjetoJuego(std::move(sprite))
+    } else if (tipo == Type::agua){
+      Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 2, 0, SPRITES_OBJETOS_LARGO,
+                    SPRITES_OBJETOS_ANCHO);
+        return new ObjetoJuego(std::move(sprite));
+    } else if (tipo == Type::tanque){
+      Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 3, 0, SPRITES_OBJETOS_LARGO,
+                    SPRITES_OBJETOS_ANCHO);
+        return new ObjetoJuego(std::move(sprite));
+    } else if (tipo == Type::mesa){
+      Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 4, 0, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
+        return new ObjetoJuego(std::move(sprite));
+    } else if (tipo == Type::lampara){
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 0, 1, SPRITES_OBJETOS_LARGO,
+                        SPRITES_OBJETOS_ANCHO);
+        return new ObjetoJuego(std::move(sprite));
+    } else if (tipo == Type::muertoColgante){
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 2, 1, SPRITES_OBJETOS_LARGO,
+                        SPRITES_OBJETOS_ANCHO);
+        return new ObjetoJuego(std::move(sprite));
+    } else if (tipo == Type::planta){
+        Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 0, 2, SPRITES_OBJETOS_LARGO,
+                      SPRITES_OBJETOS_ANCHO);
+          return new ObjetoJuego(std::move(sprite));
     } else {
         throw std::runtime_error("Tipo de objeto invalido");
     }
