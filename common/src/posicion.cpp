@@ -22,8 +22,6 @@ bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
 void Posicion::actualizar_posicion(int pixelesX, int pixelesY) {
     this->pixelesX += pixelesX;
     this->pixelesY += pixelesY;
-    std::cout << "pixeles en x: " << this->pixelesX;
-    std::cout << " pixeles en y " << this->pixelesY;
 }
 
 int Posicion::pixelesEnX() {

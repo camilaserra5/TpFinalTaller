@@ -46,7 +46,7 @@ void Juego::run() {
         this->raycasting(mapa,this->jugador);
         this->actualizar(/*1*/);
 //deberia ir antes que renderizar para que se dibuje atras del mapa
-        //this->jugador.rotar(0.5 * acos(0.0));
+        this->jugador.rotar(1);
     } catch (...) {
         this->corriendo = false;
     }
@@ -96,7 +96,7 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
                                             /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
                                             };
             SDL_Renderer *render = this->ventana->obtener_render();
-            Textura* wall = new Textura(PUERTA_ROOT,render);
+            Textura* wall = new Textura(GRAY_STONE_WALL_ROOT,render);
             Posicion& posJugador = jugador.getPosicion();
 
             /*******PARAMETROS DE RAYCASTING********/
