@@ -39,3 +39,7 @@ void Ametralladora::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador 
     }
 
 }
+
+Type Ametralladora::getTipo(){
+    return Type::ametralladora;
+}

@@ -39,3 +39,7 @@ void CanionDeCadena::obtenerBeneficio(ContenedorDeElementos &contendor, Jugador 
 bool CanionDeCadena::esPistola() {
     return false;
 }
+
+Type CanionDeCadena::getTipo(){
+    return Type::canionDeCadena;
+}

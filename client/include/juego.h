@@ -11,6 +11,9 @@
 #include "modelo.h"
 #include <list>
 #include <string>
+#include "rayo.h"
+#include "map.h"
+
 
 class Juego : public Thread {
 private:
@@ -36,6 +39,8 @@ public:
     void clean();
 
     void cerrar();
+
+    void raycasting(Map& mapaa, Player& jugador);
 };
 
 #endif /*JUEGO_H*/

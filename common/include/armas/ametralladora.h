@@ -7,7 +7,7 @@
 
 class Ametralladora : public Arma, public Item {
 public:
-    Ametralladora(Posicion &posicion) : Arma(DISTANCIA_MAX, 1), Item(posicion) {}
+    Ametralladora(Posicion &posicion, int id) : Arma(DISTANCIA_MAX, 1), Item(posicion, id) {}
 
     ~Ametralladora() {}
 
@@ -16,6 +16,8 @@ public:
     void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
     bool esPistola() override;
+
+    Type getTipo() override;
 
 
 private:

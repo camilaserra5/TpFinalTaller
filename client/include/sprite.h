@@ -26,6 +26,8 @@ public:
         this->infoSprite.x = frame*this->infoSprite.w;
     }
 
+    void renderizarColumna(SDL_Rect dimension,SDL_Rect& dest);
+
 };
 
 #endif

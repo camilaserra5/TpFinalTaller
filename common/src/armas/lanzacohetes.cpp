@@ -47,3 +47,7 @@ void LanzaCohetes::obtenerBeneficio(ContenedorDeElementos &contenedorDeElementos
 bool LanzaCohetes::esPistola() {
     return false;
 }
+
+Type LanzaCohetes::getTipo(){
+    return Type::lanzaCohetes;
+}

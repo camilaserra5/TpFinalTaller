@@ -4,7 +4,7 @@
 #define VIDA 10
 #define VIDA_MAXIMA 100
 
-Comida::Comida(Posicion &posicion) : Item(posicion), puntos_de_vida(VIDA) {}
+Comida::Comida(Posicion &posicion, int id) : Item(posicion, id), puntos_de_vida(VIDA) {}
 
 Comida::~Comida() {}
 
@@ -15,4 +15,8 @@ void Comida::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugado
         //  this->sacarDelMapa(contenedor);
         //contenedor.sacarElementoDePosicion(this->posicion);
     }
+}
+
+Type Comida::getTipo(){
+    return Type::comida;
 }

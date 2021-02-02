@@ -6,16 +6,16 @@
 
 class Tesoro : public Item {
 public:
-    Tesoro(std::string &tipoDeTesoro, int &puntos, Posicion &posicion);
+    Tesoro(int id, Type tipo, int puntos, Posicion &posicion);
 
     ~Tesoro();
 
     void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
 
-
+    Type getTipo() override;
 private:
-    std::string &tipoDeTesoro; //va a servir para dibujar calculo;
     int puntos;
+    Type tipo;
 };
 
 #endif

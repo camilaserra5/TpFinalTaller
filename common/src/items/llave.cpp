@@ -5,3 +5,7 @@ Llave::~Llave() {}
 void Llave::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {
     jugador->agarrarLlave();
 }
+
+Type Llave::getTipo(){
+    return Type::llave;
+}

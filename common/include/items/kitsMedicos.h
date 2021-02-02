@@ -5,11 +5,13 @@
 
 class KitsMedicos : public Item {
 public:
-    KitsMedicos(Posicion &posicion);
+    KitsMedicos(Posicion &posicion, int id);
 
     ~KitsMedicos();
 
     void obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) override;
+
+    Type getTipo() override;
 
 
 private:

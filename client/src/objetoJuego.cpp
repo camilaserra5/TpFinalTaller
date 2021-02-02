@@ -1,17 +1,35 @@
 #include "../include/objetoJuego.h"
 
-ObjetoJuego::ObjetoJuego(Sprite&& sprite) :
+ObjetoJuego::ObjetoJuego(Sprite sprite) :
         sprite(sprite),
-        posx(0), posy(0),
-        angulo(0) {}
+        posicion(0,0,0){}
 
 ObjetoJuego::~ObjetoJuego() {}
 
 void ObjetoJuego::renderizar() {
-    this->sprite.renderizar(this->posx, this->posy, this->angulo, NULL);
+    this->sprite.renderizar(this->posicion.pixelesEnX(), this->posicion.pixelesEnY(), this->posicion.getAnguloDeVista(), NULL);
 }
 
-void ObjetoJuego::settear_estado(int& posx, int& posy) {
-    this->posx = posy;
-    this->posy = posy;
+void ObjetoJuego::settear_estado(int posx, int posy) {
+  this->posicion.actualizar_posicion(posx,posy);
+}
+
+void ObjetoJuego::setDistanciaParcialAJugador(int& distancia){
+    this->distanciaParcialAJugador = distancia;
+}
+
+int ObjetoJuego::getDistanciaParcialAJugador(){
+  return this->distanciaParcialAJugador;
+}
+
+Posicion& ObjetoJuego::getPosicion(){
+    return this->posicion;
+}
+
+void ObjetoJuego::renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest){
+  this->sprite.renderizarColumna(dimension,dest);
+}
+
+void ObjetoJuego::reescalar(int escalarw, int escalarh){
+    this->sprite.reescalar(escalarw, escalarh);
 }

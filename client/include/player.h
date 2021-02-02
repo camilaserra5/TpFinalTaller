@@ -5,6 +5,7 @@
 #include "armaAnimada.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include "posicion.h"
 
 class Player {
 public:
@@ -12,23 +13,24 @@ public:
 
     ~Player();
 
-    void actualizacion(int posx, int posy, int vida, int angulo, int arma);
+    void actualizar(int posx, int posy, int vida, float angulo, int idArma,
+                    bool disparando, int puntaje,int cantVidas,int balas);
 
     void renderizar();
-
-    void settear_estado(int posx, int posy, int vida, int angulo, int arma);
 
     void dejarDeDisparar(){
         this->disparando = false;
     }
 
+    Posicion& getPosicion();
+
+    float getAnguloDeVista();
+
 private:
-    int posx;
-    int posy;
+    Posicion posicion;
     int vida;
     int nivel;
     int puntaje;
-    int angulo;
     int id;
     ArmaAnimada arma;
     InfoJugador infoJugador;

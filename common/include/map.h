@@ -7,6 +7,7 @@
 #include "objetosJuego.h"
 #include "iserializable.h"
 #include <iostream>
+#include "puerta.h"
 // faltaria agregar una posicion para los jugadores
 // tambien el tema de los itemas(comida, sangre, todas las armas);
 
@@ -62,6 +63,13 @@ public:
                                                            serializado.end());
         this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
     }
+    std::vector<Item*>& obtenerItems(){
+        return this->contenedorDeElementos.obtenerItems();
+    }
+
+    Puerta& puertaMasCercana(Posicion& posicionJugador,double& distancia);
+
+    bool hayPuertas();
 
 private:
     unsigned rowSize;

@@ -9,10 +9,10 @@
 #define POSY 420
 
 ArmaAnimada::ArmaAnimada(SDL_Renderer* render){
-      Sprite spriteCuchillo(render, RUTAIMG, 1, 0, SPRITES_W, SPRITES_H);
-      Sprite spritePistola(render, RUTAIMG, 0, 1, SPRITES_W, SPRITES_H);
-      Sprite spriteAmetralladora(render, RUTAIMG, 0, 2, SPRITES_W, SPRITES_H);
-      Sprite spriteCanion(render, RUTAIMG, 0, 3, SPRITES_W, SPRITES_H);
+      Sprite spriteCuchillo(render, RUTAIMG, 1, 0, SPRITES_H, SPRITES_W);
+      Sprite spritePistola(render, RUTAIMG, 0, 1, SPRITES_H, SPRITES_W);
+      Sprite spriteAmetralladora(render, RUTAIMG, 0, 2, SPRITES_H, SPRITES_W);
+      Sprite spriteCanion(render, RUTAIMG, 0, 3, SPRITES_H, SPRITES_W);
       Animacion animacionCuchillo(render, RUTAIMG, FRAMES_X,SPRITES_H, SPRITES_W, 0, -1);
       Animacion animacionPistola(render, RUTAIMG, FRAMES_X, SPRITES_H, SPRITES_W, 1, -1);
       Animacion animacionAmetralladora(render, RUTAIMG, FRAMES_X, SPRITES_H, SPRITES_W, 2, -1);
@@ -38,9 +38,8 @@ void ArmaAnimada::renderizar(bool disparando){
       if(disparando){
             bool termine = this->animaciones.find(this->armaActual)->second.renderizar(POSX, POSY, 0, NULL);
             //termine ? this->disparando = false: this->disparando = true;
-            std::cout << "entro";
       } else {
-          this->sprites.find(this->armaActual)->second.reescalar(2, 2);
+          //this->sprites.find(this->armaActual)->second.reescalar(2, 2);
           this->sprites.find(this->armaActual)->second.renderizar(POSX, POSY, 0, NULL);
       }
 

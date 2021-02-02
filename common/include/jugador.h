@@ -6,10 +6,12 @@
 #include "posicion.h"
 #include "logro.h"
 #include <map>
+#include "iserializable.h"
+
 
 class Arma;
 
-class Jugador {
+class Jugador : public ISerializable{
 public:
     Jugador(std::string &nombre, int &id);
 
@@ -17,7 +19,7 @@ public:
 
     void moverse(int posx, int posy);
 
-    void rotar();
+    void rotar(int sentido);
 
     void actualizar_vida(int &vidaActualizada);
 
@@ -67,13 +69,42 @@ public:
 
     void aniadirEnemigosMatados(int jugadoresMatados);
 
-    std::vector<char> serializar() {
-        std::vector<char> informacion;
+    bool estaDisparando();
 
+    void actualizarNuevaVida();
+
+    int cant_de_vida();
+
+    std::vector<char> serializar() override {
+        std::vector<char> informacion;
+        informacion.push_back(this->id);
+        std::vector<char> posicionSerializado = this->posicion.serializar();
+        informacion.insert(informacion.end(), posicionSerializado.begin(), posicionSerializado.end());
+        informacion.push_back(this->vida);
+        informacion.push_back(this->armaActual);
+        informacion.push_back(this->disparando);
+        std::vector<char> logroSerializado = this->logro.serializar();
+        informacion.insert(informacion.end(), logroSerializado.begin(), logroSerializado.end());
+        informacion.push_back(this->cantidad_vidas);
+        informacion.push_back(this->balas);
         return informacion;
     }
 
-    void deserializar(std::vector<char>& serializado) {}
+    void deserializar(std::vector<char>& serializado)override {
+        this->id = (int)serializado[0];
+        std::vector<char> posicionSerializado(serializado.begin() + 1,
+                                              serializado.end());
+        this->posicion.deserializar(posicionSerializado);
+        this->vida = (int)serializado[4];
+        this->armaActual = (int)serializado[5];
+        this->disparando = (bool)serializado[6];
+        std::vector<char> logroSerializado(serializado.begin() + 7,
+                                              serializado.end());
+        this->logro.deserializar(logroSerializado);
+        this->cantidad_vidas = (int)serializado[10];
+        this->balas = (int)serializado[11];
+
+    }
 
 // juagdor serializacion;
     // id -> int;
@@ -92,12 +123,12 @@ private:
     int vida;
     std::map<int,Arma*> armas;
     int balas;
-    float angulo = 0;
     float velocidadDeRotacion;
-    Arma *armaActual;
+    int armaActual;
     int llaves;
     int cantidad_vidas;
     Logro logro;
+    bool disparando;
 };
 
 #endif

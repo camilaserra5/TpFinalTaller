@@ -4,12 +4,13 @@
 #include <iserializable.h>
 #include "jugador.h"
 #include "posicion.h"
+#include "objetosJuego.h"
 
 class ContenedorDeElementos;
 
 class Item : public ISerializable {
 public:
-    Item(Posicion &posicion) : posicion(posicion) {}
+    Item(Posicion &posicion, int id) : posicion(posicion), id(id) {}
 
     virtual ~Item() {}
 
@@ -26,15 +27,29 @@ public:
     }
 
     std::vector<char> serializar() override {
-        return this->posicion.serializar();
+        std::vector<char> informacion;
+        informacion.push_back(this->id);
+        std::vector<char> posicionSerializado = this->posicion.serializar();
+        informacion.insert(informacion.end(), posicionSerializado.begin(), posicionSerializado.end());
+        return informacion;
     }
 
     void deserializar(std::vector<char> &serializado) override {
-        this->posicion.deserializar(serializado);
+        this->id = (int)serializado[0];
+        std::vector<char> posicionSerializado(serializado.begin() + 1,
+                                              serializado.end());
+        this->posicion.deserializar(posicionSerializado);
     }
+    int getId(){
+        return this->id;
+    }
+
+    virtual Type getTipo() = 0;
+
 
 protected:
     Posicion posicion;
+    int id;
 };
 
 #endif

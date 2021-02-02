@@ -140,7 +140,7 @@ void Client::run() {
 
         Protocolo protocolo(std::move(socket));
         std::cout << "recibo partidas";
-        std::vector<char> partidas = protocolo.recibirBinario();
+        std::vector<char> partidas = protocolo.recibir();
         std::vector<std::string> partis;
         char cantidadPartidas = partidas[0];
         int j = 1;

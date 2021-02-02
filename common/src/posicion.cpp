@@ -20,10 +20,8 @@ bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
 }
 
 void Posicion::actualizar_posicion(int pixelesX, int pixelesY) {
-    this->pixelesX += pixelesX;
-    this->pixelesY += pixelesY;
-    std::cout << "pixeles en x: " << this->pixelesX;
-    std::cout << " pixeles en y " << this->pixelesY;
+    this->pixelesX = pixelesX;
+    this->pixelesY = pixelesY;
 }
 
 int Posicion::pixelesEnX() {
@@ -62,4 +60,8 @@ bool Posicion::operator==(Posicion &otraPosicion) {
         return true;
     }
     return false;
+}
+
+void Posicion::setAngulo(float angulo){
+  this->anguloDeVista = angulo;
 }

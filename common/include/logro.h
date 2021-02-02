@@ -1,12 +1,12 @@
 #ifndef LOGRO_H
 #define LOGRO_H
-
+#include "iserializable.h"
 /*
 Al finalizar la partida se deberá mostrar un top 5 de los jugadores con más enemigos matadas, más puntos
 por tesoros y más balas disparadas
 */
 
-class Logro {
+class Logro : public ISerializable{
 public:
     bool operator>(Logro &logro);
 
@@ -16,6 +16,22 @@ public:
 
     void aniadirPuntosPorTesoro(int puntos); //cada tesoro sabe cuantos puntos
     void aniadirEnemigosMatados(int cantidadDeEnemigos);
+
+    int obtener_puntaje(){
+        return puntosTotalesPorTesoros;
+    }
+    std::vector<char> serializar() override {
+        std::vector<char> informacion;
+        informacion.push_back(this->enemigosMatados);
+        informacion.push_back(this->puntosTotalesPorTesoros);
+        informacion.push_back(this->balasDisparadas);
+        return informacion;
+    }
+    void deserializar(std::vector<char>& serializado) override{
+        this->enemigosMatados = serializado[0];
+        this->puntosTotalesPorTesoros = serializado[1];
+        this->balasDisparadas = serializado[2];
+    }
 
 private:
     int enemigosMatados = 0;

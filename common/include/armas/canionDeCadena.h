@@ -7,7 +7,7 @@
 
 class CanionDeCadena : public Arma, public Item {
 public:
-    CanionDeCadena(Posicion &posicion) : Arma(DISTANCIA_MAX, 2), Item(posicion) {}
+    CanionDeCadena(Posicion &posicion, int id) : Arma(DISTANCIA_MAX, 2), Item(posicion, id) {}
 
     ~CanionDeCadena() {}
 
@@ -16,6 +16,8 @@ public:
     void obtenerBeneficio(ContenedorDeElementos &conteneor, Jugador *jugador);
 
     bool esPistola() override;
+
+    Type getTipo() override; 
 
 private:
     int cantidad_rafagas;

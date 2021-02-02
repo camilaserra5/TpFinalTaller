@@ -21,7 +21,7 @@ public:
         socket.enviar(buffer.c_str(), buffer.size());
     }
 
-    std::stringstream recibir() {
+    std::stringstream recibir_aux() {
         char buffer[TAMANIO];
         std::stringstream informacion;
         int cant_recibidos = socket.recibir(buffer, TAMANIO);
@@ -32,8 +32,8 @@ public:
         return informacion;
     }
 
-    std::vector<char> recibirBinario() {
-        std::string someString = recibir().str();
+    std::vector<char> recibir() {
+        std::string someString = recibir_aux().str();
         std::vector<char> informacion(someString.begin(), someString.end());
         return informacion;
     }
@@ -46,10 +46,10 @@ public:
             return new Ataque(informacion.str()[1]);
         } else {
             Accion accion;
-            if (informacion.str()[2] == static_cast<int>(Accion::moverDerecha)) {
-                accion = Accion::moverDerecha;
-            } else if (informacion.str()[2] == static_cast<int>(Accion::moverIzquierda)) {
-                accion = Accion::moverIzquierda;
+            if (informacion.str()[2] == static_cast<int>(Accion::rotarDerecha)) {
+                accion = Accion::rotarDerecha;
+            } else if (informacion.str()[2] == static_cast<int>(Accion::rotarIzquierda)) {
+                accion = Accion::rotarIzquierda;
             } else if (informacion.str()[2] == static_cast<int>(Accion::moverArriba)) {
                 accion = Accion::moverArriba;
             } else {

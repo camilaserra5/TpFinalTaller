@@ -11,9 +11,10 @@
 #define BALAS_PARA_LANZACOHETES 5
 
 #include <map>
-#include "jugador.h"
 #include <ctime>
 #include "posicion.h"
+#include "jugador.h"
+
 
 class Arma {
 public:
