@@ -79,6 +79,7 @@ public:
 private:
     Map *mapa;
     std::map<int, Jugador *> jugadores;
+    int contador;
 };
 
 #endif

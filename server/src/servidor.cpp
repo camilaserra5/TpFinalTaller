@@ -4,6 +4,7 @@
 #include "actualizacion.h"
 #include "jugador.h"
 
+
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/
         Map *mapa, int cant_jugadores) :
@@ -56,11 +57,16 @@ void Servidor::agregarCliente(std::string &nombreJugador, Cliente *cliente) {
 void Servidor::lanzarJugadores() {
     for (auto it = this->jugadores.begin(); it != this->jugadores.end(); it++) {
         it->second->start();
-        std::cout << "lanzo cliente\n";
+
     }
 }
 
-void Servidor::lanzarContadorTiempoPartida() {}
+void Servidor::lanzarContadorTiempoPartida() {
+    this->estadoJuego.lanzarContador();
+}
+void Servidor::actualizarContador(){
+    this->estadoJuego.actualizarContador();
+}
 
 bool Servidor::yaArranco() {
     return this->arrancoPartida;
@@ -83,6 +89,8 @@ ProtectedQueue<Actualizacion> &Servidor::obtenerColaActualizaciones() {
 
 void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones) {
     //serializa y manda por sockets a cada jugador
+    Actualizaciones* actualizaciones = new Actualizaciones(this->estadoJuego);
+    actualizaciones.aniadir_dato(actualizacion);
 }
 
 void Servidor::run() {
@@ -101,6 +109,7 @@ void Servidor::run() {
             termine = true;
         }
         this->enviar_actualizaciones(this->cola_actualizaciones);
+        this->actualizarContador();
         //std::chrono::milliseconds duration(10);
         //std::this_thread::sleep_for(duration);
         termine = true;

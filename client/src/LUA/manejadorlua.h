@@ -1,7 +1,7 @@
 //
 // Created by stephi on 2/1/21.
 //
-
+/*
 #ifndef WOLFSTEIN_MANEJADORLUA_H
 #define WOLFSTEIN_MANEJADORLUA_H
 
@@ -22,3 +22,4 @@ public:
 
 
 #endif //WOLFSTEIN_MANEJADORLUA_H
+*/

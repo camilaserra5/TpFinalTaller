@@ -17,6 +17,7 @@
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
 #define METROS_MOVIDOS 2 // de acuanto se mueve el jugador
+#define CANT_TICKS 10000  //5min
 
 void EstadoJuego::abrirPuerta(int idJugador){
   Jugador* jugador = this->jugadores.at(idJugador);
@@ -39,7 +40,8 @@ void EstadoJuego::realizarAtaque(int idJugador) {
 
 EstadoJuego::EstadoJuego(Map *mapa) :
         mapa(mapa),
-        jugadores() {}
+        jugadores(),
+        contador(0){}
 
 EstadoJuego::~EstadoJuego() {
     std::cout << "destructor estado juego";
@@ -184,4 +186,12 @@ void EstadoJuego::verificarJugadoresMuertos() {
             }
         }
     }
+}
+
+void EstadoJuego::lanzarContadorTiempoPartida(){
+    this->contador = CANT_TICKS_PARTIDA;
+}
+
+void EstadoJuego::actualizarTiempoPartida(){
+    this->contador--;
 }

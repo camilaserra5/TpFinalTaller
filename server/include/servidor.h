@@ -49,6 +49,8 @@ public:
 
     void enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones);
 
+    void actualizarContador();
+
 private:
     void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);
 
