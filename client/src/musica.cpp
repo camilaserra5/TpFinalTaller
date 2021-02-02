@@ -14,5 +14,5 @@ void Musica::play(int loop = 0) {
 
 Musica::~Musica() {
     Mix_FreeMusic(this->musicaPtr);
+    this->musicaPtr = NULL;
 }
-

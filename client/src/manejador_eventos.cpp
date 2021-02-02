@@ -70,7 +70,7 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
                         std::cout << "me muevo abajo\n";
                           break;
                       case SDLK_SPACE:
-                          sonidoAmbiente.play();
+                          sonidoAmbiente.play(100);
                         std::cout << "ESPACIO\n";
                           break;
                       case SDLK_PERIOD: //tecla "."
@@ -80,6 +80,9 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
               break;
           case SDL_KEYUP:
               std::cout << "tecla despresionada\n";
+              if (evento.key.keysym.sym == SDLK_PERIOD){
+                    // dejo de disparar;
+              }
               break;
           case SDL_QUIT:
               this->stop();

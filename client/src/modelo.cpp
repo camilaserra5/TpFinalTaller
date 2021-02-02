@@ -29,8 +29,8 @@ void Modelo::inicializar() {
                                 this->idJugador);
     Enemigo* enemigo = new Enemigo(this->ventana->obtener_render(), 4);
     this->enemigos.insert(std::make_pair(111,enemigo));
-    ObjetoJuego* comida = crearObjeto(Type::comida);
-    this->entidades.insert(std::make_pair(1,comida));
+  //  ObjetoJuego* comida = crearObjeto(Type::comida);
+  //  this->entidades.insert(std::make_pair(1,comida));
 }
 
 std::vector<double>& Modelo::getZBuffer(){
