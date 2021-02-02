@@ -2,6 +2,7 @@
 #include "../include/textura.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <iostream>
 
 Sprite::Sprite(SDL_Renderer *render, const char *rutaimg, int x, int y, int h, int w) {
     this->infoSprite.x = x * w;
@@ -22,6 +23,8 @@ void Sprite::renderizar(int x, int y, int angulo, SDL_Point* centro) {
 void Sprite::renderizarColumna(SDL_Rect dimension,SDL_Rect& dest){
   dimension.x += this->infoSprite.x;
   dimension.y += this->infoSprite.y;//cheqeuar
+  std::cout << dimension.x << " y " <<dimension.y <<"\n";
+  
   this->textura->renderizar(&dimension,dest,0,NULL);
 }
 
