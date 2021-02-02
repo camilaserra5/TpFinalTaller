@@ -11,6 +11,9 @@ public:
 
     void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override;
 
+    Type getTipo()override;
+
+
 private:
     int danio;
 };

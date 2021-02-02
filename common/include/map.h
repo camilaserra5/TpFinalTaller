@@ -73,6 +73,8 @@ public:
 
     bool hayPuertas();
 
+    void agregarArma(Posicion& posicion,Arma* arma);
+
 private:
     unsigned rowSize;
     unsigned colSize;

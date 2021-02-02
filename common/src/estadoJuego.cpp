@@ -10,6 +10,7 @@
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
 #include "armas/pistola.h"
+#include "armas/cuchillo.h"
 #include "iostream"
 #include "puerta.h"
 #include <math.h>
@@ -173,12 +174,10 @@ void EstadoJuego::verificarJugadoresMuertos() {
                 it->second->actualizarNuevaVida();
             }
             Arma *arma = it->second->getArma();
-            Arma* pistola = new Pistola();
-            if (arma->esIgual(pistola)){
-                //Item* item = arma;
-                //  this->mapa->agregarElemento(item);//como lo pasamos a item
+            
+            if (arma->getTipo() == Type::pistola && arma->getTipo() == Type::cuchillo){
+                this->mapa->agregarArma(it->second->getPosicion(),arma);
             }
-            delete pistola;
             this->mapa->agregarElemento(new Balas(it->second->getPosicion(), 10/*cte*/, static_cast<int>(Type::balas)));
             if (it->second->tengollave()) {
                 this->mapa->agregarElemento(

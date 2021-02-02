@@ -11,6 +11,10 @@ Pistola::Pistola() :
 
 Pistola::~Pistola() {}
 
+Type Pistola::getTipo(){
+  return Type::pistola;
+}
+
 // conviene mandarle coordenadas de yo jugador??
 // or ahora devuelve danio de ataque
 void Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {

@@ -19,6 +19,20 @@
 #define PUNTOS_COFRE 100
 #define PUNTOS_CORONA 200
 
+void Map::agregarArma(Posicion& posicion,Arma* arma){
+  Type tipo = arma->getTipo();
+  if (tipo == Type::ametralladora){
+    Item* ametralladora = new Ametralladora(posicion,arma->getId());
+    this->contenedorDeElementos.agregarElemento(ametralladora);
+  }else if (tipo == Type::canionDeCadena){
+    Item* canion = new CanionDeCadena(posicion,arma->getId());
+    this->contenedorDeElementos.agregarElemento(canion);
+  }else if (tipo == Type::lanzaCohetes){
+    Item* lanzaCohetes = new LanzaCohetes(posicion,arma->getId());
+    this->contenedorDeElementos.agregarElemento(lanzaCohetes);
+  }
+}
+
 void Map::sacarDelMapa(Posicion& posicion){
   this->contenedorDeElementos.sacarElementoDePosicion(posicion);
 }
