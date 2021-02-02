@@ -7,7 +7,7 @@ enum class Type {
     kitsMedicos = 6, sangre = 7, balas = 8, lanzaCohetes = 9, ametralladora = 10,
     canionDeCadena = 11, llave = 12, tesoro = 13, cruz = 14, copa = 15, cofre = 16,
     corona = 17, noItem = 18, agua = 19, mesa = 20, lampara = 21, muertoColgante = 22,
-    tanque = 23, barril = 24, planta = 24
+    tanque = 23, barril = 24, planta = 24, pistola = 25, cuchillo = 27
 };
 
 enum class Accion {

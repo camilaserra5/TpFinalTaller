@@ -8,7 +8,7 @@
 
 class LanzaCohetes : public Arma, public Item {
 public:
-    LanzaCohetes(Posicion &posicion, int id) : Arma(DISTANCIA_MAX, 5), Item(posicion, id) {}
+    LanzaCohetes(Posicion &posicion, int id) : Arma(DISTANCIA_MAX, 5), Item(posicion,id) {}
 
     ~LanzaCohetes() {}
 

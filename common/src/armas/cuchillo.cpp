@@ -24,3 +24,7 @@ void Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jug
         }
     }
 }
+
+Type Cuchillo::getTipo(){
+  return Type::cuchillo;
+}

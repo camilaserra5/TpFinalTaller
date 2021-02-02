@@ -32,6 +32,8 @@ public:
 
     int getId();
 
+    virtual Type getTipo() = 0;
+
 protected:
     int distancia_max_atacable;
 
