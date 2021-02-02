@@ -87,8 +87,8 @@ void Juego::raycasting(Map &mapaa, Player &jugador) {
 // x = fila / y = columna
 
   int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                       /*1*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*2*/   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                       /*1*/  {1,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1},
+                                      /*2*/   {1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1},
                                      /*3*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                     /*4*/     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                                    /*5*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -129,7 +129,7 @@ void Juego::raycasting(Map &mapaa, Player &jugador) {
                 rayo.verificarInterseccion(mapa,distancia,jugador);
                 alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
                 zbuffer.push_back(distancia);
-                drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
+                drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;//cheuear ese ancho canvas
                 drawEnd = drawStart + alturaParedProyectada - 20;
                 if (drawStart > ALTURA_CANVAS){
                     drawStart = 600 - 1;
@@ -144,10 +144,10 @@ void Juego::raycasting(Map &mapaa, Player &jugador) {
                 wallDest.y = drawStart;
                 wallDest.w = 1;
                 wallDest.h = drawEnd - drawStart;
-/*
+
                 wall->renderizar(&wallDimension,wallDest, 0,NULL);
-                this->ventana->actualizar();
-*/
+              //  this->ventana->actualizar();
+
                 std::chrono::milliseconds duration(20);
                 std::this_thread::sleep_for(duration);
                 anguloRayo += anguloPorStripe;

@@ -52,6 +52,7 @@ void Rayo::verificarInterseccion(int mapa[][TAMANIO_FILA], double &distancia, Pl
 double Rayo::verificarInterseccionPrimerCuadrante(Player& jugador,int mapa[][TAMANIO_FILA]){
     double dy,dx,x_h,y_v,tileStep = 1.0,xStep,yStep,distanciaHorizontal = 1000.0,distanciaVertical = 1000.0,x,y;
     double tangente = abs(tan(this->anguloBarrido));
+
     /*parametros horizontales*/
     dy = -std::modf (this->posYMapa,&y);
     y = floor(y) - 0.025;
