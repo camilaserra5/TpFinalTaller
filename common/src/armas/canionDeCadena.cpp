@@ -4,7 +4,7 @@
 
 #define BALAS_POR_RAFAGA 1
 
-void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
+void CanionDeCadena::atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores){
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
@@ -21,11 +21,20 @@ void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador, std::map<in
                 jugadorMurio = true;
                 jugador->aniadirEnemigosMatados(1);
             }
-            //sleep(0.1);//chequear
             i++;
         }
     }
     jugador->actualizarArma();
+}
+
+void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
+    int balasJugador = jugador->cantidad_balas();
+    if (this->contador == 0 && balasJugador > BALAS_POR_RAFAGA){
+        this->atacarEfectivamente(distancia_a_pared, jugador, jugadores);
+        this->contador = TICKS_DISPARO_CANION;
+    } else {
+        this->contador -= 0.01; // consultar
+    }
 }
 
 

@@ -11,11 +11,15 @@ class AperturaDePuerta: public Comando{
     void ejecutar(EstadoJuego &estadoJuego) override;
 
     std::vector<char> serializar() override{
-      std::vector<char> s;
-      return s;
+      std::vector<char> informacion;
+      informacion.push_back(idJugador);
+      informacion.push_back(static_cast<int>(Accion::aperturaDePuerta));
+      return informacion;
     }
 
-    void deserializar(std::vector<char>& serializado){}
+    void deserializar(std::vector<char>& serializado){
+        this->idJugador = (int)serializado[0];
+    }
 
 };
 
