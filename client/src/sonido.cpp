@@ -2,6 +2,9 @@
 
 Sonido::Sonido(const std::string &file) {
     chunk = Mix_LoadWAV(file.c_str());
+    if(!chunk) {
+        printf("Mix_LoadWAV: %s\n", Mix_GetError());
+    }
     this->channel = -1;
 }
 

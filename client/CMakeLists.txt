@@ -14,8 +14,8 @@ link_directories(~/TpFinalTaller/common/build)
 include_directories(~/TpFinalTaller/common/include)
 
 file(GLOB SOURCES src/*.cpp)
-add_executable(client ${SOURCES} src/sprite.cpp src/player.cpp include/spriteAnimado.h include/audio.h src/audio.cpp include/sonido.h src/sonido.cpp include/musica.h src/musica.cpp)
+add_executable(client ${SOURCES} src/sprite.cpp src/player.cpp include/spriteAnimado.h include/audio.h src/audio.cpp include/sonido.h src/sonido.cpp include/musica.h src/musica.cpp src/LUA/manejadorlua.cpp src/LUA/manejadorlua.h)
 
 target_link_libraries(client ${PROJECT_LINK_LIBS} SDL2 SDL2_image SDL2_ttf SDL2_mixer Threads::Threads)
 
-install(FILES ../resources/images/ParteInferior.png ../resources/images/Guard.png  ../resources/sonidos/wolfenstein-3d-title-theme.wav DESTINATION ${CMAKE_BINARY_DIR})
+install(FILES ../resources/images/ParteInferior.png ../resources/images/Guard.png  ../resources/sonidos/musiquita.wav DESTINATION ${CMAKE_BINARY_DIR})
