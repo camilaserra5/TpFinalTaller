@@ -18,7 +18,7 @@
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
 #define METROS_MOVIDOS 2 // de acuanto se mueve el jugador
-#define CANT_TICKS_PARTID 10000  //5min
+#define CANT_TICKS_PARTIDA 10000  //5min
 
 void EstadoJuego::abrirPuerta(int idJugador){
   Jugador* jugador = this->jugadores.at(idJugador);
