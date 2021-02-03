@@ -4,28 +4,57 @@
 #include "estadoJuego.h"
 #include <list>
 #include "iserializable.h"
+#include "ranking.h"
 
 class Actualizacion : public ISerializable {
 public:
-    Actualizacion(EstadoJuego &estadoJuego/*,std::list<EntidadPosicionable*> objetos*/) :
-            estadoJuego(estadoJuego) {
-        estadoJuego.verificarJugadoresMuertos();//pasar a metodo actualizar en estadoJuego
+    Actualizacion(EstadoJuego &estadoJuego) :
+            estadoJuego(estadoJuego),termine(false), rankingJugadores() {
+        estadoJuego.verificarJugadoresMuertos();
+        this->termine = this->estadoJuego.terminoPartida();
+        Ranking ranking;
+        this->rankingJugadores = ranking.obtenerTopJugadores(5, estadoJuego.obtenerJugadores());
     }
 
-    /*objetos(objetos){
-      //quizas se guarda la informacion de los rayos para dinujar, tipo un vector de alturas
-      //y los jugadores que estan en su FOV junto con los items
-    }*/
     std::vector<char> serializar() override {
-        return this->estadoJuego.serializar();
+        std::vector<char> informacion;
+        informacion.push_back(termine);
+        informacion.push_back(this->rankingJugadores.size());
+        for (int i = 0; i<this->rankingJugadores.size(); i++){
+            informacion.push_back(this->rankingJugadores[i]);
+        }
+        std::vector<char> infoJuego = this->estadoJuego.serializar();
+        informacion.insert(informacion.end(), infoJuego.begin(), infoJuego.end());
+        return informacion;
     }
 
     void deserializar(std::vector<char> &serializado) override {
-        this->estadoJuego.deserializar(serializado);
+        this->termine = (bool)serializado[0];
+        int cantRanking = (int)serializado[1];
+        int idx = 2;
+        for (int i = 0; i< cantRanking; i++){
+              this->rankingJugadores[i] == serializado[idx];
+              idx++;
+        }
+        std::vector<char> estadoJuegoSerializado(serializado.begin() + idx,
+                                                           serializado.end());
+        this->estadoJuego.deserializar(estadoJuegoSerializado);
+    }
+    EstadoJuego obtenerEstadoJuego(){
+        return this->estadoJuego;
+    }
+    std::vector<int> obtenerRanking(){
+        return this->rankingJugadores;
+    }
+
+    bool terminoPartida(){
+        return termine;
     }
 
 private:
     EstadoJuego &estadoJuego;
+    std::vector<int> rankingJugadores;
+    bool termine;
 };
 
 #endif

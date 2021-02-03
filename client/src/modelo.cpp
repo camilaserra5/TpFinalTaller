@@ -24,6 +24,7 @@ Modelo::Modelo(Ventana *ventana, int idJugador) :
         jugador(),
         enemigos(),
         entidades(),
+        anunciador(),
         x(0){}
 
 Modelo::~Modelo() {}
@@ -192,6 +193,15 @@ void Modelo::actualizarObjeto(int id,Type tipo, int posx, int posy) {
 
 }
 
+<<<<<<< HEAD
+void Modelo::terminoPartida(std::vector<int>& rankingJugadores){
+    this->anunciador.settearInformacion(jugador, enemigos);
+    this->anunciador.settearGanadores(rankingJugadores, true);
+}
+
+
+=======
+>>>>>>> a2e2c7b7f1760061481fc6b541d08f25b9dec851
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     if (tipo == Type::comida) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,

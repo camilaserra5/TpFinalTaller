@@ -8,7 +8,7 @@
 #include "objetosJuego.h"
 #include "enemigo.h"
 #include <vector>
-
+#include "anunciador.h"
 class Modelo {
 public:
     Modelo(Ventana *ventana, int idJugador);
@@ -47,7 +47,11 @@ public:
 
     Player& getPlayer();
 
+<<<<<<< HEAD
+    void terminoPartida(std::vector<int>& rankingJugadores);
+=======
     void actualizar();
+>>>>>>> a2e2c7b7f1760061481fc6b541d08f25b9dec851
 
 
 private:
@@ -58,7 +62,11 @@ private:
     std::map<int, Enemigo*> enemigos;
     int x;
     std::vector<double> zbuffer;
+<<<<<<< HEAD
+    Anunciador anunciador;
+=======
     bool verificarVisibilidadDeObjeto(Posicion& posObjeto);
+>>>>>>> a2e2c7b7f1760061481fc6b541d08f25b9dec851
     // mapa de entidades dibujables;
 
 };

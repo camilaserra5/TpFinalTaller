@@ -79,10 +79,13 @@ public:
 
     void actualizarTiempoPartida();
 
+    bool terminoPartida();
+
 private:
     Map *mapa;
     std::map<int, Jugador *> jugadores;
     int contador;
+    int jugadoresMuertos;
 };
 
 #endif

@@ -140,6 +140,8 @@ void EstadoJuego::verificarJugadoresMuertos() {
         if (it->second->estaMuerto()) {
             if (it->second->cant_de_vida()>0){
                 it->second->actualizarNuevaVida();
+            } else {
+                this->jugadoresMuertos++;
             }
             Arma *arma = it->second->getArma();
 
@@ -153,6 +155,15 @@ void EstadoJuego::verificarJugadoresMuertos() {
             }
         }
     }
+}
+bool EstadoJuego::terminoPartida(){
+      bool termino = false;
+      if ((this->jugadoresMuertos == this->jugadores.size() -1) ||
+            this->contador == 0){
+                termino = true;
+        }
+        return termino;
+
 }
 
 void EstadoJuego::lanzarContadorTiempoPartida(){
