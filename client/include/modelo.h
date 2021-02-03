@@ -19,7 +19,7 @@ public:
 
     void renderizar();
 
-    void renderizarSprite(ObjetoJuego* objeto,int& anchoTexturaFoto,int& anchuraColumna,int& x,int& y1,int& alturaTexturaFoto,double& distanciaAItem);
+    void renderizarSprite(ObjetoJuego* objeto,int& alturaSprite,int& x,int& y1,double& distanciaObjeto);
 
     void actualizarJugador(int x, int y, int vida, int angulo, int idArma,
                             bool disparando, int puntaje, int cantVidas,
@@ -42,6 +42,8 @@ public:
 
     Player& getPlayer();
 
+    void actualizar();
+
 
 private:
     Ventana *ventana;
@@ -51,6 +53,7 @@ private:
     std::map<int, Enemigo*> enemigos;
     int x;
     std::vector<double> zbuffer;
+    bool verificarVisibilidadDeObjeto(Posicion& posObjeto);
     // mapa de entidades dibujables;
 
 };

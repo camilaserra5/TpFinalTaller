@@ -19,7 +19,7 @@ public:
 
     void settear_estado(int posx, int posy);
 
-    void setDistanciaParcialAJugador(int& distancia);
+    void setDistanciaParcialAJugador(double& distancia);
 
     int getDistanciaParcialAJugador();
 
