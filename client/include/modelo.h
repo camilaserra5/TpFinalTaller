@@ -19,7 +19,9 @@ public:
 
     void renderizar();
 
-    void renderizarSprite(ObjetoJuego* objeto,int& alturaSprite,int& x,int& y1,double& distanciaObjeto);
+    void renderizarObjeto(ObjetoJuego* objeto,int& alturaSprite,int& x,int& y1,double& distanciaObjeto);
+
+    void renderizarObjeto(Enemigo* enemigo,int& alturaSprite,int& x,int& y1,double& distanciaEnemigo);
 
     void actualizarJugador(int x, int y, int vida, int angulo, int idArma,
                             bool disparando, int puntaje, int cantVidas,

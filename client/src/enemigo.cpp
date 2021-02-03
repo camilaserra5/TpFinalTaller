@@ -11,6 +11,7 @@
 #define MORIRSE 0
 #define MOVERSE 1
 #define DISPARAR 2
+#define QUIETO 9
 
 #define ID_CUCHILLO 3
 #define ID_PISTOLA 4
@@ -21,8 +22,7 @@
 
 
 Enemigo::Enemigo(SDL_Renderer* render, int idArmaJugador):
-          idArma(idArmaJugador), posx(0), posy(0),
-          angulo(0), anguloJugador(0), estado(MOVERSE){
+          idArma(idArmaJugador),posicion(0,0,0),anguloJugador(0), estado(MOVERSE){
               // guardia
               Animacion dispararG(render, GUARDIA, FRAMES_Y, SPRITE_H, SPRITE_W, -1,0); // disparar
               Animacion moverseG(render, GUARDIA, FRAMES_Y, SPRITE_H, SPRITE_W, -1,1);
@@ -81,29 +81,38 @@ Enemigo::~Enemigo(){}
 void Enemigo::actualizar(int posx, int posy, int idArmaJugador,
                         int anguloEnemigo,int anguloJugador, int vida,
                         bool disparando){
-      verificarEstado(this->posx, this->posy, posx,
-                                      posy, vida, disparando);
-      this->posx = posx;
-      this->posy = posy;
+      Posicion posicionNueva(posx,posy,0);
+      verificarEstado(posicionNueva, vida, disparando);
+      this->posicion.actualizar_posicion(posx,posy);
+      this->posicion.setAngulo(anguloEnemigo);
       this->idArma = idArmaJugador;
       this->anguloJugador = anguloJugador;
-      this->angulo = anguloEnemigo;
 }
-void Enemigo::verificarEstado(int posxVieja, int posyVieja, int posxNueva,
-                                int posyNueva, int vida, bool disparando){
+void Enemigo::verificarEstado(Posicion& posicionNueva,int vida, bool disparando){
       if (disparando){
           this->estado = DISPARAR;
       } else if (vida <=0){
           this->estado = MORIRSE;
-      } else if (posxVieja == posxNueva && posyVieja == posyNueva){
+      } else if (!(this->posicion == posicionNueva)){
           this->estado = MOVERSE;
       } else {
-          this->estado = MOVERSE;
+          this->estado = QUIETO;
       }
 }
 
 void Enemigo::renderizar(){
       std::vector<Animacion>& tipo = this->enemigos.find(this->idArma)->second;
-      tipo[this->estado].renderizar(this->posx, this->posy, 0, NULL);
+      tipo[this->estado].renderizar(this->posicion.pixelesEnX(),this->posicion.pixelesEnY(), 0, NULL);
+}
 
+int Enemigo::getDistanciaParcialAJugador(){
+    return this->distanciaParcialAJugador;
+}
+
+void Enemigo::setDistanciaParcialAJugador(int distancia){
+    this->distanciaParcialAJugador = distancia;
+}
+
+Posicion& Enemigo::getPosicion(){
+  return this->posicion;
 }

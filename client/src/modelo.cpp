@@ -52,7 +52,7 @@ void normalizarAnguloEnRango(double& angulo,bool& esVisible){//cheq esa referenc
   }
 }
 
-void Modelo::renderizarSprite(ObjetoJuego* objeto,int& alturaSprite,int& x,int& y,double& distanciaObjeto){
+void Modelo::renderizarObjeto(ObjetoJuego* objeto,int& alturaSprite,int& x,int& y,double& distanciaObjeto){
 //  int anchuraColumna = alturaSprite / SPRITE_LARGO;
   int tamanioBuffer = zbuffer.size();
   for (int i = 2; i < SPRITE_ANCHO; i++){
@@ -63,18 +63,41 @@ void Modelo::renderizarSprite(ObjetoJuego* objeto,int& alturaSprite,int& x,int& 
       dimension.y = 0;//sumaoffset
       dimension.w = 1;
       dimension.h = alturaSprite;
-
-      dest.x = tamanioBuffer - 1 - posBuffer;
+      dest.x = posBuffer;
       dest.y = y - 20;
       dest.w = 1;
       dest.h = y + alturaSprite - 20;
       objeto->renderizarColumna(dimension,dest);
-      std::cout << "pos en la pantalla: " << (tamanioBuffer) << " desde: " << y0 << "\n";
+    }
+  }
+}
+/*
+void Modelo::renderizarEnemigo(Enemigo* enemigo,int& alturaSprite,int& x,int& y,double& distanciaObjeto){
+//  int anchuraColumna = alturaSprite / SPRITE_LARGO;
+  int tamanioBuffer = zbuffer.size();
+  for (int i = 2; i < SPRITE_ANCHO; i++){
+    int posBuffer = x + i;
+    if (this->zbuffer[tamanioBuffer - 1 -posBuffer] > distanciaObjeto){
+      SDL_Rect dimension,dest;
+      dimension.x = i;//suma offset
+      dimension.y = 0;//sumaoffset
+      dimension.w = 1;
+      dimension.h = alturaSprite;
+      dest.x = posBuffer;
+      dest.y = y - 20;
+      dest.w = 1;
+      dest.h = y + alturaSprite - 20;
+      objeto->renderizarColumna(dimension,dest);
     }
   }
 }
 
-bool compararDistanciasSprites(ObjetoJuego* objeto1,ObjetoJuego* objeto2){
+bool compararDistanciasEnemigos(Enemigo* enemigo1, Enemigo* enemigo2){
+  return (enemigo1->getDistanciaParcialAJugador() < enemigo2->getDistanciaParcialAJugador());
+
+}
+*/
+bool compararDistanciasObjetos(ObjetoJuego* objeto1,ObjetoJuego* objeto2){
   return (objeto1->getDistanciaParcialAJugador() < objeto2->getDistanciaParcialAJugador());
 }
 
@@ -103,15 +126,13 @@ void Modelo::verificarItemsEnRango(){
         itemsVisibles.push_back(it->second);
         double distanciaAItem = posItem.distanciaA(this->jugador->getPosicion());
         it->second->setDistanciaParcialAJugador(distanciaAItem);
-        std::cout << "VISIBLE\n";
       }
   }
-  std::sort(itemsVisibles.begin(), itemsVisibles.end(),compararDistanciasSprites);
+  std::sort(itemsVisibles.begin(), itemsVisibles.end(),compararDistanciasObjetos);
   int cantidadItemsVisibles = itemsVisibles.size();
   for (int i = 0;i < cantidadItemsVisibles; i++){
     //ojo que el angulo del item NO esta normalizado
     Posicion& posItem = itemsVisibles[i]->getPosicion();
-
     Posicion& posJugador = jugador->getPosicion();
     double dy = (posItem.pixelesEnY() - posJugador.pixelesEnY());
     double dx = (posItem.pixelesEnX() - posJugador.pixelesEnX());
@@ -121,18 +142,49 @@ void Modelo::verificarItemsEnRango(){
     int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
     int y1 = y0 + alturaSprite;
     double x0 = tan(anguloItem) * distanciaPlanoProyeccion;
-    int x = (ANCHO_CANVAS / 2) + x0 - (alturaSprite / 2);
-    this->renderizarSprite(itemsVisibles[i],alturaSprite,x,y1,distancia);
+    int x = (ANCHO_CANVAS / 2) + x0 - (SPRITE_ANCHO / 2);
+    this->renderizarObjeto(itemsVisibles[i],alturaSprite,x,y1,distancia);
   }
 }
-
+/*
 void Modelo::verificarEnemigosEnRango(){
+  double pi = 3.141592653;
+  bool esVisible = false;
+  std::map<int,Enemigo*>::iterator it;
+  std::vector<Enemigo*> enemigosVisibles;
+  double altoCelda = 40;
+  double distanciaPlanoProyeccion = (ANCHO_CANVAS / 2) / tan(pi/6.0);
+  for (it = this->enemigos.begin(); it != this->enemigos.end(); ++it){
+      Posicion& posEnemigo = it->second->getPosicion();
+      esVisible = verificarVisibilidadDeObjeto(posEnemigo);
+      if (esVisible){
+        enemigosVisibles.push_back(it->second);
+        double distanciaAEnemigo = posEnemigo.distanciaA(this->jugador->getPosicion());
+        it->second->setDistanciaParcialAJugador(distanciaAEnemigo);
+      }
+  }
+  std::sort(enemigosVisibles.begin(), enemigosVisibles.end(),compararDistanciasEnemigos);
+  int cantidadEnemigosVisibles = enemigosVisibles.size();
+  for (int i = 0;i < cantidadEnemigosVisibles; i++){
+    //ojo que el angulo del item NO esta normalizado
+    Posicion& posEnemigo = enemigosVisibles[i]->getPosicion();
 
+    Posicion& posJugador = jugador->getPosicion();
+    double dy = (posEnemigo.pixelesEnY() - posJugador.pixelesEnY());
+    double dx = (posEnemigo.pixelesEnX() - posJugador.pixelesEnX());
+    double anguloEnemigo = atan(dy/dx);
+    double distancia = enemigosVisibles[i]->getDistanciaParcialAJugador();
+    int alturaEnemigo = floor((altoCelda/distancia) * distanciaPlanoProyeccion);
+    int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaEnemigo / 2);//cheq el segundo floor
+    int y1 = y0 + alturaEnemigo;
+    double x0 = tan(anguloEnemigo) * distanciaPlanoProyeccion;
+    int x = (ANCHO_CANVAS / 2) + x0 - (SPRITE_ANCHO / 2);
+    this->renderizarEnemigo(enemigosVisibles[i],alturaEnemigo,x,y1,distancia);
 }
-
+*/
 void Modelo::verificarObjetosEnRangoDeVista(){
   this->verificarItemsEnRango();
-  this->verificarEnemigosEnRango();
+//  this->verificarEnemigosEnRango();
 }
 
 
@@ -149,7 +201,7 @@ void Modelo::renderizar() {
 
     ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
     objeto->settear_estado(500, 420);
-  //  verificarObjetosEnRangoDeVista();
+    verificarObjetosEnRangoDeVista();
     //sprite.reescalar(2,2);
   //  sprite.renderizar(250, 400, 0, NULL);
   this->jugador->actualizar(318, 420, 100, 0, 4, false, 50, 3, 5);
