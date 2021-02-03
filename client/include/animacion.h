@@ -49,7 +49,7 @@ class Animacion{
               this->tiempoViejo = 0;
        }
         ~Animacion(){
-            std::cout << "entre al destructor";
+            
         }
 
     void  renderizar(int posx, int posy, int angulo, SDL_Point* centro){
