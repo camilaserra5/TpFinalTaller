@@ -105,7 +105,6 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     } else if (value == Type::llave) {
         this->contenedorDeElementos.agregarElemento(new Llave(posicion,12));
     } else {
-        std::cout << "agrego no item\n";
         this->contenedorDeElementos.agregarElemento(new NoItem(posicion, 1000));
     }
 

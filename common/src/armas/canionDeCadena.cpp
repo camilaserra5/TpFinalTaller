@@ -33,7 +33,7 @@ void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador, std::map<in
         this->atacarEfectivamente(distancia_a_pared, jugador, jugadores);
         this->contador = TICKS_DISPARO_CANION;
     } else {
-        this->contador -= 0.01; // consultar
+        this->contador --; // consultar
     }
 }
 
