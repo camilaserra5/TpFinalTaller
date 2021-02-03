@@ -21,8 +21,8 @@ Modelo::Modelo(Ventana *ventana, int idJugador) :
         jugador(),
         enemigos(),
         entidades(),
-        anunciador(),
-        x(0){}
+        anunciador(ventana),
+        partidaTerminada(false){}
 
 Modelo::~Modelo() {}
 
@@ -138,22 +138,25 @@ void Modelo::verificarObjetosEnRangoDeVista(){
 
 
 void Modelo::renderizar() {
-    this->jugador->renderizar();
-    // verificar items si estan en posicion;
-    // verificar enemigos si estan en posicion correcta;
+  if (!partidaTerminada){
+        this->jugador->renderizar();
+        // verificar items si estan en posicion;
+        // verificar enemigos si estan en posicion correcta;
 
-    for (std::map<int,Enemigo*>::iterator it=enemigos.begin(); it!=enemigos.end(); ++it){
-          it->second->actualizar(500, 300, 4, 0, 0, 0, false);
-          Enemigo* enemigo = it->second;
-          enemigo->renderizar();
-    }
+        for (std::map<int,Enemigo*>::iterator it=enemigos.begin(); it!=enemigos.end(); ++it){
+              it->second->actualizar(500, 300, 4, 0, 0, 0, false, 50);
+              Enemigo* enemigo = it->second;
+              enemigo->renderizar();
+        }
 
-    ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
-    objeto->settear_estado(500, 420);
-  //  verificarObjetosEnRangoDeVista();
-    //sprite.reescalar(2,2);
-  //  sprite.renderizar(250, 400, 0, NULL);
-  this->jugador->actualizar(318, 420, 100, 0, 4, false, 50, 3, 5);
+        ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
+        objeto->settear_estado(500, 420);
+      //  verificarObjetosEnRangoDeVista();
+        //sprite.reescalar(2,2);
+      //  sprite.renderizar(250, 400, 0, NULL);
+      this->jugador->actualizar(318, 420, 100, 0, 4, false, 50, 3, 5);
+  }
+  this->anunciador.renderizar();
 
 
 }
@@ -166,12 +169,13 @@ void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int idArma,
 
 void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
                         int posx, int posy, int idArma,
-                        int anguloJugador, int angulo){
+                        int anguloJugador, int angulo, int puntaje){
 
     if (this->enemigos[id] == NULL){
           Enemigo* enemigo = new Enemigo(this->ventana->obtener_render(), 4);
     }
-    this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador, vida, disparando);
+    this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador,
+                                    vida, disparando, puntaje);
 }
 
 void Modelo::actualizarObjeto(int id,Type tipo, int posx, int posy) {
@@ -184,15 +188,13 @@ void Modelo::actualizarObjeto(int id,Type tipo, int posx, int posy) {
 
 }
 
-<<<<<<< HEAD
 void Modelo::terminoPartida(std::vector<int>& rankingJugadores){
     this->anunciador.settearInformacion(jugador, enemigos);
-    this->anunciador.settearGanadores(rankingJugadores, true);
+    this->anunciador.settearGanadores(rankingJugadores);
+    this->partidaTerminada = true;
 }
 
 
-=======
->>>>>>> a2e2c7b7f1760061481fc6b541d08f25b9dec851
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     if (tipo == Type::comida) {
         Sprite sprite(ventana->obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,

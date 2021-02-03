@@ -22,7 +22,7 @@
 
 Enemigo::Enemigo(SDL_Renderer* render, int idArmaJugador):
           idArma(idArmaJugador), posx(0), posy(0),
-          angulo(0), anguloJugador(0), estado(MOVERSE){
+          angulo(0), anguloJugador(0), estado(MOVERSE), puntaje(0){
               // guardia
               Animacion dispararG(render, GUARDIA, FRAMES_Y, SPRITE_H, SPRITE_W, -1,0); // disparar
               Animacion moverseG(render, GUARDIA, FRAMES_Y, SPRITE_H, SPRITE_W, -1,1);
@@ -80,7 +80,7 @@ Enemigo::~Enemigo(){}
 
 void Enemigo::actualizar(int posx, int posy, int idArmaJugador,
                         int anguloEnemigo,int anguloJugador, int vida,
-                        bool disparando){
+                        bool disparando, int puntaje){
       verificarEstado(this->posx, this->posy, posx,
                                       posy, vida, disparando);
       this->posx = posx;
@@ -88,6 +88,7 @@ void Enemigo::actualizar(int posx, int posy, int idArmaJugador,
       this->idArma = idArmaJugador;
       this->anguloJugador = anguloJugador;
       this->angulo = anguloEnemigo;
+      this->puntaje = puntaje;
 }
 void Enemigo::verificarEstado(int posxVieja, int posyVieja, int posxNueva,
                                 int posyNueva, int vida, bool disparando){

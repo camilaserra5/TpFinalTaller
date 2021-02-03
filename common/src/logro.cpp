@@ -1,5 +1,6 @@
 #include "../include/logro.h"
-
+#define PUNTOS_BALAS 5
+#define PUNTOS_MATAR 10
 bool Logro::operator>(Logro &logro) {
     bool mateMasEnemigos = (this->enemigosMatados > logro.enemigosMatados ? true : false);
     bool tengoMasPuntosPorTesoro = (this->puntosTotalesPorTesoros > logro.puntosTotalesPorTesoros ? true : false);
@@ -24,4 +25,8 @@ void Logro::aniadirPuntosPorTesoro(int puntos) {
 
 void Logro::aniadirEnemigosMatados(int cantidadDeEnemigos) {
     this->enemigosMatados += cantidadDeEnemigos;
+}
+int Logro::obtenerPuntosTotales(){
+    return (this->puntosTotalesPorTesoros + this->enemigosMatados*PUNTOS_MATAR +
+            this->balasDisparadas*PUNTOS_BALAS);
 }

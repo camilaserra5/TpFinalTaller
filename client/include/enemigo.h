@@ -14,10 +14,15 @@ public:
       Enemigo(SDL_Renderer* render, int idArmaJugador);
       ~Enemigo();
       void actualizar(int posx, int posy, int idArma, int anguloEnemigo,
-                      int anguloJugador, int vida, bool disparando);
+                      int anguloJugador, int vida, bool disparando, int puntaje);
       void renderizar();
       void verificarEstado(int posxViejo, int posyViejo, int posxNuevo,
                           int posyNuevo, int vida, bool disparando);
+
+      int getPuntaje(){
+          return this->puntaje;
+      }
+      
 private:
       int idArma;
       int posx;
@@ -25,6 +30,7 @@ private:
       int angulo;
       int anguloJugador;
       int estado;
+      int puntaje;
       std::multimap<int, std::vector<Animacion>> enemigos;
 };
 

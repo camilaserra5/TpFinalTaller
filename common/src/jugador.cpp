@@ -155,3 +155,7 @@ void Jugador::actualizarNuevaVida(){
 int Jugador::cant_de_vida(){
     return this->cantidad_vidas;
 }
+
+int Jugador::obtenerPuntosTotales(){
+    return this->logro.obtenerPuntosTotales();
+}

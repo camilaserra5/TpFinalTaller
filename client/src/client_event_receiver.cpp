@@ -32,7 +32,7 @@ void ClientEventReceiver::run() {
           int posy = jugador->getPosicion().pixelesEnY();
           int angulo = jugador->getAnguloDeVista();
           int idArma = jugador->getArma()->getId();
-          int puntaje = jugador->obtenerLogro().obtener_puntaje();
+          int puntaje = jugador->obtenerPuntosTotales();
           bool disparando = jugador->estaDisparando();
           int cantVidas = jugador->cant_de_vida();
           int balas = jugador->cantidad_balas();
@@ -48,9 +48,10 @@ void ClientEventReceiver::run() {
                     int anguloJugador = angulo;
                     int anguloE = it->second->getAnguloDeVista();
                     bool disparandoE = it->second->estaDisparando();
+                    int puntajeE = it->second->obtenerPuntosTotales();
                     modelo.actualizarEnemigo(idE, vidaE, disparandoE, posxE,
                                               posyE, idArmaE, anguloJugador,
-                                              anguloE);
+                                              anguloE, puntajeE);
               }
           }
 
