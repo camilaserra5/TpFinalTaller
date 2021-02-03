@@ -17,6 +17,7 @@
 
 
 #define LOWER_TEXTURE_ROOT "../../client/resources/images/ParteInferior.png"
+#define MUSICA_FONDO "../../client/resources/sonidos/musiquita.wav"
 
 Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, int idJugador) {
     int flags = 0;
@@ -31,7 +32,7 @@ Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, in
             exit(1);
         }
         Audio audio;
-        Musica ambient_music("../../client/resources/sonidos/musiquita.wav");
+        Musica ambient_music = Musica(MUSICA_FONDO);
         ambient_music.play(-1);
 
         this->ventana = new Ventana(titulo, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ancho, alto, flags);

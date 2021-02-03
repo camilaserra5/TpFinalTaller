@@ -10,7 +10,7 @@ ManejadorEventos::ManejadorEventos(int& idJugador, BlockingQueue<Comando*>& even
     idJugador(idJugador),
     eventos(eventos),
     corriendo(true),
-    sonidoAmbiente("../resources/sonidos/wolfenstein-3d-title-theme.wav"){}
+    sonidoAmbiente("../../client/resources/sonidos/wolfenstein-3d-title-theme.wav"){}
 
 ManejadorEventos::~ManejadorEventos(){}
 

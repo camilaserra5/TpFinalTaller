@@ -20,6 +20,7 @@ Modelo::Modelo(Ventana *ventana, int idJugador) :
         jugador(),
         enemigos(),
         entidades(),
+        anunciador(),
         x(0){}
 
 Modelo::~Modelo() {}
@@ -190,6 +191,11 @@ void Modelo::actualizarObjeto(int id,Type tipo, int posx, int posy) {
     }
     this->entidades[id]->settear_estado(posx, posy);
 
+}
+
+void Modelo::terminoPartida(std::vector<int>& rankingJugadores){
+    this->anunciador.settearInformacion(jugador, enemigos);
+    this->anunciador.settearGanadores(rankingJugadores, true);
 }
 
 
