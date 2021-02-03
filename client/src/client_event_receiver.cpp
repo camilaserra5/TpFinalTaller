@@ -4,6 +4,7 @@
 #include "items/item.h"
 #include "jugador.h"
 #include "estadoJuego.h"
+#include "actualizacion.h"
 
 #include <utility>
 #include <algorithm>
@@ -20,9 +21,10 @@ void ClientEventReceiver::run() {
 
           std::vector<char> informacion = this->protocolo.recibir();
 
-          EstadoJuego* estadoJuego;
-          estadoJuego->deserializar(informacion);
-          std::map<int, Jugador*> jugadores = estadoJuego->obtenerJugadores();
+          Actualizacion* actualizacion;
+          EstadoJuego estadoJuego = actualizacion->obtenerEstadoJuego();
+          estadoJuego.deserializar(informacion);
+          std::map<int, Jugador*> jugadores = estadoJuego.obtenerJugadores();
           std::map<int, Jugador*>::iterator it;
           Jugador* jugador = jugadores.at(idJugador);
           int vida = jugador->puntos_de_vida();
@@ -52,7 +54,7 @@ void ClientEventReceiver::run() {
               }
           }
 
-          Map* mapa = estadoJuego->obtenerMapa();
+          Map* mapa = estadoJuego.obtenerMapa();
           std::vector<Item*> items = mapa->obtenerItems();
           for (int i = 0; i< items.size(); i++){
               Item* item = items[i];
@@ -61,6 +63,10 @@ void ClientEventReceiver::run() {
               int posxI = item->obtenerPosicion().pixelesEnX();
               int posyI = item->obtenerPosicion().pixelesEnY();
               modelo.actualizarObjeto(idI, tipo, posxI, posyI);
+          }
+          if (actualizacion->terminoPartida()){
+              std::vector<int> ordenRanking = actualizacion->obtenerRanking();
+              modelo.terminoPartida(ordenRanking);
           }
 
       }
