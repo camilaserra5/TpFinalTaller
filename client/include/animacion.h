@@ -8,6 +8,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include <vector>
+#include <iostream>
 
 class Animacion{
     private:
@@ -47,12 +48,14 @@ class Animacion{
               this->velocidad = 1000;
               this->tiempoViejo = 0;
        }
-        ~Animacion(){}
+        ~Animacion(){
+            std::cout << "entre al destructor";
+        }
 
-    bool  renderizar(int posx, int posy, int angulo, SDL_Point* centro){
-          bool termine = false;
+    void  renderizar(int posx, int posy, int angulo, SDL_Point* centro){
+
           if (tiempoViejo + velocidad > SDL_GetTicks()){
-              termine = true;
+
           }
           tiempoViejo = SDL_GetTicks();
 
@@ -61,9 +64,9 @@ class Animacion{
           }
           SDL_Rect r = {posx, posy, this->frame_h*2, this->frame_w*2}; // Donde se renderiza
           textura->renderizar(&frames[this->frameActual], r, angulo, centro);
-          this->frameActual ++;
+          this->frameActual+=1;
           SDL_Delay(100);
-          return termine;
+
     }
 };
 

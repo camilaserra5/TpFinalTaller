@@ -103,7 +103,7 @@ void Enemigo::verificarEstado(int posxVieja, int posyVieja, int posxNueva,
 }
 
 void Enemigo::renderizar(){
-      std::vector<Animacion> tipo = this->enemigos.find(this->idArma)->second;
+      std::vector<Animacion>& tipo = this->enemigos.find(this->idArma)->second;
       tipo[this->estado].renderizar(this->posx, this->posy, 0, NULL);
 
 }
