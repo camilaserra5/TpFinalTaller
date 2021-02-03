@@ -20,7 +20,6 @@
 #define ID_CANION_DE_CADENA 2
 
 
-
 Enemigo::Enemigo(SDL_Renderer* render, int idArmaJugador):
           idArma(idArmaJugador),posicion(0,0,0),anguloJugador(0), estado(MOVERSE){
               // guardia
@@ -113,4 +112,8 @@ Posicion& Enemigo::getPosicion(){
 void Enemigo::renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest){
   std::vector<Animacion>& tipo = this->enemigos.find(this->idArma)->second;
   tipo[this->estado].renderizarColumna(dimension,dest);
+}
+
+int Enemigo::obtenerAnchura(){
+  return SPRITE_W;
 }

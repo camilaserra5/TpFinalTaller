@@ -17,16 +17,16 @@ public:
       ~Enemigo();
       void actualizar(int posx, int posy, int idArma, int anguloEnemigo,
                       int anguloJugador, int vida, bool disparando);
+                      
       void renderizar();
+
       void verificarEstado(Posicion& posicionNueva,int vida, bool disparando);
-
-//      int getDistanciaParcialAJugador();
-
-//      void setDistanciaParcialAJugador(int distancia);
 
       void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest) override;
 
       Posicion& getPosicion();
+
+      int obtenerAnchura();
 
 private:
       int idArma;

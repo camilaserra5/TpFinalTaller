@@ -20,6 +20,9 @@ class ObjetoDibujable{
     virtual void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest) = 0;
 
     virtual Posicion& getPosicion() = 0;
+
+    virtual int obtenerAnchura() = 0;
+
 };
 
 

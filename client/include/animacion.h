@@ -49,7 +49,7 @@ class Animacion{
               this->tiempoViejo = 0;
        }
         ~Animacion(){
-            
+
         }
 
     void  renderizar(int posx, int posy, int angulo, SDL_Point* centro){
@@ -70,6 +70,9 @@ class Animacion{
     }
 
     void renderizarColumna(SDL_Rect& dimension,SDL_Rect dest){
+      dimension.x += frames[frameActual].x;
+      dimension.y += frames[frameActual].y;
+      std::cout << "mido: " << this->frame_w << "\n";
       this->textura->renderizar(&dimension,dest,0,NULL);
     }
 };

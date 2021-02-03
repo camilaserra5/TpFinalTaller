@@ -20,15 +20,13 @@ public:
 
     void settear_estado(int posx, int posy);
 
-//    void setDistanciaParcialAJugador(double& distancia);
-
-//    int getDistanciaParcialAJugador();
-
     Posicion& getPosicion();
 
     void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest) override;
 
     void reescalar(int escalarw, int escalarh);
+
+    int obtenerAnchura();
 };
 
 #endif //OBJETOJUEGO_H

@@ -21,7 +21,7 @@ void Sprite::renderizar(int x, int y, int angulo, SDL_Point* centro) {
 }
 
 void Sprite::renderizarColumna(SDL_Rect dimension,SDL_Rect& dest){
-  dimension.x += this->infoSprite.x;
+  dimension.x += this->infoSprite.x + 2;
   dimension.y += this->infoSprite.y;//cheqeuar
 //  std::cout << "x: " << dimension.x << " y " <<dimension.y <<"\n";
   this->textura->renderizar(&dimension,dest,0,NULL);
