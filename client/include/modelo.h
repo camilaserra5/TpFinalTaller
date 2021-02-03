@@ -19,7 +19,12 @@ public:
 
     void renderizar();
 
-    void renderizarSprite(ObjetoJuego* objeto,int& alturaSprite,int& x,int& y1,double& distanciaObjeto);
+    void renderizarObjeto(ObjetoDibujable* objeto,int& alturaSprite,int& x,int& y1,double& distanciaObjeto);
+
+    void renderizarObjetosDibujables(std::vector<ObjetoDibujable*>& objetosVisibles);
+
+
+  //  void renderizarObjeto(Enemigo* enemigo,int& alturaSprite,int& x,int& y1,double& distanciaEnemigo);
 
     void actualizarJugador(int x, int y, int vida, int angulo, int idArma,
                             bool disparando, int puntaje, int cantVidas,
@@ -36,9 +41,9 @@ public:
 
     std::vector<double>& getZBuffer();
 
-    void verificarEnemigosEnRango();
+    void verificarEnemigosEnRango(std::vector<ObjetoDibujable*>& objetosVisibles);
 
-    void verificarItemsEnRango();
+    void verificarItemsEnRango(std::vector<ObjetoDibujable*>& objetosVisibles);
 
     bool verificarVisibilidadDeObjeto(Posicion& posObjeto);
 
