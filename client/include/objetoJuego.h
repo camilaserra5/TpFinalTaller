@@ -3,8 +3,9 @@
 
 #include "sprite.h"
 #include "posicion.h"
+#include "objetoDibujable.h"
 
-class ObjetoJuego {
+class ObjetoJuego: public ObjetoDibujable {
 private:
     Posicion posicion;
     Sprite sprite;
@@ -19,13 +20,13 @@ public:
 
     void settear_estado(int posx, int posy);
 
-    void setDistanciaParcialAJugador(double& distancia);
+//    void setDistanciaParcialAJugador(double& distancia);
 
-    int getDistanciaParcialAJugador();
+//    int getDistanciaParcialAJugador();
 
     Posicion& getPosicion();
 
-    void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest);
+    void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest) override;
 
     void reescalar(int escalarw, int escalarh);
 };

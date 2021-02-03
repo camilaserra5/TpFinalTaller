@@ -105,14 +105,12 @@ void Enemigo::renderizar(){
       tipo[this->estado].renderizar(this->posicion.pixelesEnX(),this->posicion.pixelesEnY(), 0, NULL);
 }
 
-int Enemigo::getDistanciaParcialAJugador(){
-    return this->distanciaParcialAJugador;
-}
-
-void Enemigo::setDistanciaParcialAJugador(int distancia){
-    this->distanciaParcialAJugador = distancia;
-}
 
 Posicion& Enemigo::getPosicion(){
   return this->posicion;
+}
+
+void Enemigo::renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest){
+  std::vector<Animacion>& tipo = this->enemigos.find(this->idArma)->second;
+  tipo[this->estado].renderizarColumna(dimension,dest);
 }

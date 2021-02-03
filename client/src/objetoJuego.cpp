@@ -14,14 +14,6 @@ void ObjetoJuego::settear_estado(int posx, int posy) {
   this->posicion.actualizar_posicion(posx,posy);
 }
 
-void ObjetoJuego::setDistanciaParcialAJugador(double& distancia){
-    this->distanciaParcialAJugador = distancia;
-}
-
-int ObjetoJuego::getDistanciaParcialAJugador(){
-  return this->distanciaParcialAJugador;
-}
-
 Posicion& ObjetoJuego::getPosicion(){
     return this->posicion;
 }

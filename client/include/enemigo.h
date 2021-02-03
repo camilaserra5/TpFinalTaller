@@ -9,8 +9,9 @@
 #include <utility>
 #include <vector>
 #include "posicion.h"
+#include "objetoDibujable.h"
 
-class Enemigo{
+class Enemigo: public ObjetoDibujable{
 public:
       Enemigo(SDL_Renderer* render, int idArmaJugador);
       ~Enemigo();
@@ -19,9 +20,11 @@ public:
       void renderizar();
       void verificarEstado(Posicion& posicionNueva,int vida, bool disparando);
 
-      int getDistanciaParcialAJugador();
+//      int getDistanciaParcialAJugador();
 
-      void setDistanciaParcialAJugador(int distancia);
+//      void setDistanciaParcialAJugador(int distancia);
+
+      void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest) override;
 
       Posicion& getPosicion();
 

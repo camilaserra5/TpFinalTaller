@@ -68,6 +68,10 @@ class Animacion{
           SDL_Delay(100);
 
     }
+
+    void renderizarColumna(SDL_Rect& dimension,SDL_Rect dest){
+      this->textura->renderizar(&dimension,dest,0,NULL);
+    }
 };
 
 #endif
