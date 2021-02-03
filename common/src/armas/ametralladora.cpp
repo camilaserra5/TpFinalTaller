@@ -2,10 +2,6 @@
 
 #define BALAS_POR_RAFAGA 5
 
-bool Ametralladora::esPistola() {
-    return false;
-}
-
 void Ametralladora::atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores){
       int cantidad_balas = this->cantidad_rafagas * BALAS_POR_RAFAGA;
       jugador->gastarBalas(cantidad_balas);

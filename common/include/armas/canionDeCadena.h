@@ -18,8 +18,6 @@ public:
 
     void atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores);
 
-    bool esPistola() override;
-
     Type getTipo() override;
 
 private:

@@ -75,6 +75,9 @@ public:
         return this->mapa;
     }
 
+    void lanzarContadorTiempoPartida();
+
+    void actualizarTiempoPartida();
 
 private:
     Map *mapa;

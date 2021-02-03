@@ -38,7 +38,6 @@ std::vector<double>& Modelo::getZBuffer(){
   return this->zbuffer;
 }
 
-
 void normalizarAnguloEnRango(double& diferenciaAngulo,bool& esVisible){
   double pi = 2 * acos(0.0);
   if (diferenciaAngulo < -pi){
