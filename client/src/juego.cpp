@@ -51,7 +51,7 @@ void Juego::run() {
     while(this->corriendo){
         try {
               this->clean();
-              this->raycasting(mapa,this->modelo->getPlayer());
+            //  this->raycasting(mapa,this->modelo->getPlayer());
               this->renderizar();
               this->actualizar(/*1*/);
               std::chrono::milliseconds duration(100);

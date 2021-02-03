@@ -147,6 +147,10 @@ void Modelo::verificarObjetosEnRangoDeVista(){
 
 
 void Modelo::renderizar() {
+  //  std::vector<int> ranking;
+  //  ranking.push_back(1111);
+  //  ranking.push_back(111);
+  //  this->terminoPartida(ranking);
   if (!partidaTerminada){
         this->jugador->renderizar();
         // verificar items si estan en posicion;
@@ -163,7 +167,7 @@ void Modelo::renderizar() {
       //  verificarObjetosEnRangoDeVista();
         //sprite.reescalar(2,2);
       //  sprite.renderizar(250, 400, 0, NULL);
-      this->jugador->actualizar(318, 420, 100, 0, 4, false, 50, 3, 5);
+      this->jugador->actualizar(318, 420, 100, 0, 4, true, 50, 3, 5);
   }
   this->anunciador.renderizar();
 
