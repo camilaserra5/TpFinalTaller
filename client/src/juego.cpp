@@ -65,6 +65,7 @@ void Juego::run() {
 
 void Juego::actualizar(/*temporal int idArma*/) {
     this->ventana->actualizar();
+    this->modelo->actualizar();
 }
 
 void Juego::renderizar() {

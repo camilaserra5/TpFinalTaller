@@ -19,7 +19,7 @@ public:
 
     void renderizar();
 
-    void renderizarSprite(ObjetoJuego* objeto,int& anchoTexturaFoto,int& anchuraColumna,int& x,int& y1,int& alturaTexturaFoto,double& distanciaAItem);
+    void renderizarSprite(ObjetoJuego* objeto,int& alturaSprite,int& x,int& y1,double& distanciaObjeto);
 
     void actualizarJugador(int x, int y, int vida, int angulo, int idArma,
                             bool disparando, int puntaje, int cantVidas,
@@ -42,7 +42,11 @@ public:
 
     Player& getPlayer();
 
+<<<<<<< HEAD
     void terminoPartida(std::vector<int>& rankingJugadores);
+=======
+    void actualizar();
+>>>>>>> a2e2c7b7f1760061481fc6b541d08f25b9dec851
 
 
 private:
@@ -53,7 +57,11 @@ private:
     std::map<int, Enemigo*> enemigos;
     int x;
     std::vector<double> zbuffer;
+<<<<<<< HEAD
     Anunciador anunciador;
+=======
+    bool verificarVisibilidadDeObjeto(Posicion& posObjeto);
+>>>>>>> a2e2c7b7f1760061481fc6b541d08f25b9dec851
     // mapa de entidades dibujables;
 
 };

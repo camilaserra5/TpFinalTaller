@@ -2,7 +2,7 @@
 
 #define RUTAIMG "../../client/resources/images/Weapons.png"
 #define SPRITES_W 64.55
-#define SPRITES_H 64.2
+#define SPRITES_H 65
 #define FRAMES_X 5
 #define FRAMES_Y 4
 #define POSX 318
