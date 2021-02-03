@@ -27,7 +27,7 @@ public:
 
       int getPuntaje(){
           return this->puntaje;
-
+      }
       int obtenerAnchura();
 
 private:

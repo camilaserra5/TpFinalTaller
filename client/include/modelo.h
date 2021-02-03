@@ -45,8 +45,6 @@ public:
 
     void verificarItemsEnRango(std::vector<ObjetoDibujable*>& objetosVisibles);
 
-    bool verificarVisibilidadDeObjeto(Posicion& posObjeto);
-
     Player& getPlayer();
 
     void terminoPartida(std::vector<int>& rankingJugadores);

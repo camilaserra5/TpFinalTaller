@@ -137,8 +137,8 @@ void LogInWindow::run() {
                 }
             }
         }
-
-        this->protocolo = Protocolo protocolo(std::move(socket));
+        Protocolo protocolo(std::move(socket));
+        this->protocolo = std::move(protocolo);
         std::cout << "recibo partidas";
         std::vector<char> partidas = protocolo.recibir();
         std::vector<std::string> partis;

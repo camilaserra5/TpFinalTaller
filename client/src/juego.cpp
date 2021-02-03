@@ -20,7 +20,7 @@ Juego::Juego(Ventana& ventana, Modelo& modelo): ventana(ventana), modelo(modelo)
 
         this->modelo.inicializar();
         this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT,
-                                            this->ventana->obtener_render());
+                                            this->ventana.obtener_render());
         this->corriendo = true;
 }
 
@@ -42,23 +42,23 @@ void Juego::run() {
 }
 
 void Juego::actualizar(/*temporal int idArma*/) {
-    this->ventana->actualizar();
-    this->modelo->actualizar();
+    this->ventana.actualizar();
+    this->modelo.actualizar();
 }
 
 void Juego::renderizar() {
-  this->modelo->renderizar();
-  this->ventana->renderizar(this->texturaInferior);
+  this->modelo.renderizar();
+  this->ventana.renderizar(this->texturaInferior);
 }
 
 Juego::~Juego() {}
 
 void Juego::cerrar(){
     this->corriendo = false;
-    this->ventana->cerrar();
+    this->ventana.cerrar();
 };
 void Juego::clean() {
-    this->ventana->limpiar();
+    this->ventana.limpiar();
   //  this->corriendo = false;
 }
 
@@ -88,7 +88,7 @@ void Juego::raycasting(Map &mapaa, Player &jugador) {
                                       /*19*/  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                             /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
                                             };
-            SDL_Renderer *render = this->ventana->obtener_render();
+            SDL_Renderer *render = this->ventana.obtener_render();
             Textura* wall = new Textura(GRAY_STONE_WALL_ROOT,render);
             Posicion& posJugador = jugador.getPosicion();
 
@@ -100,7 +100,7 @@ void Juego::raycasting(Map &mapaa, Player &jugador) {
             double anguloRayo = anguloJugador - (rangoDeVista / 2);
             SDL_Rect wallDimension,wallDest;
 
-            std::vector<double>& zbuffer = this->modelo->getZBuffer();
+            std::vector<double>& zbuffer = this->modelo.getZBuffer();
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
                 unsigned int alturaParedProyectada = 0;
                 double distancia = 0;
