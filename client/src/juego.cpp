@@ -30,9 +30,9 @@ Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, in
             printf("Failed to init TTF\n");
             exit(1);
         }
-      //  Audio audio;
-        //Musica ambient_music("../../client/resources/sonidos/wolfenstein-3d-title-theme.wav");
-      //  ambient_music.play(-1);
+        Audio audio;
+        Musica ambient_music("../../client/resources/sonidos/musiquita.wav");
+        ambient_music.play(-1);
 
         this->ventana = new Ventana(titulo, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ancho, alto, flags);
         this->modelo = new Modelo(this->ventana, idJugador);
@@ -50,7 +50,7 @@ void Juego::run() {
     while(this->corriendo){
         try {
               this->clean();
-              this->raycasting(mapa,this->modelo->getPlayer());
+            //  this->raycasting(mapa,this->modelo->getPlayer());
               this->renderizar();
               this->actualizar(/*1*/);
               std::chrono::milliseconds duration(100);

@@ -34,7 +34,7 @@ void Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int
         this->atacarEfectivamente(distancia_a_pared, jugador, jugadores);
         this->contador = TICKS_DISPARO_AMETRALLADORA;
     } else {
-        this->contador -= 0.1; // consultar
+        this->contador --; // consultar
     }
 
 }

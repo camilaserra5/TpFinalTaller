@@ -1,7 +1,7 @@
 #ifndef AMETRALLADORA_H
 #define AMETRALLADORA_H
 #define DISTANCIA_MAX 2000000
-#define TICKS_DISPARO_AMETRALLADORA  (30/1000)*10
+#define TICKS_DISPARO_AMETRALLADORA  10
 
 #include "arma.h"
 #include "items/item.h"

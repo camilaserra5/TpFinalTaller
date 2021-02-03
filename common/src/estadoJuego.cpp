@@ -68,17 +68,10 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
     if (tipo == Type::wall) {
         return false;
     } else if (tipo == Type::door) {
-        // verifico si tengo llave sino no puedo avanzar;
-        if (jugador->tengollave()) {
-            // abrir puerta;
-            jugador->usarLlave();
-            return true;
-        }
         return false;
     } else if (tipo == Type::fakeDoor) {
         return false;
     } else {
-        std::cout << "puedo moverme\n";
         return true;
     }
 }
@@ -90,31 +83,6 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
     int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * 50);
     std::cout << "\n verifico item\n";
     return mapa->buscarElemento(posx, posy);
-
-/*
-    Posicion posicion = Posicion(1,1,0.5);//va a depender de su posidion en el mapa
-    Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadory);
-    if (tipo == Type::comida) {
-        return new Comida(posicion);
-    } else if (tipo == Type::sangre) {
-        return new Sangre(posicion);
-    } else if (tipo == Type::kitsMedicos) {
-        return new KitsMedicos(posicion);
-    } else if (tipo == Type::balas) {
-        return new Balas(posicion);
-    } else if (tipo == Type::ametralladora) {
-        return new Ametralladora(posicion);
-    } else if (tipo == Type::canionDeCadena){
-        return new CanionDeCadena(posicion);
-    } else if (tipo == Type::lanzaCohetes){
-        //return new lanzaCohetes();
-    } else if (tipo == Type::tesoro){
-        std::string tesoro("copa");
-        int puntos = 50;
-        return new Tesoro(tesoro, puntos,posicion);
-    } else {
-        return new NoItem(posicion);
-    }*/
 }
 
 void EstadoJuego::verificarMovimientoJugador(Jugador* jugador,int& xFinal,int& yFinal){

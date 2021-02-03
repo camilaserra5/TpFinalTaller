@@ -1,7 +1,7 @@
 #ifndef CANION_DE_CADENA_H
 #define CANION_DE_CADENA_H
 #define DISTANCIA_MAX 2000000
-#define TICKS_DISPARO_CANION (10/3)*0.03
+#define TICKS_DISPARO_CANION 3
 #include "arma.h"
 #include "items/item.h"
 

@@ -142,13 +142,14 @@ void Modelo::renderizar() {
     // verificar enemigos si estan en posicion correcta;
 
     for (std::map<int,Enemigo*>::iterator it=enemigos.begin(); it!=enemigos.end(); ++it){
-          it->second->actualizar(500, 300, 4, 0, 0, 100, true);
-          it->second->renderizar();
+          it->second->actualizar(500, 300, 4, 0, 0, 0, false);
+          Enemigo* enemigo = it->second;
+          enemigo->renderizar();
     }
 
     ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys
     objeto->settear_estado(500, 420);
-    verificarObjetosEnRangoDeVista();
+  //  verificarObjetosEnRangoDeVista();
     //sprite.reescalar(2,2);
   //  sprite.renderizar(250, 400, 0, NULL);
   this->jugador->actualizar(318, 420, 100, 0, 4, false, 50, 3, 5);
