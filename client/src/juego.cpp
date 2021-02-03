@@ -47,8 +47,8 @@ void Juego::actualizar(/*temporal int idArma*/) {
 }
 
 void Juego::renderizar() {
-    this->ventana->renderizar(this->texturaInferior);
-    this->modelo->renderizar();
+  this->modelo->renderizar();
+  this->ventana->renderizar(this->texturaInferior);
 }
 
 Juego::~Juego() {}
@@ -110,7 +110,7 @@ void Juego::raycasting(Map &mapaa, Player &jugador) {
                 alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
                 zbuffer.push_back(distancia);
                 drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;//cheuear ese ancho canvas
-                drawEnd = drawStart + alturaParedProyectada - 20;
+                drawEnd = drawStart + alturaParedProyectada;
                 if (drawStart > ALTURA_CANVAS){
                     drawStart = 600 - 1;
                     drawEnd = 0;

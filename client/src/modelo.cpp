@@ -58,7 +58,8 @@ void normalizarAnguloEnRango(double& angulo,bool& esVisible){//cheq esa referenc
 void Modelo::renderizarObjeto(ObjetoDibujable* objeto,int& alturaSprite,int& x,int& y,double& distanciaObjeto){
 //  int anchuraColumna = alturaSprite / SPRITE_LARGO;
   int tamanioBuffer = zbuffer.size();
-  for (int i = 2; i < SPRITE_ANCHO; i++){
+  int anchoSprite = objeto->obtenerAnchura();
+  for (int i = 0; i < anchoSprite; i++){
     int posBuffer = x + i;
     if (this->zbuffer[tamanioBuffer - 1 -posBuffer] > distanciaObjeto){
       SDL_Rect dimension,dest;
@@ -67,9 +68,9 @@ void Modelo::renderizarObjeto(ObjetoDibujable* objeto,int& alturaSprite,int& x,i
       dimension.w = 1;
       dimension.h = alturaSprite;
       dest.x = posBuffer;
-      dest.y = y - 20;
+      dest.y = y - 40;
       dest.w = 1;
-      dest.h = y + alturaSprite - 20;
+      dest.h = y + alturaSprite;
       objeto->renderizarColumna(dimension,dest);
     }
   }
@@ -92,7 +93,6 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion& posObjeto){
 void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable*>& objetosVisibles){
   bool esVisible = false;
   std::map<int, ObjetoJuego *>::iterator itItem;
-//  double DIST_PLANO_P = (ANCHO_CANVAS / 2) / tan(PI/6.0);
   for (itItem = this->entidades.begin(); itItem != this->entidades.end(); ++itItem){
     Posicion& posItem = itItem->second->getPosicion();
       esVisible = verificarVisibilidadDeObjeto(posItem);
@@ -145,7 +145,6 @@ void Modelo::verificarObjetosEnRangoDeVista(){
   this->renderizarObjetosDibujables(objetosVisibles);
 }
 
-
 void Modelo::renderizar() {
   //  std::vector<int> ranking;
   //  ranking.push_back(1111);
@@ -159,7 +158,7 @@ void Modelo::renderizar() {
         for (std::map<int,Enemigo*>::iterator it=enemigos.begin(); it!=enemigos.end(); ++it){
               it->second->actualizar(500, 300, 4, 0, 0, 0, false, 50);
               Enemigo* enemigo = it->second;
-              enemigo->renderizar();
+              //enemigo->renderizar();
         }
 
         ObjetoJuego* objeto = entidades.at(1);//cambiar lo de las keys

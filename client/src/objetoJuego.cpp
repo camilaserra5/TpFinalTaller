@@ -1,4 +1,6 @@
 #include "../include/objetoJuego.h"
+#define SPRITE_LARGO 63
+
 
 ObjetoJuego::ObjetoJuego(Sprite sprite) :
         sprite(sprite),
@@ -24,4 +26,8 @@ void ObjetoJuego::renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest){
 
 void ObjetoJuego::reescalar(int escalarw, int escalarh){
     this->sprite.reescalar(escalarw, escalarh);
+}
+
+int ObjetoJuego::obtenerAnchura(){
+  return SPRITE_LARGO;
 }

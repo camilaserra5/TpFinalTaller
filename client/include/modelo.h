@@ -63,6 +63,7 @@ private:
     std::vector<double> zbuffer;
     Anunciador anunciador;
     bool partidaTerminada;
+    bool verificarVisibilidadDeObjeto(Posicion& posObjeto);
     // mapa de entidades dibujables;
 
 };
