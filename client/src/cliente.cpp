@@ -34,15 +34,14 @@ void Cliente::run() {
     ManejadorEventos* manejador = new ManejadorEventos(idJugador, events);
 
     try {
-        //  juego->inicializar(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
-        juego->run();
-    //    manejador->start();
+        juego->start();
+        manejador->start();
         while (this->corriendo) {
 
             // clientEventSender.enviarEventos
              // hay error cuando se hace juego->start;
             if (!manejador->esta_vivo()) {
-              //  juego->join(); //
+                juego->join(); //
                 juego->cerrar();
 
             }
@@ -52,7 +51,7 @@ void Cliente::run() {
     } catch (...) {
         std::cout << "error";
         this->corriendo = false;
-    //    manejador->join();
+        manejador->join();
     }
     //  juego->join();
 }

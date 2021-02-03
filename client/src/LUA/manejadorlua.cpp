@@ -1,4 +1,4 @@
-/*
+
 #include "manejadorlua.h"
 
 ManejadorLua::ManejadorLua(){
@@ -16,4 +16,4 @@ void ManejadorLua::vaciarStack() {
 ManejadorLua::~ManejadorLua() {
     vaciarStack();
     lua_close(interprete);
-}*/
+}

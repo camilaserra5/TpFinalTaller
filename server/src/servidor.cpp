@@ -62,10 +62,10 @@ void Servidor::lanzarJugadores() {
 }
 
 void Servidor::lanzarContadorTiempoPartida() {
-    this->estadoJuego.lanzarContador();
+    this->estadoJuego.lanzarContadorTiempoPartida();
 }
 void Servidor::actualizarContador(){
-    this->estadoJuego.actualizarContador();
+    this->estadoJuego.actualizarTiempoPartida();
 }
 
 bool Servidor::yaArranco() {
@@ -89,7 +89,7 @@ ProtectedQueue<Actualizacion> &Servidor::obtenerColaActualizaciones() {
 
 void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones) {
     //serializa y manda por sockets a cada jugador
-    Actualizaciones* actualizaciones = new Actualizaciones(this->estadoJuego);
+    Actualizacion actualizacion(this->estadoJuego);
     actualizaciones.aniadir_dato(actualizacion);
 }
 

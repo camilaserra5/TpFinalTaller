@@ -28,10 +28,8 @@ public:
     T obtener_dato() {
         std::lock_guard<std::mutex> l(this->m);
         if (this->cola_datos.empty()) {
-            std::cout << "\nno hay comandos";
             throw QueueException("no hay elementos en la cola\n");
         }
-        std::cout << "\nhay comandos";
         T objeto = this->cola_datos.front();
         this->cola_datos.pop();
         return objeto;
