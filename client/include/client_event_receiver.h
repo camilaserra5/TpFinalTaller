@@ -14,14 +14,14 @@
 
 class ClientEventReceiver : public Thread {
 private:
-    Protocolo protocolo;
+    Protocolo& protocolo;
     Modelo &modelo;
     ProtectedQueue<Actualizacion *> &updates;
     bool running = true;
     int idJugador;
 
 public:
-    ClientEventReceiver(Socket& socket, ProtectedQueue<Actualizacion *> &updates,
+    ClientEventReceiver(Protocolo& protocolo, ProtectedQueue<Actualizacion *> &updates,
                         Modelo &modelo, int idJugador);
 
     void run() override;

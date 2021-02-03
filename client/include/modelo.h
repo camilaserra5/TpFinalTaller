@@ -11,7 +11,7 @@
 #include "anunciador.h"
 class Modelo {
 public:
-    Modelo(Ventana *ventana, int idJugador);
+    Modelo(Ventana& ventana, int idJugador);
 
     ~Modelo();
 

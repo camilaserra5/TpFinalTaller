@@ -11,7 +11,7 @@
 
 class Ventana {
 public:
-    Ventana(const std::string &titulo, int x, int y, int& ancho, int& alto, int& flags);
+    Ventana(const std::string &titulo, int x, int y, int ancho, int alto, int flags);
 
     ~Ventana();
 

@@ -26,6 +26,7 @@ void Label::draw() {
 int Label::getTexto(){
     return std::stoi(this->label);
 }
+
 Label::~Label() {
 
 }

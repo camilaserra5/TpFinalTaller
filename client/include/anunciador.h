@@ -10,7 +10,7 @@
 
 class Anunciador{
 public:
-    Anunciador(Ventana* ventana);
+    Anunciador(Ventana& ventana);
     void settearInformacion(Player* jugador,std::map<int, Enemigo*>& enemigos);
     void settearGanadores(std::vector<int>& ganadores);
     void renderizar();
@@ -19,7 +19,7 @@ private:
     std::map<int, Enemigo*> enemigos;
     Player* jugador;
     std::vector<Label> ganadores;
-    Ventana* ventana;
+    Ventana& ventana;
     bool mostrar;
 };
 

@@ -1,4 +1,4 @@
-#include "../include/client.h"
+#include "../include/logInWindow.h"
 #include "../include/scene.h"
 #include "../include/background.h"
 #include "SDL2/SDL_ttf.h"
@@ -9,7 +9,7 @@
 #define WOLFSTEIN_TTF_ROOT "../../resources/fuentes/wolfenstein.ttf"
 #define BACKGROUND_IMAGE_ROOT "../../client/resources/images/background.png"
 
-Client::Client() {
+LogInWindow::LogInWindow() {
     int rendererFlags, windowFlags;
 
     rendererFlags = SDL_RENDERER_ACCELERATED;
@@ -58,7 +58,7 @@ void disp_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, 
     label.draw();
 }
 
-void Client::run() {
+void LogInWindow::run() {
     Background background(BACKGROUND_IMAGE_ROOT, this->renderer);
     background.drawBackground();
     while (1) {
@@ -138,7 +138,7 @@ void Client::run() {
             }
         }
 
-        Protocolo protocolo(std::move(socket));
+        this->protocolo = Protocolo protocolo(std::move(socket));
         std::cout << "recibo partidas";
         std::vector<char> partidas = protocolo.recibir();
         std::vector<std::string> partis;
@@ -183,7 +183,7 @@ void Client::run() {
 
 }
 
-Client::~Client() {
+LogInWindow::~LogInWindow() {
     SDL_DestroyRenderer(this->renderer);
 
     SDL_DestroyWindow(this->window);

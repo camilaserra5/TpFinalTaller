@@ -10,40 +10,18 @@
 #define GRAY_STONE_WALL_ROOT "../../editor/resources/wall3.jpg"
 #define PUERTA_ROOT "../../editor/resources/puerta.png"
 
-#include "SDL2/SDL_ttf.h"
-#include <SDL2/SDL.h>
-#include "../include/musica.h"
-#include "../include/audio.h"
+
 
 
 #define LOWER_TEXTURE_ROOT "../../client/resources/images/ParteInferior.png"
-#define MUSICA_FONDO "../../client/resources/sonidos/musiquita.wav"
-
-Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, int idJugador) {
-    int flags = 0;
-    if (fullscreen) {
-        flags = SDL_WINDOW_FULLSCREEN;
-    }
-    if (SDL_Init(SDL_INIT_EVERYTHING) == EXITO) {
 
 
-        if (TTF_Init() == -1) {
-            printf("Failed to init TTF\n");
-            exit(1);
-        }
-        Audio audio;
-        Musica ambient_music = Musica(MUSICA_FONDO);
-        ambient_music.play(-1);
+Juego::Juego(Ventana& ventana, Modelo& modelo): ventana(ventana), modelo(modelo) {
 
-        this->ventana = new Ventana(titulo, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ancho, alto, flags);
-        this->modelo = new Modelo(this->ventana, idJugador);
-        modelo->inicializar();
+        this->modelo.inicializar();
         this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT,
                                             this->ventana->obtener_render());
         this->corriendo = true;
-    } else {
-        this->corriendo = false;
-    }
 }
 
 void Juego::run() {
