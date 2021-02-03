@@ -9,7 +9,7 @@
 #define WOLFSTEIN_TTF_ROOT "../../resources/fuentes/wolfenstein.ttf"
 #define BACKGROUND_IMAGE_ROOT "../../client/resources/images/background.png"
 
-LogInWindow::LogInWindow() {
+LogInWindow::LogInWindow(){
     int rendererFlags, windowFlags;
 
     rendererFlags = SDL_RENDERER_ACCELERATED;
@@ -44,6 +44,7 @@ LogInWindow::LogInWindow() {
         printf("Failed to create renderer: %s\n", SDL_GetError());
         exit(1);
     }
+
 }
 
 void disp_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, int h) {
@@ -137,10 +138,10 @@ void LogInWindow::run() {
                 }
             }
         }
-        Protocolo protocolo(std::move(socket));
-        this->protocolo = std::move(protocolo);
+
+        this->protocolo = new Protocolo(std::move(socket));
         std::cout << "recibo partidas";
-        std::vector<char> partidas = protocolo.recibir();
+        std::vector<char> partidas = protocolo->recibir();
         std::vector<std::string> partis;
         char cantidadPartidas = partidas[0];
         int j = 1;

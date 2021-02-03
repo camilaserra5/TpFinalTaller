@@ -62,11 +62,11 @@ public:
         }
     }
 
-    Protocolo& Protocolo::operator=(Protocolo& protocolo){
-      if (this == &other){
+    Protocolo& operator=(Protocolo& protocolo){
+      if (this == &protocolo){
         return *this;
       }
-      this->protocolo = std:move(other.socket);
+      this->socket = std::move(protocolo.socket);
       return *this;
     }
 

@@ -53,7 +53,7 @@ public:
 
 
 private:
-    Ventana *ventana;
+    Ventana& ventana;
     int idJugador;
     Player* jugador;
     std::map<int, ObjetoJuego *> entidades;

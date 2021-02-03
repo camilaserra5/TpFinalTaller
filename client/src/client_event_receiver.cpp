@@ -11,7 +11,7 @@
 #include <vector>
 #include <map>
 
-ClientEventReceiver::ClientEventReceiver(Protocolo& protocolo,
+ClientEventReceiver::ClientEventReceiver(Protocolo* protocolo,
                                          ProtectedQueue<Actualizacion *> &updates, Modelo &modelo, int idJugador) :
 
         protocolo(protocolo), updates(updates), modelo(modelo), idJugador(idJugador) {}
@@ -19,7 +19,7 @@ ClientEventReceiver::ClientEventReceiver(Protocolo& protocolo,
 void ClientEventReceiver::run() {
     while (this->running) {
           try{
-              std::vector<char> informacion = this->protocolo.recibir();
+              std::vector<char> informacion = this->protocolo->recibir();
 
               Actualizacion* actualizacion;
               EstadoJuego estadoJuego = actualizacion->obtenerEstadoJuego();

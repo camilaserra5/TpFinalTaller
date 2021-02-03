@@ -184,7 +184,7 @@ void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
                         int anguloJugador, int angulo, int puntaje){
 
     if (this->enemigos[id] == NULL){
-          Enemigo* enemigo = new Enemigo(this->ventana->obtener_render(), 4);
+          Enemigo* enemigo = new Enemigo(this->ventana.obtener_render(), 4);
     }
     this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador,
                                     vida, disparando, puntaje);

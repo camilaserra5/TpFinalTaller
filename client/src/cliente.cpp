@@ -27,7 +27,7 @@ void Cliente::run() {
     LogInWindow logIn;
     logIn.run();
     BlockingQueue<Comando *> events;
-    Protocolo& protocolo = logIn.obtenerProtocolo();
+    Protocolo* protocolo = logIn.obtenerProtocolo();
     ClientEventSender clientEventSender(protocolo, events);
     if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
         printf("Failed to init SDL\n");
