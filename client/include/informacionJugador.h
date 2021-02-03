@@ -25,7 +25,13 @@ public:
         this->balas = new Label(550, 570, balasinfo, fuentes.getFont("info"), blanco, render);
     }
 
-    ~InfoJugador() {}
+    ~InfoJugador() {
+        delete this->vida;
+        delete this->nivel;
+        delete this->puntaje;
+        delete this->cantVidas;
+        delete this->balas;
+    }
 
     void actualizarDatosJugador(int vida, int nivel, int puntaje, int cantVidas,
                                 int balas) {
@@ -54,6 +60,9 @@ public:
         this->balas->draw();
     }
 
+    int getPuntaje(){
+        this->puntaje->getTexto();
+    }
 private:
     Label *vida;
     Label *nivel;

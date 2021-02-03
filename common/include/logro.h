@@ -14,12 +14,9 @@ public:
 
     void aniadirBalasDisparadas(int cantidadDeBalas);
 
-    void aniadirPuntosPorTesoro(int puntos); //cada tesoro sabe cuantos puntos
+    void aniadirPuntosPorTesoro(int puntos);
     void aniadirEnemigosMatados(int cantidadDeEnemigos);
 
-    int obtener_puntaje(){
-        return puntosTotalesPorTesoros;
-    }
     std::vector<char> serializar() override {
         std::vector<char> informacion;
         informacion.push_back(this->enemigosMatados);
@@ -32,6 +29,7 @@ public:
         this->puntosTotalesPorTesoros = serializado[1];
         this->balasDisparadas = serializado[2];
     }
+    int obtenerPuntosTotales();
 
 private:
     int enemigosMatados = 0;

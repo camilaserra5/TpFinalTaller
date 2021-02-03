@@ -31,7 +31,7 @@ public:
                             int balas);
     void actualizarEnemigo(int id, int vida, bool disparando,
                             int posx, int posy, int idArma,
-                            int anguloJgador, int angulo);
+                            int anguloJgador, int angulo, int puntaje);
 
     ObjetoJuego *crearObjeto(Type tipo);
 
@@ -45,12 +45,13 @@ public:
 
     void verificarItemsEnRango(std::vector<ObjetoDibujable*>& objetosVisibles);
 
+    bool verificarVisibilidadDeObjeto(Posicion& posObjeto);
+
     Player& getPlayer();
 
     void terminoPartida(std::vector<int>& rankingJugadores);
 
     void actualizar();
-
 
 
 private:
@@ -59,10 +60,9 @@ private:
     Player* jugador;
     std::map<int, ObjetoJuego *> entidades;
     std::map<int, Enemigo*> enemigos;
-    int x;
     std::vector<double> zbuffer;
     Anunciador anunciador;
-
+    bool partidaTerminada;
     bool verificarVisibilidadDeObjeto(Posicion& posObjeto);
     // mapa de entidades dibujables;
 

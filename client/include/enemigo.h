@@ -16,8 +16,7 @@ public:
       Enemigo(SDL_Renderer* render, int idArmaJugador);
       ~Enemigo();
       void actualizar(int posx, int posy, int idArma, int anguloEnemigo,
-                      int anguloJugador, int vida, bool disparando);
-                      
+                      int anguloJugador, int vida, bool disparando, int puntaje);
       void renderizar();
 
       void verificarEstado(Posicion& posicionNueva,int vida, bool disparando);
@@ -25,6 +24,9 @@ public:
       void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest) override;
 
       Posicion& getPosicion();
+
+      int getPuntaje(){
+          return this->puntaje;
 
       int obtenerAnchura();
 
@@ -35,6 +37,7 @@ private:
       int distanciaParcialAJugador;
       Posicion posicion;
       std::multimap<int, std::vector<Animacion>> enemigos;
+      int puntaje;
 };
 
 #endif

@@ -26,15 +26,15 @@ public:
 
     float getAnguloDeVista();
 
+    int getPuntaje();
+
+    int getId();
+
 private:
     Posicion posicion;
-    int vida;
-    int nivel;
-    int puntaje;
     int id;
     ArmaAnimada arma;
     InfoJugador infoJugador;
-    int cantVidas;
     bool disparando;
 };
 

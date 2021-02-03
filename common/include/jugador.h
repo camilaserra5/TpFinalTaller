@@ -75,6 +75,8 @@ public:
 
     int cant_de_vida();
 
+    int obtenerPuntosTotales();
+
     std::vector<char> serializar() override {
         std::vector<char> informacion;
         informacion.push_back(this->id);
@@ -106,16 +108,6 @@ public:
 
     }
 
-// juagdor serializacion;
-    // id -> int;
-    // pos -> 2 ini
-    // nomnre -> string -> primeor longitud (int) y luego los bytes(chars);
-    //vida -> int;
-    //angulo-> float?;
-    //arma -> int (id)
-    //posicion pero se serializa solo;
-    //puntaje -> int (lo obtenemos de logro)
-    //nivel -> int
 private:
     Posicion posicion;
     int id;

@@ -15,6 +15,8 @@ public:
 
     void draw();
 
+    int getTexto();
+
     ~Label();
 
 private:

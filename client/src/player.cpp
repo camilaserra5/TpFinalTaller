@@ -19,10 +19,9 @@ void Player::actualizar(int posx, int posy, int vida, float angulo, int idArma,
                         bool disparando, int puntaje,int cantVidas,int balas) {
     this->posicion.actualizar_posicion(posx,posy);
     this->posicion.setAngulo(angulo);
-    this->vida = vida;
     this->arma.actualizar(idArma);
     this->disparando = disparando;
-    this->infoJugador.actualizarDatosJugador(vida, nivel, puntaje, cantVidas, balas);
+    this->infoJugador.actualizarDatosJugador(vida, 1, puntaje, cantVidas, balas);
 }
 
 void Player::renderizar() {
@@ -36,4 +35,12 @@ Posicion& Player::getPosicion(){
 
 float Player::getAnguloDeVista(){
     return this->posicion.getAnguloDeVista();
+}
+
+int Player::getPuntaje(){
+    return this->infoJugador.getPuntaje();
+}
+
+int Player::getId(){
+    return id;
 }

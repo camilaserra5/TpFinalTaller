@@ -26,7 +26,7 @@ class Animacion{
                                int frames,
                                int frame_h,
                                int frame_w,
-                              int fila, int columna){
+                              int fila, int columna);/*{
 
           if (fila > -1){
               SDL_Rect rect = {0, fila*frame_h, frame_h, frame_w};
@@ -47,12 +47,10 @@ class Animacion{
               this->frameActual = 0;
               this->velocidad = 1000;
               this->tiempoViejo = 0;
-       }
-        ~Animacion(){
+       }*/
+        ~Animacion();
 
-        }
-
-    void  renderizar(int posx, int posy, int angulo, SDL_Point* centro){
+    void  renderizar(int posx, int posy, int angulo, SDL_Point* centro);/*{
 
           if (tiempoViejo + velocidad > SDL_GetTicks()){
 
@@ -67,14 +65,11 @@ class Animacion{
           this->frameActual+=1;
           SDL_Delay(100);
 
-    }
+    }*/
 
-    void renderizarColumna(SDL_Rect& dimension,SDL_Rect dest){
-      dimension.x += frames[frameActual].x;
-      dimension.y += frames[frameActual].y;
-      std::cout << "mido: " << this->frame_w << "\n";
+    void renderizarColumna(SDL_Rect& dimension,SDL_Rect dest);/*{
       this->textura->renderizar(&dimension,dest,0,NULL);
-    }
+    }*/
 };
 
 #endif
