@@ -75,11 +75,14 @@ public:
 
     void agregarArma(Posicion& posicion,Arma* arma);
 
+    int crearIdValido();
+
 private:
     unsigned rowSize;
     unsigned colSize;
     ContenedorDeElementos contenedorDeElementos;
     std::vector<std::vector<Type>> map;
+    std::vector<int> idCargados;
 };
 
 #endif //MAP_H
