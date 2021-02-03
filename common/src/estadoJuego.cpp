@@ -18,7 +18,7 @@
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
 #define METROS_MOVIDOS 2 // de acuanto se mueve el jugador
-#define CANT_TICKS 10000  //5min
+#define CANT_TICKS_PARTID 10000  //5min
 
 void EstadoJuego::abrirPuerta(int idJugador){
   Jugador* jugador = this->jugadores.at(idJugador);
@@ -174,7 +174,7 @@ void EstadoJuego::verificarJugadoresMuertos() {
                 it->second->actualizarNuevaVida();
             }
             Arma *arma = it->second->getArma();
-            
+
             if (arma->getTipo() == Type::pistola && arma->getTipo() == Type::cuchillo){
                 this->mapa->agregarArma(it->second->getPosicion(),arma);
             }
