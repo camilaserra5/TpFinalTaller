@@ -44,3 +44,5 @@ int Player::getPuntaje(){
 int Player::getId(){
     return id;
 }
+
+Player::~Player(){}

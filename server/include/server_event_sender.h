@@ -7,6 +7,7 @@
 #include "socket.h"
 #include "actualizacion.h"
 #include "protocolo.h"
+#include <atomic>
 
 
 class Server_Event_Sender : public Thread {
@@ -25,7 +26,7 @@ public:
 private:
     BlockingQueue<Actualizacion *> &actualizaciones;
     Protocolo protocolo;
-    bool corriendo; // deberian ser atomic??
+    std::atomic<bool> corriendo; // deberian ser atomic??
 };
 
 #endif

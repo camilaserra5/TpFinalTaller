@@ -11,6 +11,7 @@
 #include "jugador.h"
 #include "old_cliente.h"
 #include "iserializable.h"
+#include <atomic>
 
 class Servidor : public Thread, public ISerializable {
 public:
@@ -59,8 +60,8 @@ private:
     std::map<int, Cliente *> jugadores;
     EstadoJuego estadoJuego;
     int cant_jugadores;
-    bool sigue_corriendo;
-    bool arrancoPartida;
+    std::atomic<bool> sigue_corriendo;
+    std::atomic<bool> arrancoPartida;
 
 };
 

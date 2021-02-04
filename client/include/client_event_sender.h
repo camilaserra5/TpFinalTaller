@@ -10,12 +10,13 @@
 #include "blocking_queue.h"
 #include "comandos/comando.h"
 #include "protocolo.h"
+#include <atomic>
 
 class ClientEventSender : public Thread {
 private:
 
     BlockingQueue<Comando *> &events;
-    bool running = true;
+    std::atomic<bool> corriendo;
     Protocolo* protocolo;
 
 public:

@@ -9,7 +9,7 @@ class InfoJugador {
 public:
 
     InfoJugador(SDL_Renderer *render, int vida, int nivel, int puntaje,
-                int cantVidas, int balas) {
+                int cantVidas, int balas);/* {
         Fonts fuentes;
         fuentes.addFont("info", "../../resources/fuentes/Nougat.ttf", 35);
         SDL_Color blanco = {255, 255, 255, 255};
@@ -23,18 +23,18 @@ public:
         this->puntaje = new Label(150, 570, puntajeinfo, fuentes.getFont("info"), blanco, render);
         this->cantVidas = new Label(270, 570, cantVidasinfo, fuentes.getFont("info"), blanco, render);
         this->balas = new Label(550, 570, balasinfo, fuentes.getFont("info"), blanco, render);
-    }
+    }*/
 
-    ~InfoJugador() {
+    ~InfoJugador();/* {
         delete this->vida;
         delete this->nivel;
         delete this->puntaje;
         delete this->cantVidas;
         delete this->balas;
-    }
+    }*/
 
     void actualizarDatosJugador(int vida, int nivel, int puntaje, int cantVidas,
-                                int balas) {
+                                int balas);/* {
         std::string vidainfo = std::to_string(vida);
         std::string nivelinfo = std::to_string(nivel);
         std::string puntajeinfo = std::to_string(puntaje);
@@ -45,9 +45,9 @@ public:
         this->puntaje->actualizarTexto(puntajeinfo);
         this->cantVidas->actualizarTexto(cantVidasinfo);
         this->balas->actualizarTexto(balasinfo);
-    }
+    }*/
 
-    void renderizar() {
+    void renderizar();/* {
         this->vida->setLabelText();
         this->vida->draw();
         this->nivel->setLabelText();
@@ -58,11 +58,11 @@ public:
         this->cantVidas->draw();
         this->balas->setLabelText();
         this->balas->draw();
-    }
+    }*/
 
-    int getPuntaje(){
+    int getPuntaje();/*{
         this->puntaje->getTexto();
-    }
+    }*/
 private:
     Label *vida;
     Label *nivel;
