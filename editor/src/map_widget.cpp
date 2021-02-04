@@ -24,7 +24,7 @@ void MapWidget::onTileDoubleClicked(int type, QPixmap pixmap) {
     Tile tile;
     tile.type = type;
     tile.pixmap = pixmap;
-    this->selectedTile = tile;
+        this->selectedTile = tile;
 }
 
 void MapWidget::dragEnterEvent(QDragEnterEvent *event) {

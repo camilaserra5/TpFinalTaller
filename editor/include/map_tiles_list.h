@@ -10,7 +10,7 @@ class MapTilesList : public QListWidget {
 public:
     explicit MapTilesList(int pieceSize, QWidget *parent = nullptr);
 
-    void addTile(const QPixmap &pixmap, const Type type);
+    void addTile(const QString& name, const QPixmap &pixmap, const Type type);
 
     static QString tileMimeType() { return QStringLiteral("image/x-tile"); }
 

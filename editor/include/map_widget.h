@@ -62,6 +62,7 @@ private:
     bool pressed = false;
     Tile selectedTile;
 
+
     int findTile(const QRect &tileRect) const;
 
     const QRect targetSquare(const QPoint &position) const;

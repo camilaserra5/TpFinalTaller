@@ -9,6 +9,8 @@ enum class Type {
     corona = 17
 };
 
+static const std::string All[] = {"empty", "door", "wall", "fakeDoor"};
+
 enum class Accion {
     moverse = 0, moverDerecha = 1, moverIzquierda = 2, moverArriba = 3, moverAbajo = 4,
     rotar = 5, ataque = 6

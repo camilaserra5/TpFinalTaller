@@ -18,7 +18,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
 
     void initTiles();
-
+    void addTile(const QString &name, const QString &path, Type type);
     ~MainWindow();
 
 public
@@ -26,12 +26,19 @@ public
 
             void openMap();
 
+    void addTile();
+
+    void deleteTile();
+
+    void showContextMenu(const QPoint &pos);
+
     void newMap();
 
     void saveMap();
 
 private:
-    void addTile(const QString &path, Type type);
+
+
 
     void setupMenus();
 
@@ -39,6 +46,8 @@ private:
 
     MapTilesList *mapTilesList;
     MapWidget *mapWidget;
+
+
 };
 
 #endif // MAINWINDOW_H

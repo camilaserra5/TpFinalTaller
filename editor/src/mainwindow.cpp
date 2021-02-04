@@ -1,6 +1,7 @@
 #include "../include/mainwindow.h"
 #include "../include/map_tiles_list.h"
 #include "../include/map_widget.h"
+#include "../include/new_tile.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -8,6 +9,7 @@
 #include "map.h"
 #include "map_translator.h"
 #include <yaml-cpp/yaml.h>
+
 #define WOODEN_WALL_ROOT "../../editor/resources/wall2.jpg"
 #define BLUE_STONE_WALL_ROOT "../../editor/resources/wall1.jpg"
 #define GRAY_STONE_WALL_ROOT "../../editor/resources/wall3.jpg"
@@ -32,7 +34,11 @@ void MainWindow::openMap() {
     QFrame *frame = new QFrame;
     QHBoxLayout *mapLayout = new QHBoxLayout(frame);
     mapLayout->addWidget(mapTilesList);
-    mapLayout->addWidget(mapWidget);
+    QScrollArea *area = new QScrollArea;
+    area->setMinimumSize( QSize( 450, 450 ) );
+    area->setWidgetResizable(true);
+    area->setWidget(mapWidget);
+    mapLayout->addWidget(area);
 
     setCentralWidget(frame);
 
@@ -107,7 +113,11 @@ void MainWindow::newMap() {
         QFrame *frame = new QFrame;
         QHBoxLayout *mapLayout = new QHBoxLayout(frame);
         mapLayout->addWidget(mapTilesList);
-        mapLayout->addWidget(mapWidget);
+        QScrollArea *area = new QScrollArea;
+        area->setMinimumSize( QSize( 450, 450 ) );
+        area->setWidgetResizable(true);
+        area->setWidget(mapWidget);
+        mapLayout->addWidget(area);
 
         setCentralWidget(frame);
 
@@ -116,9 +126,9 @@ void MainWindow::newMap() {
 }
 
 void MainWindow::initTiles() {
-    addTile(QStringLiteral("../../editor/resources/wall1.jpg"), Type::wall);
-    addTile(QStringLiteral("../../editor/resources/wall2.jpg"), Type::door);
-    addTile(QStringLiteral("../../editor/resources/wall3.jpg"), Type::fakeDoor);
+    addTile(QStringLiteral("wall1"), QStringLiteral("../../editor/resources/wall1.jpg"), Type::wall);
+    addTile(QStringLiteral("wall2"), QStringLiteral("../../editor/resources/wall2.jpg"), Type::door);
+    addTile(QStringLiteral("wall3"), QStringLiteral("../../editor/resources/wall3.jpg"), Type::fakeDoor);
 }
 
 void MainWindow::saveMap() {
@@ -135,7 +145,7 @@ void MainWindow::saveMap() {
     file.close();
 }
 
-void MainWindow::addTile(const QString &path, Type type) {
+void MainWindow::addTile(const QString &name, const QString &path, Type type) {
     QPixmap newImage;
     if (!newImage.load(path)) {
         QMessageBox::warning(this, tr("Error"),
@@ -146,7 +156,7 @@ void MainWindow::addTile(const QString &path, Type type) {
 
     int tileSize = mapWidget->tileSize();
     QPixmap scaledImg = newImage.scaled(tileSize, tileSize);
-    mapTilesList->addTile(scaledImg, type);
+    mapTilesList->addTile(name, scaledImg, type);
 }
 
 
@@ -166,15 +176,75 @@ void MainWindow::setupMenus() {
     exitAction->setShortcuts(QKeySequence::Quit);
 }
 
+QWizardPage *createIntroPage() {
+    QWizardPage *page = new QWizardPage;
+    page->setTitle("Crear item");
+
+    QLabel *nameLabel = new QLabel("Tipo:");
+    QLineEdit *nameLineEdit = new QLineEdit;
+
+    QLabel *emailLabel = new QLabel("Imagen:");
+    QLineEdit *emailLineEdit = new QLineEdit;
+
+    QGridLayout *layout = new QGridLayout;
+    layout->addWidget(nameLabel, 0, 0);
+    layout->addWidget(nameLineEdit, 0, 1);
+    layout->addWidget(emailLabel, 1, 0);
+    layout->addWidget(emailLineEdit, 1, 1);
+    page->setLayout(layout);
+
+    return page;
+}
+
+void MainWindow::addTile() {
+    NewTile window(this);
+    window.exec();
+}
+
+void MainWindow::deleteTile() {
+    QAction *pAction = qobject_cast<QAction *>(sender());
+    QPoint point = pAction->data().toPoint();
+    QListWidgetItem *it = this->mapTilesList->itemAt(point);
+    this->mapTilesList->takeItem(this->mapTilesList->row(it));
+}
+
+void MainWindow::showContextMenu(const QPoint &pos) {
+    QPoint globalPos = mapTilesList->mapToGlobal(pos);
+    QMenu myMenu;
+    QAction *action = new QAction(tr("Add new item"), this);
+    action->setData(pos);
+    connect(action, SIGNAL(triggered()), this, SLOT(addTile()));
+
+    myMenu.addAction(action);
+    QListWidgetItem *it = this->mapTilesList->itemAt(pos);
+    if (it != nullptr) {
+        QAction *action = new QAction(tr("Delete ") + it->text(), this);
+        action->setData(pos);
+        connect(action, SIGNAL(triggered()), this, SLOT(deleteTile()));
+
+        myMenu.addAction(action);
+        //  myMenu.addAction("Delete " + it->text(), this, SLOT(deleteTile()));
+    }
+    myMenu.exec(globalPos);
+}
+
 void MainWindow::setupWidgets() {
     mapWidget = new MapWidget(400, 400);
     mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
+
+    mapTilesList->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(mapTilesList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+
     QObject::connect(mapTilesList, SIGNAL(tileDoubleClicked(int, QPixmap)), mapWidget,
                      SLOT(onTileDoubleClicked(int, QPixmap)));
     QFrame *frame = new QFrame;
     QHBoxLayout *mapLayout = new QHBoxLayout(frame);
+    QScrollArea *area = new QScrollArea;
+    area->setMinimumSize( QSize( 450, 450 ) );
+    area->setWidgetResizable(true);
+    area->setWidget(mapWidget);
     mapLayout->addWidget(mapTilesList);
-    mapLayout->addWidget(mapWidget);
+    mapLayout->addWidget(area);
 
     setCentralWidget(frame);
 }
