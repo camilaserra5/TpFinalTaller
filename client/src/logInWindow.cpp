@@ -182,6 +182,57 @@ void mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
     }
 }
 
+void crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param,
+                  std::string &gameName, std::string &numberPlayers,
+                  std::string &mapFile, std::string &playerName) {
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
+    SDL_Event e;
+    bool finished = false;
+    while (!finished) {
+        if (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                exit(0);
+            } else if (e.type == SDL_KEYDOWN) {
+                if ((e.key.keysym.sym >= SDLK_ASTERISK  && e.key.keysym.sym <= SDLK_z)) {
+                    param += e.key.keysym.sym;
+                }
+                if (e.key.keysym.sym == SDLK_BACKSPACE) {
+                    param.erase(param.size() - 1);
+                }
+                if (e.key.keysym.sym == SDLK_RETURN) {
+                    finished = true;
+                }
+            }
+        }
+
+        SDL_Delay(16);
+        SDL_RenderClear(renderer);
+        background.drawBackground();
+
+        disp_text("Creating new game!", fonts.getFont("wolfstein"), renderer, 10, 10);
+        disp_text("Game name:" + gameName, fonts.getFont("wolfstein"), renderer, 10, 10 + 2 * FONT_SIZE);
+        disp_text("Number of players:" + numberPlayers, fonts.getFont("wolfstein"), renderer, 10, 10 + 3 * FONT_SIZE);
+        disp_text("Map file:" + mapFile, fonts.getFont("wolfstein"), renderer, 10, 10 + 4 * FONT_SIZE);
+        disp_text("Your name:" + playerName, fonts.getFont("wolfstein"), renderer, 10, 10 + 5 * FONT_SIZE);
+
+        SDL_RenderPresent(renderer);
+    }
+
+
+/*CrearPartida crearPartida(-1, 8, "wolfstein", "ruta", "nombre");//parametros ingresados!
+                    std::vector<char> serializado = crearPartida.serializar();
+                    protocolo->enviar(serializado);
+                    std::vector<char> res = protocolo->recibir();
+                    bool pudoCrearPartida = res[0];
+                    if (!pudoCrearPartida) {
+                        //mensaje de error
+                    }*/
+}
+
+void unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string nombre) {
+
+}
+
 void LogInWindow::run() {
     Background background(BACKGROUND_IMAGE_ROOT, this->renderer);
     background.drawBackground();
@@ -226,23 +277,34 @@ void LogInWindow::run() {
         std::string gameNumber;
         mostrarMenuPartidas(this->renderer, this->fonts, partis, gameNumber);
 
-        if (nombresPartidas.empty()) {
+        if (gameNumber.empty()) {
             // nueva partida
-/*CrearPartida crearPartida(-1, 8, "wolfstein", "ruta", "nombre");//parametros ingresados!
-                    std::vector<char> serializado = crearPartida.serializar();
-                    protocolo->enviar(serializado);
-                    std::vector<char> res = protocolo->recibir();
-                    bool pudoCrearPartida = res[0];
-                    if (!pudoCrearPartida) {
-                        //mensaje de error
-                    }*/
+            std::string gameName;
+            std::string numberPlayers;
+            std::string mapFile;
+            std::string playerName;
+
+            crearPartida(this->renderer, this->fonts, gameName, gameName, numberPlayers, mapFile, playerName);
+            crearPartida(this->renderer, this->fonts, numberPlayers, gameName, numberPlayers, mapFile, playerName);
+            crearPartida(this->renderer, this->fonts, mapFile, gameName, numberPlayers, mapFile, playerName);
+            crearPartida(this->renderer, this->fonts, playerName, gameName, numberPlayers, mapFile, playerName);
+
+            CrearPartida crearPartida(-1, std::stoi(numberPlayers),
+                                      gameName, mapFile, playerName);
+            std::vector<char> serializado = crearPartida.serializar();
+            protocolo->enviar(serializado);
+            std::vector<char> res = protocolo->recibir();
+            bool pudoCrearPartida = res[0];
+            if (!pudoCrearPartida) {
+                //mensaje de error
+            }
+            std::cerr << "pudocrear: " << pudoCrearPartida;
         } else {
             // unirse a una existente
             std::string nombre = nombresPartidas.at(std::stoi(gameNumber));
-
+            unirseAPartida(this->renderer, this->fonts, nombre);
         }
     }
-
 }
 
 LogInWindow::~LogInWindow() {
