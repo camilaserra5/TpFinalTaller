@@ -193,7 +193,7 @@ void crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param,
             if (e.type == SDL_QUIT) {
                 exit(0);
             } else if (e.type == SDL_KEYDOWN) {
-                if ((e.key.keysym.sym >= SDLK_ASTERISK  && e.key.keysym.sym <= SDLK_z)) {
+                if ((e.key.keysym.sym >= SDLK_ASTERISK && e.key.keysym.sym <= SDLK_z)) {
                     param += e.key.keysym.sym;
                 }
                 if (e.key.keysym.sym == SDLK_BACKSPACE) {
@@ -217,20 +217,38 @@ void crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param,
 
         SDL_RenderPresent(renderer);
     }
-
-
-/*CrearPartida crearPartida(-1, 8, "wolfstein", "ruta", "nombre");//parametros ingresados!
-                    std::vector<char> serializado = crearPartida.serializar();
-                    protocolo->enviar(serializado);
-                    std::vector<char> res = protocolo->recibir();
-                    bool pudoCrearPartida = res[0];
-                    if (!pudoCrearPartida) {
-                        //mensaje de error
-                    }*/
 }
 
-void unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string nombre) {
+void unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string &nombre, std::string &playerName) {
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
+    SDL_Event e;
+    bool finished = false;
+    while (!finished) {
+        if (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                exit(0);
+            } else if (e.type == SDL_KEYDOWN) {
+                if ((e.key.keysym.sym >= SDLK_ASTERISK && e.key.keysym.sym <= SDLK_z)) {
+                    playerName += e.key.keysym.sym;
+                }
+                if (e.key.keysym.sym == SDLK_BACKSPACE) {
+                    playerName.erase(playerName.size() - 1);
+                }
+                if (e.key.keysym.sym == SDLK_RETURN) {
+                    finished = true;
+                }
+            }
+        }
 
+        SDL_Delay(16);
+        SDL_RenderClear(renderer);
+        background.drawBackground();
+
+        disp_text("Joining: " + nombre, fonts.getFont("wolfstein"), renderer, 10, 10);
+        disp_text("Your name:" + playerName, fonts.getFont("wolfstein"), renderer, 10, 10 + 5 * FONT_SIZE);
+
+        SDL_RenderPresent(renderer);
+    }
 }
 
 void LogInWindow::run() {
@@ -301,8 +319,19 @@ void LogInWindow::run() {
             std::cerr << "pudocrear: " << pudoCrearPartida;
         } else {
             // unirse a una existente
-            std::string nombre = nombresPartidas.at(std::stoi(gameNumber));
-            unirseAPartida(this->renderer, this->fonts, nombre);
+            std::string nombre = nombresPartidas.at(std::stoi(gameNumber)+1);
+            std::string playerName;
+            unirseAPartida(this->renderer, this->fonts, nombre, playerName);
+
+            UnirseAPartida unirseAPartida(-1, nombre, playerName);
+            std::vector<char> serializado = unirseAPartida.serializar();
+            protocolo->enviar(serializado);
+            std::vector<char> res = protocolo->recibir();
+            bool pudoUnirse = res[0];
+            if (!pudoUnirse) {
+                //mensaje de error
+            }
+            std::cerr << "pudo unirse: " << pudoUnirse;
         }
     }
 }
