@@ -7,6 +7,7 @@
 #include "blocking_queue.h"
 #include "comandos/comando.h"
 #include "sonido.h"
+#include <atomic>
 
 class ManejadorEventos : public Thread {
 public:
@@ -31,7 +32,7 @@ public:
 private:
     int idJugador;
     BlockingQueue<Comando *> &eventos;
-    bool corriendo;
+    std::atomic<bool> corriendo;
     Sonido sonidoAmbiente;
 };
 

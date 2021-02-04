@@ -27,7 +27,15 @@ Modelo::Modelo(Ventana& ventana, int idJugador) :
         anunciador(ventana),
         partidaTerminada(false){}
 
-Modelo::~Modelo() {}
+Modelo::~Modelo() {
+  delete this->jugador;
+  for (std::map<int,Enemigo*>::iterator it=enemigos.begin(); it!=enemigos.end(); ++it){
+        delete it->second;
+  }
+  for (std::map<int,ObjetoJuego*>::iterator it=entidades.begin(); it!=entidades.end(); ++it){
+        delete it->second;
+  }
+}
 
 void Modelo::inicializar() {
     this->jugador = new Player("../../client/resources/images/Weapons.png", this->ventana.obtener_render(),

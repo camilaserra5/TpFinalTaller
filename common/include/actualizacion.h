@@ -8,6 +8,7 @@
 
 class Actualizacion : public ISerializable {
 public:
+    Actualizacion(){}
     Actualizacion(EstadoJuego &estadoJuego) :
             estadoJuego(estadoJuego),termine(false), rankingJugadores() {
         estadoJuego.verificarJugadoresMuertos();
@@ -40,7 +41,7 @@ public:
                                                            serializado.end());
         this->estadoJuego.deserializar(estadoJuegoSerializado);
     }
-    EstadoJuego obtenerEstadoJuego(){
+    EstadoJuego& obtenerEstadoJuego(){
         return this->estadoJuego;
     }
     std::vector<int> obtenerRanking(){
@@ -52,7 +53,7 @@ public:
     }
 
 private:
-    EstadoJuego &estadoJuego;
+    EstadoJuego estadoJuego;
     std::vector<int> rankingJugadores;
     bool termine;
 };

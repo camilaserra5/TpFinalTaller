@@ -14,14 +14,15 @@
 ClientEventReceiver::ClientEventReceiver(Protocolo* protocolo,
                                          ProtectedQueue<Actualizacion *> &updates, Modelo &modelo, int idJugador) :
 
-        protocolo(protocolo), updates(updates), modelo(modelo), idJugador(idJugador) {}
+        protocolo(protocolo), updates(updates), modelo(modelo), idJugador(idJugador), corriendo(true) {}
 
 void ClientEventReceiver::run() {
-    while (this->running) {
+    while (this->corriendo) {
           try{
               std::vector<char> informacion = this->protocolo->recibir();
 
-              Actualizacion* actualizacion;
+              Actualizacion* actualizacion = new Actualizacion();
+              actualizacion->deserializar(informacion);
               EstadoJuego estadoJuego = actualizacion->obtenerEstadoJuego();
               estadoJuego.deserializar(informacion);
               std::map<int, Jugador*> jugadores = estadoJuego.obtenerJugadores();
@@ -69,18 +70,19 @@ void ClientEventReceiver::run() {
                   std::vector<int> ordenRanking = actualizacion->obtenerRanking();
                   modelo.terminoPartida(ordenRanking);
           }
+          delete actualizacion;
         }catch(...){
-            this->running = false;
+            this->corriendo = false;
         }
 
       }
 }
 
 void ClientEventReceiver::cerrar() {
-    this->running = false;
+    this->corriendo = false;
 }
 
 ClientEventReceiver::~ClientEventReceiver() {
-    this->running = false;
+    this->corriendo = false;
     this->join();
 }

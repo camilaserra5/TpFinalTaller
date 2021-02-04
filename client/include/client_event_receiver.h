@@ -11,13 +11,15 @@
 #include "comandos/comando.h"
 #include "modelo.h"
 #include "protocolo.h"
+#include <atomic>
+
 
 class ClientEventReceiver : public Thread {
 private:
     Protocolo* protocolo;
     Modelo &modelo;
     ProtectedQueue<Actualizacion *> &updates;
-    bool running = true;
+    std::atomic<bool> corriendo;
     int idJugador;
 
 public:

@@ -9,25 +9,25 @@
 
 ClientEventSender::ClientEventSender(Protocolo* protocolo,
                                      BlockingQueue<Comando *> &events) :
-        events(events), protocolo(protocolo) {}
+        events(events), protocolo(protocolo), corriendo(true) {}
 
 void ClientEventSender::run() {
-    while (this->running) {
+    while (this->corriendo) {
         try{
             Comando *evento = this->events.pop();
             std::vector<char> informacion = evento->serializar();
             protocolo->enviar(informacion);
         }catch(...){
-            this->running = false;
+            this->corriendo = false;
         }
     }
 }
 
 void ClientEventSender::cerrar() {
-    this->running = false;
+    this->corriendo = false;
 }
 
 ClientEventSender::~ClientEventSender() {
-    this->running = false;
+    this->corriendo = false;
     this->join();
 }

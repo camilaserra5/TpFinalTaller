@@ -15,7 +15,8 @@ public:
     EstadoJuego(Map *mapa);
 
     ~EstadoJuego();
-
+    EstadoJuego(){}
+    
     void rotar_a_derecha(int idJugador);
 
     void rotar_a_izquierda(int idJugador);

@@ -6,6 +6,7 @@
 #include "socket.h"
 #include "comandos/comando.h"
 #include "protocolo.h"
+#include <atomic>
 
 class Server_Event_Receiver : public Thread {
 public:
@@ -23,7 +24,7 @@ public:
 private:
     ProtectedQueue<Comando *> &comandos;
     Protocolo protocolo;
-    bool corriendo;
+    std::atomic<bool> corriendo;
 
 };
 
