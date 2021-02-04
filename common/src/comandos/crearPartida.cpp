@@ -14,45 +14,39 @@ std::vector<char> CrearPartida::serializar(){
 }
 
 void CrearPartida::deserializar(std::vector<char>& serializado){
+  std::cout << "tamanio de serializado: " << serializado.size() << "\n";
+  for (int j = 0; j < serializado.size(); j++){
+    std::cout <<" imprimo:  "<<serializado[j] << "\n";
+  }
   int idx = 1;
-  this->cantidadJugadores = (int)serializado[idx];
-  std::cout << "cant jugadores " << this->cantidadJugadores <<'\n';
+  this->cantidadJugadores = serializado[idx];
   idx += 1;
 
   int tamNombrePartida = serializado[idx];
-  std::cout << "tamNombrePartida " << tamNombrePartida <<'\n';
   idx += 1;
 
-  int i = tamNombrePartida + 1 + idx;
-  std::cout << "i " << i <<'\n';
+  int i = tamNombrePartida + idx;
 
   while (idx < i){
     this->nombrePartida.push_back(serializado[idx]);
     idx += 1;
-    std::cout << "entre al while\n";
   }
-  std::cout << "nombrePartida " << this->nombrePartida <<'\n';
-  std::cout << "i " << i <<'\n';
+  int tamRutaYaml = serializado[idx];
 
-
-  int tamRutaYaml = (int)serializado[idx];
-  i = idx + tamRutaYaml + 1;
+  i = idx + tamRutaYaml;
   while (idx < i){
     this->rutaYaml.push_back(serializado[idx]);
     idx += 1;
   }
-  std::cout << "i " << i <<'\n';
 
-  std::cout << "rutaYaml " << this->rutaYaml <<'\n';
 
   int tamNombreCliente = (int)serializado[idx];
-  i = idx + tamNombreCliente + 1;
+  i = idx + tamNombreCliente;
 
   while (idx <i){
     this->nombreCliente.push_back(serializado[idx]);
     idx += 1;
   }
-  std::cout << "nombreCliente " << this->nombreCliente <<'\n';
 
 }
 
