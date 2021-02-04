@@ -29,7 +29,9 @@ Animacion::Animacion(SDL_Renderer* render,
       this->tiempoViejo = 0;
 }
 
-Animacion::~Animacion(){}
+Animacion::~Animacion(){
+  //  delete this->textura;
+}
 
 void Animacion::renderizar(int posx, int posy, int angulo, SDL_Point* centro){
 

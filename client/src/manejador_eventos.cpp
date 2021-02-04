@@ -29,16 +29,19 @@ void ManejadorEventos::run(){
 void ManejadorEventos::crearMovimiento(Accion direccion){
     Comando* movimiento = new Movimiento(this->idJugador, direccion);
     this->eventos.push(movimiento);
+    //delete movimiento;
 }
 
 void ManejadorEventos::crearAtaque(){
     Comando* ataque = new Ataque(this->idJugador);
     this->eventos.push(ataque);
+    //delete ataque;
 }
 
 void ManejadorEventos::crearAperturaDePuerta(){
     Comando* apertura = new AperturaDePuerta(this->idJugador);
     this->eventos.push(apertura);
+    //delete apertura;
 }
 
 void ManejadorEventos::detectarEventos(SDL_Event& evento){

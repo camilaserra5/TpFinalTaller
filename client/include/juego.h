@@ -41,6 +41,8 @@ public:
     void cerrar();
 
     void raycasting(Map& mapaa, Player& jugador);
+
+    void eventos();
 };
 
 #endif /*JUEGO_H*/
