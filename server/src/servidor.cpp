@@ -3,7 +3,7 @@
 #include <exception>
 #include "actualizacion.h"
 #include "jugador.h"
-
+#define TIEMPO_SERVIDOR 30
 
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/
@@ -94,28 +94,35 @@ void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaci
 void Servidor::run() {
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
-    bool termine = false;
-    std::chrono::milliseconds duration(30);
+    std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
     std::this_thread::sleep_for(duration);
-    while (!termine) {
+    while (this->sigue_corriendo) {
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
         try {
+            auto inicio = std::chrono::high_resolution_clock::now();
             procesar_comandos(this->cola_comandos, this->estadoJuego);
             this->enviar_actualizaciones(this->cola_actualizaciones);
             this->actualizarContador();
             if(this->estadoJuego.terminoPartida()){
-                termine = true;
+                this->arrancoPartida = false;
                 this->sigue_corriendo= false;
             }
+            auto fin = std::chrono::high_resolution_clock::now();
+            auto delta = fin - inicio;
+            long tardanza = delta.count();
+            if (tardanza >= TIEMPO_SERVIDOR){
+                tardanza = TIEMPO_SERVIDOR;
+            }
+            std::chrono::milliseconds duration(30 - tardanza);
+            std::this_thread::sleep_for(duration);
+
         } catch (...) {
             this->sigue_corriendo = false;
-            termine = true;
+
         }
 
-        //std::chrono::milliseconds duration(10);
-        //std::this_thread::sleep_for(duration);
-        termine = true;
+
     }
     //mostramos el ranking, podemos mandar una actualizacion con los jugadores que ganaron
     //  this->sigue_corriendo = false; creo que no va esta linea
