@@ -319,7 +319,7 @@ void LogInWindow::run() {
           //  pantallaEsperando();
         } else {
             // unirse a una existente
-            std::string nombre = nombresPartidas.at(std::stoi(gameNumber));
+            std::string nombre = nombresPartidas.at(std::stoi(gameNumber)-1);
             std::string playerName;
             unirseAPartida(this->renderer, this->fonts, nombre, playerName);
 
