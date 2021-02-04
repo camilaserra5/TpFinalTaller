@@ -12,7 +12,7 @@ public:
             anguloDeVista(anguloDeVista) {}
 
     ~Posicion() {}
-
+    Posicion(){}
     int distanciaA(Posicion &posicion);
 
     bool intersectaConMiAngulo(Posicion &otroJugador);

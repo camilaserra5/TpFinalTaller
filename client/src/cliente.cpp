@@ -60,7 +60,7 @@ void Cliente::run() {
         clientEventReceiver.start();
         while (this->corriendo) {
 
-
+          
             if (!manejador.esta_vivo()) {
                 juego.join();
                 juego.cerrar();
