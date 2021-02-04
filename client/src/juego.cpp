@@ -43,12 +43,19 @@ void Juego::run() {
   Map mapa (20,20);
     while(this->corriendo){
         try {
+              auto inicio = std::chrono::high_resolution_clock::now();
               this->clean();
               this->eventos();
             //  this->raycasting(mapa,this->modelo->getPlayer());
               this->renderizar();
               this->actualizar(/*1*/);
-              std::chrono::milliseconds duration(100);
+              auto final = std::chrono::high_resolution_clock::now();
+              auto delta = final - inicio;
+              long tardanza = delta.count();
+              if (tardanza >= 60){
+                  tardanza = 60;
+              }
+              std::chrono::milliseconds duration(60 - tardanza);
               std::this_thread::sleep_for(duration);
         } catch (...) {
             this->corriendo = false;
