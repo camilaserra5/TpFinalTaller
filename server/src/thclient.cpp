@@ -2,13 +2,15 @@
 #include "socket.h"
 #include <string>
 #include <utility>
+#include "comandos/crearPartida.h"
+#include "comandos/unirseAPartida.h"
 
 #define BUF_TAM 50
 #define ERROR -1
 #define SOCKET_CERRADO 0
 
-ThClient::ThClient(Socket un_socket, ManejadorPartidas *manejadorDePartidas) :
-        socket(std::move(un_socket)),
+ThClient::ThClient(Socket&& un_socket, ManejadorPartidas *manejadorDePartidas) :
+        protocolo(new Protocolo(std::move(un_socket))),
         keep_talking(true),
         is_running(true),
         manejadorDePartidas(manejadorDePartidas) {}
@@ -19,29 +21,22 @@ ThClient::~ThClient() {
 
 void ThClient::stop() {
     this->keep_talking = false;
-    this->socket.cerrar();
+    this->protocolo->cerrar();
 }
 
 void ThClient::procesar_pedido() {
-    char buffer[BUF_TAM];
-    for (int i = 0; i < BUF_TAM; i++) {
-        buffer[i] = 0;
-    }
+  std::vector<char> serializado = this->protocolo->recibir();
+  if (serializado[0] == static_cast<int>(Accion::unirseAPartida)){
+    UnirseAPartida* unirseAPartida;
+    unirseAPartida->deserializar(serializado);
+    this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida->getNombreJugador(),unirseAPartida->getNombrePartida());
+  }else{
+      CrearPartida* crearPartida;
+      crearPartida->deserializar(serializado);
+      this->manejadorDePartidas->crearPartida(crearPartida->getNombreJugador(),crearPartida->getCantJugadores(),
+                                      crearPartida->getNombrePartida(),crearPartida->getRutaArchivo());
+  }
 
-    bool socket_cerrado = false;
-    bool error_al_recibir = false;
-
-    while (!socket_cerrado && !error_al_recibir) {
-        int cant_recibida = this->socket.recibir(buffer, BUF_TAM);
-        if (cant_recibida == ERROR) {
-            error_al_recibir = true;
-        } else if (cant_recibida == SOCKET_CERRADO) {
-            socket_cerrado = true;
-        } else {
-            this->mensaje_cliente.write(buffer, cant_recibida);
-        }
-    }
-    this->socket.apagar_lectura();
 }
 
 bool ThClient::is_dead() {
@@ -55,7 +50,8 @@ void ThClient::run() {
         std::cerr << partidas[i];
     }
     std::cerr << "\nfin envio partidas";
-    this->socket.enviar(reinterpret_cast<char *>(partidas.data()), partidas.size());
+  //  reinterpret_cast<char *>(partidas.data()), partidas.size()
+    this->protocolo->enviar(partidas);
     while (this->keep_talking) {
 
         /*procesar_pedido();
@@ -69,6 +65,6 @@ void ThClient::run() {
         this->keep_talking = false;*/
         this->keep_talking = false;
     }
-    this->socket.cerrar();
+    this->protocolo->cerrar();
     is_running = false;
 }

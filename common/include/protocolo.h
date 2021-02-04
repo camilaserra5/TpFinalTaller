@@ -70,6 +70,10 @@ public:
       return *this;
     }
 
+    void cerrar(){
+      this->socket.cerrar();
+    }
+
 private:
     Socket socket;
 };

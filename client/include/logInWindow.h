@@ -30,7 +30,7 @@ private:
     SDL_Renderer *renderer;
     SDL_Window *window;
     Fonts fonts;
-    Socket socket;
+    Socket socket;//hay qeu sacarlo
     Protocolo* protocolo;
     int idJugador;
 

@@ -4,7 +4,10 @@
 #include "SDL2/SDL_ttf.h"
 #include "../include/label.h"
 #include <sstream>
-#include <protocolo.h>
+#include "protocolo.h"
+#include "comandos/crearPartida.h"
+#include "comandos/unirseAPartida.h"
+
 
 #define WOLFSTEIN_TTF_ROOT "../../resources/fuentes/wolfenstein.ttf"
 #define BACKGROUND_IMAGE_ROOT "../../client/resources/images/background.png"
@@ -166,6 +169,9 @@ void LogInWindow::run() {
                     exit(0);
                 } else if (e.type == SDL_KEYDOWN) {
                     if (e.key.keysym.sym == SDLK_n) {
+                      CrearPartida crearPartida(-1,8,"wolfstein","ruta","nombre");//parametros ingresados!
+                      std::vector<char> serializado = crearPartida.serializar();
+                      protocolo->enviar(serializado);
                     }
                     if (e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9) {
                         gameNo += e.key.keysym.sym;

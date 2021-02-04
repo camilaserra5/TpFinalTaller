@@ -134,7 +134,7 @@ int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
                 wallDest.w = 1;
                 wallDest.h = drawEnd - drawStart;
 
-                wall->renderizar(&wallDimension,wallDest, 0,NULL/*CHEQUEAR*/);
+                wall->renderizar(&wallDimension,wallDest, 0,NULL);
                 this->ventana->actualizar();
 
                 std::chrono::milliseconds duration(20);
