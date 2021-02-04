@@ -17,6 +17,8 @@ public:
 
     ~Jugador();
 
+    Jugador();
+    
     void moverse(int posx, int posy);
 
     void rotar(int sentido);

@@ -14,6 +14,8 @@ public:
 
     virtual ~Item() {}
 
+    Item(){}
+
     virtual bool obtenerBeneficio(Jugador *jugador) = 0;
 
     bool estaCerca(int &posx, int &posy) {

@@ -11,6 +11,8 @@ public:
 
     virtual ~Comando() {}
 
+    Comando(){}
+
     virtual void ejecutar(EstadoJuego &estadoJuego) = 0; //deberia devolver una actualizacion en lugar de viod
 
     //  std::stringstream serializar(){}

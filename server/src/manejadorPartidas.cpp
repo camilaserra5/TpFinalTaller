@@ -51,6 +51,7 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
         std::cout << "ya setie elemnto";
         //int cant_jugadores = 1;
         Servidor *servidor = new Servidor(mapa, cant_jugadores);
+        servidor->agregarCliente(nombreJugador, cliente);
         //  Cliente *cliente = new Cliente(servidor.obtenerColaEventos(), servidor.obtenerColaActualizaciones(),  nombreJugador);
         //servidor.agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor});

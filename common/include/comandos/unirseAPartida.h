@@ -15,6 +15,8 @@ public:
 
     ~UnirseAPartida() {}
 
+    UnirseAPartida() {}
+
     std::vector<char> serializar() override;
 
     void deserializar(std::vector<char>& serializado) override;
