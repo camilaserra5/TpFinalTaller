@@ -46,7 +46,7 @@ void Juego::run() {
               auto inicio = std::chrono::high_resolution_clock::now();
               this->clean();
               this->eventos();
-            //  this->raycasting(mapa,this->modelo->getPlayer());
+              this->raycasting(mapa,this->modelo.getPlayer());
               this->renderizar();
               this->actualizar(/*1*/);
               auto final = std::chrono::high_resolution_clock::now();
@@ -154,8 +154,8 @@ void Juego::raycasting(Map &mapaa, Player &jugador) {
                 wall->renderizar(&wallDimension,wallDest, 0,NULL);
               //  this->ventana->actualizar();
 
-                std::chrono::milliseconds duration(20);
-                std::this_thread::sleep_for(duration);
+              //  std::chrono::milliseconds duration(20);
+              //  std::this_thread::sleep_for(duration);
                 anguloRayo += anguloPorStripe;
             }
             delete wall;
