@@ -26,17 +26,22 @@ void ThClient::stop() {
 
 void ThClient::procesar_pedido() {
   std::vector<char> serializado = this->protocolo->recibir();
+  bool resultado = false;
+  std::cout << "recibi: " <<serializado.size();
+
   if (serializado[0] == static_cast<int>(Accion::unirseAPartida)){
     UnirseAPartida* unirseAPartida;
     unirseAPartida->deserializar(serializado);
-    this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida->getNombreJugador(),unirseAPartida->getNombrePartida());
+    resultado = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida->getNombreJugador(),unirseAPartida->getNombrePartida());
   }else{
       CrearPartida* crearPartida;
       crearPartida->deserializar(serializado);
-      this->manejadorDePartidas->crearPartida(crearPartida->getNombreJugador(),crearPartida->getCantJugadores(),
+      resultado = this->manejadorDePartidas->crearPartida(crearPartida->getNombreJugador(),crearPartida->getCantJugadores(),
                                       crearPartida->getNombrePartida(),crearPartida->getRutaArchivo());
   }
-
+  std::vector<char> res;
+  res.push_back((char)resultado);
+  protocolo->enviar(res);
 }
 
 bool ThClient::is_dead() {
@@ -54,8 +59,8 @@ void ThClient::run() {
     this->protocolo->enviar(partidas);
     while (this->keep_talking) {
 
-        /*procesar_pedido();
-
+  //    procesar_pedido();
+/*
         std::string mensaje = this->mensaje_cliente.str();
         if (mensaje.size() != 0) {
             mensaje.erase(mensaje.size() - 1);

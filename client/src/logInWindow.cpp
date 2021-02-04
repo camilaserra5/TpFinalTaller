@@ -172,6 +172,11 @@ void LogInWindow::run() {
                       CrearPartida crearPartida(-1,8,"wolfstein","ruta","nombre");//parametros ingresados!
                       std::vector<char> serializado = crearPartida.serializar();
                       protocolo->enviar(serializado);
+                      std::vector<char> res = protocolo->recibir();
+                      bool pudoCrearPartida = res[0];
+                      if (!pudoCrearPartida){
+                        //mensaje de error
+                      }
                     }
                     if (e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9) {
                         gameNo += e.key.keysym.sym;

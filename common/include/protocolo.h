@@ -20,6 +20,7 @@ public:
     void enviar(std::vector<char> &informacion) {
         std::string buffer(informacion.begin(), informacion.end());
         socket.enviar(buffer.c_str(), buffer.size());
+        std::cout << "termine de enviar";
     }
 
     std::stringstream recibir_aux() {
