@@ -27,7 +27,7 @@ void ThClient::stop() {
 void ThClient::procesar_pedido() {
   std::vector<char> serializado = this->protocolo->recibir();
   bool resultado = false;
-  std::cout << "recibi: " <<serializado.size();
+  std::cout << "recibi: " << serializado.size() << "\n";
 
   if (serializado[0] == static_cast<int>(Accion::unirseAPartida)){
     UnirseAPartida unirseAPartida;
