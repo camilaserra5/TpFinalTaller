@@ -34,10 +34,10 @@ void ThClient::procesar_pedido() {
     unirseAPartida->deserializar(serializado);
     resultado = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida->getNombreJugador(),unirseAPartida->getNombrePartida());
   }else{
-      CrearPartida* crearPartida;
-      crearPartida->deserializar(serializado);
-      resultado = this->manejadorDePartidas->crearPartida(crearPartida->getNombreJugador(),crearPartida->getCantJugadores(),
-                                      crearPartida->getNombrePartida(),crearPartida->getRutaArchivo());
+      CrearPartida crearPartida;
+      crearPartida.deserializar(serializado);
+      resultado = this->manejadorDePartidas->crearPartida(crearPartida.getNombreJugador(),crearPartida.getCantJugadores(),
+                                      crearPartida.getNombrePartida(),crearPartida.getRutaArchivo());
   }
   std::vector<char> res;
   res.push_back((char)resultado);
@@ -58,7 +58,7 @@ void ThClient::run() {
   //  reinterpret_cast<char *>(partidas.data()), partidas.size()
     this->protocolo->enviar(partidas);
     while (this->keep_talking) {
-  //  procesar_pedido();
+    procesar_pedido();
 /*
         std::string mensaje = this->mensaje_cliente.str();
         if (mensaje.size() != 0) {
@@ -67,7 +67,7 @@ void ThClient::run() {
 
 
         this->keep_talking = false;*/
-        this->keep_talking = false;
+      //  this->keep_talking = false;
     }
     this->protocolo->cerrar();
     is_running = false;

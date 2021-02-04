@@ -19,6 +19,8 @@ public:
 
     ~CrearPartida() {}
 
+    CrearPartida(){}
+
     std::vector<char> serializar();
 
     void deserializar(std::vector<char>& serializado);
