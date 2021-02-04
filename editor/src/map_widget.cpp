@@ -118,9 +118,9 @@ Map MapWidget::toMap() {
         for (int j = 0; j < map.getRowSize(); ++j) {
             QPoint point(i * tileSize(), j * tileSize());
             for (int k = 0, size = tiles.size(); k < size; ++k) {
-                map.setValue(i, j, Type::empty);
+                map.setValue(i, j, ObjetosJuego::obtenerTipoPorNombre("empty"));
                 if (tiles.at(k).rect == targetSquare(point)) {
-                    map.setValue(i, j, static_cast<Type>(tiles.at(k).type));
+                    map.setValue(i, j, ObjetosJuego::obtenerTipoPorId(tiles.at(k).type));
                 }
             }
         }

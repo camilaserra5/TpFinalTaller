@@ -45,5 +45,5 @@ bool LanzaCohetes::obtenerBeneficio(Jugador *jugador) {
 }
 
 Type LanzaCohetes::getTipo(){
-    return Type::lanzaCohetes;
+    return  ObjetosJuego::obtenerTipoPorNombre("lanzaCohetes");
 }

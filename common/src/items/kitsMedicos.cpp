@@ -16,5 +16,5 @@ bool KitsMedicos::obtenerBeneficio(Jugador *jugador) {
 }
 
 Type KitsMedicos::getTipo(){
-    return Type::kitsMedicos;
+    return  ObjetosJuego::obtenerTipoPorNombre("kitsMedicos");
 }

@@ -12,7 +12,7 @@ Pistola::Pistola() :
 Pistola::~Pistola() {}
 
 Type Pistola::getTipo(){
-  return Type::pistola;
+    return  ObjetosJuego::obtenerTipoPorNombre("pistola");
 }
 
 // conviene mandarle coordenadas de yo jugador??

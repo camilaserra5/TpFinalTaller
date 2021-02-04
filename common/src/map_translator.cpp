@@ -8,7 +8,7 @@ YAML::Node MapTranslator::mapToYaml(Map &map/*,std::list<EntidadPosicionable>& e
     for (std::size_t i = 0; i < map.getRowSize(); i++) {
         std::list<unsigned> v;
         for (std::size_t j = 0; j < map.getColSize(); j++) {
-            v.push_back(static_cast<std::underlying_type_t<Type>>(map(i, j)));
+            v.push_back(map(i, j).getType());
         }
         node["map"].push_back(v);
     }
@@ -25,7 +25,7 @@ Map MapTranslator::yamlToMap(YAML::Node yaml) {
     for (std::size_t i = 0; i < mapNode.size(); i++) {
         YAML::Node rowNode = mapNode[i];
         for (std::size_t j = 0; j < rowNode.size(); j++) {
-            map.setValue(i, j, static_cast<Type>(rowNode[j].as<unsigned>()));
+            map.setValue(i, j, ObjetosJuego::obtenerTipoPorId(rowNode[j].as<unsigned>()));
         }
     }
     return map;

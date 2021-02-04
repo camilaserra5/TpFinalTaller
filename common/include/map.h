@@ -44,7 +44,7 @@ public:
         informacion.push_back(this->colSize);
         for (unsigned i = 0; i < rowSize; i++) {
             for (unsigned j = 0; j < colSize; j++) {
-                informacion.push_back(static_cast<int>(map[i][j]));
+                informacion.push_back((map[i][j]).getType());
             }
         }
         std::vector<char> contenedorSerializado = this->contenedorDeElementos.serializar();
@@ -58,7 +58,7 @@ public:
         int idx = 2;
         for (unsigned i = 0; i < rowSize; i++) {
             for (unsigned j = 0; j < colSize; j++) {
-                setValue(i, j, static_cast<Type>(serializado[idx++]));
+                setValue(i, j, ObjetosJuego::obtenerTipoPorId(serializado[idx++]));
             }
         }
         std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx,

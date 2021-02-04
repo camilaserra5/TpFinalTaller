@@ -47,5 +47,5 @@ bool CanionDeCadena::obtenerBeneficio(Jugador *jugador) {
 }
 
 Type CanionDeCadena::getTipo(){
-    return Type::canionDeCadena;
+    return  ObjetosJuego::obtenerTipoPorNombre("canionDeCadena");
 }

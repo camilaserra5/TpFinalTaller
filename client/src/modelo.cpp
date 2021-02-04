@@ -34,7 +34,7 @@ void Modelo::inicializar() {
                                 this->idJugador);
     Enemigo* enemigo = new Enemigo(this->ventana.obtener_render(), 4);
     this->enemigos.insert(std::make_pair(111,enemigo));
-    ObjetoJuego* comida = crearObjeto(Type::comida);
+    ObjetoJuego* comida = crearObjeto(ObjetosJuego::obtenerTipoPorNombre("comida"));
         comida->settear_estado(325, 420);
     this->entidades.insert(std::make_pair(1,comida));
 }
@@ -208,75 +208,75 @@ void Modelo::terminoPartida(std::vector<int>& rankingJugadores){
 
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
-    if (tipo == Type::comida) {
+    if (tipo.getName() == "comida") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::kitsMedicos) {
+    } else if (tipo.getName() == "kitsMedicos") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 2, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::llave) {
+    } else if (tipo.getName() == "llave") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 2, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::balas) {
+    } else if (tipo.getName() == "balas") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 3, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::sangre) {
+    } else if (tipo.getName() == "sangre") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 8, 0, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::cruz) {
+    } else if (tipo.getName() == "cruz") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 1, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::copa) {
+    } else if (tipo.getName() == "copa") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::cofre) {
+    } else if (tipo.getName() == "cofre") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::corona) {
+    } else if (tipo.getName() == "corona") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::ametralladora) {
+    } else if (tipo.getName() == "ametralladora") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 6, 4, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::lanzaCohetes) {
+    } else if (tipo.getName() == "lanzaCohetes") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 0, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if(tipo == Type::barril){
+    } else if(tipo.getName() == "barril"){
       Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 7, SPRITES_OBJETOS_LARGO,
                     SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::agua){
+    } else if (tipo.getName() == "agua"){
       Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 0, SPRITES_OBJETOS_LARGO,
                     SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::tanque){
+    } else if (tipo.getName() == "tanque"){
       Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 3, 0, SPRITES_OBJETOS_LARGO,
                     SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::mesa){
+    } else if (tipo.getName() == "mesa"){
       Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 0, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::lampara){
+    } else if (tipo.getName() == "lampara"){
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 1, SPRITES_OBJETOS_LARGO,
                         SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::muertoColgante){
+    } else if (tipo.getName() == "muertoColgante"){
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 1, SPRITES_OBJETOS_LARGO,
                         SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
-    } else if (tipo == Type::planta){
+    } else if (tipo.getName() == "planta"){
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 2, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
           return new ObjetoJuego(std::move(sprite));

@@ -34,7 +34,7 @@ void MapTilesList::addTile(const QString &name, const QPixmap &pixmap, Type type
     QListWidgetItem *pieceItem = new QListWidgetItem(this);
     pieceItem->setIcon(QIcon(pixmap));
     pieceItem->setData(Qt::UserRole, QVariant(pixmap));
-    pieceItem->setData(Qt::UserRole + 1, static_cast<int >(type));
+    pieceItem->setData(Qt::UserRole + 1, type.getType());
     pieceItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled);
     pieceItem->setText(name);
 }

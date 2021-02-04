@@ -15,7 +15,7 @@ public:
     }
 
     Type getTipo() override{
-        return Type::noItem;
+        return  ObjetosJuego::obtenerTipoPorNombre("noItem");
     }
 
 };

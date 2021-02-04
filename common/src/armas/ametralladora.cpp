@@ -48,5 +48,5 @@ bool Ametralladora::obtenerBeneficio(Jugador *jugador) {
 }
 
 Type Ametralladora::getTipo(){
-    return Type::ametralladora;
+    return ObjetosJuego::obtenerTipoPorNombre("ametralladora");
 }

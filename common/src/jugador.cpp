@@ -96,7 +96,7 @@ void Jugador::agarrarLlave() {
 
 void Jugador::actualizarArma(){
   Posicion posDefault(0,0,0);
-  Arma* lanzacohetes = new LanzaCohetes(posDefault, static_cast<int>(Type::lanzaCohetes));
+  Arma* lanzacohetes = new LanzaCohetes(posDefault, ObjetosJuego::obtenerTipoPorNombre("lanzaCohetes").getType());
   if (this->balas < BALAS_PARA_LANZACOHETES && this->armas.at(this->armaActual)->esIgual(lanzacohetes) && this->balas > 0){
       this->armaActual = ID_PISTOLA;
   }else{

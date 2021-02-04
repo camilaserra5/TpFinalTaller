@@ -8,5 +8,5 @@ bool Llave::obtenerBeneficio(Jugador *jugador) {
 }
 
 Type Llave::getTipo(){
-    return Type::llave;
+    return  ObjetosJuego::obtenerTipoPorNombre("llave");
 }

@@ -15,6 +15,6 @@ bool Sangre::obtenerBeneficio(Jugador *jugador) {
     return false;
 }
 
-Type Sangre::getTipo(){
-    return Type::sangre;
+Type Sangre::getTipo() {
+    return  ObjetosJuego::obtenerTipoPorNombre("sangre");
 }

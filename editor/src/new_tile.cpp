@@ -40,15 +40,18 @@ void NewTile::create() {
     QString text = textComboBox->currentText();
     QFileInfo file(directoryLine->text());
     MainWindow* pMainWindow = qobject_cast<MainWindow*>(parent());
-    if (pMainWindow)
-        pMainWindow->addTile(file.baseName(), file.filePath(), Type::fakeDoor);
+    if (pMainWindow) {
+        std::string utf8_text = text.toUtf8().constData();
+        pMainWindow->addTile(file.baseName(), file.filePath(), ObjetosJuego::obtenerTipoPorNombre(utf8_text));
+    }
+
 }
 
 QComboBox *NewTile::createComboBox(const QString &text) {
     QComboBox *comboBox = new QComboBox;
     comboBox->setEditable(true);
-    for (std::string t : All) {
-        QString s = QString::fromStdString(t);
+    for (Type t : ObjetosJuego::obtenerObjetos()) {
+        QString s = QString::fromStdString(t.getName());
         comboBox->addItem(s);
     }
     comboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);

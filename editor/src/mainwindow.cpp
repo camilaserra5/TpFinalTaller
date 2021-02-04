@@ -47,24 +47,24 @@ void MainWindow::openMap() {
     for (int i = 0; i < map.getColSize(); ++i) {
         for (int j = 0; j < map.getRowSize(); ++j) {
             Type type = map(i, j);
-            if (Type::wall == type) {
+            if ("wall" == type.getName()) {
                 QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
                 QPixmap newImage;
                 newImage.load(QStringLiteral(BLUE_STONE_WALL_ROOT));
                 QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
-                mapWidget->addTile(point, pixmap, static_cast<int >(map(i, j)));
-            } else if (Type::door == type) {
+                mapWidget->addTile(point, pixmap, map(i, j).getType());
+            } else if ("door" == type.getName()) {
                 QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
                 QPixmap newImage;
                 newImage.load(QStringLiteral(WOODEN_WALL_ROOT));
                 QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
-                mapWidget->addTile(point, pixmap, static_cast<int >(map(i, j)));
-            } else if (Type::fakeDoor == type) {
+                mapWidget->addTile(point, pixmap, map(i, j).getType());
+            } else if ("fakeDoor" == type.getName()) {
                 QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
                 QPixmap newImage;
                 newImage.load(QStringLiteral(GRAY_STONE_WALL_ROOT));
                 QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
-                mapWidget->addTile(point, pixmap, static_cast<int >(map(i, j)));
+                mapWidget->addTile(point, pixmap, map(i, j).getType());
             }
         }
     }
@@ -126,9 +126,9 @@ void MainWindow::newMap() {
 }
 
 void MainWindow::initTiles() {
-    addTile(QStringLiteral("wall1"), QStringLiteral("../../editor/resources/wall1.jpg"), Type::wall);
-    addTile(QStringLiteral("wall2"), QStringLiteral("../../editor/resources/wall2.jpg"), Type::door);
-    addTile(QStringLiteral("wall3"), QStringLiteral("../../editor/resources/wall3.jpg"), Type::fakeDoor);
+    addTile(QStringLiteral("wall1"), QStringLiteral("../../editor/resources/wall1.jpg"), ObjetosJuego::obtenerTipoPorNombre("wall"));
+    addTile(QStringLiteral("wall2"), QStringLiteral("../../editor/resources/wall2.jpg"), ObjetosJuego::obtenerTipoPorNombre("door"));
+    addTile(QStringLiteral("wall3"), QStringLiteral("../../editor/resources/wall3.jpg"), ObjetosJuego::obtenerTipoPorNombre("fakeDoor"));
 }
 
 void MainWindow::saveMap() {
