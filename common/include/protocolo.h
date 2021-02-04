@@ -27,14 +27,15 @@ public:
     }
 
     std::stringstream recibir_aux() {
+        char tam[1];
         char buffer[TAMANIO];
         std::stringstream informacion;
-        int cant_recibidos = socket.recibir(buffer, 1);
-        int cant_a_recibir = buffer[0];
+        int cant_recibidos = socket.recibir(tam, 1);
+        int cant_a_recibir = tam[0];
         cant_recibidos = 0;
         while (cant_recibidos < cant_a_recibir) {
             informacion.write(buffer, cant_recibidos);
-            cant_recibidos = socket.recibir(buffer, TAMANIO);
+            cant_recibidos += socket.recibir(buffer, TAMANIO);
         }
         return informacion;
     }
