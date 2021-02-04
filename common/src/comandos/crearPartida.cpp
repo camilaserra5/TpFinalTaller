@@ -14,42 +14,30 @@ std::vector<char> CrearPartida::serializar(){
 }
 
 void CrearPartida::deserializar(std::vector<char>& serializado){
-  std::cout << "tamanio de serializado: " << serializado.size() << "\n";
-  for (int j = 0; j < serializado.size(); j++){
-    std::cout <<" imprimo:  "<<serializado[j] << "\n";
-  }
   int idx = 1;
   this->cantidadJugadores = serializado[idx];
   idx += 1;
-
   int tamNombrePartida = serializado[idx];
   idx += 1;
-
   int i = tamNombrePartida + idx;
-
   while (idx < i){
     this->nombrePartida.push_back(serializado[idx]);
     idx += 1;
   }
   int tamRutaYaml = serializado[idx];
-
+  idx += 1;
   i = idx + tamRutaYaml;
   while (idx < i){
     this->rutaYaml.push_back(serializado[idx]);
     idx += 1;
   }
-
-
-  int tamNombreCliente = (int)serializado[idx];
+  int tamNombreCliente = serializado[idx];
   i = idx + tamNombreCliente;
-
   while (idx <i){
     this->nombreCliente.push_back(serializado[idx]);
     idx += 1;
   }
-
 }
-
 std::string& CrearPartida::getNombreJugador(){
   return this->nombreCliente;
 }

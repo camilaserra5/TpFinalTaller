@@ -14,13 +14,15 @@ void UnirseAPartida::deserializar(std::vector<char>& serializado){
   int idx = 1;
   int tamNombrePartida = serializado[idx];
   idx++;
-  while (idx < tamNombrePartida + 1){
+  int i = idx + tamNombrePartida;
+  while (idx < i){
     this->nombrePartida.push_back(serializado[idx]);
     idx++;
   }
   int tamNombreCliente = serializado[idx];
   idx++;
-  while (idx < tamNombreCliente + 1){
+  i = idx + tamNombreCliente;
+  while (idx < tamNombreCliente){
     this->nombreCliente.push_back(serializado[idx]);
     idx++;
   }
