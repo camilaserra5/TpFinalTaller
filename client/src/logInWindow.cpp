@@ -109,7 +109,7 @@ void connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, std::string &
                     if (!ipFinished) {
                         ip.erase(ip.size() - 1);
                     } else {
-                        port.erase(ip.size() - 1);
+                        port.erase(port.size() - 1);
                     }
                 }
                 if (e.key.keysym.sym == SDLK_RETURN) {
@@ -251,6 +251,57 @@ void unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string &nombre, st
     }
 }
 
+
+void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts) {
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
+    SDL_Event e;
+    bool finished = false;
+    while (!finished) {
+        if (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                exit(0);
+            } else if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_RETURN) {
+                    finished = true;
+                }
+            }
+        }
+
+        SDL_Delay(16);
+        SDL_RenderClear(renderer);
+        background.drawBackground();
+
+        disp_text("Esperando a los jugadores para comenzar", fonts.getFont("wolfstein"), renderer, 10, 10);
+
+        SDL_RenderPresent(renderer);
+    }
+}
+void pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error) {
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
+    SDL_Event e;
+    bool finished = false;
+    while (!finished) {
+        if (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                exit(0);
+            } else if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_RETURN) {
+                    finished = true;
+                }
+            }
+        }
+
+        SDL_Delay(16);
+        SDL_RenderClear(renderer);
+        background.drawBackground();
+
+        disp_text("Error :(", fonts.getFont("wolfstein"), renderer, 10, 10);
+        disp_text(error, fonts.getFont("wolfstein"), renderer, 10, 10 + 5 * FONT_SIZE);
+
+        SDL_RenderPresent(renderer);
+    }
+}
+
 void LogInWindow::run() {
     Background background(BACKGROUND_IMAGE_ROOT, this->renderer);
     background.drawBackground();
@@ -314,12 +365,13 @@ void LogInWindow::run() {
             std::vector<char> res = protocolo->recibir();
             bool pudoCrearPartida = res[0];
             if (!pudoCrearPartida) {
-              //  pantallaError();
+                std::string error = "Error creando partida";
+                pantallaError(this->renderer, this->fonts, error);
             }
-          //  pantallaEsperando();
+            pantallaEsperando(this->renderer, this->fonts);
         } else {
             // unirse a una existente
-            std::string nombre = nombresPartidas.at(std::stoi(gameNumber));
+            std::string nombre = nombresPartidas.at(std::stoi(gameNumber) - 1);
             std::string playerName;
             unirseAPartida(this->renderer, this->fonts, nombre, playerName);
 
@@ -329,9 +381,10 @@ void LogInWindow::run() {
             std::vector<char> res = protocolo->recibir();
             bool pudoUnirse = res[0];
             if (!pudoUnirse) {
-             //   pantallaError();
+                std::string error = "Error uniendose a partida";
+                pantallaError(this->renderer, this->fonts, error);
             }
-           // pantallaEsperando();
+            pantallaEsperando(this->renderer, this->fonts);
         }
     }
 }
