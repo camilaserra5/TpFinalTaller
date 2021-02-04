@@ -24,11 +24,27 @@ Juego::Juego(Ventana& ventana, Modelo& modelo): ventana(ventana), modelo(modelo)
         this->corriendo = true;
 }
 
+void Juego::eventos(){
+    SDL_Event event;
+    if (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                exit(0);
+                this->corriendo = false;
+                break;
+
+            default:
+                break;
+
+          }
+    }
+}
 void Juego::run() {
   Map mapa (20,20);
     while(this->corriendo){
         try {
               this->clean();
+              this->eventos();
             //  this->raycasting(mapa,this->modelo->getPlayer());
               this->renderizar();
               this->actualizar(/*1*/);
@@ -38,6 +54,7 @@ void Juego::run() {
             this->corriendo = false;
         }
     }
+    this->cerrar();
 
 }
 
@@ -51,7 +68,9 @@ void Juego::renderizar() {
   this->ventana.renderizar(this->texturaInferior);
 }
 
-Juego::~Juego() {}
+Juego::~Juego() {
+    delete this->texturaInferior;
+}
 
 void Juego::cerrar(){
     this->corriendo = false;

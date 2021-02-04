@@ -28,13 +28,13 @@ Modelo::Modelo(Ventana& ventana, int idJugador) :
         partidaTerminada(false){}
 
 Modelo::~Modelo() {
-  delete this->jugador;
+/*  delete this->jugador;
   for (std::map<int,Enemigo*>::iterator it=enemigos.begin(); it!=enemigos.end(); ++it){
         delete it->second;
   }
   for (std::map<int,ObjetoJuego*>::iterator it=entidades.begin(); it!=entidades.end(); ++it){
         delete it->second;
-  }
+  }*/
 }
 
 void Modelo::inicializar() {
