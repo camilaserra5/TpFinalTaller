@@ -8,8 +8,10 @@
 
 #define WOLFSTEIN_TTF_ROOT "../../resources/fuentes/wolfenstein.ttf"
 #define BACKGROUND_IMAGE_ROOT "../../client/resources/images/background.png"
+#define BACKGROUND_2_IMAGE_ROOT "../../client/resources/images/background2.jpg"
+#define FONT_SIZE 60
 
-LogInWindow::LogInWindow(){
+LogInWindow::LogInWindow() {
     int rendererFlags, windowFlags;
 
     rendererFlags = SDL_RENDERER_ACCELERATED;
@@ -36,7 +38,7 @@ LogInWindow::LogInWindow(){
         exit(1);
     }
 
-    fonts.addFont("wolfstein", WOLFSTEIN_TTF_ROOT, 60);
+    fonts.addFont("wolfstein", WOLFSTEIN_TTF_ROOT, FONT_SIZE);
 
     this->renderer = SDL_CreateRenderer(this->window, -1, rendererFlags);
 
@@ -118,12 +120,12 @@ void LogInWindow::run() {
             SDL_RenderClear(renderer);
             background.drawBackground();
             disp_text("ip address: " + ip, fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
-                      SCREEN_HEIGHT * 3 / 6);
+                      SCREEN_HEIGHT / 2);
             disp_text("port: " + port, fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
-                      SCREEN_HEIGHT * 4 / 6);
+                      SCREEN_HEIGHT / 2 + FONT_SIZE);
             if (step >= 2) {
                 disp_text(socket_text, fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
-                          SCREEN_HEIGHT * 5 / 6);
+                          SCREEN_HEIGHT / 2 + FONT_SIZE * 2);
             }
             SDL_RenderPresent(renderer);
             if (step == 2) {
@@ -150,10 +152,14 @@ void LogInWindow::run() {
             for (int k = 0; k < partidas[j]; k++) {
                 nombre += partidas[++j];
             }
-            partis.push_back("Partida:" + nombre + " " + partidas[++j] + "/" + partidas[++j]);
+            std::ostringstream sstream;
+            sstream << "Game No " << i + 1 << " - " << nombre << " " << (char)partidas[++j] << "/" << (char)partidas[++j];
+            partis.push_back(sstream.str());
         }
 
+        Background background2(BACKGROUND_2_IMAGE_ROOT, this->renderer);
         int conti = true;
+        std::string gameNo;
         while (conti) {
             if (SDL_PollEvent(&e)) {
                 if (e.type == SDL_QUIT) {
@@ -161,24 +167,59 @@ void LogInWindow::run() {
                 } else if (e.type == SDL_KEYDOWN) {
                     if (e.key.keysym.sym == SDLK_n) {
                     }
+                    if (e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9) {
+                        gameNo += e.key.keysym.sym;
+                    }
+                    if (e.key.keysym.sym == SDLK_BACKSPACE) {
+                        gameNo.erase(gameNo.size() - 1);
+                    }
+                    if (e.key.keysym.sym == SDLK_RETURN) {
+                        int i = std::stoi(gameNo);
+                        if (i > 0 && i < partis.size())
+                            conti = false;
+                        else gameNo = "";
+                    }
                 }
             }
 
             SDL_Delay(16);
             SDL_RenderClear(renderer);
-            background.drawBackground();
 
-            disp_text("Press N to create a new game", fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
-                      SCREEN_HEIGHT / 6);
+            background2.drawBackground();
 
+            disp_text("Press N to create a new game", fonts.getFont("wolfstein"), this->renderer, 10, 10);
+            disp_text("or the corresponding game number + enter to join:", fonts.getFont("wolfstein"), this->renderer,
+                      10,
+                      10 + FONT_SIZE);
 
-            disp_text(partis.front(), fonts.getFont("wolfstein"),
-                      this->renderer, SCREEN_WIDTH / 3,
-                      SCREEN_HEIGHT * 3 / 6);
-
+            for (int i = 1; i <= partis.size(); i++) {
+                disp_text(partis[i - 1], fonts.getFont("wolfstein"),
+                          this->renderer, FONT_SIZE,
+                          10 + FONT_SIZE + (FONT_SIZE * i));
+            }
 
             SDL_RenderPresent(renderer);
         }
+
+        conti = true;
+        while (conti) {
+            if (SDL_PollEvent(&e)) {
+                if (e.type == SDL_QUIT) {
+                    exit(0);
+                } else if (e.type == SDL_KEYDOWN) {
+
+                }
+            }
+
+            SDL_Delay(16);
+            SDL_RenderClear(renderer);
+
+            background2.drawBackground();
+
+            disp_text("Joining game no " + gameNo, fonts.getFont("wolfstein"), this->renderer, 10, 10);
+            SDL_RenderPresent(renderer);
+        }
+
 
     }
 

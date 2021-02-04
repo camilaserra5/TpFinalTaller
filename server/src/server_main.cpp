@@ -42,6 +42,7 @@ int main(int argc, const char *argv[]) {
         std::string nombreJugador = "juan";
         std::string nombre = "pepe";
         std::string nombre_partida = "grecia";
+        std::string nombre_partida2 = "ketchup";
         std::string nombre_archivo = "archivo.yaml";
         int cant_jugadores = 2;
 
@@ -49,6 +50,7 @@ int main(int argc, const char *argv[]) {
         manejadorPartidas.agregarMapa(nombre_archivo);
 
         bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores, nombre_partida, nombre_archivo);
+        manejadorPartidas.crearPartida(nombreJugador, cant_jugadores, nombre_partida2, nombre_archivo);
         if (estado) {
             std::cout << "creo partida\n";
         }
