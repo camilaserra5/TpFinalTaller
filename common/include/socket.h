@@ -68,6 +68,7 @@ public:
      *Hace un Shutdown en modo RD, lectura.
      */
     void apagar_lectura();
+
 };
 
 #endif /*SOCKET_H*/

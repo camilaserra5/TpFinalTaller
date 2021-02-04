@@ -19,6 +19,9 @@ public:
 
     void enviar(std::vector<char> &informacion) {
         std::string buffer(informacion.begin(), informacion.end());
+        std::string tamanio;
+        tamanio.push_back(informacion.size());
+        socket.enviar(tamanio.c_str(),1);
         socket.enviar(buffer.c_str(), buffer.size());
         std::cout << "termine de enviar";
     }
@@ -26,8 +29,10 @@ public:
     std::stringstream recibir_aux() {
         char buffer[TAMANIO];
         std::stringstream informacion;
-        int cant_recibidos = socket.recibir(buffer, TAMANIO);
-        while (cant_recibidos > 0) {
+        int cant_recibidos = socket.recibir(buffer, 1);
+        int cant_a_recibir = buffer[0];
+        cant_recibidos = 0;
+        while (cant_recibidos < cant_a_recibir) {
             informacion.write(buffer, cant_recibidos);
             cant_recibidos = socket.recibir(buffer, TAMANIO);
         }
@@ -74,6 +79,7 @@ public:
     void cerrar(){
       this->socket.cerrar();
     }
+
 
 private:
     Socket socket;
