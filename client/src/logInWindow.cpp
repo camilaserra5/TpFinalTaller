@@ -64,90 +64,151 @@ void disp_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, 
     label.draw();
 }
 
+void start(SDL_Renderer *renderer, Fonts fonts) {
+    Background background(BACKGROUND_IMAGE_ROOT, renderer);
+    SDL_Event e;
+    int pressed = false;
+    while (!pressed) {
+        if (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                exit(0);
+            } else if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_RETURN) {
+                    pressed = true;
+                }
+            }
+        }
+        SDL_Delay(16);
+        SDL_RenderClear(renderer);
+        background.drawBackground();
+        disp_text("Press enter to start", fonts.getFont("wolfstein"), renderer, SCREEN_WIDTH / 3,
+                  SCREEN_HEIGHT / 2);
+        SDL_RenderPresent(renderer);
+    }
+}
+
+void connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, std::string &port, std::string &message) {
+    Background background(BACKGROUND_IMAGE_ROOT, renderer);
+    SDL_Event e;
+    bool ipFinished = false;
+    bool portFinished = false;
+    while (!ipFinished || !portFinished) {
+        if (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                exit(0);
+            } else if (e.type == SDL_KEYDOWN) {
+                if ((e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9) ||
+                    e.key.keysym.sym == SDLK_PERIOD) {
+                    if (!ipFinished) {
+                        ip += e.key.keysym.sym;
+                    } else {
+                        port += e.key.keysym.sym;
+                    }
+                }
+                if (e.key.keysym.sym == SDLK_BACKSPACE) {
+                    if (!ipFinished) {
+                        ip.erase(ip.size() - 1);
+                    } else {
+                        port.erase(ip.size() - 1);
+                    }
+                }
+                if (e.key.keysym.sym == SDLK_RETURN) {
+                    if (ipFinished) {
+                        portFinished = true;
+                    }
+                    ipFinished = true;
+                }
+            }
+        }
+        SDL_Delay(16);
+        SDL_RenderClear(renderer);
+        background.drawBackground();
+        disp_text("ip address: " + ip, fonts.getFont("wolfstein"), renderer,
+                  SCREEN_WIDTH / 3, SCREEN_HEIGHT / 2);
+        disp_text("port: " + port, fonts.getFont("wolfstein"), renderer,
+                  SCREEN_WIDTH / 3, SCREEN_HEIGHT / 2 + FONT_SIZE);
+        if (!message.empty()) {
+            disp_text(message, fonts.getFont("wolfstein"), renderer, SCREEN_WIDTH / 3,
+                      SCREEN_HEIGHT / 2 + FONT_SIZE * 2);
+        }
+        SDL_RenderPresent(renderer);
+    }
+}
+
+void mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
+                         std::vector<std::string> partidas, std::string &gameNumber) {
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
+    SDL_Event e;
+    bool finished = false;
+    while (!finished) {
+        if (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                exit(0);
+            } else if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_n) {
+                    gameNumber = "";
+                    finished = true;
+                }
+                if (e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9) {
+                    gameNumber += e.key.keysym.sym;
+                }
+                if (e.key.keysym.sym == SDLK_BACKSPACE) {
+                    gameNumber.erase(gameNumber.size() - 1);
+                }
+                if (e.key.keysym.sym == SDLK_RETURN) {
+                    int i = std::stoi(gameNumber);
+                    if (i > 0 && i < partidas.size())
+                        finished = true;
+                    else gameNumber = "";
+                }
+            }
+        }
+
+        SDL_Delay(16);
+        SDL_RenderClear(renderer);
+        background.drawBackground();
+
+        disp_text("Press N to create a new game", fonts.getFont("wolfstein"), renderer, 10, 10);
+        disp_text("or the corresponding game number + enter to join:", fonts.getFont("wolfstein"), renderer, 10,
+                  10 + FONT_SIZE);
+
+        for (int i = 1; i <= partidas.size(); i++) {
+            disp_text(partidas[i - 1], fonts.getFont("wolfstein"),
+                      renderer, FONT_SIZE,
+                      10 + FONT_SIZE + (FONT_SIZE * i));
+        }
+
+        SDL_RenderPresent(renderer);
+    }
+}
+
 void LogInWindow::run() {
     Background background(BACKGROUND_IMAGE_ROOT, this->renderer);
     background.drawBackground();
     while (1) {
         SDL_Event e;
-        int pressed = false;
-        while (!pressed) {
-            if (SDL_PollEvent(&e)) {
-                if (e.type == SDL_QUIT) {
-                    exit(0);
-                } else if (e.type == SDL_KEYDOWN) {
-                    if (e.key.keysym.sym == SDLK_RETURN) {
-                        pressed = true;
-                    }
-                }
-            }
-            SDL_Delay(16);
-            SDL_RenderClear(renderer);
-            background.drawBackground();
-            disp_text("Press enter to start", fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
-                      SCREEN_HEIGHT / 2);
-            SDL_RenderPresent(renderer);
-        }
+        start(this->renderer, this->fonts);
 
         std::string ip;
         std::string port;
-        std::string socket_text = "Connecting...";
-        int step = 0;
-        while (step < 4) {
-            if (SDL_PollEvent(&e)) {
-                if (e.type == SDL_QUIT) {
-                    exit(0);
-                } else if (e.type == SDL_KEYDOWN) {
-                    if ((e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9) ||
-                        e.key.keysym.sym == SDLK_PERIOD) {
-                        if (step == 0) {
-                            ip += e.key.keysym.sym;
-                        } else {
-                            port += e.key.keysym.sym;
-                        }
-                    }
-                    if (e.key.keysym.sym == SDLK_BACKSPACE) {
-                        if (step == 0) {
-                            ip.erase(ip.size() - 1);
-                        } else {
-                            port.erase(ip.size() - 1);
-                        }
-                    }
-                    if (e.key.keysym.sym == SDLK_RETURN) {
-                        step++;
-                        if (step > 3)
-                            step = 0;
-                    }
-                }
-            }
-            SDL_Delay(16);
-            SDL_RenderClear(renderer);
-            background.drawBackground();
-            disp_text("ip address: " + ip, fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
-                      SCREEN_HEIGHT / 2);
-            disp_text("port: " + port, fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
-                      SCREEN_HEIGHT / 2 + FONT_SIZE);
-            if (step >= 2) {
-                disp_text(socket_text, fonts.getFont("wolfstein"), this->renderer, SCREEN_WIDTH / 3,
-                          SCREEN_HEIGHT / 2 + FONT_SIZE * 2);
-            }
-            SDL_RenderPresent(renderer);
-            if (step == 2) {
-                try {
-                    this->socket.conectar(ip.c_str(), port.c_str());
-                    step = 4;
-                } catch (std::exception &exc) {
-                    socket_text = "Error connecting, press enter to start again";
-                    ip = "";
-                    port = "";
-                    step++;
-                }
+        std::string message;
+        bool connected = false;
+        while (!connected) {
+            connect(this->renderer, this->fonts, ip, port, message);
+            try {
+                this->socket.conectar(ip.c_str(), port.c_str());
+                connected = true;
+            } catch (std::exception &exc) {
+                message = "Error connecting, try again";
+                ip = "";
+                port = "";
             }
         }
 
         this->protocolo = new Protocolo(std::move(socket));
-        std::cout << "recibo partidas";
         std::vector<char> partidas = protocolo->recibir();
         std::vector<std::string> partis;
+        std::map<int, std::string> nombresPartidas;
         char cantidadPartidas = partidas[0];
         int j = 1;
         for (int i = 0; i < cantidadPartidas; i++) {
@@ -156,82 +217,30 @@ void LogInWindow::run() {
                 nombre += partidas[++j];
             }
             std::ostringstream sstream;
-            sstream << "Game No " << i + 1 << " - " << nombre << " " << (char)partidas[++j] << "/" << (char)partidas[++j];
+            sstream << "Game No " << i + 1 << " - " << nombre << " " << (char) partidas[++j] << "/"
+                    << (char) partidas[++j];
             partis.push_back(sstream.str());
+            nombresPartidas.insert(std::make_pair(i, nombre));
         }
 
-        Background background2(BACKGROUND_2_IMAGE_ROOT, this->renderer);
-        int conti = true;
-        std::string gameNo;
-        while (conti) {
-            if (SDL_PollEvent(&e)) {
-                if (e.type == SDL_QUIT) {
-                    exit(0);
-                } else if (e.type == SDL_KEYDOWN) {
-                    if (e.key.keysym.sym == SDLK_n) {
-                      CrearPartida crearPartida(-1,8,"wolfstein","ruta","nombre");//parametros ingresados!
-                      std::vector<char> serializado = crearPartida.serializar();
-                      protocolo->enviar(serializado);
-                      std::vector<char> res = protocolo->recibir();
-                      bool pudoCrearPartida = res[0];
-                      if (!pudoCrearPartida){
+        std::string gameNumber;
+        mostrarMenuPartidas(this->renderer, this->fonts, partis, gameNumber);
+
+        if (nombresPartidas.empty()) {
+            // nueva partida
+/*CrearPartida crearPartida(-1, 8, "wolfstein", "ruta", "nombre");//parametros ingresados!
+                    std::vector<char> serializado = crearPartida.serializar();
+                    protocolo->enviar(serializado);
+                    std::vector<char> res = protocolo->recibir();
+                    bool pudoCrearPartida = res[0];
+                    if (!pudoCrearPartida) {
                         //mensaje de error
-                      }
-                    }
-                    if (e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9) {
-                        gameNo += e.key.keysym.sym;
-                    }
-                    if (e.key.keysym.sym == SDLK_BACKSPACE) {
-                        gameNo.erase(gameNo.size() - 1);
-                    }
-                    if (e.key.keysym.sym == SDLK_RETURN) {
-                        int i = std::stoi(gameNo);
-                        if (i > 0 && i < partis.size())
-                            conti = false;
-                        else gameNo = "";
-                    }
-                }
-            }
+                    }*/
+        } else {
+            // unirse a una existente
+            std::string nombre = nombresPartidas.at(std::stoi(gameNumber));
 
-            SDL_Delay(16);
-            SDL_RenderClear(renderer);
-
-            background2.drawBackground();
-
-            disp_text("Press N to create a new game", fonts.getFont("wolfstein"), this->renderer, 10, 10);
-            disp_text("or the corresponding game number + enter to join:", fonts.getFont("wolfstein"), this->renderer,
-                      10,
-                      10 + FONT_SIZE);
-
-            for (int i = 1; i <= partis.size(); i++) {
-                disp_text(partis[i - 1], fonts.getFont("wolfstein"),
-                          this->renderer, FONT_SIZE,
-                          10 + FONT_SIZE + (FONT_SIZE * i));
-            }
-
-            SDL_RenderPresent(renderer);
         }
-
-        conti = true;
-        while (conti) {
-            if (SDL_PollEvent(&e)) {
-                if (e.type == SDL_QUIT) {
-                    exit(0);
-                } else if (e.type == SDL_KEYDOWN) {
-
-                }
-            }
-
-            SDL_Delay(16);
-            SDL_RenderClear(renderer);
-
-            background2.drawBackground();
-
-            disp_text("Joining game no " + gameNo, fonts.getFont("wolfstein"), this->renderer, 10, 10);
-            SDL_RenderPresent(renderer);
-        }
-
-
     }
 
 }
