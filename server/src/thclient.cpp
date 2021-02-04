@@ -30,9 +30,9 @@ void ThClient::procesar_pedido() {
   std::cout << "recibi: " <<serializado.size();
 
   if (serializado[0] == static_cast<int>(Accion::unirseAPartida)){
-    UnirseAPartida* unirseAPartida;
-    unirseAPartida->deserializar(serializado);
-    resultado = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida->getNombreJugador(),unirseAPartida->getNombrePartida());
+    UnirseAPartida unirseAPartida;
+    unirseAPartida.deserializar(serializado);
+    resultado = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida.getNombreJugador(),unirseAPartida.getNombrePartida());
   }else{
       CrearPartida crearPartida;
       crearPartida.deserializar(serializado);
