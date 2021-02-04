@@ -28,7 +28,8 @@ add_executable(raycasting_test
         ../client/src/label.cpp
         ../client/src/fonts.cpp
         ../client/src/scene.cpp
-
+        ../client/src/armaAnimada.cpp
+        ../client/src/enemigo.cpp
 
         ${UIS_HEADERS})
 

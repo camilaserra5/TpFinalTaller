@@ -1,45 +1,79 @@
 #include "../include/client_event_receiver.h"
 #include "socket.h"
+#include "map.h"
+#include "items/item.h"
+#include "jugador.h"
+#include "estadoJuego.h"
+#include "actualizacion.h"
 
 #include <utility>
 #include <algorithm>
 #include <vector>
+#include <map>
 
-ClientEventReceiver::ClientEventReceiver(Socket &socket,
-                                         ProtectedQueue<Actualizacion *> &updates, Modelo &modelo) :
+ClientEventReceiver::ClientEventReceiver(Protocolo* protocolo,
+                                         ProtectedQueue<Actualizacion *> &updates, Modelo &modelo, int idJugador) :
 
-        socket(socket), updates(updates), modelo(modelo) {}
+        protocolo(protocolo), updates(updates), modelo(modelo), idJugador(idJugador) {}
 
 void ClientEventReceiver::run() {
     while (this->running) {
-        Actualizacion *update;
-        // debería ser un protocolo en realidad
-        //this->protocolo.recibir();
-        //this->updates.aniadir_dato(update);
-        // datos de jugador sacado de lo ue se recibe;
-        //std::vector<char> informacion = protocolo.recibir();
-        //primero mapa/
-        //despues items
-        //despues jugadores
-        int x = 1;
-        int y = 2;
-        int vida = 10;
-        int angulo = 50;
-        int id;
-        this->modelo.actualizarJugador(x, y, vida, angulo, id/*arma*/, 1);
+          try{
+              std::vector<char> informacion = this->protocolo->recibir();
 
+              Actualizacion* actualizacion;
+              EstadoJuego estadoJuego = actualizacion->obtenerEstadoJuego();
+              estadoJuego.deserializar(informacion);
+              std::map<int, Jugador*> jugadores = estadoJuego.obtenerJugadores();
+              std::map<int, Jugador*>::iterator it;
+              Jugador* jugador = jugadores.at(idJugador);
+              int vida = jugador->puntos_de_vida();
+              int posx = jugador->getPosicion().pixelesEnX();
+              int posy = jugador->getPosicion().pixelesEnY();
+              int angulo = jugador->getAnguloDeVista();
+              int idArma = jugador->getArma()->getId();
+              int puntaje = jugador->obtenerPuntosTotales();
+              bool disparando = jugador->estaDisparando();
+              int cantVidas = jugador->cant_de_vida();
+              int balas = jugador->cantidad_balas();
+              modelo.actualizarJugador(posx, posy, vida, angulo, idArma,
+                                      disparando, puntaje, cantVidas, balas);
+              for (it = jugadores.begin(); it != jugadores.end(); it++){
+                  if (it->first != idJugador){
+                        int idE = it->first;
+                        int vidaE = it->second->puntos_de_vida();
+                        int posxE = it->second->getPosicion().pixelesEnX();
+                        int posyE = it->second->getPosicion().pixelesEnY();
+                        int idArmaE = idArma;
+                        int anguloJugador = angulo;
+                        int anguloE = it->second->getAnguloDeVista();
+                        bool disparandoE = it->second->estaDisparando();
+                        int puntajeE = it->second->obtenerPuntosTotales();
+                        modelo.actualizarEnemigo(idE, vidaE, disparandoE, posxE,
+                                                  posyE, idArmaE, anguloJugador,
+                                                  anguloE, puntajeE);
+                  }
+              }
 
-        /*
-          for (int i= 0; i<cantEntidades; i++){
-                int id;
-                Estado estado;
-               Type tipoDeObjeto;
-               int posx;
-               int posy;
-               this->modelo.actualizarEntidad(id, tipoDeObjeto, posx, posy, estado);
+              Map* mapa = estadoJuego.obtenerMapa();
+              std::vector<Item*> items = mapa->obtenerItems();
+              for (int i = 0; i< items.size(); i++){
+                  Item* item = items[i];
+                  int idI = item->getId();
+                  Type tipo = item->getTipo();
+                  int posxI = item->obtenerPosicion().pixelesEnX();
+                  int posyI = item->obtenerPosicion().pixelesEnY();
+                  modelo.actualizarObjeto(idI, tipo, posxI, posyI);
+              }
+              if (actualizacion->terminoPartida()){
+                  std::vector<int> ordenRanking = actualizacion->obtenerRanking();
+                  modelo.terminoPartida(ordenRanking);
           }
-          */
-    }
+        }catch(...){
+            this->running = false;
+        }
+
+      }
 }
 
 void ClientEventReceiver::cerrar() {

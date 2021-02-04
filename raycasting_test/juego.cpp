@@ -8,6 +8,8 @@
 #define WOODEN_WALL_ROOT "../../editor/resources/wall2.jpg"
 #define BLUE_STONE_WALL_ROOT "../../editor/resources/wall1.jpg"
 #define GRAY_STONE_WALL_ROOT "../../editor/resources/wall3.jpg"
+#define PUERTA_ROOT "../../editor/resources/puerta.png"
+
 
 #include "SDL2/SDL_ttf.h"
 #include <SDL2/SDL.h>
@@ -44,7 +46,7 @@ void Juego::run() {
         this->raycasting(mapa,this->jugador);
         this->actualizar(/*1*/);
 //deberia ir antes que renderizar para que se dibuje atras del mapa
-        this->jugador.rotar(0.5 * acos(0.0));
+        this->jugador.rotar(1);
     } catch (...) {
         this->corriendo = false;
     }
@@ -71,71 +73,74 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
 
 // x = fila / y = columna
 
-  int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                       /*1*/  {1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*2*/   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                     /*3*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*4*/     {1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                   /*5*/      {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-                                  /*6*/       {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-                                  /*7*/       {1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1},
-                                  /*8*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*9*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*10*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*11*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                /*12*/        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                            /*13*/            {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                            /*14*/            {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*15*/    {1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*16*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*17*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*18*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*19*/  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                                     /*1*/  {1,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1},
+                                    /*2*/   {1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1},
+                                   /*3*/    {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                  /*4*/     {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                 /*5*/      {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                /*6*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                /*7*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                /*8*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                /*9*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                /*10*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                /*11*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                              /*12*/        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                          /*13*/            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                          /*14*/            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                  /*15*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                  /*16*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                    /*17*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                    /*18*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                                    /*19*/  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                             /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
                                             };
             SDL_Renderer *render = this->ventana->obtener_render();
-
             Textura* wall = new Textura(GRAY_STONE_WALL_ROOT,render);
+            Posicion& posJugador = jugador.getPosicion();
+
+            /*******PARAMETROS DE RAYCASTING********/
             double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
-            unsigned int alturaParedProyectada = 0;
             int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;
             double anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
             double anguloJugador = jugador.getAnguloDeVista();
             double anguloRayo = anguloJugador - (rangoDeVista / 2);
-            Posicion& posJugador = jugador.getPosicion();
+            SDL_Rect wallDimension,wallDest;
 
+            std::vector<double>& zbuffer = this->modelo->getZBuffer();
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
+                unsigned int alturaParedProyectada = 0;
                 double distancia = 0;
                 int drawStart,drawEnd;
                 Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo,posJugador);
                 rayo.verificarInterseccion(mapa,distancia,jugador);
                 alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-
-                //  if (alturaParedProyectada > 600){
-                  //    drawStart = 600 - 1;
-                  //    drawEnd = 0;
-                //  }else{
+                zbuffer.push_back(alturaParedProyectada);
+                if (drawStart > ALTURA_CANVAS){
+                    drawStart = 600 - 1;
+                    drawEnd = 0;
+                }else{
                     drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
                     drawEnd = drawStart + alturaParedProyectada - 20;
-            //      }
-                  SDL_Rect wallDimension;
-                  wallDimension.x = rayo.getOffset() % 64;
-                  wallDimension.y = 0;
-                  wallDimension.w = 1;
-                  wallDimension.h = alturaParedProyectada;
+                }
 
-                  SDL_Rect wallDest;
-                  wallDest.x = i;
-                  wallDest.y = drawStart;
-                  wallDest.w = 1;
-                  wallDest.h = drawEnd - drawStart;
-                  wall->renderizar(&wallDimension,wallDest);
-                  this->ventana->actualizar();
+                wallDimension.x = rayo.getOffset() % 64;
+                wallDimension.y = 0;
+                wallDimension.w = 1;
+                wallDimension.h = alturaParedProyectada;
 
-                  std::chrono::milliseconds duration(20);
-                  std::this_thread::sleep_for(duration);
-                  anguloRayo += anguloPorStripe;
+                wallDest.x = i;
+                wallDest.y = drawStart;
+                wallDest.w = 1;
+                wallDest.h = drawEnd - drawStart;
+
+                wall->renderizar(&wallDimension,wallDest, 0,NULL/*CHEQUEAR*/);
+                this->ventana->actualizar();
+
+                std::chrono::milliseconds duration(20);
+                std::this_thread::sleep_for(duration);
+                anguloRayo += anguloPorStripe;
             }
-            //SDL_SetRenderDrawColor(render, 157, 97, 70, 255);// deberia estar en atualizar
+            SDL_SetRenderDrawColor(render, 157, 97, 70, 255);// deberia estar en atualizar
             delete wall;
 }

@@ -1,6 +1,7 @@
 #ifndef POSICION_H
 #define POSICION_H
 
+#include "iserializable.h"
 class Jugador;
 
 class Posicion : public ISerializable {
@@ -22,6 +23,8 @@ public:
 
     int pixelesEnY();
 
+    void setAngulo(float angulo);
+
     float getAnguloDeVista() { return this->anguloDeVista; }
 
     bool estaCerca(int &posx, int &posy);
@@ -38,7 +41,7 @@ public:
         return informacion;
     }
 
-    void deserializar(std::vector<char> serializado) override {
+    void deserializar(std::vector<char>& serializado) override {
         this->pixelesX = serializado[0];
         this->pixelesY = serializado[1];
         this->anguloDeVista = serializado[2];

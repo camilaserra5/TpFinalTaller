@@ -11,31 +11,36 @@
 #include "modelo.h"
 #include <list>
 #include <string>
+#include "rayo.h"
+#include "map.h"
+
 
 class Juego : public Thread {
 private:
     bool corriendo;
-    Ventana *ventana;
+    Ventana& ventana;
     Textura *texturaInferior;
-    Modelo *modelo;
+    Modelo& modelo;
 
 public:
-    Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, int idJugador);
+    Juego(Ventana& ventana, Modelo& modelo);
 
     ~Juego();
 
     bool estaCorriendo() { return corriendo; }
 
-//    void handleEvents(int id, BlockingQueue<Comando*>& eventos);
+
     void run() override;
 
-    void actualizar(/*temporal int idArma*/);
+    void actualizar();
 
     void renderizar();
 
     void clean();
 
     void cerrar();
+
+    void raycasting(Map& mapaa, Player& jugador);
 };
 
 #endif /*JUEGO_H*/

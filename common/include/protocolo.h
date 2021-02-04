@@ -6,6 +6,7 @@
 
 #include "comandos/ataque.h"
 #include "comandos/movimiento.h"
+#include "comandos/aperturaDePuerta.h"
 #include <iostream>
 
 #define TAMANIO 100
@@ -16,12 +17,12 @@ public:
 
     ~Protocolo() {};
 
-    void enviar(std::stringstream &informacion) {
-        std::string buffer = informacion.str();
+    void enviar(std::vector<char> &informacion) {
+        std::string buffer(informacion.begin(), informacion.end());
         socket.enviar(buffer.c_str(), buffer.size());
     }
 
-    std::stringstream recibir() {
+    std::stringstream recibir_aux() {
         char buffer[TAMANIO];
         std::stringstream informacion;
         int cant_recibidos = socket.recibir(buffer, TAMANIO);
@@ -32,32 +33,41 @@ public:
         return informacion;
     }
 
-    std::vector<char> recibirBinario() {
-        std::string someString = recibir().str();
+    std::vector<char> recibir() {
+        std::string someString = recibir_aux().str();
         std::vector<char> informacion(someString.begin(), someString.end());
         return informacion;
     }
 
-    Comando *deserializarComando(std::stringstream &informacion) {
+    Comando *deserializarComando(std::vector<char> &informacion) {
 
-        if (informacion.str()[0] == static_cast<int>(Accion::ataque)) {
-            // verificar temas de los bytes;
-            // byte 1 tipo de accion , byte 2 id jugador, byte 3 tipo de ivimiento;
-            return new Ataque(informacion.str()[1]);
+        if (informacion[1] == static_cast<int>(Accion::ataque)) {
+
+            return new Ataque((int)informacion[0]);
+        } else if (informacion[1] == static_cast<int>(Accion::aperturaDePuerta)){
+            return new AperturaDePuerta((int)informacion[0]);
         } else {
             Accion accion;
-            if (informacion.str()[2] == static_cast<int>(Accion::moverDerecha)) {
-                accion = Accion::moverDerecha;
-            } else if (informacion.str()[2] == static_cast<int>(Accion::moverIzquierda)) {
-                accion = Accion::moverIzquierda;
-            } else if (informacion.str()[2] == static_cast<int>(Accion::moverArriba)) {
+            if (informacion[1] == static_cast<int>(Accion::rotarDerecha)) {
+                accion = Accion::rotarDerecha;
+            } else if (informacion[1] == static_cast<int>(Accion::rotarIzquierda)) {
+                accion = Accion::rotarIzquierda;
+            } else if (informacion[1] == static_cast<int>(Accion::moverArriba)) {
                 accion = Accion::moverArriba;
             } else {
                 accion = Accion::moverAbajo;
             }
-            int id = informacion.str()[1];
+            int id = (int)informacion[0];
             return new Movimiento(id, accion);
         }
+    }
+
+    Protocolo& operator=(Protocolo& protocolo){
+      if (this == &protocolo){
+        return *this;
+      }
+      this->socket = std::move(protocolo.socket);
+      return *this;
     }
 
 private:

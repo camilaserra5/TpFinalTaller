@@ -9,13 +9,27 @@
 #include "items/tesoro.h"
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
+#include "armas/pistola.h"
+#include "armas/cuchillo.h"
 #include "iostream"
+#include "puerta.h"
+#include <math.h>
 
-#define METROS_MOVIDOS 1 // de acuanto se mueve el jugador
+#define ROTACION_DERECHA -1
+#define ROTACION_IZQUIERDA 1
+#define METROS_MOVIDOS 2 // de acuanto se mueve el jugador
+#define CANT_TICKS_PARTIDA 10000  //5min
 
-void EstadoJuego::rotar(int idJugador){
-  Jugador *jugador = this->jugadores.at(idJugador);
-  jugador->rotar();
+void EstadoJuego::abrirPuerta(int idJugador){
+  Jugador* jugador = this->jugadores.at(idJugador);
+  Posicion& posJugador = jugador->getPosicion();
+  double distancia;
+  if (this->mapa->hayPuertas()){
+    Puerta& puertaMasCercana = this->mapa->puertaMasCercana(posJugador,distancia);//obtengo la puerta mas proxima al jugador
+    if (puertaMasCercana.puedeSerAbierta(jugador->tengollave(),distancia)){
+      puertaMasCercana.abrir();
+    }
+  }
 }
 
 void EstadoJuego::realizarAtaque(int idJugador) {
@@ -27,7 +41,8 @@ void EstadoJuego::realizarAtaque(int idJugador) {
 
 EstadoJuego::EstadoJuego(Map *mapa) :
         mapa(mapa),
-        jugadores() {}
+        jugadores(),
+        contador(0){}
 
 EstadoJuego::~EstadoJuego() {
     std::cout << "destructor estado juego";
@@ -53,23 +68,10 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
     if (tipo == Type::wall) {
         return false;
     } else if (tipo == Type::door) {
-        // verifico si tengo llave sino no puedo avanzar;
-        if (jugador->tengollave()) {
-            // abrir puerta;
-            jugador->usarLlave();
-            return true;
-        }
         return false;
-    } else if (tipo == Type::keyDoor) {
-        // me guardo la llave
-        Posicion posicion(1, 1, 1);//va a depender de su posidion en el mapa
-        Llave llave(posicion);
-        llave.obtenerBeneficio(mapa->obtenerContenedor(), jugador);
-        return true;
     } else if (tipo == Type::fakeDoor) {
         return false;
     } else {
-        std::cout << "puedo moverme\n";
         return true;
     }
 }
@@ -81,108 +83,50 @@ Item *verificarItems(Map *mapa, int &posx, int &posy) {
     int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * 50);
     std::cout << "\n verifico item\n";
     return mapa->buscarElemento(posx, posy);
-
-/*
-    Posicion posicion = Posicion(1,1,0.5);//va a depender de su posidion en el mapa
-    Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadory);
-    if (tipo == Type::comida) {
-        return new Comida(posicion);
-    } else if (tipo == Type::sangre) {
-        return new Sangre(posicion);
-    } else if (tipo == Type::kitsMedicos) {
-        return new KitsMedicos(posicion);
-    } else if (tipo == Type::balas) {
-        return new Balas(posicion);
-    } else if (tipo == Type::ametralladora) {
-        return new Ametralladora(posicion);
-    } else if (tipo == Type::canionDeCadena){
-        return new CanionDeCadena(posicion);
-    } else if (tipo == Type::lanzaCohetes){
-        //return new lanzaCohetes();
-    } else if (tipo == Type::tesoro){
-        std::string tesoro("copa");
-        int puntos = 50;
-        return new Tesoro(tesoro, puntos,posicion);
-    } else {
-        return new NoItem(posicion);
-    }*/
 }
 
-void EstadoJuego::buscarItemsEnPosJugador(Jugador* jugador,int& posX,int& posY, int xFinal, int yFinal){
-  if (puedo_moverme(this->mapa, posX, posY, jugador)) {
-      Item *item = verificarItems(this->mapa, posX, posY);
-      item->obtenerBeneficio(this->mapa->obtenerContenedor(), jugador);
+void EstadoJuego::verificarMovimientoJugador(Jugador* jugador,int& xFinal,int& yFinal){
+  bool obtuvoBeneficio = false;
+  if (puedo_moverme(this->mapa, xFinal, yFinal, jugador)) {
+      Item *item = verificarItems(this->mapa, xFinal, yFinal);
+      obtuvoBeneficio = item->obtenerBeneficio(jugador);
+      if (obtuvoBeneficio){
+        this->mapa->sacarDelMapa(item->getPosicion());
+      }
       jugador->moverse(xFinal, yFinal); // en jugador se recibe lo movido y se suma;
-      delete item;
-  } else {
-      jugador->moverse(0,0);
+      delete item;// a cheqeuar
   }
 }
 
-void EstadoJuego::moverse_a_derecha(int idJugador) {
+void EstadoJuego::rotar_a_derecha(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    int posEnJuegox = jugador->posEnX() + METROS_MOVIDOS;
-    int posEnJuegoy = jugador->posEnY();
-    std::cout << "pos x: " << posEnJuegox << "\n";
-    std::cout << "pos y: " << posEnJuegoy << "\n";
-    this->buscarItemsEnPosJugador(jugador,posEnJuegox,posEnJuegoy,METROS_MOVIDOS,0);
+    jugador->rotar(ROTACION_DERECHA);
 
-    /*
-    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
-        Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
-        item->obtenerBeneficio(this->mapa->obtenerContenedor(), jugador);
-        jugador->moverse(METROS_MOVIDOS, 0); // en jugador se recibe lo movido y se suma;
-    } else {
-        this->no_me_muevo(idJugador);
-    }
-*/
+    //this->verificarMovimientoJugador(jugador,posEnJuegox,posEnJuegoy,METROS_MOVIDOS,0);
+
 }
 
-void EstadoJuego::moverse_a_izquierda(int idJugador) {
+void EstadoJuego::rotar_a_izquierda(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    int posEnJuegox = jugador->posEnX() - METROS_MOVIDOS;
-    int posEnJuegoy = jugador->posEnY();
-    this->buscarItemsEnPosJugador(jugador,posEnJuegox,posEnJuegoy,-METROS_MOVIDOS,0);
-    /*
-    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
-        Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
-        item->obtenerBeneficio(this->mapa->obtenerContenedor(), jugador);
-        jugador->moverse(-METROS_MOVIDOS, 0); // en jugador se recibe lo movido y se suma;
-    } else {
-        this->no_me_muevo(idJugador);
-    }*/
+    jugador->rotar(ROTACION_IZQUIERDA);
+  //  int posEnJuegox = jugador->posEnX() - METROS_MOVIDOS;
+  //  int posEnJuegoy = jugador->posEnY();
+    //this->buscarItemsEnPosJugador(jugador,posEnJuegox,posEnJuegoy,-METROS_MOVIDOS,0);
+
 }
 
 void EstadoJuego::moverse_arriba(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    int posEnJuegox = jugador->posEnX();
-    int posEnJuegoy = jugador->posEnY() + METROS_MOVIDOS;
-    this->buscarItemsEnPosJugador(jugador,posEnJuegox,posEnJuegoy,0,METROS_MOVIDOS);
-/*
-    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
-        Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
-        item->obtenerBeneficio(this->mapa->obtenerContenedor(), jugador);
-        jugador->moverse(0, METROS_MOVIDOS); // en jugador se recibe lo movido y se suma;
-    } else {
-        this->no_me_muevo(idJugador);
-    }
-    */
+    int xFinal = jugador->posEnX() + (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
+    int yFinal = jugador->posEnY() + (METROS_MOVIDOS* sin(jugador->getAnguloDeVista()));
+    this->verificarMovimientoJugador(jugador,xFinal,yFinal);
 }
 
 void EstadoJuego::moverse_abajo(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    int posEnJuegox = jugador->posEnX();
-    int posEnJuegoy = jugador->posEnY() - METROS_MOVIDOS;
-    this->buscarItemsEnPosJugador(jugador,posEnJuegox,posEnJuegoy,0,-METROS_MOVIDOS);
-/*
-    if (puedo_moverme(this->mapa, posEnJuegox, posEnJuegoy, jugador)) {
-        Item *item = verificarItems(this->mapa, posEnJuegox, posEnJuegoy);
-        item->obtenerBeneficio(this->mapa->obtenerContenedor(), jugador);
-        jugador->moverse(0, -METROS_MOVIDOS); // en jugador se recibe lo movido y se suma;
-    } else {
-        this->no_me_muevo(idJugador);
-    }
-    */
+    int xFinal = jugador->posEnX() - (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
+    int yFinal = jugador->posEnY() - (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
+    this->verificarMovimientoJugador(jugador,xFinal,yFinal);
 }
 
 void EstadoJuego::no_me_muevo(int idJugador) {
@@ -194,16 +138,38 @@ void EstadoJuego::verificarJugadoresMuertos() {
     std::map<int, Jugador *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if (it->second->estaMuerto()) {
-            Arma *arma = it->second->getArma();
-            if (!arma->esPistola()) {
-                //Item* item = arma;
-                //  this->mapa->agregarElemento(item);//como lo pasamos a item
+            if (it->second->cant_de_vida()>0){
+                it->second->actualizarNuevaVida();
+            } else {
+                this->jugadoresMuertos++;
             }
-            this->mapa->agregarElemento(new Balas(it->second->getPosicion(), 10/*cte*/));
+            Arma *arma = it->second->getArma();
+
+            if (arma->getTipo() == Type::pistola && arma->getTipo() == Type::cuchillo){
+                this->mapa->agregarArma(it->second->getPosicion(),arma);
+            }
+            this->mapa->agregarElemento(new Balas(it->second->getPosicion(), 10/*cte*/, static_cast<int>(Type::balas)));
             if (it->second->tengollave()) {
                 this->mapa->agregarElemento(
-                        new Llave(it->second->getPosicion()));//hay que cambiarlo a que el jugador se guarde una llave
+                        new Llave(it->second->getPosicion(), static_cast<int>(Type::keyDoor)));//hay que cambiarlo a que el jugador se guarde una llave
             }
         }
     }
+}
+bool EstadoJuego::terminoPartida(){
+      bool termino = false;
+      if ((this->jugadoresMuertos == this->jugadores.size() -1) ||
+            this->contador == 0){
+                termino = true;
+        }
+        return termino;
+
+}
+
+void EstadoJuego::lanzarContadorTiempoPartida(){
+    this->contador = CANT_TICKS_PARTIDA;
+}
+
+void EstadoJuego::actualizarTiempoPartida(){
+    this->contador--;
 }

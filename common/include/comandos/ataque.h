@@ -9,18 +9,21 @@ class Ataque : public Comando {
 private:
     //  int destinox;
     //int destinoy;
-    int idJugador;
 public:
-    Ataque(int idJugador) : idJugador(idJugador) {}
+    Ataque(int idJugador) : Comando(idJugador) {}
 
     ~Ataque() {}
 
     std::vector<char> serializar() {
         std::vector<char> info;
+        info.push_back(idJugador);
+        info.push_back(static_cast<int>(Accion::ataque));
         return info;
     }
 
-    void deserializar(std::vector<char>& serializado) {}
+    void deserializar(std::vector<char>& serializado) {
+        this->idJugador= (int)serializado[0];
+    }
 
     void ejecutar(EstadoJuego &estadoJuego) override;
 };

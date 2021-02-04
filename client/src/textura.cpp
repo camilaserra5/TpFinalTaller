@@ -3,17 +3,19 @@
 Textura::Textura(const char *archivo, SDL_Renderer *un_render) {
     SDL_Surface *superficie = IMG_Load(archivo);
     SDL_Texture *unaTextura = SDL_CreateTextureFromSurface(un_render, superficie);
+    if (!superficie) std::cout << "superficie\n";
+    if (!unaTextura) std::cout << "textura\n";
     if (!unaTextura || !superficie) {
-        throw -1;//Exception("Error al cargar la textura", SDL_GetError());
+        throw std::runtime_error("no se creo la textura");//Exception("Error al cargar la textura", SDL_GetError());
     }
     SDL_FreeSurface(superficie);
     this->textura = unaTextura;
     this->render = un_render;
 }
 
-int Textura::renderizar(SDL_Rect *infoSprite, SDL_Rect destino) const {
+int Textura::renderizar(SDL_Rect *infoSprite, SDL_Rect destino, int angulo, SDL_Point* centro) const {
     try{
-    return SDL_RenderCopy(this->render, this->textura, infoSprite, &destino);
+        return SDL_RenderCopyEx(this->render, this->textura, infoSprite, &destino, angulo, centro, SDL_FLIP_NONE);
   }catch(...){
       std::cout << SDL_GetError();
   }

@@ -2,16 +2,17 @@
 #define OBJETOJUEGO_H
 
 #include "sprite.h"
+#include "posicion.h"
+#include "objetoDibujable.h"
 
-class ObjetoJuego {
+class ObjetoJuego: public ObjetoDibujable {
 private:
-    int posx;
-    int posy;
-    int angulo;
+    Posicion posicion;
     Sprite sprite;
+    int distanciaParcialAJugador;
 
 public:
-    ObjetoJuego(Sprite sprite);
+    ObjetoJuego(Sprite sprite); //a chequear esa doble referencia, pero es por el stdmove
 
     ~ObjetoJuego();
 
@@ -19,6 +20,13 @@ public:
 
     void settear_estado(int posx, int posy);
 
+    Posicion& getPosicion();
+
+    void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest) override;
+
+    void reescalar(int escalarw, int escalarh);
+
+    int obtenerAnchura();
 };
 
 #endif //OBJETOJUEGO_H

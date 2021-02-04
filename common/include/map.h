@@ -7,6 +7,7 @@
 #include "objetosJuego.h"
 #include "iserializable.h"
 #include <iostream>
+#include "puerta.h"
 // faltaria agregar una posicion para los jugadores
 // tambien el tema de los itemas(comida, sangre, todas las armas);
 
@@ -30,6 +31,8 @@ public:
     ContenedorDeElementos &obtenerContenedor() {
         return this->contenedorDeElementos;
     };
+
+    void sacarDelMapa(Posicion& posicion);
 
     ~Map();
 
@@ -62,12 +65,24 @@ public:
                                                            serializado.end());
         this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
     }
+    std::vector<Item*>& obtenerItems(){
+        return this->contenedorDeElementos.obtenerItems();
+    }
+
+    Puerta& puertaMasCercana(Posicion& posicionJugador,double& distancia);
+
+    bool hayPuertas();
+
+    void agregarArma(Posicion& posicion,Arma* arma);
+
+    int crearIdValido();
 
 private:
     unsigned rowSize;
     unsigned colSize;
     ContenedorDeElementos contenedorDeElementos;
     std::vector<std::vector<Type>> map;
+    std::vector<int> idCargados;
 };
 
 #endif //MAP_H

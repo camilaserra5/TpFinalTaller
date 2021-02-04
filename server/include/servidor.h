@@ -10,6 +10,7 @@
 #include "estadoJuego.h"
 #include "jugador.h"
 #include "old_cliente.h"
+#include "iserializable.h"
 
 class Servidor : public Thread, public ISerializable {
 public:
@@ -43,10 +44,12 @@ public:
         return informacion;
     }
 
-    void deserializar(std::vector<char> serializado) {
+    void deserializar(std::vector<char>& serializado) {
     }
 
     void enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones);
+
+    void actualizarContador();
 
 private:
     void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);

@@ -8,7 +8,6 @@
 class Movimiento : public Comando {
 private:
     Accion tipo_de_movimiento;
-    int idJugador;
 public:
     Movimiento(int &idJugador, Accion tipo_de_movimiento);
 
@@ -18,10 +17,15 @@ public:
 
     std::vector<char> serializar() {
         std::vector<char> info;
+        info.push_back(idJugador);
+        info.push_back(static_cast<int>(this->tipo_de_movimiento));
         return info;
     }
 
-    void deserializar(std::vector<char>& serializado) {}
+    void deserializar(std::vector<char>& serializado) {
+        this->idJugador = (int)serializado[0];
+        this->tipo_de_movimiento = static_cast<Accion>(serializado[1]);
+    }
 };
 
 #endif

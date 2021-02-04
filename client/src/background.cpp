@@ -1,5 +1,5 @@
 #include "../include/background.h"
-#include "../include/client.h"
+#include "../include/logInWindow.h"
 
 #define TEXTURE_BACKGROUND_ROOT "../../resources/images/background.png"
 

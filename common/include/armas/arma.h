@@ -11,9 +11,10 @@
 #define BALAS_PARA_LANZACOHETES 5
 
 #include <map>
-#include "jugador.h"
 #include <ctime>
 #include "posicion.h"
+#include "jugador.h"
+
 
 class Arma {
 public:
@@ -29,9 +30,9 @@ public:
 
     bool esIgual(Arma *arma);
 
-    virtual bool esPistola() = 0;
-
     int getId();
+
+    virtual Type getTipo() = 0;
 
 protected:
     int distancia_max_atacable;

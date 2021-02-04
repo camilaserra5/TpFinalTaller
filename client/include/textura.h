@@ -3,7 +3,6 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "lienzo.h"
 
 class Textura {
     SDL_Texture *textura;
@@ -13,7 +12,7 @@ public:
 
     ~Textura() {}
 
-    int renderizar(SDL_Rect *infoSprite, SDL_Rect destino) const;
+    int renderizar(SDL_Rect *infoSprite, SDL_Rect destino, int angulo, SDL_Point* centro) const;
 };
 
 #endif //TEXTURA_H

@@ -1,13 +1,18 @@
 #include "items/tesoro.h"
 
 
-Tesoro::Tesoro(std::string &tipoDeTesoro, int &puntos, Posicion &posicion) :
-        Item(posicion),
-        tipoDeTesoro(tipoDeTesoro),
-        puntos(puntos) {}
+Tesoro::Tesoro(int id, Type tipo,int puntos, Posicion &posicion) :
+        Item(posicion, id),
+        puntos(puntos),
+        tipo(tipo){}
 
 Tesoro::~Tesoro() {}
 
-void Tesoro::obtenerBeneficio(ContenedorDeElementos &contenedor, Jugador *jugador) {
+bool Tesoro::obtenerBeneficio(Jugador *jugador) {
     jugador->sumarPuntos(this->puntos);
+    return true;
+}
+
+Type Tesoro::getTipo(){
+    return this->tipo;
 }

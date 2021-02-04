@@ -6,13 +6,13 @@
 
 class Pistola : public Arma {
 public:
-    Pistola(int cantidad_rafagas);
+    Pistola();
 
     ~Pistola();
 
     void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override;
 
-    bool esPistola() override;
+    Type getTipo() override;
 
 private:
     int precision;

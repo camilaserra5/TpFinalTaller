@@ -16,9 +16,9 @@ public:
 
     ~EstadoJuego();
 
-    void moverse_a_derecha(int idJugador);
+    void rotar_a_derecha(int idJugador);
 
-    void moverse_a_izquierda(int idJugador);
+    void rotar_a_izquierda(int idJugador);
 
     void moverse_arriba(int idJugador);
 
@@ -45,7 +45,7 @@ public:
         return informacion;
     }
 
-    void deserializar(std::vector<char> informacion) {
+    void deserializar(std::vector<char>& informacion) {
         char jugadoresSize = informacion[0];
         int ult = 1;
         for (int i = 0; i < jugadoresSize; i++) {
@@ -64,12 +64,28 @@ public:
 
     void verificarJugadoresMuertos();
 
-    void buscarItemsEnPosJugador(Jugador *jugador, int &posX, int &posY, int xFinal, int yFinal);
+    void verificarMovimientoJugador(Jugador* jugador,int& posX,int& posY);
 
+    void abrirPuerta(int idJugador);
+
+    std::map<int, Jugador*>& obtenerJugadores(){
+        return this->jugadores;
+    }
+    Map* obtenerMapa(){
+        return this->mapa;
+    }
+
+    void lanzarContadorTiempoPartida();
+
+    void actualizarTiempoPartida();
+
+    bool terminoPartida();
 
 private:
     Map *mapa;
     std::map<int, Jugador *> jugadores;
+    int contador;
+    int jugadoresMuertos;
 };
 
 #endif

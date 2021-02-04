@@ -4,6 +4,7 @@
 #include "actualizacion.h"
 #include "jugador.h"
 
+
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/
         Map *mapa, int cant_jugadores) :
@@ -28,10 +29,8 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
     bool termine = false;
     while (!termine) {
         try {
-            Comando *comando = cola_comandos.obtener_dato(); // el comandos va a tener quien le envio lo que tiene que hacer, osea el id
+            Comando *comando = cola_comandos.obtener_dato();
             comando->ejecutar(estadoJuego);
-            Actualizacion actualizacion(estadoJuego);//no conviene puntero??
-            this->cola_actualizaciones.aniadir_dato(actualizacion);
             delete comando;
         } catch (const std::exception &exception) {
             termine = true;
@@ -56,11 +55,16 @@ void Servidor::agregarCliente(std::string &nombreJugador, Cliente *cliente) {
 void Servidor::lanzarJugadores() {
     for (auto it = this->jugadores.begin(); it != this->jugadores.end(); it++) {
         it->second->start();
-        std::cout << "lanzo cliente\n";
+
     }
 }
 
-void Servidor::lanzarContadorTiempoPartida() {}
+void Servidor::lanzarContadorTiempoPartida() {
+    this->estadoJuego.lanzarContadorTiempoPartida();
+}
+void Servidor::actualizarContador(){
+    this->estadoJuego.actualizarTiempoPartida();
+}
 
 bool Servidor::yaArranco() {
     return this->arrancoPartida;
@@ -83,6 +87,8 @@ ProtectedQueue<Actualizacion> &Servidor::obtenerColaActualizaciones() {
 
 void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones) {
     //serializa y manda por sockets a cada jugador
+    Actualizacion actualizacion(this->estadoJuego);
+    this->cola_actualizaciones.aniadir_dato(actualizacion);
 }
 
 void Servidor::run() {
@@ -96,11 +102,17 @@ void Servidor::run() {
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
         try {
             procesar_comandos(this->cola_comandos, this->estadoJuego);
+            this->enviar_actualizaciones(this->cola_actualizaciones);
+            this->actualizarContador();
+            if(this->estadoJuego.terminoPartida()){
+                termine = true;
+                this->sigue_corriendo= false;
+            }
         } catch (...) {
             this->sigue_corriendo = false;
             termine = true;
         }
-        this->enviar_actualizaciones(this->cola_actualizaciones);
+
         //std::chrono::milliseconds duration(10);
         //std::this_thread::sleep_for(duration);
         termine = true;

@@ -7,17 +7,19 @@
 #include "protocolo.h"
 #include <sstream>
 
-ClientEventSender::ClientEventSender(Socket &socket,
+ClientEventSender::ClientEventSender(Protocolo* protocolo,
                                      BlockingQueue<Comando *> &events) :
-        socket(socket), events(events), protocolo(std::move(socket)) {}
+        events(events), protocolo(protocolo) {}
 
 void ClientEventSender::run() {
     while (this->running) {
-        Comando *evento = this->events.pop();
-        // debería ser protocolo en lugar de socket?
-        std::vector<char> informacion = evento->serializar();
-        //protocolo.enviar(informacion);
-        //this->socket.enviar(evento);
+        try{
+            Comando *evento = this->events.pop();
+            std::vector<char> informacion = evento->serializar();
+            protocolo->enviar(informacion);
+        }catch(...){
+            this->running = false;
+        }
     }
 }
 

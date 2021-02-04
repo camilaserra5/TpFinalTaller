@@ -4,17 +4,17 @@
 #include "objetosJuego.h"
 
 Movimiento::Movimiento(int &idJugador, Accion tipo_de_movimiento) :
-        idJugador(idJugador),
+        Comando(idJugador),
         tipo_de_movimiento(tipo_de_movimiento) {}
 
 Movimiento::~Movimiento() {}
 
 void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
 
-    if (tipo_de_movimiento == Accion::moverDerecha) {
-        estadoJuego.moverse_a_derecha(this->idJugador);
-    } else if (tipo_de_movimiento == Accion::moverIzquierda) {
-        estadoJuego.moverse_a_izquierda(this->idJugador);
+    if (tipo_de_movimiento == Accion::rotarDerecha) {
+        estadoJuego.rotar_a_derecha(this->idJugador);
+    } else if (tipo_de_movimiento == Accion::rotarIzquierda) {
+        estadoJuego.rotar_a_izquierda(this->idJugador);
     } else if (tipo_de_movimiento == Accion::moverArriba) {
         estadoJuego.moverse_arriba(this->idJugador);
     } else if (tipo_de_movimiento == Accion::moverAbajo) {

@@ -7,6 +7,13 @@
 #include "../include/client_event_sender.h"
 #include "../include/manejador_eventos.h"
 #include <string>
+#include "../include/logInWindow.h"
+
+#include "SDL2/SDL_ttf.h"
+#include <SDL2/SDL.h>
+#include "../include/musica.h"
+#include "../include/audio.h"
+#define MUSICA_FONDO "../../client/resources/sonidos/musiquita.wav"
 
 Cliente::Cliente(const char *host, const char *server_port) : socket(), corriendo(true) {
     //  this->socket.conectar(host, server_port);
@@ -15,35 +22,48 @@ Cliente::Cliente(const char *host, const char *server_port) : socket(), corriend
 Cliente::~Cliente() {}
 
 void Cliente::run() {
+    std::string nombre_juego("Wolfstein");
+    int idJugador = 1111; // me lo da el log in; logIn.getIdJugador();
+    LogInWindow logIn;
+    logIn.run();
     BlockingQueue<Comando *> events;
-    //  ClientEventSender clientEventSender(socket, events);
-    //clientEventSender.run();
+    Protocolo* protocolo = logIn.obtenerProtocolo();
+    ClientEventSender clientEventSender(protocolo, events);
+    if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
+        printf("Failed to init SDL\n");
+        exit(1);
+    }
+    if (TTF_Init() == -1) {
+        printf("Failed to init TTF\n");
+        exit(1);
+    }
+    Audio audio;
+    Musica ambient_music = Musica(MUSICA_FONDO);
+    ambient_music.play(-1);
+
+    Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_FULLSCREEN);
+    Modelo modelo(ventana, idJugador);
 
     ProtectedQueue<Actualizacion *> updates;
-    //ClientEventReceiver clientEventReceiver(socket, updates);
+    ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
     //clientEventReceiver.run();
 
-    //Comando* evento;
-    //ACA IRIA UN HANDLER EVENT
-    //this->cola_eventos.aniadir_comando(evento);
-    //SE VAN AÑADIENDO, SE ENVIAN Y SE ACTUALIZA.
-    //LO QUE RECIBA DE LA ACTUALIZACION HAY QUE DIBUJARLO.
-    std::string nombre_juego("Wolfstein");
-    int idJugador = 1111;
-    Juego *juego = new Juego(nombre_juego, 800, 600, false, idJugador);
-    ManejadorEventos* manejador = new ManejadorEventos(idJugador, events);
+
+    // me lo tiene que dar el log int
+    Juego juego(ventana, modelo);
+    ManejadorEventos manejador(idJugador, events);
 
     try {
-        //  juego->inicializar(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
-        juego->start();
-        manejador->start();
+        juego.start();
+        manejador.start();
+        clientEventSender.start();
+        clientEventReceiver.start();
         while (this->corriendo) {
 
-            // clientEventSender.enviarEventos
-             // hay error cuando se hace juego->start;
-            if (!manejador->esta_vivo()) {
-                juego->join(); //
-                juego->cerrar();
+
+            if (!manejador.esta_vivo()) {
+                juego.join();
+                juego.cerrar();
 
             }
              // se manejan eventos;
@@ -52,9 +72,9 @@ void Cliente::run() {
     } catch (...) {
         std::cout << "error";
         this->corriendo = false;
-        manejador->join();
+        manejador.join();
+        clientEventSender.join();
+        clientEventReceiver.join();
     }
     //  juego->join();
-
-
 }

@@ -25,6 +25,6 @@ void Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jug
     }
 }
 
-bool Cuchillo::esPistola() {
-    return false;
+Type Cuchillo::getTipo(){
+  return Type::cuchillo;
 }
