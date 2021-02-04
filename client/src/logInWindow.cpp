@@ -314,12 +314,12 @@ void LogInWindow::run() {
             std::vector<char> res = protocolo->recibir();
             bool pudoCrearPartida = res[0];
             if (!pudoCrearPartida) {
-                //mensaje de error
+              //  pantallaError();
             }
-            std::cerr << "pudocrear: " << pudoCrearPartida;
+          //  pantallaEsperando();
         } else {
             // unirse a una existente
-            std::string nombre = nombresPartidas.at(std::stoi(gameNumber)+1);
+            std::string nombre = nombresPartidas.at(std::stoi(gameNumber));
             std::string playerName;
             unirseAPartida(this->renderer, this->fonts, nombre, playerName);
 
@@ -329,9 +329,9 @@ void LogInWindow::run() {
             std::vector<char> res = protocolo->recibir();
             bool pudoUnirse = res[0];
             if (!pudoUnirse) {
-                //mensaje de error
+             //   pantallaError();
             }
-            std::cerr << "pudo unirse: " << pudoUnirse;
+           // pantallaEsperando();
         }
     }
 }
