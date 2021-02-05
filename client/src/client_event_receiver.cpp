@@ -71,7 +71,8 @@ void ClientEventReceiver::run() {
                   modelo.terminoPartida(ordenRanking);
           }
           delete actualizacion;
-        }catch(...){
+        } catch (std::exception &exc) {
+            std::cout << exc.what() << std::endl;
             this->corriendo = false;
         }
 

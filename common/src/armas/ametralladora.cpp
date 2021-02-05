@@ -7,7 +7,7 @@ Ametralladora::Ametralladora(Posicion &posicion, int id) :
     Arma(DISTANCIA_MAX, 1),
     Item(posicion, id),
     contador(TICKS_DISPARO_AMETRALLADORA){}
-    
+
 Ametralladora::~Ametralladora(){}
 
 void Ametralladora::atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores){
@@ -33,6 +33,7 @@ void Ametralladora::atacarEfectivamente(int distancia_a_pared, Jugador *jugador,
           }
       }
       jugador->actualizarArma();
+      jugador->dejarDeDisparar();
 
 }
 

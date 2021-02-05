@@ -33,8 +33,10 @@ void EstadoJuego::abrirPuerta(int idJugador) {
     }
 }
 EstadoJuego::EstadoJuego(){}
+
 void EstadoJuego::realizarAtaque(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
+    jugador->atacar();
     Arma *arma = jugador->getArma();
     int distancia_inventada = 5;
     arma->atacar(distancia_inventada, jugador, this->jugadores);

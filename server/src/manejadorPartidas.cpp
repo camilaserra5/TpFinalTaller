@@ -9,7 +9,9 @@
 ManejadorPartidas::ManejadorPartidas() :
         partidas(),
         esta_corriendo(true),
-        mapas() {}
+        mapas() {
+            this->mapas.push_back("../../resources/mapas/piedras.yaml");
+        }
 
 void ManejadorPartidas::agregarMapa(std::string &archivoMapa) {
     this->mapas.push_back(archivoMapa);
@@ -45,12 +47,12 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
         // se le avisa al cliente que es valida
         // hay que relacionar el nombre del mapa con el archivo yaml
         // capaz esta clase tiene el un vector de yamls
-        //Map mapa = this->buscarMapa(archivoMapa);
-        Map *mapa = new Map(20, 20);
-        mapa->setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
+        Map mapa = this->buscarMapa(archivoMapa);
+      //  Map *mapa = new Map(20, 20);
+        mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
         std::cout << "ya setie elemnto";
         //int cant_jugadores = 1;
-        Servidor *servidor = new Servidor(mapa, cant_jugadores);
+        Servidor *servidor = new Servidor(&mapa, cant_jugadores);
         Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(),  nombreJugador);
         servidor->agregarCliente(nombreJugador, cliente);
         //servidor.agregarCliente(nombreJugador, cliente);

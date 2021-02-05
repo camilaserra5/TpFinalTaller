@@ -33,6 +33,7 @@ void CanionDeCadena::atacarEfectivamente(int distancia_a_pared,
         }
     }
     jugador->actualizarArma();
+    jugador->dejarDeDisparar();
 }
 
 void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador,
