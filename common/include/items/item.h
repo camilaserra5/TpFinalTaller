@@ -14,7 +14,7 @@ public:
 
     virtual ~Item() {}
 
-    Item(){}
+    Item() {}
 
     virtual bool obtenerBeneficio(Jugador *jugador) = 0;
 
@@ -37,19 +37,23 @@ public:
     }
 
     void deserializar(std::vector<char> &serializado) override {
-        this->id = (int)serializado[0];
-        std::vector<char> posicionSerializado(serializado.begin() + 1,
-                                              serializado.end());
+        std::vector<char> sub(4);
+        int idx = 0;
+        sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+        this->id = charArrayToNumber(sub);
+        idx += 4;
+        std::vector<char> posicionSerializado(serializado.begin() + idx, serializado.end());
         this->posicion.deserializar(posicionSerializado);
     }
-    int getId(){
+
+    int getId() {
         return this->id;
     }
 
     virtual Type getTipo() = 0;
 
-    Posicion& getPosicion(){
-      return this->posicion;
+    Posicion &getPosicion() {
+        return this->posicion;
     }
 
 

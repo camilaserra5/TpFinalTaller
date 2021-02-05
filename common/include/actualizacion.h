@@ -23,10 +23,12 @@ public:
         std::vector<char> aux(4);
         aux = numberToCharArray(termine);
         informacion.insert(informacion.end(), aux.begin(), aux.end());
+
         aux = numberToCharArray(this->rankingJugadores.size());
         informacion.insert(informacion.end(), aux.begin(), aux.end());
         for (int rankingJugadore : this->rankingJugadores) {
-            informacion.push_back(rankingJugadore);
+            aux = numberToCharArray(rankingJugadore);
+            informacion.insert(informacion.end(), aux.begin(), aux.end());
         }
         std::vector<char> infoJuego = this->estadoJuego.serializar();
         informacion.insert(informacion.end(), infoJuego.begin(), infoJuego.end());
@@ -34,13 +36,21 @@ public:
     }
 
     void deserializar(std::vector<char> &serializado) override {
-        this->termine = (bool) serializado[0];
-        int cantRanking = (int) serializado[1];
-        int idx = 2;
-        for (int i = 0; i < cantRanking; i++) {
-            this->rankingJugadores[i] == serializado[idx];
-            idx++;
+        std::vector<char> sub(4);
+        int idx = 0;
+        sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+        this->termine = charArrayToNumber(sub);
+        idx += 4;
+
+        sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+        int elementosSize = charArrayToNumber(sub);
+        idx += 4;
+        for (int i = 0; i < elementosSize; i++) {
+            sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+            idx += 4;
+            this->rankingJugadores.push_back(charArrayToNumber(sub));
         }
+
         std::vector<char> estadoJuegoSerializado(serializado.begin() + idx,
                                                  serializado.end());
         this->estadoJuego.deserializar(estadoJuegoSerializado);
