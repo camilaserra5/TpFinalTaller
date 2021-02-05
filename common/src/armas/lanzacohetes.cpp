@@ -5,7 +5,14 @@
 #define RADIO_DE_IMPACTO 10
 #define BALAS_POR_LANZACOHETES 5
 
-void verificarJugadoresEnRango(Posicion &posicionImpacto, std::map<int, Jugador *> &jugadores, Jugador *jugador) {
+LanzaCohetes::LanzaCohetes(Posicion &posicion, int id) :
+          Arma(DISTANCIA_MAX, 5), Item(posicion,id){}
+
+LanzaCohetes::~LanzaCohetes(){}
+
+void verificarJugadoresEnRango(Posicion &posicionImpacto,
+                                std::map<int, Jugador *> &jugadores,
+                                Jugador *jugador) {
     std::map<int, Jugador *>::iterator it;
     int jugadoresMatados = 0;
     for (it = jugadores.begin(); it != jugadores.end(); ++it) {
@@ -20,7 +27,8 @@ void verificarJugadoresEnRango(Posicion &posicionImpacto, std::map<int, Jugador 
     jugador->aniadirEnemigosMatados(jugadoresMatados);
 }
 
-void LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
+void LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador,
+                          std::map<int, Jugador *> &jugadores) {
     /*no cheqyeo las balas porque si no tiene 5 no podria tener un lanzacohetes*/
     jugador->gastarBalas(BALAS_POR_LANZACOHETES);
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);

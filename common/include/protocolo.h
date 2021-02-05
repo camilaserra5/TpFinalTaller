@@ -15,12 +15,12 @@
 
 class Protocolo {
 public:
-    Protocolo(Socket socket) : socket(std::move(socket)) {}
+    Protocolo(Socket socket);
 
-    ~Protocolo() {};
+    ~Protocolo();
 
 
-    void enviar(std::vector<char> &informacion) {
+    void enviar(std::vector<char> &informacion); /* {
         unsigned int size = htonl(informacion.size());
         char number_str[4];
         memcpy(number_str, &size, 4);
@@ -28,9 +28,9 @@ public:
         std::string buffer(informacion.begin(), informacion.end());
         socket.enviar(buffer.c_str(), buffer.size());
         std::cout << "termine de enviar";
-    }
+    }*/
 
-    std::stringstream recibir_aux() {
+    std::stringstream recibir_aux(); /* {
         char length_str[4];
         socket.recibir(length_str, 4);
 
@@ -51,15 +51,15 @@ public:
             informacion.write(buffer, cant_recibidos);
         }
         return informacion;
-    }
+    }*/
 
-    std::vector<char> recibir() {
+    std::vector<char> recibir(); /* {
         std::string someString = recibir_aux().str();
         std::vector<char> informacion(someString.begin(), someString.end());
         return informacion;
-    }
+    }*/
 
-    Comando *deserializarComando(std::vector<char> &informacion) {
+    Comando* deserializarComando(std::vector<char> &informacion); /* {
 
         if (informacion[1] == static_cast<int>(Accion::ataque)) {
 
@@ -80,19 +80,19 @@ public:
             int id = (int) informacion[0];
             return new Movimiento(id, accion);
         }
-    }
+    }*/
 
-    Protocolo &operator=(Protocolo &protocolo) {
+    Protocolo &operator=(Protocolo &protocolo); /* {
         if (this == &protocolo) {
             return *this;
         }
         this->socket = std::move(protocolo.socket);
         return *this;
-    }
+    }*/
 
-    void cerrar() {
+    void cerrar(); /* {
         this->socket.cerrar();
-    }
+    }*/
 
 
 private:

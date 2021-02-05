@@ -7,25 +7,19 @@
 
 class Comando : public ISerializable {
 public:
-    Comando(int idJugador): idJugador(idJugador) {}
+    Comando(int idJugador);
 
     virtual ~Comando() {}
 
-    Comando(){}
+    Comando();
 
-    virtual void ejecutar(EstadoJuego &estadoJuego) = 0; //deberia devolver una actualizacion en lugar de viod
+    virtual void ejecutar(EstadoJuego &estadoJuego) = 0;
 
-    //  std::stringstream serializar(){}
+
 
 
 protected:
     int idJugador;
 };
-
-/* comandos que se me ocurren:
--moviemiento
--disparo
--agarrar objetos del piso
-*/
 
 #endif

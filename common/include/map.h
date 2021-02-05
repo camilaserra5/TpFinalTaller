@@ -28,9 +28,7 @@ public:
 
     Item *buscarElemento(int &posx, int &posy);
 
-    ContenedorDeElementos &obtenerContenedor() {
-        return this->contenedorDeElementos;
-    };
+    ContenedorDeElementos &obtenerContenedor();
 
     void sacarDelMapa(Posicion &posicion);
 
@@ -38,7 +36,7 @@ public:
 
     void agregarElemento(Item *item);
 
-    std::vector<char> serializar() override {
+    std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);
         aux = numberToCharArray(this->rowSize);
@@ -56,9 +54,9 @@ public:
         std::vector<char> contenedorSerializado = this->contenedorDeElementos.serializar();
         informacion.insert(informacion.end(), contenedorSerializado.begin(), contenedorSerializado.end());
         return informacion;
-    }
+    }*/
 
-    void deserializar(std::vector<char> &serializado) override {
+    void deserializar(std::vector<char> &serializado) override; /* {
         std::vector<char> sub(4);
         int idx = 0;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -79,11 +77,9 @@ public:
         idx += 4;
         std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
         this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
-    }
+    }*/
 
-    std::vector<Item *> &obtenerItems() {
-        return this->contenedorDeElementos.obtenerItems();
-    }
+    std::vector<Item *> &obtenerItems();
 
     Puerta &puertaMasCercana(Posicion &posicionJugador, double &distancia);
 

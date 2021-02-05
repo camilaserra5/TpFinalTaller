@@ -8,17 +8,19 @@
 
 class Actualizacion : public ISerializable {
 public:
-    Actualizacion() {}
+    Actualizacion();
+    
+    ~Actualizacion();
 
-    Actualizacion(EstadoJuego &estadoJuego) :
+    Actualizacion(EstadoJuego &estadoJuego); /*:
             estadoJuego(estadoJuego), termine(false), rankingJugadores() {
         estadoJuego.verificarJugadoresMuertos();
         this->termine = this->estadoJuego.terminoPartida();
         Ranking ranking;
         this->rankingJugadores = ranking.obtenerTopJugadores(5, estadoJuego.obtenerJugadores());
-    }
+    }*/
 
-    std::vector<char> serializar() override {
+    std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);
         aux = numberToCharArray(termine);
@@ -33,9 +35,9 @@ public:
         std::vector<char> infoJuego = this->estadoJuego.serializar();
         informacion.insert(informacion.end(), infoJuego.begin(), infoJuego.end());
         return informacion;
-    }
+    }*/
 
-    void deserializar(std::vector<char> &serializado) override {
+    void deserializar(std::vector<char> &serializado) override; /* {
         std::vector<char> sub(4);
         int idx = 0;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -54,19 +56,19 @@ public:
         std::vector<char> estadoJuegoSerializado(serializado.begin() + idx,
                                                  serializado.end());
         this->estadoJuego.deserializar(estadoJuegoSerializado);
-    }
+    }*/
 
-    EstadoJuego &obtenerEstadoJuego() {
+    EstadoJuego &obtenerEstadoJuego(); /* {
         return this->estadoJuego;
-    }
+    }*/
 
-    std::vector<int> obtenerRanking() {
+    std::vector<int> obtenerRanking();/* {
         return this->rankingJugadores;
-    }
+    }*/
 
-    bool terminoPartida() {
+    bool terminoPartida(); /* {
         return termine;
-    }
+    }*/
 
 private:
     EstadoJuego estadoJuego;

@@ -7,16 +7,17 @@
 
 class CanionDeCadena : public Arma, public Item {
 public:
-    CanionDeCadena(Posicion &posicion, int id) : Arma(DISTANCIA_MAX, 2), Item(posicion, id),
-                  contador(TICKS_DISPARO_CANION){}
+    CanionDeCadena(Posicion &posicion, int id);
 
-    ~CanionDeCadena() {}
+    ~CanionDeCadena();
 
-    void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override;
+    void atacar(int distancia_a_pared, Jugador *jugador,
+                std::map<int, Jugador *> &jugadores) override;
 
     bool obtenerBeneficio(Jugador *jugador);
 
-    void atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores);
+    void atacarEfectivamente(int distancia_a_pared, Jugador *jugador,
+                              std::map<int, Jugador *> &jugadores);
 
     Type getTipo() override;
 

@@ -10,23 +10,19 @@ class ContenedorDeElementos;
 
 class Item : public ISerializable {
 public:
-    Item(Posicion &posicion, int id) : posicion(posicion), id(id) {}
+    Item(Posicion &posicion, int id);
 
     virtual ~Item() {}
 
-    Item() {}
+    Item();
 
     virtual bool obtenerBeneficio(Jugador *jugador) = 0;
 
-    bool estaCerca(int &posx, int &posy) {
-        return this->posicion.estaCerca(posx, posy);
-    }
+    bool estaCerca(int &posx, int &posy);
 
-    Posicion obtenerPosicion() {
-        return this->posicion;
-    }
+    Posicion obtenerPosicion();
 
-    std::vector<char> serializar() override {
+    std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);
         aux = numberToCharArray(this->id);
@@ -34,9 +30,9 @@ public:
         std::vector<char> posicionSerializado = this->posicion.serializar();
         informacion.insert(informacion.end(), posicionSerializado.begin(), posicionSerializado.end());
         return informacion;
-    }
+    }*/
 
-    void deserializar(std::vector<char> &serializado) override {
+    void deserializar(std::vector<char> &serializado) override; /* {
         std::vector<char> sub(4);
         int idx = 0;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -44,17 +40,13 @@ public:
         idx += 4;
         std::vector<char> posicionSerializado(serializado.begin() + idx, serializado.end());
         this->posicion.deserializar(posicionSerializado);
-    }
+    }*/
 
-    int getId() {
-        return this->id;
-    }
+    int getId();
 
     virtual Type getTipo() = 0;
 
-    Posicion &getPosicion() {
-        return this->posicion;
-    }
+    Posicion &getPosicion();
 
 
 protected:

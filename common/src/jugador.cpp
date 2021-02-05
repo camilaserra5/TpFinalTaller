@@ -32,11 +32,11 @@ Jugador::Jugador(std::string &nombre, int &id) :
         }
 
 Jugador::~Jugador() {
-    std::cout << "destructor jugador";
+
     for (int i = 0; i < this->armas.size(); i++) {
         //  delete armas[i];
     }
-    std::cout << "entro\n";
+  
 }
 
 // recibo la posicion a moverse
@@ -96,8 +96,11 @@ void Jugador::agarrarLlave() {
 
 void Jugador::actualizarArma(){
   Posicion posDefault(0,0,0);
-  Arma* lanzacohetes = new LanzaCohetes(posDefault, ObjetosJuego::obtenerTipoPorNombre("lanzaCohetes").getType());
-  if (this->balas < BALAS_PARA_LANZACOHETES && this->armas.at(this->armaActual)->esIgual(lanzacohetes) && this->balas > 0){
+  Arma* lanzacohetes = new LanzaCohetes(posDefault,
+                  ObjetosJuego::obtenerTipoPorNombre("lanzaCohetes").getType());
+  if (this->balas < BALAS_PARA_LANZACOHETES &&
+    this->armas.at(this->armaActual)->esIgual(lanzacohetes) &&
+    this->balas > 0){
       this->armaActual = ID_PISTOLA;
   }else{
     this->armaActual = ID_CUCHILLO;
@@ -158,4 +161,71 @@ int Jugador::cant_de_vida(){
 
 int Jugador::obtenerPuntosTotales(){
     return this->logro.obtenerPuntosTotales();
+}
+std::vector<char> Jugador::serializar(){
+    std::vector<char> informacion;
+    std::vector<char> aux(4);
+    aux = numberToCharArray(this->id);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+    aux = numberToCharArray(this->vida);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+    aux = numberToCharArray(this->armaActual);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+    aux = numberToCharArray(this->disparando);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+    aux = numberToCharArray(this->cantidad_vidas);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+    aux = numberToCharArray(this->balas);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+
+    std::vector<char> posicionSerializado = this->posicion.serializar();
+    aux = numberToCharArray(posicionSerializado.size());
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+    informacion.insert(informacion.end(), posicionSerializado.begin(),
+                        posicionSerializado.end());
+
+    std::vector<char> logroSerializado = this->logro.serializar();
+    aux = numberToCharArray(logroSerializado.size());
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+    informacion.insert(informacion.end(), logroSerializado.begin(),
+                        logroSerializado.end());
+
+
+    return informacion;
+}
+
+void Jugador::deserializar(std::vector<char> &serializado) {
+    std::vector<char> sub(4);
+    int idx = 0;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->id = charArrayToNumber(sub);
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->vida = charArrayToNumber(sub);
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->armaActual = charArrayToNumber(sub);
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->disparando = charArrayToNumber(sub);
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->cantidad_vidas = charArrayToNumber(sub);
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->balas = charArrayToNumber(sub);
+
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    std::vector<char> posicionSerializado(serializado.begin() + idx,
+                                          serializado.begin() + idx +
+                                          charArrayToNumber(sub));
+    this->posicion.deserializar(posicionSerializado);
+
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    std::vector<char> logroSerializado(serializado.begin() + idx,
+                                       serializado.begin() + idx +
+                                       charArrayToNumber(sub));
+    this->logro.deserializar(logroSerializado);
 }

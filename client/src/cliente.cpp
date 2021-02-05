@@ -26,8 +26,8 @@ Cliente::~Cliente() {}
 void Cliente::run() {
     std::string nombre_juego("Wolfstein");
     int idJugador = 1111; // me lo da el log in; logIn.getIdJugador();
-    HighscoreWindow highscoreWindow;
-    highscoreWindow.run();
+  //  HighscoreWindow highscoreWindow;
+  //  highscoreWindow.run();
 
     LogInWindow logIn;
     logIn.run();
