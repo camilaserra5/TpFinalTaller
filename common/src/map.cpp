@@ -12,6 +12,7 @@
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
 #include "armas/lanzacohetes.h"
+#include <algorithm>
 
 #define TAM_CELDA 50
 #define PUNTOS_CRUZ 10
@@ -58,23 +59,14 @@ unsigned Map::getColSize() const {
     return this->colSize;
 }
 
-bool idValido(std::vector<int> &idCargados, int &idPosible) {
-    bool es_valida = true;
-    int i = 0;
-    while (i < idCargados.size() && es_valida) {
-        if (idCargados[i] == idPosible) {
-            es_valida = false;
-        }
-    }
-    return es_valida;
-}
-
 int Map::crearIdValido() {
     srand(time(NULL));
     int idPosible = 0;
-    do {
+    while (idPosible == 0) {
         idPosible = rand() % 1000;
-    } while (!idValido(this->idCargados, idPosible));
+        if (std::find(idCargados.begin(), idCargados.end(), idPosible) == idCargados.end())
+            idPosible = 0;
+    }
     this->idCargados.push_back(idPosible);
     return idPosible;
 
