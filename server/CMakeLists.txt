@@ -14,7 +14,7 @@ set(PROJECT_LINK_LIBS libcommons.a)
 link_directories(~/TpFinalTaller/common/build)
 include_directories(~/TpFinalTaller/common/include)
 find_package(yaml-cpp)
-file(GLOB SOURCES src/*.cpp)
+file(GLOB SOURCES src/thclient.cpp src/manejadorPartidas.cpp src/aceptador.cpp src/parser.cpp src/server_main.cpp src/cliente.cpp src/server_event_receiver.cpp src/servidor.cpp src/server_event_sender.cpp )
 add_executable(server
         ${SOURCES})
 

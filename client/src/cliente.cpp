@@ -32,8 +32,8 @@ void Cliente::run() {
     LogInWindow logIn;
     logIn.run();
     BlockingQueue<Comando *> events;
-    //  Protocolo* protocolo = logIn.obtenerProtocolo();
-    //  ClientEventSender clientEventSender(protocolo, events);
+    Protocolo* protocolo = logIn.obtenerProtocolo();
+    ClientEventSender clientEventSender(protocolo, events);
     if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
         printf("Failed to init SDL\n");
         exit(1);
@@ -50,8 +50,8 @@ void Cliente::run() {
     Modelo modelo(ventana, idJugador);
 
     ProtectedQueue<Actualizacion *> updates;
-    //ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
-    //clientEventReceiver.run();
+    ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
+    clientEventReceiver.run();
 
 
     // me lo tiene que dar el log int
@@ -61,8 +61,8 @@ void Cliente::run() {
     try {
         juego.start();
         manejador.start();
-        //    clientEventSender.start();
-        //  clientEventReceiver.start();
+        clientEventSender.start();
+        clientEventReceiver.start();
         while (this->corriendo) {
 
 
@@ -80,8 +80,8 @@ void Cliente::run() {
         std::cout << "error";
         this->corriendo = false;
         manejador.join();
-        //  clientEventSender.join();
-        //    clientEventReceiver.join();
+        clientEventSender.join();
+        clientEventReceiver.join();
     }
     //  juego->join();
 }

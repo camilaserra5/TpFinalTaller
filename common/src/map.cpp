@@ -218,3 +218,9 @@ std::vector<Item *>& Map::obtenerItems() {
 ContenedorDeElementos& Map::obtenerContenedor() {
     return this->contenedorDeElementos;
 };
+
+bool Map::hayColision(int fila, int columna){
+  //chequear si en caso de haber una puerta, si esta abierta y agregarle a la puerta el atributo exacto de la pos en el mapa
+  // a la puerta le falta el contador para q se cierre
+  return (this->map[fila][columna].getType() != 0);
+}

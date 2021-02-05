@@ -27,8 +27,6 @@ void ThClient::stop() {
 void ThClient::procesar_pedido() {
     std::vector<char> serializado = this->protocolo->recibir();
     bool resultado = false;
-    std::cout << "recibi: " << serializado.size() << "\n";
-
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -52,7 +50,7 @@ void ThClient::procesar_pedido() {
                                                             crearPartida.getNombrePartida(),
                                                             crearPartida.getRutaArchivo());
     }
-
+    if (resultado) std::cout << "EXITOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n";
     std::vector<char> ret(4);
     unsigned int size = htonl(resultado);
     memcpy(ret.data(), &size, 4);

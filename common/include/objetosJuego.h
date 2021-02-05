@@ -1,6 +1,9 @@
 #ifndef _OBJETOS_JUEGO_H
 #define _OBJETOS_JUEGO_H
 
+#define TYPE_WALL 2
+#define TYPE_DOOR 1
+
 #include <vector>
 
 class ObjetosJuego;
@@ -28,8 +31,8 @@ public:
     static std::vector<Type> obtenerObjetos() {
         std::vector<Type> types;
         types.push_back(Type("empty", 0));
-        types.push_back(Type("door", 1));
-        types.push_back(Type("wall", 2));
+        types.push_back(Type("door", TYPE_DOOR));
+        types.push_back(Type("wall", TYPE_WALL));
         types.push_back(Type("fakeDoor", 3));
         types.push_back(Type("keyDoor", 4));
         types.push_back(Type("comida", 5));
@@ -76,7 +79,7 @@ public:
     }
 
 private:
-    ObjetosJuego() {}
+    ObjetosJuego() {} //??
 };
 
 enum class Accion {

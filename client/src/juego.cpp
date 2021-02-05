@@ -88,75 +88,59 @@ void Juego::clean() {
   //  this->corriendo = false;
 }
 
-void Juego::raycasting(Map &mapaa, Player &jugador) {
-
-// x = fila / y = columna
-
-  int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                       /*1*/  {1,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1},
-                                      /*2*/   {1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1},
-                                     /*3*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*4*/     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                   /*5*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*6*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*7*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*8*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*9*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*10*/      {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-                                  /*11*/      {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-                                /*12*/        {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-                            /*13*/            {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-                            /*14*/            {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-                                    /*15*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*16*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*17*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*18*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                      /*19*/  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                            /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
-                                            };
-            SDL_Renderer *render = this->ventana.obtener_render();
-            Textura* wall = new Textura(GRAY_STONE_WALL_ROOT,render);
+void Juego::raycasting(Map &mapa, Player &jugador) {
             Posicion& posJugador = jugador.getPosicion();
-
-            /*******PARAMETROS DE RAYCASTING********/
+            SDL_Renderer *render = this->ventana.obtener_render();
             double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
             int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;
             double anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
             double anguloJugador = jugador.getAnguloDeVista();
             double anguloRayo = anguloJugador - (rangoDeVista / 2);
-            SDL_Rect wallDimension,wallDest;
 
             std::vector<double>& zbuffer = this->modelo.getZBuffer();
             for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
-                unsigned int alturaParedProyectada = 0;
                 double distancia = 0;
-                int drawStart,drawEnd;
                 Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo,posJugador);
                 rayo.verificarInterseccion(mapa,distancia,jugador);
-                alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
                 zbuffer.push_back(distancia);
-                drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;//cheuear ese ancho canvas
-                drawEnd = drawStart + alturaParedProyectada;
-                if (drawStart > ALTURA_CANVAS){
-                    drawStart = 600 - 1;
-                    drawEnd = 0;
-                }
-                wallDimension.x = rayo.getOffset() % 64;
-                wallDimension.y = 0;
-                wallDimension.w = 1;
-                wallDimension.h = alturaParedProyectada;
-
-                wallDest.x = i;
-                wallDest.y = drawStart;
-                wallDest.w = 1;
-                wallDest.h = drawEnd - drawStart;
-
-                wall->renderizar(&wallDimension,wallDest, 0,NULL);
-              //  this->ventana->actualizar();
-
-              //  std::chrono::milliseconds duration(20);
-              //  std::this_thread::sleep_for(duration);
+                unsigned int alturaParedProyectada = 0;
+                alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
+                renderizarPared(render,rayo,i, alturaParedProyectada);
                 anguloRayo += anguloPorStripe;
             }
-            delete wall;
+}
+
+void Juego::renderizarPared(SDL_Renderer* render,Rayo& rayo,int& posCanvas,unsigned int& alturaParedProyectada){
+  Textura* wall = verificarTextura(render,rayo.getTipoPared());
+  int drawStart,drawEnd;
+  drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;//cheuear ese ancho canvas
+  drawEnd = drawStart + alturaParedProyectada;
+  if (drawStart > ALTURA_CANVAS){
+      drawStart = 600 - 1;
+      drawEnd = 0;
+  }
+  SDL_Rect wallDimension,wallDest;
+  wallDimension.x = rayo.getOffset() % 64;
+  wallDimension.y = 0;
+  wallDimension.w = 1;
+  wallDimension.h = alturaParedProyectada;
+
+  wallDest.x = posCanvas;
+  wallDest.y = drawStart;
+  wallDest.w = 1;
+  wallDest.h = drawEnd - drawStart;
+
+  wall->renderizar(&wallDimension,wallDest, 0,NULL);
+  delete wall;
+}
+
+Textura* Juego::verificarTextura(SDL_Renderer* render,int& tipoDePared){
+  //cambiar a mas especifico
+  if (tipoDePared == TYPE_WALL){
+    return new Textura(WOODEN_WALL_ROOT,render);
+  }else if (tipoDePared == TYPE_DOOR){
+    return new Textura(PUERTA_ROOT,render);
+  }else {
+    return new Textura(GRAY_STONE_WALL_ROOT,render);
+  }
 }
