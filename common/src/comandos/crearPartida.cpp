@@ -47,9 +47,6 @@ void CrearPartida::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + tamNombreCliente]);
     this->nombreCliente = std::string(sub.begin(), sub.end());
-
-    std::cout << "nom " << this->nombrePartida << "n omcli " << this->nombreCliente
-    << " cant" << this->cantidadJugadores << " ruta " << this->rutaYaml;
 }
 
 std::string &CrearPartida::getNombreJugador() {

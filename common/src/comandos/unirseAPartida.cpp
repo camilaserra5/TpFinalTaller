@@ -15,23 +15,21 @@ std::vector<char> UnirseAPartida::serializar() {
 
 void UnirseAPartida::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
-    int idx = 1;
-    sub = std::vector<char>(&serializado[idx], &serializado[idx + 3]);
+    int idx = 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     int tamNombrePartida = charArrayToNumber(sub);
 
-    idx += 3;
+    idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + tamNombrePartida]);
     this->nombrePartida = std::string(sub.begin(), sub.end());
 
     idx += tamNombrePartida;
-    sub = std::vector<char>(&serializado[idx], &serializado[idx + 3]);
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     int tamNombreCliente = charArrayToNumber(sub);
 
-    idx += 3;
+    idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + tamNombreCliente]);
     this->nombreCliente = std::string(sub.begin(), sub.end());
-
-    std::cout << "nom " << this->nombrePartida << "n omcli " << this->nombreCliente;
 }
 
 std::string &UnirseAPartida::getNombreJugador() {
