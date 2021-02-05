@@ -81,16 +81,23 @@ public:
 
     std::vector<char> serializar() override {
         std::vector<char> informacion;
-        informacion.push_back(this->id);
+        std::vector<char> aux(4);
+        aux = numberToCharArray(this->id);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
         std::vector<char> posicionSerializado = this->posicion.serializar();
         informacion.insert(informacion.end(), posicionSerializado.begin(), posicionSerializado.end());
-        informacion.push_back(this->vida);
-        informacion.push_back(this->armaActual);
-        informacion.push_back(this->disparando);
+        aux = numberToCharArray(this->vida);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
+        aux = numberToCharArray(this->armaActual);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
+        aux = numberToCharArray(this->disparando);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
         std::vector<char> logroSerializado = this->logro.serializar();
         informacion.insert(informacion.end(), logroSerializado.begin(), logroSerializado.end());
-        informacion.push_back(this->cantidad_vidas);
-        informacion.push_back(this->balas);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
+        aux = numberToCharArray(this->cantidad_vidas);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
+        aux = numberToCharArray(this->balas);
         return informacion;
     }
 

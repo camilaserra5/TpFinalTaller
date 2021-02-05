@@ -28,7 +28,9 @@ public:
 
     std::vector<char> serializar() override {
         std::vector<char> informacion;
-        informacion.push_back(this->id);
+        std::vector<char> aux(4);
+        aux = numberToCharArray(this->id);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
         std::vector<char> posicionSerializado = this->posicion.serializar();
         informacion.insert(informacion.end(), posicionSerializado.begin(), posicionSerializado.end());
         return informacion;

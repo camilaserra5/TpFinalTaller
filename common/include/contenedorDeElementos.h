@@ -32,7 +32,9 @@ public:
 
     std::vector<char> serializar() override {
         std::vector<char> informacion;
-        informacion.push_back(elementos.size());
+        std::vector<char> aux(4);
+        aux = numberToCharArray(elementos.size());
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
         for (auto &elemento : elementos) {
             std::vector<char> itemSerializado = ((Item *) elemento)->serializar();
             informacion.insert(informacion.end(), itemSerializado.begin(), itemSerializado.end());

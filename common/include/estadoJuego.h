@@ -33,14 +33,15 @@ public:
 
     std::vector<char> serializar() {
         std::vector<char> informacion;
-        informacion.push_back(jugadores.size());
+        std::vector<char> aux(4);
+        aux = numberToCharArray(jugadores.size());
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
         std::map<int, Jugador *>::iterator it;
         for (it = jugadores.begin(); it != jugadores.end(); ++it) {
             Jugador jugador = *it->second;
             std::vector<char> jugadorSerializado = jugador.serializar();
             informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
         }
-
         std::vector<char> mapaSerializado = mapa->serializar();
         informacion.insert(informacion.end(), mapaSerializado.begin(), mapaSerializado.end());
         return informacion;

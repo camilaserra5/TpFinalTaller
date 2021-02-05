@@ -32,7 +32,7 @@ public:
         return this->contenedorDeElementos;
     };
 
-    void sacarDelMapa(Posicion& posicion);
+    void sacarDelMapa(Posicion &posicion);
 
     ~Map();
 
@@ -40,13 +40,19 @@ public:
 
     std::vector<char> serializar() override {
         std::vector<char> informacion;
-        informacion.push_back(this->rowSize);
-        informacion.push_back(this->colSize);
+        std::vector<char> aux(4);
+        aux = numberToCharArray(this->rowSize);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
+
+        aux = numberToCharArray(this->colSize);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
+
         for (unsigned i = 0; i < rowSize; i++) {
             for (unsigned j = 0; j < colSize; j++) {
                 informacion.push_back((map[i][j]).getType());
             }
         }
+
         std::vector<char> contenedorSerializado = this->contenedorDeElementos.serializar();
         informacion.insert(informacion.end(), contenedorSerializado.begin(), contenedorSerializado.end());
         return informacion;
@@ -65,15 +71,16 @@ public:
                                                            serializado.end());
         this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
     }
-    std::vector<Item*>& obtenerItems(){
+
+    std::vector<Item *> &obtenerItems() {
         return this->contenedorDeElementos.obtenerItems();
     }
 
-    Puerta& puertaMasCercana(Posicion& posicionJugador,double& distancia);
+    Puerta &puertaMasCercana(Posicion &posicionJugador, double &distancia);
 
     bool hayPuertas();
 
-    void agregarArma(Posicion& posicion,Arma* arma);
+    void agregarArma(Posicion &posicion, Arma *arma);
 
     int crearIdValido();
 

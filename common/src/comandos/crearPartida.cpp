@@ -2,18 +2,19 @@
 
 std::vector<char> CrearPartida::serializar() {
     std::vector<char> info;
-    std::vector<char> idPartida = numberToCharArray(static_cast<int>(Accion::crearPartida));
-    info.insert(info.end(), idPartida.begin(), idPartida.end());
-    std::vector<char> cantJugadores = numberToCharArray(this->cantidadJugadores);
-    info.insert(info.end(), cantJugadores.begin(), cantJugadores.end());
-    std::vector<char> nombrePartSize = numberToCharArray(this->nombrePartida.size());
-    info.insert(info.end(), nombrePartSize.begin(), nombrePartSize.end());
+    std::vector<char> aux(4);
+    aux = numberToCharArray(static_cast<int>(Accion::crearPartida));
+    info.insert(info.end(), aux.begin(), aux.end());
+    aux = numberToCharArray(this->cantidadJugadores);
+    info.insert(info.end(), aux.begin(), aux.end());
+    aux = numberToCharArray(this->nombrePartida.size());
+    info.insert(info.end(), aux.begin(), aux.end());
     info.insert(info.end(), this->nombrePartida.begin(), this->nombrePartida.end());
-    std::vector<char> rutaYamlSize = numberToCharArray(this->rutaYaml.size());
-    info.insert(info.end(), rutaYamlSize.begin(), rutaYamlSize.end());
+    aux = numberToCharArray(this->rutaYaml.size());
+    info.insert(info.end(), aux.begin(), aux.end());
     info.insert(info.end(), this->rutaYaml.begin(), this->rutaYaml.end());
-    std::vector<char> nombreCliSize = numberToCharArray(this->nombreCliente.size());
-    info.insert(info.end(), nombreCliSize.begin(), nombreCliSize.end());
+    aux = numberToCharArray(this->nombreCliente.size());
+    info.insert(info.end(), aux.begin(), aux.end());
     info.insert(info.end(), this->nombreCliente.begin(), this->nombreCliente.end());
     return info;
 }

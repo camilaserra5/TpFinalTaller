@@ -2,6 +2,7 @@
 #define POSICION_H
 
 #include "iserializable.h"
+
 class Jugador;
 
 class Posicion : public ISerializable {
@@ -12,7 +13,9 @@ public:
             anguloDeVista(anguloDeVista) {}
 
     ~Posicion() {}
-    Posicion(){}
+
+    Posicion() {}
+
     int distanciaA(Posicion &posicion);
 
     bool intersectaConMiAngulo(Posicion &otroJugador);
@@ -35,16 +38,31 @@ public:
 
     std::vector<char> serializar() override {
         std::vector<char> informacion;
-        informacion.push_back(pixelesX);
-        informacion.push_back(pixelesY);
-        informacion.push_back(anguloDeVista);
+        std::vector<char> aux(4);
+        aux = numberToCharArray(pixelesX);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
+
+        aux = numberToCharArray(pixelesY);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
+
+        aux = numberToCharArray(anguloDeVista);
+        informacion.insert(informacion.end(), aux.begin(), aux.end());
         return informacion;
     }
 
-    void deserializar(std::vector<char>& serializado) override {
-        this->pixelesX = serializado[0];
-        this->pixelesY = serializado[1];
-        this->anguloDeVista = serializado[2];
+    void deserializar(std::vector<char> &serializado) override {
+        std::vector<char> sub(4);
+        int idx = 0;
+        sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+        this->pixelesX = charArrayToNumber(sub);
+
+        idx += 4;
+        sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+        this->pixelesY = charArrayToNumber(sub);
+
+        idx += 4;
+        sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+        this->anguloDeVista = charArrayToNumber(sub);
     }
 
 private:
