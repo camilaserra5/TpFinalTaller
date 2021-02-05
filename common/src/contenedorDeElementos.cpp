@@ -42,6 +42,7 @@ Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
             return this->elementos[i];
         }
     }
+    return nullptr;
 }
 
 bool ContenedorDeElementos::hayPuertas(){

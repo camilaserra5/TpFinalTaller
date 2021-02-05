@@ -55,5 +55,5 @@ void InfoJugador::renderizar() {
 }
 
 int InfoJugador::getPuntaje(){
-    this->puntaje->getTexto();
+    return this->puntaje->getTexto();
 }

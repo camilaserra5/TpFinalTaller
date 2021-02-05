@@ -40,10 +40,11 @@ bool LanzaCohetes::obtenerBeneficio(Jugador *jugador) {
     if (!jugador->poseeArma(this)) {
         jugador->agregar_arma(this);
         // sacar arma del mapa;
+        return true;
     }
-
+    return false;
 }
 
-Type LanzaCohetes::getTipo(){
-    return  ObjetosJuego::obtenerTipoPorNombre("lanzaCohetes");
+Type LanzaCohetes::getTipo() {
+    return ObjetosJuego::obtenerTipoPorNombre("lanzaCohetes");
 }

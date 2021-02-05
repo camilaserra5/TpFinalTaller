@@ -144,7 +144,7 @@ void Jugador::aniadirEnemigosMatados(int jugadoresMatados) {
 }
 
 bool Jugador::estaDisparando(){
-    this->disparando;
+    return this->disparando;
 }
 
 void Jugador::actualizarNuevaVida(){
