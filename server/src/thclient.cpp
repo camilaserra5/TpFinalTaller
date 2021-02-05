@@ -52,9 +52,11 @@ void ThClient::procesar_pedido() {
                                                             crearPartida.getNombrePartida(),
                                                             crearPartida.getRutaArchivo());
     }
-    std::vector<char> res;
-    res.push_back((char) resultado);
-    protocolo->enviar(res);
+
+    std::vector<char> ret(4);
+    unsigned int size = htonl(resultado);
+    memcpy(ret.data(), &size, 4);
+    protocolo->enviar(ret);
 }
 
 bool ThClient::is_dead() {
