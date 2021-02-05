@@ -91,12 +91,15 @@ public:
 
     bool hayColision(int fila, int columna);
 
+    Posicion obtenerPosicionIncialValida();
+
 private:
     unsigned rowSize;
     unsigned colSize;
     ContenedorDeElementos contenedorDeElementos;
     std::vector<std::vector<Type>> map;
     std::vector<int> idCargados;
+    int ladoCelda;
 };
 
 #endif //MAP_H

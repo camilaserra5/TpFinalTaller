@@ -15,15 +15,14 @@ int Jugador::getId() {
     return this->id;
 }
 
-Jugador::Jugador(std::string &nombre, int &id) :
-//posicion(posicion), que lo reciba inicializado por parametro
+Jugador::Jugador(std::string &nombre, int &id, Posicion& posicion) :
+        posicion(posicion),
         nombre(nombre),
         id(id),
         vida(MAX_VIDA),
         armas(),
         balas(CANT_INICAL_BALAS),
         armaActual(ID_PISTOLA),
-        posicion(POSX_INICIAL, POSY_INICIAL, 50),
         velocidadDeRotacion(VELOCIDAD_DE_ROTACION),
         llaves(0),
         cantidad_vidas(2),

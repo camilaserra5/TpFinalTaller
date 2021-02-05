@@ -57,7 +57,8 @@ EstadoJuego::~EstadoJuego() {
 }
 
 void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
-    Jugador *jugador = new Jugador(nombreJugador, id);
+    Posicion posicionValida = this->mapa->obtenerPosicionIncialValida();
+    Jugador *jugador = new Jugador(nombreJugador, id, posicionValida);
     this->jugadores.insert(std::make_pair(id, jugador));
 }
 
