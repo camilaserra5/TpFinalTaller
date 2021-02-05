@@ -67,13 +67,6 @@ Comando* Protocolo::deserializarComando(std::vector<char> &informacion) {
     }
 }
 
-Protocolo& Protocolo::operator=(Protocolo &protocolo) {
-    if (this == &protocolo) {
-        return *this;
-    }
-    this->socket = std::move(protocolo.socket);
-    return *this;
-}
 
 void Protocolo::cerrar() {
     this->socket.cerrar();

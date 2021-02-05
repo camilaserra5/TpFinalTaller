@@ -82,13 +82,7 @@ public:
         }
     }*/
 
-    Protocolo &operator=(Protocolo &protocolo); /* {
-        if (this == &protocolo) {
-            return *this;
-        }
-        this->socket = std::move(protocolo.socket);
-        return *this;
-    }*/
+
 
     void cerrar(); /* {
         this->socket.cerrar();
