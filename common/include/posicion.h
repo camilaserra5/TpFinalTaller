@@ -7,14 +7,11 @@ class Jugador;
 
 class Posicion : public ISerializable {
 public:
-    Posicion(int pixelesX, int pixelesY, float anguloDeVista) :
-            pixelesX(pixelesX),
-            pixelesY(pixelesY),
-            anguloDeVista(anguloDeVista) {}
+    Posicion(int pixelesX, int pixelesY, float anguloDeVista);
 
-    ~Posicion() {}
+    ~Posicion();
 
-    Posicion() {}
+    Posicion();
 
     int distanciaA(Posicion &posicion);
 
@@ -36,7 +33,7 @@ public:
 
     bool operator==(Posicion &posicion);
 
-    std::vector<char> serializar() override {
+    std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);
         aux = numberToCharArray(pixelesX);
@@ -48,9 +45,9 @@ public:
         aux = numberToCharArray(anguloDeVista);
         informacion.insert(informacion.end(), aux.begin(), aux.end());
         return informacion;
-    }
+    }*/
 
-    void deserializar(std::vector<char> &serializado) override {
+    void deserializar(std::vector<char> &serializado) override; /* {
         std::vector<char> sub(4);
         int idx = 0;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -63,7 +60,7 @@ public:
         idx += 4;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
         this->anguloDeVista = charArrayToNumber(sub);
-    }
+    }*/
 
 private:
     int pixelesX;

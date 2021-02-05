@@ -79,7 +79,7 @@ public:
 
     int obtenerPuntosTotales();
 
-    std::vector<char> serializar() override {
+    std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);
         aux = numberToCharArray(this->id);
@@ -107,9 +107,9 @@ public:
 
 
         return informacion;
-    }
-
-    void deserializar(std::vector<char> &serializado) override {
+    }*/
+    
+    void deserializar(std::vector<char> &serializado) override; /* {
         std::vector<char> sub(4);
         int idx = 0;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -142,7 +142,7 @@ public:
                                            serializado.begin() + idx + charArrayToNumber(sub));
         this->logro.deserializar(logroSerializado);
     }
-
+*/
 private:
     Posicion posicion;
     int id;

@@ -13,19 +13,17 @@ private:
 
 public:
     CrearPartida(int idJugador, int cantidadJugadores,std::string nombrePartida,
-                std::string rutaYaml,std::string nombreCliente) : Comando(idJugador),
-                cantidadJugadores(cantidadJugadores),nombrePartida(nombrePartida),rutaYaml(rutaYaml),
-                nombreCliente(nombreCliente) {}
+                std::string rutaYaml,std::string nombreCliente);
 
-    ~CrearPartida() {}
+    ~CrearPartida();
 
-    CrearPartida(){}
+    CrearPartida();
 
-    std::vector<char> serializar();
+    std::vector<char> serializar() override;
 
-    void deserializar(std::vector<char>& serializado);
+    void deserializar(std::vector<char>& serializado) override;
 
-    void ejecutar(EstadoJuego &estadoJuego){}
+    void ejecutar(EstadoJuego &estadoJuego)override{}
 
     std::string& getNombreJugador();
 

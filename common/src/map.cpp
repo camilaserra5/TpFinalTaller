@@ -168,6 +168,57 @@ Puerta &Map::puertaMasCercana(Posicion &posicionJugador, double &distancia) {
 
 }
 
+std::vector<char> Map::serializar(){
+    std::vector<char> informacion;
+    std::vector<char> aux(4);
+    aux = numberToCharArray(this->rowSize);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+
+    aux = numberToCharArray(this->colSize);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+
+    for (unsigned i = 0; i < rowSize; i++) {
+        for (unsigned j = 0; j < colSize; j++) {
+            informacion.push_back((map[i][j]).getType());
+        }
+    }
+
+    std::vector<char> contenedorSerializado = this->contenedorDeElementos.serializar();
+    informacion.insert(informacion.end(), contenedorSerializado.begin(), contenedorSerializado.end());
+    return informacion;
+}
+
+void Map::deserializar(std::vector<char> &serializado){
+    std::vector<char> sub(4);
+    int idx = 0;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->rowSize = charArrayToNumber(sub);
+
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->colSize = charArrayToNumber(sub);
+
+    for (unsigned i = 0; i < rowSize; i++) {
+        for (unsigned j = 0; j < colSize; j++) {
+            idx += 4;
+            sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+            setValue(i, j, ObjetosJuego::obtenerTipoPorId(charArrayToNumber(sub)));
+        }
+    }
+
+    idx += 4;
+    std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
+    this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
+}
+
+std::vector<Item *>& Map::obtenerItems() {
+    return this->contenedorDeElementos.obtenerItems();
+}
+
+ContenedorDeElementos& Map::obtenerContenedor() {
+    return this->contenedorDeElementos;
+};
+
 bool Map::hayColision(int fila, int columna){
   //chequear si en caso de haber una puerta, si esta abierta y agregarle a la puerta el atributo exacto de la pos en el mapa
   // a la puerta le falta el contador para q se cierre

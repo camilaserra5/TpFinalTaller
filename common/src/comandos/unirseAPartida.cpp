@@ -1,5 +1,16 @@
 #include "comandos/unirseAPartida.h"
 
+UnirseAPartida::UnirseAPartida(int idJugador,std::string nombrePartida,
+                              std::string nombreCliente) :
+                              Comando(idJugador),
+                              nombrePartida(nombrePartida),
+                              nombreCliente(nombreCliente){}
+
+UnirseAPartida::~UnirseAPartida() {}
+
+UnirseAPartida::UnirseAPartida() {}
+
+
 std::vector<char> UnirseAPartida::serializar() {
     std::vector<char> info;
     std::vector<char> aux(4);

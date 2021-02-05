@@ -8,11 +8,12 @@
 
 class LanzaCohetes : public Arma, public Item {
 public:
-    LanzaCohetes(Posicion &posicion, int id) : Arma(DISTANCIA_MAX, 5), Item(posicion,id) {}
+    LanzaCohetes(Posicion &posicion, int id);
 
-    ~LanzaCohetes() {}
+    ~LanzaCohetes();
 
-    void atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) override;
+    void atacar(int distancia_a_pared, Jugador *jugador,
+                std::map<int, Jugador *> &jugadores) override;
 
     bool obtenerBeneficio(Jugador *jugador) override;
 

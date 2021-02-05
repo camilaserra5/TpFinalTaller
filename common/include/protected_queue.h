@@ -21,9 +21,9 @@ private:
     std::queue<T> cola_datos;
     std::mutex m;
 public:
-    ProtectedQueue() {}
+    ProtectedQueue(){}
 
-    ~ProtectedQueue() {}
+    ~ProtectedQueue(){}
 
     T obtener_dato() {
         std::lock_guard<std::mutex> l(this->m);

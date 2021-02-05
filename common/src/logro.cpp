@@ -30,3 +30,32 @@ int Logro::obtenerPuntosTotales(){
     return (this->puntosTotalesPorTesoros + this->enemigosMatados*PUNTOS_MATAR +
             this->balasDisparadas*PUNTOS_BALAS);
 }
+
+std::vector<char> Logro::serializar(){
+    std::vector<char> info;
+    std::vector<char> aux(4);
+    aux = numberToCharArray(this->enemigosMatados);
+    info.insert(info.end(), aux.begin(), aux.end());
+
+    aux = numberToCharArray(this->puntosTotalesPorTesoros);
+    info.insert(info.end(), aux.begin(), aux.end());
+
+    aux = numberToCharArray(this->balasDisparadas);
+    info.insert(info.end(), aux.begin(), aux.end());
+    return info;
+}
+
+void Logro::deserializar(std::vector<char> &serializado){
+    std::vector<char> sub(4);
+    int idx = 0;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->enemigosMatados = charArrayToNumber(sub);
+
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->puntosTotalesPorTesoros = charArrayToNumber(sub);
+
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->balasDisparadas = charArrayToNumber(sub);
+}

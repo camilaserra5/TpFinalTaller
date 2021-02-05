@@ -15,7 +15,9 @@ public:
 
     ~Movimiento();
 
-    std::vector<char> serializar() override {
+    Movimiento();
+    
+    std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);
         aux = numberToCharArray(idJugador);
@@ -23,9 +25,9 @@ public:
         aux = numberToCharArray(static_cast<int>(this->tipo_de_movimiento));
         informacion.insert(informacion.end(), aux.begin(), aux.end());
         return informacion;
-    }
+    }*/
 
-    void deserializar(std::vector<char> &serializado) {
+    void deserializar(std::vector<char> &serializado) override; /* {
         std::vector<char> sub(4);
         int idx = 0;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -34,7 +36,7 @@ public:
         idx += 4;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
         this->tipo_de_movimiento = static_cast<Accion>(charArrayToNumber(sub));
-    }
+    }*/
 };
 
 #endif

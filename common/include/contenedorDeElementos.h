@@ -30,7 +30,7 @@ public:
 
     Item *buscarElemento(int &pox, int &posy);
 
-    std::vector<char> serializar() override {
+    std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);
         aux = numberToCharArray(elementos.size());
@@ -42,9 +42,9 @@ public:
             informacion.insert(informacion.end(), itemSerializado.begin(), itemSerializado.end());
         }
         return informacion;
-    }
+    }*/
 
-    void deserializar(std::vector<char> &serializado) override {
+    void deserializar(std::vector<char> &serializado) override; /* {
         std::vector<char> sub(4);
         int idx = 0;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -60,11 +60,11 @@ public:
             item->deserializar(itemSerializado);
             this->elementos.push_back(item);
         }
-    }
+    }*/
 
-    std::vector<Item *> &obtenerItems() {
+    std::vector<Item *> &obtenerItems(); /* {
         return this->elementos;
-    }
+    }*/
 
 
     bool hayPuertas();

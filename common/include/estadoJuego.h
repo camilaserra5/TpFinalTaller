@@ -15,8 +15,8 @@ public:
     EstadoJuego(Map *mapa);
 
     ~EstadoJuego();
-    EstadoJuego(){}
-    
+    EstadoJuego();
+
     void rotar_a_derecha(int idJugador);
 
     void rotar_a_izquierda(int idJugador);
@@ -31,7 +31,7 @@ public:
 
     void realizarAtaque(int idJugador);
 
-    std::vector<char> serializar() {
+    std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);
         aux = numberToCharArray(jugadores.size());
@@ -47,9 +47,9 @@ public:
         std::vector<char> mapaSerializado = mapa->serializar();
         informacion.insert(informacion.end(), mapaSerializado.begin(), mapaSerializado.end());
         return informacion;
-    }
+    }*/
 
-    void deserializar(std::vector<char>& informacion) {
+    void deserializar(std::vector<char>& informacion) override; /*{
         std::vector<char> sub(4);
         int idx = 0;
         sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
@@ -68,7 +68,7 @@ public:
         std::vector<char> mapaSerializado(informacion.begin() + idx,
                                           informacion.end());
         this->mapa->deserializar(mapaSerializado);
-    }
+    }*/
 
     void verificarJugadoresMuertos();
 
@@ -76,12 +76,12 @@ public:
 
     void abrirPuerta(int idJugador);
 
-    std::map<int, Jugador*>& obtenerJugadores(){
+    std::map<int, Jugador*>& obtenerJugadores(); /*{
         return this->jugadores;
-    }
-    Map* obtenerMapa(){
+    }*/
+    Map* obtenerMapa();/*{
         return this->mapa;
-    }
+    }*/
 
     void lanzarContadorTiempoPartida();
 

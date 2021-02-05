@@ -5,6 +5,15 @@
 #include <math.h>
 #include <iostream>
 
+Posicion::Posicion(int pixelesX, int pixelesY, float anguloDeVista) :
+        pixelesX(pixelesX),
+        pixelesY(pixelesY),
+        anguloDeVista(anguloDeVista) {}
+
+Posicion::~Posicion(){}
+
+Posicion::Posicion(){}
+
 int Posicion::distanciaA(Posicion &posicion) {
     float x = this->pixelesX - posicion.pixelesX;
     float y = this->pixelesY - posicion.pixelesY;
@@ -64,4 +73,33 @@ bool Posicion::operator==(Posicion &otraPosicion) {
 
 void Posicion::setAngulo(float angulo){
   this->anguloDeVista = angulo;
+}
+
+std::vector<char> Posicion::serializar(){
+    std::vector<char> informacion;
+    std::vector<char> aux(4);
+    aux = numberToCharArray(pixelesX);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+
+    aux = numberToCharArray(pixelesY);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+
+    aux = numberToCharArray(anguloDeVista);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+    return informacion;
+}
+
+void Posicion::deserializar(std::vector<char> &serializado){
+    std::vector<char> sub(4);
+    int idx = 0;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->pixelesX = charArrayToNumber(sub);
+
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->pixelesY = charArrayToNumber(sub);
+
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->anguloDeVista = charArrayToNumber(sub);
 }

@@ -20,7 +20,7 @@ public:
 
     void aniadirEnemigosMatados(int cantidadDeEnemigos);
 
-    std::vector<char> serializar() override {
+    std::vector<char> serializar() override;/* {
         std::vector<char> info;
         std::vector<char> aux(4);
         aux = numberToCharArray(this->enemigosMatados);
@@ -32,9 +32,9 @@ public:
         aux = numberToCharArray(this->balasDisparadas);
         info.insert(info.end(), aux.begin(), aux.end());
         return info;
-    }
+    }*/
 
-    void deserializar(std::vector<char> &serializado) override {
+    void deserializar(std::vector<char> &serializado) override; /* {
         std::vector<char> sub(4);
         int idx = 0;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -47,7 +47,7 @@ public:
         idx += 4;
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
         this->balasDisparadas = charArrayToNumber(sub);
-    }
+    }*/
 
     int obtenerPuntosTotales();
 
