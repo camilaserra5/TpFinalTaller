@@ -8,8 +8,10 @@ void Server_Event_Sender::run() {
             Actualizacion *actualizacion = this->actualizaciones.pop();
             std::vector<char> informacion = actualizacion->serializar();
             //protocolo.enviar(informacion);
-        } catch (...) {
+        } catch (std::exception &exc) {
+            std::cout << exc.what() << std::endl;
             this->corriendo = false;
         }
+
     }
 }
