@@ -40,6 +40,8 @@ public:
         for (it = jugadores.begin(); it != jugadores.end(); ++it) {
             Jugador jugador = *it->second;
             std::vector<char> jugadorSerializado = jugador.serializar();
+            aux = numberToCharArray(jugadorSerializado.size());
+            informacion.insert(informacion.end(), aux.begin(), aux.end());
             informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
         }
         std::vector<char> mapaSerializado = mapa->serializar();
@@ -48,18 +50,22 @@ public:
     }
 
     void deserializar(std::vector<char>& informacion) {
-        char jugadoresSize = informacion[0];
-        int ult = 1;
+        std::vector<char> sub(4);
+        int idx = 0;
+        sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
+        int jugadoresSize = charArrayToNumber(sub);
+        idx += 4;
         for (int i = 0; i < jugadoresSize; i++) {
-            std::vector<char> jugadorSerializado(informacion.begin() + ult,
-                                                 informacion.begin() + ult + 3);
+            sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
+            idx += 4;
+            std::vector<char> jugadorSerializado(informacion.begin() + idx,
+                                                 informacion.begin() + idx + charArrayToNumber(sub));
+            idx += charArrayToNumber(sub);
             Jugador *jugador;
             jugador->deserializar(jugadorSerializado);
             this->jugadores.insert(std::make_pair(jugador->getId(), jugador));
-            ult = ult + 3;
         }
-
-        std::vector<char> mapaSerializado(informacion.begin() + ult,
+        std::vector<char> mapaSerializado(informacion.begin() + idx,
                                           informacion.end());
         this->mapa->deserializar(mapaSerializado);
     }

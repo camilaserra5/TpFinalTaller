@@ -59,16 +59,25 @@ public:
     }
 
     void deserializar(std::vector<char> &serializado) override {
-        this->rowSize = (int) serializado[0];
-        this->colSize = (int) serializado[1];
-        int idx = 2;
+        std::vector<char> sub(4);
+        int idx = 0;
+        sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+        this->rowSize = charArrayToNumber(sub);
+
+        idx += 4;
+        sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+        this->colSize = charArrayToNumber(sub);
+
         for (unsigned i = 0; i < rowSize; i++) {
             for (unsigned j = 0; j < colSize; j++) {
-                setValue(i, j, ObjetosJuego::obtenerTipoPorId(serializado[idx++]));
+                idx += 4;
+                sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+                setValue(i, j, ObjetosJuego::obtenerTipoPorId(charArrayToNumber(sub)));
             }
         }
-        std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx,
-                                                           serializado.end());
+
+        idx += 4;
+        std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
         this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
     }
 
