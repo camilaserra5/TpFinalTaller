@@ -1,5 +1,5 @@
-#ifndef _CLIENT_H
-#define _CLIENT_H
+#ifndef _LOGIN_H
+#define _LOGIN_H
 
 #include <SDL2/SDL.h>
 #include "../include/fonts.h"
