@@ -87,3 +87,14 @@ Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
 bool ContenedorDeElementos::hayPuertas(){
   return (this->puertas.size() > 0);
 }
+
+Puerta& ContenedorDeElementos::obtenerPuertaEn(int& fila, int& columna){
+  int cantidadDePuertas = this->puertas.size();
+  int puertaEnPos = 0;
+    for (int i = 0; i < cantidadDePuertas; i++){
+        if (this->puertas[i].estaEnPosDelMapa(fila,columna)){
+            puertaEnPos = i;
+        }
+    }
+    return this->puertas[puertaEnPos];
+}

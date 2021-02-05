@@ -47,42 +47,29 @@ void ManejadorEventos::crearAperturaDePuerta(){
 void ManejadorEventos::detectarEventos(SDL_Event& evento){
       switch (evento.type) {
           case SDL_KEYDOWN:
-              std::cout << "tecla preionada\n";
               switch( evento.key.keysym.sym ){
                   // aca mandariamos la informacion o crearimos el evento;
                       case SDLK_LEFT:         // x, y, vida, angulo;
-
                           crearMovimiento(Accion::rotarIzquierda);
-                        //  player.settear_estado(-1, 0, 100, 50); // esto es para probar que se cambia el estado
-                                                                // y se renderiza la imagen;
-                            std::cout << "me roto a izquierda\n";
                           break;
                       case SDLK_RIGHT:
                           crearMovimiento(Accion::rotarDerecha);
-                        //  player.settear_estado(1, 0, 100, 50);
-                        std::cout << "me roto a derecha\n";
                           break;
                       case SDLK_UP:
                           crearMovimiento(Accion::moverArriba);
-                        //  player.settear_estado(0, 1, 100, 50);
-                        std::cout << "me muevo arriba\n";
                           break;
                       case SDLK_DOWN:
                           crearMovimiento(Accion::moverAbajo);
-                        //  player.settear_estado(0, -1, 100, 50);
-                        std::cout << "me muevo abajo\n";
                           break;
-                      case SDLK_SPACE:
+                      case SDLK_m:
                           sonidoAmbiente.play(100);
-                        std::cout << "ESPACIO\n";
                           break;
-                      case SDLK_PERIOD: //tecla "."
+                      case SDLK_PERIOD:
                         crearAtaque();
                         break;
               }
               break;
           case SDL_KEYUP:
-              std::cout << "tecla despresionada\n";
               if (evento.key.keysym.sym == SDLK_PERIOD){
                     // dejo de disparar;
               }

@@ -36,7 +36,7 @@ Jugador::~Jugador() {
     for (int i = 0; i < this->armas.size(); i++) {
         //  delete armas[i];
     }
-  
+
 }
 
 // recibo la posicion a moverse
@@ -228,4 +228,12 @@ void Jugador::deserializar(std::vector<char> &serializado) {
                                        serializado.begin() + idx +
                                        charArrayToNumber(sub));
     this->logro.deserializar(logroSerializado);
+}
+
+void Jugador::dejarDeDisparar(){
+    this->disparando = false;
+}
+
+void Jugador::atacar(){
+    this->disparando = true;
 }

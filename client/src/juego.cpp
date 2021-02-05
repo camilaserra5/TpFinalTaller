@@ -57,7 +57,8 @@ void Juego::run() {
               }
               std::chrono::milliseconds duration(60 - tardanza);
               std::this_thread::sleep_for(duration);
-        } catch (...) {
+        } catch (std::exception &exc) {
+            std::cout << exc.what() << std::endl;
             this->corriendo = false;
         }
     }

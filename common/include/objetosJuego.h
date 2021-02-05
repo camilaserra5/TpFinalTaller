@@ -3,6 +3,7 @@
 
 #define TYPE_WALL 2
 #define TYPE_DOOR 1
+#define TYPE_EMPTY 0
 
 #include <vector>
 
@@ -30,7 +31,7 @@ class ObjetosJuego {
 public:
     static std::vector<Type> obtenerObjetos() {
         std::vector<Type> types;
-        types.push_back(Type("empty", 0));
+        types.push_back(Type("empty", TYPE_EMPTY));
         types.push_back(Type("door", TYPE_DOOR));
         types.push_back(Type("wall", TYPE_WALL));
         types.push_back(Type("fakeDoor", 3));
