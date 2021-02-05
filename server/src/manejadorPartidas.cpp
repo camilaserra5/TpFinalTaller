@@ -23,14 +23,14 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
     bool encontre = false;
     //Map* mapa = new Map(1, 1);
     Map mapa(20, 20);
-    mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
+    /*mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
     while (i < cant_mapas && !encontre) {
         int pos = this->mapas[i].find(archivoMapa);
         if (pos > -1) {
             mapa = MapTranslator::yamlToMap(YAML::LoadFile(archivoMapa));
             encontre = true;
         }
-    }
+    }*/
     return mapa;
 
 }
@@ -49,7 +49,7 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
         // capaz esta clase tiene el un vector de yamls
         Map mapa = this->buscarMapa(archivoMapa);
       //  Map *mapa = new Map(20, 20);
-        mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
+        //mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
         std::cout << "ya setie elemnto";
         //int cant_jugadores = 1;
         Servidor *servidor = new Servidor(&mapa, cant_jugadores);
