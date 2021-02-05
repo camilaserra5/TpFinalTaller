@@ -222,5 +222,12 @@ ContenedorDeElementos& Map::obtenerContenedor() {
 bool Map::hayColision(int fila, int columna){
   //chequear si en caso de haber una puerta, si esta abierta y agregarle a la puerta el atributo exacto de la pos en el mapa
   // a la puerta le falta el contador para q se cierre
-  return (this->map[fila][columna].getType() != 0);
+   int tipo = this->map[fila][columna].getType();
+   if (tipo == TYPE_DOOR){
+     Puerta& puerta = this->contenedorDeElementos.obtenerPuertaEn(fila,columna);
+     if (puerta.estaAbierta()){
+       tipo = TYPE_EMPTY;
+     }
+   }
+   return (tipo != TYPE_EMPTY);
 }

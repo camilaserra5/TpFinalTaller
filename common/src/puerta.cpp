@@ -17,3 +17,11 @@ bool Puerta::puedeSerAbierta(bool jugadorTieneLlave,double& distancia)const {
 double Puerta::distanciaA(Posicion& posicion){
     return this->posicion.distanciaA(posicion);
 }
+
+bool Puerta::estaAbierta(){
+    return this->abierta;
+}
+
+bool Puerta::estaEnPosDelMapa(int& fila, int& columna){
+    return (this->fila == fila && this->columna == columna);
+}

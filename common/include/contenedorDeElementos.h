@@ -71,6 +71,8 @@ public:
 
     Puerta &puertaMasCercana(Posicion &posicionJugador, double &distancia);
 
+    Puerta& obtenerPuertaEn(int& fila, int& columna);
+
 private:
     std::vector<Item *> elementos;
     std::vector<Puerta> puertas;
