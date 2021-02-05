@@ -23,6 +23,7 @@ void Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jug
             jugador->aniadirEnemigosMatados(1);
         }
     }
+    jugador->dejarDeDisparar();
 }
 
 Type Cuchillo::getTipo(){

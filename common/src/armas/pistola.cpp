@@ -38,4 +38,5 @@ void Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Juga
         }
     }
     jugador->actualizarArma();
+    jugador->dejarDeDisparar();
 }

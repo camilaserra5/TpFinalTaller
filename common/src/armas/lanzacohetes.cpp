@@ -25,6 +25,7 @@ void verificarJugadoresEnRango(Posicion &posicionImpacto,
         }
     }
     jugador->aniadirEnemigosMatados(jugadoresMatados);
+    jugador->dejarDeDisparar();
 }
 
 void LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador,

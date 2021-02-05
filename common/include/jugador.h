@@ -79,6 +79,10 @@ public:
 
     int obtenerPuntosTotales();
 
+    void dejarDeDisparar();
+
+    void atacar();
+
     std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);
@@ -108,7 +112,7 @@ public:
 
         return informacion;
     }*/
-    
+
     void deserializar(std::vector<char> &serializado) override; /* {
         std::vector<char> sub(4);
         int idx = 0;
