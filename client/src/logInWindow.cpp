@@ -276,6 +276,7 @@ void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts) {
         SDL_RenderPresent(renderer);
     }
 }
+
 void pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error) {
     Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
     SDL_Event e;
@@ -329,16 +330,30 @@ void LogInWindow::run() {
         std::vector<char> partidas = protocolo->recibir();
         std::vector<std::string> partis;
         std::map<int, std::string> nombresPartidas;
-        char cantidadPartidas = partidas[0];
-        int j = 1;
+
+        char number[4];
+        memcpy(number, partidas.data(), 4);
+        uint32_t *buf = (uint32_t *) number;
+        uint32_t cantidadPartidas = ntohl(*buf);
+
+        int j = 4;
         for (int i = 0; i < cantidadPartidas; i++) {
+            memcpy(number, partidas.data() + j, 4);
+            buf = (uint32_t *) number;
+            uint32_t longNombre = ntohl(*buf);
+            j += 4;
             std::string nombre;
-            for (int k = 0; k < partidas[j]; k++) {
-                nombre += partidas[++j];
+            for (int k = 0; k < longNombre; k++) {
+                nombre += partidas[j++];
             }
             std::ostringstream sstream;
-            sstream << "Game No " << i + 1 << " - " << nombre << " " << (char) partidas[++j] << "/"
-                    << (char) partidas[++j];
+            memcpy(number, partidas.data() + j, 4);
+            buf = (uint32_t *) number;
+            j += 4;
+            memcpy(number, partidas.data() + j, 4);
+            buf = (uint32_t *) number;
+            j += 4;
+            sstream << "Game No " << i + 1 << " - " << nombre << " " << ntohl(*buf) << "/" << ntohl(*buf);
             partis.push_back(sstream.str());
             nombresPartidas.insert(std::make_pair(i, nombre));
         }

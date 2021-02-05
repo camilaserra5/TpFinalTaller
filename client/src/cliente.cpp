@@ -24,8 +24,8 @@ Cliente::~Cliente() {}
 void Cliente::run() {
     std::string nombre_juego("Wolfstein");
     int idJugador = 1111; // me lo da el log in; logIn.getIdJugador();
-  //  LogInWindow logIn;
-  //  logIn.run();
+    LogInWindow logIn;
+    logIn.run();
     BlockingQueue<Comando *> events;
   //  Protocolo* protocolo = logIn.obtenerProtocolo();
   //  ClientEventSender clientEventSender(protocolo, events);

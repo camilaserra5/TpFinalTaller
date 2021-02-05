@@ -9,7 +9,7 @@
 #define ERROR -1
 #define SOCKET_CERRADO 0
 
-ThClient::ThClient(Socket&& un_socket, ManejadorPartidas *manejadorDePartidas) :
+ThClient::ThClient(Socket &&un_socket, ManejadorPartidas *manejadorDePartidas) :
         protocolo(new Protocolo(std::move(un_socket))),
         keep_talking(true),
         is_running(true),
@@ -25,23 +25,36 @@ void ThClient::stop() {
 }
 
 void ThClient::procesar_pedido() {
-  std::vector<char> serializado = this->protocolo->recibir();
-  bool resultado = false;
-  std::cout << "recibi: " << serializado.size() << "\n";
+    std::vector<char> serializado = this->protocolo->recibir();
+    bool resultado = false;
+    std::cout << "recibi: " << serializado.size() << "\n";
 
-  if (serializado[0] == static_cast<int>(Accion::unirseAPartida)){
-    UnirseAPartida unirseAPartida;
-    unirseAPartida.deserializar(serializado);
-    resultado = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida.getNombreJugador(),unirseAPartida.getNombrePartida());
-  }else{
-      CrearPartida crearPartida;
-      crearPartida.deserializar(serializado);
-      resultado = this->manejadorDePartidas->crearPartida(crearPartida.getNombreJugador(),crearPartida.getCantJugadores(),
-                                      crearPartida.getNombrePartida(),crearPartida.getRutaArchivo());
-  }
-  std::vector<char> res;
-  res.push_back((char)resultado);
-  protocolo->enviar(res);
+    std::vector<char> sub(4);
+    int idx = 0;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    char number[4];
+    memcpy(number, sub.data(), 4);
+    uint32_t *buf = (uint32_t *) number;
+    int idAccion = ntohl(*buf);
+
+    if (idAccion == static_cast<int>(Accion::unirseAPartida)) {
+        std::cout << "UNIRSE" << std::endl;
+        UnirseAPartida unirseAPartida;
+        unirseAPartida.deserializar(serializado);
+        resultado = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida.getNombreJugador(),
+                                                                      unirseAPartida.getNombrePartida());
+    } else {
+        std::cout << "CREAR" << std::endl;
+        CrearPartida crearPartida;
+        crearPartida.deserializar(serializado);
+        resultado = this->manejadorDePartidas->crearPartida(crearPartida.getNombreJugador(),
+                                                            crearPartida.getCantJugadores(),
+                                                            crearPartida.getNombrePartida(),
+                                                            crearPartida.getRutaArchivo());
+    }
+    std::vector<char> res;
+    res.push_back((char) resultado);
+    protocolo->enviar(res);
 }
 
 bool ThClient::is_dead() {
@@ -55,10 +68,10 @@ void ThClient::run() {
         std::cerr << partidas[i];
     }
     std::cerr << "\nfin envio partidas";
-  //  reinterpret_cast<char *>(partidas.data()), partidas.size()
+    //  reinterpret_cast<char *>(partidas.data()), partidas.size()
     this->protocolo->enviar(partidas);
     while (this->keep_talking) {
-    procesar_pedido();
+        procesar_pedido();
 /*
         std::string mensaje = this->mensaje_cliente.str();
         if (mensaje.size() != 0) {
@@ -67,7 +80,7 @@ void ThClient::run() {
 
 
         this->keep_talking = false;*/
-      //  this->keep_talking = false;
+        //  this->keep_talking = false;
     }
     this->protocolo->cerrar();
     is_running = false;
