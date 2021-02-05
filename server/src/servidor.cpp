@@ -6,8 +6,7 @@
 #define TIEMPO_SERVIDOR 30
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/
-        Map *mapa, int cant_jugadores) :
+Servidor::Servidor( Map *mapa, int cant_jugadores) :
         cola_comandos(),
         cola_actualizaciones(),
         jugadores(),
@@ -42,14 +41,20 @@ void Servidor::agregarCliente(std::string &nombreJugador, Cliente *cliente) {
     // asignarle un id random
     // el mapa deveria crear al jugador o hay que avisarle que hay un nuevo jugador
     // para asignarle posicion;
-    int id = 111;
     //Jugador jugador(nombreJugador, id);
-    this->estadoJuego.agregarJugador(nombreJugador, id);
+    int id = this->obtenerIdParaJugador();
+    this->estadoJuego.agregarJugador(nombreJugador,id);
     this->jugadores.insert(std::make_pair(id, cliente));
     if (this->jugadores.size() == this->cant_jugadores) {
         this->arrancoPartida = true;
         this->start();
     }
+}
+
+int Servidor::obtenerIdParaJugador(){
+  int id = this->generadorDeId;
+  this->generadorDeId += 1;
+  return id;
 }
 
 void Servidor::lanzarJugadores() {

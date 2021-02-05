@@ -15,8 +15,7 @@
 
 class Servidor : public Thread, public ISerializable {
 public:
-    Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/Map *mapa,
-                                                                                                        int cant_jugadores);
+    Servidor(Map *mapa, int cant_jugadores);
 
     ~Servidor();
 
@@ -54,6 +53,9 @@ public:
 
     void actualizarContador();
 
+    int obtenerIdParaJugador();
+
+
 private:
     void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);
 
@@ -64,7 +66,7 @@ private:
     int cant_jugadores;
     std::atomic<bool> sigue_corriendo;
     std::atomic<bool> arrancoPartida;
-
+    int generadorDeId = 100;
 };
 
 #endif

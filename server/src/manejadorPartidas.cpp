@@ -23,7 +23,6 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
     bool encontre = false;
     //Map* mapa = new Map(1, 1);
     Map mapa(20, 20);
-    mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
     while (i < cant_mapas && !encontre) {
         int pos = this->mapas[i].find(archivoMapa);
         if (pos > -1) {
@@ -49,8 +48,6 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
         // capaz esta clase tiene el un vector de yamls
         Map mapa = this->buscarMapa(archivoMapa);
       //  Map *mapa = new Map(20, 20);
-        mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
-        std::cout << "ya setie elemnto";
         //int cant_jugadores = 1;
         Servidor *servidor = new Servidor(&mapa, cant_jugadores);
         Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(),  nombreJugador);
@@ -75,9 +72,8 @@ bool ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
         // avisarle al cliente;
         //ProtectedQueue<Comando*> cola;
         //ProtectedQueue<Actualizacion> actualizaciones;
-        std::string nombre = "juan";
-        Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(), nombre);
-        servidor->agregarCliente(nombre, cliente);
+        Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(), nombreJugador);
+        servidor->agregarCliente(nombreJugador, cliente);
         //this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia
         // que esta adentro del mapa de partidas.
         // en caso de que este creo que se pisa entonces no afecta
