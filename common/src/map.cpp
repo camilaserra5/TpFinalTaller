@@ -19,6 +19,7 @@
 #define PUNTOS_COPA 50
 #define PUNTOS_COFRE 100
 #define PUNTOS_CORONA 200
+#define ANGULO_DEFAULT 0
 
 void Map::agregarArma(Posicion &posicion, Arma *arma) {
     Type tipo = arma->getTipo();
@@ -222,4 +223,20 @@ bool Map::hayColision(int fila, int columna){
      }
    }
    return (tipo != TYPE_EMPTY);
+}
+
+Posicion Map::obtenerPosicionIncialValida(){
+  bool posEsValida = false;
+  int posX, posY;
+  srand(time(NULL));
+  int danio = (rand() % DANIO_MAX) + 1;
+  while (!posEsValida){
+      posX = rand() % this->rowSize;
+      posY = rand() % this->colSize;
+      if (!this->hayColision(posX,posY)) posEsValida = true;
+  }
+  posX *= this->ladoCelda;
+  posY *= this->ladoCelda;
+  Posicion posicion(posX,posY,ANGULO_DEFAULT);
+  return posicion;
 }

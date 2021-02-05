@@ -13,7 +13,7 @@ class Arma;
 
 class Jugador : public ISerializable {
 public:
-    Jugador(std::string &nombre, int &id);
+    Jugador(std::string &nombre, int &id, Posicion& posicion);
 
     ~Jugador();
 

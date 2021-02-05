@@ -15,8 +15,7 @@
 
 class Servidor : public Thread, public ISerializable {
 public:
-    Servidor(/*ProtectedQueue<Comando*> &cola_comandos,ProtectedQueue<Actualizacion>& actualizaciones,*/Map *mapa,
-                                                                                                        int cant_jugadores);
+    Servidor(Map *mapa, int cant_jugadores);
 
     ~Servidor();
 
@@ -38,14 +37,14 @@ public:
 
     void borrarClientes();
 
-    std::vector<char> serializar() {
+    std::vector<char> serializar();/* {
         std::vector<char> informacion;
         std::vector<char> cantJugadoresAct = numberToCharArray(this->jugadores.size());
         informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());
         std::vector<char> cantJugadores = numberToCharArray(cant_jugadores);
         informacion.insert(informacion.end(), cantJugadores.begin(), cantJugadores.end());
         return informacion;
-    }
+    }*/
 
     void deserializar(std::vector<char>& serializado) {
     }
@@ -53,6 +52,9 @@ public:
     void enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones);
 
     void actualizarContador();
+
+    int obtenerIdParaJugador();
+
 
 private:
     void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);
@@ -64,7 +66,7 @@ private:
     int cant_jugadores;
     std::atomic<bool> sigue_corriendo;
     std::atomic<bool> arrancoPartida;
-
+    int generadorDeId = 100;
 };
 
 #endif

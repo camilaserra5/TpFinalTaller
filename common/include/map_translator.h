@@ -7,7 +7,7 @@
 #include <yaml-cpp/yaml.h>
 
 namespace MapTranslator {
-    YAML::Node mapToYaml(Map &map/*,std::list<EntidadPosicionable>& entidades*/);
+    YAML::Node mapToYaml(Map &map);
 
     Map yamlToMap(YAML::Node yaml);
 };
