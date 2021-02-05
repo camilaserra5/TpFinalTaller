@@ -378,7 +378,10 @@ void LogInWindow::run() {
             std::vector<char> serializado = crearPartida.serializar();
             protocolo->enviar(serializado);
             std::vector<char> res = protocolo->recibir();
-            bool pudoCrearPartida = res[0];
+            char aux[4];
+            memcpy(aux, res.data(), 4);
+            uint32_t *buffer = (uint32_t *) aux;
+            uint32_t pudoCrearPartida = ntohl(*buffer);
             if (!pudoCrearPartida) {
                 std::string error = "Error creando partida";
                 pantallaError(this->renderer, this->fonts, error);
@@ -394,7 +397,10 @@ void LogInWindow::run() {
             std::vector<char> serializado = unirseAPartida.serializar();
             protocolo->enviar(serializado);
             std::vector<char> res = protocolo->recibir();
-            bool pudoUnirse = res[0];
+            char aux[4];
+            memcpy(aux, res.data(), 4);
+            uint32_t *buffer = (uint32_t *) aux;
+            uint32_t pudoUnirse = ntohl(*buffer);
             if (!pudoUnirse) {
                 std::string error = "Error uniendose a partida";
                 pantallaError(this->renderer, this->fonts, error);
