@@ -133,7 +133,7 @@ void Servidor::run() {
     //  this->sigue_corriendo = false; creo que no va esta linea
 }
 
-std::vector<char> Servidor::serializar(); {
+std::vector<char> Servidor::serializar(){
     std::vector<char> informacion;
     std::vector<char> cantJugadoresAct = numberToCharArray(this->jugadores.size());
     informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());
