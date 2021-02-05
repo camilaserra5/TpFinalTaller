@@ -132,3 +132,12 @@ void Servidor::run() {
     //mostramos el ranking, podemos mandar una actualizacion con los jugadores que ganaron
     //  this->sigue_corriendo = false; creo que no va esta linea
 }
+
+std::vector<char> Servidor::serializar(); {
+    std::vector<char> informacion;
+    std::vector<char> cantJugadoresAct = numberToCharArray(this->jugadores.size());
+    informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());
+    std::vector<char> cantJugadores = numberToCharArray(cant_jugadores);
+    informacion.insert(informacion.end(), cantJugadores.begin(), cantJugadores.end());
+    return informacion;
+}

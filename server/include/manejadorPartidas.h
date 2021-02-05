@@ -23,7 +23,7 @@ public:
     bool agregarClienteAPartida(std::string &nombreJugador,
                                 std::string &nombre_partida);
 
-    std::vector<char> serializar() {
+    std::vector<char> serializar();/* {
         std::vector<char> informacion;
         std::vector<char> sizePartidas = numberToCharArray(this->partidas.size());
         informacion.insert(informacion.end(), sizePartidas.begin(), sizePartidas.end());
@@ -38,7 +38,7 @@ public:
         }
         return informacion;
     }
-
+*/
     void deserializar(std::vector<char> &serializado) {}
 
     void run();

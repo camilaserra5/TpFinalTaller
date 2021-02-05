@@ -109,3 +109,19 @@ void ManejadorPartidas::run() {
 ManejadorPartidas::~ManejadorPartidas() {
 
 }
+
+std::vector<char> ManejadorPartidas::serializar() {
+    std::vector<char> informacion;
+    std::vector<char> sizePartidas = numberToCharArray(this->partidas.size());
+    informacion.insert(informacion.end(), sizePartidas.begin(), sizePartidas.end());
+    std::map<std::string, Servidor *>::iterator it;
+    for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
+        std::pair<std::string, Servidor *> pair = *it;
+        std::vector<char> sizeNombre = numberToCharArray(pair.first.size());
+        informacion.insert(informacion.end(), sizeNombre.begin(), sizeNombre.end());
+        informacion.insert(informacion.end(), pair.first.begin(), pair.first.end());
+        std::vector<char> partidaSerializada = pair.second->serializar();
+        informacion.insert(informacion.end(), partidaSerializada.begin(), partidaSerializada.end());
+    }
+    return informacion;
+}
