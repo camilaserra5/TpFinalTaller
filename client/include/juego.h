@@ -29,7 +29,6 @@ public:
 
     bool estaCorriendo() { return corriendo; }
 
-
     void run() override;
 
     void actualizar();
@@ -43,6 +42,10 @@ public:
     void raycasting(Map& mapaa, Player& jugador);
 
     void eventos();
+
+    Textura* verificarTextura(SDL_Renderer* render,int& tipoDePared);
+
+    void renderizarPared(SDL_Renderer* render,Rayo& rayo,int& posCanvas,unsigned int& alturaParedProyectada);
 };
 
 #endif /*JUEGO_H*/

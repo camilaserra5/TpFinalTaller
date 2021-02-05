@@ -93,6 +93,8 @@ public:
 
     int crearIdValido();
 
+    bool hayColision(int fila, int columna);
+
 private:
     unsigned rowSize;
     unsigned colSize;
