@@ -77,6 +77,7 @@ int Map::crearIdValido() {
 void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned colNumber,
                                     Type value) {
     srand(time(NULL));
+    std::cerr << " hola " << std::endl;
     int posElementox = 0;
     int posElementoy = 0;
     if (rowNumber == 0) {
@@ -86,6 +87,8 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     } else {
         posElementox = (rowNumber * TAM_CELDA + rand() % ((1 + rowNumber) * TAM_CELDA - rowNumber * TAM_CELDA));
         posElementoy = (colNumber * TAM_CELDA + rand() % ((1 + rowNumber) * TAM_CELDA - colNumber * TAM_CELDA));
+        std::cerr << " hola " << posElementox << std::endl;
+        std::cerr << " hola " << posElementoy << std::endl;
     }
     Posicion posicion = Posicion(posElementox, posElementoy, 0);
     if (value.getName() == "comida") {
@@ -129,8 +132,11 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
         int idValido = this->crearIdValido();
         this->contenedorDeElementos.agregarElemento(new Llave(posicion, idValido));
     } else {
+        std::cerr << " id pre " <<  std::endl;
         int idValido = this->crearIdValido();
+        std::cerr << " id pós " <<  std::endl;
         this->contenedorDeElementos.agregarElemento(new NoItem(posicion, idValido));
+        std::cerr << " id pós pós " <<  std::endl;
     }
 
 }
@@ -145,6 +151,7 @@ Item *Map::buscarElemento(int &posx, int &posy) {
 
 void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type value) {
     this->map[rowNumber][colNumber] = value;
+    std::cerr << " hola " << std::endl;
     this->crearElementoPosicionable(rowNumber, colNumber, value);
 }
 
