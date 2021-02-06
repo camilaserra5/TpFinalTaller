@@ -17,8 +17,9 @@
 
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
-#define METROS_MOVIDOS 2 // de acuanto se mueve el jugador
+#define METROS_MOVIDOS 2
 #define CANT_TICKS_PARTIDA 10000  //5min
+#define TAMANIO_CELDA 40 //es variable y depende del tamanio del mapa
 
 void EstadoJuego::abrirPuerta(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
@@ -26,7 +27,7 @@ void EstadoJuego::abrirPuerta(int idJugador) {
     double distancia;
     if (this->mapa->hayPuertas()) {
         Puerta &puertaMasCercana = this->mapa->puertaMasCercana(posJugador,
-                                                                distancia);//obtengo la puerta mas proxima al jugador
+                                                                distancia);
         if (puertaMasCercana.puedeSerAbierta(jugador->tengollave(), distancia)) {
             puertaMasCercana.abrir();
         }
@@ -48,8 +49,6 @@ EstadoJuego::EstadoJuego(Map *mapa) :
         contador(0) {}
 
 EstadoJuego::~EstadoJuego() {
-    std::cout << "destructor estado juego";
-    //delete this->mapa;
     std::map<int, Jugador *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         delete it->second;
@@ -64,9 +63,9 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
 
 bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
     int posEnMapaJugadorx =
-            (mapa->getRowSize() * posx) / (mapa->getRowSize() * 50);  // 50 seria el tamanio de la celda en pixeles
+            (mapa->getRowSize() * posx) / (mapa->getRowSize() * TAMANIO_CELDA);  // 50 seria el tamanio de la celda en pixeles
     // esa info hya que ver quien la tiene. maybe mapa?
-    int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * 50);
+    int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * TAMANIO_CELDA);
 
     Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadorx);
     if (tipo.getName() == "wall") {
@@ -82,9 +81,9 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
 
 Item *verificarItems(Map *mapa, int &posx, int &posy) {
     int posEnMapaJugadorx =
-            (mapa->getRowSize() * posx) / (mapa->getRowSize() * 50);  // 50 seria el tamanio de la celda en pixeles
+            (mapa->getRowSize() * posx) / (mapa->getRowSize() * TAMANIO_CELDA);
     // esa info hya que ver quien la tiene. maybe mapa?
-    int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * 50);
+    int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * TAMANIO_CELDA);
     std::cout << "\n verifico item\n";
     return mapa->buscarElemento(posx, posy);
 }
@@ -97,7 +96,7 @@ void EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int 
         if (obtuvoBeneficio) {
             this->mapa->sacarDelMapa(item->getPosicion());
         }
-        jugador->moverse(xFinal, yFinal); // en jugador se recibe lo movido y se suma;
+        jugador->moverse(xFinal, yFinal);
         delete item;// a cheqeuar
     }
 }
@@ -105,17 +104,11 @@ void EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int 
 void EstadoJuego::rotar_a_derecha(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     jugador->rotar(ROTACION_DERECHA);
-
-    //this->verificarMovimientoJugador(jugador,posEnJuegox,posEnJuegoy,METROS_MOVIDOS,0);
-
 }
 
 void EstadoJuego::rotar_a_izquierda(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     jugador->rotar(ROTACION_IZQUIERDA);
-    //  int posEnJuegox = jugador->posEnX() - METROS_MOVIDOS;
-    //  int posEnJuegoy = jugador->posEnY();
-    //this->buscarItemsEnPosJugador(jugador,posEnJuegox,posEnJuegoy,-METROS_MOVIDOS,0);
 
 }
 
