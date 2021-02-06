@@ -111,8 +111,10 @@ El enunciado completo se puede encontrar [acá](enunciado.pdf).
 * **Semana 6**  
 * **Semana 7**  
 
-### Inconvenientes encontrados
-
+### Inconvenientes encontrados  
+Algunos de los inconvenientes encontrados estuvieron relacionados con la parte grafica del juego. Por ejemplo, con el algoritmo de raycasting, cuyo desarrollo debio modificarse mas vez debido a problemas con los tipos de datos elegidos para su desarrollo. Ademas, al momento de renderizar a los sprites, tambien hubo inconvenientes con parametros que estaban por fuera del rango de la pantalla del juego, con lo cual no podia verse en pantalla las entidades que debian.  
+Por otro lado, se hallaron dificultades a la hora de serializar y deserializar las distintas entidades del juego. Al ser un protocolo binario, habia que tener un especial cuidado a la hora de desarrollarlo. Su desarrollo se encuentra en las siguientes secciones. Ademas, se debio tener en cuenta que las computadoras que corren el juego pueden tener distinto endianness.  
+Ademas, algunos de los inconvenientes encontrados estan relacionados con los propios problemas de concurrencia. Por ejemplo, cuando se deben recibir comandos de parte del servidor, estos provienen de distintos hilos, habiendo uno por cliente conectado en la partida. Estos comandos se guardan en una cola, pero esta esta protegida de las race conditions.  
 ### Análisis de puntos pendientes
 
 ### Herramientas
@@ -143,7 +145,8 @@ Las herramientas utilizadas para este proyecto fueron las siguientes:
 
 #### Diagramas UML
 
-### Descripción de archivos y protocolos
+### Descripción de archivos y protocolos  
+El protocolo desarrollado trata a los bytes para su lectura como big endian. Ademas, este protocolo serializa, en general, de la siguiente manera: primero se envia el tamanio del parametro que ese esta serializando, y luego se serializa el parametro. Esto es porque, al ser binario, se requiere saber cuantos bytes corresponden a cada entidad para su deserializacion. De esta manera, se deserializa cada entidad de manera ordenada, evitando posibles errores.  
 
 ### Programas intermedios y de prueba
 
