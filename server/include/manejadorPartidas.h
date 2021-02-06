@@ -45,7 +45,7 @@ public:
 
     void eliminarPartidasTerminadas();
 
-    Map buscarMapa(std::string &archivoMapa);
+    Map *buscarMapa(std::string &archivoMapa);
 
     void agregarMapa(std::string &archivoMapa);
 
