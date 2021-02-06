@@ -5,7 +5,6 @@ Item::Item(Posicion &posicion, int id) : posicion(posicion), id(id) {}
 Item::Item() {}
 
 
-
 bool Item::estaCerca(int &posx, int &posy) {
     return this->posicion.estaCerca(posx, posy);
 }
@@ -14,18 +13,18 @@ Posicion Item::obtenerPosicion() {
     return this->posicion;
 }
 
-std::vector<char> Item::serializar(){
+std::vector<char> Item::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(this->id);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     std::vector<char> posicionSerializado = this->posicion.serializar();
     informacion.insert(informacion.end(), posicionSerializado.begin(),
-                        posicionSerializado.end());
+                       posicionSerializado.end());
     return informacion;
 }
 
-void Item::deserializar(std::vector<char> &serializado){
+void Item::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -41,6 +40,6 @@ int Item::getId() {
 }
 
 
-Posicion& Item::getPosicion() {
+Posicion &Item::getPosicion() {
     return this->posicion;
 }

@@ -14,15 +14,15 @@ public:
     ~Player();
 
     void actualizar(int posx, int posy, int vida, float angulo, int idArma,
-                    bool disparando, int puntaje,int cantVidas,int balas);
+                    bool disparando, int puntaje, int cantVidas, int balas);
 
     void renderizar();
 
-    void dejarDeDisparar(){
+    void dejarDeDisparar() {
         this->disparando = false;
     }
 
-    Posicion& getPosicion();
+    Posicion &getPosicion();
 
     float getAnguloDeVista();
 

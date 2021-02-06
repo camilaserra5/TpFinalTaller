@@ -44,7 +44,7 @@ std::vector<char> Protocolo::recibir() {
     return informacion;
 }
 
-Comando* Protocolo::deserializarComando(std::vector<char> &informacion) {
+Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
 
     if (informacion[1] == static_cast<int>(Accion::ataque)) {
 

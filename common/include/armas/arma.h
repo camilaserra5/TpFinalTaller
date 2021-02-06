@@ -28,7 +28,7 @@ public:
 
     /*devuelve el id*/
     int JugadorAMenorDistancia(Jugador *jugador,
-                              std::map<int, Jugador *> &jugadores);
+                               std::map<int, Jugador *> &jugadores);
 
     bool esIgual(Arma *arma);
 

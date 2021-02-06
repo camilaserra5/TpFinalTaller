@@ -48,7 +48,7 @@ Map::Map(unsigned rowSize, unsigned colSize) : contenedorDeElementos() {
     this->colSize = colSize;
     map.resize(rowSize);
     for (unsigned i = 0; i < map.size(); i++) {
-        map[i].resize(colSize,  ObjetosJuego::obtenerTipoPorNombre("empty"));
+        map[i].resize(colSize, ObjetosJuego::obtenerTipoPorNombre("empty"));
     }
 }
 
@@ -111,16 +111,20 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
         this->contenedorDeElementos.agregarElemento(new LanzaCohetes(posicion, idValido));
     } else if (value.getName() == "cruz") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("cruz"), PUNTOS_CRUZ, posicion));
+        this->contenedorDeElementos.agregarElemento(
+                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("cruz"), PUNTOS_CRUZ, posicion));
     } else if (value.getName() == "copa") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("copa"), PUNTOS_COPA, posicion));
+        this->contenedorDeElementos.agregarElemento(
+                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("copa"), PUNTOS_COPA, posicion));
     } else if (value.getName() == "cofre") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("cofre"), PUNTOS_COFRE, posicion));
+        this->contenedorDeElementos.agregarElemento(
+                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("cofre"), PUNTOS_COFRE, posicion));
     } else if (value.getName() == "corona") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("corona"), PUNTOS_CORONA, posicion));
+        this->contenedorDeElementos.agregarElemento(
+                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("corona"), PUNTOS_CORONA, posicion));
     } else if (value.getName() == "llave") {
         int idValido = this->crearIdValido();
         this->contenedorDeElementos.agregarElemento(new Llave(posicion, idValido));
@@ -161,7 +165,7 @@ Puerta &Map::puertaMasCercana(Posicion &posicionJugador, double &distancia) {
 
 }
 
-std::vector<char> Map::serializar(){
+std::vector<char> Map::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(this->rowSize);
@@ -181,7 +185,7 @@ std::vector<char> Map::serializar(){
     return informacion;
 }
 
-void Map::deserializar(std::vector<char> &serializado){
+void Map::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -204,38 +208,38 @@ void Map::deserializar(std::vector<char> &serializado){
     this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
 }
 
-std::vector<Item *>& Map::obtenerItems() {
+std::vector<Item *> &Map::obtenerItems() {
     return this->contenedorDeElementos.obtenerItems();
 }
 
-ContenedorDeElementos& Map::obtenerContenedor() {
+ContenedorDeElementos &Map::obtenerContenedor() {
     return this->contenedorDeElementos;
 };
 
-bool Map::hayColision(int fila, int columna){
-  //chequear si en caso de haber una puerta, si esta abierta y agregarle a la puerta el atributo exacto de la pos en el mapa
-  // a la puerta le falta el contador para q se cierre
-   int tipo = this->map[fila][columna].getType();
-   if (tipo == TYPE_DOOR){
-     Puerta& puerta = this->contenedorDeElementos.obtenerPuertaEn(fila,columna);
-     if (puerta.estaAbierta()){
-       tipo = TYPE_EMPTY;
-     }
-   }
-   return (tipo != TYPE_EMPTY);
+bool Map::hayColision(int fila, int columna) {
+    //chequear si en caso de haber una puerta, si esta abierta y agregarle a la puerta el atributo exacto de la pos en el mapa
+    // a la puerta le falta el contador para q se cierre
+    int tipo = this->map[fila][columna].getType();
+    if (tipo == TYPE_DOOR) {
+        Puerta &puerta = this->contenedorDeElementos.obtenerPuertaEn(fila, columna);
+        if (puerta.estaAbierta()) {
+            tipo = TYPE_EMPTY;
+        }
+    }
+    return (tipo != TYPE_EMPTY);
 }
 
-Posicion Map::obtenerPosicionIncialValida(){
-  bool posEsValida = false;
-  int posX, posY;
-  srand(time(NULL));
-  while (!posEsValida){
-      posX = rand() % this->rowSize;
-      posY = rand() % this->colSize;
-      if (!this->hayColision(posX,posY)) posEsValida = true;
-  }
-  posX *= this->ladoCelda;
-  posY *= this->ladoCelda;
-  Posicion posicion(posX,posY,ANGULO_DEFAULT);
-  return posicion;
+Posicion Map::obtenerPosicionIncialValida() {
+    bool posEsValida = false;
+    int posX, posY;
+    srand(time(NULL));
+    while (!posEsValida) {
+        posX = rand() % this->rowSize;
+        posY = rand() % this->colSize;
+        if (!this->hayColision(posX, posY)) posEsValida = true;
+    }
+    posX *= this->ladoCelda;
+    posY *= this->ladoCelda;
+    Posicion posicion(posX, posY, ANGULO_DEFAULT);
+    return posicion;
 }

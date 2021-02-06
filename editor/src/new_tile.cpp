@@ -30,7 +30,8 @@ NewTile::NewTile(QWidget *parent)
 
 void NewTile::browse() {
     QString directory = QFileDialog::getOpenFileName(this,
-                                                               tr("Open Image"), "/home/jana", tr("Image Files (*.png *.jpg *.bmp)"));
+                                                     tr("Open Image"), "/home/jana",
+                                                     tr("Image Files (*.png *.jpg *.bmp)"));
     if (!directory.isEmpty()) {
         directoryLine->setText(directory);
     }
@@ -39,7 +40,7 @@ void NewTile::browse() {
 void NewTile::create() {
     QString text = textComboBox->currentText();
     QFileInfo file(directoryLine->text());
-    MainWindow* pMainWindow = qobject_cast<MainWindow*>(parent());
+    MainWindow *pMainWindow = qobject_cast<MainWindow *>(parent());
     if (pMainWindow) {
         std::string utf8_text = text.toUtf8().constData();
         pMainWindow->addTile(file.baseName(), file.filePath(), ObjetosJuego::obtenerTipoPorNombre(utf8_text));

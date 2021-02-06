@@ -26,6 +26,6 @@ void Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jug
     jugador->dejarDeDisparar();
 }
 
-Type Cuchillo::getTipo(){
-    return  ObjetosJuego::obtenerTipoPorNombre("cuchillo");
+Type Cuchillo::getTipo() {
+    return ObjetosJuego::obtenerTipoPorNombre("cuchillo");
 }

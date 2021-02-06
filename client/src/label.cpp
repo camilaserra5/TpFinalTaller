@@ -23,7 +23,8 @@ void Label::setLabelText() {
 void Label::draw() {
     SDL_RenderCopy(renderer, labelTexture, nullptr, &pos);
 }
-int Label::getTexto(){
+
+int Label::getTexto() {
     return std::stoi(this->label);
 }
 

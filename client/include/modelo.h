@@ -9,9 +9,10 @@
 #include "enemigo.h"
 #include <vector>
 #include "anunciador.h"
+
 class Modelo {
 public:
-    Modelo(Ventana& ventana, int idJugador);
+    Modelo(Ventana &ventana, int idJugador);
 
     ~Modelo();
 
@@ -19,19 +20,20 @@ public:
 
     void renderizar();
 
-    void renderizarObjeto(ObjetoDibujable* objeto,int& alturaSprite,int& x,int& y1,double& distanciaObjeto);
+    void renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &y1, double &distanciaObjeto);
 
-    void renderizarObjetosDibujables(std::vector<ObjetoDibujable*>& objetosVisibles);
+    void renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetosVisibles);
 
 
-  //  void renderizarObjeto(Enemigo* enemigo,int& alturaSprite,int& x,int& y1,double& distanciaEnemigo);
+    //  void renderizarObjeto(Enemigo* enemigo,int& alturaSprite,int& x,int& y1,double& distanciaEnemigo);
 
     void actualizarJugador(int x, int y, int vida, int angulo, int idArma,
-                            bool disparando, int puntaje, int cantVidas,
-                            int balas);
+                           bool disparando, int puntaje, int cantVidas,
+                           int balas);
+
     void actualizarEnemigo(int id, int vida, bool disparando,
-                            int posx, int posy, int idArma,
-                            int anguloJgador, int angulo, int puntaje);
+                           int posx, int posy, int idArma,
+                           int anguloJgador, int angulo, int puntaje);
 
     ObjetoJuego *crearObjeto(Type tipo);
 
@@ -39,29 +41,30 @@ public:
 
     void verificarObjetosEnRangoDeVista();
 
-    std::vector<double>& getZBuffer();
+    std::vector<double> &getZBuffer();
 
-    void verificarEnemigosEnRango(std::vector<ObjetoDibujable*>& objetosVisibles);
+    void verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVisibles);
 
-    void verificarItemsEnRango(std::vector<ObjetoDibujable*>& objetosVisibles);
+    void verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibles);
 
-    Player& getPlayer();
+    Player &getPlayer();
 
-    void terminoPartida(std::vector<int>& rankingJugadores);
+    void terminoPartida(std::vector<int> &rankingJugadores);
 
     void actualizar();
 
 
 private:
-    Ventana& ventana;
+    Ventana &ventana;
     int idJugador;
-    Player* jugador;
+    Player *jugador;
     std::map<int, ObjetoJuego *> entidades;
-    std::map<int, Enemigo*> enemigos;
+    std::map<int, Enemigo *> enemigos;
     std::vector<double> zbuffer;
     Anunciador anunciador;
     bool partidaTerminada;
-    bool verificarVisibilidadDeObjeto(Posicion& posObjeto);
+
+    bool verificarVisibilidadDeObjeto(Posicion &posObjeto);
     // mapa de entidades dibujables;
 
 };

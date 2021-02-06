@@ -1,17 +1,17 @@
 #include "comandos/crearPartida.h"
 
 CrearPartida::CrearPartida(int idJugador, int cantidadJugadores,
-                            std::string nombrePartida, std::string rutaYaml,
-                            std::string nombreCliente) :
-                            Comando(idJugador),
-                            cantidadJugadores(cantidadJugadores),
-                            nombrePartida(nombrePartida),
-                            rutaYaml(rutaYaml),
-                            nombreCliente(nombreCliente) {}
+                           std::string nombrePartida, std::string rutaYaml,
+                           std::string nombreCliente) :
+        Comando(idJugador),
+        cantidadJugadores(cantidadJugadores),
+        nombrePartida(nombrePartida),
+        rutaYaml(rutaYaml),
+        nombreCliente(nombreCliente) {}
 
-CrearPartida::~CrearPartida(){}
+CrearPartida::~CrearPartida() {}
 
-CrearPartida::CrearPartida(){}                           
+CrearPartida::CrearPartida() {}
 
 std::vector<char> CrearPartida::serializar() {
     std::vector<char> info;

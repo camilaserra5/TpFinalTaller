@@ -26,13 +26,13 @@ Cliente::~Cliente() {}
 void Cliente::run() {
     std::string nombre_juego("Wolfstein");
     int idJugador = 1111; // me lo da el log in; logIn.getIdJugador();
-  //  HighscoreWindow highscoreWindow;
-  //  highscoreWindow.run();
+    //  HighscoreWindow highscoreWindow;
+    //  highscoreWindow.run();
 
     LogInWindow logIn;
     logIn.run();
     BlockingQueue<Comando *> events;
-    Protocolo* protocolo = logIn.obtenerProtocolo();
+    Protocolo *protocolo = logIn.obtenerProtocolo();
     ClientEventSender clientEventSender(protocolo, events);
     if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
         printf("Failed to init SDL\n");

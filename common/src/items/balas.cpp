@@ -14,6 +14,7 @@ bool Balas::obtenerBeneficio(Jugador *jugador) {
     }
     return false;
 }
-Type Balas::getTipo(){
-    return  ObjetosJuego::obtenerTipoPorNombre("balas");
+
+Type Balas::getTipo() {
+    return ObjetosJuego::obtenerTipoPorNombre("balas");
 }

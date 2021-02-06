@@ -3,15 +3,15 @@
 
 #include "comando.h"
 
-class UnirseAPartida: public Comando{
+class UnirseAPartida : public Comando {
 
 private:
-  std::string nombrePartida;
-  std::string nombreCliente;
+    std::string nombrePartida;
+    std::string nombreCliente;
 
 public:
-    UnirseAPartida(int idJugador,std::string nombrePartida,
-                    std::string nombreCliente);
+    UnirseAPartida(int idJugador, std::string nombrePartida,
+                   std::string nombreCliente);
 
     ~UnirseAPartida();
 
@@ -19,13 +19,13 @@ public:
 
     std::vector<char> serializar() override;
 
-    void deserializar(std::vector<char>& serializado) override;
+    void deserializar(std::vector<char> &serializado) override;
 
-    void ejecutar(EstadoJuego &estadoJuego) override{}
+    void ejecutar(EstadoJuego &estadoJuego) override {}
 
-    std::string& getNombreJugador();
+    std::string &getNombreJugador();
 
-    std::string& getNombrePartida();
+    std::string &getNombrePartida();
 };
 
 #endif

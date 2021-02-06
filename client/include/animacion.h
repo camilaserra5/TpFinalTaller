@@ -10,23 +10,23 @@
 #include <vector>
 #include <iostream>
 
-class Animacion{
-    private:
-          Textura* textura;
-          std::vector<SDL_Rect> frames;
-          int frame_h;
-          int frame_w;
-          int frameActual;
-          int tiempoViejo;
-          int velocidad;
+class Animacion {
+private:
+    Textura *textura;
+    std::vector<SDL_Rect> frames;
+    int frame_h;
+    int frame_w;
+    int frameActual;
+    int tiempoViejo;
+    int velocidad;
 
-    public:
-        Animacion(SDL_Renderer* render,
-                               const char* rutaimg,
-                               int frames,
-                               int frame_h,
-                               int frame_w,
-                              int fila, int columna);/*{
+public:
+    Animacion(SDL_Renderer *render,
+              const char *rutaimg,
+              int frames,
+              int frame_h,
+              int frame_w,
+              int fila, int columna);/*{
 
           if (fila > -1){
               SDL_Rect rect = {0, fila*frame_h, frame_h, frame_w};
@@ -48,9 +48,9 @@ class Animacion{
               this->velocidad = 1000;
               this->tiempoViejo = 0;
        }*/
-        ~Animacion();
+    ~Animacion();
 
-    void  renderizar(int posx, int posy, int angulo, SDL_Point* centro);/*{
+    void renderizar(int posx, int posy, int angulo, SDL_Point *centro);/*{
 
           if (tiempoViejo + velocidad > SDL_GetTicks()){
 
@@ -67,7 +67,7 @@ class Animacion{
 
     }*/
 
-    void renderizarColumna(SDL_Rect& dimension,SDL_Rect dest);/*{
+    void renderizarColumna(SDL_Rect &dimension, SDL_Rect dest);/*{
       this->textura->renderizar(&dimension,dest,0,NULL);
     }*/
 };

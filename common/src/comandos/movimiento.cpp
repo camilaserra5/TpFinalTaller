@@ -9,7 +9,7 @@ Movimiento::Movimiento(int &idJugador, Accion tipo_de_movimiento) :
 
 Movimiento::~Movimiento() {}
 
-Movimiento::Movimiento(){}
+Movimiento::Movimiento() {}
 
 void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
 
@@ -26,7 +26,7 @@ void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
     }
 }
 
-std::vector<char> Movimiento::serializar(){
+std::vector<char> Movimiento::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(idJugador);

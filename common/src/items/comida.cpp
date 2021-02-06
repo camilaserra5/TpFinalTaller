@@ -17,5 +17,6 @@ bool Comida::obtenerBeneficio(Jugador *jugador) {
     return false;
 }
 
-Type Comida::getTipo(){
-    return  ObjetosJuego::obtenerTipoPorNombre("comida");}
+Type Comida::getTipo() {
+    return ObjetosJuego::obtenerTipoPorNombre("comida");
+}

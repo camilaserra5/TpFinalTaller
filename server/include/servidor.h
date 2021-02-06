@@ -29,7 +29,7 @@ public:
 
     ProtectedQueue<Comando *> &obtenerColaEventos();
 
-    ProtectedQueue<Actualizacion*> &obtenerColaActualizaciones();
+    ProtectedQueue<Actualizacion *> &obtenerColaActualizaciones();
 
     void lanzarJugadores();
 
@@ -49,7 +49,7 @@ public:
     void deserializar(std::vector<char> &serializado) {
     }
 
-    void enviar_actualizaciones(ProtectedQueue<Actualizacion*> &actualizaciones);
+    void enviar_actualizaciones(ProtectedQueue<Actualizacion *> &actualizaciones);
 
     void actualizarContador();
 

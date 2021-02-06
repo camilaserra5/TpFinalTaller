@@ -35,7 +35,7 @@ void MainWindow::openMap() {
     QHBoxLayout *mapLayout = new QHBoxLayout(frame);
     mapLayout->addWidget(mapTilesList);
     QScrollArea *area = new QScrollArea;
-    area->setMinimumSize( QSize( 450, 450 ) );
+    area->setMinimumSize(QSize(450, 450));
     area->setWidgetResizable(true);
     area->setWidget(mapWidget);
     mapLayout->addWidget(area);
@@ -114,7 +114,7 @@ void MainWindow::newMap() {
         QHBoxLayout *mapLayout = new QHBoxLayout(frame);
         mapLayout->addWidget(mapTilesList);
         QScrollArea *area = new QScrollArea;
-        area->setMinimumSize( QSize( 450, 450 ) );
+        area->setMinimumSize(QSize(450, 450));
         area->setWidgetResizable(true);
         area->setWidget(mapWidget);
         mapLayout->addWidget(area);
@@ -126,9 +126,12 @@ void MainWindow::newMap() {
 }
 
 void MainWindow::initTiles() {
-    addTile(QStringLiteral("wall1"), QStringLiteral("../../editor/resources/wall1.jpg"), ObjetosJuego::obtenerTipoPorNombre("wall"));
-    addTile(QStringLiteral("wall2"), QStringLiteral("../../editor/resources/wall2.jpg"), ObjetosJuego::obtenerTipoPorNombre("door"));
-    addTile(QStringLiteral("wall3"), QStringLiteral("../../editor/resources/wall3.jpg"), ObjetosJuego::obtenerTipoPorNombre("fakeDoor"));
+    addTile(QStringLiteral("wall1"), QStringLiteral("../../editor/resources/wall1.jpg"),
+            ObjetosJuego::obtenerTipoPorNombre("wall"));
+    addTile(QStringLiteral("wall2"), QStringLiteral("../../editor/resources/wall2.jpg"),
+            ObjetosJuego::obtenerTipoPorNombre("door"));
+    addTile(QStringLiteral("wall3"), QStringLiteral("../../editor/resources/wall3.jpg"),
+            ObjetosJuego::obtenerTipoPorNombre("fakeDoor"));
 }
 
 void MainWindow::saveMap() {
@@ -240,7 +243,7 @@ void MainWindow::setupWidgets() {
     QFrame *frame = new QFrame;
     QHBoxLayout *mapLayout = new QHBoxLayout(frame);
     QScrollArea *area = new QScrollArea;
-    area->setMinimumSize( QSize( 450, 450 ) );
+    area->setMinimumSize(QSize(450, 450));
     area->setWidgetResizable(true);
     area->setWidget(mapWidget);
     mapLayout->addWidget(mapTilesList);

@@ -13,6 +13,7 @@ public:
     bool obtenerBeneficio(Jugador *jugador) override;
 
     Type getTipo() override;
+
 private:
     int puntos;
     Type tipo;

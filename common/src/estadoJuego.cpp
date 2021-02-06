@@ -33,7 +33,8 @@ void EstadoJuego::abrirPuerta(int idJugador) {
         }
     }
 }
-EstadoJuego::EstadoJuego(){}
+
+EstadoJuego::EstadoJuego() {}
 
 void EstadoJuego::realizarAtaque(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
@@ -63,7 +64,8 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
 
 bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
     int posEnMapaJugadorx =
-            (mapa->getRowSize() * posx) / (mapa->getRowSize() * TAMANIO_CELDA);  // 50 seria el tamanio de la celda en pixeles
+            (mapa->getRowSize() * posx) /
+            (mapa->getRowSize() * TAMANIO_CELDA);  // 50 seria el tamanio de la celda en pixeles
     // esa info hya que ver quien la tiene. maybe mapa?
     int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * TAMANIO_CELDA);
 
@@ -146,7 +148,8 @@ void EstadoJuego::verificarJugadoresMuertos() {
                 this->mapa->agregarArma(it->second->getPosicion(), arma);
             }
             this->mapa->agregarElemento(
-                    new Balas(it->second->getPosicion(), 10/*cte*/, ObjetosJuego::obtenerTipoPorNombre("balas").getType()));
+                    new Balas(it->second->getPosicion(), 10/*cte*/,
+                              ObjetosJuego::obtenerTipoPorNombre("balas").getType()));
             if (it->second->tengollave()) {
                 this->mapa->agregarElemento(
                         new Llave(it->second->getPosicion(),
@@ -159,8 +162,8 @@ void EstadoJuego::verificarJugadoresMuertos() {
 
 bool EstadoJuego::terminoPartida() {
     bool termino = false;
-    std::cout << "JUGADORES MUERTOS: " <<this->jugadoresMuertos << "\n";
-    std::cout << "CANTIDAD JUGADORES: " <<this->jugadores.size() << "\n";
+    std::cout << "JUGADORES MUERTOS: " << this->jugadoresMuertos << "\n";
+    std::cout << "CANTIDAD JUGADORES: " << this->jugadores.size() << "\n";
 
     if ((this->jugadoresMuertos == this->jugadores.size() - 1) ||
         this->contador == 0) {
@@ -196,7 +199,7 @@ std::vector<char> EstadoJuego::serializar() {
     return informacion;
 }
 
-void EstadoJuego::deserializar(std::vector<char>& informacion) {
+void EstadoJuego::deserializar(std::vector<char> &informacion) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
@@ -217,15 +220,15 @@ void EstadoJuego::deserializar(std::vector<char>& informacion) {
     this->mapa->deserializar(mapaSerializado);
 }
 
-std::map<int, Jugador*>& EstadoJuego::obtenerJugadores(){
+std::map<int, Jugador *> &EstadoJuego::obtenerJugadores() {
     return this->jugadores;
 }
 
-Map* EstadoJuego::obtenerMapa(){
+Map *EstadoJuego::obtenerMapa() {
     return this->mapa;
 }
 
-void EstadoJuego::cambiarArma(int idJugador){
-    Jugador* jugador = this->jugadores.at(idJugador);
+void EstadoJuego::cambiarArma(int idJugador) {
+    Jugador *jugador = this->jugadores.at(idJugador);
     jugador->cambiarArma();
 }

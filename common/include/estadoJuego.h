@@ -15,6 +15,7 @@ public:
     EstadoJuego(Map *mapa);
 
     ~EstadoJuego();
+
     EstadoJuego();
 
     void rotar_a_derecha(int idJugador);
@@ -49,7 +50,7 @@ public:
         return informacion;
     }*/
 
-    void deserializar(std::vector<char>& informacion) override; /*{
+    void deserializar(std::vector<char> &informacion) override; /*{
         std::vector<char> sub(4);
         int idx = 0;
         sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
@@ -72,14 +73,14 @@ public:
 
     void verificarJugadoresMuertos();
 
-    void verificarMovimientoJugador(Jugador* jugador,int& posX,int& posY);
+    void verificarMovimientoJugador(Jugador *jugador, int &posX, int &posY);
 
     void abrirPuerta(int idJugador);
 
-    std::map<int, Jugador*>& obtenerJugadores(); /*{
+    std::map<int, Jugador *> &obtenerJugadores(); /*{
         return this->jugadores;
     }*/
-    Map* obtenerMapa();/*{
+    Map *obtenerMapa();/*{
         return this->mapa;
     }*/
 

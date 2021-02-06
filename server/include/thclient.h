@@ -11,7 +11,7 @@
 class ThClient : public Thread {
 private:
     std::stringstream mensaje_cliente;
-    Protocolo* protocolo;
+    Protocolo *protocolo;
     ManejadorPartidas *manejadorDePartidas;
     std::atomic<bool> keep_talking;
     std::atomic<bool> is_running;
@@ -19,7 +19,7 @@ private:
     void procesar_pedido();
 
 public:
-    ThClient(Socket&& un_socket, ManejadorPartidas *manejadorDePartidas);
+    ThClient(Socket &&un_socket, ManejadorPartidas *manejadorDePartidas);
 
     /*
      * Atiende a un cliente. Procesa su pedido y le responde.

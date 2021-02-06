@@ -3,17 +3,17 @@
 
 #include "comando.h"
 
-class CrearPartida: public Comando{
+class CrearPartida : public Comando {
 
 private:
-  int cantidadJugadores;
-  std::string nombrePartida;
-  std::string rutaYaml;
-  std::string nombreCliente;
+    int cantidadJugadores;
+    std::string nombrePartida;
+    std::string rutaYaml;
+    std::string nombreCliente;
 
 public:
-    CrearPartida(int idJugador, int cantidadJugadores,std::string nombrePartida,
-                std::string rutaYaml,std::string nombreCliente);
+    CrearPartida(int idJugador, int cantidadJugadores, std::string nombrePartida,
+                 std::string rutaYaml, std::string nombreCliente);
 
     ~CrearPartida();
 
@@ -21,17 +21,17 @@ public:
 
     std::vector<char> serializar() override;
 
-    void deserializar(std::vector<char>& serializado) override;
+    void deserializar(std::vector<char> &serializado) override;
 
-    void ejecutar(EstadoJuego &estadoJuego)override{}
+    void ejecutar(EstadoJuego &estadoJuego) override {}
 
-    std::string& getNombreJugador();
+    std::string &getNombreJugador();
 
-    std::string& getNombrePartida();
+    std::string &getNombrePartida();
 
-    int& getCantJugadores();
+    int &getCantJugadores();
 
-    std::string& getRutaArchivo();
+    std::string &getRutaArchivo();
 
 };
 

@@ -5,25 +5,25 @@
 #include "map.h"
 
 class MapTilesList : public QListWidget {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit MapTilesList(int pieceSize, QWidget *parent = nullptr);
 
-    void addTile(const QString& name, const QPixmap &pixmap, const Type type);
+    void addTile(const QString &name, const QPixmap &pixmap, const Type type);
 
     static QString tileMimeType() { return QStringLiteral("image/x-tile"); }
 
     ~MapTilesList();
 
-    signals:
+signals:
 
-            void tileDoubleClicked(int, QPixmap);
+    void tileDoubleClicked(int, QPixmap);
 
 public
     slots:
 
-            void itemDoubleClicked(QListWidgetItem * item);
+    void itemDoubleClicked(QListWidgetItem *item);
 
 protected:
 

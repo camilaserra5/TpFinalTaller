@@ -8,7 +8,7 @@ Ataque::Ataque(int idJugador) : Comando(idJugador) {}
 
 Ataque::~Ataque() {}
 
-std::vector<char> Ataque::serializar(){
+std::vector<char> Ataque::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(idJugador);

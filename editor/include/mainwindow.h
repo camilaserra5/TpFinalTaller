@@ -12,19 +12,21 @@ class MapWidget;
 class QListWidgetItem;
 
 class MainWindow : public QMainWindow {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
     void initTiles();
+
     void addTile(const QString &name, const QString &path, Type type);
+
     ~MainWindow();
 
 public
     slots:
 
-            void openMap();
+    void openMap();
 
     void addTile();
 
@@ -37,7 +39,6 @@ public
     void saveMap();
 
 private:
-
 
 
     void setupMenus();

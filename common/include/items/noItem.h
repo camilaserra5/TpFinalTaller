@@ -10,12 +10,12 @@ public:
 
     ~NoItem() {}
 
-    bool obtenerBeneficio(Jugador *jugador) override{
+    bool obtenerBeneficio(Jugador *jugador) override {
         return false;
     }
 
-    Type getTipo() override{
-        return  ObjetosJuego::obtenerTipoPorNombre("noItem");
+    Type getTipo() override {
+        return ObjetosJuego::obtenerTipoPorNombre("noItem");
     }
 
 };

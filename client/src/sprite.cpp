@@ -9,22 +9,22 @@ Sprite::Sprite(SDL_Renderer *render, const char *rutaimg, int x, int y, int h, i
     this->infoSprite.y = y * h;
     this->infoSprite.w = w;
     this->infoSprite.h = h;
-    this->destino.h = h*2;
-    this->destino.w = w*2;
+    this->destino.h = h * 2;
+    this->destino.w = w * 2;
     this->textura = new Textura(rutaimg, render);
 }
 
-void Sprite::renderizar(int x, int y, int angulo, SDL_Point* centro) {
+void Sprite::renderizar(int x, int y, int angulo, SDL_Point *centro) {
     this->destino.x = x;
     this->destino.y = y;
     this->textura->renderizar(&this->infoSprite, this->destino, angulo, centro);
 }
 
-void Sprite::renderizarColumna(SDL_Rect dimension,SDL_Rect& dest){
-  dimension.x += this->infoSprite.x + 2;
-  dimension.y += this->infoSprite.y;//cheqeuar
+void Sprite::renderizarColumna(SDL_Rect dimension, SDL_Rect &dest) {
+    dimension.x += this->infoSprite.x + 2;
+    dimension.y += this->infoSprite.y;//cheqeuar
 //  std::cout << "x: " << dimension.x << " y " <<dimension.y <<"\n";
-  this->textura->renderizar(&dimension,dest,0,NULL);
+    this->textura->renderizar(&dimension, dest, 0, NULL);
 }
 
 void Sprite::reescalar(int escalarw, int escalarh) {

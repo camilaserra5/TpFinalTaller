@@ -1,7 +1,6 @@
 #include "../include/actualizacion.h"
 
 
-
 Actualizacion::Actualizacion() {}
 
 
@@ -13,10 +12,10 @@ Actualizacion::Actualizacion(EstadoJuego &estadoJuego) :
     this->termine = this->estadoJuego.terminoPartida();
     Ranking ranking;
     this->rankingJugadores = ranking.obtenerTopJugadores(5,
-                                      estadoJuego.obtenerJugadores());
+                                                         estadoJuego.obtenerJugadores());
 }
 
-std::vector<char> Actualizacion::serializar(){
+std::vector<char> Actualizacion::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(termine);
@@ -33,7 +32,7 @@ std::vector<char> Actualizacion::serializar(){
     return informacion;
 }
 
-void Actualizacion::deserializar(std::vector<char> &serializado){
+void Actualizacion::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -54,7 +53,7 @@ void Actualizacion::deserializar(std::vector<char> &serializado){
     this->estadoJuego.deserializar(estadoJuegoSerializado);
 }
 
-EstadoJuego& Actualizacion::obtenerEstadoJuego() {
+EstadoJuego &Actualizacion::obtenerEstadoJuego() {
     return this->estadoJuego;
 }
 

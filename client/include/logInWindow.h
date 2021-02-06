@@ -18,11 +18,11 @@ public:
 
     ~LogInWindow();
 
-    Protocolo* obtenerProtocolo(){
+    Protocolo *obtenerProtocolo() {
         return this->protocolo;
     }
 
-    int obtenerIdJugador(){
+    int obtenerIdJugador() {
         return this->idJugador;
     }
 
@@ -31,7 +31,7 @@ private:
     SDL_Window *window;
     Fonts fonts;
     Socket socket;//hay qeu sacarlo
-    Protocolo* protocolo;
+    Protocolo *protocolo;
     int idJugador;
 
 };

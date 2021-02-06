@@ -20,7 +20,7 @@ class QTableWidget;
 class QTableWidgetItem;
 
 class NewTile : public QDialog {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     NewTile(QWidget
@@ -30,12 +30,14 @@ public:
 
 private
     slots:
-            void browse();
+
+    void browse();
 
     void create();
 
 private:
     QComboBox *createComboBox(const QString &text = QString());
+
     QComboBox *textComboBox;
     QLineEdit *directoryLine;
     QPushButton *createButton;

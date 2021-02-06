@@ -10,7 +10,7 @@ void Server_Event_Receiver::run() {
             Comando *comando = protocolo.deserializarComando(informacion);
             this->comandos.aniadir_dato(comando);
 
-        }catch (std::exception &exc) {
+        } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
             this->corriendo = false;
         }

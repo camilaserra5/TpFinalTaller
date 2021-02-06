@@ -50,7 +50,7 @@ int main(int argc, const char *argv[]) {
         manejadorPartidas.agregarMapa(nombre_archivo);
 
         bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores, nombre_partida, nombre_archivo);
-        manejadorPartidas.crearPartida(nombreJugador, cant_jugadores, nombre_partida2, nombre_archivo);
+        manejadorPartidas.crearPartida(nombreJugador, cant_jugadores2, nombre_partida2, nombre_archivo);
         if (estado) {
             std::cout << "creo partida\n";
         }

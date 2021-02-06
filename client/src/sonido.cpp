@@ -2,7 +2,7 @@
 
 Sonido::Sonido(const std::string &file) {
     chunk = Mix_LoadWAV(file.c_str());
-    if(!chunk) {
+    if (!chunk) {
         printf("Mix_LoadWAV: %s\n", Mix_GetError());
     }
     this->channel = -1;
@@ -13,7 +13,7 @@ void Sonido::play(int loops) {
         this->channel = Mix_PlayChannel(-1, this->chunk, loops);
 }
 
-void Sonido::settearVolumen(int volume){
+void Sonido::settearVolumen(int volume) {
     Mix_VolumeChunk(this->chunk, volume);
 }
 

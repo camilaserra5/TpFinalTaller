@@ -18,12 +18,12 @@
 class Juego : public Thread {
 private:
     bool corriendo;
-    Ventana& ventana;
+    Ventana &ventana;
     Textura *texturaInferior;
-    Modelo& modelo;
+    Modelo &modelo;
 
 public:
-    Juego(Ventana& ventana, Modelo& modelo);
+    Juego(Ventana &ventana, Modelo &modelo);
 
     ~Juego();
 
@@ -39,13 +39,13 @@ public:
 
     void cerrar();
 
-    void raycasting(Map& mapaa, Player& jugador);
+    void raycasting(Map &mapaa, Player &jugador);
 
     void eventos();
 
-    Textura* verificarTextura(SDL_Renderer* render,int& tipoDePared);
+    Textura *verificarTextura(SDL_Renderer *render, int &tipoDePared);
 
-    void renderizarPared(SDL_Renderer* render,Rayo& rayo,int& posCanvas,unsigned int& alturaParedProyectada);
+    void renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, unsigned int &alturaParedProyectada);
 };
 
 #endif /*JUEGO_H*/

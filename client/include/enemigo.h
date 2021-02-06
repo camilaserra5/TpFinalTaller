@@ -11,33 +11,37 @@
 #include "posicion.h"
 #include "objetoDibujable.h"
 
-class Enemigo: public ObjetoDibujable{
+class Enemigo : public ObjetoDibujable {
 public:
-      Enemigo(SDL_Renderer* render, int idArmaJugador);
-      ~Enemigo();
-      void actualizar(int posx, int posy, int idArma, int anguloEnemigo,
-                      int anguloJugador, int vida, bool disparando, int puntaje);
-      void renderizar();
+    Enemigo(SDL_Renderer *render, int idArmaJugador);
 
-      void verificarEstado(Posicion& posicionNueva,int vida, bool disparando);
+    ~Enemigo();
 
-      void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest) override;
+    void actualizar(int posx, int posy, int idArma, int anguloEnemigo,
+                    int anguloJugador, int vida, bool disparando, int puntaje);
 
-      Posicion& getPosicion();
+    void renderizar();
 
-      int getPuntaje(){
-          return this->puntaje;
-      }
-      int obtenerAnchura();
+    void verificarEstado(Posicion &posicionNueva, int vida, bool disparando);
+
+    void renderizarColumna(SDL_Rect &dimension, SDL_Rect &dest) override;
+
+    Posicion &getPosicion();
+
+    int getPuntaje() {
+        return this->puntaje;
+    }
+
+    int obtenerAnchura();
 
 private:
-      int idArma;
-      int anguloJugador;
-      int estado;
-      int distanciaParcialAJugador;
-      Posicion posicion;
-      std::multimap<int, std::vector<Animacion>> enemigos;
-      int puntaje;
+    int idArma;
+    int anguloJugador;
+    int estado;
+    int distanciaParcialAJugador;
+    Posicion posicion;
+    std::multimap<int, std::vector<Animacion>> enemigos;
+    int puntaje;
 };
 
 #endif

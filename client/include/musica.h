@@ -6,11 +6,13 @@
 
 class Musica {
 private:
-    Mix_Music* musicaPtr;
+    Mix_Music *musicaPtr;
 
 public:
-    explicit Musica(const std::string& archivo);
+    explicit Musica(const std::string &archivo);
+
     void play(int loop);
+
     ~Musica();
 };
 

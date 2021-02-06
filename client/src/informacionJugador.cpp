@@ -1,9 +1,8 @@
 #include "../include/informacionJugador.h"
 
 
-
 InfoJugador::InfoJugador(SDL_Renderer *render, int vida, int nivel, int puntaje,
-            int cantVidas, int balas) {
+                         int cantVidas, int balas) {
     Fonts fuentes;
     fuentes.addFont("info", "../../resources/fuentes/Nougat.ttf", 35);
     SDL_Color blanco = {255, 255, 255, 255};
@@ -28,7 +27,7 @@ InfoJugador::~InfoJugador() {
 }
 
 void InfoJugador::actualizarDatosJugador(int vida, int nivel, int puntaje, int cantVidas,
-                            int balas) {
+                                         int balas) {
     std::string vidainfo = std::to_string(vida);
     std::string nivelinfo = std::to_string(nivel);
     std::string puntajeinfo = std::to_string(puntaje);
@@ -54,6 +53,6 @@ void InfoJugador::renderizar() {
     this->balas->draw();
 }
 
-int InfoJugador::getPuntaje(){
+int InfoJugador::getPuntaje() {
     return this->puntaje->getTexto();
 }

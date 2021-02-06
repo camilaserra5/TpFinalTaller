@@ -9,7 +9,7 @@
 class Actualizacion : public ISerializable {
 public:
     Actualizacion();
-    
+
     ~Actualizacion();
 
     Actualizacion(EstadoJuego &estadoJuego); /*:

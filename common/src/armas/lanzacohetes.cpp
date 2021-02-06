@@ -6,13 +6,13 @@
 #define BALAS_POR_LANZACOHETES 5
 
 LanzaCohetes::LanzaCohetes(Posicion &posicion, int id) :
-          Arma(DISTANCIA_MAX, 5), Item(posicion,id){}
+        Arma(DISTANCIA_MAX, 5), Item(posicion, id) {}
 
-LanzaCohetes::~LanzaCohetes(){}
+LanzaCohetes::~LanzaCohetes() {}
 
 void verificarJugadoresEnRango(Posicion &posicionImpacto,
-                                std::map<int, Jugador *> &jugadores,
-                                Jugador *jugador) {
+                               std::map<int, Jugador *> &jugadores,
+                               Jugador *jugador) {
     std::map<int, Jugador *>::iterator it;
     int jugadoresMatados = 0;
     for (it = jugadores.begin(); it != jugadores.end(); ++it) {

@@ -10,9 +10,9 @@ Posicion::Posicion(int pixelesX, int pixelesY, float anguloDeVista) :
         pixelesY(pixelesY),
         anguloDeVista(anguloDeVista) {}
 
-Posicion::~Posicion(){}
+Posicion::~Posicion() {}
 
-Posicion::Posicion(){}
+Posicion::Posicion() {}
 
 int Posicion::distanciaA(Posicion &posicion) {
     float x = this->pixelesX - posicion.pixelesX;
@@ -71,11 +71,11 @@ bool Posicion::operator==(Posicion &otraPosicion) {
     return false;
 }
 
-void Posicion::setAngulo(float angulo){
-  this->anguloDeVista = angulo;
+void Posicion::setAngulo(float angulo) {
+    this->anguloDeVista = angulo;
 }
 
-std::vector<char> Posicion::serializar(){
+std::vector<char> Posicion::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(pixelesX);
@@ -89,7 +89,7 @@ std::vector<char> Posicion::serializar(){
     return informacion;
 }
 
-void Posicion::deserializar(std::vector<char> &serializado){
+void Posicion::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);

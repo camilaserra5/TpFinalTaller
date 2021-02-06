@@ -7,6 +7,6 @@ bool Llave::obtenerBeneficio(Jugador *jugador) {
     return true;//lo dejamos asi asi el jugador le saca las llaves a los demas
 }
 
-Type Llave::getTipo(){
-    return  ObjetosJuego::obtenerTipoPorNombre("llave");
+Type Llave::getTipo() {
+    return ObjetosJuego::obtenerTipoPorNombre("llave");
 }

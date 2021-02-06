@@ -16,14 +16,14 @@
 
 class ClientEventReceiver : public Thread {
 private:
-    Protocolo* protocolo;
+    Protocolo *protocolo;
     Modelo &modelo;
     ProtectedQueue<Actualizacion *> &updates;
     std::atomic<bool> corriendo;
     int idJugador;
 
 public:
-    ClientEventReceiver(Protocolo* protocolo, ProtectedQueue<Actualizacion *> &updates,
+    ClientEventReceiver(Protocolo *protocolo, ProtectedQueue<Actualizacion *> &updates,
                         Modelo &modelo, int idJugador);
 
     void run() override;

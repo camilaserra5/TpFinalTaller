@@ -10,19 +10,19 @@ ManejadorPartidas::ManejadorPartidas() :
         partidas(),
         esta_corriendo(true),
         mapas() {
-            this->mapas.push_back("../../resources/mapas/piedras.yaml");
-        }
+    this->mapas.push_back("../../resources/mapas/piedras.yaml");
+}
 
 void ManejadorPartidas::agregarMapa(std::string &archivoMapa) {
     this->mapas.push_back(archivoMapa);
 }
 
-Map* ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
+Map *ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
     int i = 0;
     int cant_mapas = this->mapas.size();
     bool encontre = false;
     //Map* mapa = new Map(1, 1);
-    Map* mapa = new Map(20, 20);
+    Map *mapa = new Map(20, 20);
 
     /*mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
 
@@ -49,15 +49,16 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
         // se le avisa al cliente que es valida
         // hay que relacionar el nombre del mapa con el archivo yaml
         // capaz esta clase tiene el un vector de yamls
-        Map* mapa = this->buscarMapa(archivoMapa);
-      //  Map *mapa = new Map(20, 20);
+        Map *mapa = this->buscarMapa(archivoMapa);
+        //  Map *mapa = new Map(20, 20);
 
         //mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
         std::cout << "ya setie elemnto";
 
         //int cant_jugadores = 1;
         Servidor *servidor = new Servidor(mapa, cant_jugadores);
-        Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(),  nombreJugador);
+        Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(),
+                                       nombreJugador);
         servidor->agregarCliente(nombreJugador, cliente);
         //servidor.agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor});
@@ -79,7 +80,8 @@ bool ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
         // avisarle al cliente;
         //ProtectedQueue<Comando*> cola;
         //ProtectedQueue<Actualizacion> actualizaciones;
-        Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(), nombreJugador);
+        Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(),
+                                       nombreJugador);
         servidor->agregarCliente(nombreJugador, cliente);
         //this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia
         // que esta adentro del mapa de partidas.
@@ -119,16 +121,24 @@ ManejadorPartidas::~ManejadorPartidas() {
 
 std::vector<char> ManejadorPartidas::serializar() {
     std::vector<char> informacion;
-    std::vector<char> sizePartidas = numberToCharArray(this->partidas.size());
-    informacion.insert(informacion.end(), sizePartidas.begin(), sizePartidas.end());
+    std::vector<char> informacionPartidas;
     std::map<std::string, Servidor *>::iterator it;
+    int i = 0;
     for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
         std::pair<std::string, Servidor *> pair = *it;
-        std::vector<char> sizeNombre = numberToCharArray(pair.first.size());
-        informacion.insert(informacion.end(), sizeNombre.begin(), sizeNombre.end());
-        informacion.insert(informacion.end(), pair.first.begin(), pair.first.end());
-        std::vector<char> partidaSerializada = pair.second->serializar();
-        informacion.insert(informacion.end(), partidaSerializada.begin(), partidaSerializada.end());
+        if (!pair.second->terminoPartida() && !pair.second->yaArranco()) {
+            i++;
+            std::vector<char> sizeNombre = numberToCharArray(pair.first.size());
+            informacionPartidas.insert(informacionPartidas.end(), sizeNombre.begin(), sizeNombre.end());
+            informacionPartidas.insert(informacionPartidas.end(), pair.first.begin(), pair.first.end());
+            std::vector<char> partidaSerializada = pair.second->serializar();
+            informacionPartidas.insert(informacionPartidas.end(), partidaSerializada.begin(), partidaSerializada.end());
+        }
+    }
+    std::vector<char> sizePartidas = numberToCharArray(i);
+    informacion.insert(informacion.end(), sizePartidas.begin(), sizePartidas.end());
+    if (i > 0) {
+        informacion.insert(informacion.end(), informacionPartidas.begin(), informacionPartidas.end());
     }
     return informacion;
 }

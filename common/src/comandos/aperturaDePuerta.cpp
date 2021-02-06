@@ -1,14 +1,14 @@
 #include "comandos/aperturaDePuerta.h"
 
-  AperturaDePuerta::AperturaDePuerta(int idJugador) : Comando(idJugador) {}
+AperturaDePuerta::AperturaDePuerta(int idJugador) : Comando(idJugador) {}
 
-  AperturaDePuerta::~AperturaDePuerta(){}
+AperturaDePuerta::~AperturaDePuerta() {}
 
-void AperturaDePuerta::ejecutar(EstadoJuego &estadoJuego){
+void AperturaDePuerta::ejecutar(EstadoJuego &estadoJuego) {
     estadoJuego.abrirPuerta(idJugador);
 }
 
-std::vector<char> AperturaDePuerta::serializar(){
+std::vector<char> AperturaDePuerta::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(idJugador);

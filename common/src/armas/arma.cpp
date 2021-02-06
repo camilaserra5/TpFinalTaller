@@ -31,6 +31,6 @@ bool Arma::esIgual(Arma *arma) {
     return (this->id == arma->id);
 }
 
-int Arma::getId(){
-  return this->id;
+int Arma::getId() {
+    return this->id;
 }

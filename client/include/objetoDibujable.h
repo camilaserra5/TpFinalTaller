@@ -5,21 +5,21 @@
 #include <SDL2/SDL_image.h>
 #include "posicion.h"
 
-class ObjetoDibujable{
+class ObjetoDibujable {
 
-  private:
+private:
 
     double distanciaParcialAJugador;
 
-  public:
+public:
 
     void setDistanciaParcialAJugador(double distancia);
 
     double getDistanciaParcialAJugador();
 
-    virtual void renderizarColumna(SDL_Rect& dimension,SDL_Rect& dest) = 0;
+    virtual void renderizarColumna(SDL_Rect &dimension, SDL_Rect &dest) = 0;
 
-    virtual Posicion& getPosicion() = 0;
+    virtual Posicion &getPosicion() = 0;
 
     virtual int obtenerAnchura() = 0;
 

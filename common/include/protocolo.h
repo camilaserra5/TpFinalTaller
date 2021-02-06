@@ -59,7 +59,7 @@ public:
         return informacion;
     }*/
 
-    Comando* deserializarComando(std::vector<char> &informacion); /* {
+    Comando *deserializarComando(std::vector<char> &informacion); /* {
 
         if (informacion[1] == static_cast<int>(Accion::ataque)) {
 

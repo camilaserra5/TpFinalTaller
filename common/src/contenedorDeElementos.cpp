@@ -1,7 +1,7 @@
 #include "../include/contenedorDeElementos.h"
 #include <iostream>
 
-std::vector<char> ContenedorDeElementos::serializar(){
+std::vector<char> ContenedorDeElementos::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(elementos.size());
@@ -11,12 +11,12 @@ std::vector<char> ContenedorDeElementos::serializar(){
         aux = numberToCharArray(itemSerializado.size());
         informacion.insert(informacion.end(), aux.begin(), aux.end());
         informacion.insert(informacion.end(), itemSerializado.begin(),
-                            itemSerializado.end());
+                           itemSerializado.end());
     }
     return informacion;
 }
 
-void ContenedorDeElementos::deserializar(std::vector<char> &serializado){
+void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -26,7 +26,7 @@ void ContenedorDeElementos::deserializar(std::vector<char> &serializado){
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
         idx += 4;
         std::vector<char> itemSerializado(serializado.begin() + idx,
-                            serializado.begin() + idx + charArrayToNumber(sub));
+                                          serializado.begin() + idx + charArrayToNumber(sub));
         idx += charArrayToNumber(sub);
         Item *item;
         item->deserializar(itemSerializado);
@@ -34,22 +34,22 @@ void ContenedorDeElementos::deserializar(std::vector<char> &serializado){
     }
 }
 
-std::vector<Item *>& ContenedorDeElementos::obtenerItems() {
+std::vector<Item *> &ContenedorDeElementos::obtenerItems() {
     return this->elementos;
 }
 
 
-Puerta& ContenedorDeElementos::puertaMasCercana(Posicion& posicionJugador,
-                                                double& distancia){
-  int cantPuertas = this->puertas.size();
-  int posPuertaMasCercana = 0;
-  distancia = this->puertas[0].distanciaA(posicionJugador);
-    for (int i = 1; i < cantPuertas; i++){
-      double distanciaParcial = this->puertas[i].distanciaA(posicionJugador);
-      if (distanciaParcial < distancia){
-          distancia = distanciaParcial;
-          posPuertaMasCercana = i;
-      }
+Puerta &ContenedorDeElementos::puertaMasCercana(Posicion &posicionJugador,
+                                                double &distancia) {
+    int cantPuertas = this->puertas.size();
+    int posPuertaMasCercana = 0;
+    distancia = this->puertas[0].distanciaA(posicionJugador);
+    for (int i = 1; i < cantPuertas; i++) {
+        double distanciaParcial = this->puertas[i].distanciaA(posicionJugador);
+        if (distanciaParcial < distancia) {
+            distancia = distanciaParcial;
+            posPuertaMasCercana = i;
+        }
     }
     return this->puertas[posPuertaMasCercana];
 }
@@ -84,15 +84,15 @@ Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
     return nullptr;
 }
 
-bool ContenedorDeElementos::hayPuertas(){
-  return (this->puertas.size() > 0);
+bool ContenedorDeElementos::hayPuertas() {
+    return (this->puertas.size() > 0);
 }
 
-Puerta& ContenedorDeElementos::obtenerPuertaEn(int& fila, int& columna){
-  int cantidadDePuertas = this->puertas.size();
-  int puertaEnPos = 0;
-    for (int i = 0; i < cantidadDePuertas; i++){
-        if (this->puertas[i].estaEnPosDelMapa(fila,columna)){
+Puerta &ContenedorDeElementos::obtenerPuertaEn(int &fila, int &columna) {
+    int cantidadDePuertas = this->puertas.size();
+    int puertaEnPos = 0;
+    for (int i = 0; i < cantidadDePuertas; i++) {
+        if (this->puertas[i].estaEnPosDelMapa(fila, columna)) {
             puertaEnPos = i;
         }
     }

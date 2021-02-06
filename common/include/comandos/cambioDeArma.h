@@ -3,18 +3,18 @@
 
 #include "comandos/comando.h"
 
-class CambioDeArma: public Comando{
+class CambioDeArma : public Comando {
 
 public:
-  CambioDeArma(int idJugador ): Comando(idJugador){}
+    CambioDeArma(int idJugador) : Comando(idJugador) {}
 
-  ~CambioDeArma(){}
+    ~CambioDeArma() {}
 
-  void ejecutar(EstadoJuego &estadoJuego) override;
+    void ejecutar(EstadoJuego &estadoJuego) override;
 
-  std::vector<char> serializar() override;
+    std::vector<char> serializar() override;
 
-  void deserializar(std::vector<char> &serializado) override;
+    void deserializar(std::vector<char> &serializado) override;
 
 };
 

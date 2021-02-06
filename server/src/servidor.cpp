@@ -3,10 +3,11 @@
 #include <exception>
 #include "actualizacion.h"
 #include "jugador.h"
+
 #define TIEMPO_SERVIDOR 30
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor( Map *mapa, int cant_jugadores) :
+Servidor::Servidor(Map *mapa, int cant_jugadores) :
         cola_comandos(),
         cola_actualizaciones(),
         jugadores(),
@@ -43,7 +44,7 @@ void Servidor::agregarCliente(std::string &nombreJugador, Cliente *cliente) {
     // para asignarle posicion;
     //Jugador jugador(nombreJugador, id);
     int id = this->obtenerIdParaJugador();
-    this->estadoJuego.agregarJugador(nombreJugador,id);
+    this->estadoJuego.agregarJugador(nombreJugador, id);
     std::cout << "agregue a un jugador\n\n";
     this->jugadores.insert(std::make_pair(id, cliente));
     if (this->jugadores.size() == this->cant_jugadores) {
@@ -52,10 +53,10 @@ void Servidor::agregarCliente(std::string &nombreJugador, Cliente *cliente) {
     }
 }
 
-int Servidor::obtenerIdParaJugador(){
-  int id = this->generadorDeId;
-  this->generadorDeId += 1;
-  return id;
+int Servidor::obtenerIdParaJugador() {
+    int id = this->generadorDeId;
+    this->generadorDeId += 1;
+    return id;
 }
 
 void Servidor::lanzarJugadores() {
@@ -68,7 +69,8 @@ void Servidor::lanzarJugadores() {
 void Servidor::lanzarContadorTiempoPartida() {
     this->estadoJuego.lanzarContadorTiempoPartida();
 }
-void Servidor::actualizarContador(){
+
+void Servidor::actualizarContador() {
     this->estadoJuego.actualizarTiempoPartida();
 }
 
@@ -84,14 +86,14 @@ ProtectedQueue<Comando *> &Servidor::obtenerColaEventos() {
     return this->cola_comandos;
 }
 
-ProtectedQueue<Actualizacion*> &Servidor::obtenerColaActualizaciones() {
+ProtectedQueue<Actualizacion *> &Servidor::obtenerColaActualizaciones() {
     return this->cola_actualizaciones;
 }
 
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
 // servidor es partida
 
-void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion*> &actualizaciones) {
+void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion *> &actualizaciones) {
     //serializa y manda por sockets a cada jugador
     Actualizacion actualizacion(this->estadoJuego);
     this->cola_actualizaciones.aniadir_dato(&actualizacion);
@@ -110,14 +112,14 @@ void Servidor::run() {
             procesar_comandos(this->cola_comandos, this->estadoJuego);
             this->enviar_actualizaciones(this->cola_actualizaciones);
             this->actualizarContador();
-            if(this->estadoJuego.terminoPartida()){
+            if (this->estadoJuego.terminoPartida()) {
                 this->arrancoPartida = false;
-                this->sigue_corriendo= false;
+                this->sigue_corriendo = false;
             }
             auto fin = std::chrono::high_resolution_clock::now();
             auto delta = fin - inicio;
             long tardanza = delta.count();
-            if (tardanza >= TIEMPO_SERVIDOR){
+            if (tardanza >= TIEMPO_SERVIDOR) {
                 tardanza = TIEMPO_SERVIDOR;
             }
             std::chrono::milliseconds duration(30 - tardanza);
@@ -134,7 +136,7 @@ void Servidor::run() {
     //  this->sigue_corriendo = false; creo que no va esta linea
 }
 
-std::vector<char> Servidor::serializar(){
+std::vector<char> Servidor::serializar() {
     std::vector<char> informacion;
     std::vector<char> cantJugadoresAct = numberToCharArray(this->jugadores.size());
     informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());

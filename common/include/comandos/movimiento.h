@@ -16,7 +16,7 @@ public:
     ~Movimiento();
 
     Movimiento();
-    
+
     std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);

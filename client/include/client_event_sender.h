@@ -17,10 +17,10 @@ private:
 
     BlockingQueue<Comando *> &events;
     std::atomic<bool> corriendo;
-    Protocolo* protocolo;
+    Protocolo *protocolo;
 
 public:
-    ClientEventSender(Protocolo* protocolo, BlockingQueue<Comando *> &events);
+    ClientEventSender(Protocolo *protocolo, BlockingQueue<Comando *> &events);
 
     void run() override;
 

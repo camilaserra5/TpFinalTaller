@@ -2,20 +2,23 @@
 // hay que verificar que la pos del jugador al incio sea random y valida;
 #include <iostream>
 #include <math.h>
+
 #define MAX_VIDA 100
 #define POSX_INICIAL 5
 #define POSY_INICIAL 5
 #define CANT_INICAL_BALAS 8
+
 #include "armas/pistola.h"
 #include "armas/lanzacohetes.h"
 #include "objetosJuego.h"
+
 #define VELOCIDAD_DE_ROTACION 0.25 * acos(0.0)
 
 int Jugador::getId() {
     return this->id;
 }
 
-Jugador::Jugador(std::string &nombre, int &id, Posicion& posicion) :
+Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion) :
         posicion(posicion),
         nombre(nombre),
         id(id),
@@ -27,14 +30,14 @@ Jugador::Jugador(std::string &nombre, int &id, Posicion& posicion) :
         llaves(0),
         cantidad_vidas(2),
         disparando(false) {
-            this->armas.insert(std::make_pair(armaActual, new Pistola()));
-        }
+    this->armas.insert(std::make_pair(armaActual, new Pistola()));
+}
 
 Jugador::~Jugador() {
 
-  /*  for (int i = 0; i < this->armas.size(); i++) {
-          delete armas[i];
-    }*/
+    /*  for (int i = 0; i < this->armas.size(); i++) {
+            delete armas[i];
+      }*/
 
 }
 
@@ -52,7 +55,7 @@ void Jugador::actualizar_vida(int &vidaActualizada) {
 }
 
 void Jugador::agregar_arma(Arma *arma) {
-    this->armas.insert(std::make_pair(arma->getId(),arma));
+    this->armas.insert(std::make_pair(arma->getId(), arma));
 }
 
 bool Jugador::poseeArma(Arma *arma) {
@@ -93,18 +96,18 @@ void Jugador::agarrarLlave() {
     this->llaves += 1;
 }
 
-void Jugador::actualizarArma(){
-  Posicion posDefault(0,0,0);
-  Arma* lanzacohetes = new LanzaCohetes(posDefault,
-                  ObjetosJuego::obtenerTipoPorNombre("lanzaCohetes").getType());
-  if (this->balas < BALAS_PARA_LANZACOHETES &&
-    this->armas.at(this->armaActual)->esIgual(lanzacohetes) &&
-    this->balas > 0){
-      this->armaActual = ID_PISTOLA;
-  }else{
-    this->armaActual = ID_CUCHILLO;
-  }
-  //delete lanzacohetes;
+void Jugador::actualizarArma() {
+    Posicion posDefault(0, 0, 0);
+    Arma *lanzacohetes = new LanzaCohetes(posDefault,
+                                          ObjetosJuego::obtenerTipoPorNombre("lanzaCohetes").getType());
+    if (this->balas < BALAS_PARA_LANZACOHETES &&
+        this->armas.at(this->armaActual)->esIgual(lanzacohetes) &&
+        this->balas > 0) {
+        this->armaActual = ID_PISTOLA;
+    } else {
+        this->armaActual = ID_CUCHILLO;
+    }
+    //delete lanzacohetes;
 }
 
 void Jugador::rotar(int sentido) {
@@ -138,30 +141,31 @@ void Jugador::usarLlave() {
 
 bool Jugador::estaMuerto() {
 
-    return (this->vida <=0);
+    return (this->vida <= 0);
 }
 
 void Jugador::aniadirEnemigosMatados(int jugadoresMatados) {
     this->logro.aniadirEnemigosMatados(jugadoresMatados);
 }
 
-bool Jugador::estaDisparando(){
+bool Jugador::estaDisparando() {
     return this->disparando;
 }
 
-void Jugador::actualizarNuevaVida(){
+void Jugador::actualizarNuevaVida() {
     this->vida = MAX_VIDA;
-    this->cantidad_vidas -=1;
+    this->cantidad_vidas -= 1;
 }
 
-int Jugador::cant_de_vida(){
+int Jugador::cant_de_vida() {
     return this->cantidad_vidas;
 }
 
-int Jugador::obtenerPuntosTotales(){
+int Jugador::obtenerPuntosTotales() {
     return this->logro.obtenerPuntosTotales();
 }
-std::vector<char> Jugador::serializar(){
+
+std::vector<char> Jugador::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(this->id);
@@ -181,13 +185,13 @@ std::vector<char> Jugador::serializar(){
     aux = numberToCharArray(posicionSerializado.size());
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     informacion.insert(informacion.end(), posicionSerializado.begin(),
-                        posicionSerializado.end());
+                       posicionSerializado.end());
 
     std::vector<char> logroSerializado = this->logro.serializar();
     aux = numberToCharArray(logroSerializado.size());
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     informacion.insert(informacion.end(), logroSerializado.begin(),
-                        logroSerializado.end());
+                       logroSerializado.end());
 
 
     return informacion;
@@ -229,21 +233,21 @@ void Jugador::deserializar(std::vector<char> &serializado) {
     this->logro.deserializar(logroSerializado);
 }
 
-void Jugador::dejarDeDisparar(){
+void Jugador::dejarDeDisparar() {
     this->disparando = false;
 }
 
-void Jugador::atacar(){
+void Jugador::atacar() {
     this->disparando = true;
 }
 
-void Jugador::cambiarArma(){
-  std::map<int, Arma*>::iterator it;
-  bool cambie = false;
-  for (it = this->armas.begin(); it != this->armas.end(); ++it) {
-      if (it->first != this->armaActual && !cambie){
-        this->armaActual = it->first;
-        cambie = true;
-      }
-  }
+void Jugador::cambiarArma() {
+    std::map<int, Arma *>::iterator it;
+    bool cambie = false;
+    for (it = this->armas.begin(); it != this->armas.end(); ++it) {
+        if (it->first != this->armaActual && !cambie) {
+            this->armaActual = it->first;
+            cambie = true;
+        }
+    }
 }

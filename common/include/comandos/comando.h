@@ -16,8 +16,6 @@ public:
     virtual void ejecutar(EstadoJuego &estadoJuego) = 0;
 
 
-
-
 protected:
     int idJugador;
 };

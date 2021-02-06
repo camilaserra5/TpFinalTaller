@@ -6,7 +6,7 @@
 #include <mutex>
 
 
-Cliente::Cliente(ProtectedQueue<Comando *> &cola_comandos, ProtectedQueue<Actualizacion*> &actualizaciones,
+Cliente::Cliente(ProtectedQueue<Comando *> &cola_comandos, ProtectedQueue<Actualizacion *> &actualizaciones,
                  std::string &nombre) :
         cola_comandos(cola_comandos),
         cola_actualizaciones(actualizaciones),
@@ -37,7 +37,7 @@ void Cliente::run() {
     bool termine = false;
     while (!termine) {
         try {
-            Actualizacion* actualizacion = this->cola_actualizaciones.obtener_dato();
+            Actualizacion *actualizacion = this->cola_actualizaciones.obtener_dato();
             this->actualizar(actualizacion);
         } catch (...) {
             termine = true;

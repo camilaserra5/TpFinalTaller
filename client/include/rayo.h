@@ -31,25 +31,29 @@ private:
 
     void verificarCuadrante(const double anguloJugador);
 
-    double verificarInterseccionPrimerCuadrante(Player& jugador,Map &mapa);
+    double verificarInterseccionPrimerCuadrante(Player &jugador, Map &mapa);
 
-    double verificarInterseccionSegundoCuadrante(Player& jugador,Map &mapa);
+    double verificarInterseccionSegundoCuadrante(Player &jugador, Map &mapa);
 
-    double verificarInterseccionTercerCuadrante(Player& jugador,Map &mapa);
+    double verificarInterseccionTercerCuadrante(Player &jugador, Map &mapa);
 
-    double verificarInterseccionCuartoCuadrante(Player& jugador,Map &mapa);
+    double verificarInterseccionCuartoCuadrante(Player &jugador, Map &mapa);
 
 public:
 
     bool hallarColision(Map &mapa, double &interseccionAX, double &interseccionAY, double &xa, double &ya);
 
-    Rayo(double campoDeVision, int ladoCelda, int largoProyector,double anguloBarrido,Posicion& posicion);
+    Rayo(double campoDeVision, int ladoCelda, int largoProyector, double anguloBarrido, Posicion &posicion);
 
     void verificarInterseccion(Map &mapa, double &distancia, Player &jugador);
 
-    double verificarInterseccionHorizontal(Player& jugador,Map &mapa, double& y,double& dy,double& xStep,double& yStep,double& tg);
+    double
+    verificarInterseccionHorizontal(Player &jugador, Map &mapa, double &y, double &dy, double &xStep, double &yStep,
+                                    double &tg);
 
-    double verificarInterseccionVertical(Player& jugador,Map &mapa, double& x,double& dx,double& xStep,double& yStep,double& tg);
+    double
+    verificarInterseccionVertical(Player &jugador, Map &mapa, double &x, double &dx, double &xStep, double &yStep,
+                                  double &tg);
 
     int getDistanciaProyector();
 
@@ -57,7 +61,7 @@ public:
 
     int getOffset();
 
-    int& getTipoPared();
+    int &getTipoPared();
 
 };
 

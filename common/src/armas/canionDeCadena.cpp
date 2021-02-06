@@ -4,15 +4,16 @@
 
 #define BALAS_POR_RAFAGA 1
 
-CanionDeCadena::CanionDeCadena(Posicion &posicion, int id):
+CanionDeCadena::CanionDeCadena(Posicion &posicion, int id) :
         Arma(DISTANCIA_MAX, 2),
         Item(posicion, id),
-        contador(TICKS_DISPARO_CANION){}
+        contador(TICKS_DISPARO_CANION) {}
 
-CanionDeCadena::~CanionDeCadena(){}
+CanionDeCadena::~CanionDeCadena() {}
+
 void CanionDeCadena::atacarEfectivamente(int distancia_a_pared,
-                                        Jugador *jugador,
-                                        std::map<int, Jugador *> &jugadores){
+                                         Jugador *jugador,
+                                         std::map<int, Jugador *> &jugadores) {
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
@@ -39,11 +40,11 @@ void CanionDeCadena::atacarEfectivamente(int distancia_a_pared,
 void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador,
                             std::map<int, Jugador *> &jugadores) {
     int balasJugador = jugador->cantidad_balas();
-    if (this->contador == 0 && balasJugador > BALAS_POR_RAFAGA){
+    if (this->contador == 0 && balasJugador > BALAS_POR_RAFAGA) {
         this->atacarEfectivamente(distancia_a_pared, jugador, jugadores);
         this->contador = TICKS_DISPARO_CANION;
     } else {
-        this->contador --;
+        this->contador--;
     }
 }
 
@@ -56,6 +57,6 @@ bool CanionDeCadena::obtenerBeneficio(Jugador *jugador) {
     return false;
 }
 
-Type CanionDeCadena::getTipo(){
-    return  ObjetosJuego::obtenerTipoPorNombre("canionDeCadena");
+Type CanionDeCadena::getTipo() {
+    return ObjetosJuego::obtenerTipoPorNombre("canionDeCadena");
 }
