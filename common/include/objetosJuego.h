@@ -1,6 +1,8 @@
 #ifndef _OBJETOS_JUEGO_H
 #define _OBJETOS_JUEGO_H
 
+#define TYPE_WALL_2 28
+#define TYPE_WALL_3 29
 #define TYPE_WALL 2
 #define TYPE_DOOR 1
 #define TYPE_EMPTY 0
@@ -11,6 +13,8 @@ class ObjetosJuego;
 
 class Type {
 public:
+    Type(std::string name, int type) : name(name), type(type) {}
+
     std::string getName() { return this->name; }
 
     int getType() { return this->type; }
@@ -18,7 +22,6 @@ public:
     ~Type() {}
 
 private:
-    Type(std::string name, int type) : name(name), type(type) {}
 
     std::string name;
     int type;
@@ -34,6 +37,8 @@ public:
         types.push_back(Type("empty", TYPE_EMPTY));
         types.push_back(Type("door", TYPE_DOOR));
         types.push_back(Type("wall", TYPE_WALL));
+        types.push_back(Type("wall-2", TYPE_WALL_2));
+        types.push_back(Type("wall-3", TYPE_WALL_3));
         types.push_back(Type("fakeDoor", 3));
         types.push_back(Type("keyDoor", 4));
         types.push_back(Type("comida", 5));

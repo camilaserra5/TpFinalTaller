@@ -5,11 +5,10 @@
 #define TAMANIO_COLUMNA 20
 #define LARGO_PROYECTOR ANCHO_CANVAS
 #define ANCHO_PROYECTOR 20
-#define WOODEN_WALL_ROOT "../../editor/resources/wall2.jpg"
-#define BLUE_STONE_WALL_ROOT "../../editor/resources/wall1.jpg"
-#define GRAY_STONE_WALL_ROOT "../../editor/resources/wall3.jpg"
-#define PUERTA_ROOT "../../editor/resources/puerta.png"
-
+#define BLUE_WALL "../../editor/resources/blue-wall.jpg"
+#define GREY_WALL "../../editor/resources/grey-wall.jpg"
+#define WOOD_WALL "../../editor/resources/wood-wall.jpg"
+#define DOOR "../../editor/resources/door.jpg"
 
 #define LOWER_TEXTURE_ROOT "../../client/resources/images/ParteInferior.png"
 
@@ -138,10 +137,15 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
 Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
     //cambiar a mas especifico
     if (tipoDePared == TYPE_WALL) {
-        return new Textura(WOODEN_WALL_ROOT, render);
+        return new Textura(BLUE_WALL, render);
+    } else if (tipoDePared == TYPE_WALL_2) {
+        return new Textura(WOOD_WALL, render);
+    } else if (tipoDePared == TYPE_WALL_3) {
+        return new Textura(GREY_WALL, render);
     } else if (tipoDePared == TYPE_DOOR) {
-        return new Textura(PUERTA_ROOT, render);
+        return new Textura(DOOR, render);
     } else {
-        return new Textura(GRAY_STONE_WALL_ROOT, render);
+        return new Textura(GREY_WALL, render);
     }
+
 }
