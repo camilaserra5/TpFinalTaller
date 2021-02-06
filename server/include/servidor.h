@@ -61,9 +61,9 @@ private:
 
     ProtectedQueue<Comando *> cola_comandos;
     ProtectedQueue<Actualizacion *> cola_actualizaciones;
-    std::map<int, Cliente *> jugadores;
     EstadoJuego estadoJuego;
-    int cant_jugadores;
+    int cantJugadoresPosibles;
+    int cantidadJugadoresAgregado = 0;
     std::atomic<bool> sigue_corriendo;
     std::atomic<bool> arrancoPartida;
     int generadorDeId = 100;

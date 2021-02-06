@@ -142,10 +142,7 @@ Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
         return new Textura(WOOD_WALL, render);
     } else if (tipoDePared == TYPE_WALL_3) {
         return new Textura(GREY_WALL, render);
-    } else if (tipoDePared == TYPE_DOOR) {
-        return new Textura(DOOR, render);
     } else {
-        return new Textura(GREY_WALL, render);
+        return new Textura(DOOR, render);
     }
-
 }

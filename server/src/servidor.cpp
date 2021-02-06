@@ -7,23 +7,15 @@
 #define TIEMPO_SERVIDOR 30
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor(Map *mapa, int cant_jugadores) :
+Servidor::Servidor(Map *mapa, int cantJugadoresPosibles) :
         cola_comandos(),
         cola_actualizaciones(),
-        jugadores(),
         estadoJuego(mapa),
-        cant_jugadores(cant_jugadores),
+        cantJugadoresPosibles(cantJugadoresPosibles),
         sigue_corriendo(true),
         arrancoPartida(false) {}
 
-Servidor::~Servidor() {
-    std::cout << "destructor servidor\n";
-    std::map<int, Cliente *>::iterator it;
-    for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
-        it->second->join();
-        delete it->second;
-    }
-}
+Servidor::~Servidor() {}
 
 void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego) {
     bool termine = false;
@@ -45,9 +37,8 @@ void Servidor::agregarCliente(std::string &nombreJugador) {
     //Jugador jugador(nombreJugador, id);
     int id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador, id);
-    std::cout << "agregue a un jugador\n\n";
-    this->jugadores.insert(std::make_pair(id, cliente));
-    if (this->jugadores.size() == this->cant_jugadores) {
+    this->cantJugadoresAgregados++;
+    if (this->cantJugadoresAgregados == this->cantJugadoresPosibles) {
         this->arrancoPartida = true;
         this->start();
     }
@@ -58,14 +49,14 @@ int Servidor::obtenerIdParaJugador() {
     this->generadorDeId += 1;
     return id;
 }
-
+/*
 void Servidor::lanzarJugadores() {
     for (auto it = this->jugadores.begin(); it != this->jugadores.end(); it++) {
         it->second->start();
 
     }
 }
-
+*/
 void Servidor::lanzarContadorTiempoPartida() {
     this->estadoJuego.lanzarContadorTiempoPartida();
 }
@@ -138,9 +129,9 @@ void Servidor::run() {
 
 std::vector<char> Servidor::serializar() {
     std::vector<char> informacion;
-    std::vector<char> cantJugadoresAct = numberToCharArray(this->jugadores.size());
+    //std::vector<char> cantJugadoresAct = numberToCharArray(this->jugadores.size()); SACARRR
     informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());
-    std::vector<char> cantJugadores = numberToCharArray(cant_jugadores);
+    std::vector<char> cantJugadores = numberToCharArray(cantJugadoresPosibles);
     informacion.insert(informacion.end(), cantJugadores.begin(), cantJugadores.end());
     return informacion;
 }
