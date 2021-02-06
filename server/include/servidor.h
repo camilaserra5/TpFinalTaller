@@ -29,7 +29,7 @@ public:
 
     ProtectedQueue<Comando *> &obtenerColaEventos();
 
-    ProtectedQueue<Actualizacion> &obtenerColaActualizaciones();
+    ProtectedQueue<Actualizacion*> &obtenerColaActualizaciones();
 
     void lanzarJugadores();
 
@@ -46,10 +46,10 @@ public:
         return informacion;
     }*/
 
-    void deserializar(std::vector<char>& serializado) {
+    void deserializar(std::vector<char> &serializado) {
     }
 
-    void enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones);
+    void enviar_actualizaciones(ProtectedQueue<Actualizacion*> &actualizaciones);
 
     void actualizarContador();
 
@@ -60,7 +60,7 @@ private:
     void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);
 
     ProtectedQueue<Comando *> cola_comandos;
-    ProtectedQueue<Actualizacion> cola_actualizaciones;
+    ProtectedQueue<Actualizacion *> cola_actualizaciones;
     std::map<int, Cliente *> jugadores;
     EstadoJuego estadoJuego;
     int cant_jugadores;

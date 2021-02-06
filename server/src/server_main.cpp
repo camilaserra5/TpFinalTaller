@@ -44,8 +44,8 @@ int main(int argc, const char *argv[]) {
         std::string nombre_partida = "grecia";
         std::string nombre_partida2 = "ketchup";
         std::string nombre_archivo = "archivo.yaml";
-        int cant_jugadores = 2;
-
+        int cant_jugadores = 1;
+        int cant_jugadores2 = 2;
         ManejadorPartidas manejadorPartidas;
         manejadorPartidas.agregarMapa(nombre_archivo);
 

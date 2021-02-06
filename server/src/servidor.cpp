@@ -84,17 +84,17 @@ ProtectedQueue<Comando *> &Servidor::obtenerColaEventos() {
     return this->cola_comandos;
 }
 
-ProtectedQueue<Actualizacion> &Servidor::obtenerColaActualizaciones() {
+ProtectedQueue<Actualizacion*> &Servidor::obtenerColaActualizaciones() {
     return this->cola_actualizaciones;
 }
 
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
 // servidor es partida
 
-void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion> &actualizaciones) {
+void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion*> &actualizaciones) {
     //serializa y manda por sockets a cada jugador
     Actualizacion actualizacion(this->estadoJuego);
-    this->cola_actualizaciones.aniadir_dato(actualizacion);
+    this->cola_actualizaciones.aniadir_dato(&actualizacion);
 }
 
 void Servidor::run() {
