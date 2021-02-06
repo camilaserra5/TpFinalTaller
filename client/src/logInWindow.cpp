@@ -157,7 +157,7 @@ void mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
                 }
                 if (e.key.keysym.sym == SDLK_RETURN) {
                     int i = std::stoi(gameNumber);
-                    if (i > 0 && i < partidas.size())
+                    if (i > 0 && i <= partidas.size())
                         finished = true;
                     else gameNumber = "";
                 }
