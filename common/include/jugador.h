@@ -147,6 +147,8 @@ public:
         this->logro.deserializar(logroSerializado);
     }
 */
+
+    void cambiarArma();
 private:
     Posicion posicion;
     int id;

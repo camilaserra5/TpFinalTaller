@@ -4,6 +4,7 @@
 #include "comandos/movimiento.h"
 #include "comandos/ataque.h"
 #include "comandos/aperturaDePuerta.h"
+#include "comandos/cambioDeArma.h"
 #include <iostream>
 
 ManejadorEventos::ManejadorEventos(int& idJugador, BlockingQueue<Comando*>& eventos):
@@ -44,6 +45,12 @@ void ManejadorEventos::crearAperturaDePuerta(){
     //delete apertura;
 }
 
+void ManejadorEventos::crearCambioDeArma(){
+    Comando* cambio = new CambioDeArma(this->idJugador);
+    this->eventos.push(cambio);
+    //delete apertura;
+}
+
 void ManejadorEventos::detectarEventos(SDL_Event& evento){
       switch (evento.type) {
           case SDL_KEYDOWN:
@@ -66,6 +73,9 @@ void ManejadorEventos::detectarEventos(SDL_Event& evento){
                           break;
                       case SDLK_PERIOD:
                         crearAtaque();
+                        break;
+                      case SDLK_a:
+                        crearCambioDeArma();
                         break;
               }
               break;

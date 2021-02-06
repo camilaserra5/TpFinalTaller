@@ -44,6 +44,7 @@ void Servidor::agregarCliente(std::string &nombreJugador, Cliente *cliente) {
     //Jugador jugador(nombreJugador, id);
     int id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador,id);
+    std::cout << "agregue a un jugador\n\n";
     this->jugadores.insert(std::make_pair(id, cliente));
     if (this->jugadores.size() == this->cant_jugadores) {
         this->arrancoPartida = true;

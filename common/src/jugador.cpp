@@ -236,3 +236,14 @@ void Jugador::dejarDeDisparar(){
 void Jugador::atacar(){
     this->disparando = true;
 }
+
+void Jugador::cambiarArma(){
+  std::map<int, Arma*>::iterator it;
+  bool cambie = false;
+  for (it = this->armas.begin(); it != this->armas.end(); ++it) {
+      if (it->first != this->armaActual && !cambie){
+        this->armaActual = it->first;
+        cambie = true;
+      }
+  }
+}

@@ -29,6 +29,8 @@ public:
 
     void crearAperturaDePuerta();
 
+    void crearCambioDeArma();
+
 private:
     int idJugador;
     BlockingQueue<Comando *> &eventos;

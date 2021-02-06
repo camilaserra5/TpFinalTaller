@@ -226,3 +226,8 @@ std::map<int, Jugador*>& EstadoJuego::obtenerJugadores(){
 Map* EstadoJuego::obtenerMapa(){
     return this->mapa;
 }
+
+void EstadoJuego::cambiarArma(int idJugador){
+    Jugador* jugador = this->jugadores.at(idJugador);
+    jugador->cambiarArma();
+}

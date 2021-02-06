@@ -229,7 +229,6 @@ Posicion Map::obtenerPosicionIncialValida(){
   bool posEsValida = false;
   int posX, posY;
   srand(time(NULL));
-  int danio = (rand() % DANIO_MAX) + 1;
   while (!posEsValida){
       posX = rand() % this->rowSize;
       posY = rand() % this->colSize;

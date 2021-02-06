@@ -89,6 +89,9 @@ public:
 
     bool terminoPartida();
 
+    void cambiarArma(int idJugador);
+
+
 private:
     Map *mapa;
     std::map<int, Jugador *> jugadores;
