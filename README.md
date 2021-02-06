@@ -157,6 +157,9 @@ Idóneamente el programa puede ser compilado en cualquier distribución de Linux
 ● Gtkmm-3.0-dev
 ● Libsdl2-dev
 ● libsdl2-mixer-dev
+● sudo apt install lua5.3 liblua5.3-dev
+● sudo apt-get install libsdl2-ttf-dev
+● sudo apt-get install libyaml-cpp-dev
 Los tres son fácilmente accesibles en distribuciones de la familia Debian, a través de apt. Para simplificar esto, se entrega un script bash ​ installs.sh que se encarga de la instalación de dichos paquetes. Para compilar el programa, es necesario cmake, de versión ​ 2.5​ o mayor.
 
 #### Requerimientos de hardware
