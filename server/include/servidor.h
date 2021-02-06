@@ -21,7 +21,7 @@ public:
 
     void run() override;
 
-    void agregarCliente(std::string &nombreJugador, Cliente *cliente);
+    void agregarCliente(std::string &nombreJugador);
 
     bool yaArranco();
 

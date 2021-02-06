@@ -6,7 +6,7 @@
 #include "actualizacion.h"
 #include "comandos/comando.h"
 #include <string>
-
+/***************************BORRARRRRR****************************/
 class Cliente : public Thread {
 public:
 
