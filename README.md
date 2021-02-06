@@ -1,37 +1,6 @@
 # [75.42] Taller de programación I
 ## Trabajo práctico final: Wolfenstein 3D
 
-1. clonar el repo en ~/
-2. cd  ~/TpFinalTaller/common_src
-3. mkdir build
-4. cd build
-5. cmake ..
-6. sudo make install
-7. cd ../..
-8. mkdir build
-9. cd build
-10. cmake ..
-11. make
-
-Con eso debería generar todos los ejecutables
-
-Si se cambia algo en commons, repetir de paso 1-6 para instalar la última versión de la librería que genera el cmake
-
-Para correr el editor:
-./editor
-
-Se arrastran los tiles al mapa, y se puede guardar (convierte a yaml)
-
-Falta:
-- abrir desde un yaml existente
-- que se pueda pisar una tile en el mapa
-- cambiar el tamaño (ahora es de 10x10 fijo)
-- agregar más tiles
-- scroll en la ventana
-
-dudas:  
-donde metemos el poll event
-
 **Fontenla, Maria Sol**  
 103870  
 **msfontenla@fi.uba.ar**
@@ -47,7 +16,6 @@ donde metemos el poll event
 **Serra, Camila**  
 97422  
 **cserra@fi.uba.ar**
-
 
 ___
 
@@ -131,7 +99,7 @@ El enunciado completo se puede encontrar [acá](enunciado.pdf).
   * Armado del entregable
 
 #### Cronograma real
-* **Semana 1**  
+* **Semana 1 ()**  
   * Servidor/Cliente: que el cliente le envíe eventos básicos como tecla o movimiento
   * Que el servidor cargue el mapa (yaml)
   * Aplicación con qt para crear el yaml con una matriz de mxm (el mapa)
@@ -184,13 +152,117 @@ Las herramientas utilizadas para este proyecto fueron las siguientes:
 ### Instalación
 
 #### Requerimientos de software
+La instalación del programa se debe realizar mediante la compilación del código fuente del mismo.
+Idóneamente el programa puede ser compilado en cualquier distribución de Linux, habiendo instalado previamente los siguientes paquetes:
+● Gtkmm-3.0-dev
+● Libsdl2-dev
+● libsdl2-mixer-dev
+Los tres son fácilmente accesibles en distribuciones de la familia Debian, a través de apt. Para simplificar esto, se entrega un script bash ​ installs.sh que se encarga de la instalación de dichos paquetes. Para compilar el programa, es necesario cmake, de versión ​ 2.5​ o mayor.
 
 #### Requerimientos de hardware
+Dado que el software entregado no tiene mayores exigencias en cálculos gráficos, no es necesario tener una placa gráfica dedicada. El programa fue testeado en máquinas con procesadores Intel ® de la familia i5 en adelante.
 
 #### Proceso de Instalación
+Para poder utilizar el juego hay que realizar los siguientes pasos:
+* abrir una terminal (ctlr + alt + T)
+* posicionarse en el directorio se quieran descargar los archivos
+
+```bash
+foo@bar:~$ cd /home/cami/wolfstein
+```
+* clonar el repositorio (**alternativa**: [descargarlo](https://github.com/solfonte/TpFinalTaller/archive/main.zip) desde github y descomprimirlo en la carpeta deseada)
+
+```bash
+foo@bar:~$ git clone git@github.com:solfonte/TpFinalTaller.git
+```
+* crear una carpeta **build** y posicionarse
+
+```bash
+foo@bar:~$ mkdir build
+foo@bar:~$ cd build
+```
+* compilar el código fuente
+
+```bash
+foo@bar:~$ cmake ..
+foo@bar:~$ cd common
+foo@bar:~$ sudo make install
+foo@bar:~$ cd ..
+foo@bar:~$ make
+```
+##### Ejecutar el cliente!
+
+```bash
+foo@bar:~$ cd client
+foo@bar:~$ ./client
+```
+##### Ejecutar el servidor!
+
+```bash
+foo@bar:~$ cd server
+foo@bar:~$ ./server config.yaml
+```
+##### Ejecutar el editor!
+
+```bash
+foo@bar:~$ cd editor
+foo@bar:~$ ./editor
+```
+
 
 ### Configuración
+Para levantar el servidor correctamente, se necesita un archivo con la configuración del mismo. Este deberá ser una archivo yaml de la siguiente manera:
+``` yaml
+port: 8080
+
+```
 
 ### Forma de uso
+#### Editor
+Una vez levantado el editor se verá la siguiente ventana:
+![editor](editor1.png)
+
+
+##### Crear un nuevo mapa
+Para crear un nuevo mapa, ir a Archivo -> Nuevo (o ctrl + N). Se abrirá la siguiente ventana que permite elegir el tamaño deseado del mismo.
+![editor](editor2.gif)
+
+
+Una vez que tengamos el tamaño apropiado, para completarlo se pueden arrastrar las imágenes desde la lista izquierda. Haciendo doble click, se podrá pintar la superficie deseada:
+![editor](editor3.gif)
+
+##### Guardar el mapa
+Para guardar el mapa una vez que ya este listo ir a Archivo -> Guardar. El mapa deberá ser un archivo .yaml o .yml
+
+##### Abrir un mapa existente
+Para editar un mapa ya existente, ir a Archivo -> Abrir. Seleccionar el archivo correspondiente y listo!
+
+#### Servidor
+Una vez instalado correctamente, y ya teniendo el archivo de configuración, sólo falta levantar el servidor desde su carpeta, y listo!
+```bash
+foo@bar:~$ ./servidor config.yaml
+```
+
+#### Cliente
+Una vez levantado el cliente, se verá la pantalla de log in para conectarse al servidor deseado. Ingresar ip y puerto correspondiente:
+![cliente](cliente1.gif)
+
+Una vez conectado al servidor, se listaran las partidas existentes (en las que haya lugar disponible). Se puede unir a una, o de lo contrario crear una partida propia.
+![cliente](cliente2.png)
+
+##### Crear una partida nueva
+Para crear una partida nueva en el servidor, escribir una N y luego ingresar los datos correspondientes:
+
+* Nombre de la partida
+* Cantidad de jugadores posibles
+* Ruta del archivo del mapa de la partida (mapa generado por el editor)
+* Nombre del jugador
+
+![cliente](cliente3.gif)
+
+##### Conectarse a una partida existente
+Para unirse a una partida nueva, escribir el número correspondiente y luego enter. Luego ingresar el nombre, y esperar!
+![cliente](cliente4.gif)
+
 
 ### Apéndice de errores
