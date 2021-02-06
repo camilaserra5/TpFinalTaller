@@ -57,9 +57,7 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
 
         //int cant_jugadores = 1;
         Servidor *servidor = new Servidor(mapa, cant_jugadores);
-        Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(),
-                                       nombreJugador);
-        servidor->agregarCliente(nombreJugador, cliente);
+        servidor->agregarCliente(nombreJugador);
         //servidor.agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor});
         return true;
@@ -82,7 +80,7 @@ bool ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
         //ProtectedQueue<Actualizacion> actualizaciones;
         Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(),
                                        nombreJugador);
-        servidor->agregarCliente(nombreJugador, cliente);
+        servidor->agregarCliente(nombreJugador);
         //this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia
         // que esta adentro del mapa de partidas.
         // en caso de que este creo que se pisa entonces no afecta
