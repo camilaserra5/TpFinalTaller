@@ -61,16 +61,9 @@ unsigned Map::getColSize() const {
 }
 
 int Map::crearIdValido() {
-    srand(time(NULL));
-    int idPosible = 0;
-    while (idPosible == 0) {
-        idPosible = rand() % 1000;
-        if (std::find(idCargados.begin(), idCargados.end(), idPosible) == idCargados.end())
-            idPosible = 0;
-    }
-    this->idCargados.push_back(idPosible);
-    return idPosible;
-
+  int idValido = this->generadorDeId;
+  this->generadorDeId ++;
+  return idValido;
 }
 
 // pre condicion: va a ver un item por celda por facilidad, ya que sino se pisan;
@@ -86,7 +79,7 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
         int posElementoy = (colNumber * TAM_CELDA + rand() % ((1 + rowNumber) * TAM_CELDA));
     } else {
         posElementox = (rowNumber * TAM_CELDA + rand() % ((1 + rowNumber) * TAM_CELDA - rowNumber * TAM_CELDA));
-        posElementoy = (colNumber * TAM_CELDA + rand() % ((1 + rowNumber) * TAM_CELDA - colNumber * TAM_CELDA));
+        posElementoy = (colNumber * TAM_CELDA + rand() % ((1 + colNumber) * TAM_CELDA - colNumber * TAM_CELDA));
         std::cerr << " hola " << posElementox << std::endl;
         std::cerr << " hola " << posElementoy << std::endl;
     }

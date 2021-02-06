@@ -100,6 +100,7 @@ private:
     std::vector<std::vector<Type>> map;
     std::vector<int> idCargados;
     int ladoCelda;
+    int generadorDeId = 0;
 };
 
 #endif //MAP_H
