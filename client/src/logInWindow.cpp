@@ -349,11 +349,13 @@ void LogInWindow::run() {
             std::ostringstream sstream;
             memcpy(number, partidas.data() + j, 4);
             buf = (uint32_t *) number;
+            uint32_t available = ntohl(*buf);
             j += 4;
             memcpy(number, partidas.data() + j, 4);
             buf = (uint32_t *) number;
+            uint32_t total = ntohl(*buf);
             j += 4;
-            sstream << "Game No " << i + 1 << " - " << nombre << " " << ntohl(*buf) << "/" << ntohl(*buf);
+            sstream << "Game No " << i + 1 << " - " << nombre << " " << available << "/" << total;
             partis.push_back(sstream.str());
             nombresPartidas.insert(std::make_pair(i, nombre));
         }
