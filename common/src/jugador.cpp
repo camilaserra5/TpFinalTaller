@@ -33,7 +33,7 @@ Jugador::Jugador(std::string &nombre, int &id, Posicion& posicion) :
 Jugador::~Jugador() {
 
     for (int i = 0; i < this->armas.size(); i++) {
-        //  delete armas[i];
+          delete armas[i];
     }
 
 }

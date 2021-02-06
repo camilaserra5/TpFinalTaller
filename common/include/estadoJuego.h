@@ -96,7 +96,7 @@ private:
     Map *mapa;
     std::map<int, Jugador *> jugadores;
     int contador;
-    int jugadoresMuertos;
+    int jugadoresMuertos = 0;
 };
 
 #endif

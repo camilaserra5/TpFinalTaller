@@ -49,7 +49,7 @@ EstadoJuego::EstadoJuego(Map *mapa) :
 
 EstadoJuego::~EstadoJuego() {
     std::cout << "destructor estado juego";
-    delete this->mapa;
+    //delete this->mapa;
     std::map<int, Jugador *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         delete it->second;
@@ -166,6 +166,9 @@ void EstadoJuego::verificarJugadoresMuertos() {
 
 bool EstadoJuego::terminoPartida() {
     bool termino = false;
+    std::cout << "JUGADORES MUERTOS: " <<this->jugadoresMuertos << "\n";
+    std::cout << "CANTIDAD JUGADORES: " <<this->jugadores.size() << "\n";
+
     if ((this->jugadoresMuertos == this->jugadores.size() - 1) ||
         this->contador == 0) {
         termino = true;
@@ -181,6 +184,7 @@ void EstadoJuego::lanzarContadorTiempoPartida() {
 void EstadoJuego::actualizarTiempoPartida() {
     this->contador--;
 }
+
 std::vector<char> EstadoJuego::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
@@ -223,6 +227,7 @@ void EstadoJuego::deserializar(std::vector<char>& informacion) {
 std::map<int, Jugador*>& EstadoJuego::obtenerJugadores(){
     return this->jugadores;
 }
+
 Map* EstadoJuego::obtenerMapa(){
     return this->mapa;
 }

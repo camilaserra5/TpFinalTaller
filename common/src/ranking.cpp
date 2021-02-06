@@ -34,7 +34,7 @@ void ordenarEnPosicion(int id, int &posicion, std::vector<int> &topJugadores, in
 std::vector<int> Ranking::obtenerTopJugadores(int cantidadTopJugadores, std::map<int, Jugador *> &jugadores) {
     std::map<int, Jugador *>::iterator it;
     std::vector<int> topJugadores;
-    topJugadores[0] = jugadores.begin()->first;
+    topJugadores.push_back(jugadores.begin()->first);
     int posicion = 0;
     for (it = jugadores.begin(); it != jugadores.end(); ++it) {
         if (estaEnElTop(it->second, posicion, jugadores, topJugadores, cantidadTopJugadores)) {
