@@ -9,6 +9,7 @@
 #define BLUE_STONE_WALL_ROOT "../../editor/resources/wall1.jpg"
 #define GRAY_STONE_WALL_ROOT "../../editor/resources/wall3.jpg"
 #define PUERTA_ROOT "../../editor/resources/puerta.png"
+#define RANGO_DE_VISTA 1.047197551
 
 
 #define LOWER_TEXTURE_ROOT "../../client/resources/images/ParteInferior.png"
@@ -92,16 +93,15 @@ void Juego::clean() {
 void Juego::raycasting(Map &mapa, Player &jugador) {
     Posicion &posJugador = jugador.getPosicion();
     SDL_Renderer *render = this->ventana.obtener_render();
-    double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
     int ladoCelda = ANCHO_CANVAS / TAMANIO_FILA;
-    double anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
+    double anguloPorStripe = RANGO_DE_VISTA / ANCHO_CANVAS;
     double anguloJugador = jugador.getAnguloDeVista();
-    double anguloRayo = anguloJugador - (rangoDeVista / 2);
+    double anguloRayo = anguloJugador - (RANGO_DE_VISTA / 2);
 
     std::vector<double> &zbuffer = this->modelo.getZBuffer();
     for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
         double distancia = 0;
-        Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo, posJugador);
+        Rayo rayo(RANGO_DE_VISTA, ladoCelda, LARGO_PROYECTOR, anguloRayo, posJugador);
         rayo.verificarInterseccion(mapa, distancia, jugador);
         zbuffer.push_back(distancia);
         unsigned int alturaParedProyectada = 0;
