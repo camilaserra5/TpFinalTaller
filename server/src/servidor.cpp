@@ -42,6 +42,7 @@ int Servidor::agregarCliente(std::string &nombreJugador) {
         this->arrancoPartida = true;
         this->start();
     }
+    return id;
 }
 
 int Servidor::obtenerIdParaJugador() {
