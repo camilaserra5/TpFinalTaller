@@ -22,8 +22,8 @@ public:
         return this->protocolo;
     }
 
-    int obtenerIdJugador() {
-        return this->idJugador;
+    uint32_t obtenerIdJugador() {
+        return this->idCliente;
     }
 
 private:
@@ -32,7 +32,7 @@ private:
     Fonts fonts;
     Socket socket;//hay qeu sacarlo
     Protocolo *protocolo;
-    int idJugador;
+    uint32_t idCliente;
 
 };
 

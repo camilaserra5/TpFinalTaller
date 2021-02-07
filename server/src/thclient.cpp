@@ -26,7 +26,7 @@ void ThClient::stop() {
 
 void ThClient::procesar_pedido() {
     std::vector<char> serializado = this->protocolo->recibir();
-    bool resultado = false;
+    int idJugador = -1;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -39,20 +39,20 @@ void ThClient::procesar_pedido() {
         std::cout << "UNIRSE" << std::endl;
         UnirseAPartida unirseAPartida;
         unirseAPartida.deserializar(serializado);
-        resultado = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida.getNombreJugador(),
+        idJugador = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida.getNombreJugador(),
                                                                       unirseAPartida.getNombrePartida());
     } else {
         std::cout << "CREAR" << std::endl;
         CrearPartida crearPartida;
         crearPartida.deserializar(serializado);
-        resultado = this->manejadorDePartidas->crearPartida(crearPartida.getNombreJugador(),
+        idJugador = this->manejadorDePartidas->crearPartida(crearPartida.getNombreJugador(),
                                                             crearPartida.getCantJugadores(),
                                                             crearPartida.getNombrePartida(),
                                                             crearPartida.getRutaArchivo());
     }
-    if (resultado) std::cout << "EXITOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n";
+    if (idJugador >= 0) std::cout << "EXITOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n";
     std::vector<char> ret(4);
-    unsigned int size = htonl(resultado);
+    unsigned int size = htonl(idJugador);
     memcpy(ret.data(), &size, 4);
     protocolo->enviar(ret);
 }

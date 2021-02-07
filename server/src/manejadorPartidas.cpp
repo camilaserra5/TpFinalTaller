@@ -36,13 +36,14 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
 
 }
 
-bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
+int ManejadorPartidas::crearPartida(std::string &nombreJugador,
                                      int &cant_jugadores, std::string &nombre_partida,
                                      std::string &archivoMapa) {
+    int idCliente = -1;
     if (partidas.count(nombre_partida) > 0) {
         //partida existe;
         // se avisa al cliente
-        return false;
+        return idCliente;
     } else {
         // partida valida
         // se le avisa al cliente que es valida
@@ -63,27 +64,27 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
     }
 }
 
-bool ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
+int ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
                                                std::string &nombre_partida) {
 
     Servidor *servidor = this->partidas.at(nombre_partida);
+    int idJugador = -1;
     if (servidor->yaArranco()) {
         // la partida ya arranco
         // informale al Cliente
         std::cout << "ya arranco la partida\n";
-        return false;
+        return idJugador;
     } else {
         // partida valida para unirse
         // avisarle al cliente;
         //ProtectedQueue<Comando*> cola;
         //ProtectedQueue<Actualizacion> actualizaciones;
-      //  Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(),
-        //                               nombreJugador);
-        servidor->agregarCliente(nombreJugador);
+
+        idJugador = servidor->agregarCliente(nombreJugador);
         //this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia
         // que esta adentro del mapa de partidas.
         // en caso de que este creo que se pisa entonces no afecta
-        return true;
+        return idJugador;
     }
 }
 
