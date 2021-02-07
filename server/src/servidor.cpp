@@ -130,7 +130,7 @@ void Servidor::run() {
 std::vector<char> Servidor::serializar() {
     std::vector<char> informacion;
     //std::vector<char> cantJugadoresAct = numberToCharArray(this->jugadores.size()); SACARRR
-    informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());
+    //informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());
     std::vector<char> cantJugadores = numberToCharArray(cantJugadoresPosibles);
     informacion.insert(informacion.end(), cantJugadores.begin(), cantJugadores.end());
     return informacion;
