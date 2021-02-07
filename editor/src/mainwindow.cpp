@@ -73,6 +73,18 @@ void MainWindow::openMap() {
                 newImage.load(QStringLiteral(DOOR));
                 QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
                 mapWidget->addTile(point, pixmap, map(i, j).getType());
+            } else if ("fakeDoor" == type.getName()) {
+                QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
+                QPixmap newImage;
+                newImage.load(QStringLiteral(GREY_WALL));
+                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
+                mapWidget->addTile(point, pixmap, map(i, j).getType());
+            } else if ("keyDoor" == type.getName()) {
+                QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
+                QPixmap newImage;
+                newImage.load(QStringLiteral(KEY_DOOR));
+                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
+                mapWidget->addTile(point, pixmap, map(i, j).getType());
             }
         }
     }
