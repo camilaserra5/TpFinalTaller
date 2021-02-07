@@ -91,7 +91,7 @@ void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion *> &actualiza
 }
 
 void Servidor::run() {
-    this->lanzarJugadores();
+  //  this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
     std::this_thread::sleep_for(duration);
@@ -130,7 +130,7 @@ void Servidor::run() {
 std::vector<char> Servidor::serializar() {
     std::vector<char> informacion;
     //std::vector<char> cantJugadoresAct = numberToCharArray(this->jugadores.size()); SACARRR
-    informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());
+    //informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());
     std::vector<char> cantJugadores = numberToCharArray(cantJugadoresPosibles);
     informacion.insert(informacion.end(), cantJugadores.begin(), cantJugadores.end());
     return informacion;
