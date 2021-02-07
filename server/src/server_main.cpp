@@ -38,7 +38,6 @@ int main(int argc, const char *argv[]) {
         Socket socket;
         socket.bind_and_listen(port.c_str());
 
-        /////
         std::string nombreJugador = "juan";
         std::string nombre = "pepe";
         std::string nombre_partida = "grecia";
@@ -47,13 +46,13 @@ int main(int argc, const char *argv[]) {
         int cant_jugadores = 1;
         int cant_jugadores2 = 2;
         ManejadorPartidas manejadorPartidas;
-        manejadorPartidas.agregarMapa(nombre_archivo);
+      //  manejadorPartidas.agregarMapa(nombre_archivo);
 
-        bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores, nombre_partida, nombre_archivo);
-        manejadorPartidas.crearPartida(nombreJugador, cant_jugadores2, nombre_partida2, nombre_archivo);
-        if (estado) {
-            std::cout << "creo partida\n";
-        }
+      //  bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores, nombre_partida, nombre_archivo);
+      //  manejadorPartidas.crearPartida(nombreJugador, cant_jugadores2, nombre_partida2, nombre_archivo);
+        //if (estado) {
+          //  std::cout << "creo partida\n";
+      //  }
         /////
 
         Aceptador aceptador(socket, &manejadorPartidas);

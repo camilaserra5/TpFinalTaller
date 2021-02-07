@@ -47,12 +47,12 @@ public:
 
     Map buscarMapa(std::string& archivoMapa);
 
-    void agregarMapa(std::string archivoMapa);
+    void agregarMapa(std::string nombreMapa,std::string archivoMapa);
 
 private:
     std::map<std::string, Servidor *> partidas;
     std::atomic<bool> esta_corriendo;
-    std::vector<std::string> mapas;
+    std::map<std::string,std::string> mapas;
 
 };
 

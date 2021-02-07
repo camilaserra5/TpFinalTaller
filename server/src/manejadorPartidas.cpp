@@ -10,16 +10,17 @@ ManejadorPartidas::ManejadorPartidas() :
         partidas(),
         esta_corriendo(true),
         mapas() {
-    this->agregarMapa("../../resources/mapas/mapa1.yaml");
-    this->agregarMapa("../../resources/mapas/mapa2.yaml");
+    this->agregarMapa("mapa1","../../resources/mapas/mapa1.yaml");
+    this->agregarMapa("mapa2","../../resources/mapas/mapa2.yaml");
 }
 
-void ManejadorPartidas::agregarMapa(std::string archivoMapa) {
-    this->mapas.push_back(archivoMapa);
+void ManejadorPartidas::agregarMapa(std::string nombreMapa, std::string archivoMapa) {
+    this->mapas.insert(std::make_pair(nombreMapa, archivoMapa));
 }
 
 Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
-  return MapTranslator::yamlToMap(YAML::LoadFile(archivoMapa));
+  std::string ruta = this->mapas.at(archivoMapa);
+  return MapTranslator::yamlToMap(YAML::LoadFile(ruta));
 
   /*
     Map mapa;
