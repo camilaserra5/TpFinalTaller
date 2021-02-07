@@ -230,17 +230,21 @@ void Jugador::deserializar(std::vector<char> &serializado) {
 
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    std::cerr << "posicion: " << charArrayToNumber(sub);
     std::vector<char> posicionSerializado(serializado.begin() + idx,
                                           serializado.begin() + idx +
                                           charArrayToNumber(sub));
     this->posicion.deserializar(posicionSerializado);
 
+    idx += 4;
     idx += charArrayToNumber(sub);
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+
     std::vector<char> logroSerializado(serializado.begin() + idx,
                                        serializado.begin() + idx +
                                        charArrayToNumber(sub));
-    this->logro.deserializar(logroSerializado);
+
+              this->logro.deserializar(logroSerializado);
     std::cerr << " juegador deserializar fin" << std::endl;
 }
 
