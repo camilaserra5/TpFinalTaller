@@ -6,6 +6,8 @@
 #define TYPE_WALL 2
 #define TYPE_DOOR 1
 #define TYPE_EMPTY 0
+#define TYPE_KEY_DOOR 4
+#define TYPE_FAKE_WALL 3
 
 #include <vector>
 

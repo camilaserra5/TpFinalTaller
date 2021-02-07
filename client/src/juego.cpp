@@ -9,6 +9,7 @@
 #define GREY_WALL "../../editor/resources/grey-wall.jpg"
 #define WOOD_WALL "../../editor/resources/wood-wall.jpg"
 #define DOOR "../../editor/resources/door.jpg"
+#define KEYDOOR "../../editor/resources/keydoor.jpg"
 #define RANGO_DE_VISTA 1.047197551
 
 #define LOWER_TEXTURE_ROOT "../../client/resources/images/ParteInferior.png"
@@ -141,6 +142,10 @@ Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
     } else if (tipoDePared == TYPE_WALL_2) {
         return new Textura(WOOD_WALL, render);
     } else if (tipoDePared == TYPE_WALL_3) {
+        return new Textura(GREY_WALL, render);
+    } else if (tipoDePared == TYPE_KEY_DOOR) {
+        return new Textura(KEYDOOR, render);
+    } else if (tipoDePared == TYPE_FAKE_WALL) {
         return new Textura(GREY_WALL, render);
     } else {
         return new Textura(DOOR, render);
