@@ -142,7 +142,7 @@ std::vector<char> Servidor::serializar() {
 
 void Servidor::joinClientes(){
   std::map<int, ManejadorCliente*>::iterator it;
-  for (it = this->clientes.begin(); it != this->clientes.end()) {
+  for (it = this->clientes.begin(); it != this->clientes.end();) {
       it->second->join();
   }
 }

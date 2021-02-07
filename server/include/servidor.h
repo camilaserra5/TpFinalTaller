@@ -56,6 +56,8 @@ public:
 
     int obtenerIdParaJugador();
 
+    void joinClientes();
+
 
 private:
     void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);
