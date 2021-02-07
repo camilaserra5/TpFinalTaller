@@ -78,8 +78,8 @@ bool ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
         // avisarle al cliente;
         //ProtectedQueue<Comando*> cola;
         //ProtectedQueue<Actualizacion> actualizaciones;
-        Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(),
-                                       nombreJugador);
+      //  Cliente *cliente = new Cliente(servidor->obtenerColaEventos(), servidor->obtenerColaActualizaciones(),
+        //                               nombreJugador);
         servidor->agregarCliente(nombreJugador);
         //this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia
         // que esta adentro del mapa de partidas.
