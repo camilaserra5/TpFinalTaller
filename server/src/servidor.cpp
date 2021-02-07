@@ -91,7 +91,7 @@ void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion *> &actualiza
 }
 
 void Servidor::run() {
-    this->lanzarJugadores();
+  //  this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
     std::this_thread::sleep_for(duration);
