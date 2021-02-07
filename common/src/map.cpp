@@ -196,6 +196,7 @@ std::vector<char> Map::serializar() {
 }
 
 void Map::deserializar(std::vector<char> &serializado) {
+    std::cerr << " mapa deserializar emp" << std::endl;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -216,6 +217,7 @@ void Map::deserializar(std::vector<char> &serializado) {
     idx += 4;
     std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
     this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
+    std::cerr << " mapa deserializar fin" << std::endl;
 }
 
 std::vector<Item *> &Map::obtenerItems() {

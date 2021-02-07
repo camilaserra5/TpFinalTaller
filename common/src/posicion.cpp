@@ -90,16 +90,19 @@ std::vector<char> Posicion::serializar() {
 }
 
 void Posicion::deserializar(std::vector<char> &serializado) {
+    std::cerr << " posicion deserializar emp " << std::endl;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->pixelesX = charArrayToNumber(sub);
-
+    std::cerr << " posicion deserializar pixelesX " << pixelesX << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->pixelesY = charArrayToNumber(sub);
-
+    std::cerr << " posicion deserializar pixelesY " << pixelesY << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->anguloDeVista = charArrayToNumber(sub);
+    std::cerr << " posicion deserializar anguloDeVista " << anguloDeVista << std::endl;
+    std::cerr << " posicion deserializar fin " << std::endl;
 }
