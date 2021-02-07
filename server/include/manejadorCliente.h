@@ -9,7 +9,7 @@ class ManejadorCliente{
 public:
     ManejadorCliente(BlockingQueue<Actualizacion *> &actualizaciones, ProtectedQueue<Comando *> &comandos, Protocolo* protocolo, int& id){
         this->enviador =  new Server_Event_Sender(actualizaciones, protocolo);
-        this->recibir = new Server_event_receiver(comandos, protocolo);
+        this->recibidor = new Server_Event_Receiver(comandos, protocolo);
         this->id = id;
     }
     ~ManejadorCliente(){
@@ -24,6 +24,8 @@ public:
     }
 private:
     Server_Event_Sender* enviador;
-    Server_event_receiver* recibidor;
+    Server_Event_Receiver* recibidor;
     int id;
-}
+};
+
+#endif

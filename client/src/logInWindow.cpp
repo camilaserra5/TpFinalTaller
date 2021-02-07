@@ -409,8 +409,7 @@ void LogInWindow::run() {
                 pantallaError(this->renderer, this->fonts, error);
             }
             pantallaEsperando(this->renderer, this->fonts);
-            // si ya se lanzo la partida
-            // dejar de correr el run;
+            // se bloquea para recibir
         }
     }
 }

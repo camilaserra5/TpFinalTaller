@@ -22,7 +22,7 @@ public:
 
     void run() override;
 
-    int agregarCliente(std::string &nombreJugador);
+    int agregarCliente(std::string &nombreJugador, ManejadorCliente* cliente, int& id);
 
     bool yaArranco();
 
@@ -30,7 +30,7 @@ public:
 
     ProtectedQueue<Comando *> &obtenerColaEventos();
 
-    ProtectedQueue<Actualizacion *> &obtenerColaActualizaciones();
+    BlockingQueue<Actualizacion *> &obtenerColaActualizaciones();
 
     void lanzarJugadores();
 
@@ -61,7 +61,7 @@ private:
     void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);
 
     ProtectedQueue<Comando *> cola_comandos;
-    ProtectedQueue<Actualizacion *> cola_actualizaciones;
+    BlockingQueue<Actualizacion *> cola_actualizaciones;
     EstadoJuego estadoJuego;
     int cantJugadoresPosibles;
     int cantJugadoresAgregados = 0;
