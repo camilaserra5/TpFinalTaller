@@ -30,15 +30,15 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
     }
 }
 
-void Servidor::agregarCliente(std::string &nombreJugador) {
+int Servidor::agregarCliente(std::string &nombreJugador) {
     // asignarle un id random
     // el mapa deveria crear al jugador o hay que avisarle que hay un nuevo jugador
     // para asignarle posicion;
     //Jugador jugador(nombreJugador, id);
     int id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador, id);
-    this->cantidadJugadoresAgregados++;
-    if (this->cantidadJugadoresAgregados == this->cantJugadoresPosibles) {
+    this->cantJugadoresAgregados++;
+    if (this->cantJugadoresAgregados == this->cantJugadoresPosibles) {
         this->arrancoPartida = true;
         this->start();
     }

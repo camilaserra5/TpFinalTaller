@@ -16,11 +16,11 @@ public:
 
     ~ManejadorPartidas();
 
-    bool crearPartida(std::string &nombreJugador,
+    int crearPartida(std::string &nombreJugador,
                       int &cant_jugadores, std::string &nombre_partida,
                       std::string &archivoMapa);
 
-    bool agregarClienteAPartida(std::string &nombreJugador,
+    int agregarClienteAPartida(std::string &nombreJugador,
                                 std::string &nombre_partida);
 
     std::vector<char> serializar();/* {
