@@ -34,13 +34,15 @@ void ThClient::procesar_pedido() {
     memcpy(number, sub.data(), 4);
     uint32_t *buf = (uint32_t *) number;
     int idAccion = ntohl(*buf);
+    std::string nombre_partida;
 
     if (idAccion == static_cast<int>(Accion::unirseAPartida)) {
         std::cout << "UNIRSE" << std::endl;
         UnirseAPartida unirseAPartida;
         unirseAPartida.deserializar(serializado);
         idJugador = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida.getNombreJugador(),
-                                                                      unirseAPartida.getNombrePartida());
+                                                                      unirseAPartida.getNombrePartida(),arranco);
+        nombre_partida = unirseAPartida.getNombrePartida();
     } else {
         std::cout << "CREAR" << std::endl;
         CrearPartida crearPartida;
@@ -49,12 +51,13 @@ void ThClient::procesar_pedido() {
                                                             crearPartida.getCantJugadores(),
                                                             crearPartida.getNombrePartida(),
                                                             crearPartida.getRutaArchivo());
+        nombre_partida = crearPartida.getNombrePartida();
     }
-    if (idJugador >= 0) std::cout << "EXITOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n";
     std::vector<char> ret(4);
     unsigned int size = htonl(idJugador);
     memcpy(ret.data(), &size, 4);
     protocolo->enviar(ret);
+
 }
 
 bool ThClient::is_dead() {

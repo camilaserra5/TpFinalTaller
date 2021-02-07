@@ -58,10 +58,10 @@ int ManejadorPartidas::crearPartida(std::string &nombreJugador,
 
         //int cant_jugadores = 1;
         Servidor *servidor = new Servidor(this->buscarMapa(archivoMapa), cant_jugadores);
-        servidor->agregarCliente(nombreJugador);
+        idCliente = servidor->agregarCliente(nombreJugador);
         //servidor.agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor});
-        return true;
+        return idCliente;
     }
 }
 
