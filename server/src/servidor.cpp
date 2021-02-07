@@ -139,3 +139,10 @@ std::vector<char> Servidor::serializar() {
     informacion.insert(informacion.end(), cantJugadores.begin(), cantJugadores.end());
     return informacion;
 }
+
+void Servidor::joinClientes(){
+  std::map<int, ManejadorCliente*>::iterator it;
+  for (it = this->clientes.begin(); it != this->clientes.end()) {
+      it->second->join();
+  }
+}
