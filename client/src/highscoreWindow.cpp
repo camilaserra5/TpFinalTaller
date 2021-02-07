@@ -4,31 +4,22 @@
 #include "../include/label.h"
 #include <sstream>
 
+
 #define WOLFSTEIN_TTF_ROOT "../../resources/fuentes/joystix.monospace.ttf"
 #define BACKGROUND_IMAGE_ROOT "../../client/resources/images/backgroundHighscore.jpg"
 #define FONT_SIZE_TITLE 40
 #define FONT_SIZE_SUBTITLE 25
 #define FONT_SIZE_NAMES 18
 
-HighscoreWindow::HighscoreWindow() {
-    int rendererFlags, windowFlags;
-
-    rendererFlags = SDL_RENDERER_ACCELERATED;
-
-    windowFlags = 0;
+HighscoreWindow::HighscoreWindow(Ventana& ventana): ventana(ventana){
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("Couldn't initialize SDL: %s\n", SDL_GetError());
         exit(1);
     }
 
-    this->window = SDL_CreateWindow("Wolfstein 3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
-                                    SCREEN_HEIGHT, windowFlags);
-
-    if (!this->window) {
-        printf("Failed to open %d x %d window: %s\n", SCREEN_WIDTH, SCREEN_HEIGHT, SDL_GetError());
-        exit(1);
-    }
+    /*SDL_CreateWindow("Wolfstein 3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
+                                    SCREEN_HEIGHT, windowFlags);*/
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 
@@ -41,13 +32,7 @@ HighscoreWindow::HighscoreWindow() {
     fonts.addFont("wolfstein-subtitle", WOLFSTEIN_TTF_ROOT, FONT_SIZE_SUBTITLE);
     fonts.addFont("wolfstein-names", WOLFSTEIN_TTF_ROOT, FONT_SIZE_NAMES);
 
-    this->renderer = SDL_CreateRenderer(this->window, -1, rendererFlags);
-
-    if (!this->renderer) {
-        printf("Failed to create renderer: %s\n", SDL_GetError());
-        exit(1);
-    }
-
+    this->renderer = ventana.obtener_render();
 }
 
 void display_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, int h) {
@@ -62,7 +47,7 @@ void display_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int 
     label.draw();
 }
 
-void show_highscores(SDL_Renderer *renderer, Fonts fonts) {
+void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
     Background background(BACKGROUND_IMAGE_ROOT, renderer);
     SDL_Event e;
     int pressed = false;
@@ -110,7 +95,23 @@ void show_highscores(SDL_Renderer *renderer, Fonts fonts) {
     }
 }
 
-void HighscoreWindow::run() {
+void HighscoreWindow::settearGanadores(std::vector<int>& ganadores,Player *jugador, std::map<int, Enemigo *> &enemigos){
+    for (int i = 0; i < ganadores.size(); i++) {
+        int id = ganadores[i];
+        if (jugador->getId() == id) {
+            int logro = jugador->getPuntaje();
+            std::string puntaje = std::to_string(logro);
+            this->ganadores.insert(std::make_pair(id, logro));
+
+        } else {
+            Enemigo *enemigo = enemigos.find(ganadores[i])->second;
+            int logro = enemigo->getPuntaje();
+            std::string puntaje = std::to_string(logro);
+            this->ganadores.insert(std::make_pair(id, logro));
+        }
+    }    
+}
+void HighscoreWindow::renderizar() {
     Background background(BACKGROUND_IMAGE_ROOT, this->renderer);
     background.drawBackground();
     while (1) {
@@ -120,9 +121,6 @@ void HighscoreWindow::run() {
 }
 
 HighscoreWindow::~HighscoreWindow() {
-    SDL_DestroyRenderer(this->renderer);
-
-    SDL_DestroyWindow(this->window);
-
+    this->ventana.cerrar();
     SDL_Quit();
 }

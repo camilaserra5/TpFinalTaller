@@ -8,7 +8,7 @@
 #include "objetosJuego.h"
 #include "enemigo.h"
 #include <vector>
-#include "anunciador.h"
+#include "highscoreWindow.h"
 
 class Modelo {
 public:
@@ -61,7 +61,7 @@ private:
     std::map<int, ObjetoJuego *> entidades;
     std::map<int, Enemigo *> enemigos;
     std::vector<double> zbuffer;
-    Anunciador anunciador;
+    HighscoreWindow anunciador;
     bool partidaTerminada;
 
     bool verificarVisibilidadDeObjeto(Posicion &posObjeto);

@@ -14,6 +14,7 @@
 #define GREY_WALL "../../editor/resources/grey-wall.jpg"
 #define WOOD_WALL "../../editor/resources/wood-wall.jpg"
 #define DOOR "../../editor/resources/door.jpg"
+#define KEY_DOOR "../../editor/resources/keydoor.jpg"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     setupMenus();
@@ -137,10 +138,14 @@ void MainWindow::initTiles() {
             ObjetosJuego::obtenerTipoPorNombre("wall"));
     addTile(QStringLiteral("grey wall"), QStringLiteral("../../editor/resources/grey-wall.jpg"),
             ObjetosJuego::obtenerTipoPorNombre("wall-2"));
+    addTile(QStringLiteral("fake wall"), QStringLiteral("../../editor/resources/grey-wall.jpg"),
+            ObjetosJuego::obtenerTipoPorNombre("fakeDoor"));
     addTile(QStringLiteral("wood wall"), QStringLiteral("../../editor/resources/wood-wall.jpg"),
             ObjetosJuego::obtenerTipoPorNombre("wall-3"));
     addTile(QStringLiteral("door"), QStringLiteral("../../editor/resources/door.jpg"),
             ObjetosJuego::obtenerTipoPorNombre("door"));
+    addTile(QStringLiteral("key door"), QStringLiteral("../../editor/resources/keydoor.jpg"),
+            ObjetosJuego::obtenerTipoPorNombre("keydoor"));
 }
 
 void MainWindow::saveMap() {
