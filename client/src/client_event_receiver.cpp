@@ -56,8 +56,8 @@ void ClientEventReceiver::run() {
                 }
             }
 
-            Map *mapa = estadoJuego.obtenerMapa();
-            std::vector<Item *> items = mapa->obtenerItems();
+            Map& mapa = estadoJuego.obtenerMapa();
+            std::vector<Item *> items = mapa.obtenerItems();
             for (int i = 0; i < items.size(); i++) {
                 Item *item = items[i];
                 int idI = item->getId();

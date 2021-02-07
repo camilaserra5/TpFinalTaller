@@ -7,7 +7,7 @@
 #define TIEMPO_SERVIDOR 30
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor(Map *mapa, int cantJugadoresPosibles) :
+Servidor::Servidor(Map mapa, int cantJugadoresPosibles) :
         cola_comandos(),
         cola_actualizaciones(),
         estadoJuego(mapa),

@@ -93,6 +93,8 @@ public:
 
     Posicion obtenerPosicionIncialValida();
 
+    Map(){}//capaz poner privado
+
 private:
     unsigned rowSize;
     unsigned colSize;

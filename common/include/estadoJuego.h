@@ -12,7 +12,7 @@
 
 class EstadoJuego : public ISerializable {
 public:
-    EstadoJuego(Map *mapa);
+    EstadoJuego(Map& mapa);
 
     ~EstadoJuego();
 
@@ -80,7 +80,7 @@ public:
     std::map<int, Jugador *> &obtenerJugadores(); /*{
         return this->jugadores;
     }*/
-    Map *obtenerMapa();/*{
+    Map& obtenerMapa();/*{
         return this->mapa;
     }*/
 
@@ -94,7 +94,7 @@ public:
 
 
 private:
-    Map *mapa;
+    Map mapa;
     std::map<int, Jugador *> jugadores;
     int contador;
     int jugadoresMuertos = 0;

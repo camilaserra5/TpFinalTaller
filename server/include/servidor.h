@@ -15,7 +15,7 @@
 
 class Servidor : public Thread, public ISerializable {
 public:
-    Servidor(Map *mapa, int cant_jugadores);
+    Servidor(Map mapa, int cant_jugadores);
 
     ~Servidor();
 
