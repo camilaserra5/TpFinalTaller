@@ -72,8 +72,9 @@ void ThClient::run() {
     std::cerr << "\nfin envio partidas";
     //  reinterpret_cast<char *>(partidas.data()), partidas.size()
     this->protocolo->enviar(partidas);
+    procesar_pedido();
     while (this->keep_talking) {
-        procesar_pedido();
+
 /*
         std::string mensaje = this->mensaje_cliente.str();
         if (mensaje.size() != 0) {

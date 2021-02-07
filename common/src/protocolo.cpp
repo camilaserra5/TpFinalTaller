@@ -45,25 +45,33 @@ std::vector<char> Protocolo::recibir() {
 }
 
 Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
-
-    if (informacion[1] == static_cast<int>(Accion::ataque)) {
-
-        return new Ataque((int) informacion[0]);
-    } else if (informacion[1] == static_cast<int>(Accion::aperturaDePuerta)) {
-        return new AperturaDePuerta((int) informacion[0]);
+    std::vector<char> sub(4);
+    int idx = 0;
+    sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
+    char number[4];
+    memcpy(number, sub.data(), 4);
+    uint32_t *buf = (uint32_t *) number;
+    int idAccion = ntohl(*buf);
+    sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
+    memcpy(number, sub.data(), 4);
+    buf = (uint32_t *) number;
+    int idJugador = ntohl(*buf);
+    if (idAccion == static_cast<int>(Accion::ataque)) {
+        return new Ataque(idJugador);
+    } else if (idAccion == static_cast<int>(Accion::aperturaDePuerta)) {
+        return new AperturaDePuerta(idJugador);
     } else {
         Accion accion;
-        if (informacion[1] == static_cast<int>(Accion::rotarDerecha)) {
+        if (idAccion == static_cast<int>(Accion::rotarDerecha)) {
             accion = Accion::rotarDerecha;
-        } else if (informacion[1] == static_cast<int>(Accion::rotarIzquierda)) {
+        } else if (idAccion == static_cast<int>(Accion::rotarIzquierda)) {
             accion = Accion::rotarIzquierda;
-        } else if (informacion[1] == static_cast<int>(Accion::moverArriba)) {
+        } else if (idAccion == static_cast<int>(Accion::moverArriba)) {
             accion = Accion::moverArriba;
         } else {
             accion = Accion::moverAbajo;
         }
-        int id = (int) informacion[0];
-        return new Movimiento(id, accion);
+        return new Movimiento(idJugador, accion);
     }
 }
 

@@ -33,6 +33,9 @@ Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion) :
     this->armas.insert(std::make_pair(armaActual, new Pistola()));
 }
 
+Jugador::Jugador() {
+}
+
 Jugador::~Jugador() {
 
     /*  for (int i = 0; i < this->armas.size(); i++) {
@@ -227,10 +230,13 @@ void Jugador::deserializar(std::vector<char> &serializado) {
 
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-    std::vector<char> logroSerializado(serializado.begin() + idx,
-                                       serializado.begin() + idx +
-                                       charArrayToNumber(sub));
-    this->logro.deserializar(logroSerializado);
+    std::cerr << "LOGRO" << charArrayToNumber(sub) << std::endl;
+    if (charArrayToNumber(sub) > 0) {
+        std::vector<char> logroSerializado(serializado.begin() + idx,
+                                           serializado.begin() + idx +
+                                           charArrayToNumber(sub));
+        this->logro.deserializar(logroSerializado);
+    }
 }
 
 void Jugador::dejarDeDisparar() {

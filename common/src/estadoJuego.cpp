@@ -211,7 +211,7 @@ void EstadoJuego::deserializar(std::vector<char> &informacion) {
         std::vector<char> jugadorSerializado(informacion.begin() + idx,
                                              informacion.begin() + idx + charArrayToNumber(sub));
         idx += charArrayToNumber(sub);
-        Jugador *jugador;
+        Jugador *jugador = new Jugador();
         jugador->deserializar(jugadorSerializado);
         this->jugadores.insert(std::make_pair(jugador->getId(), jugador));
     }
