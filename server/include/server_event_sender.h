@@ -12,8 +12,8 @@
 
 class Server_Event_Sender : public Thread {
 public:
-    Server_Event_Sender(BlockingQueue<Actualizacion *> &actualizaciones, Socket &socket) :
-            actualizaciones(actualizaciones), protocolo(std::move(socket)), corriendo(true) {}
+    Server_Event_Sender(BlockingQueue<Actualizacion *> &actualizaciones, Protocolo* protocolo) :
+            actualizaciones(actualizaciones), protocolo(protocolo), corriendo(true) {}
 
     ~Server_Event_Sender() {}
 
@@ -25,7 +25,7 @@ public:
 
 private:
     BlockingQueue<Actualizacion *> &actualizaciones;
-    Protocolo protocolo;
+    Protocolo* protocolo;
     std::atomic<bool> corriendo; // deberian ser atomic??
 };
 

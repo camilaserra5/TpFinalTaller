@@ -39,7 +39,7 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
 
 int ManejadorPartidas::crearPartida(std::string &nombreJugador,
                                      int &cant_jugadores, std::string &nombre_partida,
-                                     std::string &archivoMapa) {
+                                     std::string &archivoMapa, Protocolo* protocolo) {
     int idCliente = -1;
     if (partidas.count(nombre_partida) > 0) {
         //partida existe;
@@ -58,7 +58,8 @@ int ManejadorPartidas::crearPartida(std::string &nombreJugador,
 
         //int cant_jugadores = 1;
         Servidor *servidor = new Servidor(this->buscarMapa(archivoMapa), cant_jugadores);
-        idCliente = servidor->agregarCliente(nombreJugador);
+        ManejadorCliente* cliente = new Cliente(this->obtenerColaActualizaciones(),this->obtenerColaEventos(),protocolo, idCliente);
+        servidor->agregarCliente(nombreJugador, cliente, idCliente);
         //servidor.agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor});
         return idCliente;
@@ -66,7 +67,7 @@ int ManejadorPartidas::crearPartida(std::string &nombreJugador,
 }
 
 int ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
-                                               std::string &nombre_partida) {
+                                               std::string &nombre_partida, Protocolo* protocolo) {
 
     Servidor *servidor = this->partidas.at(nombre_partida);
     int idJugador = -1;
@@ -81,7 +82,8 @@ int ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
         //ProtectedQueue<Comando*> cola;
         //ProtectedQueue<Actualizacion> actualizaciones;
 
-        idJugador = servidor->agregarCliente(nombreJugador);
+        ManejadorCliente* cliente = new Cliente(this->obtenerColaActualizaciones(),this->obtenerColaEventos(),protocolo, idCliente);
+        servidor->agregarCliente(nombreJugador, cliente, idCliente);
         //this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia
         // que esta adentro del mapa de partidas.
         // en caso de que este creo que se pisa entonces no afecta

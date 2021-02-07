@@ -30,19 +30,21 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
     }
 }
 
-int Servidor::agregarCliente(std::string &nombreJugador) {
+void Servidor::agregarCliente(std::string &nombreJugador, ManejadorCliente* cliente, int& id) {
     // asignarle un id random
     // el mapa deveria crear al jugador o hay que avisarle que hay un nuevo jugador
     // para asignarle posicion;
     //Jugador jugador(nombreJugador, id);
-    int id = this->obtenerIdParaJugador();
+    id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador, id);
+    cliente->settearId(id);
+    this->clientes.agregar(id, cliente);
     this->cantJugadoresAgregados++;
     if (this->cantJugadoresAgregados == this->cantJugadoresPosibles) {
         this->arrancoPartida = true;
         this->start();
     }
-    return id;
+
 }
 
 int Servidor::obtenerIdParaJugador() {
@@ -50,14 +52,14 @@ int Servidor::obtenerIdParaJugador() {
     this->generadorDeId += 1;
     return id;
 }
-/*
+
 void Servidor::lanzarJugadores() {
-    for (auto it = this->jugadores.begin(); it != this->jugadores.end(); it++) {
+    for (auto it = this->clientes.begin(); it != this->clientes.end(); it++) {
         it->second->start();
 
     }
 }
-*/
+
 void Servidor::lanzarContadorTiempoPartida() {
     this->estadoJuego.lanzarContadorTiempoPartida();
 }
@@ -93,6 +95,7 @@ void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion *> &actualiza
 
 void Servidor::run() {
   //  this->lanzarJugadores();
+  this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
     std::this_thread::sleep_for(duration);
