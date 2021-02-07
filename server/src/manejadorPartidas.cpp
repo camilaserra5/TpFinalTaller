@@ -10,30 +10,29 @@ ManejadorPartidas::ManejadorPartidas() :
         partidas(),
         esta_corriendo(true),
         mapas() {
-    this->mapas.push_back("../../resources/mapas/piedras.yaml");
+    this->agregarMapa("../../resources/mapas/mapa1.yaml");
+    this->agregarMapa("../../resources/mapas/mapa2.yaml");
 }
 
-void ManejadorPartidas::agregarMapa(std::string &archivoMapa) {
+void ManejadorPartidas::agregarMapa(std::string archivoMapa) {
     this->mapas.push_back(archivoMapa);
 }
 
-Map *ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
+Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
+  return MapTranslator::yamlToMap(YAML::LoadFile(archivoMapa));
+
+  /*
+    Map mapa;
     int i = 0;
     int cant_mapas = this->mapas.size();
     bool encontre = false;
-    //Map* mapa = new Map(1, 1);
-    Map *mapa = new Map(20, 20);
-
-    /*mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
-
     while (i < cant_mapas && !encontre) {
-        int pos = this->mapas[i].find(archivoMapa);
-        if (pos > -1) {
-            mapa = MapTranslator::yamlToMap(YAML::LoadFile(archivoMapa));
+        if (this->mapas[i] == archivoMapa) {
             encontre = true;
         }
-    }*/
-    return mapa;
+        i++;
+    }
+    return mapa;//capaz cambiar a std::move*/
 
 }
 
@@ -49,14 +48,14 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador,
         // se le avisa al cliente que es valida
         // hay que relacionar el nombre del mapa con el archivo yaml
         // capaz esta clase tiene el un vector de yamls
-        Map *mapa = this->buscarMapa(archivoMapa);
+
         //  Map *mapa = new Map(20, 20);
 
         //mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
         std::cout << "ya setie elemnto";
 
         //int cant_jugadores = 1;
-        Servidor *servidor = new Servidor(mapa, cant_jugadores);
+        Servidor *servidor = new Servidor(this->buscarMapa(archivoMapa), cant_jugadores);
         servidor->agregarCliente(nombreJugador);
         //servidor.agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor});

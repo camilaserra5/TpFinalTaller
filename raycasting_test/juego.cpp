@@ -39,10 +39,11 @@ Juego::Juego(const std::string &titulo, int ancho, int alto, bool fullscreen, in
 }
 
 void Juego::run() {
-  Map mapa(20,20);
+  Map mapa = yamlToMap;
     try {
         this->clean();
         this->renderizar();
+
         this->raycasting(mapa,this->jugador);
         this->actualizar(/*1*/);
 //deberia ir antes que renderizar para que se dibuje atras del mapa
@@ -73,74 +74,61 @@ void Juego::raycasting(Map &mapaa, Jugador &jugador) {
 
 // x = fila / y = columna
 
-int mapa[TAMANIO_FILA][TAMANIO_COLUMNA] = { {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                     /*1*/  {1,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1},
-                                    /*2*/   {1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1},
-                                   /*3*/    {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*4*/     {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                 /*5*/      {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                /*6*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                /*7*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                /*8*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                /*9*/       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                /*10*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                /*11*/      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                              /*12*/        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                          /*13*/            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                          /*14*/            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*15*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                  /*16*/    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*17*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*18*/  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                                    /*19*/  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                            /* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 */
-                                            };
-            SDL_Renderer *render = this->ventana->obtener_render();
-            Textura* wall = new Textura(GRAY_STONE_WALL_ROOT,render);
-            Posicion& posJugador = jugador.getPosicion();
 
-            /*******PARAMETROS DE RAYCASTING********/
-            double rangoDeVista = 2 * acos(0.0) / 3;//60 grados
-            int ladoCelda = ANCHO_CANVAS/TAMANIO_FILA;
-            double anguloPorStripe = rangoDeVista / ANCHO_CANVAS;
-            double anguloJugador = jugador.getAnguloDeVista();
-            double anguloRayo = anguloJugador - (rangoDeVista / 2);
-            SDL_Rect wallDimension,wallDest;
+void Juego::raycasting(Map &mapa, Player &jugador) {
+    Posicion &posJugador = jugador.getPosicion();
+    SDL_Renderer *render = this->ventana.obtener_render();
+    int ladoCelda = ANCHO_CANVAS / TAMANIO_FILA;
+    double anguloPorStripe = RANGO_DE_VISTA / ANCHO_CANVAS;
+    double anguloJugador = jugador.getAnguloDeVista();
+    double anguloRayo = anguloJugador - (RANGO_DE_VISTA / 2);
 
-            std::vector<double>& zbuffer = this->modelo->getZBuffer();
-            for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
-                unsigned int alturaParedProyectada = 0;
-                double distancia = 0;
-                int drawStart,drawEnd;
-                Rayo rayo(rangoDeVista, ladoCelda, LARGO_PROYECTOR, anguloRayo,posJugador);
-                rayo.verificarInterseccion(mapa,distancia,jugador);
-                alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-                zbuffer.push_back(alturaParedProyectada);
-                if (drawStart > ALTURA_CANVAS){
-                    drawStart = 600 - 1;
-                    drawEnd = 0;
-                }else{
-                    drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
-                    drawEnd = drawStart + alturaParedProyectada - 20;
-                }
+    std::vector<double> &zbuffer = this->modelo.getZBuffer();
+    for (int i = ANCHO_CANVAS - 1; i >= 0; i--) {
+        double distancia = 0;
+        Rayo rayo(RANGO_DE_VISTA, ladoCelda, LARGO_PROYECTOR, anguloRayo, posJugador);
+        rayo.verificarInterseccion(mapa, distancia, jugador);
+        zbuffer.push_back(distancia);
+        unsigned int alturaParedProyectada = 0;
+        alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
+        renderizarPared(render, rayo, i, alturaParedProyectada);
+        anguloRayo += anguloPorStripe;
+    }
+}
 
-                wallDimension.x = rayo.getOffset() % 64;
-                wallDimension.y = 0;
-                wallDimension.w = 1;
-                wallDimension.h = alturaParedProyectada;
+void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, unsigned int &alturaParedProyectada) {
+    Textura *wall = verificarTextura(render, rayo.getTipoPared());
+    int drawStart, drawEnd;
+    drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;//cheuear ese ancho canvas
+    drawEnd = drawStart + alturaParedProyectada;
+    if (drawStart > ALTURA_CANVAS) {
+        drawStart = 600 - 1;
+        drawEnd = 0;
+    }
+    SDL_Rect wallDimension, wallDest;
+    wallDimension.x = rayo.getOffset() % 64;
+    wallDimension.y = 0;
+    wallDimension.w = 1;
+    wallDimension.h = alturaParedProyectada;
 
-                wallDest.x = i;
-                wallDest.y = drawStart;
-                wallDest.w = 1;
-                wallDest.h = drawEnd - drawStart;
+    wallDest.x = posCanvas;
+    wallDest.y = drawStart;
+    wallDest.w = 1;
+    wallDest.h = drawEnd - drawStart;
 
-                wall->renderizar(&wallDimension,wallDest, 0,NULL);
-                this->ventana->actualizar();
+    wall->renderizar(&wallDimension, wallDest, 0, NULL);
+    delete wall;
+}
 
-                std::chrono::milliseconds duration(20);
-                std::this_thread::sleep_for(duration);
-                anguloRayo += anguloPorStripe;
-            }
-            SDL_SetRenderDrawColor(render, 157, 97, 70, 255);// deberia estar en atualizar
-            delete wall;
+Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
+    //cambiar a mas especifico
+    if (tipoDePared == TYPE_WALL) {
+        return new Textura(BLUE_WALL, render);
+    } else if (tipoDePared == TYPE_WALL_2) {
+        return new Textura(WOOD_WALL, render);
+    } else if (tipoDePared == TYPE_WALL_3) {
+        return new Textura(GREY_WALL, render);
+    } else {
+        return new Textura(DOOR, render);
+    }
 }

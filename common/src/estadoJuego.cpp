@@ -25,8 +25,8 @@ void EstadoJuego::abrirPuerta(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
     Posicion &posJugador = jugador->getPosicion();
     double distancia;
-    if (this->mapa->hayPuertas()) {
-        Puerta &puertaMasCercana = this->mapa->puertaMasCercana(posJugador,
+    if (this->mapa.hayPuertas()) {
+        Puerta &puertaMasCercana = this->mapa.puertaMasCercana(posJugador,
                                                                 distancia);
         if (puertaMasCercana.puedeSerAbierta(jugador->tengollave(), distancia)) {
             puertaMasCercana.abrir();
@@ -44,7 +44,7 @@ void EstadoJuego::realizarAtaque(int idJugador) {
     arma->atacar(distancia_inventada, jugador, this->jugadores);
 }
 
-EstadoJuego::EstadoJuego(Map *mapa) :
+EstadoJuego::EstadoJuego(Map& mapa) :
         mapa(mapa),
         jugadores(),
         contador(0) {}
@@ -57,19 +57,19 @@ EstadoJuego::~EstadoJuego() {
 }
 
 void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
-    Posicion posicionValida = this->mapa->obtenerPosicionIncialValida();
+    Posicion posicionValida = this->mapa.obtenerPosicionIncialValida();
     Jugador *jugador = new Jugador(nombreJugador, id, posicionValida);
     this->jugadores.insert(std::make_pair(id, jugador));
 }
 
-bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
+bool puedo_moverme(Map& mapa, int &posx, int &posy, Jugador *jugador) {
     int posEnMapaJugadorx =
-            (mapa->getRowSize() * posx) /
-            (mapa->getRowSize() * TAMANIO_CELDA);  // 50 seria el tamanio de la celda en pixeles
+            (mapa.getRowSize() * posx) /
+            (mapa.getRowSize() * TAMANIO_CELDA);  // 50 seria el tamanio de la celda en pixeles
     // esa info hya que ver quien la tiene. maybe mapa?
-    int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * TAMANIO_CELDA);
+    int posEnMapaJugadory = (mapa.getColSize() * posy) / (mapa.getColSize() * TAMANIO_CELDA);
 
-    Type tipo = mapa->operator()(posEnMapaJugadorx, posEnMapaJugadorx);
+    Type tipo = mapa.operator()(posEnMapaJugadorx, posEnMapaJugadorx);
     if (tipo.getName() == "wall") {
         return false;
     } else if (tipo.getName() == "door") {
@@ -81,13 +81,13 @@ bool puedo_moverme(Map *mapa, int &posx, int &posy, Jugador *jugador) {
     }
 }
 
-Item *verificarItems(Map *mapa, int &posx, int &posy) {
+Item *verificarItems(Map& mapa, int &posx, int &posy) {
     int posEnMapaJugadorx =
-            (mapa->getRowSize() * posx) / (mapa->getRowSize() * TAMANIO_CELDA);
+            (mapa.getRowSize() * posx) / (mapa.getRowSize() * TAMANIO_CELDA);
     // esa info hya que ver quien la tiene. maybe mapa?
-    int posEnMapaJugadory = (mapa->getColSize() * posy) / (mapa->getColSize() * TAMANIO_CELDA);
+    int posEnMapaJugadory = (mapa.getColSize() * posy) / (mapa.getColSize() * TAMANIO_CELDA);
     std::cout << "\n verifico item\n";
-    return mapa->buscarElemento(posx, posy);
+    return mapa.buscarElemento(posx, posy);
 }
 
 void EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int &yFinal) {
@@ -96,7 +96,7 @@ void EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int 
         Item *item = verificarItems(this->mapa, xFinal, yFinal);
         obtuvoBeneficio = item->obtenerBeneficio(jugador);
         if (obtuvoBeneficio) {
-            this->mapa->sacarDelMapa(item->getPosicion());
+            this->mapa.sacarDelMapa(item->getPosicion());
         }
         jugador->moverse(xFinal, yFinal);
         delete item;// a cheqeuar
@@ -145,13 +145,13 @@ void EstadoJuego::verificarJugadoresMuertos() {
             Arma *arma = it->second->getArma();
 
             if (arma->getTipo().getName() == "pistola" && arma->getTipo().getName() == "cuchillo") {
-                this->mapa->agregarArma(it->second->getPosicion(), arma);
+                this->mapa.agregarArma(it->second->getPosicion(), arma);
             }
-            this->mapa->agregarElemento(
+            this->mapa.agregarElemento(
                     new Balas(it->second->getPosicion(), 10/*cte*/,
                               ObjetosJuego::obtenerTipoPorNombre("balas").getType()));
             if (it->second->tengollave()) {
-                this->mapa->agregarElemento(
+                this->mapa.agregarElemento(
                         new Llave(it->second->getPosicion(),
                                   ObjetosJuego::obtenerTipoPorNombre(
                                           "keyDoor").getType()));//hay que cambiarlo a que el jugador se guarde una llave
@@ -194,7 +194,7 @@ std::vector<char> EstadoJuego::serializar() {
         informacion.insert(informacion.end(), aux.begin(), aux.end());
         informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
     }
-    std::vector<char> mapaSerializado = mapa->serializar();
+    std::vector<char> mapaSerializado = mapa.serializar();
     informacion.insert(informacion.end(), mapaSerializado.begin(), mapaSerializado.end());
     return informacion;
 }
@@ -217,14 +217,14 @@ void EstadoJuego::deserializar(std::vector<char> &informacion) {
     }
     std::vector<char> mapaSerializado(informacion.begin() + idx,
                                       informacion.end());
-    this->mapa->deserializar(mapaSerializado);
+    this->mapa.deserializar(mapaSerializado);
 }
 
 std::map<int, Jugador *> &EstadoJuego::obtenerJugadores() {
     return this->jugadores;
 }
 
-Map *EstadoJuego::obtenerMapa() {
+Map& EstadoJuego::obtenerMapa() {
     return this->mapa;
 }
 

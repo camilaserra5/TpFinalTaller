@@ -7,7 +7,7 @@
 #define TIEMPO_SERVIDOR 30
 
 // en si recibe un archivo yaml y luego sereializa;
-Servidor::Servidor(Map *mapa, int cantJugadoresPosibles) :
+Servidor::Servidor(Map mapa, int cantJugadoresPosibles) :
         cola_comandos(),
         cola_actualizaciones(),
         estadoJuego(mapa),
@@ -37,8 +37,8 @@ void Servidor::agregarCliente(std::string &nombreJugador) {
     //Jugador jugador(nombreJugador, id);
     int id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador, id);
-    this->cantidadJugadoresAgregados++;
-    if (this->cantidadJugadoresAgregados == this->cantJugadoresPosibles) {
+    this->cantJugadoresAgregados++;
+    if (this->cantJugadoresAgregados == this->cantJugadoresPosibles) {
         this->arrancoPartida = true;
         this->start();
     }
