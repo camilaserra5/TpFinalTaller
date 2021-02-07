@@ -36,6 +36,8 @@ public:
 
     void agregarElemento(Item *item);
 
+    void aniadirPuerta(const unsigned rowNumber, const unsigned colNumber, int tipoPuerta);
+
     std::vector<char> serializar() override; /* {
         std::vector<char> informacion;
         std::vector<char> aux(4);

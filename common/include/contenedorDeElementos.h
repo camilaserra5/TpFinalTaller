@@ -73,6 +73,8 @@ public:
 
     Puerta &obtenerPuertaEn(int &fila, int &columna);
 
+    void aniadirPuerta(Puerta& puerta);
+
 private:
     std::vector<Item *> elementos;
     std::vector<Puerta> puertas;

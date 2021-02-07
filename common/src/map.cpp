@@ -145,7 +145,19 @@ Item *Map::buscarElemento(int &posx, int &posy) {
 void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type value) {
     this->map[rowNumber][colNumber] = value;
     std::cerr << " hola " << std::endl;
-    this->crearElementoPosicionable(rowNumber, colNumber, value);
+    int tipo = value.getType();
+    if (tipo != TYPE_DOOR && tipo != TYPE_FAKE_DOOR){
+      this->crearElementoPosicionable(rowNumber, colNumber, value);
+    }else{
+      this->aniadirPuerta(rowNumber,colNumber,tipo);
+    }
+}
+
+void Map::aniadirPuerta(const unsigned rowNumber, const unsigned colNumber, int tipoPuerta){
+  bool necesitaLlave = (tipoPuerta == TYPE_FAKE_DOOR? false:true);//documentar
+  Posicion pos((colNumber/2) * this->ladoCelda,(rowNumber/2) * this->ladoCelda,ANGULO_DEFAULT);
+  Puerta puerta(tipoPuerta,pos,rowNumber,colNumber);
+  this->contenedorDeElementos.aniadirPuerta(puerta);
 }
 
 Type &Map::operator()(const unsigned rowNumber, const unsigned colNumber) {

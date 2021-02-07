@@ -1,6 +1,10 @@
 #include "../include/contenedorDeElementos.h"
 #include <iostream>
 
+void ContenedorDeElementos::aniadirPuerta(Puerta& puerta){
+  this->puertas.push_back(puerta);
+}
+
 std::vector<char> ContenedorDeElementos::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);

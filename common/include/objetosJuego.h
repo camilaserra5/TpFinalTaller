@@ -3,6 +3,7 @@
 
 #define TYPE_WALL_2 28
 #define TYPE_WALL_3 29
+#define TYPE_FAKE_DOOR 3
 #define TYPE_WALL 2
 #define TYPE_DOOR 1
 #define TYPE_EMPTY 0
@@ -39,7 +40,7 @@ public:
         types.push_back(Type("wall", TYPE_WALL));
         types.push_back(Type("wall-2", TYPE_WALL_2));
         types.push_back(Type("wall-3", TYPE_WALL_3));
-        types.push_back(Type("fakeDoor", 3));
+        types.push_back(Type("fakeDoor", TYPE_FAKE_DOOR));
         types.push_back(Type("keyDoor", 4));
         types.push_back(Type("comida", 5));
         types.push_back(Type("kitsMedicos", 6));
