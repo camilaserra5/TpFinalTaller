@@ -209,8 +209,8 @@ void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
 }
 
 void Modelo::terminoPartida(std::vector<int> &rankingJugadores) {
-    this->anunciador.settearInformacion(jugador, enemigos);
-    this->anunciador.settearGanadores(rankingJugadores);
+    
+    this->anunciador.settearGanadores(rankingJugadores, jugador, enemigos);
     this->partidaTerminada = true;
 }
 

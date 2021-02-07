@@ -80,8 +80,6 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     } else {
         posElementox = (rowNumber * TAM_CELDA + rand() % ((1 + rowNumber) * TAM_CELDA - rowNumber * TAM_CELDA));
         posElementoy = (colNumber * TAM_CELDA + rand() % ((1 + colNumber) * TAM_CELDA - colNumber * TAM_CELDA));
-        std::cerr << " hola " << posElementox << std::endl;
-        std::cerr << " hola " << posElementoy << std::endl;
     }
     Posicion posicion = Posicion(posElementox, posElementoy, 0);
     if (value.getName() == "comida") {
@@ -144,7 +142,6 @@ Item *Map::buscarElemento(int &posx, int &posy) {
 
 void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type value) {
     this->map[rowNumber][colNumber] = value;
-    std::cerr << " hola " << std::endl;
     this->crearElementoPosicionable(rowNumber, colNumber, value);
 }
 

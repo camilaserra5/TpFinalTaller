@@ -384,7 +384,7 @@ void LogInWindow::run() {
             char aux[4];
             memcpy(aux, res.data(), 4);
             uint32_t *buffer = (uint32_t *) aux;
-            this->idcliente = ntohl(*buffer);
+            this->idCliente = ntohl(*buffer);
             if (this->idCliente == -1) {
                 std::string error = "Error creando partida";
                 pantallaError(this->renderer, this->fonts, error);
@@ -404,7 +404,7 @@ void LogInWindow::run() {
             memcpy(aux, res.data(), 4);
             uint32_t *buffer = (uint32_t *) aux;
             this->idCliente = ntohl(*buffer);
-            if (this->idcliente == -1) {
+            if (this->idCliente == -1) {
                 std::string error = "Error uniendose a partida";
                 pantallaError(this->renderer, this->fonts, error);
             }
