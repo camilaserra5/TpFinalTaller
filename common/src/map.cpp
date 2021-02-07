@@ -186,7 +186,8 @@ std::vector<char> Map::serializar() {
 
     for (unsigned i = 0; i < rowSize; i++) {
         for (unsigned j = 0; j < colSize; j++) {
-            informacion.push_back((map[i][j]).getType());
+            aux = numberToCharArray((map[i][j]).getType());
+            informacion.insert(informacion.end(), aux.begin(), aux.end());
         }
     }
 
@@ -206,10 +207,16 @@ void Map::deserializar(std::vector<char> &serializado) {
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->colSize = charArrayToNumber(sub);
 
+    map.resize(rowSize);
+    for (unsigned i = 0; i < map.size(); i++) {
+        map[i].resize(colSize, ObjetosJuego::obtenerTipoPorNombre("empty"));
+    }
+
     for (unsigned i = 0; i < rowSize; i++) {
         for (unsigned j = 0; j < colSize; j++) {
             idx += 4;
             sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+            std::cerr << "fila:" << i << "columna:" << j << "valor:"<< charArrayToNumber(sub);
             setValue(i, j, ObjetosJuego::obtenerTipoPorId(charArrayToNumber(sub)));
         }
     }

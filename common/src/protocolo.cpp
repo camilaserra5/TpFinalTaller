@@ -76,6 +76,36 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
 }
 
 
+Item *Protocolo::deserializarItem(std::vector<char> &informacion) {
+    std::vector<char> sub(4);
+    int idx = 0;
+    sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
+    char number[4];
+    memcpy(number, sub.data(), 4);
+    uint32_t *buf = (uint32_t *) number;
+    int idTipo = ntohl(*buf);
+
+    Posicion posicion;
+    std::vector<char> posicionSerializado(informacion.begin() + 4,
+                                          informacion.end());
+    posicion.deserializar(posicionSerializado);
+    if (idTipo == ObjetosJuego::obtenerTipoPorNombre("balas").getType()) {
+        return new Balas(posicion, 0, idTipo);
+    } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("comida").getType()) {
+        return new Comida(posicion, idTipo);
+    } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("kitsMedicos").getType()) {
+        return new KitsMedicos(posicion, idTipo);
+    } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("llave").getType()) {
+        return new Llave(posicion, idTipo);
+    } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("sangre").getType()) {
+        return new Sangre(posicion, idTipo);
+    } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("tesoro").getType()) {
+        return new Tesoro(idTipo, ObjetosJuego::obtenerTipoPorNombre("tesoro"), 0, posicion);
+    }
+
+}
+
+
 void Protocolo::cerrar() {
     this->socket.cerrar();
 }

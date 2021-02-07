@@ -1,8 +1,8 @@
 #include "../include/contenedorDeElementos.h"
 #include <iostream>
 
-void ContenedorDeElementos::aniadirPuerta(Puerta& puerta){
-  this->puertas.push_back(puerta);
+void ContenedorDeElementos::aniadirPuerta(Puerta &puerta) {
+    this->puertas.push_back(puerta);
 }
 
 std::vector<char> ContenedorDeElementos::serializar() {
@@ -20,20 +20,41 @@ std::vector<char> ContenedorDeElementos::serializar() {
     return informacion;
 }
 
+
+Item *deserializarItem(std::vector<char> &informacion) {
+    std::cerr << "informacion size" << informacion.size()<<std::endl;
+
+    std::vector<char> sub(4);
+    int idx = 0;
+    sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
+    char number[4];
+    memcpy(number, sub.data(), 4);
+    uint32_t *buf = (uint32_t *) number;
+    int idTipo = ntohl(*buf);
+    std::cerr << "id tpo" << idTipo<<std::endl;
+    Posicion posicion;
+    std::vector<char> posicionSerializado(informacion.begin() + 4,
+                                          informacion.end());
+    std::cerr << "posicion size" << posicionSerializado.size()<<std::endl;
+    posicion.deserializar(posicionSerializado);
+    return new Balas(posicion, 0, idTipo);
+}
+
 void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     int elementosSize = charArrayToNumber(sub);
     idx += 4;
+    std::cerr << "size elementos: " <<elementosSize <<std::endl;
     for (int i = 0; i < elementosSize; i++) {
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
         idx += 4;
         std::vector<char> itemSerializado(serializado.begin() + idx,
                                           serializado.begin() + idx + charArrayToNumber(sub));
         idx += charArrayToNumber(sub);
-        Item *item;
-        item->deserializar(itemSerializado);
+        Item *item = deserializarItem(itemSerializado);
+        std::cerr << "fin item: " <<i <<std::endl;
         this->elementos.push_back(item);
     }
 }

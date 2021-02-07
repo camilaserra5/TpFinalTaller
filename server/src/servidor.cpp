@@ -117,7 +117,7 @@ void Servidor::run() {
             if (tardanza >= TIEMPO_SERVIDOR) {
                 tardanza = TIEMPO_SERVIDOR;
             }
-            std::chrono::milliseconds duration(30 - tardanza);
+            std::chrono::milliseconds duration(1000 - tardanza);
             std::this_thread::sleep_for(duration);
 
         } catch (...) {

@@ -82,7 +82,7 @@ public:
         }
     }*/
 
-
+    Item *deserializarItem(std::vector<char> &informacion);
 
     void cerrar(); /* {
         this->socket.cerrar();
