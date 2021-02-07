@@ -37,8 +37,8 @@ void Servidor::agregarCliente(std::string &nombreJugador) {
     //Jugador jugador(nombreJugador, id);
     int id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador, id);
-    this->cantJugadoresAgregados++;
-    if (this->cantJugadoresAgregados == this->cantJugadoresPosibles) {
+    this->cantidadJugadoresAgregados++;
+    if (this->cantidadJugadoresAgregados == this->cantJugadoresPosibles) {
         this->arrancoPartida = true;
         this->start();
     }

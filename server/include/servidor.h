@@ -63,7 +63,11 @@ private:
     ProtectedQueue<Actualizacion *> cola_actualizaciones;
     EstadoJuego estadoJuego;
     int cantJugadoresPosibles;
+<<<<<<< HEAD
+    int cantidadJugadoresAgregados = 0;
+=======
     int cantJugadoresAgregados = 0;
+>>>>>>> e1006ad355652f36caef7c2f544ab1ece5f754bc
     std::atomic<bool> sigue_corriendo;
     std::atomic<bool> arrancoPartida;
     int generadorDeId = 100;
