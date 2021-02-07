@@ -253,7 +253,7 @@ void unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string &nombre, st
 }
 
 
-void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts) {
+void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo) {
     Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
     SDL_Event e;
     bool finished = false;
@@ -261,10 +261,6 @@ void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts) {
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 exit(0);
-            } else if (e.type == SDL_KEYDOWN) {
-                if (e.key.keysym.sym == SDLK_RETURN) {
-                    finished = true;
-                }
             }
         }
 
@@ -275,6 +271,18 @@ void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts) {
         disp_text("Esperando a los jugadores para comenzar", fonts.getFont("wolfstein"), renderer, 10, 10);
 
         SDL_RenderPresent(renderer);
+
+        std::vector<char> serializado = protocolo->recibir();
+        std::vector<char> sub(4);
+        int idx = 0;
+        sub = std::vector<char>(&serializado[0], &serializado[4]);
+        char number[4];
+        memcpy(number, sub.data(), 4);
+        uint32_t *buf = (uint32_t *) number;
+        int idAccion = ntohl(*buf);
+        if (idAccion == static_cast<int>(Accion::empezoPartida)) {
+            finished = true;
+        }
     }
 }
 
@@ -307,7 +315,8 @@ void pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error) {
 void LogInWindow::run() {
     Background background(BACKGROUND_IMAGE_ROOT, this->renderer);
     background.drawBackground();
-    while (1) {
+    bool finished = false;
+    while (!finished) {
         SDL_Event e;
         start(this->renderer, this->fonts);
 
@@ -389,7 +398,8 @@ void LogInWindow::run() {
                 std::string error = "Error creando partida";
                 pantallaError(this->renderer, this->fonts, error);
             }
-            pantallaEsperando(this->renderer, this->fonts);
+            pantallaEsperando(this->renderer, this->fonts, protocolo);
+            finished = true;
         } else {
             // unirse a una existente
             std::string nombre = nombresPartidas.at(std::stoi(gameNumber) - 1);
@@ -408,7 +418,8 @@ void LogInWindow::run() {
                 std::string error = "Error uniendose a partida";
                 pantallaError(this->renderer, this->fonts, error);
             }
-            pantallaEsperando(this->renderer, this->fonts);
+            pantallaEsperando(this->renderer, this->fonts, protocolo);
+            finished = true;
             // se bloquea para recibir
         }
     }

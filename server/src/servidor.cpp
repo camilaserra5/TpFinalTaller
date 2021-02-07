@@ -30,7 +30,7 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
     }
 }
 
-void Servidor::agregarCliente(std::string &nombreJugador, ManejadorCliente* cliente, int& id) {
+void Servidor::agregarCliente(std::string &nombreJugador, ManejadorCliente *cliente, int &id) {
     // asignarle un id random
     // el mapa deveria crear al jugador o hay que avisarle que hay un nuevo jugador
     // para asignarle posicion;
@@ -56,7 +56,6 @@ int Servidor::obtenerIdParaJugador() {
 void Servidor::lanzarJugadores() {
     for (auto it = this->clientes.begin(); it != this->clientes.end(); it++) {
         it->second->run();
-
     }
 }
 
@@ -89,13 +88,13 @@ BlockingQueue<Actualizacion *> &Servidor::obtenerColaActualizaciones() {
 
 void Servidor::enviar_actualizaciones() {
     //serializa y manda por sockets a cada jugador
-    Actualizacion actualizacion(this->estadoJuego);
-    this->cola_actualizaciones.push(&actualizacion);
+    Actualizacion *actualizacion = new Actualizacion(this->estadoJuego);
+    this->cola_actualizaciones.push(actualizacion);
 }
 
 void Servidor::run() {
-  //  this->lanzarJugadores();
-  this->lanzarJugadores();
+    //  this->lanzarJugadores();
+    this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
     std::this_thread::sleep_for(duration);
@@ -140,9 +139,9 @@ std::vector<char> Servidor::serializar() {
     return informacion;
 }
 
-void Servidor::joinClientes(){
-  std::map<int, ManejadorCliente*>::iterator it;
-  for (it = this->clientes.begin(); it != this->clientes.end();) {
-      it->second->join();
-  }
+void Servidor::joinClientes() {
+    std::map<int, ManejadorCliente *>::iterator it;
+    for (it = this->clientes.begin(); it != this->clientes.end();) {
+        it->second->join();
+    }
 }

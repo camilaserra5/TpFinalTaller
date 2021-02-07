@@ -7,7 +7,7 @@ void Server_Event_Sender::run() {
         try {
             Actualizacion *actualizacion = this->actualizaciones.pop();
             std::vector<char> informacion = actualizacion->serializar();
-            //protocolo.enviar(informacion);
+            protocolo->enviar(informacion);
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
             this->corriendo = false;

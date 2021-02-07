@@ -3,13 +3,11 @@
 
 
 void Server_Event_Receiver::run() {
-
     while (this->corriendo) {
         try {
-            std::vector<char> informacion; /*this->protocolo.recibir()*/;
+            std::vector<char> informacion = this->protocolo->recibir();
             Comando *comando = protocolo->deserializarComando(informacion);
             this->comandos.aniadir_dato(comando);
-
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
             this->corriendo = false;
