@@ -9,6 +9,7 @@
 #include <map>
 #include <vector>
 #include "map.h"
+#include "protocolo.h"
 
 class ManejadorPartidas : public Thread, public ISerializable {
 public:
@@ -18,10 +19,10 @@ public:
 
     int crearPartida(std::string &nombreJugador,
                       int &cant_jugadores, std::string &nombre_partida,
-                      std::string &archivoMapa);
+                      std::string &archivoMapa, Protocolo* protocolo);
 
     int agregarClienteAPartida(std::string &nombreJugador,
-                                std::string &nombre_partida);
+                                std::string &nombre_partida, Protocolo* protocolo);
 
     std::vector<char> serializar();/* {
         std::vector<char> informacion;

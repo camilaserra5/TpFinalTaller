@@ -40,7 +40,7 @@ void ThClient::procesar_pedido() {
         UnirseAPartida unirseAPartida;
         unirseAPartida.deserializar(serializado);
         idJugador = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida.getNombreJugador(),
-                                                                      unirseAPartida.getNombrePartida());
+                                                                      unirseAPartida.getNombrePartida(), this->protocolo);
     } else {
         std::cout << "CREAR" << std::endl;
         CrearPartida crearPartida;
@@ -48,7 +48,8 @@ void ThClient::procesar_pedido() {
         idJugador = this->manejadorDePartidas->crearPartida(crearPartida.getNombreJugador(),
                                                             crearPartida.getCantJugadores(),
                                                             crearPartida.getNombrePartida(),
-                                                            crearPartida.getRutaArchivo());
+                                                            crearPartida.getRutaArchivo(),
+                                                            this->protocolo);
     }
     if (idJugador >= 0) std::cout << "EXITOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n";
     std::vector<char> ret(4);

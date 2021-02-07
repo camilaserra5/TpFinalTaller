@@ -12,6 +12,7 @@
 #include "old_cliente.h"
 #include "iserializable.h"
 #include <atomic>
+#include "manejadorCliente.h"
 
 class Servidor : public Thread, public ISerializable {
 public:
@@ -67,6 +68,7 @@ private:
     std::atomic<bool> sigue_corriendo;
     std::atomic<bool> arrancoPartida;
     int generadorDeId = 100;
+    std::map<int, ManejadorCliente*> clientes;
 };
 
 #endif
