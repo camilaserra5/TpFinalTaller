@@ -22,7 +22,7 @@ public:
 
     void run() override;
 
-    int agregarCliente(std::string &nombreJugador, ManejadorCliente* cliente, int& id);
+    void agregarCliente(std::string &nombreJugador, ManejadorCliente* cliente, int& id);
 
     bool yaArranco();
 
@@ -50,7 +50,7 @@ public:
     void deserializar(std::vector<char> &serializado) {
     }
 
-    void enviar_actualizaciones(ProtectedQueue<Actualizacion *> &actualizaciones);
+    void enviar_actualizaciones();
 
     void actualizarContador();
 

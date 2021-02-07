@@ -95,6 +95,7 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {
     std::map<std::string, Servidor *>::iterator it;
     for (it = this->partidas.begin(); it != this->partidas.end();) {
         if (it->second->terminoPartida()) {
+            it->second->joinClientes();
             it->second->join();
             delete it->second;
             it = this->partidas.erase(it);

@@ -38,7 +38,7 @@ void Servidor::agregarCliente(std::string &nombreJugador, ManejadorCliente* clie
     id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador, id);
     cliente->settearId(id);
-    this->clientes.agregar(id, cliente);
+    this->clientes.insert({id, cliente});
     this->cantJugadoresAgregados++;
     if (this->cantJugadoresAgregados == this->cantJugadoresPosibles) {
         this->arrancoPartida = true;
@@ -55,7 +55,7 @@ int Servidor::obtenerIdParaJugador() {
 
 void Servidor::lanzarJugadores() {
     for (auto it = this->clientes.begin(); it != this->clientes.end(); it++) {
-        it->second->start();
+        it->second->run();
 
     }
 }
@@ -80,17 +80,17 @@ ProtectedQueue<Comando *> &Servidor::obtenerColaEventos() {
     return this->cola_comandos;
 }
 
-ProtectedQueue<Actualizacion *> &Servidor::obtenerColaActualizaciones() {
+BlockingQueue<Actualizacion *> &Servidor::obtenerColaActualizaciones() {
     return this->cola_actualizaciones;
 }
 
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
 // servidor es partida
 
-void Servidor::enviar_actualizaciones(ProtectedQueue<Actualizacion *> &actualizaciones) {
+void Servidor::enviar_actualizaciones() {
     //serializa y manda por sockets a cada jugador
     Actualizacion actualizacion(this->estadoJuego);
-    this->cola_actualizaciones.aniadir_dato(&actualizacion);
+    this->cola_actualizaciones.push(&actualizacion);
 }
 
 void Servidor::run() {
@@ -105,7 +105,7 @@ void Servidor::run() {
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
             procesar_comandos(this->cola_comandos, this->estadoJuego);
-            this->enviar_actualizaciones(this->cola_actualizaciones);
+            this->enviar_actualizaciones();
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
                 this->arrancoPartida = false;
