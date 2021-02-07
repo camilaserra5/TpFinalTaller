@@ -49,6 +49,7 @@ LogInWindow::LogInWindow() {
         printf("Failed to create renderer: %s\n", SDL_GetError());
         exit(1);
     }
+    this->idCliente = -1;
 
 }
 
@@ -383,8 +384,8 @@ void LogInWindow::run() {
             char aux[4];
             memcpy(aux, res.data(), 4);
             uint32_t *buffer = (uint32_t *) aux;
-            uint32_t pudoCrearPartida = ntohl(*buffer);
-            if (!pudoCrearPartida) {
+            this->idcliente = ntohl(*buffer);
+            if (this->idCliente == -1) {
                 std::string error = "Error creando partida";
                 pantallaError(this->renderer, this->fonts, error);
             }
@@ -402,12 +403,14 @@ void LogInWindow::run() {
             char aux[4];
             memcpy(aux, res.data(), 4);
             uint32_t *buffer = (uint32_t *) aux;
-            uint32_t pudoUnirse = ntohl(*buffer);
-            if (!pudoUnirse) {
+            this->idCliente = ntohl(*buffer);
+            if (this->idcliente == -1) {
                 std::string error = "Error uniendose a partida";
                 pantallaError(this->renderer, this->fonts, error);
             }
             pantallaEsperando(this->renderer, this->fonts);
+            // si ya se lanzo la partida
+            // dejar de correr el run;
         }
     }
 }
