@@ -274,7 +274,6 @@ void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo
 
         std::vector<char> serializado = protocolo->recibir();
         std::vector<char> sub(4);
-        int idx = 0;
         sub = std::vector<char>(&serializado[0], &serializado[4]);
         char number[4];
         memcpy(number, sub.data(), 4);

@@ -94,6 +94,7 @@ void Servidor::enviar_actualizaciones() {
 
 void Servidor::run() {
     //  this->lanzarJugadores();
+
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
