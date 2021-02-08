@@ -28,7 +28,7 @@ void ClientEventSender::cerrar() {
     this->corriendo = false;
 }
 
-ClientEventSender::~ClientEventSender() {
+ClientEventSender::~ClientEventSender() {//creo que esta mal q este eso en el destructor
     this->corriendo = false;
     this->join();
 }

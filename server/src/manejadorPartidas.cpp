@@ -21,20 +21,6 @@ void ManejadorPartidas::agregarMapa(std::string nombreMapa, std::string archivoM
 Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
   std::string ruta = this->mapas.at(archivoMapa);
   return MapTranslator::yamlToMap(YAML::LoadFile(ruta));
-
-  /*
-    Map mapa;
-    int i = 0;
-    int cant_mapas = this->mapas.size();
-    bool encontre = false;
-    while (i < cant_mapas && !encontre) {
-        if (this->mapas[i] == archivoMapa) {
-            encontre = true;
-        }
-        i++;
-    }
-    return mapa;//capaz cambiar a std::move*/
-
 }
 
 int ManejadorPartidas::crearPartida(std::string &nombreJugador,
@@ -42,25 +28,11 @@ int ManejadorPartidas::crearPartida(std::string &nombreJugador,
                                      std::string &archivoMapa, Protocolo* protocolo) {
     int idCliente = -1;
     if (partidas.count(nombre_partida) > 0) {
-        //partida existe;
-        // se avisa al cliente
         return idCliente;
     } else {
-        // partida valida
-        // se le avisa al cliente que es valida
-        // hay que relacionar el nombre del mapa con el archivo yaml
-        // capaz esta clase tiene el un vector de yamls
-
-        //  Map *mapa = new Map(20, 20);
-
-        //mapa.setValue(0, 1, ObjetosJuego::obtenerTipoPorNombre("comida"));
-        std::cout << "ya setie elemnto";
-
-        //int cant_jugadores = 1;
         Servidor *servidor = new Servidor(this->buscarMapa(archivoMapa), cant_jugadores);
         ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaActualizaciones(),servidor->obtenerColaEventos(),protocolo, idCliente);//cheq
         servidor->agregarCliente(nombreJugador, cliente, idCliente);
-        //servidor.agregarCliente(nombreJugador, cliente);
         this->partidas.insert({nombre_partida, servidor});
         return idCliente;
     }
@@ -72,21 +44,11 @@ int ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
     Servidor *servidor = this->partidas.at(nombre_partida);
     int idJugador = -1;
     if (servidor->yaArranco()) {
-        // la partida ya arranco
-        // informale al Cliente
         std::cout << "ya arranco la partida\n";
         return idJugador;
     } else {
-        // partida valida para unirse
-        // avisarle al cliente;
-        //ProtectedQueue<Comando*> cola;
-        //ProtectedQueue<Actualizacion> actualizaciones;
-
         ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaActualizaciones(),servidor->obtenerColaEventos(),protocolo, idJugador);
         servidor->agregarCliente(nombreJugador, cliente, idJugador);
-        //this->partidas.insert({nombre_partida, servidor}); // no se si es necesario esto ya que no se si es la misma instancia
-        // que esta adentro del mapa de partidas.
-        // en caso de que este creo que se pisa entonces no afecta
         return idJugador;
     }
 }
