@@ -162,8 +162,6 @@ void EstadoJuego::verificarJugadoresMuertos() {
 
 bool EstadoJuego::terminoPartida() {
     bool termino = false;
-    std::cout << "JUGADORES MUERTOS: " << this->jugadoresMuertos << "\n";
-    std::cout << "CANTIDAD JUGADORES: " << this->jugadores.size() << "\n";
 
     if ((this->jugadoresMuertos == this->jugadores.size() - 1) ||
         this->contador == 0) {
@@ -201,11 +199,11 @@ std::vector<char> EstadoJuego::serializar() {
 
 void EstadoJuego::deserializar(std::vector<char> &informacion) {
     std::vector<char> sub(4);
-    std::cerr << "estado juego deserializar empieza" << std::endl;
+  //  std::cerr << "estado juego deserializar empieza" << std::endl;
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     int jugadoresSize = charArrayToNumber(sub);
-    std::cerr << "estado juego deserializar jugadores size" << jugadoresSize << std::endl;
+    //std::cerr << "estado juego deserializar jugadores size" << jugadoresSize << std::endl;
     idx += 4;
     for (int i = 0; i < jugadoresSize; i++) {
         sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
@@ -220,7 +218,7 @@ void EstadoJuego::deserializar(std::vector<char> &informacion) {
     std::vector<char> mapaSerializado(informacion.begin() + idx,
                                       informacion.end());
     this->mapa.deserializar(mapaSerializado);
-    std::cerr << "estado juego deserializar fin" << std::endl;
+    //std::cerr << "estado juego deserializar fin" << std::endl;
 }
 
 std::map<int, Jugador *> &EstadoJuego::obtenerJugadores() {

@@ -49,19 +49,19 @@ std::vector<char> Logro::serializar() {
 }
 
 void Logro::deserializar(std::vector<char> &serializado) {
-    std::cerr << " logro deserializar emp "  << std::endl;
+//    std::cerr << " logro deserializar emp "  << std::endl;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->enemigosMatados = charArrayToNumber(sub);
-    std::cerr << " logro deserializar enemigosMatados " << enemigosMatados << std::endl;
+  //  std::cerr << " logro deserializar enemigosMatados " << enemigosMatados << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->puntosTotalesPorTesoros = charArrayToNumber(sub);
-    std::cerr << " logro deserializar puntosTotalesPorTesoros " << puntosTotalesPorTesoros << std::endl;
+//    std::cerr << " logro deserializar puntosTotalesPorTesoros " << puntosTotalesPorTesoros << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->balasDisparadas = charArrayToNumber(sub);
-    std::cerr << " logro deserializar balasDisparadas " << balasDisparadas << std::endl;
-    std::cerr << " logro deserializar fin "  << std::endl;
+  //  std::cerr << " logro deserializar balasDisparadas " << balasDisparadas << std::endl;
+  //  std::cerr << " logro deserializar fin "  << std::endl;
 }

@@ -42,7 +42,7 @@ Modelo::~Modelo() {
 }
 
 void Modelo::inicializar() {
-  //procesarActualizaciones();
+  procesarActualizaciones();
 
 }
 
@@ -168,8 +168,8 @@ void Modelo::renderizar() {
             //enemigo->renderizar();
         }
 
-        ObjetoJuego *objeto = entidades.at(1);//cambiar lo de las keys
-        objeto->settear_estado(500, 420);
+        //ObjetoJuego *objeto = entidades.at(1);//cambiar lo de las keys
+        //objeto->settear_estado(500, 420);
         //  verificarObjetosEnRangoDeVista();
         //sprite.reescalar(2,2);
         //  sprite.renderizar(250, 400, 0, NULL);
@@ -190,10 +190,14 @@ void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int idArma,
 void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
                                int posx, int posy, int idArma,
                                int anguloJugador, int angulo, int puntaje) {
-
-    if (this->enemigos[id] == NULL) {
-        Enemigo *enemigo = new Enemigo(this->ventana.obtener_render(), 4);
+    Enemigo *enemigo;
+    try{
+      enemigo = this->enemigos.at(id);
+    }catch(std::out_of_range& e){
+      enemigo = new Enemigo(this->ventana.obtener_render(), 4);
+        this->enemigos.insert({id,enemigo});
     }
+
     this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador,
                                    vida, disparando, puntaje);
 }
@@ -296,7 +300,7 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
 void Modelo::actualizar() {
     this->zbuffer.clear();
 }
-/*
+
 bool Modelo::procesarActualizaciones(){
 //
   try{
@@ -315,7 +319,7 @@ bool Modelo::procesarActualizaciones(){
     bool disparando = jugador->estaDisparando();
     int cantVidas = jugador->cant_de_vida();
     int balas = jugador->cantidad_balas();
-    std::cerr << "parametros: " << vida << " -" << posx<< " -"  << posy<< "- "  << angulo<< " -"  << idArma<< "- "  << puntaje<< " -"  << disparando<< "- "  << cantVidas<< " "  << balas  << " " << "\n";
+//    std::cerr << "parametros: " << vida << " -" << posx<< " -"  << posy<< "- "  << angulo<< " -"  << idArma<< "- "  << puntaje<< " -"  << disparando<< "- "  << cantVidas<< " "  << balas  << " " << "\n";
     this->actualizarJugador(posx, posy, vida, angulo, idArma,
                              disparando, puntaje, cantVidas, balas);
     for (it = jugadores.begin(); it != jugadores.end(); it++) {
@@ -358,4 +362,4 @@ bool Modelo::procesarActualizaciones(){
   }
 
 
-}*/
+}

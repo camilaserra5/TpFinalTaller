@@ -22,7 +22,7 @@ std::vector<char> ContenedorDeElementos::serializar() {
 
 
 Item *deserializarItem(std::vector<char> &informacion) {
-    std::cerr << "informacion size" << informacion.size()<<std::endl;
+//    std::cerr << "informacion size" << informacion.size()<<std::endl;
 
     std::vector<char> sub(4);
     int idx = 0;
@@ -31,11 +31,11 @@ Item *deserializarItem(std::vector<char> &informacion) {
     memcpy(number, sub.data(), 4);
     uint32_t *buf = (uint32_t *) number;
     int idTipo = ntohl(*buf);
-    std::cerr << "id tpo" << idTipo<<std::endl;
+//    std::cerr << "id tpo" << idTipo<<std::endl;
     Posicion posicion;
     std::vector<char> posicionSerializado(informacion.begin() + 4,
                                           informacion.end());
-    std::cerr << "posicion size" << posicionSerializado.size()<<std::endl;
+  //  std::cerr << "posicion size" << posicionSerializado.size()<<std::endl;
     posicion.deserializar(posicionSerializado);
     return new Balas(posicion, 0, idTipo);
 }
@@ -46,7 +46,7 @@ void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     int elementosSize = charArrayToNumber(sub);
     idx += 4;
-    std::cerr << "size elementos: " <<elementosSize <<std::endl;
+//    std::cerr << "size elementos: " <<elementosSize <<std::endl;
     for (int i = 0; i < elementosSize; i++) {
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
         idx += 4;
@@ -54,7 +54,7 @@ void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
                                           serializado.begin() + idx + charArrayToNumber(sub));
         idx += charArrayToNumber(sub);
         Item *item = deserializarItem(itemSerializado);
-        std::cerr << "fin item: " <<i <<std::endl;
+    //    std::cerr << "fin item: " <<i <<std::endl;
         this->elementos.push_back(item);
     }
 }

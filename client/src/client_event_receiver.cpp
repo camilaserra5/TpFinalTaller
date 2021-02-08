@@ -20,13 +20,13 @@ void ClientEventReceiver::run() {
     while (this->corriendo) {
         try {
             std::vector<char> informacion = this->protocolo->recibir();
+            std::cerr << "tamanio actualizacion:::" << informacion.size() << "\n";
 
             Actualizacion *actualizacion = new Actualizacion();
             actualizacion->deserializar(informacion);
-          /*  this->updates.aniadir_dato(actualizacion);
-            std::cerr << "METO UPDATE EN LA COLA\n";
-*/
+            this->updates.aniadir_dato(actualizacion);
 
+/*
             EstadoJuego& estadoJuego = actualizacion->obtenerEstadoJuego();
             std::map<int, Jugador *> jugadores = estadoJuego.obtenerJugadores();
             std::map<int, Jugador *>::iterator it;
@@ -80,7 +80,7 @@ void ClientEventReceiver::run() {
                 std::vector<int> ordenRanking = actualizacion->obtenerRanking();
                 modelo.terminoPartida(ordenRanking);
             }
-            delete actualizacion;
+            delete actualizacion;*/
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
             std::cerr << "fallooooooooo no recibo mas \n";

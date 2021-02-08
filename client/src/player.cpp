@@ -10,7 +10,7 @@
 #define BALAS_INICIAL 5
 
 Player::Player(const char *rutaimg, SDL_Renderer *render, int id) :
-        posicion(200, 200, 0),
+        posicion(70, 70, 0),
         infoJugador(render, VIDA_MAX, NIVEL, PUNTAJE_INICIAL, CANT_VIDA_MAX, BALAS_INICIAL),
         id(id), arma(render), disparando(true) {
 

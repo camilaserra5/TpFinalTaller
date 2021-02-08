@@ -12,7 +12,7 @@ void Protocolo::enviar(std::vector<char> &informacion) {
     socket.enviar(number_str, 4);
     std::string buffer(informacion.begin(), informacion.end());
     socket.enviar(buffer.c_str(), buffer.size());
-    std::cout << "termine de enviar";
+//    std::cout << "termine de enviar";
 }
 
 std::stringstream Protocolo::recibir_aux() {
@@ -63,12 +63,19 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
     } else {
         Accion accion;
         if (idAccion == static_cast<int>(Accion::rotarDerecha)) {
+          std::cerr << "COMANDO ROT DERECHA\n";
             accion = Accion::rotarDerecha;
         } else if (idAccion == static_cast<int>(Accion::rotarIzquierda)) {
+          std::cerr << "COMANDO ROT izq\n";
+
             accion = Accion::rotarIzquierda;
         } else if (idAccion == static_cast<int>(Accion::moverArriba)) {
+          std::cerr << "COMANDO mov arr\n";
+
             accion = Accion::moverArriba;
         } else {
+          std::cerr << "COMANDO mov abajo\n";
+
             accion = Accion::moverAbajo;
         }
         return new Movimiento(idJugador, accion);

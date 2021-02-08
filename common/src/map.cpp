@@ -14,7 +14,7 @@
 #include "armas/lanzacohetes.h"
 #include <algorithm>
 
-#define TAM_CELDA 50
+#define TAM_CELDA 20
 #define PUNTOS_CRUZ 10
 #define PUNTOS_COPA 50
 #define PUNTOS_COFRE 100
@@ -50,6 +50,7 @@ Map::Map(unsigned rowSize, unsigned colSize) : contenedorDeElementos() {
     for (unsigned i = 0; i < map.size(); i++) {
         map[i].resize(colSize, ObjetosJuego::obtenerTipoPorNombre("empty"));
     }
+    this->ladoCelda = 20;
 }
 
 unsigned Map::getRowSize() const {
@@ -70,7 +71,7 @@ int Map::crearIdValido() {
 void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned colNumber,
                                     Type value) {
     srand(time(NULL));
-    std::cerr << " hola " << std::endl;
+//    std::cerr << " hola " << std::endl;
     int posElementox = 0;
     int posElementoy = 0;
     if (rowNumber == 0) {
@@ -142,7 +143,7 @@ Item *Map::buscarElemento(int &posx, int &posy) {
 
 void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type value) {
     this->map[rowNumber][colNumber] = value;
-    std::cerr << " hola " << std::endl;
+    //std::cerr << " hola " << std::endl;
     int tipo = value.getType();
     if (tipo != TYPE_DOOR && tipo != TYPE_KEY_DOOR){
       this->crearElementoPosicionable(rowNumber, colNumber, value);
@@ -197,7 +198,7 @@ std::vector<char> Map::serializar() {
 }
 
 void Map::deserializar(std::vector<char> &serializado) {
-    std::cerr << " mapa deserializar emp" << std::endl;
+//    std::cerr << " mapa deserializar emp" << std::endl;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -216,7 +217,7 @@ void Map::deserializar(std::vector<char> &serializado) {
         for (unsigned j = 0; j < colSize; j++) {
             idx += 4;
             sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-            std::cerr << "fila:" << i << "columna:" << j << "valor:"<< charArrayToNumber(sub);
+      //      std::cerr << "fila:" << i << "columna:" << j << "valor:"<< charArrayToNumber(sub);
             setValue(i, j, ObjetosJuego::obtenerTipoPorId(charArrayToNumber(sub)));
         }
     }
@@ -224,7 +225,7 @@ void Map::deserializar(std::vector<char> &serializado) {
     idx += 4;
     std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
     this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
-    std::cerr << " mapa deserializar fin" << std::endl;
+//    std::cerr << " mapa deserializar fin" << std::endl;
 }
 
 std::vector<Item *> &Map::obtenerItems() {
@@ -260,5 +261,6 @@ Posicion Map::obtenerPosicionIncialValida() {
     posX *= this->ladoCelda;
     posY *= this->ladoCelda;
     Posicion posicion(posX, posY, ANGULO_DEFAULT);
+    std::cout << "pos inicial valida: " << posX << " y " << posY << "\n";
     return posicion;
 }

@@ -44,7 +44,7 @@ void Juego::run() {
     while (this->corriendo) {
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-            //this->modelo.procesarActualizaciones();
+            this->modelo.procesarActualizaciones();
             this->clean();
             this->eventos();
             this->raycasting(mapa, this->modelo.getPlayer());
@@ -94,7 +94,7 @@ void Juego::clean() {
 void Juego::raycasting(Map &mapa, Player &jugador) {
     Posicion &posJugador = jugador.getPosicion();
     SDL_Renderer *render = this->ventana.obtener_render();
-    int ladoCelda = ANCHO_CANVAS / TAMANIO_FILA;
+    int ladoCelda = 20;//ANCHO_CANVAS / TAMANIO_FILA;
     double anguloPorStripe = RANGO_DE_VISTA / ANCHO_CANVAS;
     double anguloJugador = jugador.getAnguloDeVista();
     double anguloRayo = anguloJugador - (RANGO_DE_VISTA / 2);
@@ -107,6 +107,7 @@ void Juego::raycasting(Map &mapa, Player &jugador) {
         zbuffer.push_back(distancia);
         unsigned int alturaParedProyectada = 0;
         alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
+        std::cout <<"ALTURA: " <<alturaParedProyectada << "\n";
         renderizarPared(render, rayo, i, alturaParedProyectada);
         anguloRayo += anguloPorStripe;
     }
