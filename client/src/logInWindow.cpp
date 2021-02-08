@@ -422,12 +422,11 @@ void LogInWindow::run() {
             // se bloquea para recibir
         }
     }
-}
-
-LogInWindow::~LogInWindow() {
     SDL_DestroyRenderer(this->renderer);
 
     SDL_DestroyWindow(this->window);
+}
 
-    SDL_Quit();
+LogInWindow::~LogInWindow() {
+
 }
