@@ -23,7 +23,9 @@ void ClientEventReceiver::run() {
 
             Actualizacion *actualizacion = new Actualizacion();
             actualizacion->deserializar(informacion);
-            EstadoJuego estadoJuego = actualizacion->obtenerEstadoJuego();
+            this->updates.aniadir_dato(actualizacion);
+            /*
+            EstadoJuego& estadoJuego = actualizacion->obtenerEstadoJuego();
             std::map<int, Jugador *> jugadores = estadoJuego.obtenerJugadores();
             std::map<int, Jugador *>::iterator it;
             Jugador *jugador;
@@ -74,7 +76,7 @@ void ClientEventReceiver::run() {
                 std::vector<int> ordenRanking = actualizacion->obtenerRanking();
                 modelo.terminoPartida(ordenRanking);
             }
-            delete actualizacion;
+            delete actualizacion;*/
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
             this->corriendo = false;
