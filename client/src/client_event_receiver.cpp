@@ -23,8 +23,10 @@ void ClientEventReceiver::run() {
 
             Actualizacion *actualizacion = new Actualizacion();
             actualizacion->deserializar(informacion);
-            this->updates.aniadir_dato(actualizacion);
-            /*
+          /*  this->updates.aniadir_dato(actualizacion);
+            std::cerr << "METO UPDATE EN LA COLA\n";
+*/
+
             EstadoJuego& estadoJuego = actualizacion->obtenerEstadoJuego();
             std::map<int, Jugador *> jugadores = estadoJuego.obtenerJugadores();
             std::map<int, Jugador *>::iterator it;
@@ -43,6 +45,8 @@ void ClientEventReceiver::run() {
             bool disparando = jugador->estaDisparando();
             int cantVidas = jugador->cant_de_vida();
             int balas = jugador->cantidad_balas();
+            std::cerr << "parametros: " << vida << " -" << posx<< " -"  << posy<< "- "  << angulo<< " -"  << idArma<< "- "  << puntaje<< " -"  << disparando<< "- "  << cantVidas<< " "  << balas  << " " << "\n";
+
             modelo.actualizarJugador(posx, posy, vida, angulo, idArma,
                                      disparando, puntaje, cantVidas, balas);
             for (it = jugadores.begin(); it != jugadores.end(); it++) {
@@ -76,9 +80,11 @@ void ClientEventReceiver::run() {
                 std::vector<int> ordenRanking = actualizacion->obtenerRanking();
                 modelo.terminoPartida(ordenRanking);
             }
-            delete actualizacion;*/
+            delete actualizacion;
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
+            std::cerr << "fallooooooooo no recibo mas \n";
+
             this->corriendo = false;
         }
 

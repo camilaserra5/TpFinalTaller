@@ -28,13 +28,6 @@ void Cliente::run() {
     int idJugador = 1111; // me lo da el log in; logIn.getIdJugador();
     //  HighscoreWindow highscoreWindow;
     //  highscoreWindow.run();
-
-    LogInWindow logIn;
-    logIn.run();
-    idJugador = logIn.obtenerIdJugador();
-    BlockingQueue<Comando *> events;
-    Protocolo *protocolo = logIn.obtenerProtocolo();
-    ClientEventSender clientEventSender(protocolo, events);
     if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
         printf("Failed to init SDL\n");
         exit(1);
@@ -43,17 +36,22 @@ void Cliente::run() {
         printf("Failed to init TTF\n");
         exit(1);
     }
+    LogInWindow logIn;
+    logIn.run();
+    idJugador = logIn.obtenerIdJugador();
+    BlockingQueue<Comando *> events;
+    ProtectedQueue<Actualizacion *> updates;
+    Protocolo *protocolo = logIn.obtenerProtocolo();
+    ClientEventSender clientEventSender(protocolo, events);
+
     //  Audio audio;
     //  Musica ambient_music = Musica(MUSICA_FONDO);
     //ambient_music.play(-1);
 
     Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, /*SDL_WINDOW_FULLSCREEN*/0);
-    Modelo modelo(ventana, idJugador);
+    Modelo modelo(ventana, idJugador,updates);
 
-    ProtectedQueue<Actualizacion *> updates;
     ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
-  //  clientEventReceiver.run();
-
 
     // me lo tiene que dar el log int
     Juego juego(ventana, modelo);
