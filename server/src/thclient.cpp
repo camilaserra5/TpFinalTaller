@@ -85,6 +85,5 @@ void ThClient::run() {
         this->keep_talking = false;*/
         //  this->keep_talking = false;
     }
-    this->protocolo->cerrar();
-    is_running = false;
+    this->stop();
 }
