@@ -17,7 +17,7 @@
 
 Juego::Juego(Ventana &ventana, Modelo &modelo) : ventana(ventana), modelo(modelo) {
 
-    this->modelo.inicializar();
+    //this->modelo.inicializar();
     this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT,
                                         this->ventana.obtener_render());
     this->corriendo = true;
@@ -44,7 +44,7 @@ void Juego::run() {
     while (this->corriendo) {
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-            this->modelo.procesarActualizaciones();
+            //this->modelo.procesarActualizaciones();
             this->clean();
             this->eventos();
             this->raycasting(mapa, this->modelo.getPlayer());

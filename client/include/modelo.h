@@ -9,10 +9,12 @@
 #include "enemigo.h"
 #include <vector>
 #include "highscoreWindow.h"
+#include "actualizacion.h"
+#include "protected_queue.h"
 
 class Modelo {
 public:
-    Modelo(Ventana &ventana, int idJugador);
+    Modelo(Ventana &ventana, int idJugador,ProtectedQueue<Actualizacion*>& updates);
 
     ~Modelo();
 
@@ -53,6 +55,7 @@ public:
 
     void actualizar();
 
+    bool procesarActualizaciones();
 
 private:
     Ventana &ventana;
@@ -63,10 +66,12 @@ private:
     std::vector<double> zbuffer;
     HighscoreWindow anunciador;
     bool partidaTerminada;
+    ProtectedQueue<Actualizacion *> &updates;
 
     bool verificarVisibilidadDeObjeto(Posicion &posObjeto);
     // mapa de entidades dibujables;
 
 };
+
 
 #endif

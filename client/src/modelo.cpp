@@ -39,15 +39,8 @@ Modelo::~Modelo() {
 }
 
 void Modelo::inicializar() {
-  procesarActualizaciones();
-  /*
-    this->jugador = new Player("../../client/resources/images/Weapons.png", this->ventana.obtener_render(),
-                               this->idJugador);
-    Enemigo *enemigo = new Enemigo(this->ventana.obtener_render(), 4);
-    this->enemigos.insert(std::make_pair(111, enemigo));
-    ObjetoJuego *comida = crearObjeto(ObjetosJuego::obtenerTipoPorNombre("comida"));
-    comida->settear_estado(325, 420);
-    this->entidades.insert(std::make_pair(1, comida));*/
+  //procesarActualizaciones();
+
 }
 
 std::vector<double> &Modelo::getZBuffer() {
@@ -300,19 +293,16 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
 void Modelo::actualizar() {
     this->zbuffer.clear();
 }
-
-void Modelo::procesarActualizaciones(){
+/*
+bool Modelo::procesarActualizaciones(){
+//
   try{
     Actualizacion* actualizacion = this->updates.obtener_dato();
     EstadoJuego& estadoJuego = actualizacion->obtenerEstadoJuego();
-    std::map<int, Jugador *> jugadores = estadoJuego.obtenerJugadores();
+    std::map<int, Jugador *>& jugadores = estadoJuego.obtenerJugadores();
     std::map<int, Jugador *>::iterator it;
-    Jugador *jugador;
-    for (it = jugadores.begin(); it != jugadores.end(); ++it) {
-        if (idJugador == it->second->getId()) {
-            jugador = it->second;
-        }
-    }
+    Jugador *jugador = jugadores.at(this->idJugador);
+
     int vida = jugador->puntos_de_vida();
     int posx = jugador->getPosicion().pixelesEnX();
     int posy = jugador->getPosicion().pixelesEnY();
@@ -322,6 +312,7 @@ void Modelo::procesarActualizaciones(){
     bool disparando = jugador->estaDisparando();
     int cantVidas = jugador->cant_de_vida();
     int balas = jugador->cantidad_balas();
+    std::cerr << "parametros: " << vida << " -" << posx<< " -"  << posy<< "- "  << angulo<< " -"  << idArma<< "- "  << puntaje<< " -"  << disparando<< "- "  << cantVidas<< " "  << balas  << " " << "\n";
     this->actualizarJugador(posx, posy, vida, angulo, idArma,
                              disparando, puntaje, cantVidas, balas);
     for (it = jugadores.begin(); it != jugadores.end(); it++) {
@@ -356,5 +347,12 @@ void Modelo::procesarActualizaciones(){
         this->terminoPartida(ordenRanking);
     }
     delete actualizacion;
-  }catch(...){}
-}
+    return true;
+  }catch(std::exception &e){
+    //std::cerr << e.what() << "\n";
+    //std::cerr << "fallooooooooo\n";
+    return false;
+  }
+
+
+}*/
