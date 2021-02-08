@@ -20,11 +20,12 @@ public:
     }
 
     void run() {
+        std::chrono::milliseconds duration(100);
+        std::this_thread::sleep_for(duration);
         std::vector<char> empece(4);
         unsigned int size = htonl(static_cast<int>(Accion::empezoPartida));
         memcpy(empece.data(), &size, 4);
         this->protocolo->enviar(empece);
-        std::chrono::milliseconds duration(100);
         std::this_thread::sleep_for(duration);
         this->enviador->start();
         this->recibidor->start();

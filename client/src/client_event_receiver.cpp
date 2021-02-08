@@ -24,10 +24,14 @@ void ClientEventReceiver::run() {
             Actualizacion *actualizacion = new Actualizacion();
             actualizacion->deserializar(informacion);
             EstadoJuego estadoJuego = actualizacion->obtenerEstadoJuego();
-            estadoJuego.deserializar(informacion);
             std::map<int, Jugador *> jugadores = estadoJuego.obtenerJugadores();
             std::map<int, Jugador *>::iterator it;
-            Jugador *jugador = jugadores.at(idJugador);
+            Jugador *jugador;
+            for (it = jugadores.begin(); it != jugadores.end(); ++it) {
+                if (idJugador == it->second->getId()) {
+                    jugador = it->second;
+                }
+            }
             int vida = jugador->puntos_de_vida();
             int posx = jugador->getPosicion().pixelesEnX();
             int posy = jugador->getPosicion().pixelesEnY();
@@ -40,7 +44,7 @@ void ClientEventReceiver::run() {
             modelo.actualizarJugador(posx, posy, vida, angulo, idArma,
                                      disparando, puntaje, cantVidas, balas);
             for (it = jugadores.begin(); it != jugadores.end(); it++) {
-                if (it->first != idJugador) {
+                if (it->second->getId() != idJugador) {
                     int idE = it->first;
                     int vidaE = it->second->puntos_de_vida();
                     int posxE = it->second->getPosicion().pixelesEnX();

@@ -31,6 +31,7 @@ void Cliente::run() {
 
     LogInWindow logIn;
     logIn.run();
+    idJugador = logIn.obtenerIdJugador();
     BlockingQueue<Comando *> events;
     Protocolo *protocolo = logIn.obtenerProtocolo();
     ClientEventSender clientEventSender(protocolo, events);
@@ -51,7 +52,7 @@ void Cliente::run() {
 
     ProtectedQueue<Actualizacion *> updates;
     ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
-    clientEventReceiver.run();
+  //  clientEventReceiver.run();
 
 
     // me lo tiene que dar el log int
@@ -64,8 +65,6 @@ void Cliente::run() {
         clientEventSender.start();
         clientEventReceiver.start();
         while (this->corriendo) {
-
-
             if (!manejador.esta_vivo()/*tiene que bloquearse*/) {
                 std::chrono::milliseconds duration(700000);
                 std::this_thread::sleep_for(duration);

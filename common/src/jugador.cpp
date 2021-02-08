@@ -196,7 +196,6 @@ std::vector<char> Jugador::serializar() {
     informacion.insert(informacion.end(), logroSerializado.begin(),
                        logroSerializado.end());
 
-
     return informacion;
 }
 
@@ -244,8 +243,11 @@ void Jugador::deserializar(std::vector<char> &serializado) {
                                        serializado.begin() + idx +
                                        charArrayToNumber(sub));
 
-              this->logro.deserializar(logroSerializado);
+    this->logro.deserializar(logroSerializado);
     std::cerr << " juegador deserializar fin" << std::endl;
+
+    armaActual = ID_PISTOLA;
+    this->armas.insert(std::make_pair(armaActual, new Pistola()));
 }
 
 void Jugador::dejarDeDisparar() {
