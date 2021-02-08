@@ -26,7 +26,10 @@ Modelo::Modelo(Ventana &ventana, int idJugador,ProtectedQueue<Actualizacion *> &
         entidades(),
         anunciador(ventana),
         partidaTerminada(false),
-        updates(updates) {}
+        updates(updates) {
+          this->jugador = new Player("../../client/resources/images/Weapons.png", this->ventana.obtener_render(),
+                                     this->idJugador);
+        }
 
 Modelo::~Modelo() {
 /*  delete this->jugador;
