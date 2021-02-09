@@ -10,6 +10,7 @@
 #include "comandos/comando.h"
 #include "modelo.h"
 #include <list>
+#include <map>
 #include <string>
 #include "rayo.h"
 #include "map.h"
@@ -22,6 +23,7 @@ private:
     Textura *texturaInferior;
     Modelo &modelo;
     bool inicialice = false;
+    std::map<int,Textura*> texturas;
 
 public:
     Juego(Ventana &ventana, Modelo &modelo);
