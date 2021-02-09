@@ -21,12 +21,12 @@ void ClientEventReceiver::run() {
         try {
             std::vector<char> informacion = this->protocolo->recibir();
             std::cerr << "meto actualizacion\n" << informacion.size() << "\n";
-
-            Actualizacion *actualizacion = new Actualizacion();
-            actualizacion->deserializar(informacion);
-            this->updates.aniadir_dato(actualizacion);
-            this->recibii = true;
-
+            if (!informacion.empty()) {
+                Actualizacion *actualizacion = new Actualizacion();
+                actualizacion->deserializar(informacion);
+                this->updates.aniadir_dato(actualizacion);
+                this->recibii = true;
+            }
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
             std::cerr << "fallooooooooo no recibo mas \n";
