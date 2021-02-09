@@ -168,7 +168,7 @@ realizar el algoritmo de raycasting.
 
 ### Módulo 2 - Servidor
 #### Descripción general
-El servidor se encarga de recibir a todos los clientes, crear y manejar las distintas partidas. 
+El servidor se encarga de recibir a todos los clientes, crear y manejar las distintas partidas.
 
 #### Clases y Diagramas UML
 Cuando un cliente se conecta, se le mandan las partidas que no empezaron serializadas. Luego, se recibe si el cliente va a crear una nueva o unirse a la existente, y en base a eso se sigue la lógica.
@@ -181,7 +181,7 @@ Una vez que la partida está completa, se da inicio y el servidor la maneja de l
 ### Módulo 3 - Common
 
 #### Descripción general
-Este módulo consta de las cosas que son comunes tanto entre Servidor y Cliente, como con el Editor. 
+Este módulo consta de las cosas que son comunes tanto entre Servidor y Cliente, como con el Editor.
 
 #### Clases y Diagramas UML
 Serialización: para la serialización se creo la clase ISerializable, la cual luego extienden todas las clases que necesiten ser serializadas. Por ejemplo, los comandos, las actualizaciones y el mapa.
@@ -192,7 +192,7 @@ Serialización: para la serialización se creo la clase ISerializable, la cual l
 ### Módulo 4 - Editor
 
 #### Descripción general
-Esta aplicación está hecha con qt. Es un editor de mapas, donde el usuario puede crear y editar mapas para luego utilizar en el juego. 
+Esta aplicación está hecha con qt. Es un editor de mapas, donde el usuario puede crear y editar mapas para luego utilizar en el juego.
 
 #### Clases y Diagramas UML
 El editor consta de 3 clases principales.
@@ -297,12 +297,12 @@ Una vez levantado el editor se verá la siguiente ventana:
 
 ##### Crear un nuevo mapa
 Para crear un nuevo mapa, ir a Archivo -> Nuevo (o ctrl + N). Se abrirá la siguiente ventana que permite elegir el tamaño deseado del mismo.
-![editor](editor2.gif)
-
+![editor](editor2.gif)  
 
 Una vez que tengamos el tamaño apropiado, para completarlo se pueden arrastrar las imágenes desde la lista izquierda. Haciendo doble click, se podrá pintar la superficie deseada:
-![editor](editor3.gif)
+![editor](editor3.gif)   
 
+**Importante!**: el mapa debe ser un recinto cerrado de paredes.  
 ##### Guardar el mapa
 Para guardar el mapa una vez que ya este listo ir a Archivo -> Guardar. El mapa deberá ser un archivo .yaml o .yml
 

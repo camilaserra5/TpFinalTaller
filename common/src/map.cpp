@@ -67,11 +67,9 @@ int Map::crearIdValido() {
     return idValido;
 }
 
-// pre condicion: va a ver un item por celda por facilidad, ya que sino se pisan;
 void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned colNumber,
                                     Type value) {
     srand(time(NULL));
-//    std::cerr << " hola " << std::endl;
     int posElementox = 0;
     int posElementoy = 0;
     if (rowNumber == 0) {
@@ -144,7 +142,6 @@ bool verificarTipo(int tipo){
 
 void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type value) {
     this->map[rowNumber][colNumber] = value;
-    //std::cerr << " hola " << std::endl;
     int tipo = value.getType();
     if (verificarTipo(tipo)){
         this->crearElementoPosicionable(rowNumber, colNumber, value);
@@ -242,7 +239,8 @@ bool Map::hayColision(int fila, int columna) {
                 tipo = TYPE_EMPTY;
             }
         }
-        return (tipo != TYPE_EMPTY);
+        return (tipo == TYPE_DOOR || tipo == TYPE_WALL || tipo == TYPE_WALL_2 || tipo == TYPE_WALL_3 ||
+                tipo == TYPE_KEY_DOOR || tipo == TYPE_FAKE_WALL);
     } catch (std::exception &exc) {
     }
 }
