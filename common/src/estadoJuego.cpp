@@ -231,6 +231,7 @@ std::map<int, Jugador *> &EstadoJuego::obtenerJugadores() {
 }
 
 Map& EstadoJuego::obtenerMapa() {
+    std::cerr << "obtener mapa row" << this->mapa.getRowSize() << " col" << this->mapa.getColSize() << std::endl;
     return this->mapa;
 }
 

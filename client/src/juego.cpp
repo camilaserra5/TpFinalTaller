@@ -43,9 +43,9 @@ void Juego::run() {
             bool inicializado = this->modelo.procesarActualizaciones();
             this->clean();
             this->eventos();
-            std::cerr << "raycasting" << std::endl;
-            if (inicializado) {
-                this->raycasting(this->modelo.obtenerMapa(), this->modelo.getPlayer());
+            //std::cerr << "raycasting" << std::endl;
+            if (this->modelo.obtenerMapa() != nullptr) {
+                this->raycasting(*this->modelo.obtenerMapa(), this->modelo.getPlayer());
             }
             this->renderizar();
             this->actualizar(/*1*/);
@@ -106,7 +106,7 @@ void Juego::raycasting(Map &mapa, Player &jugador) {
         zbuffer.push_back(distancia);
         unsigned int alturaParedProyectada = 0;
         alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-        std::cout << "ALTURA: " << alturaParedProyectada << "\n";
+        //std::cout << "ALTURA: " << alturaParedProyectada << "\n";
         renderizarPared(render, rayo, i, alturaParedProyectada);
         anguloRayo += anguloPorStripe;
     }
@@ -145,19 +145,19 @@ Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
         //std::cerr << "imprimo tpo wall 2\n";
         return new Textura(WOOD_WALL, render);
     } else if (tipoDePared == TYPE_WALL_3) {
-      //  std::cerr << "imprimo tpo wall 3\n";
+        //  std::cerr << "imprimo tpo wall 3\n";
         return new Textura(GREY_WALL, render);
     } else if (tipoDePared == TYPE_KEY_DOOR) {
-      //  std::cerr << "imprimo tpo key door\n";
+        //  std::cerr << "imprimo tpo key door\n";
         return new Textura(KEYDOOR, render);
     } else if (tipoDePared == TYPE_FAKE_WALL) {
-      //  std::cerr << "imprimo fake wall \n";
+        //  std::cerr << "imprimo fake wall \n";
         return new Textura(GREY_WALL, render);
     } else if (tipoDePared == TYPE_DOOR) {
-      //  std::cerr << "imprimo door\n";
+        //  std::cerr << "imprimo door\n";
         return new Textura(DOOR, render);
-    }else{
-      return new Textura(GREY_WALL, render);
+    } else {
+        return new Textura(GREY_WALL, render);
     }
 //    std::cerr << "else";
 }
