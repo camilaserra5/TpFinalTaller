@@ -219,11 +219,16 @@ void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
 void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
 
     if (entidades[id] == NULL) {
-        ObjetoJuego *objeto = this->crearObjeto(tipo);
-        this->entidades[id] = objeto;
+        try {
+            ObjetoJuego *objeto = this->crearObjeto(tipo);
+            this->entidades[id] = objeto;
+            this->entidades[id]->settear_estado(posx, posy);
+        } catch (std::exception &exc) {
+            std::cout << exc.what() << std::endl;
+        }
+    } else {
+        this->entidades[id]->settear_estado(posx, posy);
     }
-    this->entidades[id]->settear_estado(posx, posy);
-
 }
 
 void Modelo::terminoPartida(std::vector<int> &rankingJugadores) {
@@ -353,7 +358,7 @@ bool Modelo::procesarActualizaciones() {
                                         anguloE, puntajeE);
             }
         }
-
+std::cerr << "cargo mapa" << std::endl;
         this->mapa = &estadoJuego.obtenerMapa();
         std::vector<Item *> items = this->mapa->obtenerItems();
         for (int i = 0; i < items.size(); i++) {
@@ -373,7 +378,11 @@ bool Modelo::procesarActualizaciones() {
 
         return true;
     } catch (std::exception &e) {
-      std::cout << "fallo procesaaaaaaar\n";
+        std::cerr << e.what() << "\n";
+        std::cerr << "error" << std::endl;
+
+        //std::cerr << e.what() << "\n";
+        //std::cerr << "fallooooooooo\n";
         return false;
     }
 

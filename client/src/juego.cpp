@@ -40,10 +40,13 @@ void Juego::run() {
     while (this->corriendo) {
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-            this->modelo.procesarActualizaciones();
+            bool inicializado = this->modelo.procesarActualizaciones();
             this->clean();
             this->eventos();
-            this->raycasting(this->modelo.obtenerMapa(), this->modelo.getPlayer());
+            std::cerr << "raycasting" << std::endl;
+            if (inicializado) {
+                this->raycasting(this->modelo.obtenerMapa(), this->modelo.getPlayer());
+            }
             this->renderizar();
             this->actualizar(/*1*/);
             auto final = std::chrono::high_resolution_clock::now();
