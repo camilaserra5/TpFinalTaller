@@ -59,7 +59,7 @@ void Juego::run() {
             this->eventos();
             this->raycasting(this->modelo.obtenerMapa(), this->modelo.getPlayer());
             this->renderizar();
-            this->actualizar(/*1*/);
+            this->actualizar();
             auto final = std::chrono::high_resolution_clock::now();
             auto delta = final - inicio;
             long tardanza = delta.count();
@@ -77,7 +77,7 @@ void Juego::run() {
 
 }
 
-void Juego::actualizar(/*temporal int idArma*/) {
+void Juego::actualizar() {
     this->ventana.actualizar();
     this->modelo.actualizar();
 }
@@ -89,10 +89,10 @@ void Juego::renderizar() {
 
 Juego::~Juego() {
     delete this->texturaInferior;
-  /*  std::map<int,Textura*>::iterator i;
+    std::map<int,Textura*>::iterator i;
     for (i = texturas.begin(); i != texturas.end(); ++i){
       delete i->second;
-    }*/
+    }
 }
 
 void Juego::cerrar() {
@@ -102,7 +102,6 @@ void Juego::cerrar() {
 
 void Juego::clean() {
     this->ventana.limpiar();
-    //  this->corriendo = false;
 }
 
 void Juego::raycasting(Map &mapa, Player &jugador) {
@@ -121,7 +120,6 @@ void Juego::raycasting(Map &mapa, Player &jugador) {
         zbuffer.push_back(distancia);
         unsigned int alturaParedProyectada = 0;
         alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-        //std::cout << "ALTURA: " << alturaParedProyectada << "\n";
         renderizarPared(render, rayo, i, alturaParedProyectada);
         anguloRayo += anguloPorStripe;
     }
@@ -130,7 +128,7 @@ void Juego::raycasting(Map &mapa, Player &jugador) {
 void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, unsigned int &alturaParedProyectada) {
     Textura *wall = verificarTextura(render, rayo.getTipoPared());
     int drawStart, drawEnd;
-    drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;//cheuear ese ancho canvas
+    drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
     drawEnd = drawStart + alturaParedProyectada;
     if (drawStart > ALTURA_CANVAS) {
         drawStart = 600 - 1;
