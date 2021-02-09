@@ -1,5 +1,8 @@
+#include <iostream>
 #include "../include/informacionJugador.h"
+#include "../include/textura.h"
 
+#define LOWER_TEXTURE_ROOT "../../client/resources/images/ParteInferior.png"
 
 InfoJugador::InfoJugador(SDL_Renderer *render, int vida, int nivel, int puntaje,
                          int cantVidas, int balas) {
@@ -16,6 +19,8 @@ InfoJugador::InfoJugador(SDL_Renderer *render, int vida, int nivel, int puntaje,
     this->puntaje = new Label(150, 570, puntajeinfo, fuentes.getFont("info"), blanco, render);
     this->cantVidas = new Label(270, 570, cantVidasinfo, fuentes.getFont("info"), blanco, render);
     this->balas = new Label(550, 570, balasinfo, fuentes.getFont("info"), blanco, render);
+    this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT, render);
+
 }
 
 InfoJugador::~InfoJugador() {
@@ -41,6 +46,9 @@ void InfoJugador::actualizarDatosJugador(int vida, int nivel, int puntaje, int c
 }
 
 void InfoJugador::renderizar() {
+    SDL_Rect posiciontexturadest{0, 550, 800, 60};
+
+    texturaInferior->renderizar(NULL, posiciontexturadest, 0, NULL);
     this->vida->setLabelText();
     this->vida->draw();
     this->nivel->setLabelText();

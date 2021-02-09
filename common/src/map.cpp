@@ -124,11 +124,8 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
         int idValido = this->crearIdValido();
         this->contenedorDeElementos.agregarElemento(new Llave(posicion, idValido));
     } else {
-        /*std::cerr << " id pre " <<  std::endl;
         int idValido = this->crearIdValido();
-        std::cerr << " id pós " <<  std::endl;
         this->contenedorDeElementos.agregarElemento(new NoItem(posicion, idValido));
-        std::cerr << " id pós pós " <<  std::endl;*/
     }
 
 }

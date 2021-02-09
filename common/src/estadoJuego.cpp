@@ -94,12 +94,14 @@ void EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int 
     bool obtuvoBeneficio = false;
     if (puedo_moverme(this->mapa, xFinal, yFinal, jugador)) {
         Item *item = verificarItems(this->mapa, xFinal, yFinal);
-        obtuvoBeneficio = item->obtenerBeneficio(jugador);
-        if (obtuvoBeneficio) {
-            this->mapa.sacarDelMapa(item->getPosicion());
+        if (item != nullptr) {
+            obtuvoBeneficio = item->obtenerBeneficio(jugador);
+            if (obtuvoBeneficio) {
+                this->mapa.sacarDelMapa(item->getPosicion());
+            }
+            //delete item;// a cheqeuar
         }
         jugador->moverse(xFinal, yFinal);
-        delete item;// a cheqeuar
     }
 }
 
@@ -122,9 +124,12 @@ void EstadoJuego::moverse_arriba(int idJugador) {
 }
 
 void EstadoJuego::moverse_abajo(int idJugador) {
+    std::cerr << "mov1" <<std::endl;
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
+    std::cerr << "jugador bien " << jugador->getId() <<std::endl;
     int xFinal = jugador->posEnX() - (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() - (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
+    std::cerr << "jugador pos " <<xFinal << " " << yFinal <<std::endl;
     this->verificarMovimientoJugador(jugador, xFinal, yFinal);
 }
 

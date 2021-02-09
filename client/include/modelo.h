@@ -14,7 +14,7 @@
 
 class Modelo {
 public:
-    Modelo(Ventana &ventana, int idJugador,ProtectedQueue<Actualizacion*>& updates);
+    Modelo(Ventana &ventana, int idJugador, ProtectedQueue<Actualizacion *> &updates);
 
     ~Modelo();
 
@@ -57,10 +57,13 @@ public:
 
     bool procesarActualizaciones();
 
+    Map &obtenerMapa();
+
 private:
     Ventana &ventana;
     int idJugador;
     Player *jugador;
+    Map * mapa;
     std::map<int, ObjetoJuego *> entidades;
     std::map<int, Enemigo *> enemigos;
     std::vector<double> zbuffer;

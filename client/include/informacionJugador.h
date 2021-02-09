@@ -4,6 +4,7 @@
 
 #include "label.h"
 #include "fonts.h"
+#include "textura.h"
 
 class InfoJugador {
 public:
@@ -69,7 +70,7 @@ private:
     Label *puntaje;
     Label *cantVidas;
     Label *balas;
-
+    Textura *texturaInferior;
 
 };
 

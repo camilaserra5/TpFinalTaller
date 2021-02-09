@@ -32,8 +32,8 @@ SDL_Renderer *Ventana::obtener_render() {
 
 void Ventana::renderizar(Textura *texturaInferior) {
     //Lienzo posiciontexturaini(0, 0, 800, 40);
-    SDL_Rect posiciontexturadest{0, 550, 800, 60};
-    texturaInferior->renderizar(NULL, posiciontexturadest, 0, NULL);
+    //SDL_Rect posiciontexturadest{0, 550, 800, 60};
+    //texturaInferior->renderizar(NULL, posiciontexturadest, 0, NULL);
 }
 
 void Ventana::actualizar() {

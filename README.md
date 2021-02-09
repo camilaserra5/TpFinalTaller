@@ -140,8 +140,29 @@ Las herramientas utilizadas para este proyecto fueron las siguientes:
 ### Módulo N
 
 #### Descripción general
+   
 
 #### Clases
+
+     * Cliente:
+        Juego: es el hilo encargandor de realizar el loop, es decir, de limpiar, actualizar el modelo, renderizar y presentar. A su vez se encarga de 
+        realizar el algoritmo de raycasting. 
+        Modelo: es la clase que contiene tanto al jugador principial como a los otros jugadores que los trata como enemigos y a los objos que se encuentran
+        dentro del mapa. Esta clase se encarga de actualizar al jugador, a los enemigos y a los items mostrando la informacion del jugador y lo que ve. 
+        Client_event_reciver: Es el hilo que se encarga de recibir las actualizaciones, deserializarlas y volverlas a meter en la cola protegida.
+        Client_event_sender: Es el hilo que se encarga de sacar de la cola bloqueando los comandos, serializador y mandarlos. 
+        LogInWindow: Es la clase donde se encapsula toda la logica del log in del juego, donde el cliente se conecta al servidor y luego este puede unirse o 
+        crear una partida. Una vez que la partida se lance esta ventana se cierra y se arranca el juego.
+        ManejadorEventos: seencarga de manejar la logica de recibir eventos del teclado como avanzar =,rotar, disparar, ect. Una vez que capta el evento, aca se            crea el comando y se lo agrega en la cola de eventos.
+     * Common
+        Armas: esta clase encapsula las posibles armas de ataque que puede tener el jugador. Esta clase seria la clase madre donde luego estan las clases de cada
+        arma que posee el jugador. Cada una de ellas, resuleve de manera polimorfica el realizarAtaque sies que el cliente envio el comando ataque.
+        Items: En esta clase se encapsula todos los objetos que el jugador puede agarrar a medida que avanza en el juego y cada item esuelve de manera polimorfica 
+        el beneficio que le brinda si el jugador lo obtiene. 
+        EstadoJuego: esta clase es la que tiene el mapa en uso y los jugadores que estan en esa partida. Resuelve el tema de los comandos, si un jugador quiere m         moverse o si decide atacar. Es el que sabe cuando termina una partida.
+        mapa: Es el mundo del juego. Esta clase contiene donde se encuentran los distintas entidades como las paredes o las puertas. Tambien contine a un                 contenedor de elementos donde cada vez que se agrega un item, esta clase de la guarda. 
+      * servidor:
+        
 
 #### Diagramas UML
 
