@@ -13,6 +13,7 @@ ManejadorPartidas::ManejadorPartidas() :
     this->agregarMapa("mapa1","../../resources/mapas/mapa1.yaml");
     this->agregarMapa("mapa2","../../resources/mapas/mapa2.yaml");
     this->agregarMapa("mapa4","../../resources/mapas/mapa4.yaml");
+    this->agregarMapa("mapa5","../../resources/mapas/mapa5.yaml");
 }
 
 void ManejadorPartidas::agregarMapa(std::string nombreMapa, std::string archivoMapa) {

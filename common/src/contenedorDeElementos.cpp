@@ -37,7 +37,7 @@ Item *deserializarItem(std::vector<char> &informacion) {
                                           informacion.end());
   //  std::cerr << "posicion size" << posicionSerializado.size()<<std::endl;
     posicion.deserializar(posicionSerializado);
-    return new Balas(posicion, 0, idTipo);
+    return new NoItem(posicion, idTipo);
 }
 
 void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {

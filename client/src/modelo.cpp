@@ -18,7 +18,11 @@ Player &Modelo::getPlayer() {
     return *(this->jugador);
 }
 
-Modelo::Modelo(Ventana &ventana, int idJugador,ProtectedQueue<Actualizacion *> &updates) :
+Map &Modelo::obtenerMapa() {
+    return *(this->mapa);
+}
+
+Modelo::Modelo(Ventana &ventana, int idJugador, ProtectedQueue<Actualizacion *> &updates) :
         ventana(ventana),
         idJugador(idJugador),
         jugador(),
@@ -27,9 +31,10 @@ Modelo::Modelo(Ventana &ventana, int idJugador,ProtectedQueue<Actualizacion *> &
         anunciador(ventana),
         partidaTerminada(false),
         updates(updates) {
-          this->jugador = new Player("../../client/resources/images/Weapons.png", this->ventana.obtener_render(),
-                                     this->idJugador);
-        }
+    this->jugador = new Player("../../client/resources/images/Weapons.png", this->ventana.obtener_render(),
+                               this->idJugador);
+
+}
 
 Modelo::~Modelo() {
 /*  delete this->jugador;
@@ -42,7 +47,7 @@ Modelo::~Modelo() {
 }
 
 void Modelo::inicializar() {
-  procesarActualizaciones();
+    procesarActualizaciones();
 
 }
 
@@ -174,8 +179,8 @@ void Modelo::renderizar() {
         //sprite.reescalar(2,2);
         //  sprite.renderizar(250, 400, 0, NULL);
         this->jugador->actualizar(318, 420, 100, 0, 4, true, 50, 3, 5);
-    }else {
-      this->anunciador.renderizar();
+    } else {
+        this->anunciador.renderizar();
     }
 
 
@@ -191,11 +196,11 @@ void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
                                int posx, int posy, int idArma,
                                int anguloJugador, int angulo, int puntaje) {
     Enemigo *enemigo;
-    try{
-      enemigo = this->enemigos.at(id);
-    }catch(std::out_of_range& e){
-      enemigo = new Enemigo(this->ventana.obtener_render(), 4);
-        this->enemigos.insert({id,enemigo});
+    try {
+        enemigo = this->enemigos.at(id);
+    } catch (std::out_of_range &e) {
+        enemigo = new Enemigo(this->ventana.obtener_render(), 4);
+        this->enemigos.insert({id, enemigo});
     }
 
     this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador,
@@ -301,65 +306,65 @@ void Modelo::actualizar() {
     this->zbuffer.clear();
 }
 
-bool Modelo::procesarActualizaciones(){
+bool Modelo::procesarActualizaciones() {
 //
-  try{
-    Actualizacion* actualizacion = this->updates.obtener_dato();
-    EstadoJuego& estadoJuego = actualizacion->obtenerEstadoJuego();
-    std::map<int, Jugador *>& jugadores = estadoJuego.obtenerJugadores();
-    std::map<int, Jugador *>::iterator it;
-    Jugador *jugador = jugadores.at(this->idJugador);
+    try {
+        Actualizacion *actualizacion = this->updates.obtener_dato();
+        EstadoJuego &estadoJuego = actualizacion->obtenerEstadoJuego();
+        std::map<int, Jugador *> &jugadores = estadoJuego.obtenerJugadores();
+        std::map<int, Jugador *>::iterator it;
+        Jugador *jugador = jugadores.at(this->idJugador);
 
-    int vida = jugador->puntos_de_vida();
-    int posx = jugador->getPosicion().pixelesEnX();
-    int posy = jugador->getPosicion().pixelesEnY();
-    int angulo = jugador->getAnguloDeVista();
-    int idArma = jugador->getArma()->getId();
-    int puntaje = jugador->obtenerPuntosTotales();
-    bool disparando = jugador->estaDisparando();
-    int cantVidas = jugador->cant_de_vida();
-    int balas = jugador->cantidad_balas();
+        int vida = jugador->puntos_de_vida();
+        int posx = jugador->getPosicion().pixelesEnX();
+        int posy = jugador->getPosicion().pixelesEnY();
+        int angulo = jugador->getAnguloDeVista();
+        int idArma = jugador->getArma()->getId();
+        int puntaje = jugador->obtenerPuntosTotales();
+        bool disparando = jugador->estaDisparando();
+        int cantVidas = jugador->cant_de_vida();
+        int balas = jugador->cantidad_balas();
 //    std::cerr << "parametros: " << vida << " -" << posx<< " -"  << posy<< "- "  << angulo<< " -"  << idArma<< "- "  << puntaje<< " -"  << disparando<< "- "  << cantVidas<< " "  << balas  << " " << "\n";
-    this->actualizarJugador(posx, posy, vida, angulo, idArma,
-                             disparando, puntaje, cantVidas, balas);
-    for (it = jugadores.begin(); it != jugadores.end(); it++) {
-        if (it->second->getId() != idJugador) {
-            int idE = it->first;
-            int vidaE = it->second->puntos_de_vida();
-            int posxE = it->second->getPosicion().pixelesEnX();
-            int posyE = it->second->getPosicion().pixelesEnY();
-            int idArmaE = idArma;
-            int anguloJugador = angulo;
-            int anguloE = it->second->getAnguloDeVista();
-            bool disparandoE = it->second->estaDisparando();
-            int puntajeE = it->second->obtenerPuntosTotales();
-            this->actualizarEnemigo(idE, vidaE, disparandoE, posxE,
-                                     posyE, idArmaE, anguloJugador,
-                                     anguloE, puntajeE);
+        this->actualizarJugador(posx, posy, vida, angulo, idArma,
+                                disparando, puntaje, cantVidas, balas);
+        for (it = jugadores.begin(); it != jugadores.end(); it++) {
+            if (it->second->getId() != idJugador) {
+                int idE = it->first;
+                int vidaE = it->second->puntos_de_vida();
+                int posxE = it->second->getPosicion().pixelesEnX();
+                int posyE = it->second->getPosicion().pixelesEnY();
+                int idArmaE = idArma;
+                int anguloJugador = angulo;
+                int anguloE = it->second->getAnguloDeVista();
+                bool disparandoE = it->second->estaDisparando();
+                int puntajeE = it->second->obtenerPuntosTotales();
+                this->actualizarEnemigo(idE, vidaE, disparandoE, posxE,
+                                        posyE, idArmaE, anguloJugador,
+                                        anguloE, puntajeE);
+            }
         }
-    }
 
-    Map& mapa = estadoJuego.obtenerMapa();
-    std::vector<Item *> items = mapa.obtenerItems();
-    for (int i = 0; i < items.size(); i++) {
-        Item *item = items[i];
-        int idI = item->getId();
-        Type tipo = item->getTipo();
-        int posxI = item->obtenerPosicion().pixelesEnX();
-        int posyI = item->obtenerPosicion().pixelesEnY();
-        this->actualizarObjeto(idI, tipo, posxI, posyI);
+        this->mapa = &estadoJuego.obtenerMapa();
+        std::vector<Item *> items = this->mapa->obtenerItems();
+        for (int i = 0; i < items.size(); i++) {
+            Item *item = items[i];
+            int idI = item->getId();
+            Type tipo = item->getTipo();
+            int posxI = item->obtenerPosicion().pixelesEnX();
+            int posyI = item->obtenerPosicion().pixelesEnY();
+            this->actualizarObjeto(idI, tipo, posxI, posyI);
+        }
+        if (actualizacion->terminoPartida()) {
+            std::vector<int> ordenRanking = actualizacion->obtenerRanking();
+            this->terminoPartida(ordenRanking);
+        }
+        delete actualizacion;
+        return true;
+    } catch (std::exception &e) {
+        //std::cerr << e.what() << "\n";
+        //std::cerr << "fallooooooooo\n";
+        return false;
     }
-    if (actualizacion->terminoPartida()) {
-        std::vector<int> ordenRanking = actualizacion->obtenerRanking();
-        this->terminoPartida(ordenRanking);
-    }
-    delete actualizacion;
-    return true;
-  }catch(std::exception &e){
-    //std::cerr << e.what() << "\n";
-    //std::cerr << "fallooooooooo\n";
-    return false;
-  }
 
 
 }
