@@ -61,7 +61,9 @@ void Cliente::run() {
     try {
         clientEventSender.start();
         clientEventReceiver.start();
-        while (!clientEventReceiver.recibi()){}
+        while (!clientEventReceiver.recibi()){
+            std::cout << "";
+        }
         std::cout << "recibii main\n";
         juego.start();
         manejador.start();

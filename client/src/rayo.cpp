@@ -180,12 +180,12 @@ bool Rayo::hallarColision(Map &mapa, double &interseccionAX, double &interseccio
     bool encontrePared = false;
     int yaMapa = floor(interseccionAY);
     int xaMapa = floor(interseccionAX);
-    //std::cout << "entro en x: " << xaMapa << " y: " << yaMapa << "\n";
+    //std::cout << "entro en x: " << mapa.getRowSize() << " y: " << mapa.getColSize() << "\n";
     while (!encontrePared && 0 <= xaMapa && xaMapa < mapa.getRowSize() && 0 <= yaMapa && yaMapa < mapa.getColSize()) {
         //  std::cout << "paso por x: " << xaMapa << " y: " << yaMapa << "\n";
 
         if (mapa.hayColision(yaMapa, xaMapa)) {
-        //  std::cerr << "encuentro colision en: " << xaMapa << " y " << yaMapa << "\n";
+
             encontrePared = true;
             this->tipoDePared = mapa(yaMapa, xaMapa).getType();
         } else {

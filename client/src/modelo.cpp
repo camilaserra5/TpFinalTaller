@@ -19,8 +19,8 @@ Player &Modelo::getPlayer() {
     return *(this->jugador);
 }
 
-Map &Modelo::obtenerMapa() {
-    return *(this->mapa);
+Map *Modelo::obtenerMapa() {
+    return this->mapa;
 }
 
 Modelo::Modelo(Ventana &ventana, int idJugador, ProtectedQueue<Actualizacion *> &updates) :
@@ -187,7 +187,7 @@ void Modelo::renderizar() {
         //  verificarObjetosEnRangoDeVista();
         //sprite.reescalar(2,2);
         //  sprite.renderizar(250, 400, 0, NULL);
-      //  this->jugador->actualizar(318, 420, 100, 0, 4, true, 50, 3, 5);
+        //  this->jugador->actualizar(318, 420, 100, 0, 4, true, 50, 3, 5);
     } else {
         this->anunciador.renderizar();
     }
@@ -358,7 +358,7 @@ bool Modelo::procesarActualizaciones() {
                                         anguloE, puntajeE);
             }
         }
-std::cerr << "cargo mapa" << std::endl;
+        std::cerr << "cargo mapa" << std::endl;
         this->mapa = &estadoJuego.obtenerMapa();
         std::vector<Item *> items = this->mapa->obtenerItems();
         for (int i = 0; i < items.size(); i++) {
@@ -384,6 +384,7 @@ std::cerr << "cargo mapa" << std::endl;
         //std::cerr << e.what() << "\n";
         //std::cerr << "fallooooooooo\n";
         return false;
+
     }
 
 

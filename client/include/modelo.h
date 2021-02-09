@@ -57,7 +57,7 @@ public:
 
     bool procesarActualizaciones();
 
-    Map &obtenerMapa();
+    Map *obtenerMapa();
 
 private:
     Ventana &ventana;
