@@ -15,7 +15,6 @@
 
 Juego::Juego(Ventana &ventana, Modelo &modelo) : ventana(ventana), modelo(modelo) {
 
-    //this->modelo.inicializar();
     this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT,
                                         this->ventana.obtener_render());
     this->corriendo = true;
@@ -137,24 +136,25 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
 Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
     //cambiar a mas especifico
     if (tipoDePared == TYPE_WALL) {
-        std::cerr << "imprimo tpo wall\n";
+        //std::cerr << "imprimo tpo wall\n";
         return new Textura(BLUE_WALL, render);
     } else if (tipoDePared == TYPE_WALL_2) {
-        std::cerr << "imprimo tpo wall 2\n";
+        //std::cerr << "imprimo tpo wall 2\n";
         return new Textura(WOOD_WALL, render);
     } else if (tipoDePared == TYPE_WALL_3) {
-        std::cerr << "imprimo tpo wall 3\n";
+      //  std::cerr << "imprimo tpo wall 3\n";
         return new Textura(GREY_WALL, render);
     } else if (tipoDePared == TYPE_KEY_DOOR) {
-        std::cerr << "imprimo tpo key door\n";
+      //  std::cerr << "imprimo tpo key door\n";
         return new Textura(KEYDOOR, render);
     } else if (tipoDePared == TYPE_FAKE_WALL) {
-        std::cerr << "imprimo fake wall \n";
+      //  std::cerr << "imprimo fake wall \n";
         return new Textura(GREY_WALL, render);
     } else if (tipoDePared == TYPE_DOOR) {
-        std::cerr << "imprimo door\n";
+      //  std::cerr << "imprimo door\n";
         return new Textura(DOOR, render);
+    }else{
+      return new Textura(GREY_WALL, render);
     }
-    std::cerr << "else";
-    return new Textura(GREY_WALL, render);
+//    std::cerr << "else";
 }

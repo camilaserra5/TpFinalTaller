@@ -182,10 +182,10 @@ bool Rayo::hallarColision(Map &mapa, double &interseccionAX, double &interseccio
     int xaMapa = floor(interseccionAX);
     //std::cout << "entro en x: " << xaMapa << " y: " << yaMapa << "\n";
     while (!encontrePared && 0 <= xaMapa && xaMapa < mapa.getRowSize() && 0 <= yaMapa && yaMapa < mapa.getColSize()) {
-          std::cout << "paso por x: " << xaMapa << " y: " << yaMapa << "\n";
+        //  std::cout << "paso por x: " << xaMapa << " y: " << yaMapa << "\n";
 
         if (mapa.hayColision(yaMapa, xaMapa)) {
-          std::cerr << "encuentro colision en: " << xaMapa << " y " << yaMapa << "\n";
+        //  std::cerr << "encuentro colision en: " << xaMapa << " y " << yaMapa << "\n";
             encontrePared = true;
             this->tipoDePared = mapa(yaMapa, xaMapa).getType();
         } else {

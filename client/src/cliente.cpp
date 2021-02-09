@@ -53,15 +53,18 @@ void Cliente::run() {
 
     ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
 
+
     // me lo tiene que dar el log int
     Juego juego(ventana, modelo);
     ManejadorEventos manejador(idJugador, events);//no lanzar hilo
 
     try {
-        juego.start();
-        manejador.start();
         clientEventSender.start();
         clientEventReceiver.start();
+        while (!clientEventReceiver.recibi()){}
+        std::cout << "recibii main\n";
+        juego.start();
+        manejador.start();
         while (this->corriendo) {
             if (!manejador.esta_vivo()/*tiene que bloquearse*/) {
                 std::chrono::milliseconds duration(700000);

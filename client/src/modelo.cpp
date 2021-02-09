@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 #include <algorithm>
+#include <thread>
 //#include "rayo.h"
 #define SPRITE_LARGO 63
 #define SPRITE_ANCHO SPRITE_LARGO
@@ -46,9 +47,17 @@ Modelo::~Modelo() {
   }*/
 }
 
-void Modelo::inicializar() {
-    procesarActualizaciones();
-
+bool Modelo::inicializar() {
+/*  std::chrono::milliseconds duration(100);
+  std::this_thread::sleep_for(duration);
+  bool actualice = false;
+  while (! actualice){*/
+    return procesarActualizaciones();
+/*     std::chrono::milliseconds duration(100);
+     std::this_thread::sleep_for(duration);
+     std::cout << "actualice por primera vez\n";
+  }
+*/
 }
 
 std::vector<double> &Modelo::getZBuffer() {
@@ -178,7 +187,7 @@ void Modelo::renderizar() {
         //  verificarObjetosEnRangoDeVista();
         //sprite.reescalar(2,2);
         //  sprite.renderizar(250, 400, 0, NULL);
-        this->jugador->actualizar(318, 420, 100, 0, 4, true, 50, 3, 5);
+      //  this->jugador->actualizar(318, 420, 100, 0, 4, true, 50, 3, 5);
     } else {
         this->anunciador.renderizar();
     }
@@ -310,6 +319,7 @@ bool Modelo::procesarActualizaciones() {
 //
     try {
         Actualizacion *actualizacion = this->updates.obtener_dato();
+        std::cout << "proceso\n";
         EstadoJuego &estadoJuego = actualizacion->obtenerEstadoJuego();
         std::map<int, Jugador *> &jugadores = estadoJuego.obtenerJugadores();
         std::map<int, Jugador *>::iterator it;
@@ -359,10 +369,11 @@ bool Modelo::procesarActualizaciones() {
             this->terminoPartida(ordenRanking);
         }
         delete actualizacion;
+        std::cout << "me llega \n";
+
         return true;
     } catch (std::exception &e) {
-        //std::cerr << e.what() << "\n";
-        //std::cerr << "fallooooooooo\n";
+      std::cout << "fallo procesaaaaaaar\n";
         return false;
     }
 

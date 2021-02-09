@@ -21,6 +21,7 @@ private:
     ProtectedQueue<Actualizacion *> &updates;
     std::atomic<bool> corriendo;
     int idJugador;
+    bool recibii = false;
 
 public:
     ClientEventReceiver(Protocolo *protocolo, ProtectedQueue<Actualizacion *> &updates,
@@ -31,6 +32,10 @@ public:
     void cerrar();
 
     ~ClientEventReceiver();
+
+    bool recibi(){
+      return this->recibii;
+    }
 };
 
 #endif //CLIENT_EVENT_RECEIVER_H

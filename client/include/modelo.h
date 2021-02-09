@@ -18,7 +18,7 @@ public:
 
     ~Modelo();
 
-    void inicializar(); // viene los datos todos los jugadores?
+    bool inicializar(); // viene los datos todos los jugadores?
 
     void renderizar();
 

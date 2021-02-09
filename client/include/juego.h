@@ -21,6 +21,7 @@ private:
     Ventana &ventana;
     Textura *texturaInferior;
     Modelo &modelo;
+    bool inicialice = false;
 
 public:
     Juego(Ventana &ventana, Modelo &modelo);
