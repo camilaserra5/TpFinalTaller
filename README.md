@@ -183,6 +183,7 @@ Una vez que la partida está completa, se da inicio y el servidor la maneja de l
 
 #### Descripción general
 Este módulo consta de las cosas que son comunes tanto entre Servidor y Cliente, como con el Editor.
+En este se encapsula la logica de las armas, los movimientos, el mapa, la serializacion entre otras cosas. 
 
 #### Clases y Diagramas UML
 Serialización: para la serialización se creo la clase ISerializable, la cual luego extienden todas las clases que necesiten ser serializadas. Por ejemplo, los comandos, las actualizaciones y el mapa.
