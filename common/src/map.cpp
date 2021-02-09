@@ -156,7 +156,7 @@ void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type valu
 void Map::aniadirPuerta(const unsigned rowNumber, const unsigned colNumber, int tipoPuerta) {
     bool necesitaLlave = (tipoPuerta == TYPE_DOOR ? false : true);//documentar
     Posicion pos((colNumber / 2) * this->ladoCelda, (rowNumber / 2) * this->ladoCelda, ANGULO_DEFAULT);
-    Puerta puerta(tipoPuerta, pos, rowNumber, colNumber);
+    Puerta puerta(tipoPuerta, pos, rowNumber, colNumber, false);
     this->contenedorDeElementos.aniadirPuerta(puerta);
 }
 

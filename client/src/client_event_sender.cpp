@@ -16,6 +16,7 @@ void ClientEventSender::run() {
         try {
             Comando *evento = this->events.pop();
             std::vector<char> informacion = evento->serializar();
+            std::cerr << "comando largo: " << informacion.size();
             protocolo->enviar(informacion);
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;

@@ -17,6 +17,16 @@ std::vector<char> ContenedorDeElementos::serializar() {
         informacion.insert(informacion.end(), itemSerializado.begin(),
                            itemSerializado.end());
     }
+    std::vector<char> aux2(4);
+    aux2 = numberToCharArray(puertas.size());
+    informacion.insert(informacion.end(), aux2.begin(), aux2.end());
+    for (auto &puerta: puertas){
+        std::vector<char> puertaSerializada = puerta.serializar();
+        aux2 = numberToCharArray(puertaSerializada.size());
+        informacion.insert(informacion.end(), aux2.begin(), aux2.end());
+        informacion.insert(informacion.end(), puertaSerializada.begin(),
+                           puertaSerializada.end());
+    }
     return informacion;
 }
 
@@ -40,6 +50,40 @@ Item *deserializarItem(std::vector<char> &informacion) {
     return new NoItem(posicion, idTipo);
 }
 
+Puerta deserializarPuerta(std::vector<char>& informacion){
+    std::vector<char> sub(4);
+    int idx = 0;
+    sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
+    char number[4];
+    memcpy(number, sub.data(), 4);
+    uint32_t *buf = (uint32_t *) number;
+    int fila = ntohl(*buf); //fila
+    std::cerr << "puerta fila: " << fila << "\n";
+    idx +=4;
+    sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
+    char number2[4];
+    memcpy(number2, sub.data(), 4);
+    uint32_t *buf2 = (uint32_t *) number2;
+    int columna = ntohl(*buf2); // colmuna
+    std::cerr << "puerta columna: " << columna << "\n";
+    idx +=4;
+    sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
+    char number3[4];
+    memcpy(number3, sub.data(), 4);
+    uint32_t *buf3 = (uint32_t *) number3;
+    bool abierta = ntohl(*buf3); // puerta esta abierta;
+    std::cerr << "puerta abierta: " << abierta << "\n";
+    idx +=4;
+    Posicion posicion;
+    std::vector<char> posicionSerializado(informacion.begin() + idx,
+                                          informacion.end());
+    posicion.deserializar(posicionSerializado);
+    std::cerr << "puerta posx: " << posicion.pixelesEnX() << "\n";
+    std::cerr << "puerta posy: " << posicion.pixelesEnY() << "\n";
+    Puerta puerta(false, posicion,fila, columna, abierta);
+    return puerta;
+}
+
 void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
@@ -56,6 +100,18 @@ void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
         Item *item = deserializarItem(itemSerializado);
     //    std::cerr << "fin item: " <<i <<std::endl;
         this->elementos.push_back(item);
+    }
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    int puertaSize = charArrayToNumber(sub);
+    idx +=4;
+    for (int i = 0; i< puertaSize; i++){
+        sub = std::vector<char>(&serializado[idx], &serializado[idx +4]);
+        idx +=4;
+        std::vector<char> puertaSerializada(serializado.begin() + idx,
+                                            serializado.begin() + charArrayToNumber(sub));
+        idx += charArrayToNumber(sub);
+        Puerta puerta = deserializarPuerta(puertaSerializada);
+        this->puertas.push_back(puerta);
     }
 }
 

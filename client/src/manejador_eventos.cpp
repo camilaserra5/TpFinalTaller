@@ -19,10 +19,10 @@ void ManejadorEventos::run() {
     SDL_Event evento;
     while (this->corriendo) {
 
-        if (SDL_PollEvent(&evento)) { 
+        if (SDL_PollEvent(&evento)) {
             detectarEventos(evento);
         }
-        std::chrono::milliseconds duration(100);
+        std::chrono::milliseconds duration(60);
         std::this_thread::sleep_for(duration);
     }
 }
