@@ -22,7 +22,9 @@
 #define TAMANIO_CELDA 40 //es variable y depende del tamanio del mapa
 
 void EstadoJuego::abrirPuerta(int idJugador) {
+    ;
     Jugador *jugador = this->jugadores.at(idJugador);
+    jugador->dejarDeDisparar();
     Posicion &posJugador = jugador->getPosicion();
     double distancia;
     if (this->mapa.hayPuertas()) {
@@ -106,26 +108,33 @@ void EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int 
 }
 
 void EstadoJuego::rotar_a_derecha(int idJugador) {
+
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
+    jugador->dejarDeDisparar();
     jugador->rotar(ROTACION_DERECHA);
 }
 
 void EstadoJuego::rotar_a_izquierda(int idJugador) {
+
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
+    jugador->dejarDeDisparar();
     jugador->rotar(ROTACION_IZQUIERDA);
 
 }
 
 void EstadoJuego::moverse_arriba(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
+    jugador->dejarDeDisparar();
     int xFinal = jugador->posEnX() + (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() + (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
     this->verificarMovimientoJugador(jugador, xFinal, yFinal);
 }
 
 void EstadoJuego::moverse_abajo(int idJugador) {
+
     std::cerr << "mov1" <<std::endl;
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
+    jugador->dejarDeDisparar();
     std::cerr << "jugador bien " << jugador->getId() <<std::endl;
     int xFinal = jugador->posEnX() - (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() - (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));

@@ -148,7 +148,7 @@ void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type valu
     int tipo = value.getType();
     if (verificarTipo(tipo)){
         this->crearElementoPosicionable(rowNumber, colNumber, value);
-    }else if(tipo == TYPE_DOOR || tipo == TYPE_KEY_WALL){
+    }else if(tipo == TYPE_DOOR || tipo == TYPE_FAKE_WALL){
         this->aniadirPuerta(rowNumber,colNumber,tipo);
     }
 }

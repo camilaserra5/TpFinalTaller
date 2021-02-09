@@ -18,7 +18,6 @@ public:
 private:
     int precision;
     int probalidad_acierto;
-    int cantidad_rafagas;
 };
 
 #endif

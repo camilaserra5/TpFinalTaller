@@ -61,7 +61,9 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
 
     if (idAccion == static_cast<int>(Accion::ataque)) {
         return new Ataque(idJugador);
+        std::cerr << "COMANDO ATAQUE\n";
     } else if (idAccion == static_cast<int>(Accion::aperturaDePuerta)) {
+        std::cerr << "COMANDO ABRIR PUERTA\n";
         return new AperturaDePuerta(idJugador);
     } else {
         Accion accion;
