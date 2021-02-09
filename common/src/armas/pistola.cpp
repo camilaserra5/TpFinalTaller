@@ -21,10 +21,11 @@ void Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Juga
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
-        int cantidad_balas = this->cantidad_rafagas * BALAS_POR_RAFAGA;
+        int cantidad_balas = BALAS_POR_RAFAGA;
         int i = 0;
         bool jugadorMurio = false;
         Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
+        std::cerr << "balas: " << cantidad_balas << "murio: " << jugadorMurio << "\n"; 
         while (i < cantidad_balas && !jugadorMurio) {
             //distancia influye en el danio y lode la precision
             int danio = (rand() % DANIO_MAX) + 1;
@@ -38,5 +39,5 @@ void Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Juga
         }
     }
     jugador->actualizarArma();
-    jugador->dejarDeDisparar();
+
 }
