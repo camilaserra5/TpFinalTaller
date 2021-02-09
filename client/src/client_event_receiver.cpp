@@ -33,7 +33,6 @@ void ClientEventReceiver::run() {
 
             this->corriendo = false;
         }
-
     }
 }
 
