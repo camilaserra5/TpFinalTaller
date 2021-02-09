@@ -173,21 +173,7 @@ void Modelo::renderizar() {
     //  this->terminoPartida(ranking);
     if (!partidaTerminada) {
         this->jugador->renderizar();
-        // verificar items si estan en posicion;
-        // verificar enemigos si estan en posicion correcta;
-
-        for (std::map<int, Enemigo *>::iterator it = enemigos.begin(); it != enemigos.end(); ++it) {
-            it->second->actualizar(500, 300, 4, 0, 0, 0, false, 50);
-            Enemigo *enemigo = it->second;
-            //enemigo->renderizar();
-        }
-
-        //ObjetoJuego *objeto = entidades.at(1);//cambiar lo de las keys
-        //objeto->settear_estado(500, 420);
-        //  verificarObjetosEnRangoDeVista();
-        //sprite.reescalar(2,2);
-        //  sprite.renderizar(250, 400, 0, NULL);
-      //  this->jugador->actualizar(318, 420, 100, 0, 4, true, 50, 3, 5);
+          verificarObjetosEnRangoDeVista();
     } else {
         this->anunciador.renderizar();
     }
@@ -339,7 +325,6 @@ bool Modelo::procesarActualizaciones() {
         bool disparando = jugador->estaDisparando();
         int cantVidas = jugador->cant_de_vida();
         int balas = jugador->cantidad_balas();
-//    std::cerr << "parametros: " << vida << " -" << posx<< " -"  << posy<< "- "  << angulo<< " -"  << idArma<< "- "  << puntaje<< " -"  << disparando<< "- "  << cantVidas<< " "  << balas  << " " << "\n";
         this->actualizarJugador(posx, posy, vida, angulo, idArma,
                                 disparando, puntaje, cantVidas, balas);
         for (it = jugadores.begin(); it != jugadores.end(); it++) {
@@ -381,8 +366,6 @@ std::cerr << "cargo mapa" << std::endl;
         std::cerr << e.what() << "\n";
         std::cerr << "error" << std::endl;
 
-        //std::cerr << e.what() << "\n";
-        //std::cerr << "fallooooooooo\n";
         return false;
     }
 
