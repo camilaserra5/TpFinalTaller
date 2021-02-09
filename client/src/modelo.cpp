@@ -210,6 +210,7 @@ void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
     } catch (std::out_of_range &e) {
         enemigo = new Enemigo(this->ventana.obtener_render(), 4);
         this->enemigos.insert({id, enemigo});
+        std::cerr << "agrego un enemigo\n";
     }
 
     this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador,
@@ -218,17 +219,16 @@ void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
 
 void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
 
-    if (entidades[id] == NULL) {
+    ObjetoJuego* objeto;
         try {
-            ObjetoJuego *objeto = this->crearObjeto(tipo);
-            this->entidades[id] = objeto;
-            this->entidades[id]->settear_estado(posx, posy);
-        } catch (std::exception &exc) {
-            std::cout << exc.what() << std::endl;
+            objeto = this->entidades.at(id);
+
+        } catch (std::out_of_range &e) {
+            objeto = this->crearObjeto(tipo);
+            this->entidades.insert({id, objeto});
+            std::cerr << "creo un obejto: " << tipo.getName() << "\n";
         }
-    } else {
         this->entidades[id]->settear_estado(posx, posy);
-    }
 }
 
 void Modelo::terminoPartida(std::vector<int> &rankingJugadores) {
@@ -312,7 +312,9 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else {
-        throw std::runtime_error("Tipo de objeto invalido");
+        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 0, 0,
+                      0);
+        return new ObjetoJuego(std::move(sprite));
     }
 }
 
@@ -377,9 +379,11 @@ std::cerr << "cargo mapa" << std::endl;
         std::cout << "me llega \n";
 
         return true;
-    } catch (std::exception &e) {
+    } catch(QueueException &qe){
+        std::cerr << "no hay actualizacion\n";
+    }catch (std::exception &e) {
         std::cerr << e.what() << "\n";
-        std::cerr << "error" << std::endl;
+        std::cerr << "falla en actualizacion" << std::endl;
 
         //std::cerr << e.what() << "\n";
         //std::cerr << "fallooooooooo\n";
