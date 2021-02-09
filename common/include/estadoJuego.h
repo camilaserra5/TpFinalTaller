@@ -32,44 +32,9 @@ public:
 
     void realizarAtaque(int idJugador);
 
-    std::vector<char> serializar() override; /* {
-        std::vector<char> informacion;
-        std::vector<char> aux(4);
-        aux = numberToCharArray(jugadores.size());
-        informacion.insert(informacion.end(), aux.begin(), aux.end());
-        std::map<int, Jugador *>::iterator it;
-        for (it = jugadores.begin(); it != jugadores.end(); ++it) {
-            Jugador jugador = *it->second;
-            std::vector<char> jugadorSerializado = jugador.serializar();
-            aux = numberToCharArray(jugadorSerializado.size());
-            informacion.insert(informacion.end(), aux.begin(), aux.end());
-            informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
-        }
-        std::vector<char> mapaSerializado = mapa->serializar();
-        informacion.insert(informacion.end(), mapaSerializado.begin(), mapaSerializado.end());
-        return informacion;
-    }*/
+    std::vector<char> serializar() override; 
 
-    void deserializar(std::vector<char> &informacion) override; /*{
-        std::vector<char> sub(4);
-        int idx = 0;
-        sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
-        int jugadoresSize = charArrayToNumber(sub);
-        idx += 4;
-        for (int i = 0; i < jugadoresSize; i++) {
-            sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
-            idx += 4;
-            std::vector<char> jugadorSerializado(informacion.begin() + idx,
-                                                 informacion.begin() + idx + charArrayToNumber(sub));
-            idx += charArrayToNumber(sub);
-            Jugador *jugador;
-            jugador->deserializar(jugadorSerializado);
-            this->jugadores.insert(std::make_pair(jugador->getId(), jugador));
-        }
-        std::vector<char> mapaSerializado(informacion.begin() + idx,
-                                          informacion.end());
-        this->mapa->deserializar(mapaSerializado);
-    }*/
+    void deserializar(std::vector<char> &informacion) override;
 
     void verificarJugadoresMuertos();
 
@@ -77,12 +42,8 @@ public:
 
     void abrirPuerta(int idJugador);
 
-    std::map<int, Jugador *> &obtenerJugadores(); /*{
-        return this->jugadores;
-    }*/
-    Map& obtenerMapa();/*{
-        return this->mapa;
-    }*/
+    std::map<int, Jugador *> &obtenerJugadores();
+    Map& obtenerMapa();
 
     void lanzarContadorTiempoPartida();
 
