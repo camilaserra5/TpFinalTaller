@@ -22,26 +22,9 @@ public:
 
     Posicion obtenerPosicion();
 
-    std::vector<char> serializar() override; /* {
-        std::vector<char> informacion;
-        std::vector<char> aux(4);
-        aux = numberToCharArray(this->id);
-        informacion.insert(informacion.end(), aux.begin(), aux.end());
-        std::vector<char> posicionSerializado = this->posicion.serializar();
-        informacion.insert(informacion.end(), posicionSerializado.begin(), posicionSerializado.end());
-        return informacion;
-    }*/
+    std::vector<char> serializar() override;
 
-    void deserializar(std::vector<char> &serializado) override; /* {
-        std::vector<char> sub(4);
-        int idx = 0;
-        sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-        this->id = charArrayToNumber(sub);
-        idx += 4;
-        std::vector<char> posicionSerializado(serializado.begin() + idx, serializado.end());
-        this->posicion.deserializar(posicionSerializado);
-    }*/
-
+    void deserializar(std::vector<char> &serializado) override;
     int getId();
 
     virtual Type getTipo() = 0;
