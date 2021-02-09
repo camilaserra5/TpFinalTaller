@@ -77,7 +77,7 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
 
             accion = Accion::moverArriba;
         } else {
-          std::cerr << "COMANDO mov abajo\n";
+          std::cerr << "COMANDO mov abajo num: " << idAccion << "\n";
 
             accion = Accion::moverAbajo;
         }

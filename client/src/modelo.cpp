@@ -19,7 +19,7 @@ Player &Modelo::getPlayer() {
     return *(this->jugador);
 }
 
-Map *Modelo::obtenerMapa() {
+Map &Modelo::obtenerMapa() {
     return this->mapa;
 }
 
@@ -360,8 +360,8 @@ bool Modelo::procesarActualizaciones() {
             }
         }
         std::cerr << "cargo mapa" << std::endl;
-        this->mapa = &estadoJuego.obtenerMapa();
-        std::vector<Item *> items = this->mapa->obtenerItems();
+        this->mapa = estadoJuego.obtenerMapa();
+        std::vector<Item *> items = this->mapa.obtenerItems();
         for (int i = 0; i < items.size(); i++) {
             Item *item = items[i];
             int idI = item->getId();

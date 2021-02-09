@@ -57,13 +57,13 @@ public:
 
     bool procesarActualizaciones();
 
-    Map *obtenerMapa();
+    Map &obtenerMapa();
 
 private:
     Ventana &ventana;
     int idJugador;
     Player *jugador;
-    Map * mapa;
+    Map mapa;
     std::map<int, ObjetoJuego *> entidades;
     std::map<int, Enemigo *> enemigos;
     std::vector<double> zbuffer;
