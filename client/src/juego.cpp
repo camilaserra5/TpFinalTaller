@@ -18,13 +18,18 @@ Juego::Juego(Ventana &ventana, Modelo &modelo) : ventana(ventana), modelo(modelo
 
     this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT,render);
     this->corriendo = true;
+    Textura* t1 = new Textura(BLUE_WALL, render);
+    Textura* t2 = new Textura(WOOD_WALL, render);
+    Textura* t3 = new Textura(GREY_WALL, render);
+    Textura* t4 = new Textura(KEYDOOR, render);
+    Textura* t5 = new Textura(DOOR, render);
 
-    this->texturas.insert({TYPE_WALL,new Textura(BLUE_WALL, render)});
-    this->texturas.insert({TYPE_WALL_2,new Textura(WOOD_WALL, render)});
-    this->texturas.insert({TYPE_WALL_3,new Textura(GREY_WALL, render)});
-    this->texturas.insert({TYPE_KEY_DOOR,new Textura(KEYDOOR, render)});
-    this->texturas.insert({TYPE_DOOR,new Textura(DOOR, render)});
-    this->texturas.insert({TYPE_FAKE_WALL,new Textura(GREY_WALL, render)});
+    this->texturas.insert({TYPE_WALL,t1});
+    this->texturas.insert({TYPE_WALL_2,t2});
+    this->texturas.insert({TYPE_WALL_3,t3});
+    this->texturas.insert({TYPE_KEY_DOOR,t4});
+    this->texturas.insert({TYPE_DOOR,t5});
+    this->texturas.insert({TYPE_FAKE_WALL,t3});
 
 
 }
@@ -84,10 +89,10 @@ void Juego::renderizar() {
 
 Juego::~Juego() {
     delete this->texturaInferior;
-    std::map<int,Textura*>::iterator i;
+  /*  std::map<int,Textura*>::iterator i;
     for (i = texturas.begin(); i != texturas.end(); ++i){
       delete i->second;
-    }
+    }*/
 }
 
 void Juego::cerrar() {
@@ -147,5 +152,6 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
 }
 
 Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
+  std::cerr << "tipo: " << tipoDePared << "\n";
     return this->texturas.at(tipoDePared);
 }
