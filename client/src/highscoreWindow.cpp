@@ -7,9 +7,9 @@
 
 #define WOLFSTEIN_TTF_ROOT "../../resources/fuentes/joystix.monospace.ttf"
 #define BACKGROUND_IMAGE_ROOT "../../client/resources/images/backgroundHighscore.jpg"
-#define FONT_SIZE_TITLE 40
-#define FONT_SIZE_SUBTITLE 25
-#define FONT_SIZE_NAMES 18
+#define FONT_SIZE_TITLE 30
+#define FONT_SIZE_SUBTITLE 15
+#define FONT_SIZE_NAMES 12
 
 HighscoreWindow::HighscoreWindow(Ventana& ventana): ventana(ventana){
 
@@ -65,7 +65,7 @@ void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
         SDL_Delay(16);
         SDL_RenderClear(renderer);
         background.drawBackground();
-        display_text("HIGHSCORES", fonts.getFont("wolfstein-title"), renderer, SCREEN_WIDTH / 2, 10);
+        display_text("HIGHSCORES", fonts.getFont("wolfstein-title"), renderer, SCREEN_WIDTH / 4, 10);
 
         display_text("Top kills", fonts.getFont("wolfstein-subtitle"), renderer, SCREEN_WIDTH / 3,
                      50 + FONT_SIZE_TITLE);
@@ -109,7 +109,7 @@ void HighscoreWindow::settearGanadores(std::vector<int>& ganadores,Player *jugad
             std::string puntaje = std::to_string(logro);
             this->ganadores.insert(std::make_pair(id, logro));
         }
-    }    
+    }
 }
 void HighscoreWindow::renderizar() {
     Background background(BACKGROUND_IMAGE_ROOT, this->renderer);

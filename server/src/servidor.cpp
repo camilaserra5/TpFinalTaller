@@ -24,7 +24,9 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
             Comando *comando = cola_comandos.obtener_dato();
             comando->ejecutar(estadoJuego);
             delete comando;
+            this->enviar_actualizaciones();
         } catch (const std::exception &exception) {
+          this->enviar_actualizaciones();
             termine = true;
         }
     }
@@ -105,7 +107,6 @@ void Servidor::run() {
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
             procesar_comandos(this->cola_comandos, this->estadoJuego);
-            this->enviar_actualizaciones();
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
                 this->arrancoPartida = false;
