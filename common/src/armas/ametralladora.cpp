@@ -11,7 +11,7 @@ Ametralladora::Ametralladora(Posicion &posicion, int id) :
 Ametralladora::~Ametralladora() {}
 
 void Ametralladora::atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
-    int cantidad_balas = this->cantidad_rafagas * BALAS_POR_RAFAGA;
+    int cantidad_balas = BALAS_POR_RAFAGA;
     jugador->gastarBalas(cantidad_balas);
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
