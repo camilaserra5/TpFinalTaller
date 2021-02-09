@@ -24,7 +24,6 @@ public:
 
 
 private:
-    int cantidad_rafagas;
     double contador;
 };
 

@@ -23,7 +23,6 @@ public:
     Type getTipo() override;
 
 private:
-    int cantidad_rafagas;
     double contador;
 };
 

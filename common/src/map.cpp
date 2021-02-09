@@ -67,11 +67,9 @@ int Map::crearIdValido() {
     return idValido;
 }
 
-// pre condicion: va a ver un item por celda por facilidad, ya que sino se pisan;
 void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned colNumber,
                                     Type value) {
     srand(time(NULL));
-//    std::cerr << " hola " << std::endl;
     int posElementox = 0;
     int posElementoy = 0;
     if (rowNumber == 0) {
@@ -144,15 +142,10 @@ bool verificarTipo(int tipo){
 
 void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type value) {
     this->map[rowNumber][colNumber] = value;
-    //std::cerr << " hola " << std::endl;
     int tipo = value.getType();
     if (verificarTipo(tipo)){
         this->crearElementoPosicionable(rowNumber, colNumber, value);
-<<<<<<< HEAD
-    }else if(tipo == TYPE_DOOR || tipo == TYPE_FAKE_WALL){
-=======
     }else if(tipo == TYPE_DOOR || tipo == TYPE_KEY_DOOR){
->>>>>>> 309abaaedf28fec48b264fd32a11bf73d0c918e1
         this->aniadirPuerta(rowNumber,colNumber,tipo);
     }
 }
@@ -212,7 +205,6 @@ void Map::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->colSize = charArrayToNumber(sub);
-    std::cerr << " mapa deserializar emp row" << rowSize << " col " << colSize << std::endl;
     Map newMap(rowSize, colSize);
     this->map = newMap.map;
     for (unsigned i = 0; i < rowSize; i++) {
@@ -220,14 +212,12 @@ void Map::deserializar(std::vector<char> &serializado) {
             idx += 4;
             sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
             this->map[i][j] = ObjetosJuego::obtenerTipoPorId(charArrayToNumber(sub));
-            //setValue(i, j, ObjetosJuego::obtenerTipoPorId(charArrayToNumber(sub)));
         }
     }
 
     idx += 4;
     std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
     this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
-//    std::cerr << " mapa deserializar fin" << std::endl;
 }
 
 std::vector<Item *> &Map::obtenerItems() {
@@ -239,12 +229,9 @@ ContenedorDeElementos &Map::obtenerContenedor() {
 };
 
 bool Map::hayColision(int fila, int columna) {
-    //chequear si en caso de haber una puerta, si esta abierta y agregarle a la puerta el atributo exacto de la pos en el mapa
-    // a la puerta le falta el contador para q se cierre
     try {
         if (fila < 0 || fila > this->rowSize || columna < 0 || columna > this->getColSize())
             return false;
-
         int tipo = this->map[fila][columna].getType();
         if (tipo == TYPE_DOOR) {
             Puerta &puerta = this->contenedorDeElementos.obtenerPuertaEn(fila, columna);
@@ -252,9 +239,9 @@ bool Map::hayColision(int fila, int columna) {
                 tipo = TYPE_EMPTY;
             }
         }
-        return (tipo != TYPE_EMPTY);
+        return (tipo == TYPE_DOOR || tipo == TYPE_WALL || tipo == TYPE_WALL_2 || tipo == TYPE_WALL_3 ||
+                tipo == TYPE_KEY_DOOR || tipo == TYPE_FAKE_WALL);
     } catch (std::exception &exc) {
-        std::cerr << "exc en hayColision fila:" << fila << " columna: " << columna << std::endl;
     }
 }
 
@@ -270,6 +257,5 @@ Posicion Map::obtenerPosicionIncialValida() {
     posX *= this->ladoCelda;
     posY *= this->ladoCelda;
     Posicion posicion(posX, posY, ANGULO_DEFAULT);
-    std::cout << "pos inicial valida: " << posX << " y " << posY << "\n";
     return posicion;
 }

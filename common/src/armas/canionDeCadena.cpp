@@ -17,7 +17,7 @@ void CanionDeCadena::atacarEfectivamente(int distancia_a_pared,
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
-        int cantidad_balas = this->cantidad_rafagas * BALAS_POR_RAFAGA;
+        int cantidad_balas = BALAS_POR_RAFAGA;
         int i = 0;
         bool jugadorMurio = false;
         Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
