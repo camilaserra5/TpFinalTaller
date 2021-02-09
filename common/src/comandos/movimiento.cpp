@@ -29,9 +29,9 @@ void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
 std::vector<char> Movimiento::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
-    aux = numberToCharArray(static_cast<int>(this->tipo_de_movimiento));
-    informacion.insert(informacion.end(), aux.begin(), aux.end());
     aux = numberToCharArray(idJugador);
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+    aux = numberToCharArray(static_cast<int>(this->tipo_de_movimiento));
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     return informacion;
 }

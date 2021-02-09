@@ -7,10 +7,11 @@ void CambioDeArma::ejecutar(EstadoJuego &estadoJuego) {
 std::vector<char> CambioDeArma::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
-    aux = numberToCharArray(static_cast<int>(Accion::cambioDeArma));
-    informacion.insert(informacion.end(), aux.begin(), aux.end());
     aux = numberToCharArray(idJugador);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
+    aux = numberToCharArray(static_cast<int>(Accion::cambioDeArma));
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+
     return informacion;
 }
 
