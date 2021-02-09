@@ -218,17 +218,18 @@ void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
 }
 
 void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
+    if (tipo.getName() != "noItem"){
+      ObjetoJuego* objeto;
+          try {
+              objeto = this->entidades.at(id);
 
-    ObjetoJuego* objeto;
-        try {
-            objeto = this->entidades.at(id);
-
-        } catch (std::out_of_range &e) {
-            objeto = this->crearObjeto(tipo);
-            this->entidades.insert({id, objeto});
-            std::cerr << "creo un obejto: " << tipo.getName() << "\n";
-        }
-        this->entidades[id]->settear_estado(posx, posy);
+          } catch (std::out_of_range &e) {
+              objeto = this->crearObjeto(tipo);
+              this->entidades.insert({id, objeto});
+              std::cerr << "creo un obejto: " << tipo.getName() << "\n";
+          }
+          this->entidades[id]->settear_estado(posx, posy);
+    }        
 }
 
 void Modelo::terminoPartida(std::vector<int> &rankingJugadores) {
