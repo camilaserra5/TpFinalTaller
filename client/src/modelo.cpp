@@ -19,7 +19,7 @@ Player &Modelo::getPlayer() {
     return *(this->jugador);
 }
 
-Map *Modelo::obtenerMapa() {
+Map &Modelo::obtenerMapa() {
     return this->mapa;
 }
 
@@ -181,7 +181,7 @@ void Modelo::renderizar() {
             Enemigo *enemigo = it->second;
             //enemigo->renderizar();
         }
-
+verificarObjetosEnRangoDeVista();
         //ObjetoJuego *objeto = entidades.at(1);//cambiar lo de las keys
         //objeto->settear_estado(500, 420);
         //  verificarObjetosEnRangoDeVista();
@@ -341,7 +341,6 @@ bool Modelo::procesarActualizaciones() {
         bool disparando = jugador->estaDisparando();
         int cantVidas = jugador->cant_de_vida();
         int balas = jugador->cantidad_balas();
-//    std::cerr << "parametros: " << vida << " -" << posx<< " -"  << posy<< "- "  << angulo<< " -"  << idArma<< "- "  << puntaje<< " -"  << disparando<< "- "  << cantVidas<< " "  << balas  << " " << "\n";
         this->actualizarJugador(posx, posy, vida, angulo, idArma,
                                 disparando, puntaje, cantVidas, balas);
         for (it = jugadores.begin(); it != jugadores.end(); it++) {
@@ -361,8 +360,8 @@ bool Modelo::procesarActualizaciones() {
             }
         }
         std::cerr << "cargo mapa" << std::endl;
-        this->mapa = &estadoJuego.obtenerMapa();
-        std::vector<Item *> items = this->mapa->obtenerItems();
+        this->mapa = estadoJuego.obtenerMapa();
+        std::vector<Item *> items = this->mapa.obtenerItems();
         for (int i = 0; i < items.size(); i++) {
             Item *item = items[i];
             int idI = item->getId();
@@ -385,8 +384,6 @@ bool Modelo::procesarActualizaciones() {
         std::cerr << e.what() << "\n";
         std::cerr << "falla en actualizacion" << std::endl;
 
-        //std::cerr << e.what() << "\n";
-        //std::cerr << "fallooooooooo\n";
         return false;
 
     }

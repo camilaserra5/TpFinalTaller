@@ -40,7 +40,7 @@ public:
 
     void cerrar();
 
-    void raycasting(Map &mapaa, Player &jugador);
+    void raycasting(Map &mapa, Player &jugador);
 
     void eventos();
 

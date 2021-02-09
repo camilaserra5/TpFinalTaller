@@ -43,10 +43,7 @@ void Juego::run() {
             bool inicializado = this->modelo.procesarActualizaciones();
             this->clean();
             this->eventos();
-            //std::cerr << "raycasting" << std::endl;
-            if (this->modelo.obtenerMapa() != nullptr) {
-                this->raycasting(*this->modelo.obtenerMapa(), this->modelo.getPlayer());
-            }
+            this->raycasting(this->modelo.obtenerMapa(), this->modelo.getPlayer());
             this->renderizar();
             this->actualizar(/*1*/);
             auto final = std::chrono::high_resolution_clock::now();
