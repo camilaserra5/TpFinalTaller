@@ -242,7 +242,8 @@ bool Map::hayColision(int fila, int columna) {
                 tipo = TYPE_EMPTY;
             }
         }
-        return (tipo != TYPE_EMPTY);
+        return (tipo == TYPE_DOOR || tipo == TYPE_WALL || tipo == TYPE_WALL_2 || tipo == TYPE_WALL_3 ||
+                tipo == TYPE_KEY_DOOR || tipo == TYPE_FAKE_WALL);
     } catch (std::exception &exc) {
     }
 }
