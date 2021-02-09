@@ -94,7 +94,7 @@ void Juego::clean() {
 void Juego::raycasting(Map &mapa, Player &jugador) {
     Posicion &posJugador = jugador.getPosicion();
     SDL_Renderer *render = this->ventana.obtener_render();
-    int ladoCelda = 20;//ANCHO_CANVAS / TAMANIO_FILA;
+    int ladoCelda = ANCHO_CANVAS / mapa.getRowSize();
     double anguloPorStripe = RANGO_DE_VISTA / ANCHO_CANVAS;
     double anguloJugador = jugador.getAnguloDeVista();
     double anguloRayo = anguloJugador - (RANGO_DE_VISTA / 2);
