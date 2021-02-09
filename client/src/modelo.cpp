@@ -48,23 +48,16 @@ Modelo::~Modelo() {
 }
 
 bool Modelo::inicializar() {
-/*  std::chrono::milliseconds duration(100);
-  std::this_thread::sleep_for(duration);
-  bool actualice = false;
-  while (! actualice){*/
+
     return procesarActualizaciones();
-/*     std::chrono::milliseconds duration(100);
-     std::this_thread::sleep_for(duration);
-     std::cout << "actualice por primera vez\n";
-  }
-*/
+
 }
 
 std::vector<double> &Modelo::getZBuffer() {
     return this->zbuffer;
 }
 
-void normalizarAnguloEnRango(double &angulo, bool &esVisible) {//cheq esa referencia
+void normalizarAnguloEnRango(double &angulo, bool &esVisible) {
     if (angulo < -PI) {
         angulo += 2 * PI;
     } else if (angulo > PI) {
@@ -77,7 +70,7 @@ void normalizarAnguloEnRango(double &angulo, bool &esVisible) {//cheq esa refere
 }
 
 void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &y, double &distanciaObjeto) {
-//  int anchuraColumna = alturaSprite / SPRITE_LARGO;
+
     int tamanioBuffer = zbuffer.size();
     int anchoSprite = objeto->obtenerAnchura();
     for (int i = 0; i < anchoSprite; i++) {
@@ -167,17 +160,13 @@ void Modelo::verificarObjetosEnRangoDeVista() {
 }
 
 void Modelo::renderizar() {
-    //  std::vector<int> ranking;
-    //  ranking.push_back(1111);
-    //  ranking.push_back(111);
-    //  this->terminoPartida(ranking);
+
     if (!partidaTerminada) {
         this->jugador->renderizar();
 
         for (std::map<int, Enemigo *>::iterator it = enemigos.begin(); it != enemigos.end(); ++it) {
-            it->second->actualizar(500, 300, 4, 0, 0, 0, false, 50);
             Enemigo *enemigo = it->second;
-            //enemigo->renderizar();
+            enemigo->renderizar();
         }
         verificarObjetosEnRangoDeVista();
     } else {
@@ -221,7 +210,7 @@ void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
               std::cerr << "creo un obejto: " << tipo.getName() << "\n";
           }
           this->entidades[id]->settear_estado(posx, posy);
-    }        
+    }
 }
 
 void Modelo::terminoPartida(std::vector<int> &rankingJugadores) {
