@@ -137,15 +137,19 @@ void Map::agregarElemento(Item *item) {
 Item *Map::buscarElemento(int &posx, int &posy) {
     return this->contenedorDeElementos.buscarElemento(posx, posy);
 }
+bool verificarTipo(int tipo){
+    return (tipo != TYPE_WALL_2 && tipo != TYPE_WALL && tipo != TYPE_WALL_3 &&
+            tipo != TYPE_DOOR && tipo != TYPE_EMPTY && tipo!= TYPE_FAKE_WALL);
+}
 
 void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type value) {
     this->map[rowNumber][colNumber] = value;
     //std::cerr << " hola " << std::endl;
     int tipo = value.getType();
-    if (tipo != TYPE_DOOR && tipo != TYPE_KEY_DOOR) {
+    if (verificarTipo(tipo)){
         this->crearElementoPosicionable(rowNumber, colNumber, value);
-    } else {
-        this->aniadirPuerta(rowNumber, colNumber, tipo);
+    }else if(tipo == TYPE_DOOR || tipo == TYPE_FAKE_WALL){
+        this->aniadirPuerta(rowNumber,colNumber,tipo);
     }
 }
 
