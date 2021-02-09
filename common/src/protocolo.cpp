@@ -47,15 +47,18 @@ std::vector<char> Protocolo::recibir() {
 Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
     std::vector<char> sub(4);
     int idx = 0;
-    sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     char number[4];
+    sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     memcpy(number, sub.data(), 4);
     uint32_t *buf = (uint32_t *) number;
-    int idAccion = ntohl(*buf);
+    buf = (uint32_t *) number;
+
+    int idJugador = ntohl(*buf);
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     memcpy(number, sub.data(), 4);
     buf = (uint32_t *) number;
-    int idJugador = ntohl(*buf);
+    int idAccion = ntohl(*buf);
+
     if (idAccion == static_cast<int>(Accion::ataque)) {
         return new Ataque(idJugador);
     } else if (idAccion == static_cast<int>(Accion::aperturaDePuerta)) {
