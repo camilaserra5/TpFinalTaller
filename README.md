@@ -57,8 +57,6 @@ El proyecto consiste en realizar un remake del [Wolfenstein 3D  (1992)](https://
 
 El enunciado completo se puede encontrar [acá](enunciado.pdf).
 
-### División de tareas
-
 ### Evolución del proyecto
 
 #### Cronograma propuesto
@@ -99,7 +97,7 @@ El enunciado completo se puede encontrar [acá](enunciado.pdf).
   * Armado del entregable
 
 #### Cronograma real
-* **Semana 1 ()**  
+* **Semana 1**  
   * Servidor/Cliente: que el cliente le envíe eventos básicos como tecla o movimiento
   * Que el servidor cargue el mapa (yaml)
   * Aplicación con qt para crear el yaml con una matriz de mxm (el mapa)
@@ -112,16 +110,17 @@ El enunciado completo se puede encontrar [acá](enunciado.pdf).
 * **Semana 7**  
 
 ### Inconvenientes encontrados  
-Algunos de los inconvenientes encontrados estuvieron relacionados con la parte grafica del juego. Por ejemplo, con el algoritmo de raycasting, cuyo desarrollo debio modificarse mas vez debido a problemas con los tipos de datos elegidos para su desarrollo. Ademas, al momento de renderizar a los sprites, tambien hubo inconvenientes con parametros que estaban por fuera del rango de la pantalla del juego, con lo cual no podia verse en pantalla las entidades que debian. A esto se le debe agregar el tiempo de cpu que toma renderizar el mapa y todos sus contenidos, el cual es alto y produce una desincronizacion entre el procesado de comandos del lado del servidor y el procesado de actualizaciones del lado del cliente.  
-Por otro lado, se hallaron dificultades a la hora de serializar y deserializar las distintas entidades del juego. Al ser un protocolo binario, habia que tener un especial cuidado a la hora de desarrollarlo. Su desarrollo se encuentra en las siguientes secciones. Ademas, se debio tener en cuenta que las computadoras que corren el juego pueden tener distinto endianness.  
-Ademas, algunos de los inconvenientes encontrados estan relacionados con los propios problemas de concurrencia. Por ejemplo, cuando se deben recibir comandos de parte del servidor, estos provienen de distintos hilos, habiendo uno por cliente conectado en la partida. Estos comandos se guardan en una cola, pero esta esta protegida de las race conditions.  
+* Algunos de los inconvenientes encontrados estuvieron relacionados con la parte gráfica del juego. Por ejemplo, con el algoritmo de raycasting, cuyo desarrollo debió modificarse mas vez debido a problemas con los tipos de datos elegidos para su desarrollo. Ademas, al momento de renderizar a los sprites, también hubo inconvenientes con parámetros que estaban por fuera del rango de la pantalla del juego, con lo cual no podia verse en pantalla las entidades que debían. A esto se le debe agregar el tiempo de cpu que toma renderizar el mapa y todos sus contenidos, el cual es alto y produce una desincronizacion entre el procesado de comandos del lado del servidor y el procesado de actualizaciones del lado del cliente.  
+* Por otro lado, se hallaron dificultades a la hora de serializar y deserializar las distintas entidades del juego. Al ser un protocolo binario, había que tener un especial cuidado a la hora de desarrollarlo. Su desarrollo se encuentra en las siguientes secciones. Ademas, se debió tener en cuenta que las computadoras que corren el juego pueden tener distinto endianness.  
+* Además, algunos de los inconvenientes encontrados están relacionados con los propios problemas de concurrencia. Por ejemplo, cuando se deben recibir comandos de parte del servidor, estos provienen de distintos hilos, habiendo uno por cliente conectado en la partida. Estos comandos se guardan en una cola, pero esta esta protegida de las race conditions.  
+
 ### Análisis de puntos pendientes
+* No hubo tiempo suficiente para hacer tests sobre el código realizado.
 
 ### Herramientas
 Las herramientas utilizadas para este proyecto fueron las siguientes:
 
 #### [Git](https://git-scm.com/)
-
 
 #### [SDL2](https://www.libsdl.org/download-2.0.php)
 
@@ -131,11 +130,16 @@ Las herramientas utilizadas para este proyecto fueron las siguientes:
 
 ### Conclusiones
 
+
+___
+
+
 ## Documentación técnica
 
 ### Requerimientos de software
 
 ### Descripción general
+El programa cuenta de 4 módulos: cliente, servidor, editor y commons. El módulo de commons es utilizado por los otros 3 para cosas como los mapas, los sockets y la serialización. A continuación se muestra en mayor detalle las responsabilidades de cada uno.
 
 ### Módulo 1 - Cliente
 #### Descripción general
@@ -181,9 +185,10 @@ Una vez que la partida está completa, se da inicio y el servidor la maneja de l
 Este módulo consta de las cosas que son comunes tanto entre Servidor y Cliente, como con el Editor.
 
 #### Clases y Diagramas UML
-Serialización:
-
+Serialización: para la serialización se creo la clase ISerializable, la cual luego extienden todas las clases que necesiten ser serializadas. Por ejemplo, los comandos, las actualizaciones y el mapa.
 ![](http://www.plantuml.com/plantuml/png/bPAnJiCm48RtF8Kdr0uii4KLQbKwK06gH7VanaTgbFZGnOu0yV3OLLo5sf5njlZ-xtBnVSjESzAcROgZ5C3U4FK1FulYuGL8yaP-yqC3RF5pxHwsghGv7LOILJJ3rjXo9J1Mj3MbGO50keTD0oqeZLsypSRE9N1heCQ9MRQcjWcAuuzOKto69_uHHtROoSdVSfo2T_V17ISj1P-OsvxrqerrKIvPBybT7kkqACiUAesqg8wSxbZdWpIRJs8zIi44ZB9XewjpLM3OASmhqnw0zhYsRoiY_ZKpKkdRcrSzbC8cvq3bcJq-ksni7kxgy-AFDV--YG1Bn0Vnqi6eXMbiP6GwFCYP3fv4JSUijUcGDpYT36HE8rviLkRkBTzSlyfyTdgxsPqk5fxFUmVoMQz5FkbDoUT6ykJ3CP_okumKouUNe8Hfcry0)
+
+
 
 ### Módulo 4 - Editor
 
@@ -191,8 +196,18 @@ Serialización:
 Esta aplicación está hecha con qt. Es un editor de mapas, donde el usuario puede crear y editar mapas para luego utilizar en el juego.
 
 #### Clases y Diagramas UML
+El editor consta de 3 clases principales.
 
+* **MainWindow**
+Es la ventana principal de la aplicación. Extiende de QMainWindow. Esta es la encargada de crear a las otras dos clases que manejan, una la lista de tiles disponibles, y orta el mapa en sí. También tiene toda la lógica de crear un nuevo mapa, guardarlo y cargar un mapa existente.
 
+* **MapWidget**
+Es el mapa en sí. Extiende de QWidget. Maneja los eventos de drop sobre el mapa guardando el tipo y la posición.
+
+* **MapTilesList**
+Es la lista de los tiles disponibles para utilizar. Extiende la clase QListWidget. Consta de una lista de tiles, y maneja los eventos de drag y doble click sobre un tile.
+
+El guardado y mostrar un mapa existente, se hacen fundamentalmente con la clase **MapTranslator**. Esta clase vive en el módulo commons. Lo que hace es que a partir de la clase Map la pasa a YAML y viceversa.
 
 
 ### Descripción de archivos y protocolos  
@@ -200,23 +215,25 @@ El protocolo desarrollado trata a los bytes para su lectura como big endian. Ade
 
 ### Programas intermedios y de prueba
 
+___
+
 ## Manual de Usuario
 
 ### Instalación
 
 #### Requerimientos de software
 La instalación del programa se debe realizar mediante la compilación del código fuente del mismo.
-Idóneamente el programa puede ser compilado en cualquier distribución de Linux, habiendo instalado previamente los siguientes paquetes:
-● Gtkmm-3.0-dev
-● Libsdl2-dev
-● libsdl2-mixer-dev
-● sudo apt install lua5.3 liblua5.3-dev
-● sudo apt-get install libsdl2-ttf-dev
-● sudo apt-get install libyaml-cpp-dev
-Los tres son fácilmente accesibles en distribuciones de la familia Debian, a través de apt. Para simplificar esto, se entrega un script bash ​ installs.sh que se encarga de la instalación de dichos paquetes. Para compilar el programa, es necesario cmake, de versión ​ 2.5​ o mayor.
+Idóneamente el programa puede ser compilado en cualquier distribución de Linux, habiendo instalado previamente los siguientes paquetes. Los mismos son fácilmente accesibles a través de apt.
+* gtkmm-3.0-dev
+* libsdl2-dev
+* libsdl2-mixer-dev
+* lua5.3 liblua5.3-dev
+* libsdl2-ttf-dev
+* libyaml-cpp-dev
+
 
 #### Requerimientos de hardware
-Dado que el software entregado no tiene mayores exigencias en cálculos gráficos, no es necesario tener una placa gráfica dedicada. El programa fue testeado en máquinas con procesadores Intel ® de la familia i5 en adelante.
+El programa fue probado en computadoras sin una placa gráfica especial, y con procesadores intel i5 e i7.
 
 #### Proceso de Instalación
 Para poder utilizar el juego hay que realizar los siguientes pasos:
