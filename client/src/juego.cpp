@@ -14,10 +14,19 @@
 
 
 Juego::Juego(Ventana &ventana, Modelo &modelo) : ventana(ventana), modelo(modelo) {
+    SDL_Renderer* render = this->ventana.obtener_render();
 
-    this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT,
-                                        this->ventana.obtener_render());
+    this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT,render);
     this->corriendo = true;
+
+    this->texturas.insert({TYPE_WALL,new Textura(BLUE_WALL, render)});
+    this->texturas.insert({TYPE_WALL_2,new Textura(WOOD_WALL, render)});
+    this->texturas.insert({TYPE_WALL_3,new Textura(GREY_WALL, render)});
+    this->texturas.insert({TYPE_KEY_DOOR,new Textura(KEYDOOR, render)});
+    this->texturas.insert({TYPE_DOOR,new Textura(DOOR, render)});
+    this->texturas.insert({TYPE_FAKE_WALL,new Textura(GREY_WALL, render)});
+
+
 }
 
 void Juego::eventos() {
@@ -75,6 +84,10 @@ void Juego::renderizar() {
 
 Juego::~Juego() {
     delete this->texturaInferior;
+    std::map<int,Textura*>::iterator i;
+    for (i = texturas.begin(); i != texturas.end(); ++i){
+      delete i->second;
+    }
 }
 
 void Juego::cerrar() {
@@ -134,27 +147,5 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
 }
 
 Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
-    //cambiar a mas especifico
-    if (tipoDePared == TYPE_WALL) {
-        //std::cerr << "imprimo tpo wall\n";
-        return new Textura(BLUE_WALL, render);
-    } else if (tipoDePared == TYPE_WALL_2) {
-        //std::cerr << "imprimo tpo wall 2\n";
-        return new Textura(WOOD_WALL, render);
-    } else if (tipoDePared == TYPE_WALL_3) {
-        //  std::cerr << "imprimo tpo wall 3\n";
-        return new Textura(GREY_WALL, render);
-    } else if (tipoDePared == TYPE_KEY_DOOR) {
-        //  std::cerr << "imprimo tpo key door\n";
-        return new Textura(KEYDOOR, render);
-    } else if (tipoDePared == TYPE_FAKE_WALL) {
-        //  std::cerr << "imprimo fake wall \n";
-        return new Textura(GREY_WALL, render);
-    } else if (tipoDePared == TYPE_DOOR) {
-        //  std::cerr << "imprimo door\n";
-        return new Textura(DOOR, render);
-    } else {
-        return new Textura(GREY_WALL, render);
-    }
-//    std::cerr << "else";
+    return this->texturas.at(tipoDePared);
 }
