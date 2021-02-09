@@ -139,6 +139,7 @@ ___
 ### Requerimientos de software
 
 ### Descripción general
+El programa cuenta de 4 módulos: cliente, servidor, editor y commons. El módulo de commons es utilizado por los otros 3 para cosas como los mapas, los sockets y la serialización. A continuación se muestra en mayor detalle las responsabilidades de cada uno.
 
 ### Módulo 1 - Cliente
 #### Descripción general
