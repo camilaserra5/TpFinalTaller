@@ -1,8 +1,6 @@
 #include "../include/juego.h"
 
 #define EXITO 0
-#define TAMANIO_FILA 20
-#define TAMANIO_COLUMNA 20
 #define LARGO_PROYECTOR ANCHO_CANVAS
 #define ANCHO_PROYECTOR 20
 #define BLUE_WALL "../../editor/resources/blue-wall.jpg"

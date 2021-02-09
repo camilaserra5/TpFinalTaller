@@ -36,7 +36,7 @@ void Rayo::verificarCuadrante(const double anguloJugador) {
 }
 
 void Rayo::verificarInterseccion(Map &mapa, double &distancia, Player &jugador) {
-    double distanciaHorizontal = this->ladoCelda * TAMANIO_FILA, distanciaVertical = this->ladoCelda * TAMANIO_COLUMNA;
+    double distanciaHorizontal = this->ladoCelda * mapa.getRowSize(), distanciaVertical = this->ladoCelda * mapa.getColSize();
     this->verificarCuadrante(jugador.getAnguloDeVista());
     if (!this->abajo && !this->izquierda) {
         distancia = this->verificarInterseccionPrimerCuadrante(jugador, mapa);
@@ -181,7 +181,7 @@ bool Rayo::hallarColision(Map &mapa, double &interseccionAX, double &interseccio
     int yaMapa = floor(interseccionAY);
     int xaMapa = floor(interseccionAX);
     //std::cout << "entro en x: " << xaMapa << " y: " << yaMapa << "\n";
-    while (!encontrePared && 0 <= xaMapa && xaMapa < TAMANIO_FILA && 0 <= yaMapa && yaMapa < TAMANIO_COLUMNA) {
+    while (!encontrePared && 0 <= xaMapa && xaMapa < mapa.getRowSize() && 0 <= yaMapa && yaMapa < mapa.getColSize()) {
           std::cout << "paso por x: " << xaMapa << " y: " << yaMapa << "\n";
 
         if (mapa.hayColision(yaMapa, xaMapa)) {
@@ -202,7 +202,7 @@ double
 Rayo::verificarInterseccionHorizontal(Player &jugador, Map &mapa, double &y, double &dy, double &xStep, double &yStep,
                                       double &tg) {
     bool encontrePared = false;
-    double x, distancia = this->ladoCelda * TAMANIO_FILA;
+    double x, distancia = this->ladoCelda * mapa.getRowSize();
 
     x = this->posXMapa + (dy / tg);
     encontrePared = this->hallarColision(mapa, x, y, xStep, yStep);
@@ -221,7 +221,7 @@ double
 Rayo::verificarInterseccionVertical(Player &jugador, Map &mapa, double &x, double &dx, double &xStep, double &yStep,
                                     double &tg) {
     bool encontrePared = false;
-    double y, distancia = this->ladoCelda * TAMANIO_COLUMNA;
+    double y, distancia = this->ladoCelda * mapa.getColSize();
     y = this->posYMapa + (dx * tg);
     encontrePared = this->hallarColision(mapa, x, y, xStep, yStep);
     if (encontrePared) {

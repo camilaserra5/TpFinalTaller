@@ -1,7 +1,5 @@
 #ifndef RAYO_H
 #define RAY0_H
-#define TAMANIO_FILA 10
-#define TAMANIO_COLUMNA 10
 
 #include "player.h"
 #include "map.h"
