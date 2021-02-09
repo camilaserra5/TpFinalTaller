@@ -148,7 +148,6 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
     wallDest.h = drawEnd - drawStart;
 
     wall->renderizar(&wallDimension, wallDest, 0, NULL);
-    delete wall;
 }
 
 Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {

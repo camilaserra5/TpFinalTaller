@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <iostream>
 
 class Textura {
     SDL_Texture *textura;
@@ -10,7 +11,7 @@ class Textura {
 public:
     Textura(const char *archivo, SDL_Renderer *un_render);
 
-    ~Textura() {}
+    ~Textura() {std::cerr<< "me llamooo texttt\n";}
 
     int renderizar(SDL_Rect *infoSprite, SDL_Rect destino, int angulo, SDL_Point *centro) const;
 };
