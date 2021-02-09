@@ -165,46 +165,33 @@ realizar el algoritmo de raycasting.
 
 ### Módulo 2 - Servidor
 #### Descripción general
+El servidor se encarga de recibir a todos los clientes, crear y manejar las distintas partidas. 
 
 #### Clases y Diagramas UML
-
-     * Cliente:
-        Juego: es el hilo encargandor de realizar el loop, es decir, de limpiar, actualizar el modelo, renderizar y presentar. A su vez se encarga de 
-        realizar el algoritmo de raycasting. 
-        Modelo: es la clase que contiene tanto al jugador principial como a los otros jugadores que los trata como enemigos y a los objos que se encuentran
-        dentro del mapa. Esta clase se encarga de actualizar al jugador, a los enemigos y a los items mostrando la informacion del jugador y lo que ve. 
-        Client_event_reciver: Es el hilo que se encarga de recibir las actualizaciones, deserializarlas y volverlas a meter en la cola protegida.
-        Client_event_sender: Es el hilo que se encarga de sacar de la cola bloqueando los comandos, serializador y mandarlos. 
-        LogInWindow: Es la clase donde se encapsula toda la logica del log in del juego, donde el cliente se conecta al servidor y luego este puede unirse o 
-        crear una partida. Una vez que la partida se lance esta ventana se cierra y se arranca el juego.
-        ManejadorEventos: seencarga de manejar la logica de recibir eventos del teclado como avanzar =,rotar, disparar, ect. Una vez que capta el evento, aca se            crea el comando y se lo agrega en la cola de eventos.
-     * Common
-        Armas: esta clase encapsula las posibles armas de ataque que puede tener el jugador. Esta clase seria la clase madre donde luego estan las clases de cada
-        arma que posee el jugador. Cada una de ellas, resuleve de manera polimorfica el realizarAtaque sies que el cliente envio el comando ataque.
-        Items: En esta clase se encapsula todos los objetos que el jugador puede agarrar a medida que avanza en el juego y cada item esuelve de manera polimorfica 
-        el beneficio que le brinda si el jugador lo obtiene. 
-        EstadoJuego: esta clase es la que tiene el mapa en uso y los jugadores que estan en esa partida. Resuelve el tema de los comandos, si un jugador quiere m         moverse o si decide atacar. Es el que sabe cuando termina una partida.
-        mapa: Es el mundo del juego. Esta clase contiene donde se encuentran los distintas entidades como las paredes o las puertas. Tambien contine a un                 contenedor de elementos donde cada vez que se agrega un item, esta clase de la guarda. 
-      * servidor:
-        
-
-
-![](http://www.plantuml.com/plantuml/png/bPAnJiCm48RtF8Kdr0uii4KLQbKwK06gH7VanaTgbFZGnOu0yV3OLLo5sf5njlZ-xtBnVSjESzAcROgZ5C3U4FK1FulYuGL8yaP-yqC3RF5pxHwsghGv7LOILJJ3rjXo9J1Mj3MbGO50keTD0oqeZLsypSRE9N1heCQ9MRQcjWcAuuzOKto69_uHHtROoSdVSfo2T_V17ISj1P-OsvxrqerrKIvPBybT7kkqACiUAesqg8wSxbZdWpIRJs8zIi44ZB9XewjpLM3OASmhqnw0zhYsRoiY_ZKpKkdRcrSzbC8cvq3bcJq-ksni7kxgy-AFDV--YG1Bn0Vnqi6eXMbiP6GwFCYP3fv4JSUijUcGDpYT36HE8rviLkRkBTzSlyfyTdgxsPqk5fxFUmVoMQz5FkbDoUT6ykJ3CP_okumKouUNe8Hfcry0)
-
+Cuando un cliente se conecta, se le mandan las partidas que no empezaron serializadas. Luego, se recibe si el cliente va a crear una nueva o unirse a la existente, y en base a eso se sigue la lógica.
 ![](http://www.plantuml.com/plantuml/png/jLHDRzim3BtxL-Ze04jt7x2WnSu31gptWfQOb9jC6PISVVpwoOuQoOvQ0mDwI60_yecFV9JlVG09Os-RPpAeZiw5plrk6j31YHezIZF41D8q00VL0_42UD0u131kcVRu_CKISbY0tvt-YKleAp3-cDZV9j20Nn9GpZGTtJIJ4BK_pFNL9tNtqQUOqewFTBhx0xsTHDCP0bvaJd-Ha-f6LaTidY3-BFc0t0vEmYwJaZw3QqGBnhUAs5JXDXABCVvAn696YP2Hb5Z3PsDQFqlueFfrYIoyEDywDwWBvUaCbenhL0xl3zTHm8n9kulnTRigFUmFfPm1KMB8u6rwQlDgUb4oDdN5Bxssqq7LVahQafTcKOWjg-N4LwpmA0IM_fRzrWrLjzXAoP1J3RvrKYQLAuXyfYXZo4tNymGrTVIsFojbn4SdFMXo_8fFO8CYepwhaKayRazkTlRbVNDsQG_ojQrFCyMlkx-T1IV14yX5AhRi-avmj-s0mTgseFMeDdjVLtr8aHVh_cUHwdMwqMkGzV7lDfOOHpRhErhUT4iT2iWZIaySCH-TdoWb8M-gHf7vOXciV90IcZ_AzyXcxEq_)
+
+Una vez que la partida está completa, se da inicio y el servidor la maneja de la siguiente manera:
+![](http://www.plantuml.com/plantuml/png/VLH1Rjmm3Bpp5Jvw3m5wwY6786tGOu6sUK2WbIOjKriqP7bHz4TzHpzMxcvSByCeHv4pmn57zkrSGwdBED0FJkWUHUfUVX65MALqoun2am8uyXHoxUvH3fp45Z-7ZAUWrRk1aIiS0-NJGHlto0cbrVs62DO37OTsLpV_PtNNNLbolpjwuaEes5pG839ryJnsfhMkR6VAgpZRZg8oNufKYJA8yf4F74gFSKBy-sVdy5StxhBNf_LQxnQoNWAAV8XI2cjLoC6EPZuE4dzo_lvrmG8rDCcq2PicMQXodQ3obRk4WN-7o98feQ7rgfSFbrpLcb7uT2wR9OCXosXOulmePNI6h98Zlangrcf_8RKZBH1TAZgDPfpcTRO2DQ1ceWRdRHT4tlEsmAr96qmvNiglpckq7Dp96DIWAYJu5B7sQSKr3SHdO8BZld5vn8gqlkYGEIGk3obKwP_rpk4blBdnXFPtVU8tC-4ahtkHVKN6sOkDP8EHFThVbb-8ewzWcmEU49VgCcYjTfKmi-S1cFhtxyxRkoIk8BhLpZ8E_m00)
+
 
 ### Módulo 3 - Common
 
 #### Descripción general
+Este módulo consta de las cosas que son comunes tanto entre Servidor y Cliente, como con el Editor. 
 
 #### Clases y Diagramas UML
+Serialización:
+
 ![](http://www.plantuml.com/plantuml/png/bPAnJiCm48RtF8Kdr0uii4KLQbKwK06gH7VanaTgbFZGnOu0yV3OLLo5sf5njlZ-xtBnVSjESzAcROgZ5C3U4FK1FulYuGL8yaP-yqC3RF5pxHwsghGv7LOILJJ3rjXo9J1Mj3MbGO50keTD0oqeZLsypSRE9N1heCQ9MRQcjWcAuuzOKto69_uHHtROoSdVSfo2T_V17ISj1P-OsvxrqerrKIvPBybT7kkqACiUAesqg8wSxbZdWpIRJs8zIi44ZB9XewjpLM3OASmhqnw0zhYsRoiY_ZKpKkdRcrSzbC8cvq3bcJq-ksni7kxgy-AFDV--YG1Bn0Vnqi6eXMbiP6GwFCYP3fv4JSUijUcGDpYT36HE8rviLkRkBTzSlyfyTdgxsPqk5fxFUmVoMQz5FkbDoUT6ykJ3CP_okumKouUNe8Hfcry0)
 
 ### Módulo 4 - Editor
 
 #### Descripción general
+Esta aplicación está hecha con qt. Es un editor de mapas, donde el usuario puede crear y editar mapas para luego utilizar en el juego. 
 
 #### Clases y Diagramas UML
+
 
 
 
@@ -237,7 +224,7 @@ Para poder utilizar el juego hay que realizar los siguientes pasos:
 * posicionarse en el directorio se quieran descargar los archivos
 
 ```bash
-foo@bar:~$ cd /home/cami/wolfstein
+foo@bar:~$ cd /home/user/wolfstein
 ```
 * clonar el repositorio (**alternativa**: [descargarlo](https://github.com/solfonte/TpFinalTaller/archive/main.zip) desde github y descomprimirlo en la carpeta deseada)
 
