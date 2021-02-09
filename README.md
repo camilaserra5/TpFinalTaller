@@ -181,9 +181,10 @@ Una vez que la partida está completa, se da inicio y el servidor la maneja de l
 Este módulo consta de las cosas que son comunes tanto entre Servidor y Cliente, como con el Editor. 
 
 #### Clases y Diagramas UML
-Serialización:
-
+Serialización: para la serialización se creo la clase ISerializable, la cual luego extienden todas las clases que necesiten ser serializadas. Por ejemplo, los comandos, las actualizaciones y el mapa.
 ![](http://www.plantuml.com/plantuml/png/bPAnJiCm48RtF8Kdr0uii4KLQbKwK06gH7VanaTgbFZGnOu0yV3OLLo5sf5njlZ-xtBnVSjESzAcROgZ5C3U4FK1FulYuGL8yaP-yqC3RF5pxHwsghGv7LOILJJ3rjXo9J1Mj3MbGO50keTD0oqeZLsypSRE9N1heCQ9MRQcjWcAuuzOKto69_uHHtROoSdVSfo2T_V17ISj1P-OsvxrqerrKIvPBybT7kkqACiUAesqg8wSxbZdWpIRJs8zIi44ZB9XewjpLM3OASmhqnw0zhYsRoiY_ZKpKkdRcrSzbC8cvq3bcJq-ksni7kxgy-AFDV--YG1Bn0Vnqi6eXMbiP6GwFCYP3fv4JSUijUcGDpYT36HE8rviLkRkBTzSlyfyTdgxsPqk5fxFUmVoMQz5FkbDoUT6ykJ3CP_okumKouUNe8Hfcry0)
+
+
 
 ### Módulo 4 - Editor
 
@@ -191,8 +192,18 @@ Serialización:
 Esta aplicación está hecha con qt. Es un editor de mapas, donde el usuario puede crear y editar mapas para luego utilizar en el juego. 
 
 #### Clases y Diagramas UML
+El editor consta de 3 clases principales.
 
+* **MainWindow**
+Es la ventana principal de la aplicación. Extiende de QMainWindow. Esta es la encargada de crear a las otras dos clases que manejan, una la lista de tiles disponibles, y orta el mapa en sí. También tiene toda la lógica de crear un nuevo mapa, guardarlo y cargar un mapa existente.
 
+* **MapWidget**
+Es el mapa en sí. Extiende de QWidget. Maneja los eventos de drop sobre el mapa guardando el tipo y la posición.
+
+* **MapTilesList**
+Es la lista de los tiles disponibles para utilizar. Extiende la clase QListWidget. Consta de una lista de tiles, y maneja los eventos de drag y doble click sobre un tile.
+
+El guardado y mostrar un mapa existente, se hacen fundamentalmente con la clase **MapTranslator**. Esta clase vive en el módulo commons. Lo que hace es que a partir de la clase Map la pasa a YAML y viceversa.
 
 
 ### Descripción de archivos y protocolos  
