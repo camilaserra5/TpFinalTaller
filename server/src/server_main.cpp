@@ -46,14 +46,6 @@ int main(int argc, const char *argv[]) {
         int cant_jugadores = 1;
         int cant_jugadores2 = 2;
         ManejadorPartidas manejadorPartidas;
-      //  manejadorPartidas.agregarMapa(nombre_archivo);
-
-      //  bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores, nombre_partida, nombre_archivo);
-      //  manejadorPartidas.crearPartida(nombreJugador, cant_jugadores2, nombre_partida2, nombre_archivo);
-        //if (estado) {
-          //  std::cout << "creo partida\n";
-      //  }
-        /////
 
         Aceptador aceptador(socket, &manejadorPartidas);
         aceptador.start();
@@ -61,34 +53,10 @@ int main(int argc, const char *argv[]) {
         std::cout << exc.what() << std::endl;
         return 0;
     }
-
+    char c;
+    while ((c = std::cin.get()) != 'q'){
+    }
+    aceptador.cerrar();
+    aceptador.join();
     return 0;
 }
-
-/*
- *
-int main(int argc, char *argv[]) {
-    std::string nombreJugador = "juan";
-    std::string nombre = "pepe";
-    std::string nombre_partida = "grecia";
-    std::string nombre_archivo = "archivo.yaml";
-    int cant_jugadores = 1;
-
-    ManejadorPartidas manejadorPartidas;
-    manejadorPartidas.agregarMapa(nombre_archivo);
-
-    bool estado = manejadorPartidas.crearPartida(nombreJugador, cant_jugadores, nombre_partida, nombre_archivo);
-    if (estado) {
-        std::cout << "creo partida\n";
-    }
-    std::chrono::milliseconds duration(10);
-    std::this_thread::sleep_for(duration);
-    bool estado2 = manejadorPartidas.agregarClienteAPartida(nombre, nombre_partida);
-    if (estado2) {
-        std::cout << "agreggo cliente a partida\n";
-    }
-
-    manejadorPartidas.run();
-    return OK_CODE;
-}
- */

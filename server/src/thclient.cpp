@@ -21,7 +21,7 @@ ThClient::~ThClient() {
 
 void ThClient::stop() {
     this->keep_talking = false;
-    this->protocolo->cerrar();
+  //  this->protocolo->cerrar();
 }
 
 void ThClient::procesar_pedido() {
@@ -70,20 +70,8 @@ void ThClient::run() {
         std::cerr << partidas[i];
     }
     std::cerr << "\nfin envio partidas";
-    //  reinterpret_cast<char *>(partidas.data()), partidas.size()
     this->protocolo->enviar(partidas);
+    std:: cerr << "envieee partidadsss\n";
     procesar_pedido();
-    while (this->keep_talking) {
-
-/*
-        std::string mensaje = this->mensaje_cliente.str();
-        if (mensaje.size() != 0) {
-            mensaje.erase(mensaje.size() - 1);
-        }
-
-
-        this->keep_talking = false;*/
-        //  this->keep_talking = false;
-    }
     this->stop();
 }
