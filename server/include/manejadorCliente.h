@@ -4,6 +4,7 @@
 #include "server_event_sender.h"
 #include "server_event_receiver.h"
 #include "objetosJuego.h"
+#include "socket_error.h"
 
 class ManejadorCliente {
 public:
@@ -20,6 +21,7 @@ public:
     }
 
     void run() {
+        try{
         std::chrono::milliseconds duration(100);
         std::this_thread::sleep_for(duration);
         std::vector<char> empece(4);
@@ -29,6 +31,9 @@ public:
         std::this_thread::sleep_for(duration);
         this->enviador->start();
         this->recibidor->start();
+      }catch(SocketError &e){
+          this->join();
+      }
     }
 
     void settearId(int &id) {
