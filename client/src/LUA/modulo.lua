@@ -29,3 +29,12 @@ end
 
 function moverse(pos_x,pos_y)
     local siguiente_mov = proximo_movimiento(pos_x,pos_x)
+    if(enemigo_cerca()) then
+        return avanzar_hacia_enemigo()
+    end
+    return siguiente_mov
+end
+
+function disparar_al_enemigo()
+--como enviaria el danio que hace? puede tener siempre una pistola? como se comunicaria con las cosas de common?
+end
