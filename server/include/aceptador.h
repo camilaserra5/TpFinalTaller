@@ -29,7 +29,7 @@ public:
 
     void cerrar();
 
-    ~Aceptador() { this->join(); }
+    ~Aceptador() {}
 };
 
 #endif /*ACEPTADOR_H*/

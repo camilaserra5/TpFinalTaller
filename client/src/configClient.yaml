@@ -1,0 +1,25 @@
+screenWidthLogin: 1280
+screenHeightLogin: 720
+screenHeightGame: 600
+screenWidthGame: 800
+rutaFontHighScore: "../../resources/fuentes/Nougat.ttf"
+rutaImagenWeapons: "../../client/resources/images/Weapons.png"
+rutaBackground: "../../resources/images/background.png"
+rutaMusica: "../../client/resources/sonidos/musiquita.wav"
+rutaGuardia: "../../client/resources/images/Guard.png"
+rutaRat: "../../client/resources/images/Rat.png"
+rutaOfficer: "../../client/resources/images/Officer.png"
+rutaMutant: "../../client/resources/images/Mutant.png"
+rutaEliteGuard: "../../client/resources/images/Elite Guard.png"
+rutaJoystick: "../../resources/fuentes/joystix.monospace.ttf"
+rutaBackgroundHighScore: "../../client/resources/images/backgroundHighscore.jpg"
+rutaTexturaInferior: "../../client/resources/images/ParteInferior.png"
+rutaBlueWall: "../../editor/resources/blue-wall.jpg"
+rutaGreyWall: "../../editor/resources/grey-wall.jpg"
+rutaWoodWall: "../../editor/resources/wood-wall.jpg"
+rutaBlueDoor: "../../editor/resources/door.jpg"
+rutaKeyDoor: "../../editor/resources/keydoor.jpg"
+rutaTTFWolfstein: "../../resources/fuentes/wolfenstein.ttf"
+rutaloginBackground: "../../client/resources/images/background.png"
+rutaloginBackground2: "../../client/resources/images/background2.jpg"
+rutaObjetos: "../../client/resources/images/Objects.png"

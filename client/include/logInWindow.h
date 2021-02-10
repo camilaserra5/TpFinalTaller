@@ -6,13 +6,11 @@
 #include "socket.h"
 #include "protocolo.h"
 
-#define SCREEN_WIDTH   1280
-#define SCREEN_HEIGHT  720
 
 class LogInWindow {
 
 public:
-    LogInWindow();
+    LogInWindow(int screnWidth,int screenHeight);
 
     void run();
 
@@ -33,6 +31,20 @@ private:
     Socket socket;//hay qeu sacarlo
     Protocolo *protocolo;
     uint32_t idCliente;
+    int screenWidth;
+    int screenHeight;
+    void mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
+                             std::vector<std::string> partidas, std::string &gameNumber);
+    void start(SDL_Renderer *renderer, Fonts fonts);
+    void connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, std::string &port, std::string &message);
+    void pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error);
+    void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo);
+    void unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string &nombre, std::string &playerName);
+    void crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param,
+                      std::string &gameName, std::string &numberPlayers,
+                      std::string &mapFile, std::string &playerName);
+
+
 
 };
 

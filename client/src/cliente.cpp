@@ -1,5 +1,5 @@
 #include "../include/cliente.h"
-//#include "socket.h"
+#include "parser.h"
 #include <iostream>
 #include "../include/juego.h"
 #include "blocking_queue.h"
@@ -14,8 +14,8 @@
 #include "../include/musica.h"
 #include "../include/audio.h"
 #include "../include/highscoreWindow.h"
-
-#define MUSICA_FONDO "../../client/resources/sonidos/musiquita.wav"
+#define ARCHIVO_DE_CONFIGURACION "configClient.yaml"
+#define MUSICA_FONDO "../../client/resources/sonidos/musiquita.wav"//rutaMusica
 
 Cliente::Cliente(const char *host, const char *server_port) : socket(), corriendo(true) {
     //  this->socket.conectar(host, server_port);
@@ -25,9 +25,6 @@ Cliente::~Cliente() {}
 
 void Cliente::run() {
     std::string nombre_juego("Wolfstein");
-    int idJugador = 1111; // me lo da el log in; logIn.getIdJugador();
-    //  HighscoreWindow highscoreWindow;
-    //  highscoreWindow.run();
     if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
         printf("Failed to init SDL\n");
         exit(1);
@@ -36,9 +33,13 @@ void Cliente::run() {
         printf("Failed to init TTF\n");
         exit(1);
     }
-    LogInWindow logIn;
+    Parser parser(ARCHIVO_DE_CONFIGURACION);
+    int screenWidthLogin = parser.obtenerAnchoPantallaLogin();
+    int screenheightLogin = parser.obtenerAltoPantallaLogin();
+
+    LogInWindow logIn(screenWidthLogin,screenheightLogin);
     logIn.run();
-    idJugador = logIn.obtenerIdJugador();
+    int idJugador = logIn.obtenerIdJugador();
     BlockingQueue<Comando *> events;
     ProtectedQueue<Actualizacion *> updates;
     Protocolo *protocolo = logIn.obtenerProtocolo();
@@ -53,8 +54,6 @@ void Cliente::run() {
 
     ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
 
-
-    // me lo tiene que dar el log int
     Juego juego(ventana, modelo);
     ManejadorEventos manejador(idJugador, events);//no lanzar hilo
 
