@@ -38,17 +38,9 @@ public:
 
     void borrarClientes();
 
-    std::vector<char> serializar();/* {
-        std::vector<char> informacion;
-        std::vector<char> cantJugadoresAct = numberToCharArray(this->jugadores.size());
-        informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());
-        std::vector<char> cantJugadores = numberToCharArray(cant_jugadores);
-        informacion.insert(informacion.end(), cantJugadores.begin(), cantJugadores.end());
-        return informacion;
-    }*/
+    std::vector<char> serializar();
 
-    void deserializar(std::vector<char> &serializado) {
-    }
+    void deserializar(std::vector<char> &serializado) {}
 
     void enviar_actualizaciones();
 
