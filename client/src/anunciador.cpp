@@ -14,8 +14,8 @@ void Anunciador::settearGanadores(std::vector<int> &ganadores) {
     Fonts fuentes;
     int x = 200;
     int y = 300;
-    fuentes.addFont("ganadores", "../../resources/fuentes/Nougat.ttf", 65);
-    fuentes.addFont("jugador", "../../resources/fuentes/Nougat.ttf", 35);
+    fuentes.addFont("ganadores", "../../resources/fuentes/Nougat.ttf", 65);//rutGanadores
+    fuentes.addFont("jugador", "../../resources/fuentes/Nougat.ttf", 35);//rutaFontJUgadores
     SDL_Color color{255, 0, 0};
     Label ganador(100, 100, "GANADORES", fuentes.getFont("ganadores"), color, ventana.obtener_render());
     this->ganadores.push_back(ganador);

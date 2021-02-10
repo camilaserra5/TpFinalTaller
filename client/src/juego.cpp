@@ -149,6 +149,5 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
 }
 
 Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
-  std::cerr << "tipo: " << tipoDePared << "\n";
     return this->texturas.at(tipoDePared);
 }
