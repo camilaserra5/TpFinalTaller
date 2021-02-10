@@ -49,14 +49,16 @@ int main(int argc, const char *argv[]) {
 
         Aceptador aceptador(socket, &manejadorPartidas);
         aceptador.start();
+        char c;
+        while ((c = std::cin.get()) != 'q'){
+        }
+        manejadorPartidas.cerrarPartidas();
+        aceptador.cerrar();
+        aceptador.join();
     } catch (std::exception &exc) {
         std::cout << exc.what() << std::endl;
         return 0;
     }
-    char c;
-    while ((c = std::cin.get()) != 'q'){
-    }
-    aceptador.cerrar();
-    aceptador.join();
+
     return 0;
 }

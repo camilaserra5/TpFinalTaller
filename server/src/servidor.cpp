@@ -55,7 +55,7 @@ int Servidor::obtenerIdParaJugador() {
 }
 
 void Servidor::lanzarJugadores() {
-    for (auto it = this->clientes.begin(); it != this->clientes.end(); it++) {
+    for (auto it = this->clientes.begin(); it != this->clientes.end(); ++it) {
         it->second->run();
     }
 }
@@ -98,8 +98,11 @@ void Servidor::run() {
 
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
+    this->enviar_actualizaciones();
+
     std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
     std::this_thread::sleep_for(duration);
+
     while (this->sigue_corriendo) {
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
