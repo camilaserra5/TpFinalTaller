@@ -97,17 +97,7 @@ El enunciado completo se puede encontrar [acá](enunciado.pdf).
   * Armado del entregable
 
 #### Cronograma real
-* **Semana 1**  
-  * Servidor/Cliente: que el cliente le envíe eventos básicos como tecla o movimiento
-  * Que el servidor cargue el mapa (yaml)
-  * Aplicación con qt para crear el yaml con una matriz de mxm (el mapa)
-  * Dibujar sprits o jugadores
-* **Semana 2**  
-* **Semana 3**  
-* **Semana 4**  
-* **Semana 5**  
-* **Semana 6**  
-* **Semana 7**  
+Tratamos de seguir el cronograma propuesto pero hubo varios defasajes por complicaciones (como las mencionadas en la  próxima sección). Tampoco hicimos un seguimiento de la evolución semana por semana.
 
 ### Inconvenientes encontrados  
 * Algunos de los inconvenientes encontrados estuvieron relacionados con la parte gráfica del juego. Por ejemplo, con el algoritmo de raycasting, cuyo desarrollo debió modificarse mas vez debido a problemas con los tipos de datos elegidos para su desarrollo. Ademas, al momento de renderizar a los sprites, también hubo inconvenientes con parámetros que estaban por fuera del rango de la pantalla del juego, con lo cual no podia verse en pantalla las entidades que debían. A esto se le debe agregar el tiempo de cpu que toma renderizar el mapa y todos sus contenidos, el cual es alto y produce una desincronizacion entre el procesado de comandos del lado del servidor y el procesado de actualizaciones del lado del cliente.  
@@ -139,7 +129,7 @@ ___
 ### Requerimientos de software
 
 ### Descripción general
-El programa cuenta de 4 módulos: cliente, servidor, editor y commons. El módulo de commons es utilizado por los otros 3 para cosas como los mapas, los sockets y la serialización. A continuación se muestra en mayor detalle las responsabilidades de cada uno.
+El programa cuenta de 4 módulos: cliente, servidor, editor y commons. El módulo de commons es utilizado por los otros 3 para cosas como los mapas, los sockets y la seri  alización. A continuación se muestra en mayor detalle las responsabilidades de cada uno.
 
 ### Módulo 1 - Cliente
 #### Descripción general
@@ -183,6 +173,7 @@ Una vez que la partida está completa, se da inicio y el servidor la maneja de l
 
 #### Descripción general
 Este módulo consta de las cosas que son comunes tanto entre Servidor y Cliente, como con el Editor.
+En este se encapsula la logica de las armas, los movimientos, el mapa, la serializacion entre otras cosas. 
 
 #### Clases y Diagramas UML
 Serialización: para la serialización se creo la clase ISerializable, la cual luego extienden todas las clases que necesiten ser serializadas. Por ejemplo, los comandos, las actualizaciones y el mapa.
@@ -214,7 +205,7 @@ El guardado y mostrar un mapa existente, se hacen fundamentalmente con la clase 
 El protocolo desarrollado trata a los bytes para su lectura como big endian. Ademas, este protocolo serializa, en general, de la siguiente manera: primero se envia el tamanio del parametro que ese esta serializando, y luego se serializa el parametro. Esto es porque, al ser binario, se requiere saber cuantos bytes corresponden a cada entidad para su deserializacion. De esta manera, se deserializa cada entidad de manera ordenada, evitando posibles errores.  
 
 ### Programas intermedios y de prueba
-
+Originalmente, el programa lo realizamos en una sola aplicación simulando el cliente y el servidor, para no tener que tratar con la serialización. Una vez que eso estuvo más estable, involucramos los distintos hilos y la conexión mediante socket.
 ___
 
 ## Manual de Usuario
