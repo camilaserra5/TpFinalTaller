@@ -10,7 +10,13 @@ public:
 
     std::string obtenerPuerto();
 
+    std::map<std::string, std::string> obtenerMapas();
+
     ~Parser();
+
+    int obtenerAnchoPantallaLogin();
+
+    int obtenerAltoPantallaLogin();
 
 private:
     YAML::Node config;

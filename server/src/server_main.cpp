@@ -35,6 +35,8 @@ int main(int argc, const char *argv[]) {
         Parser parser(argv[ARG_PORT]);
         std::string port = parser.obtenerPuerto();
         std::cerr << " puerto: " << port;
+        std::map<std::string,std::string> mapas = parser.obtenerMapas();
+
         Socket socket;
         socket.bind_and_listen(port.c_str());
 
@@ -45,7 +47,7 @@ int main(int argc, const char *argv[]) {
         std::string nombre_archivo = "archivo.yaml";
         int cant_jugadores = 1;
         int cant_jugadores2 = 2;
-        ManejadorPartidas manejadorPartidas;
+        ManejadorPartidas manejadorPartidas(mapas);
 
         Aceptador aceptador(socket, &manejadorPartidas);
         aceptador.start();

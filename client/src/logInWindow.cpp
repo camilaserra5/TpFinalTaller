@@ -14,7 +14,7 @@
 #define BACKGROUND_2_IMAGE_ROOT "../../client/resources/images/background2.jpg"
 #define FONT_SIZE 60
 
-LogInWindow::LogInWindow() {
+LogInWindow::LogInWindow(int screenWidth,int screenHeight): screenWidth(screenWidth),screenHeight(screenHeight) {
     int rendererFlags, windowFlags;
 
     rendererFlags = SDL_RENDERER_ACCELERATED;
@@ -26,11 +26,11 @@ LogInWindow::LogInWindow() {
         exit(1);
     }
 
-    this->window = SDL_CreateWindow("Wolfstein 3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
-                                    SCREEN_HEIGHT, windowFlags);
+    this->window = SDL_CreateWindow("Wolfstein 3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, this->screenWidth,
+                                    this->screenHeight, windowFlags);
 
     if (!this->window) {
-        printf("Failed to open %d x %d window: %s\n", SCREEN_WIDTH, SCREEN_HEIGHT, SDL_GetError());
+        printf("Failed to open %d x %d window: %s\n", this->screenWidth, this->screenHeight, SDL_GetError());
         exit(1);
     }
 
@@ -65,8 +65,8 @@ void disp_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, 
     label.draw();
 }
 
-void start(SDL_Renderer *renderer, Fonts fonts) {
-    Background background(BACKGROUND_IMAGE_ROOT, renderer);
+void LogInWindow::start(SDL_Renderer *renderer, Fonts fonts) {
+    Background background(BACKGROUND_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
     SDL_Event e;
     int pressed = false;
     while (!pressed) {
@@ -82,14 +82,14 @@ void start(SDL_Renderer *renderer, Fonts fonts) {
         SDL_Delay(16);
         SDL_RenderClear(renderer);
         background.drawBackground();
-        disp_text("Press enter to start", fonts.getFont("wolfstein"), renderer, SCREEN_WIDTH / 3,
-                  SCREEN_HEIGHT / 2);
+        disp_text("Press enter to start", fonts.getFont("wolfstein"), renderer, this->screenWidth / 3,
+                  this->screenHeight / 2);
         SDL_RenderPresent(renderer);
     }
 }
 
-void connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, std::string &port, std::string &message) {
-    Background background(BACKGROUND_IMAGE_ROOT, renderer);
+void LogInWindow::connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, std::string &port, std::string &message) {
+    Background background(BACKGROUND_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
     SDL_Event e;
     bool ipFinished = false;
     bool portFinished = false;
@@ -125,20 +125,20 @@ void connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, std::string &
         SDL_RenderClear(renderer);
         background.drawBackground();
         disp_text("ip address: " + ip, fonts.getFont("wolfstein"), renderer,
-                  SCREEN_WIDTH / 3, SCREEN_HEIGHT / 2);
+                  this->screenWidth / 3, this->screenHeight / 2);
         disp_text("port: " + port, fonts.getFont("wolfstein"), renderer,
-                  SCREEN_WIDTH / 3, SCREEN_HEIGHT / 2 + FONT_SIZE);
+                  this->screenWidth / 3, this->screenHeight / 2 + FONT_SIZE);
         if (!message.empty()) {
-            disp_text(message, fonts.getFont("wolfstein"), renderer, SCREEN_WIDTH / 3,
-                      SCREEN_HEIGHT / 2 + FONT_SIZE * 2);
+            disp_text(message, fonts.getFont("wolfstein"), renderer, this->screenWidth / 3,
+                      this->screenHeight / 2 + FONT_SIZE * 2);
         }
         SDL_RenderPresent(renderer);
     }
 }
 
-void mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
+void LogInWindow::mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
                          std::vector<std::string> partidas, std::string &gameNumber) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
     SDL_Event e;
     bool finished = false;
     while (!finished) {
@@ -183,10 +183,10 @@ void mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
     }
 }
 
-void crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param,
+void LogInWindow::crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param,
                   std::string &gameName, std::string &numberPlayers,
                   std::string &mapFile, std::string &playerName) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
     SDL_Event e;
     bool finished = false;
     while (!finished) {
@@ -220,8 +220,8 @@ void crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param,
     }
 }
 
-void unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string &nombre, std::string &playerName) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
+void LogInWindow::unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string &nombre, std::string &playerName) {
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
     SDL_Event e;
     bool finished = false;
     while (!finished) {
@@ -253,8 +253,8 @@ void unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string &nombre, st
 }
 
 
-void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
+void LogInWindow::pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo) {
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
     SDL_Event e;
     bool finished = false;
     while (!finished) {
@@ -285,8 +285,8 @@ void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo
     }
 }
 
-void pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer);
+void LogInWindow::pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error) {
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
     SDL_Event e;
     bool finished = false;
     while (!finished) {
@@ -312,7 +312,7 @@ void pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error) {
 }
 
 void LogInWindow::run() {
-    Background background(BACKGROUND_IMAGE_ROOT, this->renderer);
+    Background background(BACKGROUND_IMAGE_ROOT, this->renderer,this->screenWidth,this->screenHeight);
     background.drawBackground();
     bool finished = false;
     while (!finished) {
@@ -336,10 +336,11 @@ void LogInWindow::run() {
         }
 
         this->protocolo = new Protocolo(std::move(socket));
+        std::cerr<< "llamo a recibir\n";
         std::vector<char> partidas = protocolo->recibir();
         std::vector<std::string> partis;
         std::map<int, std::string> nombresPartidas;
-
+        std::cerr <<"recibiiiiiiii las partidas\n";
         char number[4];
         memcpy(number, partidas.data(), 4);
         uint32_t *buf = (uint32_t *) number;

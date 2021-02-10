@@ -6,15 +6,10 @@
 #include "map_translator.h"
 #include <yaml-cpp/yaml.h>
 
-ManejadorPartidas::ManejadorPartidas() :
+ManejadorPartidas::ManejadorPartidas(std::map<std::string,std::string>& mapas) :
         partidas(),
         esta_corriendo(true),
-        mapas() {
-    this->agregarMapa("mapa1","../../resources/mapas/mapa1.yaml");
-    this->agregarMapa("mapa2","../../resources/mapas/mapa2.yaml");
-    this->agregarMapa("mapa4","../../resources/mapas/mapa4.yaml");
-    this->agregarMapa("mapa5","../../resources/mapas/mapa5.yaml");
-}
+        mapas(mapas) {}
 
 void ManejadorPartidas::cerrarPartidas() {
   this->eliminarPartidasTerminadas();

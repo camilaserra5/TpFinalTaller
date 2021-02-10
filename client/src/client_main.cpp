@@ -6,7 +6,6 @@
 
 int main(int argc, char *argv[]) {
     Cliente client(argv[1], argv[2]);
-    //Client client;
     client.run();
     return OK_CODE;
 }
