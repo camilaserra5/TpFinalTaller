@@ -16,6 +16,10 @@ ManejadorPartidas::ManejadorPartidas() :
     this->agregarMapa("mapa5","../../resources/mapas/mapa5.yaml");
 }
 
+void ManejadorPartidas::cerrarPartidas() {
+  this->eliminarPartidasTerminadas();
+}
+
 void ManejadorPartidas::agregarMapa(std::string nombreMapa, std::string archivoMapa) {
     this->mapas.insert(std::make_pair(nombreMapa, archivoMapa));
 }
@@ -57,7 +61,7 @@ int ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
 
 void ManejadorPartidas::eliminarPartidasTerminadas() {
     std::map<std::string, Servidor *>::iterator it;
-    for (it = this->partidas.begin(); it != this->partidas.end();) {
+    for (it = this->partidas.begin(); it != this->partidas.end();++it) {
         if (it->second->terminoPartida()) {
             it->second->joinClientes();
             it->second->join();
@@ -71,14 +75,13 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {
 
 void ManejadorPartidas::run() {
     while (this->esta_corriendo) {
+        /*deberia bloquearse esperando partidas*/
         this->eliminarPartidasTerminadas();
         std::chrono::milliseconds duration(100);
         std::this_thread::sleep_for(duration);
         this->esta_corriendo = this->partidas.size() != 0;
     }
-    /* if (this->esta_corriendo) {
-         this->eliminarPartidasTerminadas();
-     }*/
+
 }
 
 ManejadorPartidas::~ManejadorPartidas() {
@@ -106,5 +109,6 @@ std::vector<char> ManejadorPartidas::serializar() {
     if (i > 0) {
         informacion.insert(informacion.end(), informacionPartidas.begin(), informacionPartidas.end());
     }
+    std::cout << "TAMANIO DE LAS PARTIDASSSSSSS: " << informacion.size() << std::endl;
     return informacion;
 }
