@@ -20,7 +20,7 @@ ManejadorLua::~ManejadorLua() {
 /* Crea una tabla en lua que es guardada en el stack
  * para ser usada por el script
  */
-void ManejadorLua::crearTabla(std::vector<std::vector<int>> mapa) {
+void ManejadorLua::crearTabla(std::vector<std::vector<int>> mapa, std::string nombremapa) {
     lua_newtable(interprete);
     for(int i = 0; i < mapa.size(); i++) {
         lua_pushnumber(interprete, i + 1);    // indice de la tabla
@@ -33,10 +33,11 @@ void ManejadorLua::crearTabla(std::vector<std::vector<int>> mapa) {
         }
         lua_settable( interprete, -3 );
     }
+    lua_setglobal(interprete, nombremapa.c_str());
 }
 
-void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa) {
+void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa, std::string nombreMapa) {
     this->mapaLargo = mapa.size();
     this->mapaAncho = mapa[0].size();
-    this->crearTabla(mapa);
+    crearTabla(mapa, nombreMapa);
 }
