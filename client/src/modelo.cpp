@@ -163,11 +163,10 @@ void Modelo::renderizar() {
 
     if (!partidaTerminada) {
         this->jugador->renderizar();
-
+/*
         for (std::map<int, Enemigo *>::iterator it = enemigos.begin(); it != enemigos.end(); ++it) {
-            Enemigo *enemigo = it->second;
-            enemigo->renderizar();
-        }
+            it->second->renderizar();
+        }*/
         verificarObjetosEnRangoDeVista();
     } else {
         this->anunciador.renderizar();
