@@ -26,7 +26,6 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
             delete comando;
             this->enviar_actualizaciones();
         } catch (const std::exception &exception) {
-          this->enviar_actualizaciones();
             termine = true;
         }
     }
