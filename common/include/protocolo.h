@@ -21,7 +21,8 @@ public:
 
 
     void enviar(std::vector<char> &informacion);
-    std::stringstream recibir_aux();
+
+    std::vector<char> recibir_aux();
 
     std::vector<char> recibir();
 
@@ -29,7 +30,7 @@ public:
 
     Item *deserializarItem(std::vector<char> &informacion);
 
-    void cerrar(); 
+    void cerrar();
 
 
 private:

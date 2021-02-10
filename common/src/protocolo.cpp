@@ -12,35 +12,24 @@ void Protocolo::enviar(std::vector<char> &informacion) {
     socket.enviar(number_str, 4);
     std::string buffer(informacion.begin(), informacion.end());
     socket.enviar(buffer.c_str(), buffer.size());
-//    std::cout << "termine de enviar";
+    std::cout << "termine de enviar";
 }
 
-std::stringstream Protocolo::recibir_aux() {
-    char length_str[4];
-    socket.recibir(length_str, 4);
+std::vector<char> Protocolo::recibir_aux() {
+  char length_str[4];
+  socket.recibir(length_str, 4);
 
-    unsigned int *buf = (unsigned int *) length_str;
-    unsigned int length = ntohl(*buf);
+  unsigned int *buf = (unsigned int *) length_str;
+  unsigned int length = ntohl(*buf);
+  std::vector<char> informacion(length);
 
-    char buffer[TAMANIO];
-    std::stringstream informacion;
-    unsigned int restante = length;
-    unsigned int cant_recibidos = 0;
-    while (restante > TAMANIO) {
-        cant_recibidos = socket.recibir(buffer, TAMANIO);
-        informacion.write(buffer, cant_recibidos);
-        restante = restante - cant_recibidos;
-    }
-    if (restante > 0) {
-        cant_recibidos = socket.recibir(buffer, restante);
-        informacion.write(buffer, cant_recibidos);
-    }
-    return informacion;
+  //informacion.resize(length);
+  socket.recibir(informacion.data(), length);
+  return informacion;
 }
 
 std::vector<char> Protocolo::recibir() {
-    std::string someString = recibir_aux().str();
-    std::vector<char> informacion(someString.begin(), someString.end());
+    std::vector<char> informacion = recibir_aux();
     return informacion;
 }
 
