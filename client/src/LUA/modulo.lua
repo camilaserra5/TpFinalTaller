@@ -50,6 +50,7 @@ function avanzar_hacia_enemigo(posicion_enemigo, pos_x, pos_y)
         else
             -- avanzo a la derecha y hacia atras
             --CHEQUEO SI PUEDO
+        end
     else
         if (posicion_enemigo.posicionY > pos_y) then
             --avanzar hacia adelante y a la izquierda, pero tengo que chequear que pueda avanzar porque se tiene que mover
@@ -57,7 +58,8 @@ function avanzar_hacia_enemigo(posicion_enemigo, pos_x, pos_y)
         else
             -- avanzo a la izquierda y hacia atras
             --CHEQUEO SI PUEDO
-
+        end
+    end
 end
 
 function moverse(pos_x,pos_y)
