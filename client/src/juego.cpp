@@ -40,12 +40,8 @@ void Juego::eventos() {
         switch (event.type) {
             case SDL_QUIT:
                 exit(0);
-                this->corriendo = false;
-                break;
-
             default:
                 break;
-
         }
     }
 }

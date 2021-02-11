@@ -15,7 +15,7 @@
 #include "../include/audio.h"
 #include "../include/highscoreWindow.h"
 #define ARCHIVO_DE_CONFIGURACION "configClient.yaml"
-#define MUSICA_FONDO "../../client/resources/sonidos/musiquita.wav"//rutaMusica
+#define MUSICA_FONDO "../../client/resources/sonidos/musiquita.wav"
 
 Cliente::Cliente(const char *host, const char *server_port) : socket(), corriendo(true) {
     //  this->socket.conectar(host, server_port);
@@ -72,10 +72,8 @@ void Cliente::run() {
                 std::this_thread::sleep_for(duration);
                 juego.join();
                 juego.cerrar();
-
             }
             // se manejan eventos;
-
         }
     } catch (...) {
         std::cout << "error";
@@ -83,6 +81,7 @@ void Cliente::run() {
         manejador.join();
         clientEventSender.join();
         clientEventReceiver.join();
+        juego.join();
     }
     //  juego->join();
 }
