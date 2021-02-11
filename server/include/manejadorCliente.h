@@ -8,9 +8,9 @@
 
 class ManejadorCliente {
 public:
-    ManejadorCliente(BlockingQueue<Actualizacion *> &actualizaciones, ProtectedQueue<Comando *> &comandos,
+    ManejadorCliente(ProtectedQueue<Comando *> &comandos,
                      Protocolo *protocolo, int &id) {
-        this->enviador = new Server_Event_Sender(actualizaciones, protocolo);
+        this->enviador = new Server_Event_Sender(protocolo);
         this->recibidor = new Server_Event_Receiver(comandos, protocolo);
         this->id = id;//no lo necesita porq se settea
         this->protocolo = protocolo;
@@ -43,6 +43,10 @@ public:
     void join() {
         this->enviador->join();
         this->recibidor->join();
+    }
+
+    void enviar_actualizaciones(Actualizacion* actualizacion){
+        this->enviador->enviar_actualizaciones(actualizacion);
     }
 
 private:

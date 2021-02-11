@@ -9,7 +9,6 @@
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(Map mapa, int cantJugadoresPosibles) :
         cola_comandos(),
-        cola_actualizaciones(),
         estadoJuego(mapa),
         cantJugadoresPosibles(cantJugadoresPosibles),
         sigue_corriendo(true),
@@ -79,18 +78,21 @@ bool Servidor::terminoPartida() {
 ProtectedQueue<Comando *> &Servidor::obtenerColaEventos() {
     return this->cola_comandos;
 }
-
+/*
 BlockingQueue<Actualizacion *> &Servidor::obtenerColaActualizaciones() {
     return this->cola_actualizaciones;
 }
-
+*/
 //servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
 // servidor es partida
 
 void Servidor::enviar_actualizaciones() {
     //serializa y manda por sockets a cada jugador
     Actualizacion *actualizacion = new Actualizacion(this->estadoJuego);
-    this->cola_actualizaciones.push(actualizacion);
+    std::map<int, ManejadorCliente*>::iterator it;
+    for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
+        it->second->enviar_actualizaciones(actualizacion);
+    }
 }
 
 void Servidor::run() {
