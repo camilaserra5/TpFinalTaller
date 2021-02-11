@@ -17,7 +17,7 @@
 
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
-#define METROS_MOVIDOS 2
+#define METROS_MOVIDOS 5
 #define CANT_TICKS_PARTIDA 10000  //5min
 #define TAMANIO_CELDA 40 //es variable y depende del tamanio del mapa
 
@@ -95,6 +95,7 @@ Item *verificarItems(Map& mapa, int &posx, int &posy) {
 void EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int &yFinal) {
     bool obtuvoBeneficio = false;
     if (puedo_moverme(this->mapa, xFinal, yFinal, jugador)) {
+      std::cerr << "/* PUDE MOVER A JUGADOOR A */" <<  xFinal<< " " << yFinal << '\n';
         Item *item = verificarItems(this->mapa, xFinal, yFinal);
         if (item != nullptr) {
             obtuvoBeneficio = item->obtenerBeneficio(jugador);
