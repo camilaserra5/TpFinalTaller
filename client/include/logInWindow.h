@@ -10,7 +10,7 @@
 class LogInWindow {
 
 public:
-    LogInWindow(int screnWidth,int screenHeight);
+    LogInWindow(int screnWidth, int screenHeight);
 
     void run();
 
@@ -33,17 +33,23 @@ private:
     uint32_t idCliente;
     int screenWidth;
     int screenHeight;
+
     void mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
-                             std::vector<std::string> partidas, std::string &gameNumber);
+                             std::vector<std::string> partidas, int &gameNumber);
+
     void start(SDL_Renderer *renderer, Fonts fonts);
+
     void connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, std::string &port, std::string &message);
+
     void pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error);
+
     void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo);
+
     void unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string &nombre, std::string &playerName);
-    void crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param,
+
+    void crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param, int &option,
                       std::string &gameName, std::string &numberPlayers,
                       std::string &mapFile, std::string &playerName);
-
 
 
 };

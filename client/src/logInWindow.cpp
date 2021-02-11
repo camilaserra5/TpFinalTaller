@@ -13,8 +13,10 @@
 #define BACKGROUND_IMAGE_ROOT "../../client/resources/images/background.png"
 #define BACKGROUND_2_IMAGE_ROOT "../../client/resources/images/background2.jpg"
 #define FONT_SIZE 60
+const SDL_Color white = {255, 255, 255, 255};
+const SDL_Color red = {226, 106, 106, 255};
 
-LogInWindow::LogInWindow(int screenWidth,int screenHeight): screenWidth(screenWidth),screenHeight(screenHeight) {
+LogInWindow::LogInWindow(int screenWidth, int screenHeight) : screenWidth(screenWidth), screenHeight(screenHeight) {
     int rendererFlags, windowFlags;
 
     rendererFlags = SDL_RENDERER_ACCELERATED;
@@ -53,20 +55,19 @@ LogInWindow::LogInWindow(int screenWidth,int screenHeight): screenWidth(screenWi
 
 }
 
-void disp_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, int h) {
-    SDL_Color white = {255, 255, 255, 255};
+void disp_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, int h, SDL_Color color) {
     Label label(w,
                 h,
                 text,
                 font,
-                white,
+                color,
                 renderer);
     label.setLabelText();
     label.draw();
 }
 
 void LogInWindow::start(SDL_Renderer *renderer, Fonts fonts) {
-    Background background(BACKGROUND_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
+    Background background(BACKGROUND_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     int pressed = false;
     while (!pressed) {
@@ -83,13 +84,14 @@ void LogInWindow::start(SDL_Renderer *renderer, Fonts fonts) {
         SDL_RenderClear(renderer);
         background.drawBackground();
         disp_text("Press enter to start", fonts.getFont("wolfstein"), renderer, this->screenWidth / 3,
-                  this->screenHeight / 2);
+                  this->screenHeight / 2, white);
         SDL_RenderPresent(renderer);
     }
 }
 
-void LogInWindow::connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, std::string &port, std::string &message) {
-    Background background(BACKGROUND_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
+void
+LogInWindow::connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, std::string &port, std::string &message) {
+    Background background(BACKGROUND_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     bool ipFinished = false;
     bool portFinished = false;
@@ -108,59 +110,87 @@ void LogInWindow::connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, 
                 }
                 if (e.key.keysym.sym == SDLK_BACKSPACE) {
                     if (!ipFinished) {
-                        ip.erase(ip.size() - 1);
+                        if (!ip.empty())
+                            ip.erase(ip.size() - 1);
                     } else {
-                        port.erase(port.size() - 1);
+                        if (!port.empty())
+                            port.erase(port.size() - 1);
+                    }
+                }
+                if (e.key.keysym.sym == SDLK_UP) {
+                    ipFinished = false;
+                }
+                if (e.key.keysym.sym == SDLK_DOWN) {
+                    if (ip.empty()) {
+                        message = "ip cannot be empty";
+                    } else {
+                        message = "";
+                        ipFinished = true;
                     }
                 }
                 if (e.key.keysym.sym == SDLK_RETURN) {
+                    message = "";
                     if (ipFinished) {
-                        portFinished = true;
+                        if (port.empty()) {
+                            message = "port cannot be empty";
+                        } else {
+                            portFinished = true;
+                        }
                     }
-                    ipFinished = true;
+                    if (ip.empty()) {
+                        message = "ip cannot be empty";
+                    } else {
+                        ipFinished = true;
+                    }
                 }
             }
         }
         SDL_Delay(16);
         SDL_RenderClear(renderer);
         background.drawBackground();
+        if (!ipFinished) {
+            disp_text("--", fonts.getFont("wolfstein"), renderer,
+                      (this->screenWidth / 3) - 40, this->screenHeight / 2, red);
+        }
         disp_text("ip address: " + ip, fonts.getFont("wolfstein"), renderer,
-                  this->screenWidth / 3, this->screenHeight / 2);
+                  this->screenWidth / 3, this->screenHeight / 2, white);
+        if (ipFinished) {
+            disp_text("--", fonts.getFont("wolfstein"), renderer,
+                      (this->screenWidth / 3) - 40, this->screenHeight / 2 + FONT_SIZE, red);
+        }
         disp_text("port: " + port, fonts.getFont("wolfstein"), renderer,
-                  this->screenWidth / 3, this->screenHeight / 2 + FONT_SIZE);
+                  this->screenWidth / 3, this->screenHeight / 2 + FONT_SIZE, white);
         if (!message.empty()) {
             disp_text(message, fonts.getFont("wolfstein"), renderer, this->screenWidth / 3,
-                      this->screenHeight / 2 + FONT_SIZE * 2);
+                      this->screenHeight / 2 + FONT_SIZE * 2, red);
         }
         SDL_RenderPresent(renderer);
     }
 }
 
 void LogInWindow::mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
-                         std::vector<std::string> partidas, std::string &gameNumber) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
+                                      std::vector<std::string> partidas, int &gameNumber) {
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     bool finished = false;
+    int option = 0;
     while (!finished) {
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 exit(0);
             } else if (e.type == SDL_KEYDOWN) {
-                if (e.key.keysym.sym == SDLK_n) {
-                    gameNumber = "";
-                    finished = true;
+                if (e.key.keysym.sym == SDLK_DOWN) {
+                    if (!partidas.empty() && option <= partidas.size()) {
+                        option++;
+                    }
                 }
-                if (e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9) {
-                    gameNumber += e.key.keysym.sym;
-                }
-                if (e.key.keysym.sym == SDLK_BACKSPACE) {
-                    gameNumber.erase(gameNumber.size() - 1);
+                if (e.key.keysym.sym == SDLK_UP) {
+                    if (option != 0)
+                        option--;
                 }
                 if (e.key.keysym.sym == SDLK_RETURN) {
-                    int i = std::stoi(gameNumber);
-                    if (i > 0 && i <= partidas.size())
-                        finished = true;
-                    else gameNumber = "";
+                    gameNumber = option;
+                    finished = true;
                 }
             }
         }
@@ -169,39 +199,74 @@ void LogInWindow::mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
         SDL_RenderClear(renderer);
         background.drawBackground();
 
-        disp_text("Press N to create a new game", fonts.getFont("wolfstein"), renderer, 10, 10);
-        disp_text("or the corresponding game number + enter to join:", fonts.getFont("wolfstein"), renderer, 10,
-                  10 + FONT_SIZE);
+        disp_text("Select an option:", fonts.getFont("wolfstein"), renderer, 10, 10, white);
+
+        disp_text("New game", fonts.getFont("wolfstein"), renderer, FONT_SIZE,
+                  2 * FONT_SIZE, white);
 
         for (int i = 1; i <= partidas.size(); i++) {
             disp_text(partidas[i - 1], fonts.getFont("wolfstein"),
                       renderer, FONT_SIZE,
-                      10 + FONT_SIZE + (FONT_SIZE * i));
+                      2 * (i + 1) * FONT_SIZE, white);
         }
+
+        disp_text("--", fonts.getFont("wolfstein"), renderer, FONT_SIZE - 40,
+                  2 * (option + 1) * FONT_SIZE, red);
 
         SDL_RenderPresent(renderer);
     }
 }
 
-void LogInWindow::crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param,
-                  std::string &gameName, std::string &numberPlayers,
-                  std::string &mapFile, std::string &playerName) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
+void LogInWindow::crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string &param, int &option,
+                               std::string &gameName, std::string &numberPlayers,
+                               std::string &mapFile, std::string &playerName) {
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     bool finished = false;
+    std::string message = "";
     while (!finished) {
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 exit(0);
             } else if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_DOWN) {
+                    if (option != 3) {
+                        if (!param.empty()) {
+                            option++;
+                            finished = true;
+                            message = "";
+                        } else {
+                            message = "Please enter a valid value";
+                        }
+                    }
+                }
+                if (e.key.keysym.sym == SDLK_UP) {
+                    if (option != 0) {
+                        if (!param.empty()) {
+                            option--;
+                            finished = true;
+                            message = "";
+                        } else {
+                            message = "Please enter a valid value";
+                        }
+                    }
+                }
                 if ((e.key.keysym.sym >= SDLK_ASTERISK && e.key.keysym.sym <= SDLK_z)) {
                     param += e.key.keysym.sym;
                 }
                 if (e.key.keysym.sym == SDLK_BACKSPACE) {
-                    param.erase(param.size() - 1);
+                    if (!param.empty()) {
+                        param.erase(param.size() - 1);
+                    }
                 }
                 if (e.key.keysym.sym == SDLK_RETURN) {
-                    finished = true;
+                    if (!param.empty()) {
+                        option++;
+                        finished = true;
+                        message = "";
+                    } else {
+                        message = "please enter a valid value";
+                    }
                 }
             }
         }
@@ -210,20 +275,30 @@ void LogInWindow::crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string 
         SDL_RenderClear(renderer);
         background.drawBackground();
 
-        disp_text("Creating new game!", fonts.getFont("wolfstein"), renderer, 10, 10);
-        disp_text("Game name:" + gameName, fonts.getFont("wolfstein"), renderer, 10, 10 + 2 * FONT_SIZE);
-        disp_text("Number of players:" + numberPlayers, fonts.getFont("wolfstein"), renderer, 10, 10 + 3 * FONT_SIZE);
-        disp_text("Map file:" + mapFile, fonts.getFont("wolfstein"), renderer, 10, 10 + 4 * FONT_SIZE);
-        disp_text("Your name:" + playerName, fonts.getFont("wolfstein"), renderer, 10, 10 + 5 * FONT_SIZE);
+        disp_text("Creating new game!", fonts.getFont("wolfstein"), renderer, 10, 10, white);
+        disp_text("Game name:" + gameName, fonts.getFont("wolfstein"), renderer, FONT_SIZE, 2 * FONT_SIZE, white);
+        disp_text("Number of players:" + numberPlayers, fonts.getFont("wolfstein"), renderer, FONT_SIZE, 3 * FONT_SIZE,
+                  white);
+        disp_text("Map file:" + mapFile, fonts.getFont("wolfstein"), renderer, FONT_SIZE, 4 * FONT_SIZE, white);
+        disp_text("Your name:" + playerName, fonts.getFont("wolfstein"), renderer, FONT_SIZE, 5 * FONT_SIZE, white);
+
+        disp_text("--", fonts.getFont("wolfstein"), renderer, FONT_SIZE - 40,
+                  2 + (option + 2) * FONT_SIZE, red);
+
+        if (!message.empty()) {
+            disp_text(message, fonts.getFont("wolfstein"), renderer, FONT_SIZE,
+                      6 * FONT_SIZE, red);
+        }
 
         SDL_RenderPresent(renderer);
     }
 }
 
 void LogInWindow::unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string &nombre, std::string &playerName) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     bool finished = false;
+    std::string message = "";
     while (!finished) {
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
@@ -236,7 +311,12 @@ void LogInWindow::unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::strin
                     playerName.erase(playerName.size() - 1);
                 }
                 if (e.key.keysym.sym == SDLK_RETURN) {
-                    finished = true;
+                    if (!nombre.empty()) {
+                        finished = true;
+                        message = "";
+                    } else {
+                        message = "Please enter a valid value";
+                    }
                 }
             }
         }
@@ -245,8 +325,15 @@ void LogInWindow::unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::strin
         SDL_RenderClear(renderer);
         background.drawBackground();
 
-        disp_text("Joining: " + nombre, fonts.getFont("wolfstein"), renderer, 10, 10);
-        disp_text("Your name:" + playerName, fonts.getFont("wolfstein"), renderer, 10, 10 + 5 * FONT_SIZE);
+        disp_text("Joining: " + nombre, fonts.getFont("wolfstein"), renderer, 10, 10, white);
+        disp_text("Your name:" + playerName, fonts.getFont("wolfstein"), renderer, FONT_SIZE, 10 + 5 * FONT_SIZE,
+                  white);
+        disp_text("--", fonts.getFont("wolfstein"), renderer, FONT_SIZE - 40, 10 + 5 * FONT_SIZE, red);
+
+        if (!message.empty()) {
+            disp_text(message, fonts.getFont("wolfstein"), renderer, FONT_SIZE,
+                      10 + 6 * FONT_SIZE, red);
+        }
 
         SDL_RenderPresent(renderer);
     }
@@ -254,7 +341,7 @@ void LogInWindow::unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::strin
 
 
 void LogInWindow::pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     bool finished = false;
     while (!finished) {
@@ -268,7 +355,7 @@ void LogInWindow::pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protoco
         SDL_RenderClear(renderer);
         background.drawBackground();
 
-        disp_text("Esperando a los jugadores para comenzar", fonts.getFont("wolfstein"), renderer, 10, 10);
+        disp_text("Esperando a los jugadores para comenzar", fonts.getFont("wolfstein"), renderer, 10, 10, white);
 
         SDL_RenderPresent(renderer);
 
@@ -286,7 +373,7 @@ void LogInWindow::pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protoco
 }
 
 void LogInWindow::pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer,this->screenWidth,this->screenHeight);
+    Background background(BACKGROUND_2_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     bool finished = false;
     while (!finished) {
@@ -304,15 +391,15 @@ void LogInWindow::pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string
         SDL_RenderClear(renderer);
         background.drawBackground();
 
-        disp_text("Error :(", fonts.getFont("wolfstein"), renderer, 10, 10);
-        disp_text(error, fonts.getFont("wolfstein"), renderer, 10, 10 + 5 * FONT_SIZE);
+        disp_text("Error :(", fonts.getFont("wolfstein"), renderer, 10, 10, white);
+        disp_text(error, fonts.getFont("wolfstein"), renderer, 10, 10 + 5 * FONT_SIZE, white);
 
         SDL_RenderPresent(renderer);
     }
 }
 
 void LogInWindow::run() {
-    Background background(BACKGROUND_IMAGE_ROOT, this->renderer,this->screenWidth,this->screenHeight);
+    Background background(BACKGROUND_IMAGE_ROOT, this->renderer, this->screenWidth, this->screenHeight);
     background.drawBackground();
     bool finished = false;
     while (!finished) {
@@ -336,11 +423,11 @@ void LogInWindow::run() {
         }
 
         this->protocolo = new Protocolo(std::move(socket));
-        std::cerr<< "llamo a recibir\n";
+        std::cerr << "llamo a recibir\n";
         std::vector<char> partidas = protocolo->recibir();
         std::vector<std::string> partis;
         std::map<int, std::string> nombresPartidas;
-        std::cerr <<"recibiiiiiiii las partidas\n";
+        std::cerr << "recibiiiiiiii las partidas\n";
         char number[4];
         memcpy(number, partidas.data(), 4);
         uint32_t *buf = (uint32_t *) number;
@@ -370,20 +457,38 @@ void LogInWindow::run() {
             nombresPartidas.insert(std::make_pair(i, nombre));
         }
 
-        std::string gameNumber;
+        int gameNumber;
         mostrarMenuPartidas(this->renderer, this->fonts, partis, gameNumber);
 
-        if (gameNumber.empty()) {
+        if (gameNumber == 0) {
             // nueva partida
             std::string gameName;
             std::string numberPlayers;
             std::string mapFile;
             std::string playerName;
+            int option = 0;
+            while (option != 4) {
+                switch (option) {
+                    case 0:
+                        crearPartida(this->renderer, this->fonts, gameName, option, gameName, numberPlayers, mapFile,
+                                     playerName);
+                        break;
+                    case 1:
+                        crearPartida(this->renderer, this->fonts, numberPlayers, option, gameName, numberPlayers,
+                                     mapFile,
+                                     playerName);
+                        break;
+                    case 2:
+                        crearPartida(this->renderer, this->fonts, mapFile, option, gameName, numberPlayers, mapFile,
+                                     playerName);
+                        break;
+                    case 3:
+                        crearPartida(this->renderer, this->fonts, playerName, option, gameName, numberPlayers, mapFile,
+                                     playerName);
+                        break;
+                }
+            }
 
-            crearPartida(this->renderer, this->fonts, gameName, gameName, numberPlayers, mapFile, playerName);
-            crearPartida(this->renderer, this->fonts, numberPlayers, gameName, numberPlayers, mapFile, playerName);
-            crearPartida(this->renderer, this->fonts, mapFile, gameName, numberPlayers, mapFile, playerName);
-            crearPartida(this->renderer, this->fonts, playerName, gameName, numberPlayers, mapFile, playerName);
 
             CrearPartida crearPartida(-1, std::stoi(numberPlayers),
                                       gameName, mapFile, playerName);
@@ -402,7 +507,7 @@ void LogInWindow::run() {
             finished = true;
         } else {
             // unirse a una existente
-            std::string nombre = nombresPartidas.at(std::stoi(gameNumber) - 1);
+            std::string nombre = nombresPartidas.at(gameNumber - 1);
             std::string playerName;
             unirseAPartida(this->renderer, this->fonts, nombre, playerName);
 
