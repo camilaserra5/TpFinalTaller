@@ -66,16 +66,8 @@ void Cliente::run() {
         std::cout << "recibii main\n";
         juego.start();
         manejador.start();
-        while (this->corriendo) {
-            if (!manejador.esta_vivo()/*tiene que bloquearse*/) {
-                std::chrono::milliseconds duration(700000);
-                std::this_thread::sleep_for(duration);
-                juego.join();
-                juego.cerrar();
-
-            }
-            // se manejan eventos;
-
+        char c;
+        while ((c = std::cin.get()) != 'q'){
         }
     } catch (...) {
         std::cout << "error";

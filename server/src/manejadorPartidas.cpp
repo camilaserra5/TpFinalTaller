@@ -32,7 +32,7 @@ int ManejadorPartidas::crearPartida(std::string &nombreJugador,
         return idCliente;
     } else {
         Servidor *servidor = new Servidor(this->buscarMapa(archivoMapa), cant_jugadores);
-        ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaActualizaciones(),servidor->obtenerColaEventos(),protocolo, idCliente);//cheq
+        ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaEventos(),protocolo, idCliente);//cheq
         servidor->agregarCliente(nombreJugador, cliente, idCliente);
         this->partidas.insert({nombre_partida, servidor});
         return idCliente;
@@ -48,7 +48,7 @@ int ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
         std::cout << "ya arranco la partida\n";
         return idJugador;
     } else {
-        ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaActualizaciones(),servidor->obtenerColaEventos(),protocolo, idJugador);
+        ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaEventos(),protocolo, idJugador);
         servidor->agregarCliente(nombreJugador, cliente, idJugador);
         return idJugador;
     }
