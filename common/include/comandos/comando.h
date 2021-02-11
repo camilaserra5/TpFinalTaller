@@ -2,6 +2,7 @@
 #define COMANDO_H
 
 #include <iostream>
+#include <actualizaciones/actualizacion.h>
 #include "estadoJuego.h"
 #include "iserializable.h"
 
@@ -13,7 +14,7 @@ public:
 
     Comando();
 
-    virtual void ejecutar(EstadoJuego &estadoJuego) = 0;
+    virtual std::vector<Actualizacion *> ejecutar(EstadoJuego &estadoJuego) = 0;
 
 
 protected:

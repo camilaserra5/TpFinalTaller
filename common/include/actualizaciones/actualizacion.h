@@ -13,9 +13,10 @@ public:
     ~Actualizacion();
 
     Actualizacion(EstadoJuego &estadoJuego);
-    std::vector<char> serializar() override;
-    void deserializar(std::vector<char> &serializado) override;
+
+
     EstadoJuego &obtenerEstadoJuego();
+
     std::vector<int> obtenerRanking();
 
     bool terminoPartida();

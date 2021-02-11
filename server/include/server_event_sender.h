@@ -5,14 +5,14 @@
 #include "thread.h"
 #include "blocking_queue.h"
 #include "socket.h"
-#include "actualizacion.h"
+#include "actualizaciones/actualizacion.h"
 #include "protocolo.h"
 #include <atomic>
 
 
 class Server_Event_Sender : public Thread {
 public:
-    Server_Event_Sender(Protocolo* protocolo) : protocolo(protocolo), corriendo(true) {}
+    Server_Event_Sender(Protocolo *protocolo) : protocolo(protocolo), corriendo(true) {}
 
     ~Server_Event_Sender() {}
 
@@ -22,13 +22,16 @@ public:
         this->corriendo = false;
     }
 
-    void enviar_actualizaciones(Actualizacion* actualizacion){
-      this->actualizaciones.push(actualizacion);
+    void enviar_actualizaciones(std::vector<Actualizacion *> act) {
+        std::vector<Actualizacion *>::iterator it;
+        for (it = act.begin(); it != act.end(); ++it) {
+            this->actualizaciones.push(*it);
+        }
     }
 
 private:
     BlockingQueue<Actualizacion *> actualizaciones;
-    Protocolo* protocolo;
+    Protocolo *protocolo;
     std::atomic<bool> corriendo; // deberian ser atomic??
 };
 

@@ -1,4 +1,4 @@
-#include "../include/actualizacion.h"
+#include "actualizaciones/actualizacion.h"
 
 
 Actualizacion::Actualizacion() {}
@@ -14,7 +14,7 @@ Actualizacion::Actualizacion(EstadoJuego &estadoJuego) :
     this->rankingJugadores = ranking.obtenerTopJugadores(5,
                                                          estadoJuego.obtenerJugadores());
 }
-
+/*
 std::vector<char> Actualizacion::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
@@ -48,16 +48,16 @@ void Actualizacion::deserializar(std::vector<char> &serializado) {
     for (int i = 0; i < elementosSize; i++) {
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
         idx += 4;
-  //      std::cerr << "actualizacion deserializar rank push" << charArrayToNumber(sub)<< std::endl;
+        //      std::cerr << "actualizacion deserializar rank push" << charArrayToNumber(sub)<< std::endl;
         this->rankingJugadores.push_back(charArrayToNumber(sub));
     }
 
     std::vector<char> estadoJuegoSerializado(serializado.begin() + idx,
                                              serializado.end());
     this->estadoJuego.deserializar(estadoJuegoSerializado);
-  //  std::cerr << "actualizacion deserializar fin" << std::endl;
+    //  std::cerr << "actualizacion deserializar fin" << std::endl;
 }
-
+*/
 EstadoJuego &Actualizacion::obtenerEstadoJuego() {
     return this->estadoJuego;
 }

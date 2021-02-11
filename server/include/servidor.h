@@ -4,7 +4,7 @@
 #include <map>
 #include "thread.h"
 #include "protected_queue.h"
-#include "actualizacion.h"
+#include "actualizaciones/actualizacion.h"
 #include "comandos/comando.h"
 #include "map.h"
 #include "estadoJuego.h"
@@ -42,7 +42,7 @@ public:
 
     void deserializar(std::vector<char> &serializado) {}
 
-    void enviar_actualizaciones();
+    void enviar_actualizaciones(std::vector<Actualizacion*> actualizaciones);
 
     void actualizarContador();
 

@@ -108,14 +108,12 @@ void EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int 
 }
 
 void EstadoJuego::rotar_a_derecha(int idJugador) {
-
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     jugador->dejarDeDisparar();
     jugador->rotar(ROTACION_DERECHA);
 }
 
 void EstadoJuego::rotar_a_izquierda(int idJugador) {
-
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     jugador->dejarDeDisparar();
     jugador->rotar(ROTACION_IZQUIERDA);
@@ -131,7 +129,6 @@ void EstadoJuego::moverse_arriba(int idJugador) {
 }
 
 void EstadoJuego::moverse_abajo(int idJugador) {
-
     std::cerr << "mov1" <<std::endl;
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     jugador->dejarDeDisparar();

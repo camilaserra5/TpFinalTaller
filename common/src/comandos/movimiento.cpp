@@ -1,6 +1,6 @@
 #include "comandos/movimiento.h"
 
-
+#include "actualizaciones/actualizacionMovimiento.h"
 #include "objetosJuego.h"
 
 Movimiento::Movimiento(int &idJugador, Accion tipo_de_movimiento) :
@@ -11,8 +11,7 @@ Movimiento::~Movimiento() {}
 
 Movimiento::Movimiento() {}
 
-void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
-
+std::vector<Actualizacion *> Movimiento::ejecutar(EstadoJuego &estadoJuego) {
     if (tipo_de_movimiento == Accion::rotarDerecha) {
         estadoJuego.rotar_a_derecha(this->idJugador);
     } else if (tipo_de_movimiento == Accion::rotarIzquierda) {
@@ -24,6 +23,9 @@ void Movimiento::ejecutar(EstadoJuego &estadoJuego) {
     } else {
         estadoJuego.no_me_muevo(this->idJugador);
     }
+    std::vector<Actualizacion *> actualizaciones;
+    actualizaciones.push_back(new ActualizacionMovimiento(estadoJuego.obtenerJugadores().at(this->idJugador)));
+    return actualizaciones;
 }
 
 std::vector<char> Movimiento::serializar() {

@@ -9,7 +9,7 @@
 #include "enemigo.h"
 #include <vector>
 #include "highscoreWindow.h"
-#include "actualizacion.h"
+#include "actualizaciones/actualizacion.h"
 #include "protected_queue.h"
 
 class Modelo {

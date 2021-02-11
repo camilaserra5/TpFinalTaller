@@ -3,7 +3,7 @@
 
 #include "thread.h"
 #include "protected_queue.h"
-#include "actualizacion.h"
+#include "actualizaciones/actualizacion.h"
 #include "comandos/comando.h"
 #include <string>
 /***************************BORRARRRRR****************************/

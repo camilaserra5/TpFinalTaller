@@ -4,7 +4,7 @@
 #include "items/item.h"
 #include "jugador.h"
 #include "estadoJuego.h"
-#include "actualizacion.h"
+#include "actualizaciones/actualizacion.h"
 
 #include <utility>
 #include <algorithm>
@@ -16,14 +16,18 @@ ClientEventReceiver::ClientEventReceiver(Protocolo *protocolo,
 
         protocolo(protocolo), updates(updates), modelo(modelo), idJugador(idJugador), corriendo(true) {}
 
+Actualizacion *deserializarActualizacion(std::vector<char> informacion) {
+
+}
+
 void ClientEventReceiver::run() {
     while (this->corriendo) {
         try {
             std::vector<char> informacion = this->protocolo->recibir();
             std::cerr << "meto actualizacion\n" << informacion.size() << "\n";
             if (!informacion.empty()) {
-                Actualizacion *actualizacion = new Actualizacion();
-                actualizacion->deserializar(informacion);
+                Actualizacion *actualizacion = deserializarActualizacion(informacion);
+
                 this->updates.aniadir_dato(actualizacion);
                 this->recibii = true;
             }
