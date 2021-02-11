@@ -17,6 +17,8 @@ public:
 
     void deserializar(std::vector<char> &serializado) override;
 
+    int obtenerId() override { return static_cast<int>(Accion::cambioDeArma); }
+
 private:
 };
 

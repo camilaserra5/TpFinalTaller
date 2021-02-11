@@ -12,19 +12,9 @@ public:
 
     ~Actualizacion();
 
-    Actualizacion(EstadoJuego &estadoJuego);
-
-
-    EstadoJuego &obtenerEstadoJuego();
-
-    std::vector<int> obtenerRanking();
-
-    bool terminoPartida();
+    virtual int obtenerId() = 0;
 
 private:
-    EstadoJuego estadoJuego;
-    std::vector<int> rankingJugadores;
-    bool termine;
 };
 
 #endif

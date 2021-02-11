@@ -112,7 +112,7 @@ void Servidor::run() {
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;
-    actualizaciones.push_back(new ActualizacionInicioPartida());
+    actualizaciones.push_back(new ActualizacionInicioPartida(this->estadoJuego));
     this->enviar_actualizaciones(actualizaciones);
 
     std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
