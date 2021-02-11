@@ -7,7 +7,7 @@
 #include "blocking_queue.h"
 #include "comandos/comando.h"
 #include <SDL2/SDL.h>
-#include <actualizacion.h>
+#include <actualizaciones/actualizacion.h>
 
 class Cliente {
 

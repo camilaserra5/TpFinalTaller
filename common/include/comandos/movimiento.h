@@ -11,13 +11,14 @@ private:
 public:
     Movimiento(int &idJugador, Accion tipo_de_movimiento);
 
-    void ejecutar(EstadoJuego &EstadoJuego) override;
+    std::vector<Actualizacion *> ejecutar(EstadoJuego &estadoJuego) override;
 
     ~Movimiento();
 
     Movimiento();
 
     std::vector<char> serializar() override;
+
     void deserializar(std::vector<char> &serializado) override;
 };
 

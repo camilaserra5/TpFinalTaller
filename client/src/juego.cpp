@@ -14,22 +14,22 @@
 
 
 Juego::Juego(Ventana &ventana, Modelo &modelo) : ventana(ventana), modelo(modelo) {
-    SDL_Renderer* render = this->ventana.obtener_render();
+    SDL_Renderer *render = this->ventana.obtener_render();
 
-    this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT,render);
+    this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT, render);
     this->corriendo = true;
-    Textura* t1 = new Textura(BLUE_WALL, render);
-    Textura* t2 = new Textura(WOOD_WALL, render);
-    Textura* t3 = new Textura(GREY_WALL, render);
-    Textura* t4 = new Textura(KEYDOOR, render);
-    Textura* t5 = new Textura(DOOR, render);
+    Textura *t1 = new Textura(BLUE_WALL, render);
+    Textura *t2 = new Textura(WOOD_WALL, render);
+    Textura *t3 = new Textura(GREY_WALL, render);
+    Textura *t4 = new Textura(KEYDOOR, render);
+    Textura *t5 = new Textura(DOOR, render);
 
-    this->texturas.insert({TYPE_WALL,t1});
-    this->texturas.insert({TYPE_WALL_2,t2});
-    this->texturas.insert({TYPE_WALL_3,t3});
-    this->texturas.insert({TYPE_KEY_DOOR,t4});
-    this->texturas.insert({TYPE_DOOR,t5});
-    this->texturas.insert({TYPE_FAKE_WALL,t3});
+    this->texturas.insert({TYPE_WALL, t1});
+    this->texturas.insert({TYPE_WALL_2, t2});
+    this->texturas.insert({TYPE_WALL_3, t3});
+    this->texturas.insert({TYPE_KEY_DOOR, t4});
+    this->texturas.insert({TYPE_DOOR, t5});
+    this->texturas.insert({TYPE_FAKE_WALL, t3});
 
 
 }
@@ -40,12 +40,8 @@ void Juego::eventos() {
         switch (event.type) {
             case SDL_QUIT:
                 exit(0);
-                this->corriendo = false;
-                break;
-
             default:
                 break;
-
         }
     }
 }
@@ -54,7 +50,7 @@ void Juego::run() {
     while (this->corriendo) {
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-            bool inicializado = this->modelo.procesarActualizaciones();
+            this->modelo.procesarActualizaciones();
             this->clean();
             this->eventos();
             this->raycasting(this->modelo.obtenerMapa(), this->modelo.getPlayer());
@@ -89,9 +85,9 @@ void Juego::renderizar() {
 
 Juego::~Juego() {
     delete this->texturaInferior;
-    std::map<int,Textura*>::iterator i;
-    for (i = texturas.begin(); i != texturas.end(); ++i){
-      delete i->second;
+    std::map<int, Textura *>::iterator i;
+    for (i = texturas.begin(); i != texturas.end(); ++i) {
+        delete i->second;
     }
 }
 

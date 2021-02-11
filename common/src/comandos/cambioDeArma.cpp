@@ -1,7 +1,11 @@
 #include "../include/comandos/cambioDeArma.h"
+#include "actualizaciones/actualizacionCambioArma.h"
 
-void CambioDeArma::ejecutar(EstadoJuego &estadoJuego) {
+std::vector<Actualizacion *> CambioDeArma::ejecutar(EstadoJuego &estadoJuego) {
     estadoJuego.cambiarArma(idJugador);
+    std::vector<Actualizacion *> actualizaciones;
+    actualizaciones.push_back(new ActualizacionCambioArma());
+    return actualizaciones;
 }
 
 std::vector<char> CambioDeArma::serializar() {

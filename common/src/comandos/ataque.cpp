@@ -1,7 +1,10 @@
 #include "comandos/ataque.h"
-
-void Ataque::ejecutar(EstadoJuego &estadoJuego) {
+#include "actualizaciones/actualizacionAtaque.h"
+std::vector<Actualizacion *>  Ataque::ejecutar(EstadoJuego &estadoJuego) {
     estadoJuego.realizarAtaque(this->idJugador);
+    std::vector<Actualizacion *> actualizaciones;
+    actualizaciones.push_back(new ActualizacionAtaque());
+    return actualizaciones;
 }
 
 Ataque::Ataque(int idJugador) : Comando(idJugador) {}

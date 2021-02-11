@@ -45,8 +45,8 @@ public:
         this->recibidor->join();
     }
 
-    void enviar_actualizaciones(Actualizacion* actualizacion){
-        this->enviador->enviar_actualizaciones(actualizacion);
+    void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones){
+        this->enviador->enviar_actualizaciones(actualizaciones);
     }
 
 private:

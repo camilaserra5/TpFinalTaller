@@ -10,7 +10,7 @@ public:
 
     ~CambioDeArma() {}
 
-    void ejecutar(EstadoJuego &estadoJuego) override;
+    std::vector<Actualizacion *>  ejecutar(EstadoJuego &estadoJuego) override;
 
     std::vector<char> serializar() override;
 

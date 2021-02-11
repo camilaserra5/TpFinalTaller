@@ -1,11 +1,15 @@
 #include "comandos/aperturaDePuerta.h"
+#include "actualizaciones/actualizacionAperturaPuerta.h"
 
 AperturaDePuerta::AperturaDePuerta(int idJugador) : Comando(idJugador) {}
 
 AperturaDePuerta::~AperturaDePuerta() {}
 
-void AperturaDePuerta::ejecutar(EstadoJuego &estadoJuego) {
+std::vector<Actualizacion *> AperturaDePuerta::ejecutar(EstadoJuego &estadoJuego) {
     estadoJuego.abrirPuerta(idJugador);
+    std::vector<Actualizacion *> actualizaciones;
+    actualizaciones.push_back(new ActualizacionAperturaPuerta());
+    return actualizaciones;
 }
 
 std::vector<char> AperturaDePuerta::serializar() {

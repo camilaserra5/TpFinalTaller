@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <actualizacion.h>
+#include <actualizaciones/actualizacion.h>
 
 #include "thread.h"
 #include "socket.h"

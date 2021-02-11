@@ -1,12 +1,6 @@
-#include "../include/actualizacion.h"
+#include "actualizaciones/actualizacionInicioPartida.h"
 
-
-Actualizacion::Actualizacion() {}
-
-
-Actualizacion::~Actualizacion() {}
-
-Actualizacion::Actualizacion(EstadoJuego &estadoJuego) :
+ActualizacionInicioPartida::ActualizacionInicioPartida(EstadoJuego &estadoJuego) :
         estadoJuego(estadoJuego), termine(false), rankingJugadores() {
     estadoJuego.verificarJugadoresMuertos();
     this->termine = this->estadoJuego.terminoPartida();
@@ -15,9 +9,16 @@ Actualizacion::Actualizacion(EstadoJuego &estadoJuego) :
                                                          estadoJuego.obtenerJugadores());
 }
 
-std::vector<char> Actualizacion::serializar() {
+ActualizacionInicioPartida::~ActualizacionInicioPartida() {
+
+}
+
+std::vector<char> ActualizacionInicioPartida::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
+    aux = numberToCharArray(this->obtenerId());
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+
     aux = numberToCharArray(termine);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
 
@@ -32,9 +33,10 @@ std::vector<char> Actualizacion::serializar() {
     return informacion;
 }
 
-void Actualizacion::deserializar(std::vector<char> &serializado) {
+void ActualizacionInicioPartida::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
+
 //    std::cerr << "actualizacion deserializar empieza" << std::endl;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->termine = charArrayToNumber(sub);
@@ -48,24 +50,16 @@ void Actualizacion::deserializar(std::vector<char> &serializado) {
     for (int i = 0; i < elementosSize; i++) {
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
         idx += 4;
-  //      std::cerr << "actualizacion deserializar rank push" << charArrayToNumber(sub)<< std::endl;
+        //      std::cerr << "actualizacion deserializar rank push" << charArrayToNumber(sub)<< std::endl;
         this->rankingJugadores.push_back(charArrayToNumber(sub));
     }
 
     std::vector<char> estadoJuegoSerializado(serializado.begin() + idx,
                                              serializado.end());
     this->estadoJuego.deserializar(estadoJuegoSerializado);
-  //  std::cerr << "actualizacion deserializar fin" << std::endl;
+    //  std::cerr << "actualizacion deserializar fin" << std::endl;
 }
 
-EstadoJuego &Actualizacion::obtenerEstadoJuego() {
+EstadoJuego &ActualizacionInicioPartida::obtenerEstadoJuego() {
     return this->estadoJuego;
-}
-
-std::vector<int> Actualizacion::obtenerRanking() {
-    return this->rankingJugadores;
-}
-
-bool Actualizacion::terminoPartida() {
-    return termine;
 }
