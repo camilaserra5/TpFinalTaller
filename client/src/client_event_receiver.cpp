@@ -42,5 +42,4 @@ void ClientEventReceiver::cerrar() {
 
 ClientEventReceiver::~ClientEventReceiver() {
     this->corriendo = false;
-    this->join();
 }

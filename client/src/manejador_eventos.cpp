@@ -7,18 +7,19 @@
 #include "comandos/cambioDeArma.h"
 #include <iostream>
 
+#define RUTA_SONIDO_AMBIENTE "../../client/resources/sonidos/wolfenstein-3d-title-theme.wav"
+
 ManejadorEventos::ManejadorEventos(int &idJugador, BlockingQueue<Comando *> &eventos) :
         idJugador(idJugador),
         eventos(eventos),
         corriendo(true),
-        sonidoAmbiente("../../client/resources/sonidos/wolfenstein-3d-title-theme.wav") {}
+        sonidoAmbiente(RUTA_SONIDO_AMBIENTE) {}
 
 ManejadorEventos::~ManejadorEventos() {}
 
 void ManejadorEventos::run() {
     SDL_Event evento;
     while (this->corriendo) {
-
         if (SDL_PollEvent(&evento)) {
             detectarEventos(evento);
         }
@@ -58,18 +59,19 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
                 // aca mandariamos la informacion o crearimos el evento;
                 case SDLK_LEFT:         // x, y, vida, angulo;
                     crearMovimiento(Accion::rotarIzquierda);
+                    //reproducir_sonido(SONIDO-DE-PASOS, REPRODUCCION_PASOS);
                     break;
                 case SDLK_RIGHT:
                     crearMovimiento(Accion::rotarDerecha);
+                    //reproducir_sonido(SONIDO-DE-PASOS, REPRODUCCION_PASOS);
                     break;
                 case SDLK_UP:
                     crearMovimiento(Accion::moverArriba);
+                    //reproducir_sonido(SONIDO-DE-PASOS, REPRODUCCION_PASOS);
                     break;
                 case SDLK_DOWN:
                     crearMovimiento(Accion::moverAbajo);
-                    break;
-                case SDLK_m:
-                    sonidoAmbiente.play(100);
+                    //reproducir_sonido(SONIDO-DE-PASOS, REPRODUCCION_PASOS);
                     break;
                 case SDLK_PERIOD:
                     crearAtaque();
@@ -82,6 +84,7 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
         case SDL_KEYUP:
             if (evento.key.keysym.sym == SDLK_PERIOD) {
                 // dejo de disparar;
+                // sonido.stop()
             }
             break;
         case SDL_QUIT:
@@ -89,6 +92,7 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
             break;
         case SDLK_SPACE:
             crearAperturaDePuerta();
+            //reproducir_sonido(SONIDO_DE_PUERTA, REPETICION_PUERTA);
             break;
         default:
             break;

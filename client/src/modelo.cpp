@@ -48,9 +48,7 @@ Modelo::~Modelo() {
 }
 
 bool Modelo::inicializar() {
-
     return procesarActualizaciones();
-
 }
 
 std::vector<double> &Modelo::getZBuffer() {
@@ -304,7 +302,6 @@ void Modelo::actualizar() {
 }
 
 bool Modelo::procesarActualizaciones() {
-//
     try {
         Actualizacion *actualizacion = this->updates.obtener_dato();
         std::cout << "proceso\n";
@@ -357,17 +354,12 @@ bool Modelo::procesarActualizaciones() {
         }
         delete actualizacion;
         std::cout << "me llega \n";
-
         return true;
-    } catch(QueueException &qe){
+    } catch (QueueException &qe) {
         std::cerr << "no hay actualizacion\n";
-    }catch (std::exception &e) {
+    } catch (std::exception &e) {
         std::cerr << e.what() << "\n";
         std::cerr << "falla en actualizacion" << std::endl;
-
         return false;
-
     }
-
-
 }
