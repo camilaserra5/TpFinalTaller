@@ -11,8 +11,8 @@ message("Agregando '${PROJECT_BINARY_DIR}' como directorio de includes")
 include_directories(${PROJECT_BINARY_DIR})
 
 set(PROJECT_LINK_LIBS libcommons.a)
-link_directories(~/TpFinalTaller/common/build)
-include_directories(~/TpFinalTaller/common/include)
+link_directories(${PROJECT_SOURCE_DIR}/common/build)
+include_directories(${PROJECT_SOURCE_DIR}/common/include)
 find_package(yaml-cpp)
 file(GLOB SOURCES src/thclient.cpp src/manejadorPartidas.cpp src/aceptador.cpp src/server_main.cpp src/cliente.cpp src/server_event_receiver.cpp src/servidor.cpp src/server_event_sender.cpp )
 add_executable(server
