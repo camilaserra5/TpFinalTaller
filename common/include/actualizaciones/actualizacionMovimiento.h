@@ -9,6 +9,8 @@
 
 class ActualizacionMovimiento : public Actualizacion {
 public:
+    ActualizacionMovimiento() {}
+
     ActualizacionMovimiento(Jugador *jugador);
 
     ~ActualizacionMovimiento();

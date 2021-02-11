@@ -16,6 +16,9 @@ ActualizacionInicioPartida::~ActualizacionInicioPartida() {
 std::vector<char> ActualizacionInicioPartida::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
+    aux = numberToCharArray(this->obtenerId());
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
+
     aux = numberToCharArray(termine);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
 
@@ -33,6 +36,7 @@ std::vector<char> ActualizacionInicioPartida::serializar() {
 void ActualizacionInicioPartida::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
+
 //    std::cerr << "actualizacion deserializar empieza" << std::endl;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->termine = charArrayToNumber(sub);

@@ -9,6 +9,8 @@
 
 class ActualizacionInicioPartida : public Actualizacion {
 public:
+    ActualizacionInicioPartida() {}
+
     ActualizacionInicioPartida(EstadoJuego &estadoJuego);
 
     ~ActualizacionInicioPartida();
