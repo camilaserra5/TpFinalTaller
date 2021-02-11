@@ -5,6 +5,10 @@
 #include <thread>
 #include <actualizaciones/actualizacionTerminoPartida.h>
 #include <actualizaciones/actualizacionInicioPartida.h>
+#include <actualizaciones/actualizacionMovimiento.h>
+#include <actualizaciones/actualizacionAtaque.h>
+#include <actualizaciones/actualizacionCambioArma.h>
+#include <actualizaciones/actualizacionAperturaPuerta.h>
 //#include "rayo.h"
 #define SPRITE_LARGO 63
 #define SPRITE_ANCHO SPRITE_LARGO
@@ -355,12 +359,13 @@ bool Modelo::procesarActualizaciones() {
                 this->actualizarObjeto(idI, tipo, posxI, posyI);
             }
         } else if (idActualizacion == static_cast<int>(Accion::aperturaDePuerta)) {
-
+            auto apertura = (ActualizacionAperturaPuerta *) actualizacion;
         } else if (idActualizacion == static_cast<int>(Accion::cambioDeArma)) {
-
+            auto cambioArma = (ActualizacionCambioArma *) actualizacion;
         } else if (idActualizacion == static_cast<int>(Accion::ataque)) {
-
+            auto ataque = (ActualizacionAtaque *) actualizacion;
         } else if (idActualizacion == static_cast<int>(Accion::moverse)) {
+            auto movimiento = (ActualizacionMovimiento *) actualizacion;
 
         } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
             auto termino = (ActualizacionTerminoPartida *) actualizacion;
