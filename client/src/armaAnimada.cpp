@@ -35,6 +35,8 @@ void ArmaAnimada::actualizar(int armaActual) {
 }
 
 void ArmaAnimada::renderizar(bool disparando) {
+    // int disparando != 0
+      //disparando --;
     if (disparando) {
         this->animaciones.find(this->armaActual)->second.renderizar(POSX, POSY, 0, NULL);
         //termine ? this->disparando = false: this->disparando = true;

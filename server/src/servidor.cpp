@@ -23,6 +23,8 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
         try {
             Comando *comando = cola_comandos.obtener_dato();
             std::vector<Actualizacion *> actualizaciones = comando->ejecutar(estadoJuego);
+            // puede ser una lista de actualizaciones;
+            // actualizacion partivulasr -> item comsumido(efecto, id, posicion, id jugador, pos jugador);
             delete comando;
             this->enviar_actualizaciones(actualizaciones);
         } catch (const std::exception &exception) {
@@ -91,14 +93,21 @@ BlockingQueue<Actualizacion *> &Servidor::obtenerColaActualizaciones() {
 void Servidor::enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
     //serializa y manda por sockets a cada jugador
     //Actualizacion *actualizacion = new Actualizacion(this->estadoJuego);
+    // mandar una actualizaion en particular;
     std::map<int, ManejadorCliente *>::iterator it;
     for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
         it->second->enviar_actualizaciones(actualizaciones);
     }
 }
 
+/*
+void Servidor::generaComandosLua(){
+  comando* comando = manejadorLua.procesar(this->estadoJuego); // servidor que tenga una intelgencia;
+  this->cola_comandos.aniadir_dato(comando);
+}*/
+
 void Servidor::run() {
-    //  this->lanzarJugadores();
+
 
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
@@ -114,6 +123,7 @@ void Servidor::run() {
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
+            // generar comandos lua(this->cola_comandos, this->estadoJuego);
             procesar_comandos(this->cola_comandos, this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
@@ -126,7 +136,7 @@ void Servidor::run() {
             if (tardanza >= TIEMPO_SERVIDOR) {
                 tardanza = TIEMPO_SERVIDOR;
             }
-            std::chrono::milliseconds duration(1000 - tardanza);
+            std::chrono::milliseconds duration(TIEMPO_SERVIDOR - tardanza);
             std::this_thread::sleep_for(duration);
 
         } catch (...) {

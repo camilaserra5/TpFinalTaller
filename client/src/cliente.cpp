@@ -65,10 +65,13 @@ void Cliente::run() {
         }
         std::cout << "recibii main\n";
         juego.start();
-        manejador.start();
-        char c;
+        manejador.run();
+        juego.join();
+        clientEventSender.join();
+        clientEventSender.join();
+      /*  char c;
         while ((c = std::cin.get()) != 'q'){
-        }
+        }*/
     } catch (...) {
         std::cout << "error";
         this->corriendo = false;
