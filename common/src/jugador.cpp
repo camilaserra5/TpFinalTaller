@@ -11,6 +11,8 @@
 #include "armas/pistola.h"
 #include "armas/lanzacohetes.h"
 #include "objetosJuego.h"
+#include "../include/actualizaciones/actualizacionCambioArma.h"
+
 
 #define VELOCIDAD_DE_ROTACION 0.25 * acos(0.0)
 
@@ -258,7 +260,7 @@ void Jugador::atacar() {
     this->disparando = true;
 }
 
-void Jugador::cambiarArma() {
+Actualizacion* Jugador::cambiarArma() {
     std::map<int, Arma *>::iterator it;
     bool cambie = false;
     for (it = this->armas.begin(); it != this->armas.end(); ++it) {
@@ -267,4 +269,8 @@ void Jugador::cambiarArma() {
             cambie = true;
         }
     }
+    if (!cambie){
+        return NULL;
+    }
+    return new ActualizacionCambioArma(id, this->armaActual);
 }

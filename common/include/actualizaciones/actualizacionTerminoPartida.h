@@ -1,16 +1,20 @@
 #ifndef ACTUALIZACION_TERMINO_H
 #define ACTUALIZACION_TERMINO_H
 
-#include "estadoJuego.h"
+
 #include <list>
 #include "iserializable.h"
 #include "ranking.h"
 #include "actualizacion.h"
+#include "estadoJuego.h"
+
 
 class ActualizacionTerminoPartida : public Actualizacion {
 public:
-    ActualizacionTerminoPartida();
+    ActualizacionTerminoPartida(EstadoJuego& estadoJuego);
 
+    ActualizacionTerminoPartida(){}
+    
     ~ActualizacionTerminoPartida();
 
     std::vector<char> serializar() override;
@@ -22,6 +26,7 @@ public:
     std::vector<int> obtenerRanking();
 
 private:
+    EstadoJuego estadoJuego;
 };
 
 #endif

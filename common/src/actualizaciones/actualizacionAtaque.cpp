@@ -1,14 +1,13 @@
 #include "actualizaciones/actualizacionAtaque.h"
 
 
-ActualizacionAtaque::ActualizacionAtaque() {
+ActualizacionAtaque::ActualizacionAtaque(Jugador* jugador,
+                                  std::map<int, Jugador*>& jugadoresAtacados):
+                                  jugador(jugador),
+                                  jugadoresAtacados(jugadoresAtacados) {}
 
-}
 
-
-ActualizacionAtaque::~ActualizacionAtaque() {
-
-}
+ActualizacionAtaque::~ActualizacionAtaque() {}
 
 std::vector<char> ActualizacionAtaque::serializar() {
     std::vector<char> informacion;

@@ -1,16 +1,17 @@
-#ifndef ACTUALIZACION_CambioArma_H
-#define ACTUALIZACION_CambioArma_H
+#ifndef ACTUALIZACION_CAMBIO_ARMA_H
+#define ACTUALIZACION_CAMBIO_ARMA_H
 
-#include "estadoJuego.h"
+
 #include <list>
 #include "iserializable.h"
 #include "ranking.h"
 #include "actualizacion.h"
+#include "jugador.h"
 
 class ActualizacionCambioArma : public Actualizacion {
 public:
-    ActualizacionCambioArma();
-
+    ActualizacionCambioArma(int& id, int& armaActual);
+    ActualizacionCambioArma(){}
     ~ActualizacionCambioArma();
 
     std::vector<char> serializar() override;
@@ -20,6 +21,8 @@ public:
     int obtenerId() override { return static_cast<int>(Accion::cambioDeArma); }
 
 private:
+    int id;
+    int armaActual;
 };
 
 #endif

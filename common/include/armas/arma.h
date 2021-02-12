@@ -14,6 +14,7 @@
 #include <ctime>
 #include "posicion.h"
 #include "jugador.h"
+#include "actualizaciones/actualizacion.h"
 
 
 class Arma {
@@ -23,7 +24,7 @@ public:
 
     virtual ~Arma() {}
 
-    virtual void atacar(int distancia_a_pared, Jugador *jugador,
+    virtual Actualizacion* atacar(int distancia_a_pared, Jugador *jugador,
                         std::map<int, Jugador *> &jugadores) = 0;
 
     /*devuelve el id*/

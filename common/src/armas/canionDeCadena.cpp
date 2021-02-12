@@ -1,4 +1,5 @@
 #include "armas/canionDeCadena.h"
+#include "../include/actualizaciones/actualizacionAtaque.h"
 
 #define DISTANCIA_MAX 2000000
 
@@ -11,11 +12,12 @@ CanionDeCadena::CanionDeCadena(Posicion &posicion, int id) :
 
 CanionDeCadena::~CanionDeCadena() {}
 
-void CanionDeCadena::atacarEfectivamente(int distancia_a_pared,
+Actualizacion* CanionDeCadena::atacarEfectivamente(int distancia_a_pared,
                                          Jugador *jugador,
                                          std::map<int, Jugador *> &jugadores) {
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
+    std::map<int, Jugador*> jugadoresAtacados;
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
         int cantidad_balas = BALAS_POR_RAFAGA;
         int i = 0;
@@ -32,19 +34,22 @@ void CanionDeCadena::atacarEfectivamente(int distancia_a_pared,
             }
             i++;
         }
+        jugadoresAtacados.insert({idJugadorMasCercano, jugadorAtacado});
     }
     jugador->actualizarArma();
     jugador->dejarDeDisparar();
+    return new ActualizacionAtaque(jugador, jugadoresAtacados);
 }
 
-void CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador,
+Actualizacion* CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador,
                             std::map<int, Jugador *> &jugadores) {
     int balasJugador = jugador->cantidad_balas();
     if (this->contador == 0 && balasJugador > BALAS_POR_RAFAGA) {
-        this->atacarEfectivamente(distancia_a_pared, jugador, jugadores);
         this->contador = TICKS_DISPARO_CANION;
+        return this->atacarEfectivamente(distancia_a_pared, jugador, jugadores);
     } else {
         this->contador--;
+        return NULL;
     }
 }
 

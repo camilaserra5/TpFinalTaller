@@ -6,18 +6,19 @@
 #include "arma.h"
 #include "items/item.h"
 
+
 class CanionDeCadena : public Arma, public Item {
 public:
     CanionDeCadena(Posicion &posicion, int id);
 
     ~CanionDeCadena();
 
-    void atacar(int distancia_a_pared, Jugador *jugador,
+    Actualizacion* atacar(int distancia_a_pared, Jugador *jugador,
                 std::map<int, Jugador *> &jugadores) override;
 
     bool obtenerBeneficio(Jugador *jugador);
 
-    void atacarEfectivamente(int distancia_a_pared, Jugador *jugador,
+    Actualizacion* atacarEfectivamente(int distancia_a_pared, Jugador *jugador,
                              std::map<int, Jugador *> &jugadores);
 
     Type getTipo() override;

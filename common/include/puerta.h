@@ -16,7 +16,7 @@ public:
     Puerta(bool necesitaLlave, Posicion posicion, int fila, int columna, bool abierta) : abierta(abierta), necesitaLlave(necesitaLlave),
                                                                            posicion(posicion),
                                                                            fila(fila), columna(columna) {}
-
+    Puerta(){}                                                                       
     ~Puerta() {}
 
     void abrir();

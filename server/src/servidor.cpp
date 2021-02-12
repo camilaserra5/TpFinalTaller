@@ -4,6 +4,8 @@
 #include "actualizaciones/actualizacion.h"
 #include "jugador.h"
 #include "actualizaciones/actualizacionInicioPartida.h"
+#include "actualizaciones/actualizacionTerminoPartida.h"
+#include "actualizaciones/actualizacionCambioArma.h"
 
 #define TIEMPO_SERVIDOR 30
 
@@ -127,6 +129,10 @@ void Servidor::run() {
             procesar_comandos(this->cola_comandos, this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
+              std::vector<Actualizacion*> actualizaciones;
+            
+                Actualizacion* terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego);
+                this->enviar_actualizaciones(actualizaciones);
                 this->arrancoPartida = false;
                 this->sigue_corriendo = false;
             }

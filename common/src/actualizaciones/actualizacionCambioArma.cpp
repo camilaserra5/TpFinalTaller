@@ -1,14 +1,11 @@
 #include "actualizaciones/actualizacionCambioArma.h"
 
 
-ActualizacionCambioArma::ActualizacionCambioArma() {
+ActualizacionCambioArma::ActualizacionCambioArma(int& id, int& idArmaActual):
+        id(id), armaActual(idArmaActual){}
 
-}
 
-
-ActualizacionCambioArma::~ActualizacionCambioArma() {
-
-}
+ActualizacionCambioArma::~ActualizacionCambioArma() {}
 
 std::vector<char> ActualizacionCambioArma::serializar() {
     std::vector<char> informacion;

@@ -1,11 +1,12 @@
 #ifndef ACTUALIZACION_INICIO_PARTIDA_H
 #define ACTUALIZACION_INICIO_PARTIDA_H
 
-#include "estadoJuego.h"
+
 #include <list>
 #include "iserializable.h"
 #include "ranking.h"
 #include "actualizacion.h"
+#include "estadoJuego.h"
 
 class ActualizacionInicioPartida : public Actualizacion {
 public:

@@ -12,19 +12,20 @@ Movimiento::~Movimiento() {}
 Movimiento::Movimiento() {}
 
 std::vector<Actualizacion *> Movimiento::ejecutar(EstadoJuego &estadoJuego) {
-    if (tipo_de_movimiento == Accion::rotarDerecha) {
-        estadoJuego.rotar_a_derecha(this->idJugador);
-    } else if (tipo_de_movimiento == Accion::rotarIzquierda) {
-        estadoJuego.rotar_a_izquierda(this->idJugador);
-    } else if (tipo_de_movimiento == Accion::moverArriba) {
-        estadoJuego.moverse_arriba(this->idJugador);
-    } else if (tipo_de_movimiento == Accion::moverAbajo) {
-        estadoJuego.moverse_abajo(this->idJugador);
-    } else {
-        estadoJuego.no_me_muevo(this->idJugador);
-    }
+    Actualizacion* actualizacion = NULL;
     std::vector<Actualizacion *> actualizaciones;
-    actualizaciones.push_back(new ActualizacionMovimiento(estadoJuego.obtenerJugadores().at(this->idJugador)));
+    if (tipo_de_movimiento == Accion::rotarDerecha) {
+        actualizacion = estadoJuego.rotar_a_derecha(this->idJugador);
+    } else if (tipo_de_movimiento == Accion::rotarIzquierda) {
+        actualizacion = estadoJuego.rotar_a_izquierda(this->idJugador);
+    } else if (tipo_de_movimiento == Accion::moverArriba) {
+        actualizaciones = estadoJuego.moverse_arriba(this->idJugador);
+    } else if (tipo_de_movimiento == Accion::moverAbajo) {
+        actualizaciones = estadoJuego.moverse_abajo(this->idJugador);
+    }
+    if (actualizacion != NULL){
+        actualizaciones.push_back(actualizacion);
+    }
     return actualizaciones;
 }
 

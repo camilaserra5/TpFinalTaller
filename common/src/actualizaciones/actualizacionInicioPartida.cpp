@@ -1,5 +1,5 @@
 #include "actualizaciones/actualizacionInicioPartida.h"
-
+#include "estadoJuego.h"
 ActualizacionInicioPartida::ActualizacionInicioPartida(EstadoJuego &estadoJuego) :
         estadoJuego(estadoJuego), termine(false), rankingJugadores() {
     estadoJuego.verificarJugadoresMuertos();

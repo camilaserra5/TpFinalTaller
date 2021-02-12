@@ -1,9 +1,11 @@
 #include "comandos/ataque.h"
 #include "actualizaciones/actualizacionAtaque.h"
 std::vector<Actualizacion *>  Ataque::ejecutar(EstadoJuego &estadoJuego) {
-    estadoJuego.realizarAtaque(this->idJugador);
+    Actualizacion* actualizacion = estadoJuego.realizarAtaque(this->idJugador);
     std::vector<Actualizacion *> actualizaciones;
-    actualizaciones.push_back(new ActualizacionAtaque());
+    if (actualizacion != NULL){
+      actualizaciones.push_back(actualizacion);
+    }
     return actualizaciones;
 }
 

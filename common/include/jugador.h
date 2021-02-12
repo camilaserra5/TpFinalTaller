@@ -8,6 +8,8 @@
 #include <map>
 #include "iserializable.h"
 
+class Actualizacion;
+
 
 class Arma;
 
@@ -87,7 +89,7 @@ public:
 
     void deserializar(std::vector<char> &serializado) override;
 
-    void cambiarArma();
+    Actualizacion* cambiarArma();
 
 private:
     Posicion posicion;

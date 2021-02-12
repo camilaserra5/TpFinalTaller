@@ -1,6 +1,7 @@
 #include "armas/ametralladora.h"
 
 #define BALAS_POR_RAFAGA 5
+#include "../include/actualizaciones/actualizacionAtaque.h"
 
 
 Ametralladora::Ametralladora(Posicion &posicion, int id) :
@@ -10,11 +11,12 @@ Ametralladora::Ametralladora(Posicion &posicion, int id) :
 
 Ametralladora::~Ametralladora() {}
 
-void Ametralladora::atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
+Actualizacion* Ametralladora::atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     int cantidad_balas = BALAS_POR_RAFAGA;
     jugador->gastarBalas(cantidad_balas);
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
+    std::map<int, Jugador*> jugadoresAtacados;
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
         int i = 0;
         bool jugadorMurio = false;
@@ -31,19 +33,21 @@ void Ametralladora::atacarEfectivamente(int distancia_a_pared, Jugador *jugador,
             }
             i++;
         }
+        jugadoresAtacados.insert({idJugadorMasCercano, jugadorAtacado});
     }
     jugador->actualizarArma();
     jugador->dejarDeDisparar();
-
+    return new ActualizacionAtaque(jugador, jugadoresAtacados);
 }
 
-void Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
+Actualizacion* Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     int balasJugador = jugador->cantidad_balas();
     if (this->contador == 0 && balasJugador > BALAS_POR_RAFAGA) {
-        this->atacarEfectivamente(distancia_a_pared, jugador, jugadores);
         this->contador = TICKS_DISPARO_AMETRALLADORA;
+        return this->atacarEfectivamente(distancia_a_pared, jugador, jugadores);
     } else {
         this->contador--; // consultar
+        return NULL;
     }
 
 }

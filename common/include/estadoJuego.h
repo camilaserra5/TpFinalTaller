@@ -18,29 +18,29 @@ public:
 
     EstadoJuego();
 
-    void rotar_a_derecha(int idJugador);
+    Actualizacion* rotar_a_derecha(int idJugador);
 
-    void rotar_a_izquierda(int idJugador);
+    Actualizacion* rotar_a_izquierda(int idJugador);
 
-    void moverse_arriba(int idJugador);
+    std::vector<Actualizacion*> moverse_arriba(int idJugador);
 
-    void moverse_abajo(int idJugador);
+    std::vector<Actualizacion*> moverse_abajo(int idJugador);
 
     void no_me_muevo(int idJugador);
 
     void agregarJugador(std::string &nombreJugador, int &id);
 
-    void realizarAtaque(int idJugador);
+    Actualizacion* realizarAtaque(int idJugador);
 
-    std::vector<char> serializar() override; 
+    std::vector<char> serializar() override;
 
     void deserializar(std::vector<char> &informacion) override;
 
     void verificarJugadoresMuertos();
 
-    void verificarMovimientoJugador(Jugador *jugador, int &posX, int &posY);
+    std::vector<Actualizacion*> verificarMovimientoJugador(Jugador *jugador, int &posX, int &posY);
 
-    void abrirPuerta(int idJugador);
+    Actualizacion* abrirPuerta(int idJugador);
 
     std::map<int, Jugador *> &obtenerJugadores();
     Map& obtenerMapa();
@@ -51,7 +51,7 @@ public:
 
     bool terminoPartida();
 
-    void cambiarArma(int idJugador);
+    Actualizacion* cambiarArma(int idJugador);
 
 
 private:
