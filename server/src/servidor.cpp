@@ -23,11 +23,9 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
     bool termine = false;
     while (!termine) {
         try {
-            std::cerr << "obtener" << std::endl;
             Comando *comando = cola_comandos.obtener_dato();
             std::cerr << " proceso comando " << std::endl;
             std::vector<Actualizacion *> actualizaciones = comando->ejecutar(estadoJuego);
-            std::cerr << "ejec" << std::endl;
             // puede ser una lista de actualizaciones;
             // actualizacion partivulasr -> item comsumido(efecto, id, posicion, id jugador, pos jugador);
             delete comando;
