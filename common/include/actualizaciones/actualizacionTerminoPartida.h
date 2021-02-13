@@ -11,10 +11,10 @@
 
 class ActualizacionTerminoPartida : public Actualizacion {
 public:
-    ActualizacionTerminoPartida(EstadoJuego& estadoJuego);
+    ActualizacionTerminoPartida(EstadoJuego &estadoJuego);
 
-    ActualizacionTerminoPartida(){}
-    
+    ActualizacionTerminoPartida() {}
+
     ~ActualizacionTerminoPartida();
 
     std::vector<char> serializar() override;
@@ -27,6 +27,7 @@ public:
 
 private:
     EstadoJuego estadoJuego;
+    std::vector<int> ranking;
 };
 
 #endif

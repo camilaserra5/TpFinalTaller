@@ -23,7 +23,6 @@ std::vector<char> ActualizacionTerminoPartida::serializar() {
 }
 
 void ActualizacionTerminoPartida::deserializar(std::vector<char> &serializado) {
-    std::vector<int> ranking;
     std::vector<char> sub;
     int elementosSize = charArrayToNumber(serializado);
 
@@ -31,11 +30,10 @@ void ActualizacionTerminoPartida::deserializar(std::vector<char> &serializado) {
     for (int i = 0; i < elementosSize; i++) {
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
         idx += 4;
-        ranking.push_back(charArrayToNumber(sub));
+        this->ranking.push_back(charArrayToNumber(sub));
     }
 }
 
 std::vector<int> ActualizacionTerminoPartida::obtenerRanking() {
-    std::vector<int> ranking;
-    return ranking;
+    return this->ranking;
 }
