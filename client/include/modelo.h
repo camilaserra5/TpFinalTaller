@@ -59,6 +59,8 @@ public:
 
     Map &obtenerMapa();
 
+    void actualizarPosicionJugador(int posX, int posY, float angulo);
+
 private:
     Ventana &ventana;
     int idJugador;
