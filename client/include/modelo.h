@@ -65,6 +65,10 @@ public:
 
     void actualizarArmaEnemigos(int idArma);
 
+    void actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas, int puntaje, int cant_vidas);
+    
+    void actualizarVidaEnemigo(int id,int vida, int idArma);
+
 private:
     Ventana &ventana;
     int idJugador;

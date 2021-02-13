@@ -21,6 +21,14 @@ public:
 
     int obtenerId() override { return static_cast<int>(Accion::ataque); }
 
+    Jugador* obtenerJugador(){
+        return this->jugador;
+    }
+
+    std::map<int, Jugador*>& obtenerJugadoresAtacados(){
+        return jugadoresAtacados;
+    }
+
 private:
     Jugador* jugador;
     std::map<int, Jugador*> jugadoresAtacados;

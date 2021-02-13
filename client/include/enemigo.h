@@ -39,6 +39,8 @@ public:
 
     void actualizarPosicion(int posX, int posY, float angulo);
 
+    void actualizarVida(int vida);
+
 private:
     int idArma;
     int anguloJugador;

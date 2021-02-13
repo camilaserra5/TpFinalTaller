@@ -117,6 +117,12 @@ void Enemigo::renderizarColumna(SDL_Rect &dimension, SDL_Rect &dest) {
     tipo[this->estado].renderizarColumna(dimension, dest);
 }
 
+void Enemigo::actualizarVida(int vida){
+    if (vida <= 0){
+        this->estado = MORIRSE;
+    }
+}
+
 int Enemigo::obtenerAnchura() {
     return SPRITE_W;
 }

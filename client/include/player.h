@@ -32,6 +32,8 @@ public:
     int getPuntaje();
 
     int getId();
+    
+    void actualizarDatosJugador(int vida, int cant_vidas, int puntaje, int balas);
 
 private:
     Posicion posicion;
