@@ -13,7 +13,7 @@ public:
     ActualizacionCambioArma(int& id, int& armaActual);
 
     ActualizacionCambioArma(){}
-    
+
     ~ActualizacionCambioArma();
 
     std::vector<char> serializar() override;
@@ -21,6 +21,13 @@ public:
     void deserializar(std::vector<char> &serializado) override;
 
     int obtenerId() override { return static_cast<int>(Accion::cambioDeArma); }
+
+    int obtenerIdArma(){
+        return armaActual;
+    }
+    int obtenerIdJugador(){
+        return id;
+    }
 
 private:
     int id;

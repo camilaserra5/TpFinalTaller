@@ -21,6 +21,9 @@ public:
     void dejarDeDisparar() {
         this->disparando = false;
     }
+    void actualizarArma(int idArma){
+        this->arma.actualizar(idArma);
+    }
 
     Posicion &getPosicion();
 

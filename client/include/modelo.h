@@ -61,6 +61,10 @@ public:
 
     void actualizarPosicionJugador(int posX, int posY, float angulo);
 
+    void actualizarArmaJugador(int idArma);
+
+    void actualizarArmaEnemigos(int idArma);
+
 private:
     Ventana &ventana;
     int idJugador;

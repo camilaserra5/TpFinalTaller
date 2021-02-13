@@ -303,6 +303,17 @@ void Modelo::actualizar() {
     this->zbuffer.clear();
 }
 
+void Modelo::actualizarArmaJugador(int idArma){
+    this->jugador->actualizarArma(idArma);
+}
+
+void Modelo::actualizarArmaEnemigos(int idArma){
+    std::map<int, Enemigo *>::iterator it;
+    for (it = this->enemigos.begin(); it != this->enemigos.end(); ++it){
+        it->second->actualizarArma(idArma);
+    }
+}
+
 bool Modelo::procesarActualizaciones() {
     try {
         Actualizacion *actualizacion = this->updates.obtener_dato();
@@ -361,6 +372,11 @@ bool Modelo::procesarActualizaciones() {
         } else if (idActualizacion == static_cast<int>(Accion::cambioDeArma)) {
             std::cerr << "act cambio arma" << std::endl;
             auto cambioArma = (ActualizacionCambioArma *) actualizacion;
+            int idJugador = cambioArma->obtenerIdJugador();
+            if (idJugador == this->jugador->getId()){
+                this->actualizarArmaJugador(cambioArma->obtenerIdArma());
+                this->actualizarArmaEnemigos(cambioArma->obtenerIdArma());
+            }
         } else if (idActualizacion == static_cast<int>(Accion::ataque)) {
             std::cerr << "act ataque" << std::endl;
             auto ataque = (ActualizacionAtaque *) actualizacion;
