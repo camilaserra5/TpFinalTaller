@@ -1,5 +1,5 @@
 #include "actualizaciones/actualizacionAtaque.h"
-
+#include <iostream>
 
 ActualizacionAtaque::ActualizacionAtaque(Jugador *jugador,
                                          std::map<int, Jugador *> &jugadoresAtacados) :
@@ -33,5 +33,30 @@ std::vector<char> ActualizacionAtaque::serializar() {
 }
 
 void ActualizacionAtaque::deserializar(std::vector<char> &serializado) {
+    std::vector<char> sub(4);
+    int idx = 0;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    idx += 4;
+    std::vector<char> informacionJugador(serializado.begin() + idx,
+                                          serializado.begin() + idx +
+                                          charArrayToNumber(sub));
+
+    this->jugador = new Jugador();
+    this->jugador->deserializar(informacionJugador);
+    idx += charArrayToNumber(sub);
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    int jugadoresSize = charArrayToNumber(sub);
+    std::cerr << "jugadoresSize: " << jugadoresSize << "\n";
+    idx += 4;
+    for (int i = 0; i < jugadoresSize; i++) {
+        sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+        idx += 4;
+        std::vector<char> jugadorSerializado(serializado.begin() + idx,
+                                             serializado.begin() + idx + charArrayToNumber(sub));
+        idx += charArrayToNumber(sub);
+        Jugador *jugador = new Jugador();
+        jugador->deserializar(jugadorSerializado);
+        this->jugadoresAtacados.insert(std::make_pair(jugador->getId(), jugador));
+    }
 
 }
