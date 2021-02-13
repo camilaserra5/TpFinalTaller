@@ -7,7 +7,7 @@
 #include "actualizaciones/actualizacionTerminoPartida.h"
 #include "actualizaciones/actualizacionCambioArma.h"
 
-#define TIEMPO_SERVIDOR 30
+#define TIEMPO_SERVIDOR 0.3
 
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(Map mapa, int cantJugadoresPosibles) :
@@ -23,11 +23,15 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
     bool termine = false;
     while (!termine) {
         try {
+            std::cerr << "obtener" << std::endl;
             Comando *comando = cola_comandos.obtener_dato();
+            std::cerr << " proceso comando " << std::endl;
             std::vector<Actualizacion *> actualizaciones = comando->ejecutar(estadoJuego);
+            std::cerr << "ejec" << std::endl;
             // puede ser una lista de actualizaciones;
             // actualizacion partivulasr -> item comsumido(efecto, id, posicion, id jugador, pos jugador);
             delete comando;
+            std::cerr << "enviar" << std::endl;
             this->enviar_actualizaciones(actualizaciones);
         } catch (const std::exception &exception) {
             termine = true;
@@ -96,6 +100,7 @@ void Servidor::enviar_actualizaciones(std::vector<Actualizacion *> actualizacion
     //serializa y manda por sockets a cada jugador
     //Actualizacion *actualizacion = new Actualizacion(this->estadoJuego);
     // mandar una actualizaion en particular;
+    std::cerr << " envio act " << std::endl;
     std::map<int, ManejadorCliente *>::iterator it;
     for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
         it->second->enviar_actualizaciones(actualizaciones);
@@ -109,42 +114,48 @@ void Servidor::generaComandosLua(){
 }*/
 
 void Servidor::run() {
-
-
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;
     actualizaciones.push_back(new ActualizacionInicioPartida(this->estadoJuego));
     this->enviar_actualizaciones(actualizaciones);
 
-    std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
-    std::this_thread::sleep_for(duration);
-
+    //std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
+    //std::this_thread::sleep_for(duration);
+    std::chrono::duration<double> tiempoServidor(TIEMPO_SERVIDOR);
     while (this->sigue_corriendo) {
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
+
             // generar comandos lua(this->cola_comandos, this->estadoJuego);
+            std::cerr << "proceso" << std::endl;
             procesar_comandos(this->cola_comandos, this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
-              std::vector<Actualizacion*> actualizaciones;
-            
-                Actualizacion* terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego);
-                this->enviar_actualizaciones(actualizaciones);
+                std::vector<Actualizacion *> actualizacionTermino;
+                Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego);
+                actualizacionTermino.push_back(terminoPartida);
+                this->enviar_actualizaciones(actualizacionTermino);
                 this->arrancoPartida = false;
                 this->sigue_corriendo = false;
             }
+
             auto fin = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> sleepTime = tiempoServidor - (fin - inicio);
+            //std::cerr << "sleep for" << time_span.count() << std::endl;
+            std::this_thread::sleep_for(sleepTime);
+            /*auto fin = std::chrono::high_resolution_clock::now();
             auto delta = fin - inicio;
             long tardanza = delta.count();
             if (tardanza >= TIEMPO_SERVIDOR) {
                 tardanza = TIEMPO_SERVIDOR;
             }
+            std::cerr << "sleep for" << TIEMPO_SERVIDOR-tardanza <<std::endl;
             std::chrono::milliseconds duration(TIEMPO_SERVIDOR - tardanza);
             std::this_thread::sleep_for(duration);
-
+*/
         } catch (...) {
             this->sigue_corriendo = false;
 

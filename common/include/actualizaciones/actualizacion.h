@@ -7,7 +7,6 @@
 #include "ranking.h"
 
 
-
 class Actualizacion : public ISerializable {
 public:
     Actualizacion();

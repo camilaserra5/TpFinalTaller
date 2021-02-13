@@ -314,6 +314,7 @@ bool Modelo::procesarActualizaciones() {
         int idActualizacion = actualizacion->obtenerId();
 
         if (idActualizacion == static_cast<int>(Accion::empezoPartida)) {
+            std::cerr << "act empexo partida" << std::endl;
             auto inicio = (ActualizacionInicioPartida *) actualizacion;
             EstadoJuego &estadoJuego = inicio->obtenerEstadoJuego();
             std::map<int, Jugador *> &jugadores = estadoJuego.obtenerJugadores();
@@ -347,7 +348,7 @@ bool Modelo::procesarActualizaciones() {
                                             anguloE, puntajeE);
                 }
             }
-            std::cerr << "cargo mapa" << std::endl;
+
             this->mapa = estadoJuego.obtenerMapa();
             std::vector<Item *> items = this->mapa.obtenerItems();
             for (int i = 0; i < items.size(); i++) {
@@ -359,15 +360,20 @@ bool Modelo::procesarActualizaciones() {
                 this->actualizarObjeto(idI, tipo, posxI, posyI);
             }
         } else if (idActualizacion == static_cast<int>(Accion::aperturaDePuerta)) {
+            std::cerr << "act apertura puerta" << std::endl;
             auto apertura = (ActualizacionAperturaPuerta *) actualizacion;
         } else if (idActualizacion == static_cast<int>(Accion::cambioDeArma)) {
+            std::cerr << "act cambio arma" << std::endl;
             auto cambioArma = (ActualizacionCambioArma *) actualizacion;
         } else if (idActualizacion == static_cast<int>(Accion::ataque)) {
+            std::cerr << "act ataque" << std::endl;
             auto ataque = (ActualizacionAtaque *) actualizacion;
         } else if (idActualizacion == static_cast<int>(Accion::moverse)) {
+            std::cerr << "act moveerse" << std::endl;
             auto movimiento = (ActualizacionMovimiento *) actualizacion;
 
         } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
+            std::cerr << "act terminooo" << std::endl;
             auto termino = (ActualizacionTerminoPartida *) actualizacion;
             std::vector<int> ordenRanking = termino->obtenerRanking();
             this->terminoPartida(ordenRanking);
@@ -376,7 +382,7 @@ bool Modelo::procesarActualizaciones() {
         delete actualizacion;
         return true;
     } catch (QueueException &qe) {
-        std::cerr << "no hay actualizacion\n";
+        //std::cerr << "no hay actualizacion\n";
     } catch (std::exception &e) {
         std::cerr << e.what() << "\n";
         std::cerr << "falla en actualizacion" << std::endl;
