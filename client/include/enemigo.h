@@ -34,6 +34,8 @@ public:
 
     int obtenerAnchura();
 
+    void actualizarPosicion(int posX, int posY, float angulo);
+
 private:
     int idArma;
     int anguloJugador;

@@ -20,5 +20,13 @@ std::vector<char> ActualizacionCambioArma::serializar() {
 }
 
 void ActualizacionCambioArma::deserializar(std::vector<char> &serializado) {
+  std::vector<char> sub(4);
+  int idx = 0;
+  sub = std::vector<char>(&serializado[idx],&serializado[idx + 4]);
+  this->id = charArrayToNumber(sub);
 
+  idx += 4;
+  sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+  this->armaActual = charArrayToNumber(sub);
+  std::cerr << this->id << this->armaActual << std::endl;
 }
