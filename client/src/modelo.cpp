@@ -167,10 +167,6 @@ void Modelo::renderizar() {
 
     if (!partidaTerminada) {
         this->jugador->renderizar();
-/*
-        for (std::map<int, Enemigo *>::iterator it = enemigos.begin(); it != enemigos.end(); ++it) {
-            it->second->renderizar();
-        }*/
         verificarObjetosEnRangoDeVista();
     } else {
         this->anunciador.renderizar();
@@ -374,7 +370,14 @@ bool Modelo::procesarActualizaciones() {
             std::cerr << "JUGADOR:" << movimiento->obtenerJugador()->getId() << std::endl;
             std::cerr << "posx:" << movimiento->obtenerJugador()->posEnX() << " posy:"
                       << movimiento->obtenerJugador()->posEnY() << std::endl;
-
+            int idJugador = movimiento->obtenerJugador()->getId();
+            if (idJugador == this->jugador->getId()){
+                this->actualizarPosicionJugador(movimiento->obtenerJugador()->posEnX(), movimiento->obtenerJugador()->posEnY(),
+                                                movimiento->obtenerJugador()->getAnguloDeVista());
+            }else{
+              this->enemigos.at(idJugador)->actualizarPosicion(movimiento->obtenerJugador()->posEnX(), movimiento->obtenerJugador()->posEnY(),
+                                                        movimiento->obtenerJugador()->getAnguloDeVista());
+            }
         } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
             std::cerr << "act terminooo" << std::endl;
             auto termino = (ActualizacionTerminoPartida *) actualizacion;
@@ -391,4 +394,9 @@ bool Modelo::procesarActualizaciones() {
         std::cerr << "falla en actualizacion" << std::endl;
         return false;
     }
+}
+
+void Modelo::actualizarPosicionJugador(int posX, int posY, float angulo){
+  this->jugador->getPosicion().actualizar_posicion(posX,posY);
+  this->jugador->getPosicion().setAngulo(angulo);
 }

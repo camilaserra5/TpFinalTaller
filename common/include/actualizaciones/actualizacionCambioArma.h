@@ -11,7 +11,9 @@
 class ActualizacionCambioArma : public Actualizacion {
 public:
     ActualizacionCambioArma(int& id, int& armaActual);
+
     ActualizacionCambioArma(){}
+    
     ~ActualizacionCambioArma();
 
     std::vector<char> serializar() override;

@@ -120,3 +120,8 @@ void Enemigo::renderizarColumna(SDL_Rect &dimension, SDL_Rect &dest) {
 int Enemigo::obtenerAnchura() {
     return SPRITE_W;
 }
+
+void Enemigo::actualizarPosicion(int posX, int posY, float angulo){
+  this->posicion.actualizar_posicion(posX,posY);
+  this->posicion.setAngulo(angulo);
+}
