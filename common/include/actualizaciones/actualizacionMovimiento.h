@@ -10,8 +10,10 @@
 
 class ActualizacionMovimiento : public Actualizacion {
 public:
-    ActualizacionMovimiento(Jugador* jugador);
-    ActualizacionMovimiento(){}
+    ActualizacionMovimiento(Jugador *jugador);
+
+    ActualizacionMovimiento() {}
+
     ~ActualizacionMovimiento();
 
     std::vector<char> serializar() override;
@@ -20,8 +22,10 @@ public:
 
     int obtenerId() override { return static_cast<int>(Accion::moverse); }
 
+    Jugador *obtenerJugador() { return jugador; }
+
 private:
-    Jugador* jugador;
+    Jugador *jugador;
 };
 
 #endif

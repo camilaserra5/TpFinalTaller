@@ -371,6 +371,9 @@ bool Modelo::procesarActualizaciones() {
         } else if (idActualizacion == static_cast<int>(Accion::moverse)) {
             std::cerr << "act moveerse" << std::endl;
             auto movimiento = (ActualizacionMovimiento *) actualizacion;
+            std::cerr << "JUGADOR:" << movimiento->obtenerJugador()->getId() << std::endl;
+            std::cerr << "posx:" << movimiento->obtenerJugador()->posEnX() << " posy:"
+                      << movimiento->obtenerJugador()->posEnY() << std::endl;
 
         } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
             std::cerr << "act terminooo" << std::endl;

@@ -48,7 +48,7 @@ Actualizacion *deserializarActualizacion(std::vector<char> informacion) {
         act->deserializar(actualizacionSerializada);
         return act;
     } else if (idActualizacion == static_cast<int>(Accion::moverse)) {
-        auto act = new ActualizacionMovimiento();
+        ActualizacionMovimiento *act = new ActualizacionMovimiento();
         act->deserializar(actualizacionSerializada);
         return act;
     } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {

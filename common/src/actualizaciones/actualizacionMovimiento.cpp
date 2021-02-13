@@ -17,21 +17,12 @@ std::vector<char> ActualizacionMovimiento::serializar() {
     informacion.insert(informacion.end(), aux.begin(), aux.end());
 
     std::vector<char> jugadorSerializado = jugador->serializar();
-    aux = numberToCharArray(jugadorSerializado.size());
-    informacion.insert(informacion.end(), aux.begin(), aux.end());
     informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
 
     return informacion;
 }
 
 void ActualizacionMovimiento::deserializar(std::vector<char> &serializado) {
-    std::vector<char> sub(4);
-    int idx = 0;
-    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-    int jugadoresSize = charArrayToNumber(sub);
-    idx += 4;
-    std::vector<char> jugadorSerializado(serializado.begin() + idx,
-                                         serializado.begin() + idx + jugadoresSize);
-    this->jugador->deserializar(jugadorSerializado);
-
+    this->jugador = new Jugador();
+    this->jugador->deserializar(serializado);
 }
