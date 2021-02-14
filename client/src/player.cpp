@@ -46,4 +46,8 @@ int Player::getId() {
     return id;
 }
 
+void Player::actualizarDatosJugador(int vida, int cant_vidas, int puntaje, int balas){
+      this->infoJugador.actualizarDatosJugador(vida, 1, puntaje, cant_vidas, balas);
+}
+
 Player::~Player() {}

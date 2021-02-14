@@ -303,6 +303,26 @@ void Modelo::actualizar() {
     this->zbuffer.clear();
 }
 
+void Modelo::actualizarArmaJugador(int idArma){
+    this->jugador->actualizarArma(idArma);
+}
+
+void Modelo::actualizarArmaEnemigos(int idArma){
+    std::map<int, Enemigo *>::iterator it;
+    for (it = this->enemigos.begin(); it != this->enemigos.end(); ++it){
+        it->second->actualizarArma(idArma);
+    }
+}
+void Modelo::actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas, int puntaje, int cant_vidas){
+    this->jugador->actualizarDatosJugador(vida,cant_vidas, puntaje, cant_balas);
+    this->jugador->actualizarArma(idArma);
+}
+void Modelo::actualizarVidaEnemigo(int id,int vida, int idArma){
+    this->enemigos.at(id)->actualizarVida(vida);
+    this->enemigos.at(id)->actualizarArma(idArma);
+}
+
+
 bool Modelo::procesarActualizaciones() {
     try {
         Actualizacion *actualizacion = this->updates.obtener_dato();
@@ -361,9 +381,32 @@ bool Modelo::procesarActualizaciones() {
         } else if (idActualizacion == static_cast<int>(Accion::cambioDeArma)) {
             std::cerr << "act cambio arma" << std::endl;
             auto cambioArma = (ActualizacionCambioArma *) actualizacion;
+            int idJugador = cambioArma->obtenerIdJugador();
+            if (idJugador == this->jugador->getId()){
+                this->actualizarArmaJugador(cambioArma->obtenerIdArma());
+                this->actualizarArmaEnemigos(cambioArma->obtenerIdArma());
+            }
         } else if (idActualizacion == static_cast<int>(Accion::ataque)) {
             std::cerr << "act ataque" << std::endl;
             auto ataque = (ActualizacionAtaque *) actualizacion;
+            Jugador* jugador = ataque->obtenerJugador();
+            if ( jugador->getId() == this->jugador->getId()){
+              this->actualizarEstadoAtaqueJugador(jugador->puntos_de_vida(), jugador->getArma()->getId(), jugador->cantidad_balas(),
+                                                  jugador->obtenerPuntosTotales(), jugador->cant_de_vida());
+            }
+            std::map<int, Jugador*> jugadoresAtacados = ataque->obtenerJugadoresAtacados();
+            std::map<int, Jugador *>::iterator it;
+            for (it = jugadoresAtacados.begin(); it != jugadoresAtacados.end(); it++){
+                if(it->first == this->jugador->getId()){
+                  this->actualizarEstadoAtaqueJugador(jugador->puntos_de_vida(), jugador->getArma()->getId(), jugador->cantidad_balas(),
+                                                      jugador->obtenerPuntosTotales(), jugador->cant_de_vida());
+                } else {
+                  int idE = it->first;
+                  int vidaE = it->second->puntos_de_vida();
+                  this->actualizarVidaEnemigo(idE, vidaE, jugador->getArma()->getId());
+                }
+            }
+
         } else if (idActualizacion == static_cast<int>(Accion::moverse)) {
             std::cerr << "act moveerse" << std::endl;
             auto movimiento = (ActualizacionMovimiento *) actualizacion;

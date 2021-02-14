@@ -14,7 +14,7 @@
 #include "armas/lanzacohetes.h"
 #include <algorithm>
 
-#define TAM_CELDA 20
+#define TAM_CELDA 80
 #define PUNTOS_CRUZ 10
 #define PUNTOS_COPA 50
 #define PUNTOS_COFRE 100
@@ -50,7 +50,7 @@ Map::Map(unsigned rowSize, unsigned colSize) : contenedorDeElementos() {
     for (unsigned i = 0; i < rowSize; i++) {
         map[i].resize(colSize, ObjetosJuego::obtenerTipoPorNombre("noItem"));
     }
-    this->ladoCelda = 20;
+    this->ladoCelda = 80;
 }
 
 unsigned Map::getRowSize() const {

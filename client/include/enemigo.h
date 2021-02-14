@@ -31,10 +31,15 @@ public:
     int getPuntaje() {
         return this->puntaje;
     }
+    void actualizarArma(int idArma){
+        this->idArma = idArma;
+    }
 
     int obtenerAnchura();
 
     void actualizarPosicion(int posX, int posY, float angulo);
+
+    void actualizarVida(int vida);
 
 private:
     int idArma;
