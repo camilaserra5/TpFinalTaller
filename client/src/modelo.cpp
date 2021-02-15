@@ -85,7 +85,7 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
             dimension.w = 1;
             dimension.h = 0;
             dest.x = posBuffer;
-            dest.y = y - 40;
+            dest.y = y;
             dest.w = 1;
             dest.h = y + alturaSprite;
             objeto->renderizarColumna(dimension, dest);

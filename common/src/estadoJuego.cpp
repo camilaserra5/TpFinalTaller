@@ -21,7 +21,7 @@
 
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
-#define METROS_MOVIDOS 5
+#define METROS_MOVIDOS 10
 #define CANT_TICKS_PARTIDA 10000  //5min
 #define TAMANIO_CELDA 80 //es variable y depende del tamanio del mapa
 
