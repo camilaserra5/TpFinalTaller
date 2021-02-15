@@ -71,15 +71,20 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     srand(time(NULL));
     int posElementox = 0;
     int posElementoy = 0;
-    if (rowNumber == 0) {
-        posElementox = (rowNumber * ladoCelda + rand() % ((1 + rowNumber) * ladoCelda));
-    } else if (colNumber == 0) {
-        int posElementoy = (colNumber * ladoCelda + rand() % ((1 + rowNumber) * ladoCelda));
-    } else {
-        posElementox = (rowNumber * ladoCelda + rand() % ((1 + rowNumber) * ladoCelda - rowNumber * ladoCelda));
-        posElementoy = (colNumber * ladoCelda + rand() % ((1 + colNumber) * ladoCelda - colNumber * ladoCelda));
+    if (rowNumber == 0){
+        posElementox = rand() % ladoCelda;
+    }else{
+        posElementox = (ladoCelda *(rowNumber -1) + rand() % ladoCelda);
     }
-    Posicion posicion = Posicion(posElementox, posElementoy, 0);
+    if (colNumber == 0){
+        posElementoy = rand()%ladoCelda;
+    } else {
+        posElementoy = ladoCelda* (colNumber -1) + rand()%ladoCelda;
+    }
+    std::cerr << "posElementox: " << posElementox << "\n";
+    std::cerr << "posElemntoY:  " << posElementoy << "\n";
+    std::cerr << "agrego un item\n";
+    Posicion posicion = Posicion(posElementox, posElementoy, ANGULO_DEFAULT);
     if (value.getName() == "comida") {
         int idValido = this->crearIdValido();
         this->contenedorDeElementos.agregarElemento(new Comida(posicion, idValido));

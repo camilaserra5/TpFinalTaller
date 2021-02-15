@@ -23,6 +23,9 @@ void Sprite::renderizar(int x, int y, int angulo, SDL_Point *centro) {
 void Sprite::renderizarColumna(SDL_Rect dimension, SDL_Rect &dest) {
     dimension.x += this->infoSprite.x + 2;
     dimension.y += this->infoSprite.y;//cheqeuar
+    std::cerr << "dimension x: " << dimension.x << "\n";
+    std::cerr << "dimension y : " << dimension.y << "\n";
+    std::cerr << "posx: " << dest.x << " - " << "posy: " << dest.y << " - " << "ancho: " << dest.w << " - " << "largo: " << dest.h << "\n";
     this->textura->renderizar(&dimension, dest, 0, NULL);
 }
 
