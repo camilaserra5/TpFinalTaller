@@ -15,7 +15,8 @@ Servidor::Servidor(Map mapa, int cantJugadoresPosibles) :
         estadoJuego(mapa),
         cantJugadoresPosibles(cantJugadoresPosibles),
         sigue_corriendo(true),
-        arrancoPartida(false) {}
+        arrancoPartida(false),
+        jugadorLua(this->estadoJuego, 777){}
 
 Servidor::~Servidor() {}
 
@@ -105,11 +106,29 @@ void Servidor::enviar_actualizaciones(std::vector<Actualizacion *> actualizacion
     }
 }
 
-/*
-void Servidor::generaComandosLua(){
-  comando* comando = manejadorLua.procesar(this->estadoJuego); // servidor que tenga una intelgencia;
-  this->cola_comandos.aniadir_dato(comando);
-}*/
+
+void Servidor::generarComandosLua(ProtectedQueue<Comando *> cola_comandos, EstadoJuego estadoJuego){
+    Comando* nuevoComando;
+    char tecla = jugadorLua.procesar(); // servidor que tenga una intelgencia;
+    switch(tecla){
+        case 'w':
+            nuevoComando = new Movimiento(jugadorLua.getID, 3);
+            break;
+        case 'd':
+            nuevoComando = new Movimiento(jugadorLua.getID, 1);
+            break;
+        case 's':
+            nuevoComando = new Movimiento(jugadorLua.getID, 4);
+            break;
+        case 'a':
+            nuevoComando = new Movimiento(jugadorLua.getID, 2);
+            break;
+        case 'p':
+            nuevoComando = new Ataque(jugadorLua.getID);
+            break;
+    }
+    this->cola_comandos.aniadir_dato(nuevoComando);
+}
 
 void Servidor::run() {
     this->lanzarJugadores();
@@ -127,7 +146,7 @@ void Servidor::run() {
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
 
-            // generar comandos lua(this->cola_comandos, this->estadoJuego);
+            // generarComandosLua(this->cola_comandos, this->estadoJuego);
             std::cerr << "proceso" << std::endl;
             procesar_comandos(this->cola_comandos, this->estadoJuego);
             this->actualizarContador();

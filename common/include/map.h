@@ -57,6 +57,8 @@ public:
 
     Map(){}//capaz poner privado
 
+    std::vector<std::vector<int>> GetMapanumerico();
+
 private:
     unsigned rowSize;
     unsigned colSize;

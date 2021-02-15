@@ -259,3 +259,13 @@ Posicion Map::obtenerPosicionIncialValida() {
     Posicion posicion(posX, posY, ANGULO_DEFAULT);
     return posicion;
 }
+
+std::vector<std::vector<int>> Map::GetMapanumerico() {
+    std::vector<std::vector<int>> mapaNumerico;
+    for(int i = 0; i < rowSize; i++){
+        for(int j = 0; j < colSize; j++){
+            mapaNumerico[i][j] = map[i][j].getType();
+        }
+    }
+    return mapaNumerico;
+}

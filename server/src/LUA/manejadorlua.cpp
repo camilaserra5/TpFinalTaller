@@ -1,7 +1,8 @@
 #include "manejadorlua.h"
 
-ManejadorLua::ManejadorLua(){
+ManejadorLua::ManejadorLua(std::string & archivo){
     interprete = luaL_newstate();
+    luaL_dofile(interprete, archivo.c_str());
 }
 
 void ManejadorLua::vaciarStack() {
@@ -40,4 +41,8 @@ void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa, std::string nom
     this->mapaLargo = mapa.size();
     this->mapaAncho = mapa[0].size();
     crearTabla(mapa, nombreMapa);
+}
+
+char ManejadorLua::generarEvento() {
+    return 0;
 }
