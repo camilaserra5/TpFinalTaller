@@ -57,7 +57,9 @@ public:
 
     Map(){}//capaz poner privado
 
-    std::vector<std::vector<int>> GetMapanumerico();
+    void setLadoCelda(int anchoPantalla);
+
+    int getLadoCelda();
 
 private:
     unsigned rowSize;

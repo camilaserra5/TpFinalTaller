@@ -14,7 +14,6 @@
 #include "armas/lanzacohetes.h"
 #include <algorithm>
 
-#define TAM_CELDA 80
 #define PUNTOS_CRUZ 10
 #define PUNTOS_COPA 50
 #define PUNTOS_COFRE 100
@@ -73,12 +72,12 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     int posElementox = 0;
     int posElementoy = 0;
     if (rowNumber == 0) {
-        posElementox = (rowNumber * TAM_CELDA + rand() % ((1 + rowNumber) * TAM_CELDA));
+        posElementox = (rowNumber * ladoCelda + rand() % ((1 + rowNumber) * ladoCelda));
     } else if (colNumber == 0) {
-        int posElementoy = (colNumber * TAM_CELDA + rand() % ((1 + rowNumber) * TAM_CELDA));
+        int posElementoy = (colNumber * ladoCelda + rand() % ((1 + rowNumber) * ladoCelda));
     } else {
-        posElementox = (rowNumber * TAM_CELDA + rand() % ((1 + rowNumber) * TAM_CELDA - rowNumber * TAM_CELDA));
-        posElementoy = (colNumber * TAM_CELDA + rand() % ((1 + colNumber) * TAM_CELDA - colNumber * TAM_CELDA));
+        posElementox = (rowNumber * ladoCelda + rand() % ((1 + rowNumber) * ladoCelda - rowNumber * ladoCelda));
+        posElementoy = (colNumber * ladoCelda + rand() % ((1 + colNumber) * ladoCelda - colNumber * ladoCelda));
     }
     Posicion posicion = Posicion(posElementox, posElementoy, 0);
     if (value.getName() == "comida") {
@@ -135,6 +134,7 @@ void Map::agregarElemento(Item *item) {
 Item *Map::buscarElemento(int &posx, int &posy) {
     return this->contenedorDeElementos.buscarElemento(posx, posy);
 }
+
 bool verificarTipo(int tipo){
     return (tipo != TYPE_WALL_2 && tipo != TYPE_WALL && tipo != TYPE_WALL_3 &&
             tipo != TYPE_DOOR && tipo != TYPE_EMPTY && tipo!= TYPE_FAKE_WALL);
@@ -260,12 +260,11 @@ Posicion Map::obtenerPosicionIncialValida() {
     return posicion;
 }
 
-std::vector<std::vector<int>> Map::GetMapanumerico() {
-    std::vector<std::vector<int>> mapaNumerico;
-    for(int i = 0; i < rowSize; i++){
-        for(int j = 0; j < colSize; j++){
-            mapaNumerico[i][j] = map[i][j].getType();
-        }
-    }
-    return mapaNumerico;
+void Map::setLadoCelda(int anchoPantalla){
+  std::cerr << "ancho oantalla: " << anchoPantalla << '\n';
+  this->ladoCelda = anchoPantalla / rowSize;
+}
+
+int Map::getLadoCelda(){
+  return this->ladoCelda;
 }

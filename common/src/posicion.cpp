@@ -61,9 +61,9 @@ void Posicion::rotar(float anguloRotacion) {
     std::cerr << "\n";
     float anguloFinal = this->anguloDeVista + anguloRotacion;
     if (anguloFinal < 0) {
-        this->anguloDeVista = 4 * acos(0.0) + anguloFinal;
-    } else if (anguloFinal > 4 * acos(0.0)) {
-        this->anguloDeVista = anguloFinal - 4 * acos(0.0);
+        this->anguloDeVista = 4 * PI + anguloFinal;
+    } else if (anguloFinal > 4 * PI) {
+        this->anguloDeVista = anguloFinal - 4 * PI;
     } else {
         this->anguloDeVista = anguloFinal;
     }

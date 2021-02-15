@@ -17,7 +17,6 @@
 #define SPRITE_OBJETOS "../../client/resources/images/Objects.png"
 #define FRAMESX 5
 #define FRAMESY 10
-#define ALTO_CELDA 40 //cambiar
 #define DIST_PLANO_P 692.820323//(ANCHO_CANVAS / 2) / tan(pi/6.0)
 #define PI 3.141592653
 
@@ -146,7 +145,7 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
         double anguloObjeto = atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
-        int alturaSprite = floor((ALTO_CELDA / distancia) * DIST_PLANO_P);
+        int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
         int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
         int y1 = y0 + alturaSprite;
         double x0 = tan(anguloObjeto) * DIST_PLANO_P;
@@ -220,7 +219,7 @@ void Modelo::terminoPartida(Ranking *rankingJugadores) {
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     if (tipo.getName() == "comida") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,
+        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 1, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "kitsMedicos") {
@@ -292,6 +291,7 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else {
+        std::cerr << " creo elsee";
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 0, 0,
                       0);
         return new ObjetoJuego(std::move(sprite));
@@ -367,6 +367,7 @@ bool Modelo::procesarActualizaciones() {
             }
 
             this->mapa = estadoJuego.obtenerMapa();
+            this->mapa.setLadoCelda(ANCHO_CANVAS);
             std::vector<Item *> items = this->mapa.obtenerItems();
             for (int i = 0; i < items.size(); i++) {
                 Item *item = items[i];
@@ -374,6 +375,8 @@ bool Modelo::procesarActualizaciones() {
                 Type tipo = item->getTipo();
                 int posxI = item->obtenerPosicion().pixelesEnX();
                 int posyI = item->obtenerPosicion().pixelesEnY();
+                std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
+                          << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
                 this->actualizarObjeto(idI, tipo, posxI, posyI);
             }
         } else if (idActualizacion == static_cast<int>(Accion::aperturaDePuerta)) {
@@ -415,7 +418,8 @@ bool Modelo::procesarActualizaciones() {
             auto movimiento = (ActualizacionMovimiento *) actualizacion;
             std::cerr << "JUGADOR:" << movimiento->obtenerJugador()->getId() << std::endl;
             std::cerr << "posx:" << movimiento->obtenerJugador()->posEnX() << " posy:"
-                      << movimiento->obtenerJugador()->posEnY() << " ang: " << movimiento->obtenerJugador()->getAnguloDeVista() << std::endl;
+                      << movimiento->obtenerJugador()->posEnY() << " ang: "
+                      << movimiento->obtenerJugador()->getAnguloDeVista() << std::endl;
             int idJugador = movimiento->obtenerJugador()->getId();
             if (idJugador == this->jugador->getId()) {
                 this->actualizarPosicionJugador(movimiento->obtenerJugador()->posEnX(),
