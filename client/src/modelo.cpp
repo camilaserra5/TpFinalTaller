@@ -415,7 +415,7 @@ bool Modelo::procesarActualizaciones() {
             auto movimiento = (ActualizacionMovimiento *) actualizacion;
             std::cerr << "JUGADOR:" << movimiento->obtenerJugador()->getId() << std::endl;
             std::cerr << "posx:" << movimiento->obtenerJugador()->posEnX() << " posy:"
-                      << movimiento->obtenerJugador()->posEnY() << std::endl;
+                      << movimiento->obtenerJugador()->posEnY() << " ang: " << movimiento->obtenerJugador()->getAnguloDeVista() << std::endl;
             int idJugador = movimiento->obtenerJugador()->getId();
             if (idJugador == this->jugador->getId()) {
                 this->actualizarPosicionJugador(movimiento->obtenerJugador()->posEnX(),
