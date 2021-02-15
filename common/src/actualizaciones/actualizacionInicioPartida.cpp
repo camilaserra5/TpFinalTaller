@@ -5,9 +5,8 @@ ActualizacionInicioPartida::ActualizacionInicioPartida(EstadoJuego &estadoJuego)
         estadoJuego(estadoJuego), termine(false), rankingJugadores() {
     estadoJuego.verificarJugadoresMuertos();
     this->termine = this->estadoJuego.terminoPartida();
-    Ranking ranking;
-    this->rankingJugadores = ranking.obtenerTopJugadores(5,
-                                                         estadoJuego.obtenerJugadores());
+    Ranking ranking(estadoJuego.obtenerJugadores());
+    this->rankingJugadores = ranking.obtenerTopJugadores(5);
 }
 
 ActualizacionInicioPartida::~ActualizacionInicioPartida() {

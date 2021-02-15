@@ -51,7 +51,7 @@ public:
 
     Player &getPlayer();
 
-    void terminoPartida(std::vector<int> &rankingJugadores);
+    void terminoPartida(Ranking *rankingJugadores);
 
     void actualizar();
 
@@ -66,8 +66,8 @@ public:
     void actualizarArmaEnemigos(int idArma);
 
     void actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas, int puntaje, int cant_vidas);
-    
-    void actualizarVidaEnemigo(int id,int vida, int idArma);
+
+    void actualizarVidaEnemigo(int id, int vida, int idArma);
 
 private:
     Ventana &ventana;

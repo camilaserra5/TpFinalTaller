@@ -23,11 +23,10 @@ public:
 
     int obtenerId() override { return static_cast<int>(Accion::terminoPartida); }
 
-    std::vector<int> obtenerRanking();
+    Ranking *obtenerRanking();
 
 private:
     EstadoJuego estadoJuego;
-    std::vector<int> ranking;
 };
 
 #endif

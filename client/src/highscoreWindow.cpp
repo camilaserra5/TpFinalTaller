@@ -11,7 +11,7 @@
 #define FONT_SIZE_SUBTITLE 15
 #define FONT_SIZE_NAMES 12
 
-HighscoreWindow::HighscoreWindow(Ventana& ventana): ventana(ventana){
+HighscoreWindow::HighscoreWindow(Ventana &ventana) : ventana(ventana) {
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("Couldn't initialize SDL: %s\n", SDL_GetError());
@@ -48,7 +48,7 @@ void display_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int 
 }
 
 void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
-    Background background(BACKGROUND_IMAGE_ROOT, renderer,1280,720);
+    Background background(BACKGROUND_IMAGE_ROOT, renderer, 1280, 720);
     SDL_Event e;
     int pressed = false;
     while (!pressed) {
@@ -69,24 +69,33 @@ void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
 
         display_text("Top kills", fonts.getFont("wolfstein-subtitle"), renderer, SCREEN_WIDTH / 3,
                      50 + FONT_SIZE_TITLE);
-        for (int i = 1; i < 6; i++) {
-            display_text("#" + std::to_string(i) + " - Ketchup", fonts.getFont("wolfstein-names"), renderer,
+        std::vector<std::pair<int, Jugador *>> topKills = ranking->obtenerTop5EnemigosMatados();
+        for (int i = 1; i < topKills.size(); i++) {
+            display_text("#" + std::to_string(i) + " - " + topKills.at(i).second->obtenerNombre() + " - " +
+                         std::to_string(topKills.at(i).second->obtenerLogro().obtenerEnemigosMatados()),
+                         fonts.getFont("wolfstein-names"), renderer,
                          SCREEN_WIDTH / 3,
                          70 + FONT_SIZE_TITLE + FONT_SIZE_SUBTITLE * i * 1.3);
         }
 
         display_text("Top score", fonts.getFont("wolfstein-subtitle"), renderer, SCREEN_WIDTH * 8 / 15,
                      50 + FONT_SIZE_TITLE);
-        for (int i = 1; i < 6; i++) {
-            display_text("#" + std::to_string(i) + " - Alioli", fonts.getFont("wolfstein-names"), renderer,
+        std::vector<std::pair<int, Jugador *>> topScore = ranking->obtenerTop5PuntosTotalesPorTesoros();
+        for (int i = 1; i < topScore.size(); i++) {
+            display_text("#" + std::to_string(i) + " - " + topScore.at(i).second->obtenerNombre() + " - " +
+                         std::to_string(topScore.at(i).second->obtenerLogro().obtenerEnemigosMatados()),
+                         fonts.getFont("wolfstein-names"), renderer,
                          SCREEN_WIDTH * 8 / 15,
                          70 + FONT_SIZE_TITLE + FONT_SIZE_SUBTITLE * i * 1.3);
         }
 
         display_text("Top shooter", fonts.getFont("wolfstein-subtitle"), renderer, SCREEN_WIDTH * 9 / 12,
                      50 + FONT_SIZE_TITLE);
-        for (int i = 1; i < 6; i++) {
-            display_text("#" + std::to_string(i) + " - Cami", fonts.getFont("wolfstein-names"), renderer,
+        std::vector<std::pair<int, Jugador *>> topShooter = ranking->obtenerTop5BalasDisparadas();
+        for (int i = 1; i < topShooter.size(); i++) {
+            display_text("#" + std::to_string(i) + " - " + topShooter.at(i).second->obtenerNombre() + " - " +
+                         std::to_string(topShooter.at(i).second->obtenerLogro().obtenerEnemigosMatados()),
+                         fonts.getFont("wolfstein-names"), renderer,
                          SCREEN_WIDTH * 9 / 12,
                          70 + FONT_SIZE_TITLE + FONT_SIZE_SUBTITLE * i * 1.3);
         }
@@ -95,6 +104,11 @@ void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
     }
 }
 
+void HighscoreWindow::settearGanadores(Ranking *ranking) {
+    this->ranking = ranking;
+}
+
+/*
 void HighscoreWindow::settearGanadores(std::vector<int>& ganadores,Player *jugador, std::map<int, Enemigo *> &enemigos){
     for (int i = 0; i < ganadores.size(); i++) {
         int id = ganadores[i];
@@ -110,9 +124,9 @@ void HighscoreWindow::settearGanadores(std::vector<int>& ganadores,Player *jugad
             this->ganadores.insert(std::make_pair(id, logro));
         }
     }
-}
+}*/
 void HighscoreWindow::renderizar() {
-    Background background(BACKGROUND_IMAGE_ROOT, this->renderer,1280,720);
+    Background background(BACKGROUND_IMAGE_ROOT, this->renderer, 1280, 720);
     background.drawBackground();
     while (1) {
         SDL_Event e;

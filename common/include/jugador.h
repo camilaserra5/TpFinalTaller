@@ -21,6 +21,8 @@ public:
 
     Jugador();
 
+    std::string obtenerNombre();
+
     void moverse(int posx, int posy);
 
     void rotar(int sentido);
@@ -89,7 +91,7 @@ public:
 
     void deserializar(std::vector<char> &serializado) override;
 
-    Actualizacion* cambiarArma();
+    Actualizacion *cambiarArma();
 
 private:
     Posicion posicion;
