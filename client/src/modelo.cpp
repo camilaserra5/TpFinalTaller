@@ -220,7 +220,7 @@ void Modelo::terminoPartida(Ranking *rankingJugadores) {
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     if (tipo.getName() == "comida") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,
+        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 1, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "kitsMedicos") {
@@ -292,6 +292,7 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else {
+        std::cerr << " creo elsee";
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 0, 0,
                       0);
         return new ObjetoJuego(std::move(sprite));
@@ -374,6 +375,8 @@ bool Modelo::procesarActualizaciones() {
                 Type tipo = item->getTipo();
                 int posxI = item->obtenerPosicion().pixelesEnX();
                 int posyI = item->obtenerPosicion().pixelesEnY();
+                std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
+                          << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
                 this->actualizarObjeto(idI, tipo, posxI, posyI);
             }
         } else if (idActualizacion == static_cast<int>(Accion::aperturaDePuerta)) {
@@ -415,7 +418,8 @@ bool Modelo::procesarActualizaciones() {
             auto movimiento = (ActualizacionMovimiento *) actualizacion;
             std::cerr << "JUGADOR:" << movimiento->obtenerJugador()->getId() << std::endl;
             std::cerr << "posx:" << movimiento->obtenerJugador()->posEnX() << " posy:"
-                      << movimiento->obtenerJugador()->posEnY() << " ang: " << movimiento->obtenerJugador()->getAnguloDeVista() << std::endl;
+                      << movimiento->obtenerJugador()->posEnY() << " ang: "
+                      << movimiento->obtenerJugador()->getAnguloDeVista() << std::endl;
             int idJugador = movimiento->obtenerJugador()->getId();
             if (idJugador == this->jugador->getId()) {
                 this->actualizarPosicionJugador(movimiento->obtenerJugador()->posEnX(),
