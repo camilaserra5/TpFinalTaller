@@ -22,6 +22,8 @@ std::vector<char> ActualizacionAtaque::serializar() {
     informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
 
     std::map<int, Jugador *>::iterator it;
+    aux = numberToCharArray(this->jugadoresAtacados.size());
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
     for (it = jugadoresAtacados.begin(); it != jugadoresAtacados.end(); ++it) {
         Jugador jug = *it->second;
         jugadorSerializado = jug.serializar();

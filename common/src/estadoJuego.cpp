@@ -25,15 +25,15 @@
 #define CANT_TICKS_PARTIDA 10000  //5min
 #define TAMANIO_CELDA 80 //es variable y depende del tamanio del mapa
 
-Actualizacion* EstadoJuego::abrirPuerta(int idJugador) {
-    Actualizacion* actualizacion = NULL;
+Actualizacion *EstadoJuego::abrirPuerta(int idJugador) {
+    Actualizacion *actualizacion = NULL;
     Jugador *jugador = this->jugadores.at(idJugador);
     jugador->dejarDeDisparar();
     Posicion &posJugador = jugador->getPosicion();
     double distancia;
     if (this->mapa.hayPuertas()) {
         Puerta &puertaMasCercana = this->mapa.puertaMasCercana(posJugador,
-                                                                distancia);
+                                                               distancia);
         if (puertaMasCercana.puedeSerAbierta(jugador->tengollave(), distancia)) {
             puertaMasCercana.abrir();
             actualizacion = new ActualizacionAperturaPuerta(puertaMasCercana);
@@ -44,16 +44,16 @@ Actualizacion* EstadoJuego::abrirPuerta(int idJugador) {
 
 EstadoJuego::EstadoJuego() {}
 
-Actualizacion* EstadoJuego::realizarAtaque(int idJugador) {
+Actualizacion *EstadoJuego::realizarAtaque(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
     jugador->atacar();
     Arma *arma = jugador->getArma();
     int distancia_inventada = 5;
-    Actualizacion* actualizacion = arma->atacar(distancia_inventada, jugador, this->jugadores);
+    Actualizacion *actualizacion = arma->atacar(distancia_inventada, jugador, this->jugadores);
     return actualizacion;
 }
 
-EstadoJuego::EstadoJuego(Map& mapa) :
+EstadoJuego::EstadoJuego(Map &mapa) :
         mapa(mapa),
         jugadores(),
         contador(0) {}
@@ -71,17 +71,18 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
     this->jugadores.insert(std::make_pair(id, jugador));
 }
 
-bool puedo_moverme(Map& mapa, int &posx, int &posy, Jugador *jugador) {
+bool puedo_moverme(Map &mapa, int &posx, int &posy, Jugador *jugador) {
     int posEnMapaJugadorx = posx / TAMANIO_CELDA;  // 50 seria el tamanio de la celda en pixeles
     // esa info hya que ver quien la tiene. maybe mapa?
-    int posEnMapaJugadory = posy /  TAMANIO_CELDA;
+    int posEnMapaJugadory = posy / TAMANIO_CELDA;
     std::cerr << "pos del jugador q verifico x: " << posEnMapaJugadorx << " y: " << posEnMapaJugadory << std::endl;
     Type tipo = mapa.operator()(posEnMapaJugadorx, posEnMapaJugadorx);
     std::string name = tipo.getName();
-    return (name != "door" && name !="wall" && name != "wall-2" && name != "wall-3" && name != "fakeDoor" && name != "keyDoor");
+    return (name != "door" && name != "wall" && name != "wall-2" && name != "wall-3" && name != "fakeDoor" &&
+            name != "keyDoor");
 }
 
-Item *verificarItems(Map& mapa, int &posx, int &posy) {
+Item *verificarItems(Map &mapa, int &posx, int &posy) {
     int posEnMapaJugadorx =
             (mapa.getRowSize() * posx) / (mapa.getRowSize() * TAMANIO_CELDA);
     // esa info hya que ver quien la tiene. maybe mapa?
@@ -90,15 +91,15 @@ Item *verificarItems(Map& mapa, int &posx, int &posy) {
     return mapa.buscarElemento(posx, posy);
 }
 
-std::vector<Actualizacion*> EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int &yFinal) {
+std::vector<Actualizacion *> EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int &yFinal) {
     bool obtuvoBeneficio = false;
-    std::vector<Actualizacion*> actualizaciones;
+    std::vector<Actualizacion *> actualizaciones;
     if (puedo_moverme(this->mapa, xFinal, yFinal, jugador)) {
-      std::cerr << "/* PUDE MOVER A JUGADOOR A */" <<  xFinal<< " " << yFinal << '\n';
+        std::cerr << "/* PUDE MOVER A JUGADOOR A */" << xFinal << " " << yFinal << '\n';
         Item *item = verificarItems(this->mapa, xFinal, yFinal);
         if (item != nullptr) {
             obtuvoBeneficio = item->obtenerBeneficio(jugador);
-            Actualizacion* obtengoItem = new ActualizacionAgarroItem(jugador, item);
+            Actualizacion *obtengoItem = new ActualizacionAgarroItem(jugador, item);
             actualizaciones.push_back(obtengoItem);
             if (obtuvoBeneficio) {
                 this->mapa.sacarDelMapa(item->getPosicion());
@@ -106,39 +107,41 @@ std::vector<Actualizacion*> EstadoJuego::verificarMovimientoJugador(Jugador *jug
             //delete item;// a cheqeuar
         }
         jugador->moverse(xFinal, yFinal);
-        Actualizacion* moverme = new ActualizacionMovimiento(jugador);
+        Actualizacion *moverme = new ActualizacionMovimiento(jugador);
         actualizaciones.push_back(moverme);
         return actualizaciones;
     }
 }
 
-Actualizacion* EstadoJuego::rotar_a_derecha(int idJugador) {
+Actualizacion *EstadoJuego::rotar_a_derecha(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     //jugador->dejarDeDisparar();
     jugador->rotar(ROTACION_DERECHA);
     return new ActualizacionMovimiento(jugador);
 }
 
-Actualizacion* EstadoJuego::rotar_a_izquierda(int idJugador) {
+Actualizacion *EstadoJuego::rotar_a_izquierda(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     //jugador->dejarDeDisparar();
     jugador->rotar(ROTACION_IZQUIERDA);
     return new ActualizacionMovimiento(jugador);
 }
 
-std::vector<Actualizacion*> EstadoJuego::moverse_arriba(int idJugador) {
+std::vector<Actualizacion *> EstadoJuego::moverse_arriba(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-  //  jugador->dejarDeDisparar();
+    //  jugador->dejarDeDisparar();
     int xFinal = jugador->posEnX() + (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() + (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
     return this->verificarMovimientoJugador(jugador, xFinal, yFinal);
 }
 
-std::vector<Actualizacion*> EstadoJuego::moverse_abajo(int idJugador) {
+std::vector<Actualizacion *> EstadoJuego::moverse_abajo(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     jugador->dejarDeDisparar();
+    std::cerr << "pos ant x" << jugador->posEnX() << " y" << jugador->posEnY() << std::endl;
     int xFinal = jugador->posEnX() - (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() - (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
+    std::cerr << "pos dsp x" << xFinal << " y" << yFinal << std::endl;
     return this->verificarMovimientoJugador(jugador, xFinal, yFinal);
 }
 
@@ -214,7 +217,7 @@ std::vector<char> EstadoJuego::serializar() {
 
 void EstadoJuego::deserializar(std::vector<char> &informacion) {
     std::vector<char> sub(4);
-  //  std::cerr << "estado juego deserializar empieza" << std::endl;
+    //  std::cerr << "estado juego deserializar empieza" << std::endl;
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     int jugadoresSize = charArrayToNumber(sub);
@@ -240,11 +243,11 @@ std::map<int, Jugador *> &EstadoJuego::obtenerJugadores() {
     return this->jugadores;
 }
 
-Map& EstadoJuego::obtenerMapa() {
+Map &EstadoJuego::obtenerMapa() {
     return this->mapa;
 }
 
-Actualizacion* EstadoJuego::cambiarArma(int idJugador) {
+Actualizacion *EstadoJuego::cambiarArma(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
     return jugador->cambiarArma();
 }

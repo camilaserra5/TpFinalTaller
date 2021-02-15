@@ -2,6 +2,8 @@
 #include <iterator>
 #include <algorithm>
 
+Ranking::Ranking(std::map<int, Jugador *> jugadores) : jugadores(jugadores) {}
+
 bool estaEnElTop(Jugador *jugador, int &posicion, std::map<int, Jugador *> &jugadores,
                  std::vector<int> &topJugadores, int &cantidadTopJugadores) {
     bool estaEnElTop = false;
@@ -32,7 +34,7 @@ void ordenarEnPosicion(int id, int &posicion, std::vector<int> &topJugadores, in
     }
 }
 
-std::vector<int> Ranking::obtenerTopJugadores(int cantidadTopJugadores, std::map<int, Jugador *> &jugadores) {
+std::vector<int> Ranking::obtenerTopJugadores(int cantidadTopJugadores) {
     std::map<int, Jugador *>::iterator it;
     std::vector<int> topJugadores;
     topJugadores.push_back(jugadores.begin()->first);
@@ -45,7 +47,7 @@ std::vector<int> Ranking::obtenerTopJugadores(int cantidadTopJugadores, std::map
     return topJugadores;
 }
 
-std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5EnemigosMatados(std::map<int, Jugador *> jugadores) {
+std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5EnemigosMatados() {
     int n = std::min(5, (int) jugadores.size());
     std::vector<std::pair<int, Jugador *>> top(n);
     std::partial_sort_copy(jugadores.begin(),
@@ -60,7 +62,7 @@ std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5EnemigosMatados(std::
     return top;
 }
 
-std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5PuntosTotalesPorTesoros(std::map<int, Jugador *> jugadores) {
+std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5PuntosTotalesPorTesoros() {
     int n = std::min(5, (int) jugadores.size());
     std::vector<std::pair<int, Jugador *>> top(n);
     std::partial_sort_copy(jugadores.begin(),
@@ -75,7 +77,7 @@ std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5PuntosTotalesPorTesor
     return top;
 }
 
-std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5BalasDisparadas(std::map<int, Jugador *> jugadores) {
+std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5BalasDisparadas() {
     int n = std::min(5, (int) jugadores.size());
     std::vector<std::pair<int, Jugador *>> top(n);
     std::partial_sort_copy(jugadores.begin(),

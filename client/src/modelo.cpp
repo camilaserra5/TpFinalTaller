@@ -211,16 +211,15 @@ void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
     }
 }
 
-void Modelo::terminoPartida(std::vector<int> &rankingJugadores) {
-
-    this->anunciador.settearGanadores(rankingJugadores, jugador, enemigos);
+void Modelo::terminoPartida(Ranking *rankingJugadores) {
+    this->anunciador.settearGanadores(rankingJugadores);
     this->partidaTerminada = true;
 }
 
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     if (tipo.getName() == "comida") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,
+        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 1, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "kitsMedicos") {
@@ -292,6 +291,7 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else {
+        std::cerr << " creo elsee";
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 0, 0,
                       0);
         return new ObjetoJuego(std::move(sprite));
@@ -302,21 +302,23 @@ void Modelo::actualizar() {
     this->zbuffer.clear();
 }
 
-void Modelo::actualizarArmaJugador(int idArma){
+void Modelo::actualizarArmaJugador(int idArma) {
     this->jugador->actualizarArma(idArma);
 }
 
-void Modelo::actualizarArmaEnemigos(int idArma){
+void Modelo::actualizarArmaEnemigos(int idArma) {
     std::map<int, Enemigo *>::iterator it;
-    for (it = this->enemigos.begin(); it != this->enemigos.end(); ++it){
+    for (it = this->enemigos.begin(); it != this->enemigos.end(); ++it) {
         it->second->actualizarArma(idArma);
     }
 }
-void Modelo::actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas, int puntaje, int cant_vidas){
-    this->jugador->actualizarDatosJugador(vida,cant_vidas, puntaje, cant_balas);
+
+void Modelo::actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas, int puntaje, int cant_vidas) {
+    this->jugador->actualizarDatosJugador(vida, cant_vidas, puntaje, cant_balas);
     this->jugador->actualizarArma(idArma);
 }
-void Modelo::actualizarVidaEnemigo(int id,int vida, int idArma){
+
+void Modelo::actualizarVidaEnemigo(int id, int vida, int idArma) {
     this->enemigos.at(id)->actualizarVida(vida);
     this->enemigos.at(id)->actualizarArma(idArma);
 }
@@ -373,6 +375,8 @@ bool Modelo::procesarActualizaciones() {
                 Type tipo = item->getTipo();
                 int posxI = item->obtenerPosicion().pixelesEnX();
                 int posyI = item->obtenerPosicion().pixelesEnY();
+                std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
+                          << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
                 this->actualizarObjeto(idI, tipo, posxI, posyI);
             }
         } else if (idActualizacion == static_cast<int>(Accion::aperturaDePuerta)) {
@@ -382,28 +386,30 @@ bool Modelo::procesarActualizaciones() {
             std::cerr << "act cambio arma" << std::endl;
             auto cambioArma = (ActualizacionCambioArma *) actualizacion;
             int idJugador = cambioArma->obtenerIdJugador();
-            if (idJugador == this->jugador->getId()){
+            if (idJugador == this->jugador->getId()) {
                 this->actualizarArmaJugador(cambioArma->obtenerIdArma());
                 this->actualizarArmaEnemigos(cambioArma->obtenerIdArma());
             }
         } else if (idActualizacion == static_cast<int>(Accion::ataque)) {
             std::cerr << "act ataque" << std::endl;
             auto ataque = (ActualizacionAtaque *) actualizacion;
-            Jugador* jugador = ataque->obtenerJugador();
-            if ( jugador->getId() == this->jugador->getId()){
-              this->actualizarEstadoAtaqueJugador(jugador->puntos_de_vida(), jugador->getArma()->getId(), jugador->cantidad_balas(),
-                                                  jugador->obtenerPuntosTotales(), jugador->cant_de_vida());
+            Jugador *jugador = ataque->obtenerJugador();
+            if (jugador->getId() == this->jugador->getId()) {
+                this->actualizarEstadoAtaqueJugador(jugador->puntos_de_vida(), jugador->getArma()->getId(),
+                                                    jugador->cantidad_balas(),
+                                                    jugador->obtenerPuntosTotales(), jugador->cant_de_vida());
             }
-            std::map<int, Jugador*> jugadoresAtacados = ataque->obtenerJugadoresAtacados();
+            std::map<int, Jugador *> jugadoresAtacados = ataque->obtenerJugadoresAtacados();
             std::map<int, Jugador *>::iterator it;
-            for (it = jugadoresAtacados.begin(); it != jugadoresAtacados.end(); it++){
-                if(it->first == this->jugador->getId()){
-                  this->actualizarEstadoAtaqueJugador(jugador->puntos_de_vida(), jugador->getArma()->getId(), jugador->cantidad_balas(),
-                                                      jugador->obtenerPuntosTotales(), jugador->cant_de_vida());
+            for (it = jugadoresAtacados.begin(); it != jugadoresAtacados.end(); it++) {
+                if (it->first == this->jugador->getId()) {
+                    this->actualizarEstadoAtaqueJugador(jugador->puntos_de_vida(), jugador->getArma()->getId(),
+                                                        jugador->cantidad_balas(),
+                                                        jugador->obtenerPuntosTotales(), jugador->cant_de_vida());
                 } else {
-                  int idE = it->first;
-                  int vidaE = it->second->puntos_de_vida();
-                  this->actualizarVidaEnemigo(idE, vidaE, jugador->getArma()->getId());
+                    int idE = it->first;
+                    int vidaE = it->second->puntos_de_vida();
+                    this->actualizarVidaEnemigo(idE, vidaE, jugador->getArma()->getId());
                 }
             }
 
@@ -412,20 +418,23 @@ bool Modelo::procesarActualizaciones() {
             auto movimiento = (ActualizacionMovimiento *) actualizacion;
             std::cerr << "JUGADOR:" << movimiento->obtenerJugador()->getId() << std::endl;
             std::cerr << "posx:" << movimiento->obtenerJugador()->posEnX() << " posy:"
-                      << movimiento->obtenerJugador()->posEnY() << std::endl;
+                      << movimiento->obtenerJugador()->posEnY() << " ang: "
+                      << movimiento->obtenerJugador()->getAnguloDeVista() << std::endl;
             int idJugador = movimiento->obtenerJugador()->getId();
-            if (idJugador == this->jugador->getId()){
-                this->actualizarPosicionJugador(movimiento->obtenerJugador()->posEnX(), movimiento->obtenerJugador()->posEnY(),
+            if (idJugador == this->jugador->getId()) {
+                this->actualizarPosicionJugador(movimiento->obtenerJugador()->posEnX(),
+                                                movimiento->obtenerJugador()->posEnY(),
                                                 movimiento->obtenerJugador()->getAnguloDeVista());
-            }else{
-              this->enemigos.at(idJugador)->actualizarPosicion(movimiento->obtenerJugador()->posEnX(), movimiento->obtenerJugador()->posEnY(),
-                                                        movimiento->obtenerJugador()->getAnguloDeVista());
+            } else {
+                this->enemigos.at(idJugador)->actualizarPosicion(movimiento->obtenerJugador()->posEnX(),
+                                                                 movimiento->obtenerJugador()->posEnY(),
+                                                                 movimiento->obtenerJugador()->getAnguloDeVista());
             }
         } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
             std::cerr << "act terminooo" << std::endl;
             auto termino = (ActualizacionTerminoPartida *) actualizacion;
-            std::vector<int> ordenRanking = termino->obtenerRanking();
-            this->terminoPartida(ordenRanking);
+            Ranking *ranking = termino->obtenerRanking();
+            this->terminoPartida(ranking);
         }
 
         delete actualizacion;
@@ -439,7 +448,7 @@ bool Modelo::procesarActualizaciones() {
     }
 }
 
-void Modelo::actualizarPosicionJugador(int posX, int posY, float angulo){
-  this->jugador->getPosicion().actualizar_posicion(posX,posY);
-  this->jugador->getPosicion().setAngulo(angulo);
+void Modelo::actualizarPosicionJugador(int posX, int posY, float angulo) {
+    this->jugador->getPosicion().actualizar_posicion(posX, posY);
+    this->jugador->getPosicion().setAngulo(angulo);
 }

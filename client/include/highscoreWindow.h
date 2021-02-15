@@ -17,21 +17,21 @@
 class HighscoreWindow {
 
 public:
-    HighscoreWindow(Ventana& ventana);
+    HighscoreWindow(Ventana &ventana);
 
     void renderizar();
 
     void show_highscores(SDL_Renderer *renderer, Fonts fonts);
 
-    void settearGanadores(std::vector<int>& ganadores,Player *jugador, std::map<int, Enemigo *> &enemigos);
+    void settearGanadores(Ranking *ranking);
 
     ~HighscoreWindow();
 
 private:
     SDL_Renderer *renderer;
-    Ventana& ventana;
+    Ventana &ventana;
     Fonts fonts;
-    std::map<int, int> ganadores;
+    Ranking *ranking;
 
 };
 

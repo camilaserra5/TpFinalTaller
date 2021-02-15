@@ -18,6 +18,8 @@ std::vector<char> Item::serializar() {
     std::vector<char> aux(4);
     aux = numberToCharArray(this->id);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
+    aux = numberToCharArray(this->getTipo().getType());
+    informacion.insert(informacion.end(), aux.begin(), aux.end());
     std::vector<char> posicionSerializado = this->posicion.serializar();
     informacion.insert(informacion.end(), posicionSerializado.begin(),
                        posicionSerializado.end());

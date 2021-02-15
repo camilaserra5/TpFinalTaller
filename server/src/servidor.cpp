@@ -6,6 +6,7 @@
 #include "actualizaciones/actualizacionInicioPartida.h"
 #include "actualizaciones/actualizacionTerminoPartida.h"
 #include "actualizaciones/actualizacionCambioArma.h"
+#include "ranking.h"
 
 #define TIEMPO_SERVIDOR 0.3
 
@@ -128,7 +129,7 @@ void Servidor::run() {
             auto inicio = std::chrono::high_resolution_clock::now();
 
             // generar comandos lua(this->cola_comandos, this->estadoJuego);
-            std::cerr << "proceso" << std::endl;
+            //std::cerr << "proceso" << std::endl;
             procesar_comandos(this->cola_comandos, this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {

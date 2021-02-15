@@ -31,15 +31,18 @@ public:
     Item *buscarElemento(int &pox, int &posy);
 
     std::vector<char> serializar() override;
+
     void deserializar(std::vector<char> &serializado) override;
+
     std::vector<Item *> &obtenerItems();
+
     bool hayPuertas();
 
     Puerta &puertaMasCercana(Posicion &posicionJugador, double &distancia);
 
     Puerta &obtenerPuertaEn(int &fila, int &columna);
 
-    void aniadirPuerta(Puerta& puerta);
+    void aniadirPuerta(Puerta &puerta);
 
 private:
     std::vector<Item *> elementos;
