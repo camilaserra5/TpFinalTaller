@@ -6,6 +6,7 @@
 #include "actualizaciones/actualizacionInicioPartida.h"
 #include "actualizaciones/actualizacionTerminoPartida.h"
 #include "actualizaciones/actualizacionCambioArma.h"
+#include "ranking.h"
 
 #define TIEMPO_SERVIDOR 0.3
 
@@ -106,7 +107,7 @@ void Servidor::enviar_actualizaciones(std::vector<Actualizacion *> actualizacion
     }
 }
 
-
+/*
 void Servidor::generarComandosLua(ProtectedQueue<Comando *> cola_comandos, EstadoJuego estadoJuego){
     Comando* nuevoComando;
     char tecla = jugadorLua.procesar(); // servidor que tenga una intelgencia;
@@ -129,7 +130,7 @@ void Servidor::generarComandosLua(ProtectedQueue<Comando *> cola_comandos, Estad
     }
     this->cola_comandos.aniadir_dato(nuevoComando);
 }
-
+*/
 void Servidor::run() {
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
@@ -147,7 +148,7 @@ void Servidor::run() {
             auto inicio = std::chrono::high_resolution_clock::now();
 
             // generarComandosLua(this->cola_comandos, this->estadoJuego);
-            std::cerr << "proceso" << std::endl;
+            //std::cerr << "proceso" << std::endl;
             procesar_comandos(this->cola_comandos, this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
