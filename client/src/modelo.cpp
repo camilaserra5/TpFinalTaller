@@ -112,8 +112,13 @@ void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibl
     std::map<int, ObjetoJuego *>::iterator itItem;
     for (itItem = this->entidades.begin(); itItem != this->entidades.end(); ++itItem) {
         Posicion &posItem = itItem->second->getPosicion();
+        std::cerr << "un item\n";
+        std::cerr << "posx: " << posItem.pixelesEnX();
+        std::cerr << "posy: " << posItem.pixelesEnY();
+        std::cerr << "\n";
         esVisible = verificarVisibilidadDeObjeto(posItem);
         if (esVisible) {
+            std::cerr << "esVisible\n";
             objetosVisibles.push_back(itItem->second);
             double distanciaAItem = posItem.distanciaA(this->jugador->getPosicion());
             itItem->second->setDistanciaParcialAJugador(distanciaAItem);
@@ -145,7 +150,9 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
         double anguloObjeto = atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
+        std::cerr << "\ndistancia: " << distancia;
         int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
+        std::cerr << "\n alturaSprite: " << alturaSprite;
         int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
         double x0 = tan(anguloObjeto) * DIST_PLANO_P;
         int x = (ANCHO_CANVAS / 2) + x0 - (SPRITE_ANCHO / 2);
@@ -156,7 +163,7 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
 void Modelo::verificarObjetosEnRangoDeVista() {
     std::vector<ObjetoDibujable *> objetosVisibles;
     this->verificarItemsEnRango(objetosVisibles);
-    this->verificarEnemigosEnRango(objetosVisibles);
+  //  this->verificarEnemigosEnRango(objetosVisibles);
     std::sort(objetosVisibles.begin(), objetosVisibles.end(), compararDistanciasObjetos);
     this->renderizarObjetosDibujables(objetosVisibles);
 }
