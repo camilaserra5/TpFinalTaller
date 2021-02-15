@@ -1,6 +1,7 @@
 #include "../include/posicion.h"
 
 #define DELTA_DISTANCIA 0.5
+#define PI 3.1415926
 
 #include <math.h>
 #include <iostream>
@@ -83,8 +84,9 @@ std::vector<char> Posicion::serializar() {
 
     aux = numberToCharArray(pixelesY);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
-
-    aux = numberToCharArray(anguloDeVista);
+    std::cerr << "el ngulo que serializo es: " << anguloDeVista << std::endl;
+    int anguloSerializar = (anguloDeVista * 180)/PI;
+    aux = numberToCharArray(anguloSerializar);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     return informacion;
 }
@@ -102,7 +104,8 @@ void Posicion::deserializar(std::vector<char> &serializado) {
 //    std::cerr << " posicion deserializar pixelesY " << pixelesY << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-    this->anguloDeVista = charArrayToNumber(sub);
+    int anguloDeserializar = charArrayToNumber(sub);
+    this->anguloDeVista = (anguloDeserializar * PI)/180;
   //  std::cerr << " posicion deserializar anguloDeVista " << anguloDeVista << std::endl;
 //    std::cerr << " posicion deserializar fin " << std::endl;
 }
