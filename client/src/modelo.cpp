@@ -83,7 +83,7 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
             dimension.x = i;//suma offset
             dimension.y = 0;//sumaoffset
             dimension.w = 1;
-            dimension.h = alturaSprite;
+            dimension.h = 0;
             dest.x = posBuffer;
             dest.y = y - 40;
             dest.w = 1;
@@ -147,10 +147,9 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
         int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
         int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
-        int y1 = y0 + alturaSprite;
         double x0 = tan(anguloObjeto) * DIST_PLANO_P;
         int x = (ANCHO_CANVAS / 2) + x0 - (SPRITE_ANCHO / 2);
-        this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y1, distancia);
+        this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y0, distancia);
     }
 }
 
