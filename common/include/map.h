@@ -57,6 +57,10 @@ public:
 
     Map(){}//capaz poner privado
 
+    void setLadoCelda(int anchoPantalla);
+
+    int getLadoCelda();
+
 private:
     unsigned rowSize;
     unsigned colSize;

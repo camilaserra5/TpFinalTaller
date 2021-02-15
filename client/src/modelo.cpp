@@ -17,7 +17,6 @@
 #define SPRITE_OBJETOS "../../client/resources/images/Objects.png"
 #define FRAMESX 5
 #define FRAMESY 10
-#define ALTO_CELDA 40 //cambiar
 #define DIST_PLANO_P 692.820323//(ANCHO_CANVAS / 2) / tan(pi/6.0)
 #define PI 3.141592653
 
@@ -146,7 +145,7 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
         double anguloObjeto = atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
-        int alturaSprite = floor((ALTO_CELDA / distancia) * DIST_PLANO_P);
+        int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
         int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
         int y1 = y0 + alturaSprite;
         double x0 = tan(anguloObjeto) * DIST_PLANO_P;
@@ -366,6 +365,7 @@ bool Modelo::procesarActualizaciones() {
             }
 
             this->mapa = estadoJuego.obtenerMapa();
+            this->mapa.setLadoCelda(ANCHO_CANVAS);
             std::vector<Item *> items = this->mapa.obtenerItems();
             for (int i = 0; i < items.size(); i++) {
                 Item *item = items[i];
