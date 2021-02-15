@@ -21,8 +21,16 @@ public:
     void aniadirEnemigosMatados(int cantidadDeEnemigos);
 
     std::vector<char> serializar() override;
+
     void deserializar(std::vector<char> &serializado) override;
+
     int obtenerPuntosTotales();
+
+    int obtenerEnemigosMatados() { return enemigosMatados; }
+
+    int obtenerPuntosTotalesPorTesoros() { return puntosTotalesPorTesoros; }
+
+    int obtenerBalasDisparadas() { return balasDisparadas; }
 
 private:
     int enemigosMatados = 0;

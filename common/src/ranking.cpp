@@ -1,5 +1,6 @@
 #include "../include/ranking.h"
 #include <iterator>
+#include <algorithm>
 
 bool estaEnElTop(Jugador *jugador, int &posicion, std::map<int, Jugador *> &jugadores,
                  std::vector<int> &topJugadores, int &cantidadTopJugadores) {
@@ -42,4 +43,49 @@ std::vector<int> Ranking::obtenerTopJugadores(int cantidadTopJugadores, std::map
         }
     }
     return topJugadores;
+}
+
+std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5EnemigosMatados(std::map<int, Jugador *> jugadores) {
+    int n = std::min(5, (int) jugadores.size());
+    std::vector<std::pair<int, Jugador *>> top(n);
+    std::partial_sort_copy(jugadores.begin(),
+                           jugadores.end(),
+                           top.begin(),
+                           top.end(),
+                           [](std::pair<const int, Jugador *> const &l,
+                              std::pair<const int, Jugador *> const &r) {
+                               return l.second->obtenerLogro().obtenerEnemigosMatados() >
+                                      r.second->obtenerLogro().obtenerEnemigosMatados();
+                           });
+    return top;
+}
+
+std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5PuntosTotalesPorTesoros(std::map<int, Jugador *> jugadores) {
+    int n = std::min(5, (int) jugadores.size());
+    std::vector<std::pair<int, Jugador *>> top(n);
+    std::partial_sort_copy(jugadores.begin(),
+                           jugadores.end(),
+                           top.begin(),
+                           top.end(),
+                           [](std::pair<const int, Jugador *> const &l,
+                              std::pair<const int, Jugador *> const &r) {
+                               return l.second->obtenerLogro().obtenerPuntosTotalesPorTesoros() >
+                                      r.second->obtenerLogro().obtenerPuntosTotalesPorTesoros();
+                           });
+    return top;
+}
+
+std::vector<std::pair<int, Jugador *>> Ranking::obtenerTop5BalasDisparadas(std::map<int, Jugador *> jugadores) {
+    int n = std::min(5, (int) jugadores.size());
+    std::vector<std::pair<int, Jugador *>> top(n);
+    std::partial_sort_copy(jugadores.begin(),
+                           jugadores.end(),
+                           top.begin(),
+                           top.end(),
+                           [](std::pair<const int, Jugador *> const &l,
+                              std::pair<const int, Jugador *> const &r) {
+                               return l.second->obtenerLogro().obtenerBalasDisparadas() >
+                                      r.second->obtenerLogro().obtenerBalasDisparadas();
+                           });
+    return top;
 }
