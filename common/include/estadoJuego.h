@@ -53,6 +53,8 @@ public:
 
     Actualizacion* cambiarArma(int idJugador);
 
+    std::vector<std::vector<int>> GetMapanumerico();
+
 private:
     Map mapa;
     std::map<int, Jugador *> jugadores;
