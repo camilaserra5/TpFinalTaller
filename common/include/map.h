@@ -61,6 +61,8 @@ public:
 
     int getLadoCelda();
 
+    std::vector<std::vector<int>> Map::GetMapanumerico()
+
 private:
     unsigned rowSize;
     unsigned colSize;
