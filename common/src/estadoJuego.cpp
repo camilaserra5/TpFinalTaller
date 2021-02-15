@@ -251,3 +251,6 @@ Actualizacion *EstadoJuego::cambiarArma(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
     return jugador->cambiarArma();
 }
+std::vector<std::vector<int>> EstadoJuego::GetMapanumerico(){
+    return this->mapa.getMapanumerico();
+}

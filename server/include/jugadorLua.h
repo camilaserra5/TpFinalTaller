@@ -2,20 +2,19 @@
 #define WOLFSTEIN_JUGADORLUA_H
 
 #include "thread.h"
-#include "modelo.h"
+#include "../../common/include/estadoJuego.h"
 #include "../src/LUA/manejadorlua.h"
 #include <string>
 
-class JugadorLua : public Thread{
+class JugadorLua{
 private:
-    Modelo & modelo;
-    ManejadorLua lua;
     bool esta_vivo;
-
+    EstadoJuego& estadoJuego;
+    ManejadorLua lua;
+    int& id;
 public:
-    JugadorLua(Modelo& modelo/*, std::string IDJugador*/);
-    void run() override;
-    void stop();
+    JugadorLua(EstadoJuego estadoJuego, int id);
+    char procesar();
     ~JugadorLua() {}
 };
 
