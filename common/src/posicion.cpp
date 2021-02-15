@@ -30,6 +30,8 @@ bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
 }
 
 void Posicion::actualizar_posicion(int pixelesX, int pixelesY) {
+    std::cerr << "x viejo: " << this->pixelesX << "x nuevo: " << pixelesX;
+    std::cerr << "Y viejo: " << this->pixelesY << "Y nuevo: " << pixelesY;
     this->pixelesX = pixelesX;
     this->pixelesY = pixelesY;
 }
@@ -55,6 +57,8 @@ bool Posicion::estaCerca(int &posx, int &posy) {
 }
 
 void Posicion::rotar(float anguloRotacion) {
+    std::cerr << "angulo viejo: " << this->anguloDeVista;
+    std::cerr << "\n";
     float anguloFinal = this->anguloDeVista + anguloRotacion;
     if (anguloFinal < 0) {
         this->anguloDeVista = 4 * acos(0.0) + anguloFinal;
@@ -63,6 +67,7 @@ void Posicion::rotar(float anguloRotacion) {
     } else {
         this->anguloDeVista = anguloFinal;
     }
+    std::cerr << "angulo nuevo: " << this->anguloDeVista;
 }
 
 bool Posicion::operator==(Posicion &otraPosicion) {
