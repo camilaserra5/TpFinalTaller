@@ -45,6 +45,7 @@ Actualizacion* LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador,
         Posicion posPared(xPared, yPared, 0);
         jugadoresAtacados = verificarJugadoresEnRango(posPared, jugadores, jugador);
     }
+    jugador->gastarBalas(BALAS_POR_LANZACOHETES);
     jugador->actualizarArma();
     return new ActualizacionAtaque(jugador, jugadoresAtacados);
 }

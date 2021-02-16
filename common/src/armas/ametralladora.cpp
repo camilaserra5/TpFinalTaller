@@ -35,8 +35,8 @@ Actualizacion* Ametralladora::atacarEfectivamente(int distancia_a_pared, Jugador
         }
         jugadoresAtacados.insert({idJugadorMasCercano, jugadorAtacado});
     }
+    jugador->gastarBalas(BALAS_POR_RAFAGA);
     jugador->actualizarArma();
-    jugador->dejarDeDisparar();
     return new ActualizacionAtaque(jugador, jugadoresAtacados);
 }
 

@@ -22,7 +22,7 @@ Actualizacion* Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map
     srand(time(NULL));
     std::map<int, Jugador*> jugadoresAtacados;
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
-    if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
+    if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO && jugador->cantidad_balas() > 0)  {
         int cantidad_balas = BALAS_POR_RAFAGA;
         int i = 0;
         bool jugadorMurio = false;
@@ -41,6 +41,7 @@ Actualizacion* Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map
         }
         jugadoresAtacados.insert({idJugadorMasCercano, jugadorAtacado});
     }
+    jugador->gastarBalas(BALAS_POR_RAFAGA);
     jugador->actualizarArma();
     return new ActualizacionAtaque(jugador, jugadoresAtacados);
 

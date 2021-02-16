@@ -13,14 +13,16 @@ public:
 
     ~ArmaAnimada();
 
-    void renderizar(bool disparando);
+    void renderizar();
 
-    void actualizar(int idArma);
+    void actualizar(int idArma, bool estado);
 
 private:
     std::map<int, Sprite> sprites;
     std::map<int, Animacion> animaciones;
     int armaActual;
+    int contador;
+    bool atacando;
 };
 
 #endif

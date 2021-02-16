@@ -313,7 +313,7 @@ void Modelo::actualizar() {
 }
 
 void Modelo::actualizarArmaJugador(int idArma) {
-    this->jugador->actualizarArma(idArma);
+    this->jugador->actualizarArma(idArma, false);
 }
 
 void Modelo::actualizarArmaEnemigos(int idArma) {
@@ -323,9 +323,9 @@ void Modelo::actualizarArmaEnemigos(int idArma) {
     }
 }
 
-void Modelo::actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas, int puntaje, int cant_vidas) {
+void Modelo::actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas, int puntaje, int cant_vidas, bool atacando) {
     this->jugador->actualizarDatosJugador(vida, cant_vidas, puntaje, cant_balas);
-    this->jugador->actualizarArma(idArma);
+    this->jugador->actualizarArma(idArma, atacando);
 }
 
 void Modelo::actualizarVidaEnemigo(int id, int vida, int idArma) {
@@ -413,17 +413,19 @@ bool Modelo::procesarActualizaciones() {
             auto ataque = (ActualizacionAtaque *) actualizacion;
             Jugador *jugador = ataque->obtenerJugador();
             if (jugador->getId() == this->jugador->getId()) {
+                std::cerr << "arma de atacque: " << jugador->getArma()->getTipo().getName() << "\n";
                 this->actualizarEstadoAtaqueJugador(jugador->puntos_de_vida(), jugador->getArma()->getId(),
                                                     jugador->cantidad_balas(),
-                                                    jugador->obtenerPuntosTotales(), jugador->cant_de_vida());
+                                                    jugador->obtenerPuntosTotales(), jugador->cant_de_vida(), jugador->estaDisparando());
             }
             std::map<int, Jugador *> jugadoresAtacados = ataque->obtenerJugadoresAtacados();
             std::map<int, Jugador *>::iterator it;
             for (it = jugadoresAtacados.begin(); it != jugadoresAtacados.end(); it++) {
                 if (it->first == this->jugador->getId()) {
+                    std::cerr << "arma de atacque: " << jugador->getArma()->getTipo().getName() << "\n";
                     this->actualizarEstadoAtaqueJugador(jugador->puntos_de_vida(), jugador->getArma()->getId(),
                                                         jugador->cantidad_balas(),
-                                                        jugador->obtenerPuntosTotales(), jugador->cant_de_vida());
+                                                        jugador->obtenerPuntosTotales(), jugador->cant_de_vida(), jugador->estaDisparando());
                 } else {
                     int idE = it->first;
                     int vidaE = it->second->puntos_de_vida();

@@ -46,8 +46,10 @@ EstadoJuego::EstadoJuego() {}
 
 Actualizacion *EstadoJuego::realizarAtaque(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
+    std::cerr << "jugador id: " << jugador->getId() << "\n";
     jugador->atacar();
     Arma *arma = jugador->getArma();
+    std::cerr << "arma : " << arma->getTipo().getName() << "\n";
     int distancia_inventada = 5;
     Actualizacion *actualizacion = arma->atacar(distancia_inventada, jugador, this->jugadores);
     return actualizacion;

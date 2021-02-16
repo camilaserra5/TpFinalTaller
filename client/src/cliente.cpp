@@ -47,7 +47,7 @@ void Cliente::run() {
 
     //  Audio audio;
     //  Musica ambient_music = Musica(MUSICA_FONDO);
-    //ambient_music.play(-1);
+    //  ambient_music.play(-1);
 
     Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, /*SDL_WINDOW_FULLSCREEN*/0);
     Modelo modelo(ventana, idJugador,updates);

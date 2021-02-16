@@ -18,11 +18,8 @@ public:
 
     void renderizar();
 
-    void dejarDeDisparar() {
-        this->disparando = false;
-    }
-    void actualizarArma(int idArma){
-        this->arma.actualizar(idArma);
+    void actualizarArma(int idArma, bool estado){
+        this->arma.actualizar(idArma, estado);
     }
 
     Posicion &getPosicion();
@@ -32,7 +29,7 @@ public:
     int getPuntaje();
 
     int getId();
-    
+
     void actualizarDatosJugador(int vida, int cant_vidas, int puntaje, int balas);
 
 private:
@@ -40,7 +37,6 @@ private:
     int id;
     ArmaAnimada arma;
     InfoJugador infoJugador;
-    bool disparando;
 };
 
 #endif
