@@ -135,7 +135,7 @@ std::vector<Actualizacion *> EstadoJuego::moverse_arriba(int idJugador) {
     std::cerr << "pos ant x" << jugador->posEnX() << " y" << jugador->posEnY() << std::endl;
     std::cerr << "metros a moverse: " << METROS_MOVIDOS * cos(jugador->getAnguloDeVista());
     int xFinal = jugador->posEnX() + (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
-    int yFinal = jugador->posEnY() + (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
+    int yFinal = jugador->posEnY() + (METROS_MOVIDOS * (-1) * sin(jugador->getAnguloDeVista()));
     std::cerr << "pos dsp x" << xFinal << " y" << yFinal << std::endl;
     return this->verificarMovimientoJugador(jugador, xFinal, yFinal);
 }

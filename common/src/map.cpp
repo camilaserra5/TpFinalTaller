@@ -259,8 +259,17 @@ Posicion Map::obtenerPosicionIncialValida() {
         posY = rand() % this->colSize;
         if (!this->hayColision(posX, posY)) posEsValida = true;
     }
-    posX *= this->ladoCelda;
-    posY *= this->ladoCelda;
+    if (posX == 0){
+        posX = rand() % this->ladoCelda;
+    }else{
+        posX = posX * (this->ladoCelda - 1) + rand() % this->ladoCelda;
+    }
+    if (posY == 0){
+        posY = rand() % this->ladoCelda;
+    }else{
+        posY = posY * (this->ladoCelda - 1) + rand() % this->ladoCelda;
+    }
+
     Posicion posicion(posX, posY, ANGULO_DEFAULT);
     return posicion;
 }

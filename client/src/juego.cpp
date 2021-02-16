@@ -117,7 +117,7 @@ void Juego::raycasting(Map &mapa, Player &jugador) {
         zbuffer.push_back(distancia);
         unsigned int alturaParedProyectada = 0;
         alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-        std:: cerr << "renderizo pared " << i << " de altura " << alturaParedProyectada << "\n";
+    //    std:: cerr << "renderizo pared " << i << " de altura " << alturaParedProyectada << "\n";
 
         renderizarPared(render, rayo, i, alturaParedProyectada);
         anguloRayo += anguloPorStripe;
@@ -129,9 +129,10 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
     int drawStart, drawEnd;
     drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
     drawEnd = drawStart + alturaParedProyectada;
-    if (drawStart > ALTURA_CANVAS) {
-        drawStart = ALTURA_CANVAS - 1;
-        drawEnd = 0;
+    if (alturaParedProyectada > ALTURA_CANVAS) {
+        drawStart = 0;
+        drawEnd = ALTURA_CANVAS - 1;
+        std::cerr << "la altura es re grande\n";
     }
     SDL_Rect wallDimension, wallDest;
     wallDimension.x = rayo.getOffset() % 64;
