@@ -15,7 +15,7 @@ private:
 public:
     JugadorLua(EstadoJuego estadoJuego, int id);
     char procesar();
-    ~JugadorLua() {}
+    ~JugadorLua(){};
 };
 
 

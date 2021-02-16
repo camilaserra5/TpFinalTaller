@@ -43,6 +43,8 @@ void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa, std::string nom
     crearTabla(mapa, nombreMapa);
 }
 
-char ManejadorLua::generarEvento() {
+char ManejadorLua::generarEvento(int& posx, int& posy) {
+    interprete.
+
     return 0;
 }

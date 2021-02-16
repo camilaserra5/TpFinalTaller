@@ -36,7 +36,7 @@ function posicion_enemigo_cerca(mapa, pos_x, pos_y)
     for i = pos_x - 10, i = 10, 1 do
         for j = pos_y - 10, j + 10, 1 do
             if (mapa[i][j] >= 100) then
-                return {posicionX = i, posicionY = j}--true --puede devolver tambien la posicion?
+                return {posicionX = i, posicionY = j}
             end
         end
     end
@@ -71,7 +71,7 @@ function moverse(mapa, pos_x, pos_y)
     if (posicion_enemigo) then
         return avanzar_hacia_enemigo(posicion_enemigo, pos_x, pos_y)
     end
-    return siguiente_mov
+    return siguiente_movv
 end
 
 function disparar_al_enemigo()
