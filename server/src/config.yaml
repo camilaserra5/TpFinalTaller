@@ -5,6 +5,7 @@ mapa4: "../../resources/mapas/mapa4.yaml"
 mapa5: "../../resources/mapas/mapa5.yaml"
 mapa6: "../../resources/mapas/mapa6.yaml"
 mapa7: "../../resources/mapas/mapa7.yaml"
+
 vRotacion:
 vAvance:
 vidaMax:

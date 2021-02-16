@@ -9,6 +9,7 @@
 #include <actualizaciones/actualizacionAtaque.h>
 #include <actualizaciones/actualizacionCambioArma.h>
 #include <actualizaciones/actualizacionAperturaPuerta.h>
+#include <actualizaciones/actualizacionAgarroItem.h>
 //#include "rayo.h"
 #define SPRITE_LARGO 61
 #define SPRITE_ANCHO SPRITE_LARGO
@@ -73,6 +74,7 @@ void normalizarAnguloEnRango(double &angulo, bool &esVisible) {
 }
 
 void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &y, double &distanciaObjeto) {
+    std::cerr << "entro a renderizar objeto donde se chequea lo del zbuff\n";
     int tamanioBuffer = zbuffer.size();
     int anchoSprite = objeto->obtenerAnchura();
     for (int i = 0; i < anchoSprite; i++) {
@@ -227,7 +229,7 @@ void Modelo::terminoPartida(Ranking *rankingJugadores) {
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     if (tipo.getName() == "comida") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,
+        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 1, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "kitsMedicos") {
@@ -330,7 +332,15 @@ void Modelo::actualizarVidaEnemigo(int id, int vida, int idArma) {
     this->enemigos.at(id)->actualizarVida(vida);
     this->enemigos.at(id)->actualizarArma(idArma);
 }
+void Modelo::sacarItem(int& id){
+    ObjetoJuego* objeto = this->entidades.at(id);
+    delete objeto;
+    this->entidades.erase(id);
+}
 
+void Modelo::actualizarBeneficioJugador(int vida, int balas, int puntos, int cant_vidas){
+      this->jugador->actualizarDatosJugador(vida, cant_vidas, puntos, balas);
+}
 
 bool Modelo::procesarActualizaciones() {
     try {
@@ -438,6 +448,21 @@ bool Modelo::procesarActualizaciones() {
                                                                  movimiento->obtenerJugador()->posEnY(),
                                                                  movimiento->obtenerJugador()->getAnguloDeVista());
             }
+        } else if(idActualizacion == static_cast<int>(Accion::agarreItem)){
+            std::cerr << "agarre un item " << std::endl;
+            auto agarroItem = (ActualizacionAgarroItem* ) actualizacion;
+            int idJugador = agarroItem->obtenerJugador()->getId();
+            Item* item = agarroItem->obtenerItem();
+            int idItem = item->getId();
+            this->sacarItem(idItem);
+            Jugador* jugador = agarroItem->obtenerJugador();
+            if (idJugador == this->jugador->getId()){
+                this->actualizarBeneficioJugador(jugador->puntos_de_vida(),
+                                                  jugador->cantidad_balas(),
+                                                  jugador->obtenerPuntosTotales(),
+                                                  jugador->cant_de_vida());
+            }
+
         } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
             std::cerr << "act terminooo" << std::endl;
             auto termino = (ActualizacionTerminoPartida *) actualizacion;

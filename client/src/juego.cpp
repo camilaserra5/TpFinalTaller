@@ -74,8 +74,8 @@ void Juego::run() {
 }
 
 void Juego::actualizar() {
-    this->ventana.actualizar();
     this->modelo.actualizar();
+    this->ventana.actualizar();
 }
 
 void Juego::renderizar() {
