@@ -103,6 +103,7 @@ Tratamos de seguir el cronograma propuesto pero hubo varios defasajes por compli
 * Algunos de los inconvenientes encontrados estuvieron relacionados con la parte gráfica del juego. Por ejemplo, con el algoritmo de raycasting, cuyo desarrollo debió modificarse mas vez debido a problemas con los tipos de datos elegidos para su desarrollo. Ademas, al momento de renderizar a los sprites, también hubo inconvenientes con parámetros que estaban por fuera del rango de la pantalla del juego, con lo cual no podia verse en pantalla las entidades que debían. A esto se le debe agregar el tiempo de cpu que toma renderizar el mapa y todos sus contenidos, el cual es alto y produce una desincronizacion entre el procesado de comandos del lado del servidor y el procesado de actualizaciones del lado del cliente.  
 * Por otro lado, se hallaron dificultades a la hora de serializar y deserializar las distintas entidades del juego. Al ser un protocolo binario, había que tener un especial cuidado a la hora de desarrollarlo. Su desarrollo se encuentra en las siguientes secciones. Ademas, se debió tener en cuenta que las computadoras que corren el juego pueden tener distinto endianness.  
 * Además, algunos de los inconvenientes encontrados están relacionados con los propios problemas de concurrencia. Por ejemplo, cuando se deben recibir comandos de parte del servidor, estos provienen de distintos hilos, habiendo uno por cliente conectado en la partida. Estos comandos se guardan en una cola, pero esta esta protegida de las race conditions.  
+* Otro de los inconvenientes hallados es el del renderizado de los enemigos, los cuales siempre se renderizan de frente a pesar de que pueden estar de espaldas nosotros, por ejemplo, y lo veriamos de frente. Esto se debe a que, como el juego original no estaba intencionado para funcionar en linea, con cliente/servidor, los enemigos siempre se ven enfrentados a nosotros ya que vendrian directo a atacarnos.  
 
 ### Análisis de puntos pendientes
 * No hubo tiempo suficiente para hacer tests sobre el código realizado.
@@ -173,7 +174,7 @@ Una vez que la partida está completa, se da inicio y el servidor la maneja de l
 
 #### Descripción general
 Este módulo consta de las cosas que son comunes tanto entre Servidor y Cliente, como con el Editor.
-En este se encapsula la logica de las armas, los movimientos, el mapa, la serializacion entre otras cosas. 
+En este se encapsula la logica de las armas, los movimientos, el mapa, la serializacion entre otras cosas.
 
 #### Clases y Diagramas UML
 Serialización: para la serialización se creo la clase ISerializable, la cual luego extienden todas las clases que necesiten ser serializadas. Por ejemplo, los comandos, las actualizaciones y el mapa.
