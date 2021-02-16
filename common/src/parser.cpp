@@ -23,6 +23,8 @@ std::map<std::string, std::string> Parser::obtenerMapas() {
   nombreMapa = "mapa5";
   rutaMapa = config["mapa5"].as<std::string>();
   mapas.insert(std::make_pair(nombreMapa,rutaMapa));
+  nombreMapa = "mapa6";
+  rutaMapa = config["mapa6"].as<std::string>();
   nombreMapa = "mapa7";
   rutaMapa = config["mapa7"].as<std::string>();
   mapas.insert(std::make_pair(nombreMapa,rutaMapa));

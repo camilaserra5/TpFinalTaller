@@ -3,6 +3,7 @@ mapa1: "../../resources/mapas/mapa1.yaml"
 mapa2: "../../resources/mapas/mapa2.yaml"
 mapa4: "../../resources/mapas/mapa4.yaml"
 mapa5: "../../resources/mapas/mapa5.yaml"
+mapa6: "../../resources/mapas/mapa6.yaml"
 mapa7: "../../resources/mapas/mapa7.yaml"
 
 vRotacion:
