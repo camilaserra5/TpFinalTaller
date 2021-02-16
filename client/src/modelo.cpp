@@ -73,7 +73,6 @@ void normalizarAnguloEnRango(double &angulo, bool &esVisible) {
 }
 
 void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &y, double &distanciaObjeto) {
-    std::cerr << "entro a renderizar objeto donde se chequea lo del zbuff\n";
     int tamanioBuffer = zbuffer.size();
     int anchoSprite = objeto->obtenerAnchura();
     for (int i = 0; i < anchoSprite; i++) {
@@ -85,9 +84,9 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
             dimension.w = 1;
             dimension.h = 0;
             dest.x = posBuffer;
-            dest.y = y;
+            dest.y = y - 40;
             dest.w = 1;
-            dest.h = alturaSprite;
+            dest.h = y + alturaSprite;
             objeto->renderizarColumna(dimension, dest);
         }
     }
@@ -150,9 +149,10 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
       //  std::cerr << "\n alturaSprite: " << alturaSprite;
         int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
+         int y1 = y0 + alturaSprite;
         double x0 = tan(anguloObjeto) * DIST_PLANO_P;
         int x = (ANCHO_CANVAS / 2) + x0 - (SPRITE_ANCHO / 2);
-        this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y0, distancia);
+        this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y1, distancia);
     }
 }
 
@@ -168,7 +168,7 @@ void Modelo::renderizar() {
 
     if (!partidaTerminada) {
         this->jugador->renderizar();
-      //  verificarObjetosEnRangoDeVista();
+        verificarObjetosEnRangoDeVista();
     } else {
         this->anunciador.renderizar();
     }
@@ -221,7 +221,7 @@ void Modelo::terminoPartida(Ranking *rankingJugadores) {
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     if (tipo.getName() == "comida") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 1, SPRITES_OBJETOS_LARGO,
+        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "kitsMedicos") {
