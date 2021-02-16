@@ -11,7 +11,7 @@
 #include <actualizaciones/actualizacionAperturaPuerta.h>
 #include <actualizaciones/actualizacionAgarroItem.h>
 //#include "rayo.h"
-#define SPRITE_LARGO 61
+#define SPRITE_LARGO 63
 #define SPRITE_ANCHO SPRITE_LARGO
 #define SPRITES_OBJETOS_ANCHO  64
 #define SPRITES_OBJETOS_LARGO 73
@@ -61,7 +61,7 @@ std::vector<double> &Modelo::getZBuffer() {
     return this->zbuffer;
 }
 
-void normalizarAnguloEnRango(double &angulo, bool &esVisible) {
+bool normalizarAnguloEnRango(double &angulo) {
     if (angulo < -PI) {
         angulo += 2 * PI;
     } else if (angulo > PI) {
@@ -69,8 +69,9 @@ void normalizarAnguloEnRango(double &angulo, bool &esVisible) {
     }
     double absAngulo = abs(angulo);
     if (absAngulo < PI / 6) {
-        esVisible = true;
+        return true;
     }
+    return false;
 }
 
 void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &y, double &distanciaObjeto) {
@@ -87,7 +88,7 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
             dimension.w = 1;
             dimension.h = 0;
             dest.x = posBuffer;
-            dest.y = y + 50;
+            dest.y = y;
             dest.w = 1;
             dest.h = alturaSprite;
             std::cerr << "dest.x: " << dest.x <<  " ";
@@ -102,13 +103,11 @@ bool compararDistanciasObjetos(ObjetoDibujable *objeto1, ObjetoDibujable *objeto
 }
 
 bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
-    bool esVisible;
     Posicion &posJugador = jugador->getPosicion();
-    double dy = ( - posJugador.pixelesEnY());
+    double dy = (posObjeto.pixelesEnY() - posJugador.pixelesEnY());
     double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
     double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
-    normalizarAnguloEnRango(difAngulo, esVisible);
-    return esVisible;
+    return normalizarAnguloEnRango(difAngulo);
 }
 
 void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
@@ -157,6 +156,7 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
     //    std::cerr << "\n alturaSprite: " << alturaSprite;
         int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
         int y1 = y0 + alturaSprite;
+        normalizarAnguloEnRango(difAngulo);
         double x0 = tan(difAngulo) * DIST_PLANO_P;
         std::cerr << "x0: " << x0<< "angulo objeto " <<difAngulo << "\n";
         int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
@@ -229,7 +229,7 @@ void Modelo::terminoPartida(Ranking *rankingJugadores) {
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     if (tipo.getName() == "comida") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 1, SPRITES_OBJETOS_LARGO,
+        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "kitsMedicos") {
