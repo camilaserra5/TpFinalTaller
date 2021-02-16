@@ -5,9 +5,7 @@
 #define NO_HAY_JUGADOR_CERCANO -1
 
 
-Cuchillo::Cuchillo() :
-        danio(10),
-        Arma(DISTANCIA_ACUCHILLABLE, 3) {}
+Cuchillo::Cuchillo() :Arma(DISTANCIA_ACUCHILLABLE, 3), danio(10){}
 
 Cuchillo::~Cuchillo() {}
 

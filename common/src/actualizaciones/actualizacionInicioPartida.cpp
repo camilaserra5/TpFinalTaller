@@ -2,7 +2,7 @@
 #include "estadoJuego.h"
 
 ActualizacionInicioPartida::ActualizacionInicioPartida(EstadoJuego &estadoJuego) :
-        estadoJuego(estadoJuego), termine(false), rankingJugadores() {
+        estadoJuego(estadoJuego), rankingJugadores(), termine(false) {
     estadoJuego.verificarJugadoresMuertos();
     this->termine = this->estadoJuego.terminoPartida();
     Ranking ranking(estadoJuego.obtenerJugadores());

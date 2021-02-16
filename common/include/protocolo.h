@@ -7,6 +7,7 @@
 #include "comandos/ataque.h"
 #include "comandos/movimiento.h"
 #include "comandos/aperturaDePuerta.h"
+#include "comandos/cambioDeArma.h"
 #include <iostream>
 #include <netinet/in.h>
 #include <cstring>
