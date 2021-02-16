@@ -87,6 +87,7 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     Posicion posicion = Posicion(posElementox, posElementoy, ANGULO_DEFAULT);
     if (value.getName() == "comida") {
         int idValido = this->crearIdValido();
+        std::cerr << "\nid: " << idValido;
         this->contenedorDeElementos.agregarElemento(new Comida(posicion, idValido));
     } else if (value.getName() == "sangre") {
         int idValido = this->crearIdValido();
