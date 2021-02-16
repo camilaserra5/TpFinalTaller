@@ -55,11 +55,15 @@ public:
 
     std::vector<std::vector<int>> GetMapanumerico();
 
+    std::vector<int> getPosicionJugador(int idJugador);
+
 private:
     Map mapa;
     std::map<int, Jugador *> jugadores;
     int contador;
     int jugadoresMuertos = 0;
+
+
 };
 
 #endif

@@ -23,7 +23,7 @@
 #define ROTACION_IZQUIERDA 1
 #define METROS_MOVIDOS 20
 #define CANT_TICKS_PARTIDA 10000  //5min
-#define TAMANIO_CELDA 80 //es variable y depende del tamanio del mapa
+#define TAMANIO_CELDA mapa.getLadoCelda()//es variable y depende del tamanio del mapa
 
 Actualizacion *EstadoJuego::abrirPuerta(int idJugador) {
     Actualizacion *actualizacion = NULL;
@@ -264,4 +264,14 @@ Actualizacion *EstadoJuego::cambiarArma(int idJugador) {
 }
 std::vector<std::vector<int>> EstadoJuego::GetMapanumerico(){
     return this->mapa.getMapanumerico();
+}
+
+std::vector<int> EstadoJuego::getPosicionJugador(int idJugador){
+    Jugador *jugador = this->jugadores.at(idJugador);
+    int posEnMapaJugadorx = jugador->posEnX() / TAMANIO_CELDA;
+    int posEnMapaJugadory = jugador->posEnY() / TAMANIO_CELDA;
+    std::vector<int> posiciones;
+    posiciones.push_back(posEnMapaJugadorx);
+    posiciones.push_back(posEnMapaJugadory);
+    return posiciones;
 }
