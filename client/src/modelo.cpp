@@ -102,7 +102,7 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
     Posicion &posJugador = jugador->getPosicion();
     double dy = (posObjeto.pixelesEnY() - posJugador.pixelesEnY());
     double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
-    double anguloItem = atan(dy / dx);
+    double anguloItem = atan(dy / dx) - jugador->getAnguloDeVista();
     normalizarAnguloEnRango(anguloItem, esVisible);
     return esVisible;
 }
@@ -143,7 +143,7 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         Posicion &posJugador = jugador->getPosicion();
         double dy = (posObjeto.pixelesEnY() - posJugador.pixelesEnY());
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
-        double anguloObjeto = atan(dy / dx);
+        double anguloObjeto = atan(dy / dx) - jugador->getAnguloDeVista();
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
         std::cerr << " x: " << posObjeto.pixelesEnX() << "y : " << posObjeto.pixelesEnY();
       //  std::cerr << "\ndistancia: " << distancia;
