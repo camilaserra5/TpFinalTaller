@@ -22,10 +22,10 @@ void Sprite::renderizar(int x, int y, int angulo, SDL_Point *centro) {
 
 void Sprite::renderizarColumna(SDL_Rect dimension, SDL_Rect &dest) {
     dimension.x += this->infoSprite.x + 2;
-    dimension.y += this->infoSprite.y;//cheqeuar
-    std::cerr << "dimension x: " << dimension.x << "\n";
-    std::cerr << "dimension y : " << dimension.y << "\n";
-    std::cerr << "posx: " << dest.x << " - " << "posy: " << dest.y << " - " << "ancho: " << dest.w << " - " << "largo: " << dest.h << "\n";
+    dimension.y += this->infoSprite.y;
+    dimension.h += this->infoSprite.h;
+    std::cerr << "renderizo sprite con dimensiones x: " << dimension.x << " y: " << dimension.y << " h: " << dimension.h << " w: " << dimension.w << std::endl ;
+    std::cerr << "renderizo sprite en x: " << dest.x << " y: " << dest.y << " h: " << dest.h << " w: " << dest.w << std::endl<<std::endl;
     this->textura->renderizar(&dimension, dest, 0, NULL);
 }
 
