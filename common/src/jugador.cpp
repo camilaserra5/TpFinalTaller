@@ -10,6 +10,7 @@
 
 #include "armas/pistola.h"
 #include "armas/lanzacohetes.h"
+#include "armas/ametralladora.h"
 #include "objetosJuego.h"
 #include "../include/actualizaciones/actualizacionCambioArma.h"
 
@@ -33,6 +34,7 @@ Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion) :
         cantidad_vidas(2),
         disparando(false) {
     this->armas.insert(std::make_pair(armaActual, new Pistola()));
+    //this->armas.insert(std::make_pair(ID_AMETRALLADORA, new Ametralladora(posicion, ID_AMETRALLADORA)));
 }
 
 Jugador::Jugador() {

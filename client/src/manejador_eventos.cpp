@@ -31,25 +31,24 @@ void ManejadorEventos::run() {
 void ManejadorEventos::crearMovimiento(Accion direccion) {
     Comando *movimiento = new Movimiento(this->idJugador, direccion);
     this->eventos.push(movimiento);
-    //delete movimiento;
+
 }
 
 void ManejadorEventos::crearAtaque() {
     Comando *ataque = new Ataque(this->idJugador);
     this->eventos.push(ataque);
-    //delete ataque;
+
 }
 
 void ManejadorEventos::crearAperturaDePuerta() {
     Comando *apertura = new AperturaDePuerta(this->idJugador);
     this->eventos.push(apertura);
-    //delete apertura;
 }
 
 void ManejadorEventos::crearCambioDeArma() {
     Comando *cambio = new CambioDeArma(this->idJugador);
     this->eventos.push(cambio);
-    //delete apertura;
+
 }
 
 void ManejadorEventos::detectarEventos(SDL_Event &evento) {
@@ -77,6 +76,7 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
                     crearAtaque();
                     break;
                 case SDLK_a:
+                    std::cerr << "comando cambio de arma" << std::endl;
                     crearCambioDeArma();
                     break;
             }
