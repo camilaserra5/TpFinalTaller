@@ -10,9 +10,9 @@
 #include <actualizaciones/actualizacionCambioArma.h>
 #include <actualizaciones/actualizacionAperturaPuerta.h>
 //#include "rayo.h"
-#define SPRITE_LARGO 63
+#define SPRITE_LARGO 61
 #define SPRITE_ANCHO SPRITE_LARGO
-#define SPRITES_OBJETOS_ANCHO  65
+#define SPRITES_OBJETOS_ANCHO  64
 #define SPRITES_OBJETOS_LARGO 73
 #define SPRITE_OBJETOS "../../client/resources/images/Objects.png"
 #define FRAMESX 5
@@ -77,6 +77,7 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
     int anchoSprite = objeto->obtenerAnchura();
     for (int i = 0; i < anchoSprite; i++) {
         int posBuffer = x + i;
+
         if (this->zbuffer[tamanioBuffer - 1 - posBuffer] > distanciaObjeto) {
             SDL_Rect dimension, dest;
             dimension.x = i;//suma offset
@@ -84,12 +85,14 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
             dimension.w = 1;
             dimension.h = 0;
             dest.x = posBuffer;
-            dest.y = y - 40;
+            dest.y = y + 50;
             dest.w = 1;
-            dest.h = y + alturaSprite;
+            dest.h = alturaSprite;
+            std::cerr << "dest.x: " << dest.x <<  " ";
             objeto->renderizarColumna(dimension, dest);
         }
     }
+          std::cerr << "\n";
 }
 
 bool compararDistanciasObjetos(ObjetoDibujable *objeto1, ObjetoDibujable *objeto2) {
@@ -99,22 +102,25 @@ bool compararDistanciasObjetos(ObjetoDibujable *objeto1, ObjetoDibujable *objeto
 bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
     bool esVisible;
     Posicion &posJugador = jugador->getPosicion();
-    double dy = (posObjeto.pixelesEnY() - posJugador.pixelesEnY());
+    double dy = ( - posJugador.pixelesEnY());
     double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
-    double anguloItem = atan(dy / dx) - jugador->getAnguloDeVista();
-    normalizarAnguloEnRango(anguloItem, esVisible);
+    double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
+    normalizarAnguloEnRango(difAngulo, esVisible);
     return esVisible;
 }
 
 void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
     bool esVisible = false;
     std::map<int, ObjetoJuego *>::iterator itItem;
+    std::cerr << "la pos del jugador es x: " << this->jugador->getPosicion().pixelesEnX() << "y en y: " <<this->jugador->getPosicion().pixelesEnY() << std::endl;
     for (itItem = this->entidades.begin(); itItem != this->entidades.end(); ++itItem) {
         Posicion &posItem = itItem->second->getPosicion();
         esVisible = verificarVisibilidadDeObjeto(posItem);
         if (esVisible) {
             objetosVisibles.push_back(itItem->second);
             double distanciaAItem = posItem.distanciaA(this->jugador->getPosicion());
+            std::cerr << "la pos del objeto" << itItem->first  <<  " es: " << posItem.pixelesEnX() << " y en Y: " << posItem.pixelesEnY() << std::endl;
+            std::cerr << "la distacia parcial es: " << distanciaAItem<< std::endl;
             itItem->second->setDistanciaParcialAJugador(distanciaAItem);
         }
     }
@@ -137,22 +143,21 @@ void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVis
 void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetosVisibles) {
     int cantidadItemsVisibles = objetosVisibles.size();
     for (int i = 0; i < cantidadItemsVisibles; i++) {
-        //ojo que el angulo del item NO esta normalizado
         Posicion &posObjeto = objetosVisibles[i]->getPosicion();
         Posicion &posJugador = jugador->getPosicion();
         double dy = (posObjeto.pixelesEnY() - posJugador.pixelesEnY());
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
-        double anguloObjeto = atan(dy / dx) - jugador->getAnguloDeVista();
+        double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
-        std::cerr << " x: " << posObjeto.pixelesEnX() << "y : " << posObjeto.pixelesEnY();
+      //  std::cerr << " x: " << posObjeto.pixelesEnX() << "y : " << posObjeto.pixelesEnY();
       //  std::cerr << "\ndistancia: " << distancia;
         int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
-        std::cerr << "\n alturaSprite: " << alturaSprite;
+    //    std::cerr << "\n alturaSprite: " << alturaSprite;
         int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
-         int y1 = y0 + alturaSprite;
-        double x0 = tan(anguloObjeto) * DIST_PLANO_P;
-        std::cerr << "x0: " << x0 << "\n";
-        int x = (ANCHO_CANVAS / 2) + x0 - (SPRITE_ANCHO / 2);
+        int y1 = y0 + alturaSprite;
+        double x0 = tan(difAngulo) * DIST_PLANO_P;
+        std::cerr << "x0: " << x0<< "angulo objeto " <<difAngulo << "\n";
+        int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
         this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y1, distancia);
     }
 }
@@ -192,7 +197,7 @@ void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
     } catch (std::out_of_range &e) {
         enemigo = new Enemigo(this->ventana.obtener_render(), 4);
         this->enemigos.insert({id, enemigo});
-        std::cerr << "agrego un enemigo\n";
+      //  std::cerr << "agrego un enemigo\n";
     }
 
     this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador,
@@ -203,14 +208,14 @@ void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
     if (tipo.getName() != "noItem") {
         ObjetoJuego *objeto;
         try {
-            objeto = this->entidades.at(id);
+          this->entidades.at(id)->settear_estado(posx, posy);
 
         } catch (std::out_of_range &e) {
             objeto = this->crearObjeto(tipo);
             this->entidades.insert({id, objeto});
-            std::cerr << "creo un obejto: " << tipo.getName() << "\n";
+          //  std::cerr << "creo un obejto: " << tipo.getName() << "\n";
+            this->entidades.at(id)->settear_estado(posx, posy);
         }
-        this->entidades[id]->settear_estado(posx, posy);
     }
 }
 
@@ -294,7 +299,7 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else {
-        std::cerr << " creo elsee";
+        //std::cerr << " creo elsee";
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 0, 0,
                       0);
         return new ObjetoJuego(std::move(sprite));
@@ -330,11 +335,11 @@ void Modelo::actualizarVidaEnemigo(int id, int vida, int idArma) {
 bool Modelo::procesarActualizaciones() {
     try {
         Actualizacion *actualizacion = this->updates.obtener_dato();
-        std::cout << "proceso\n";
+    //    std::cout << "proceso\n";
         int idActualizacion = actualizacion->obtenerId();
 
         if (idActualizacion == static_cast<int>(Accion::empezoPartida)) {
-            std::cerr << "act empexo partida" << std::endl;
+        //    std::cerr << "act empexo partida" << std::endl;
             auto inicio = (ActualizacionInicioPartida *) actualizacion;
             EstadoJuego &estadoJuego = inicio->obtenerEstadoJuego();
             std::map<int, Jugador *> &jugadores = estadoJuego.obtenerJugadores();
@@ -378,8 +383,8 @@ bool Modelo::procesarActualizaciones() {
                 Type tipo = item->getTipo();
                 int posxI = item->obtenerPosicion().pixelesEnX();
                 int posyI = item->obtenerPosicion().pixelesEnY();
-                std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
-                          << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
+              //  std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
+                      //    << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
                 this->actualizarObjeto(idI, tipo, posxI, posyI);
             }
         } else if (idActualizacion == static_cast<int>(Accion::aperturaDePuerta)) {
@@ -449,6 +454,7 @@ bool Modelo::procesarActualizaciones() {
         std::cerr << "falla en actualizacion" << std::endl;
         return false;
     }
+    //std::cerr << "TERMINA LA ATUALIZACION inicial\n";
 }
 
 void Modelo::actualizarPosicionJugador(int posX, int posY, float angulo) {
