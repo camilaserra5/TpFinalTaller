@@ -9,15 +9,15 @@
 #include "ranking.h"
 
 #define TIEMPO_SERVIDOR 0.3
-
+#define ID_LUA 777
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(Map mapa, int cantJugadoresPosibles) :
         cola_comandos(),
         estadoJuego(mapa),
         cantJugadoresPosibles(cantJugadoresPosibles),
         sigue_corriendo(true),
-        arrancoPartida(false),
-        jugadorLua(this->estadoJuego, 777){}
+        arrancoPartida(false)
+        /*,jugadorLua(this->estadoJuego, ID_LUA)*/{}
 
 Servidor::~Servidor() {}
 

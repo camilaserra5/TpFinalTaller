@@ -19,8 +19,8 @@ private:
     int ladoCelda;
     int ladoMapa;
     int tamanio_fila_mapa;
-    double posXMapa;
-    double posYMapa;
+    float posXMapa;
+    float posYMapa;
     int offset;
     double x_h;
     double y_v;

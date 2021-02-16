@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(editor LANGUAGES CXX)
-
+cmake_policy(SET CMP0015 NEW)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)
@@ -11,9 +11,13 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(PROJECT_LINK_LIBS libcommons.a)
-link_directories(~/TpFinalTaller/common/build)
-include_directories(~/TpFinalTaller/common/include)
+set(PROJECT_LINK_LIBS commons)
+link_directories(../common/build)
+include_directories(../common/include)
+
+#set(PROJECT_LINK_LIBS libcommons.a)
+#link_directories(${PROJECT_SOURCE_DIR}/common/build)
+#include_directories(${PROJECT_SOURCE_DIR}/common/include)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(yaml-cpp)

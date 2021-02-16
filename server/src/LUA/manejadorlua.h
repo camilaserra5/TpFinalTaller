@@ -24,7 +24,7 @@ public:
     void  crearMapa(std::vector<std::vector<int>> mapa, std::string nombremapa);
     void vaciarStack();
 
-    char generarEvento();
+    char generarEvento(int& posx, int& posy);
 };
 
 
