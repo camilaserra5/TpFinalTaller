@@ -85,13 +85,15 @@ Item *deserializarItem(std::vector<char> &informacion) {
     memcpy(number, sub.data(), 4);
     buf = (uint32_t *) number;
     int idTipo = ntohl(*buf);
-
+    idx +=4;
+    std::cerr << "deserializo item\n";
+    std::cerr << "tipoid: " << idTipo << "\n";
     Posicion posicion;
-    std::vector<char> posicionSerializado(informacion.begin() + 4,
+    std::vector<char> posicionSerializado(informacion.begin() + idx,
                                           informacion.end());
     posicion.deserializar(posicionSerializado);
     if (idTipo == ObjetosJuego::obtenerTipoPorNombre("balas").getType()) {
-        return new Balas(posicion, 0, idTipo);
+        return new Balas(posicion, 5, id);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("comida").getType()) {
         return new Comida(posicion, id);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("kitsMedicos").getType()) {

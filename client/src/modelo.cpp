@@ -12,7 +12,7 @@
 //#include "rayo.h"
 #define SPRITE_LARGO 63
 #define SPRITE_ANCHO SPRITE_LARGO
-#define SPRITES_OBJETOS_ANCHO  64
+#define SPRITES_OBJETOS_ANCHO  65
 #define SPRITES_OBJETOS_LARGO 73
 #define SPRITE_OBJETOS "../../client/resources/images/Objects.png"
 #define FRAMESX 5
@@ -101,7 +101,7 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
     Posicion &posJugador = jugador->getPosicion();
     double dy = (posObjeto.pixelesEnY() - posJugador.pixelesEnY());
     double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
-    double anguloItem = atan(dy / dx);
+    double anguloItem = atan(dy / dx) - jugador->getAnguloDeVista();
     normalizarAnguloEnRango(anguloItem, esVisible);
     return esVisible;
 }
@@ -111,7 +111,6 @@ void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibl
     std::map<int, ObjetoJuego *>::iterator itItem;
     for (itItem = this->entidades.begin(); itItem != this->entidades.end(); ++itItem) {
         Posicion &posItem = itItem->second->getPosicion();
-
         esVisible = verificarVisibilidadDeObjeto(posItem);
         if (esVisible) {
             objetosVisibles.push_back(itItem->second);
@@ -143,14 +142,16 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         Posicion &posJugador = jugador->getPosicion();
         double dy = (posObjeto.pixelesEnY() - posJugador.pixelesEnY());
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
-        double anguloObjeto = atan(dy / dx);
+        double anguloObjeto = atan(dy / dx) - jugador->getAnguloDeVista();
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
+        std::cerr << " x: " << posObjeto.pixelesEnX() << "y : " << posObjeto.pixelesEnY();
       //  std::cerr << "\ndistancia: " << distancia;
         int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
-      //  std::cerr << "\n alturaSprite: " << alturaSprite;
+        std::cerr << "\n alturaSprite: " << alturaSprite;
         int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
          int y1 = y0 + alturaSprite;
         double x0 = tan(anguloObjeto) * DIST_PLANO_P;
+        std::cerr << "x0: " << x0 << "\n";
         int x = (ANCHO_CANVAS / 2) + x0 - (SPRITE_ANCHO / 2);
         this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y1, distancia);
     }

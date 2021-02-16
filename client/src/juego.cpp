@@ -104,6 +104,7 @@ void Juego::raycasting(Map &mapa, Player &jugador) {
     Posicion &posJugador = jugador.getPosicion();
     SDL_Renderer *render = this->ventana.obtener_render();
     int ladoCelda = mapa.getLadoCelda();
+    //std::cerr << "lado celdaa:  " << ladoCelda << "\n";
     double anguloPorStripe = RANGO_DE_VISTA / ANCHO_CANVAS;
     double anguloJugador = jugador.getAnguloDeVista();
     double anguloRayo = anguloJugador - (RANGO_DE_VISTA / 2);
@@ -131,6 +132,7 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
     if (alturaParedProyectada > ALTURA_CANVAS) {
         drawStart = 0;
         drawEnd = ALTURA_CANVAS - 1;
+        //std::cerr << "la altura es re grande\n";
     }
     SDL_Rect wallDimension, wallDest;
     wallDimension.x = rayo.getOffset() % 64;
