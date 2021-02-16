@@ -21,7 +21,7 @@
 
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
-#define METROS_MOVIDOS 10
+#define METROS_MOVIDOS 20
 #define CANT_TICKS_PARTIDA 10000  //5min
 #define TAMANIO_CELDA 80 //es variable y depende del tamanio del mapa
 
@@ -78,6 +78,7 @@ bool puedo_moverme(Map &mapa, int &posx, int &posy, Jugador *jugador) {
     std::cerr << "pos del jugador q verifico x: " << posEnMapaJugadorx << " y: " << posEnMapaJugadory << std::endl;
     Type tipo = mapa.operator()(posEnMapaJugadorx, posEnMapaJugadorx);
     std::string name = tipo.getName();
+    std::cerr << "name: " << name << "\n";
     return (name != "door" && name != "wall" && name != "wall-2" && name != "wall-3" && name != "fakeDoor" &&
             name != "keyDoor");
 }
@@ -133,7 +134,8 @@ std::vector<Actualizacion *> EstadoJuego::moverse_arriba(int idJugador) {
     std::cerr << "ME MUEVO ARRIBAAAA\n";
     std::cerr << "angulo juagdor: " << jugador->getAnguloDeVista();
     std::cerr << "pos ant x" << jugador->posEnX() << " y" << jugador->posEnY() << std::endl;
-    std::cerr << "metros a moverse: " << METROS_MOVIDOS * cos(jugador->getAnguloDeVista());
+    std::cerr << "metros a moverse en x: " << METROS_MOVIDOS * cos(jugador->getAnguloDeVista());
+    std::cerr << "metros a moverse en y: " << METROS_MOVIDOS * sin(jugador->getAnguloDeVista());
     int xFinal = jugador->posEnX() + (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() + (METROS_MOVIDOS * (-1) * sin(jugador->getAnguloDeVista()));
     std::cerr << "pos dsp x" << xFinal << " y" << yFinal << std::endl;
@@ -147,7 +149,7 @@ std::vector<Actualizacion *> EstadoJuego::moverse_abajo(int idJugador) {
     std::cerr << "angulo juagdor: " << jugador->getAnguloDeVista();
     std::cerr << "pos ant x" << jugador->posEnX() << " y" << jugador->posEnY() << std::endl;
     std::cerr << "metros a moverse: " << METROS_MOVIDOS * cos(jugador->getAnguloDeVista());
-
+    std::cerr << "metros a moverse en y: " << METROS_MOVIDOS * sin(jugador->getAnguloDeVista());
     int xFinal = jugador->posEnX() - (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() - (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
     std::cerr << "pos dsp x" << xFinal << " y" << yFinal << std::endl;
