@@ -130,15 +130,24 @@ Actualizacion *EstadoJuego::rotar_a_izquierda(int idJugador) {
 std::vector<Actualizacion *> EstadoJuego::moverse_arriba(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     //  jugador->dejarDeDisparar();
+    std::cerr << "ME MUEVO ARRIBAAAA\n";
+    std::cerr << "angulo juagdor: " << jugador->getAnguloDeVista();
+    std::cerr << "pos ant x" << jugador->posEnX() << " y" << jugador->posEnY() << std::endl;
+    std::cerr << "metros a moverse: " << METROS_MOVIDOS * cos(jugador->getAnguloDeVista());
     int xFinal = jugador->posEnX() + (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() + (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
+    std::cerr << "pos dsp x" << xFinal << " y" << yFinal << std::endl;
     return this->verificarMovimientoJugador(jugador, xFinal, yFinal);
 }
 
 std::vector<Actualizacion *> EstadoJuego::moverse_abajo(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    jugador->dejarDeDisparar();
+    //jugador->dejarDeDisparar();
+
+    std::cerr << "angulo juagdor: " << jugador->getAnguloDeVista();
     std::cerr << "pos ant x" << jugador->posEnX() << " y" << jugador->posEnY() << std::endl;
+    std::cerr << "metros a moverse: " << METROS_MOVIDOS * cos(jugador->getAnguloDeVista());
+
     int xFinal = jugador->posEnX() - (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() - (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
     std::cerr << "pos dsp x" << xFinal << " y" << yFinal << std::endl;
