@@ -43,7 +43,7 @@ Jugador::Jugador() {
 }
 
 Jugador::~Jugador() {
-
+    std::cerr<< "entreee al destructor";
 }
 
 std::string Jugador::obtenerNombre() {
@@ -216,7 +216,7 @@ void Jugador::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->armaActual = charArrayToNumber(sub);
-    //std::cerr << " juegador deserializar armaActual " << this->armaActual << std::endl;
+    std::cerr << " juegador deserializar armaActual " << this->armaActual << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->disparando = charArrayToNumber(sub);

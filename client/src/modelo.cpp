@@ -176,7 +176,7 @@ void Modelo::renderizar() {
 
     if (!partidaTerminada) {
         this->jugador->renderizar();
-        verificarObjetosEnRangoDeVista();
+      //  verificarObjetosEnRangoDeVista();
     } else {
         this->anunciador.renderizar();
     }
@@ -411,25 +411,28 @@ bool Modelo::procesarActualizaciones() {
         } else if (idActualizacion == static_cast<int>(Accion::ataque)) {
             std::cerr << "act ataque" << std::endl;
             auto ataque = (ActualizacionAtaque *) actualizacion;
-            Jugador *jugador = ataque->obtenerJugador();
-            if (jugador->getId() == this->jugador->getId()) {
-                std::cerr << "arma de atacque: " << jugador->getArma()->getTipo().getName() << "\n";
-                this->actualizarEstadoAtaqueJugador(jugador->puntos_de_vida(), jugador->getArma()->getId(),
-                                                    jugador->cantidad_balas(),
-                                                    jugador->obtenerPuntosTotales(), jugador->cant_de_vida(), jugador->estaDisparando());
+            Jugador *jugadorAux = ataque->obtenerJugador();
+            std::cerr << "juagdorid: " << jugadorAux->getId();
+            std::cerr << "juagdoryo: " << this->jugador->getId();
+            if (jugadorAux->getId() == this->jugador->getId()) {
+                std::cerr << "arma de atacque yo dispare: " << jugadorAux->getArma()->getTipo().getName() << "\n";
+                this->actualizarEstadoAtaqueJugador(jugadorAux->puntos_de_vida(), jugadorAux->getArma()->getId(),
+                                                    jugadorAux->cantidad_balas(),
+                                                    jugadorAux->obtenerPuntosTotales(), jugadorAux->cant_de_vida(), jugadorAux->estaDisparando());
             }
-            std::map<int, Jugador *> jugadoresAtacados = ataque->obtenerJugadoresAtacados();
+            std::map<int, Jugador *>& jugadoresAtacados = ataque->obtenerJugadoresAtacados();
             std::map<int, Jugador *>::iterator it;
             for (it = jugadoresAtacados.begin(); it != jugadoresAtacados.end(); it++) {
                 if (it->first == this->jugador->getId()) {
-                    std::cerr << "arma de atacque: " << jugador->getArma()->getTipo().getName() << "\n";
-                    this->actualizarEstadoAtaqueJugador(jugador->puntos_de_vida(), jugador->getArma()->getId(),
-                                                        jugador->cantidad_balas(),
-                                                        jugador->obtenerPuntosTotales(), jugador->cant_de_vida(), jugador->estaDisparando());
+                    std::cerr << "me ataque a mi mismo\n";
+                    std::cerr << "arma de atacque: " << it->second->getArma()->getTipo().getName() << "\n";
+                    this->actualizarEstadoAtaqueJugador(it->second->puntos_de_vida(), it->second->getArma()->getId(),
+                                                        it->second->cantidad_balas(),
+                                                        it->second->obtenerPuntosTotales(), it->second->cant_de_vida(), it->second->estaDisparando());
                 } else {
                     int idE = it->first;
                     int vidaE = it->second->puntos_de_vida();
-                    this->actualizarVidaEnemigo(idE, vidaE, jugador->getArma()->getId());
+                    this->actualizarVidaEnemigo(idE, vidaE, jugadorAux->getArma()->getId());
                 }
             }
 
