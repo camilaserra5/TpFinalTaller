@@ -194,6 +194,7 @@ ContenedorDeElementos::~ContenedorDeElementos() {}
 
 Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
   int cantidadElementos = this->elementos.size();
+  std::cerr << "entre a buscar elemento\n";
     for (int i = 0; i < cantidadElementos; i++) {
         if (this->elementos[i]->estaCerca(posx, posy)) {
             return this->elementos[i];

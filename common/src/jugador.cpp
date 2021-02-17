@@ -44,7 +44,7 @@ Jugador::Jugador() {
 }
 
 Jugador::~Jugador() {
-    std::cerr<< "entreee al destructor";
+    std::cerr<< "entreee al destructor de Jugador\n";
 }
 
 std::string Jugador::obtenerNombre() {

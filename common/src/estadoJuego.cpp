@@ -107,6 +107,7 @@ std::vector<Actualizacion *> EstadoJuego::verificarMovimientoJugador(Jugador *ju
         }
         jugador->moverse(xFinal, yFinal);
     }
+    std::cerr << "jugador:  posx: " << jugador->posEnX() << "posy: " << jugador->posEnY() << "\n";
     actualizaciones.push_back(new ActualizacionMovimiento(jugador));
     return actualizaciones;
 }
