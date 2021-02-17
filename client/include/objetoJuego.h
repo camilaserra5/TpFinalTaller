@@ -12,7 +12,7 @@ private:
     int distanciaParcialAJugador;
 
 public:
-    ObjetoJuego(Sprite sprite); //a chequear esa doble referencia, pero es por el stdmove
+    ObjetoJuego(Sprite sprite);
 
     ~ObjetoJuego();
 

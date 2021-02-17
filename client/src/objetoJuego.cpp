@@ -4,8 +4,9 @@
 
 
 ObjetoJuego::ObjetoJuego(Sprite sprite) :
-        sprite(sprite),
-        posicion(0, 0, 0) {}
+        posicion(0, 0, 0),
+        sprite(sprite)
+        {}
 
 ObjetoJuego::~ObjetoJuego() {}
 

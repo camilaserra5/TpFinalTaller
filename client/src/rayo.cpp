@@ -4,12 +4,11 @@
 #include <iostream>
 
 Rayo::Rayo(double campoDeVision, int ladoCelda, int largoProyector, double anguloBarrido, Posicion &posicion) :
-        campoDeVision(campoDeVision), ladoCelda(ladoCelda), tamanio_fila_mapa(tamanio_fila_mapa),
-        largoProyector(largoProyector) {
+        campoDeVision(campoDeVision),anguloBarrido(anguloBarrido),largoProyector(largoProyector), ladoCelda(ladoCelda)
+         {
     this->distanciaProyector = (this->largoProyector / 2) / tan(this->campoDeVision / 2);
     this->posXMapa = posicion.pixelesEnX() / ladoCelda;
     this->posYMapa = posicion.pixelesEnY() / ladoCelda;
-    this->anguloBarrido = anguloBarrido;
     this->normalizarAngulo();
 }
 
@@ -36,7 +35,7 @@ void Rayo::verificarCuadrante(const double anguloJugador) {
 }
 
 void Rayo::verificarInterseccion(Map &mapa, double &distancia, Player &jugador) {
-    double distanciaHorizontal = this->ladoCelda * mapa.getRowSize(), distanciaVertical = this->ladoCelda * mapa.getColSize();
+  //  double distanciaHorizontal = this->ladoCelda * mapa.getRowSize(), distanciaVertical = this->ladoCelda * mapa.getColSize();
     this->verificarCuadrante(jugador.getAnguloDeVista());
     if (!this->abajo && !this->izquierda) {
         distancia = this->verificarInterseccionPrimerCuadrante(jugador, mapa);
@@ -50,7 +49,7 @@ void Rayo::verificarInterseccion(Map &mapa, double &distancia, Player &jugador) 
 }
 
 double Rayo::verificarInterseccionPrimerCuadrante(Player &jugador, Map &mapa) {
-    double dy, dx, x_h, y_v, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
+    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
     double tangente = abs(tan(this->anguloBarrido));
 
     /*parametros horizontales*/
@@ -82,7 +81,7 @@ double Rayo::verificarInterseccionPrimerCuadrante(Player &jugador, Map &mapa) {
 }
 
 double Rayo::verificarInterseccionSegundoCuadrante(Player &jugador, Map &mapa) {
-    double dy, dx, x_h, y_v, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
+    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
     double tangente = abs(tan(this->anguloBarrido));
 
     /*parametros horizontales*/
@@ -115,7 +114,7 @@ double Rayo::verificarInterseccionSegundoCuadrante(Player &jugador, Map &mapa) {
 
 double Rayo::verificarInterseccionTercerCuadrante(Player &jugador, Map &mapa) {
     double tangente = abs(tan(this->anguloBarrido));
-    double dy, dx, x_h, y_v, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
+    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
     /*parametros horizontales*/
     dy = 1.0 - std::modf(this->posYMapa, &y);
     xStep = 1.0 / tan(this->anguloBarrido);
@@ -145,7 +144,7 @@ double Rayo::verificarInterseccionTercerCuadrante(Player &jugador, Map &mapa) {
 }
 
 double Rayo::verificarInterseccionCuartoCuadrante(Player &jugador, Map &mapa) {
-    double dy, dx, x_h, y_v, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
+    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
     double tangente = abs(tan(this->anguloBarrido));
 
     /*parametros horizontales*/
@@ -180,14 +179,13 @@ bool Rayo::hallarColision(Map &mapa, double &interseccionAX, double &interseccio
     bool encontrePared = false;
     int yaMapa = floor(interseccionAY);
     int xaMapa = floor(interseccionAX);
-    //std::cout << "entro en x: " << mapa.getRowSize() << " y: " << mapa.getColSize() << "\n";
-    while (!encontrePared && 0 <= xaMapa && xaMapa < mapa.getRowSize() && 0 <= yaMapa && yaMapa < mapa.getColSize()) {
-        //  std::cout << "paso por x: " << xaMapa << " y: " << yaMapa << "\n";
-
+    int filas = mapa.getRowSize();
+    int columnas = mapa.getColSize();
+    while (!encontrePared && 0 <= xaMapa && xaMapa < filas && 0 <= yaMapa && yaMapa < columnas) {
         if (mapa.hayColision(yaMapa, xaMapa)) {
-
             encontrePared = true;
             this->tipoDePared = mapa(yaMapa, xaMapa).getType();
+            std:: cerr << "encuentro en x: " << xaMapa << " y:" << yaMapa << "y tipo de pared: " << tipoDePared <<"\n";
         } else {
             interseccionAY += yStep;
             interseccionAX += xStep;
