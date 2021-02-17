@@ -5,7 +5,8 @@ JugadorLua::JugadorLua(EstadoJuego& estadoJuego, int id, std::string & ruta) :
  estadoJuego(estadoJuego),
  lua(ruta),
  id(id){
-    this->estadoJuego.agregarJugador((std::string &) "jugadorLua", this->id);
+    std::string nombre("jugadorLua");
+    this->estadoJuego.agregarJugador(nombre, this->id);
     lua.crearMapa(this->estadoJuego.GetMapanumerico());
 }
 
