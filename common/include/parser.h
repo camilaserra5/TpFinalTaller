@@ -18,6 +18,9 @@ public:
 
     int obtenerAltoPantallaLogin();
 
+    int obtenerAnchoPantallaJuego();
+
+
 private:
     YAML::Node config;
 };

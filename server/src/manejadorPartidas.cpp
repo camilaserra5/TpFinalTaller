@@ -32,8 +32,7 @@ int ManejadorPartidas::crearPartida(std::string &nombreJugador,int &cant_jugador
         return idCliente;
     } else {
         Map mapa = this->buscarMapa(archivoMapa);
-        mapa.setLadoCelda(800);
-        std::cerr << "/* MANEJADOR DE PARTIDAS SETEO LADO DE LA CELDA CON */" << screenWidth <<  '\n';
+        mapa.setLadoCelda(screenWidth);
         Servidor *servidor = new Servidor(mapa, cant_jugadores);
         ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaEventos(),protocolo, idCliente);//cheq
         servidor->agregarCliente(nombreJugador, cliente, idCliente);

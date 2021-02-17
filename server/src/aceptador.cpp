@@ -25,9 +25,7 @@ void Aceptador::run() {
     bool socket_es_valido = true;
     while (socket_es_valido) {
         try {
-            std::cerr << "acepto cliente";
             Socket peer = this->socket_listener.aceptar();
-            std::cerr << "agrego cliente";
             clientes.push_back(new ThClient(std::move(peer), this->manejadorPartidas));
             clientes.back()->start();
             liberar_terminados(clientes);

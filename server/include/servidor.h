@@ -9,7 +9,6 @@
 #include "map.h"
 #include "estadoJuego.h"
 #include "jugador.h"
-#include "old_cliente.h"
 #include "iserializable.h"
 #include <atomic>
 #include "manejadorCliente.h"
