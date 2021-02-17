@@ -491,7 +491,7 @@ void LogInWindow::run() {
 
 
             CrearPartida crearPartida(-1, std::stoi(numberPlayers),
-                                      gameName, mapFile, playerName);
+                                      gameName, mapFile, playerName,screenWidth);
             std::vector<char> serializado = crearPartida.serializar();
             protocolo->enviar(serializado);
             std::vector<char> res = protocolo->recibir();

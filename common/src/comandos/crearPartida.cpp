@@ -2,12 +2,13 @@
 
 CrearPartida::CrearPartida(int idJugador, int cantidadJugadores,
                            std::string nombrePartida, std::string rutaYaml,
-                           std::string nombreCliente) :
+                           std::string nombreCliente,int screenWidth) :
         Comando(idJugador),
         cantidadJugadores(cantidadJugadores),
         nombrePartida(nombrePartida),
         rutaYaml(rutaYaml),
-        nombreCliente(nombreCliente) {}
+        nombreCliente(nombreCliente),
+        screenWidth(screenWidth) {}
 
 CrearPartida::~CrearPartida() {}
 
@@ -29,6 +30,9 @@ std::vector<char> CrearPartida::serializar() {
     aux = numberToCharArray(this->nombreCliente.size());
     info.insert(info.end(), aux.begin(), aux.end());
     info.insert(info.end(), this->nombreCliente.begin(), this->nombreCliente.end());
+    aux = numberToCharArray(this->screenWidth);
+    std::cerr <<"serializp " <<screenWidth;
+    info.insert(info.end(), aux.begin(), aux.end());
     return info;
 }
 
@@ -61,6 +65,12 @@ void CrearPartida::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + tamNombreCliente]);
     this->nombreCliente = std::string(sub.begin(), sub.end());
+
+    idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+    this->screenWidth = charArrayToNumber(sub);
+    std::cerr <<"deserializp " <<screenWidth;
+
 }
 
 std::string &CrearPartida::getNombreJugador() {
@@ -77,4 +87,8 @@ int &CrearPartida::getCantJugadores() {
 
 std::string &CrearPartida::getRutaArchivo() {
     return this->rutaYaml;
+}
+
+int &CrearPartida::getScreenWidth() {
+    return this->screenWidth;
 }

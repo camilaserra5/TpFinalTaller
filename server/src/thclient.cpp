@@ -50,7 +50,7 @@ void ThClient::procesar_pedido() {
                                                             crearPartida.getCantJugadores(),
                                                             crearPartida.getNombrePartida(),
                                                             crearPartida.getRutaArchivo(),
-                                                            this->protocolo);
+                                                            this->protocolo,crearPartida.getScreenWidth());
     }
     std::vector<char> ret(4);
     unsigned int size = htonl(idJugador);

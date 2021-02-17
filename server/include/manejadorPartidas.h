@@ -19,9 +19,9 @@ public:
 
     void cerrarPartidas();
 
-    int crearPartida(std::string &nombreJugador,
-                      int &cant_jugadores, std::string &nombre_partida,
-                      std::string &archivoMapa, Protocolo* protocolo);
+    int crearPartida(std::string &nombreJugador,int &cant_jugadores,
+                      std::string &nombre_partida,std::string &archivoMapa,
+                      Protocolo* protocolo, int& screenWidth);
 
     int agregarClienteAPartida(std::string &nombreJugador,
                                 std::string &nombre_partida, Protocolo* protocolo);

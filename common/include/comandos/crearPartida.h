@@ -10,10 +10,11 @@ private:
     std::string nombrePartida;
     std::string rutaYaml;
     std::string nombreCliente;
+    int screenWidth;
 
 public:
     CrearPartida(int idJugador, int cantidadJugadores, std::string nombrePartida,
-                 std::string rutaYaml, std::string nombreCliente);
+                 std::string rutaYaml, std::string nombreCliente, int screenWidth);
 
     ~CrearPartida();
 
@@ -32,6 +33,9 @@ public:
     int &getCantJugadores();
 
     std::string &getRutaArchivo();
+
+    int &getScreenWidth();
+
 
 };
 

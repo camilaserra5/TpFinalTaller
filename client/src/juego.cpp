@@ -51,6 +51,7 @@ void Juego::run() {
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
             this->modelo.procesarActualizaciones();
+          //  std::cerr<< "procese todo\n";
             this->clean();
             this->eventos();
             this->raycasting(this->modelo.obtenerMapa(), this->modelo.getPlayer());
@@ -104,7 +105,7 @@ void Juego::raycasting(Map &mapa, Player &jugador) {
     Posicion &posJugador = jugador.getPosicion();
     SDL_Renderer *render = this->ventana.obtener_render();
     int ladoCelda = mapa.getLadoCelda();
-    //std::cerr << "lado celdaa:  " << ladoCelda << "\n";
+    //std::cerr<< "lado celda " <<ladoCelda;
     double anguloPorStripe = RANGO_DE_VISTA / ANCHO_CANVAS;
     double anguloJugador = jugador.getAnguloDeVista();
     double anguloRayo = anguloJugador - (RANGO_DE_VISTA / 2);
@@ -126,6 +127,7 @@ void Juego::raycasting(Map &mapa, Player &jugador) {
 
 void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, unsigned int &alturaParedProyectada) {
     Textura *wall = verificarTextura(render, rayo.getTipoPared());
+    if (!wall) return;
     int drawStart, drawEnd;
     drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
     drawEnd = drawStart + alturaParedProyectada;
@@ -149,5 +151,9 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
 }
 
 Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
+  try{
     return this->texturas.at(tipoDePared);
+
+  }catch(...){
+return NULL;}
 }

@@ -24,14 +24,17 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
   return MapTranslator::yamlToMap(YAML::LoadFile(ruta));
 }
 
-int ManejadorPartidas::crearPartida(std::string &nombreJugador,
-                                     int &cant_jugadores, std::string &nombre_partida,
-                                     std::string &archivoMapa, Protocolo* protocolo) {
+int ManejadorPartidas::crearPartida(std::string &nombreJugador,int &cant_jugadores,
+                                    std::string &nombre_partida,std::string &archivoMapa,
+                                    Protocolo* protocolo, int& screenWidth) {
     int idCliente = -1;
     if (partidas.count(nombre_partida) > 0) {
         return idCliente;
     } else {
-        Servidor *servidor = new Servidor(this->buscarMapa(archivoMapa), cant_jugadores);
+        Map mapa = this->buscarMapa(archivoMapa);
+        mapa.setLadoCelda(800);
+        std::cerr << "/* MANEJADOR DE PARTIDAS SETEO LADO DE LA CELDA CON */" << screenWidth <<  '\n';
+        Servidor *servidor = new Servidor(mapa, cant_jugadores);
         ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaEventos(),protocolo, idCliente);//cheq
         servidor->agregarCliente(nombreJugador, cliente, idCliente);
         this->partidas.insert({nombre_partida, servidor});

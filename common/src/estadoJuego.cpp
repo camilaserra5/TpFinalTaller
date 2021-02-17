@@ -23,7 +23,6 @@
 #define ROTACION_IZQUIERDA 1
 #define METROS_MOVIDOS 20
 #define CANT_TICKS_PARTIDA 10000  //5min
-#define TAMANIO_CELDA mapa.getLadoCelda()//es variable y depende del tamanio del mapa
 
 Actualizacion *EstadoJuego::abrirPuerta(int idJugador) {
     Actualizacion *actualizacion = NULL;
@@ -72,10 +71,10 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
 }
 
 bool puedo_moverme(Map &mapa, int &posx, int &posy, Jugador *jugador) {
-    if (posx < 0 || posy < 0 || posx > (mapa.getRowSize() * TAMANIO_CELDA - 1) || posy > (mapa.getColSize() * TAMANIO_CELDA - 1)) return false;
-    int posEnMapaJugadorx = posx / TAMANIO_CELDA;  // 50 seria el tamanio de la celda en pixeles
+    if (posx < 0 || posy < 0 || posx > (mapa.getRowSize() * mapa.getLadoCelda() - 1) || posy > (mapa.getColSize() * mapa.getLadoCelda() - 1)) return false;
+    int posEnMapaJugadorx = posx / mapa.getLadoCelda();  // 50 seria el tamanio de la celda en pixeles
     // esa info hya que ver quien la tiene. maybe mapa?
-    int posEnMapaJugadory = posy / TAMANIO_CELDA;
+    int posEnMapaJugadory = posy / mapa.getLadoCelda();
   //  std::cerr << "pos del jugador q verifico x: " << posEnMapaJugadorx << " y: " << posEnMapaJugadory << std::endl;
     Type tipo = mapa.operator()(posEnMapaJugadorx, posEnMapaJugadorx);
     std::string name = tipo.getName();
@@ -86,9 +85,9 @@ bool puedo_moverme(Map &mapa, int &posx, int &posy, Jugador *jugador) {
 
 Item *verificarItems(Map &mapa, int &posx, int &posy) {
     int posEnMapaJugadorx =
-            (mapa.getRowSize() * posx) / (mapa.getRowSize() * TAMANIO_CELDA);
+            (mapa.getRowSize() * posx) / (mapa.getRowSize() * mapa.getLadoCelda());
     // esa info hya que ver quien la tiene. maybe mapa?
-    int posEnMapaJugadory = (mapa.getColSize() * posy) / (mapa.getColSize() * TAMANIO_CELDA);
+    int posEnMapaJugadory = (mapa.getColSize() * posy) / (mapa.getColSize() * mapa.getLadoCelda());
   //s  std::cout << "\n verifico item\n";
     return mapa.buscarElemento(posx, posy);
 }
@@ -239,9 +238,12 @@ void EstadoJuego::deserializar(std::vector<char> &informacion) {
         jugador->deserializar(jugadorSerializado);
         this->jugadores.insert(std::make_pair(jugador->getId(), jugador));
     }
+    std::cerr << "tam vector: " << informacion.size() << " y el idx es: " << idx << std::endl;
     std::vector<char> mapaSerializado(informacion.begin() + idx,
                                       informacion.end());
-    this->mapa.deserializar(mapaSerializado);
+      this->mapa.deserializar(mapaSerializado);
+
+
     //std::cerr << "estado juego deserializar fin" << std::endl;
 }
 
@@ -263,8 +265,8 @@ std::vector<std::vector<int>> EstadoJuego::GetMapanumerico(){
 
 std::vector<int> EstadoJuego::getPosicionJugador(int idJugador){
     Jugador *jugador = this->jugadores.at(idJugador);
-    int posEnMapaJugadorx = jugador->posEnX() / TAMANIO_CELDA;
-    int posEnMapaJugadory = jugador->posEnY() / TAMANIO_CELDA;
+    int posEnMapaJugadorx = jugador->posEnX() / mapa.getLadoCelda();
+    int posEnMapaJugadory = jugador->posEnY() / mapa.getLadoCelda();
     std::vector<int> posiciones;
     posiciones.push_back(posEnMapaJugadorx);
     posiciones.push_back(posEnMapaJugadory);

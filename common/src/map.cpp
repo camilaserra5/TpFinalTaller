@@ -49,7 +49,7 @@ Map::Map(unsigned rowSize, unsigned colSize) : contenedorDeElementos() {
     for (unsigned i = 0; i < rowSize; i++) {
         map[i].resize(colSize, ObjetosJuego::obtenerTipoPorNombre("noItem"));
     }
-    this->ladoCelda = 80;
+    //this->ladoCelda = 40;
 }
 
 unsigned Map::getRowSize() const {
@@ -223,6 +223,7 @@ void Map::deserializar(std::vector<char> &serializado) {
 
     idx += 4;
     std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
+    std::cerr << "tam srializado " << serializado.size() << "tam idx" << idx << std::endl;
     this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
 }
 
@@ -260,6 +261,7 @@ Posicion Map::obtenerPosicionIncialValida() {
         posY = rand() % this->colSize;
         if (!this->hayColision(posX, posY)) posEsValida = true;
     }
+    std:: cerr << "rowSize: " << rowSize << "colSize: " << colSize << std::endl;
     if (posX == 0){
         posX = rand() % this->ladoCelda;
     }else{
