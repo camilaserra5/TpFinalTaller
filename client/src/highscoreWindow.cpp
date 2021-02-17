@@ -70,7 +70,8 @@ void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
         display_text("Top kills", fonts.getFont("wolfstein-subtitle"), renderer, SCREEN_WIDTH / 3,
                      50 + FONT_SIZE_TITLE);
         std::vector<std::pair<int, Jugador *>> topKills = ranking->obtenerTop5EnemigosMatados();
-        for (int i = 1; i < topKills.size(); i++) {
+        int cantTopKills = topKills.size();
+        for (int i = 1; i < cantTopKills; i++) {
             display_text("#" + std::to_string(i) + " - " + topKills.at(i).second->obtenerNombre() + " - " +
                          std::to_string(topKills.at(i).second->obtenerLogro().obtenerEnemigosMatados()),
                          fonts.getFont("wolfstein-names"), renderer,
@@ -81,7 +82,8 @@ void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
         display_text("Top score", fonts.getFont("wolfstein-subtitle"), renderer, SCREEN_WIDTH * 8 / 15,
                      50 + FONT_SIZE_TITLE);
         std::vector<std::pair<int, Jugador *>> topScore = ranking->obtenerTop5PuntosTotalesPorTesoros();
-        for (int i = 1; i < topScore.size(); i++) {
+        int cantidadTopScore = topScore.size();
+        for (int i = 1; i < cantidadTopScore; i++) {
             display_text("#" + std::to_string(i) + " - " + topScore.at(i).second->obtenerNombre() + " - " +
                          std::to_string(topScore.at(i).second->obtenerLogro().obtenerEnemigosMatados()),
                          fonts.getFont("wolfstein-names"), renderer,
@@ -92,7 +94,8 @@ void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
         display_text("Top shooter", fonts.getFont("wolfstein-subtitle"), renderer, SCREEN_WIDTH * 9 / 12,
                      50 + FONT_SIZE_TITLE);
         std::vector<std::pair<int, Jugador *>> topShooter = ranking->obtenerTop5BalasDisparadas();
-        for (int i = 1; i < topShooter.size(); i++) {
+        int cantTopShooter = topShooter.size();
+        for (int i = 1; i < cantTopShooter; i++) {
             display_text("#" + std::to_string(i) + " - " + topShooter.at(i).second->obtenerNombre() + " - " +
                          std::to_string(topShooter.at(i).second->obtenerLogro().obtenerEnemigosMatados()),
                          fonts.getFont("wolfstein-names"), renderer,
@@ -129,9 +132,9 @@ void HighscoreWindow::renderizar() {
     Background background(BACKGROUND_IMAGE_ROOT, this->renderer, 1280, 720);
     background.drawBackground();
     while (1) {
-        SDL_Event e;
+        //SDL_Event e;
         show_highscores(this->renderer, this->fonts);
-    }
+    }//CHQUEAR ESTE WHILE SE VA A RE COLGAR
 }
 
 HighscoreWindow::~HighscoreWindow() {

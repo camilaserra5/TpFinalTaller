@@ -28,7 +28,8 @@ ManejadorLua::~ManejadorLua() {
 void ManejadorLua::crearTabla(std::vector<std::vector<int>> &mapa, std::string nombremapa) {
      std::cerr << "=== CREANDO TABLA LUA==== " << std::endl;
     lua_newtable(interprete);
-    for(int i = 0; i < mapa.size(); i++) {
+    int tamanioMapa = mapa.size();
+    for(int i = 0; i < tamanioMapa; i++) {
         lua_pushnumber(interprete, i + 1);    // indice de la tabla
         lua_newtable(interprete);                    // tabla
         int size = mapa[i].size();

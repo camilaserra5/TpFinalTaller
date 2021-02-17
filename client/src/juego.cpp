@@ -51,7 +51,6 @@ void Juego::run() {
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
             this->modelo.procesarActualizaciones();
-          //  std::cerr<< "procese todo\n";
             this->clean();
             this->eventos();
             this->raycasting(this->modelo.obtenerMapa(), this->modelo.getPlayer());

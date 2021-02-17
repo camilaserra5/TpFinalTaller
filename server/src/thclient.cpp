@@ -11,9 +11,9 @@
 
 ThClient::ThClient(Socket &&un_socket, ManejadorPartidas *manejadorDePartidas) :
         protocolo(new Protocolo(std::move(un_socket))),
+        manejadorDePartidas(manejadorDePartidas) ,
         keep_talking(true),
-        is_running(true),
-        manejadorDePartidas(manejadorDePartidas) {}
+        is_running(true){}
 
 ThClient::~ThClient() {
     this->join();
@@ -66,7 +66,8 @@ bool ThClient::is_dead() {
 void ThClient::run() {
     std::cerr << "envio partidas\n";
     std::vector<char> partidas = this->manejadorDePartidas->serializar();
-    for (int i = 0; i < partidas.size(); i++) {
+    int cantidadPartidas = partidas.size();
+    for (int i = 0; i < cantidadPartidas; i++) {
         std::cerr << partidas[i];
     }
     std::cerr << "\nfin envio partidas";

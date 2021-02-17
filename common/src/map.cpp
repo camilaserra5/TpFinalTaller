@@ -38,7 +38,7 @@ void Map::sacarDelMapa(Posicion &posicion) {
     this->contenedorDeElementos.sacarElementoDePosicion(posicion);
 }
 
-Map::Map(unsigned rowSize, unsigned colSize) : contenedorDeElementos() {
+Map::Map(unsigned rowSize, unsigned colSize, int anchoPantalla) : contenedorDeElementos() {
     if (rowSize < 1 || colSize < 1) {
         throw std::runtime_error("Invalid map");
     }
@@ -49,7 +49,7 @@ Map::Map(unsigned rowSize, unsigned colSize) : contenedorDeElementos() {
     for (unsigned i = 0; i < rowSize; i++) {
         map[i].resize(colSize, ObjetosJuego::obtenerTipoPorNombre("noItem"));
     }
-    //this->ladoCelda = 40;
+    setLadoCelda(anchoPantalla);
 }
 
 unsigned Map::getRowSize() const {
@@ -159,7 +159,7 @@ void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type valu
 void Map::aniadirPuerta(const unsigned rowNumber, const unsigned colNumber, int tipoPuerta) {
     bool necesitaLlave = (tipoPuerta == TYPE_DOOR ? false : true);//documentar
     Posicion pos((colNumber / 2) * this->ladoCelda, (rowNumber / 2) * this->ladoCelda, ANGULO_DEFAULT);
-    Puerta puerta(tipoPuerta, pos, rowNumber, colNumber, false);
+    Puerta puerta(necesitaLlave, pos, rowNumber, colNumber, false);
     this->contenedorDeElementos.aniadirPuerta(puerta);
 }
 
@@ -211,7 +211,7 @@ void Map::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->colSize = charArrayToNumber(sub);
-    Map newMap(rowSize, colSize);
+    Map newMap(rowSize, colSize,ladoCelda * rowSize);//agregue aca el ancho
     this->map = newMap.map;
     for (unsigned i = 0; i < rowSize; i++) {
         for (unsigned j = 0; j < colSize; j++) {
@@ -237,7 +237,9 @@ ContenedorDeElementos &Map::obtenerContenedor() {
 
 bool Map::hayColision(int fila, int columna) {
     try {
-        if (fila < 0 || fila > this->rowSize || columna < 0 || columna > this->getColSize())
+      int tamFila = this->rowSize;
+      int tamCol = this->colSize;
+        if (fila < 0 || fila > tamFila || columna < 0 || columna > tamCol)
             return false;
         int tipo = this->map[fila][columna].getType();
         if (tipo == TYPE_DOOR) {
@@ -249,6 +251,7 @@ bool Map::hayColision(int fila, int columna) {
         return (tipo == TYPE_DOOR || tipo == TYPE_WALL || tipo == TYPE_WALL_2 || tipo == TYPE_WALL_3 ||
                 tipo == TYPE_KEY_DOOR || tipo == TYPE_FAKE_WALL);
     } catch (std::exception &exc) {
+      return false;//capaz deberia devolver true? no se
     }
 }
 
@@ -288,9 +291,9 @@ int Map::getLadoCelda(){
 
 std::vector<std::vector<int>> Map::getMapanumerico() {
     std::vector<std::vector<int>> mapaNumerico;
-    for(int i = 0; i < rowSize; i++){
+    for(unsigned i = 0; i < rowSize; i++){
         std::vector<int> vector;
-        for(int j = 0; j < colSize; j++){
+        for(unsigned j = 0; j < colSize; j++){
             vector.push_back(map[i][j].getType());
         }
         mapaNumerico.push_back(vector);

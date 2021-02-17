@@ -4,7 +4,7 @@ project(server)
 find_package(Threads REQUIRED)
 cmake_policy(SET CMP0015 NEW)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g -Wall -Werror")
 
 # Agrego la carpeta con los headers autogenerados a los includes
 message("Agregando '${PROJECT_BINARY_DIR}' como directorio de includes")

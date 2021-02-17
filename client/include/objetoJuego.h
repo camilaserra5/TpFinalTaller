@@ -1,4 +1,4 @@
-#ifndef BJETOJUEGO_H
+#ifndef OBJETOJUEGO_H
 #define OBJETOJUEGO_H
 
 #include "sprite.h"
@@ -12,7 +12,7 @@ private:
     int distanciaParcialAJugador;
 
 public:
-    ObjetoJuego(Sprite sprite); //a chequear esa doble referencia, pero es por el stdmove
+    ObjetoJuego(Sprite sprite);
 
     ~ObjetoJuego();
 

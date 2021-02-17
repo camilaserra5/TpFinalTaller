@@ -16,11 +16,11 @@ YAML::Node MapTranslator::mapToYaml(Map &map) {
     return node;
 }
 
-Map MapTranslator::yamlToMap(YAML::Node yaml) {
+Map MapTranslator::yamlToMap(YAML::Node yaml,int anchoPantalla) {
     const unsigned rows = yaml["rows"].as<unsigned>();
     const unsigned cols = yaml["cols"].as<unsigned>();
 
-    Map map(rows, cols);
+    Map map(rows, cols, anchoPantalla);
     YAML::Node mapNode = yaml["map"];
     for (std::size_t i = 0; i < mapNode.size(); i++) {
         YAML::Node rowNode = mapNode[i];

@@ -14,7 +14,7 @@
 class Map : public ISerializable {
 public:
 //largo preconcatenado
-    Map(unsigned rowSize, unsigned colSize);
+    Map(unsigned rowSize, unsigned colSize, int anchoPantalla);
 
     unsigned getRowSize() const;
 

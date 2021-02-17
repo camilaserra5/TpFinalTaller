@@ -19,7 +19,8 @@ void Anunciador::settearGanadores(std::vector<int> &ganadores) {
     SDL_Color color{255, 0, 0};
     Label ganador(100, 100, "GANADORES", fuentes.getFont("ganadores"), color, ventana.obtener_render());
     this->ganadores.push_back(ganador);
-    for (int i = 0; i < ganadores.size(); i++) {
+    int cantGanadores = ganadores.size();
+    for (int i = 0; i < cantGanadores; i++) {
         int id = ganadores[i];
         if (jugador->getId() == id) {
             int logro = jugador->getPuntaje();

@@ -18,7 +18,6 @@ private:
     double anguloPorStripe;
     int ladoCelda;
     int ladoMapa;
-    int tamanio_fila_mapa;
     float posXMapa;
     float posYMapa;
     int offset;
