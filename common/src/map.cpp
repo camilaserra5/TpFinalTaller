@@ -20,19 +20,7 @@
 #define PUNTOS_CORONA 200
 #define ANGULO_DEFAULT 0
 
-void Map::agregarArma(Posicion &posicion, Arma *arma) {
-    Type tipo = arma->getTipo();
-    if (tipo.getName() == "ametralladora") {
-        Item *ametralladora = new Ametralladora(posicion, arma->getId());
-        this->contenedorDeElementos.agregarElemento(ametralladora);
-    } else if (tipo.getName() == "canionDeCadena") {
-        Item *canion = new CanionDeCadena(posicion, arma->getId());
-        this->contenedorDeElementos.agregarElemento(canion);
-    } else if (tipo.getName() == "lanzaCohetes") {
-        Item *lanzaCohetes = new LanzaCohetes(posicion, arma->getId());
-        this->contenedorDeElementos.agregarElemento(lanzaCohetes);
-    }
-}
+void Map::agregarArma(Posicion &posicion, Arma *arma) {}
 
 void Map::sacarDelMapa(Posicion &posicion) {
     this->contenedorDeElementos.sacarElementoDePosicion(posicion);

@@ -19,7 +19,11 @@ class ActualizacionAgregarItem: public Actualizacion{
     ActualizacionAgregarItem(){}
     ~ActualizacionAgregarItem();
     std::vector<char> serializar() override;
+    Item* deserializarItem(std::vector<char>& informacion);
 
+    Item* obtenerItem(){
+        return this->item;
+    }
     void deserializar(std::vector<char> &serializado) override;
 
     int obtenerId() override { return static_cast<int>(Accion::agregarItem); }

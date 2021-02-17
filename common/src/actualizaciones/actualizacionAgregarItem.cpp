@@ -1,5 +1,9 @@
-#include "../include/actualizaciones/ActualizacionAgregarItem.h"
-
+#include "../include/actualizaciones/actualizacionAgregarItem.h"
+#include <iostream>
+#define PUNTOS_CRUZ 10
+#define PUNTOS_COPA 50
+#define PUNTOS_COFRE 100
+#define PUNTOS_CORONA 200
 
 ActualizacionAgregarItem::ActualizacionAgregarItem(Item* item): item(item){}
 
@@ -56,7 +60,7 @@ Item* ActualizacionAgregarItem::deserializarItem(std::vector<char> &informacion)
     return new NoItem(posicion, idTipo);
 }
 
-void ActualizacionAgarroItem::deserializar(std::vector<char> &serializado) {
+void ActualizacionAgregarItem::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);

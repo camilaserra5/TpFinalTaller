@@ -9,6 +9,7 @@
 #include "items/tesoro.h"
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
+#include "armas/lanzacohetes.h"
 #include "armas/pistola.h"
 #include "armas/cuchillo.h"
 #include "iostream"
@@ -17,7 +18,7 @@
 #include "../include/actualizaciones/actualizacionMovimiento.h"
 #include "../include/actualizaciones/actualizacionAperturaPuerta.h"
 #include "../include/actualizaciones/actualizacionAgarroItem.h"
-
+#include "../include/actualizaciones/actualizacionAgregarItem.h"
 
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
@@ -51,7 +52,7 @@ std::vector<Actualizacion*> EstadoJuego::realizarAtaque(int idJugador) {
     Arma *arma = jugador->getArma();
     std::cerr << "arma : " << arma->getTipo().getName() << "\n";
     int distancia_inventada = 5;
-    Actualizacion* actualizacionItem: this->verificarJugadoresMuertos();
+    Actualizacion* actualizacionItem = this->verificarJugadoresMuertos();
     if (actualizacionItem != NULL){
         actualizaciones.push_back(actualizacionItem);
     }
@@ -164,22 +165,31 @@ Actualizacion* EstadoJuego::verificarJugadoresMuertos() {
                 std::cerr << "========= Morision definitiva========" << '\n';
             }
             Arma *arma = it->second->getArma();
-
-            if (arma->getTipo().getName() != "pistola" && arma->getTipo().getName() != "cuchillo") {
-                this->mapa.agregarArma(it->second->getPosicion(), arma);
-                agregarItem = new ActualizacionAgregarItem(arma);
+            Type tipo = arma->getTipo();
+            if (tipo.getName() == "ametralladora") {
+                Item *ametralladora = new Ametralladora(it->second->getPosicion(),mapa.crearIdValido());
+                this->mapa.agregarElemento(ametralladora);
+                agregarItem = new ActualizacionAgregarItem(ametralladora);
+            } else if (tipo.getName() == "canionDeCadena") {
+                Item *canion = new CanionDeCadena(it->second->getPosicion(), mapa.crearIdValido());
+                this->mapa.agregarElemento(canion);
+                agregarItem = new ActualizacionAgregarItem(canion);
+            } else if (tipo.getName() == "lanzaCohetes") {
+                Item *lanzaCohetes = new LanzaCohetes(it->second->getPosicion(), mapa.crearIdValido());
+                this->mapa.agregarElemento(lanzaCohetes);
+                agregarItem = new ActualizacionAgregarItem(lanzaCohetes);
             }
-            Balas balas = new Balas(it->second->getPosicion(), 10/*cte*/, mapa->getIdValido());
+            Item* balas = new Balas(it->second->getPosicion(), 10/*cte*/, mapa.crearIdValido());
             this->mapa.agregarElemento(balas);
             agregarItem = new ActualizacionAgregarItem(balas);
             if (it->second->tengollave()) {
-              Llave llave = new Llave(it->second->getPosicion(), mapa->getIdValido());
-                this->mapa.agregarElemento(llave)
+              Item* llave = new Llave(it->second->getPosicion(), mapa.crearIdValido());
+                this->mapa.agregarElemento(llave);
                 agregarItem = new ActualizacionAgregarItem(llave);
             }
         }
     }
-    return agregraItem;
+    return agregarItem;
 }
 
 bool EstadoJuego::terminoPartida() {

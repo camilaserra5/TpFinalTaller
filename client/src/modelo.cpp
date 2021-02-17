@@ -10,6 +10,7 @@
 #include <actualizaciones/actualizacionCambioArma.h>
 #include <actualizaciones/actualizacionAperturaPuerta.h>
 #include <actualizaciones/actualizacionAgarroItem.h>
+#include <actualizaciones/actualizacionAgregarItem.h>
 //#include "rayo.h"
 #define SPRITE_LARGO 63
 #define SPRITE_ANCHO SPRITE_LARGO
@@ -467,6 +468,17 @@ bool Modelo::procesarActualizaciones() {
                                                   jugador->obtenerPuntosTotales(),
                                                   jugador->cant_de_vida());
             }
+        } else if(idActualizacion == static_cast<int>(Accion::agregarItem)){
+              std::cerr << "agrego un item" << std::endl;
+              auto agregoItem = (ActualizacionAgregarItem*) actualizacion;
+              Item* item = agregoItem->obtenerItem();
+              int idI = item->getId();
+              Type tipo = item->getTipo();
+              int posxI = item->obtenerPosicion().pixelesEnX();
+              int posyI = item->obtenerPosicion().pixelesEnY();
+            //  std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
+                    //    << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
+              this->actualizarObjeto(idI, tipo, posxI, posyI);
 
         } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
             std::cerr << "act terminooo" << std::endl;
@@ -477,7 +489,9 @@ bool Modelo::procesarActualizaciones() {
 
         delete actualizacion;
         return true;
+
     } catch (QueueException &qe) {
+        std::cerr << "error al recibir";
     } catch (std::exception &e) {
         std::cerr << e.what() << "\n";
         return false;
