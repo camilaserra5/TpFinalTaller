@@ -51,6 +51,7 @@ Actualizacion *EstadoJuego::realizarAtaque(int idJugador) {
     std::cerr << "arma : " << arma->getTipo().getName() << "\n";
     int distancia_inventada = 5;
     Actualizacion *actualizacion = arma->atacar(distancia_inventada, jugador, this->jugadores);
+    verificarJugadoresMuertos();
     return actualizacion;
 }
 
