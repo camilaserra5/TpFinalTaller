@@ -36,8 +36,8 @@ void Cliente::run() {
     Parser parser(ARCHIVO_DE_CONFIGURACION);
     int screenWidthLogin = parser.obtenerAnchoPantallaLogin();
     int screenheightLogin = parser.obtenerAltoPantallaLogin();
-
-    LogInWindow logIn(screenWidthLogin,screenheightLogin);
+    int screenWidthGame = parser.obtenerAnchoPantallaJuego();
+    LogInWindow logIn(screenWidthLogin,screenheightLogin,screenWidthGame);
     logIn.run();
     int idJugador = logIn.obtenerIdJugador();
     BlockingQueue<Comando *> events;

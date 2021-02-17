@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "socket.h"
-#include "../include/old_cliente.h"
 #include "../include/servidor.h"
 #include "yaml-cpp/yaml.h"
 #include "../include/manejadorPartidas.h"
@@ -15,8 +14,8 @@
 
 
 static void mensaje_de_error_argumentos() {
-    printf("La cantidad de argumentos ingresados son incorrectos. ");
-    printf("Recuerde que es: ./<ejecutable> <archivo de configuracion>\n");
+    std::cerr << "La cantidad de argumentos ingresados son incorrectos. ";
+    std::cerr << "Recuerde que es: ./<ejecutable> <archivo de configuracion>\n";
 }
 
 static bool verifica_argumentos(int argc, const char *argv[]) {
@@ -34,19 +33,11 @@ int main(int argc, const char *argv[]) {
     try {
         Parser parser(argv[ARG_PORT]);
         std::string port = parser.obtenerPuerto();
-        std::cerr << " puerto: " << port;
         std::map<std::string,std::string> mapas = parser.obtenerMapas();
 
         Socket socket;
         socket.bind_and_listen(port.c_str());
 
-        std::string nombreJugador = "juan";
-        std::string nombre = "pepe";
-        std::string nombre_partida = "grecia";
-        std::string nombre_partida2 = "ketchup";
-        std::string nombre_archivo = "archivo.yaml";
-        int cant_jugadores = 1;
-        int cant_jugadores2 = 2;
         ManejadorPartidas manejadorPartidas(mapas);
 
         Aceptador aceptador(socket, &manejadorPartidas);

@@ -10,7 +10,7 @@
 class LogInWindow {
 
 public:
-    LogInWindow(int screnWidth, int screenHeight);
+    LogInWindow(int screnWidth, int screenHeight, int screenWJuego);
 
     void run();
 
@@ -33,6 +33,7 @@ private:
     uint32_t idCliente;
     int screenWidth;
     int screenHeight;
+    int screenWJuego;
 
     void mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
                              std::vector<std::string> partidas, int &gameNumber);

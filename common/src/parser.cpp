@@ -44,3 +44,7 @@ int Parser::obtenerAnchoPantallaLogin(){
 int Parser::obtenerAltoPantallaLogin(){
   return this->config["screenHeightLogin"].as<int>();
 }
+
+int Parser::obtenerAnchoPantallaJuego(){
+  return this->config["screenWidthGame"].as<int>();
+}

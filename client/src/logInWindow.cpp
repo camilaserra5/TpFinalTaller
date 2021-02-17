@@ -16,7 +16,8 @@
 const SDL_Color white = {255, 255, 255, 255};
 const SDL_Color red = {226, 106, 106, 255};
 
-LogInWindow::LogInWindow(int screenWidth, int screenHeight) : screenWidth(screenWidth), screenHeight(screenHeight) {
+LogInWindow::LogInWindow(int screenWidth, int screenHeight, int screenWJuego) : screenWidth(screenWidth), screenHeight(screenHeight),
+                                                              screenWJuego(screenWJuego) {
     int rendererFlags, windowFlags;
 
     rendererFlags = SDL_RENDERER_ACCELERATED;
@@ -491,7 +492,7 @@ void LogInWindow::run() {
 
 
             CrearPartida crearPartida(-1, std::stoi(numberPlayers),
-                                      gameName, mapFile, playerName,screenWidth);
+                                      gameName, mapFile, playerName,this->screenWJuego);
             std::vector<char> serializado = crearPartida.serializar();
             protocolo->enviar(serializado);
             std::vector<char> res = protocolo->recibir();

@@ -3,7 +3,6 @@
 
 #include "thread.h"
 #include "servidor.h"
-#include "old_cliente.h"
 #include <atomic>
 #include <string>
 #include <map>
