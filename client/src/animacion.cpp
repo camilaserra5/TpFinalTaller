@@ -52,6 +52,7 @@ void Animacion::renderizarColumna(SDL_Rect &dimension, SDL_Rect dest) {
   dimension.x += this->frames[frameActual].x;
   dimension.y += this->frames[frameActual].y;
   dimension.h += this->frame_h;
+  dest.y -= 20;
   std::cerr << "renderizo animacion con dimensiones x: " << dimension.x << " y: " << dimension.y << " h: " << dimension.h << " w: " << dimension.w << std::endl << std::endl;
   std::cerr << "renderizo animacion en x: " << dest.x << " y: " << dest.y << " h: " << dest.h << " w: " << dest.w << std::endl << std::endl;
 
