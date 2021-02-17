@@ -24,15 +24,16 @@ int Jugador::getId() {
 
 Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion) :
         posicion(posicion),
-        nombre(nombre),
         id(id),
+        nombre(nombre),
         vida(MAX_VIDA),
         armas(),
         balas(CANT_INICAL_BALAS),
-        armaActual(ID_PISTOLA),
         velocidadDeRotacion(VELOCIDAD_DE_ROTACION),
+        armaActual(ID_PISTOLA),
         llaves(0),
         cantidad_vidas(2),
+        logro(),
         disparando(false) {
     this->armas.insert(std::make_pair(ID_PISTOLA, new Pistola()));
     this->armas.insert(std::make_pair(ID_CUCHILLO, new Cuchillo()));
@@ -69,7 +70,8 @@ void Jugador::agregar_arma(Arma *arma) {
 
 bool Jugador::poseeArma(Arma *arma) {
     bool poseeArma = false;
-    for (int i = 0; i < this->armas.size(); i++) {
+    int cantidadArmas = this->armas.size();
+    for (int i = 0; i < cantidadArmas; i++) {
         if (this->armas[i]->esIgual(arma)) {
             poseeArma = true;
         }

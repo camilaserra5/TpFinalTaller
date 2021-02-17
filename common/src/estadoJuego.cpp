@@ -77,24 +77,18 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
 }
 
 bool puedo_moverme(Map &mapa, int &posx, int &posy, Jugador *jugador) {
-    if (posx < 0 || posy < 0 || posx > (mapa.getRowSize() * mapa.getLadoCelda() - 1) || posy > (mapa.getColSize() * mapa.getLadoCelda() - 1)) return false;
-    int posEnMapaJugadorx = posx / mapa.getLadoCelda();  // 50 seria el tamanio de la celda en pixeles
-    // esa info hya que ver quien la tiene. maybe mapa?
+  int posXMax = mapa.getRowSize() * mapa.getLadoCelda() - 1;
+  int posYMax = mapa.getColSize() * mapa.getLadoCelda() - 1;
+    if (posx < 0 || posy < 0 || posx > posXMax || posy > posYMax) return false;
+    int posEnMapaJugadorx = posx / mapa.getLadoCelda();
     int posEnMapaJugadory = posy / mapa.getLadoCelda();
-  //  std::cerr << "pos del jugador q verifico x: " << posEnMapaJugadorx << " y: " << posEnMapaJugadory << std::endl;
-    Type tipo = mapa.operator()(posEnMapaJugadorx, posEnMapaJugadorx);
+    Type tipo = mapa.operator()(posEnMapaJugadorx, posEnMapaJugadory);
     std::string name = tipo.getName();
-//dstd::cerr << "name: " << name << "\n";
     return (name != "door" && name != "wall" && name != "wall-2" && name != "wall-3" && name != "fakeDoor" &&
             name != "keyDoor");
 }
 
-Item *verificarItems(Map &mapa, int &posx, int &posy) {
-    int posEnMapaJugadorx =
-            (mapa.getRowSize() * posx) / (mapa.getRowSize() * mapa.getLadoCelda());
-    // esa info hya que ver quien la tiene. maybe mapa?
-    int posEnMapaJugadory = (mapa.getColSize() * posy) / (mapa.getColSize() * mapa.getLadoCelda());
-  //s  std::cout << "\n verifico item\n";
+Item *EstadoJuego::verificarItems(int &posx, int &posy) {
     return mapa.buscarElemento(posx, posy);
 }
 
@@ -102,8 +96,7 @@ std::vector<Actualizacion *> EstadoJuego::verificarMovimientoJugador(Jugador *ju
     bool obtuvoBeneficio = false;
     std::vector<Actualizacion *> actualizaciones;
     if (puedo_moverme(this->mapa, xFinal, yFinal, jugador)) {
-        //std::cerr << "/* PUDE MOVER A JUGADOOR A */" << xFinal << " " << yFinal << '\n';
-        Item *item = verificarItems(this->mapa, xFinal, yFinal);
+        Item *item = verificarItems(xFinal, yFinal);
         if (item != nullptr) {
             obtuvoBeneficio = item->obtenerBeneficio(jugador);
             Actualizacion *obtengoItem = new ActualizacionAgarroItem(jugador, item);
@@ -120,39 +113,28 @@ std::vector<Actualizacion *> EstadoJuego::verificarMovimientoJugador(Jugador *ju
 
 Actualizacion *EstadoJuego::rotar_a_derecha(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    //jugador->dejarDeDisparar();
     jugador->rotar(ROTACION_DERECHA);
     return new ActualizacionMovimiento(jugador);
 }
 
 Actualizacion *EstadoJuego::rotar_a_izquierda(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    //jugador->dejarDeDisparar();
     jugador->rotar(ROTACION_IZQUIERDA);
     return new ActualizacionMovimiento(jugador);
 }
 
 std::vector<Actualizacion *> EstadoJuego::moverse_arriba(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    //  jugador->dejarDeDisparar();
-  //  std::cerr << "ME MUEVO ARRIBAAAA\n";
-  //  std::cerr << "angulo juagdor: " << jugador->getAnguloDeVista();
-//    std::cerr << "pos ant x" << jugador->posEnX() << " y" << jugador->posEnY() << std::endl;
+
     int xFinal = jugador->posEnX() + (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() + (METROS_MOVIDOS * (-1) * sin(jugador->getAnguloDeVista()));
-  //  std::cerr << "pos dsp x" << xFinal << " y" << yFinal << std::endl;
     return this->verificarMovimientoJugador(jugador, xFinal, yFinal);
 }
 
 std::vector<Actualizacion *> EstadoJuego::moverse_abajo(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    //jugador->dejarDeDisparar();
-
-    //std::cerr << "angulo juagdor: " << jugador->getAnguloDeVista();
-  //  std::cerr << "pos ant x" << jugador->posEnX() << " y" << jugador->posEnY() << std::endl;
     int xFinal = jugador->posEnX() + (METROS_MOVIDOS * (-1 ) * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() + (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
-  //  std::cerr << "pos dsp x" << xFinal << " y" << yFinal << std::endl;
     return this->verificarMovimientoJugador(jugador, xFinal, yFinal);
 }
 
@@ -191,9 +173,8 @@ void EstadoJuego::verificarJugadoresMuertos() {
 
 bool EstadoJuego::terminoPartida() {
     bool termino = false;
-
-    if ((this->jugadoresMuertos == this->jugadores.size() - 1) ||
-        this->contador == 0) {
+    int cantidadJugadores = this->jugadores.size();
+    if ((this->jugadoresMuertos == cantidadJugadores - 1) || this->contador == 0) {
         termino = true;
     }
     return termino;
@@ -228,11 +209,9 @@ std::vector<char> EstadoJuego::serializar() {
 
 void EstadoJuego::deserializar(std::vector<char> &informacion) {
     std::vector<char> sub(4);
-    //  std::cerr << "estado juego deserializar empieza" << std::endl;
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     int jugadoresSize = charArrayToNumber(sub);
-    //std::cerr << "estado juego deserializar jugadores size" << jugadoresSize << std::endl;
     idx += 4;
     for (int i = 0; i < jugadoresSize; i++) {
         sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
@@ -250,7 +229,6 @@ void EstadoJuego::deserializar(std::vector<char> &informacion) {
       this->mapa.deserializar(mapaSerializado);
 
 
-    //std::cerr << "estado juego deserializar fin" << std::endl;
 }
 
 std::map<int, Jugador *> &EstadoJuego::obtenerJugadores() {

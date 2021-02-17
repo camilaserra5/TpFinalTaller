@@ -115,11 +115,14 @@ Item *deserializarItem(std::vector<char> &informacion) {
 }
 
 void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
+  //error con el mapa de 20x20 6
+
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     int elementosSize = charArrayToNumber(sub);
     idx += 4;
+    std::cout << "el char array to number devuelve: " << elementosSize << std::endl;
 //    std::cerr << "size elementos: " <<elementosSize <<std::endl;
     for (int i = 0; i < elementosSize; i++) {
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -143,6 +146,7 @@ void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
         Puerta puerta = deserializarPuerta(puertaSerializada);
         this->puertas.push_back(puerta);
     }
+    std::cerr << "acam llego joya\n";
 }
 
 
@@ -172,7 +176,8 @@ void ContenedorDeElementos::agregarElemento(Item *item) {
 
 void ContenedorDeElementos::sacarElementoDePosicion(Posicion &posicion) {
     std::vector<Item *> elementosFiltrados;
-    for (int i = 0; i < this->elementos.size(); i++) {
+    int cantidadElementos = this->elementos.size();
+    for (int i = 0; i < cantidadElementos; i++) {
         if (this->elementos[i]->obtenerPosicion() == posicion) {
             delete this->elementos[i];
         } else {
@@ -188,7 +193,8 @@ ContenedorDeElementos::ContenedorDeElementos() :
 ContenedorDeElementos::~ContenedorDeElementos() {}
 
 Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
-    for (int i = 0; i < this->elementos.size(); i++) {
+  int cantidadElementos = this->elementos.size();
+    for (int i = 0; i < cantidadElementos; i++) {
         if (this->elementos[i]->estaCerca(posx, posy)) {
             return this->elementos[i];
         }

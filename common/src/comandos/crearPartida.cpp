@@ -19,19 +19,23 @@ std::vector<char> CrearPartida::serializar() {
     std::vector<char> aux(4);
     aux = numberToCharArray(static_cast<int>(Accion::crearPartida));
     info.insert(info.end(), aux.begin(), aux.end());
+
     aux = numberToCharArray(this->cantidadJugadores);
     info.insert(info.end(), aux.begin(), aux.end());
+
     aux = numberToCharArray(this->nombrePartida.size());
     info.insert(info.end(), aux.begin(), aux.end());
     info.insert(info.end(), this->nombrePartida.begin(), this->nombrePartida.end());
+
     aux = numberToCharArray(this->rutaYaml.size());
     info.insert(info.end(), aux.begin(), aux.end());
     info.insert(info.end(), this->rutaYaml.begin(), this->rutaYaml.end());
+
     aux = numberToCharArray(this->nombreCliente.size());
     info.insert(info.end(), aux.begin(), aux.end());
     info.insert(info.end(), this->nombreCliente.begin(), this->nombreCliente.end());
+
     aux = numberToCharArray(this->screenWidth);
-    std::cerr <<"serializp " <<screenWidth;
     info.insert(info.end(), aux.begin(), aux.end());
     return info;
 }
@@ -66,10 +70,9 @@ void CrearPartida::deserializar(std::vector<char> &serializado) {
     sub = std::vector<char>(&serializado[idx], &serializado[idx + tamNombreCliente]);
     this->nombreCliente = std::string(sub.begin(), sub.end());
 
-    idx += 4;
+    idx += tamNombreCliente;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->screenWidth = charArrayToNumber(sub);
-    std::cerr <<"deserializp " <<screenWidth;
 
 }
 

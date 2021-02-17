@@ -57,6 +57,8 @@ public:
 
     std::vector<int> getPosicionJugador(int idJugador);
 
+    Item *verificarItems(int &posx, int &posy);
+
 private:
     Map mapa;
     std::map<int, Jugador *> jugadores;
