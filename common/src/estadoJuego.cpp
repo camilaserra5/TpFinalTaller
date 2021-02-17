@@ -51,6 +51,7 @@ Actualizacion *EstadoJuego::realizarAtaque(int idJugador) {
     std::cerr << "arma : " << arma->getTipo().getName() << "\n";
     int distancia_inventada = 5;
     Actualizacion *actualizacion = arma->atacar(distancia_inventada, jugador, this->jugadores);
+    verificarJugadoresMuertos();
     return actualizacion;
 }
 
@@ -107,6 +108,7 @@ std::vector<Actualizacion *> EstadoJuego::verificarMovimientoJugador(Jugador *ju
         }
         jugador->moverse(xFinal, yFinal);
     }
+    std::cerr << "jugador:  posx: " << jugador->posEnX() << "posy: " << jugador->posEnY() << "\n";
     actualizaciones.push_back(new ActualizacionMovimiento(jugador));
     return actualizaciones;
 }
@@ -148,10 +150,12 @@ void EstadoJuego::verificarJugadoresMuertos() {
     std::map<int, Jugador *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if (it->second->estaMuerto()) {
+            std::cerr << "=========Se murio alguien :$========" << '\n';
             if (it->second->cant_de_vida() > 0) {
                 it->second->actualizarNuevaVida();
             } else {
                 this->jugadoresMuertos++;
+                std::cerr << "========= Morision definitiva========" << '\n';
             }
             Arma *arma = it->second->getArma();
 

@@ -44,7 +44,7 @@ Jugador::Jugador() {
 }
 
 Jugador::~Jugador() {
-    std::cerr<< "entreee al destructor";
+    std::cerr<< "entreee al destructor de Jugador\n";
 }
 
 std::string Jugador::obtenerNombre() {
@@ -161,6 +161,7 @@ bool Jugador::estaDisparando() {
 }
 
 void Jugador::actualizarNuevaVida() {
+    std::cerr << "=====reviviendo==========" << '\n';
     this->vida = MAX_VIDA;
     this->cantidad_vidas -= 1;
 }

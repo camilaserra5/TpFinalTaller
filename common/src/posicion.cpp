@@ -56,9 +56,13 @@ int Posicion::pixelesEnY() {
 //ecuacion (x2 -x1)² + (y2 - y1)² < radio²
 bool Posicion::estaCerca(int &posx, int &posy) {
     int radio = 5;
+    std::cerr << "posxJugador: " << posx << "posyJUgador: " << posy << "\n";
     int posFinalx = posx - this->pixelesX;
     int posFinaly = posy - this->pixelesY;
+    std::cerr << "posxItem: " << this->pixelesX << "posyItem" << this->pixelesY << "\n";
+    std::cerr << "distancia en x: " << posFinalx << "distancia en Y: " << posFinaly << "\n";
     if (((posFinalx * posFinalx) + (posFinaly * posFinaly)) < radio * radio) {
+        std::cerr << "estoy en rango\n";
         return true;
     }
     return false;
