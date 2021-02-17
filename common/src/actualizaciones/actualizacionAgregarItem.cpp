@@ -11,11 +11,6 @@ std::vector<char> ActualizacionAgregarItem::serializar() {
     aux = numberToCharArray(this->obtenerId());
     informacion.insert(informacion.end(), aux.begin(), aux.end());
 
-    std::vector<char> jugadorSerializado = jugador->serializar();
-    aux = numberToCharArray(jugadorSerializado.size());
-    informacion.insert(informacion.end(), aux.begin(), aux.end());
-    informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
-
     std::vector<char> itemSerializado = item->serializar();
     aux = numberToCharArray(itemSerializado.size());
     informacion.insert(informacion.end(), aux.begin(), aux.end());
@@ -64,15 +59,6 @@ Item* ActualizacionAgregarItem::deserializarItem(std::vector<char> &informacion)
 void ActualizacionAgarroItem::deserializar(std::vector<char> &serializado) {
     std::vector<char> sub(4);
     int idx = 0;
-    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-    idx += 4;
-    std::vector<char> informacionJugador(serializado.begin() + idx,
-                                          serializado.begin() + idx +
-                                          charArrayToNumber(sub));
-
-    this->jugador = new Jugador();
-    this->jugador->deserializar(informacionJugador);
-    idx += charArrayToNumber(sub);
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     std::vector<char> itemSerializado(serializado.begin() + idx,
                                       serializado.begin() + idx + charArrayToNumber(sub));

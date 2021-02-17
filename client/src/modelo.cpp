@@ -176,7 +176,7 @@ void Modelo::renderizar() {
 
     if (!partidaTerminada) {
         this->jugador->renderizar();
-      //  verificarObjetosEnRangoDeVista();
+        verificarObjetosEnRangoDeVista();
     } else {
         this->anunciador.renderizar();
     }

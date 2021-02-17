@@ -156,10 +156,12 @@ Actualizacion* EstadoJuego::verificarJugadoresMuertos() {
     Actualizacion* agregarItem = NULL;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if (it->second->estaMuerto()) {
+            std::cerr << "=========Se murio alguien :$========" << '\n';
             if (it->second->cant_de_vida() > 0) {
                 it->second->actualizarNuevaVida();
             } else {
                 this->jugadoresMuertos++;
+                std::cerr << "========= Morision definitiva========" << '\n';
             }
             Arma *arma = it->second->getArma();
 

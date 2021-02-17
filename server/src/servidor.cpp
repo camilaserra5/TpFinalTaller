@@ -138,7 +138,9 @@ void Servidor::generarComandosLua(JugadorLua& jugadorLua, ProtectedQueue<Comando
 void Servidor::run() {
      std::cerr << "=== CREO JUGADOR LUA==== " << std::endl;
      std::string ruta("modulo.lua");
-  //  JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
+
+    //  JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
+
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;
@@ -153,8 +155,8 @@ void Servidor::run() {
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-          //   std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
-          //  generarComandosLua(jugadorLua, this->cola_comandos);
+            // std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
+            //generarComandosLua(jugadorLua, this->cola_comandos);
             //std::cerr << "proceso" << std::endl;
             procesar_comandos(this->cola_comandos, this->estadoJuego);
             this->actualizarContador();
