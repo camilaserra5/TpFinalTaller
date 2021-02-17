@@ -29,8 +29,12 @@ end
 --Revisa en un rango si hay enemigos en el mapa
 --los jugadores aparecen con numeros mayores o iguales a 100
 function posicion_enemigo_cerca(pos_x, pos_y)
-    for i = pos_x - 10, i + 10, 1 do
-        for j = pos_y - 10, j + 10, 1 do
+    local rango = 3
+    if(pos_x - rango < 1 or pos_y - rango < 1) then
+    rango = 1
+    end
+    for i = pos_x - rango, i + rango, 1 do
+        for j = pos_y - rango, j + rango, 1 do
             if (#mapa[i][j] >= 100) then
                 return {posicionX = i, posicionY = j}
             end
@@ -46,6 +50,7 @@ function disparar_al_enemigo()
 end
 
 function crear_accion(pos_x, pos_y)
+    if(estoy_en_el_borde)
     local siguiente_mov = proximo_movimiento(pos_x, pos_y)
     local posicion_enemigo = posicion_enemigo_cerca(pos_x, pos_y)
     if (posicion_enemigo) then
