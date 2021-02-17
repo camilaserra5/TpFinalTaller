@@ -10,14 +10,19 @@
 
 #define TIEMPO_SERVIDOR 0.3
 #define ID_LUA 777
+
+#define ARRIBA 3
+#define DERECHA 1
+#define ABAJO 4
+#define IZQUIERDA 2
+
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(Map mapa, int cantJugadoresPosibles) :
         cola_comandos(),
         estadoJuego(mapa),
         cantJugadoresPosibles(cantJugadoresPosibles),
         sigue_corriendo(true),
-        arrancoPartida(false)
-        /*,jugadorLua(this->estadoJuego, ID_LUA)*/{}
+        arrancoPartida(false){}
 
 Servidor::~Servidor() {}
 
@@ -107,31 +112,31 @@ void Servidor::enviar_actualizaciones(std::vector<Actualizacion *> actualizacion
     }
 }
 
-/*
-void Servidor::generarComandosLua(ProtectedQueue<Comando *> cola_comandos, EstadoJuego estadoJuego){
+void Servidor::generarComandosLua(JugadorLua& jugadorLua, ProtectedQueue<Comando *> &cola_comandos){
     Comando* nuevoComando;
-    char tecla = jugadorLua.procesar(); // servidor que tenga una intelgencia;
-    switch(tecla){
+    char teclaComando = jugadorLua.procesar();
+    switch(teclaComando){
         case 'w':
-            nuevoComando = new Movimiento(jugadorLua.getID, 3);
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ARRIBA));
             break;
         case 'd':
-            nuevoComando = new Movimiento(jugadorLua.getID, 1);
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(DERECHA));
             break;
         case 's':
-            nuevoComando = new Movimiento(jugadorLua.getID, 4);
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ABAJO));
             break;
         case 'a':
-            nuevoComando = new Movimiento(jugadorLua.getID, 2);
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(IZQUIERDA));
             break;
         case 'p':
-            nuevoComando = new Ataque(jugadorLua.getID);
+            nuevoComando = new Ataque(jugadorLua.id);
             break;
     }
     this->cola_comandos.aniadir_dato(nuevoComando);
 }
-*/
+
 void Servidor::run() {
+    JugadorLua jugadorLua(this->estadoJuego, ID_LUA);
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;
@@ -147,7 +152,7 @@ void Servidor::run() {
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
 
-            // generarComandosLua(this->cola_comandos, this->estadoJuego);
+            generarComandosLua(jugadorLua, this->cola_comandos);
             //std::cerr << "proceso" << std::endl;
             procesar_comandos(this->cola_comandos, this->estadoJuego);
             this->actualizarContador();

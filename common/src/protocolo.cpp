@@ -49,8 +49,8 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
     int idAccion = ntohl(*buf);
 
     if (idAccion == static_cast<int>(Accion::ataque)) {
-        return new Ataque(idJugador);
         std::cerr << "COMANDO ATAQUE\n";
+        return new Ataque(idJugador);
     } else if (idAccion == static_cast<int>(Accion::aperturaDePuerta)) {
         std::cerr << "COMANDO ABRIR PUERTA\n";
         return new AperturaDePuerta(idJugador);

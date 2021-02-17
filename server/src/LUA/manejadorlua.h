@@ -14,17 +14,18 @@ class ManejadorLua {
     int mapaAncho;
     int mapaLargo;
 
-    void crearTabla(std::vector<std::vector<int>> table, std::string nombremapa);
+    void crearTabla(std::vector<std::vector<int>> &table, std::string nombremapa);
 public:
-    ManejadorLua(std::string& archivo);
+    explicit ManejadorLua(std::string & archivo);
     ~ManejadorLua();
     /*
      * Recibe mapa de la partida actual para guardar y usarla para poder moverse.
      */
-    void  crearMapa(std::vector<std::vector<int>> mapa, std::string nombremapa);
+    void  crearMapa(std::vector<std::vector<int>> mapa);
     void vaciarStack();
 
-    char generarEvento(int& posx, int& posy);
+    const char * generarEvento(int& posx, int& posy);
+
 };
 
 

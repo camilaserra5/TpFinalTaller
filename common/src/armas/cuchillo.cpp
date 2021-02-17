@@ -23,7 +23,6 @@ Actualizacion* Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::ma
         }
         jugadoresAtacados.insert({idJugadorMasCercano,jugadorAtacado});
     }
-    jugador->dejarDeDisparar();
     return new ActualizacionAtaque(jugador, jugadoresAtacados);
 }
 

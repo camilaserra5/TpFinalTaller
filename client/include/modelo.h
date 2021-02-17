@@ -22,7 +22,8 @@ public:
 
     void renderizar();
 
-    void renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &y1, double &distanciaObjeto);
+    void renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x,
+                          int &y1, double &distanciaObjeto);
 
     void renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetosVisibles);
 
@@ -65,13 +66,16 @@ public:
 
     void actualizarArmaEnemigos(int idArma);
 
-    void actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas, int puntaje, int cant_vidas);
+    void actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas,
+                                        int puntaje, int cant_vidas,
+                                        bool atacando);
 
     void actualizarVidaEnemigo(int id, int vida, int idArma);
 
     void sacarItem(int& id);
 
-    void actualizarBeneficioJugador(int vida, int balas, int puntos, int cant_vidas);
+    void actualizarBeneficioJugador(int vida, int balas, int puntos,
+                                    int cant_vidas);
 
 private:
     Ventana &ventana;

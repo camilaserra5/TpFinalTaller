@@ -11,11 +11,12 @@ private:
     bool esta_vivo;
     EstadoJuego& estadoJuego;
     ManejadorLua lua;
-    int& id;
+
 public:
     JugadorLua(EstadoJuego estadoJuego, int id);
     char procesar();
-    ~JugadorLua(){};
+    int& id;
+    ~JugadorLua();
 };
 
 

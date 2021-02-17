@@ -22,25 +22,29 @@ Actualizacion* Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map
     srand(time(NULL));
     std::map<int, Jugador*> jugadoresAtacados;
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
-    if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
+    if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO && jugador->cantidad_balas() > 0)  {
+        std::cerr << "consegui a jugador para matarlo";
         int cantidad_balas = BALAS_POR_RAFAGA;
         int i = 0;
         bool jugadorMurio = false;
         Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
-        std::cerr << "balas: " << cantidad_balas << "murio: " << jugadorMurio << "\n";
         while (i < cantidad_balas && !jugadorMurio) {
             //distancia influye en el danio y lode la precision
+            std::cerr << "dispara: " << jugador->getId();
+            std::cerr << "voy a dispatar a: " << jugadorAtacado->getId();
             int danio = (rand() % DANIO_MAX) + 1;
             danio = -danio;
             jugadorAtacado->actualizar_vida(danio);
             if (jugadorAtacado->estaMuerto()) {
                 jugadorMurio = true;
                 jugador->aniadirEnemigosMatados(1);
+                std::cerr << "MATE AL JUGADOR:  " << jugadorAtacado->getId() << "\n";
             }
             i++;
         }
-        jugadoresAtacados.insert({idJugadorMasCercano, jugadorAtacado});
+        jugadoresAtacados.insert({jugadorAtacado->getId()/*idJugadorMasCercano*/, jugadorAtacado});
     }
+    jugador->gastarBalas(BALAS_POR_RAFAGA);
     jugador->actualizarArma();
     return new ActualizacionAtaque(jugador, jugadoresAtacados);
 

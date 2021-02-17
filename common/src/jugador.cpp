@@ -11,6 +11,7 @@
 #include "armas/pistola.h"
 #include "armas/lanzacohetes.h"
 #include "armas/ametralladora.h"
+#include "armas/cuchillo.h"
 #include "objetosJuego.h"
 #include "../include/actualizaciones/actualizacionCambioArma.h"
 
@@ -33,7 +34,8 @@ Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion) :
         llaves(0),
         cantidad_vidas(2),
         disparando(false) {
-    this->armas.insert(std::make_pair(armaActual, new Pistola()));
+    this->armas.insert(std::make_pair(ID_PISTOLA, new Pistola()));
+    this->armas.insert(std::make_pair(ID_CUCHILLO, new Cuchillo()));
     //this->armas.insert(std::make_pair(ID_AMETRALLADORA, new Ametralladora(posicion, ID_AMETRALLADORA)));
 }
 
@@ -41,11 +43,7 @@ Jugador::Jugador() {
 }
 
 Jugador::~Jugador() {
-
-    /*  for (int i = 0; i < this->armas.size(); i++) {
-            delete armas[i];
-      }*/
-
+    std::cerr<< "entreee al destructor";
 }
 
 std::string Jugador::obtenerNombre() {
@@ -88,6 +86,9 @@ int Jugador::cantidad_balas() {
 }
 
 void Jugador::agregar_balas(int &balas) {
+    if (balas >= 0){
+        this->armaActual = ID_PISTOLA;
+    }
     this->balas += balas;
 }
 
@@ -108,17 +109,10 @@ void Jugador::agarrarLlave() {
 }
 
 void Jugador::actualizarArma() {
-    Posicion posDefault(0, 0, 0);
-    Arma *lanzacohetes = new LanzaCohetes(posDefault,
-                                          ObjetosJuego::obtenerTipoPorNombre("lanzaCohetes").getType());
-    if (this->balas < BALAS_PARA_LANZACOHETES &&
-        this->armas.at(this->armaActual)->esIgual(lanzacohetes) &&
-        this->balas > 0) {
-        this->armaActual = ID_PISTOLA;
-    } else {
+    if(this->balas <= 0){
+        std::cerr << "PASO A CUCHILLO";
         this->armaActual = ID_CUCHILLO;
     }
-    //delete lanzacohetes;
 }
 
 void Jugador::rotar(int sentido) {
@@ -131,6 +125,7 @@ Logro &Jugador::obtenerLogro() {
 
 void Jugador::gastarBalas(int cantidadDeBalas) {
     this->balas -= cantidadDeBalas;
+    std::cerr << "cantidad de balas: " << this->balas << "\n";
     this->logro.aniadirBalasDisparadas(cantidadDeBalas);
 }
 
@@ -221,7 +216,7 @@ void Jugador::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->armaActual = charArrayToNumber(sub);
-    //std::cerr << " juegador deserializar armaActual " << this->armaActual << std::endl;
+    std::cerr << " juegador deserializar armaActual " << this->armaActual << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->disparando = charArrayToNumber(sub);

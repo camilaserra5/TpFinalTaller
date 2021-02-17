@@ -24,4 +24,5 @@ add_executable(server
 
 target_link_libraries(server ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threads -Llib -llua ${YAML_CPP_LIBRARIES})
 
+install(FILES src/LUA/modulo.lua DESTINATION ${CMAKE_BINARY_DIR})
 install(FILES DESTINATION ${CMAKE_BINARY_DIR})
