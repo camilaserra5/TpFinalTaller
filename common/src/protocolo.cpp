@@ -106,7 +106,7 @@ Item *Protocolo::deserializarItem(std::vector<char> &informacion) {
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("tesoro").getType()) {
         return new Tesoro(idTipo, ObjetosJuego::obtenerTipoPorNombre("tesoro"), 0, posicion);
     }
-
+    return NULL;//CHEQUEAR ESTE NULL EN LA FUNCION Q LLAMA A ESTA FUNCION
 }
 
 

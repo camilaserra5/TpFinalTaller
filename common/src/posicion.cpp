@@ -30,8 +30,8 @@ bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
 }
 
 void Posicion::actualizar_posicion(int pixelesX, int pixelesY) {
-    std::cerr << "x viejo: " << this->pixelesX << "x nuevo: " << pixelesX;
-    std::cerr << "Y viejo: " << this->pixelesY << "Y nuevo: " << pixelesY;
+  //  std::cerr << "x viejo: " << this->pixelesX << "x nuevo: " << pixelesX;
+  //  std::cerr << "Y viejo: " << this->pixelesY << "Y nuevo: " << pixelesY;
     this->pixelesX = pixelesX;
     this->pixelesY = pixelesY;
 }
@@ -57,8 +57,8 @@ bool Posicion::estaCerca(int &posx, int &posy) {
 }
 
 void Posicion::rotar(float anguloRotacion) {
-    std::cerr << "angulo viejo: " << this->anguloDeVista;
-    std::cerr << "\n";
+  //  std::cerr << "angulo viejo: " << this->anguloDeVista;
+  //  std::cerr << "\n";
     float anguloFinal = this->anguloDeVista + anguloRotacion;
     if (anguloFinal < 0) {
         this->anguloDeVista = 2 * PI + anguloFinal;
@@ -67,7 +67,7 @@ void Posicion::rotar(float anguloRotacion) {
     } else {
         this->anguloDeVista = anguloFinal;
     }
-    std::cerr << "angulo nuevo: " << this->anguloDeVista;
+  //  std::cerr << "angulo nuevo: " << this->anguloDeVista;
 }
 
 bool Posicion::operator==(Posicion &otraPosicion) {
@@ -90,7 +90,7 @@ std::vector<char> Posicion::serializar() {
     aux = numberToCharArray(pixelesY);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     int anguloSerializar = (anguloDeVista * 180) / PI;
-    std::cerr << "el ngulo que serializo es: " << anguloDeVista << " : " << anguloSerializar << std::endl;
+    //std::cerr << "el ngulo que serializo es: " << anguloDeVista << " : " << anguloSerializar << std::endl;
     aux = numberToCharArray(anguloSerializar);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     return informacion;
@@ -111,6 +111,6 @@ void Posicion::deserializar(std::vector<char> &serializado) {
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     int anguloDeserializar = charArrayToNumber(sub);
     this->anguloDeVista = (anguloDeserializar * PI) / 180;
-    std::cerr << " posicion deserializar anguloDeVista " << anguloDeVista <<  " " << anguloDeserializar << std::endl;
+    //std::cerr << " posicion deserializar anguloDeVista " << anguloDeVista <<  " " << anguloDeserializar << std::endl;
 //    std::cerr << " posicion deserializar fin " << std::endl;
 }

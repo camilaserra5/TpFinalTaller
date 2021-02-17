@@ -8,7 +8,8 @@ bool estaEnElTop(Jugador *jugador, int &posicion, std::map<int, Jugador *> &juga
                  std::vector<int> &topJugadores, int &cantidadTopJugadores) {
     bool estaEnElTop = false;
     int i = 0;
-    while (i < topJugadores.size() && !estaEnElTop) {
+    int cantJugadoresEnElTopActual = topJugadores.size();
+    while (i < cantJugadoresEnElTopActual && !estaEnElTop) {
         if (jugador->obtenerLogro() > jugadores.at(topJugadores[i])->obtenerLogro()) {
             posicion = i;
             estaEnElTop = true;
@@ -18,8 +19,8 @@ bool estaEnElTop(Jugador *jugador, int &posicion, std::map<int, Jugador *> &juga
         }
         i++;
     }
-    if (topJugadores.size() < cantidadTopJugadores && estaEnElTop) {
-        posicion = topJugadores.size();
+    if (cantJugadoresEnElTopActual < cantidadTopJugadores && estaEnElTop) {
+        posicion = cantJugadoresEnElTopActual;
         estaEnElTop = true;
     }
     return estaEnElTop;
@@ -29,7 +30,8 @@ void ordenarEnPosicion(int id, int &posicion, std::vector<int> &topJugadores, in
     std::vector<int>::iterator it;
     it = topJugadores.begin();
     topJugadores.insert(it + posicion, id);
-    if (topJugadores.size() > cantidadTopJugadores) {
+    int cantJugadoresEnElTopActual = topJugadores.size();
+    if (cantJugadoresEnElTopActual > cantidadTopJugadores) {
         topJugadores.resize(cantidadTopJugadores);
     }
 }
