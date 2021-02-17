@@ -17,10 +17,10 @@ int Arma::JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador *> &jug
     for (it = jugadores.begin(); it != jugadores.end(); ++it) {
         if (jugador->getId() != it->second->getId()) {
             distanciaActual = posicionAtacable(jugador->getPosicion(), it->second->getPosicion());
-            std::cerr << "distancia actual: "<< distanciaActual << std::endl;
-            std::cerr << "\ncon jugador: " << it->second->getId();
-            std::cerr << "\n menorDistancia : " << menorDistancia;
-            if (distanciaActual < menorDistancia) {
+          //  std::cerr << "distancia actual: "<< distanciaActual << std::endl;
+          //  std::cerr << "\ncon jugador: " << it->second->getId();
+          //  std::cerr << "\n menorDistancia : " << menorDistancia;
+            if (distanciaActual != -1 && distanciaActual < menorDistancia) {
                 menorDistancia = distanciaActual;
                 idJugadorMasCercano = it->first;
             }

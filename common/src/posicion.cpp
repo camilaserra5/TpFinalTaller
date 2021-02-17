@@ -1,6 +1,6 @@
 #include "../include/posicion.h"
 
-#define DELTA_DISTANCIA 0.5
+#define DELTA_DISTANCIA 0.2
 #define PI 3.1415926
 
 #include <math.h>
@@ -22,11 +22,19 @@ int Posicion::distanciaA(Posicion &posicion) {
 }
 
 bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
-    int xFinal = this->pixelesX + 1;
-    int yFinal = this->pixelesX * tan(this->anguloDeVista);
-    float pendienteRecta = (yFinal - this->pixelesY) / (xFinal - this->pixelesX);
-    int yOtroJugador = pendienteRecta * otroJugador.pixelesX + this->pixelesY;
-    return (abs(yOtroJugador - otroJugador.pixelesY) <= DELTA_DISTANCIA);
+  std::cerr << "verifico las posiciones de los jugadores inteersecando\n";
+  std::cerr << "la pos del atacante es x: " << pixelesX << " y: " << pixelesY << "angulo: " << anguloDeVista << "\n";
+  std::cerr << "la pos del atacado es x: " << otroJugador.pixelesX << " y: " << otroJugador.pixelesY << "angulo: " << otroJugador.anguloDeVista << "\n";
+    float dx = otroJugador.pixelesX - pixelesX;
+    float dy = otroJugador.pixelesY - pixelesY;
+    float alphaRecta;
+    if (dx == 0){
+        if (dy < 0) alphaRecta = PI / 2;
+        else alphaRecta = 3 * PI / 2;
+    }else{
+        alphaRecta = atan(dy / dx);
+    }
+    return (abs(anguloDeVista - alphaRecta) <= DELTA_DISTANCIA);
 }
 
 void Posicion::actualizar_posicion(int pixelesX, int pixelesY) {
