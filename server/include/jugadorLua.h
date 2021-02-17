@@ -13,7 +13,7 @@ private:
     ManejadorLua lua;
 
 public:
-    JugadorLua(EstadoJuego estadoJuego, int id);
+    JugadorLua(EstadoJuego& estadoJuego, int id, std::string& ruta);
     char procesar();
     int& id;
     ~JugadorLua();

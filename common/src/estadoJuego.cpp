@@ -69,6 +69,10 @@ EstadoJuego::~EstadoJuego() {
 void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
     Posicion posicionValida = this->mapa.obtenerPosicionIncialValida();
     Jugador *jugador = new Jugador(nombreJugador, id, posicionValida);
+    std::cerr << "agrego un jugadorrr"<< std::endl;
+    if(!jugador){
+        std::cerr << "O NO..."<< std::endl;
+    }
     this->jugadores.insert(std::make_pair(id, jugador));
 }
 
@@ -266,7 +270,7 @@ std::vector<std::vector<int>> EstadoJuego::GetMapanumerico(){
 }
 
 std::vector<int> EstadoJuego::getPosicionJugador(int idJugador){
-    Jugador *jugador = this->jugadores.at(idJugador);
+    Jugador *jugador = this->jugadores.at(idJugador); //No se por que falla :( carita triste
     int posEnMapaJugadorx = jugador->posEnX() / mapa.getLadoCelda();
     int posEnMapaJugadory = jugador->posEnY() / mapa.getLadoCelda();
     std::vector<int> posiciones;

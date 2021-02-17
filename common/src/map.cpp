@@ -289,9 +289,11 @@ int Map::getLadoCelda(){
 std::vector<std::vector<int>> Map::getMapanumerico() {
     std::vector<std::vector<int>> mapaNumerico;
     for(int i = 0; i < rowSize; i++){
+        std::vector<int> vector;
         for(int j = 0; j < colSize; j++){
-            mapaNumerico[i][j] = map[i][j].getType();
+            vector.push_back(map[i][j].getType());
         }
+        mapaNumerico.push_back(vector);
     }
     return mapaNumerico;
 }

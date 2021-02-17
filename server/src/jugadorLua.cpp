@@ -1,8 +1,12 @@
 #include "../include/jugadorLua.h"
 
-JugadorLua::JugadorLua(EstadoJuego estadoJuego, int id) : esta_vivo(true), estadoJuego(estadoJuego), lua(
-        (std::string &) "LUA/modulo.lua"), id(id){
-    this->estadoJuego.agregarJugador((std::string &) "jugadorLua", this->id);
+JugadorLua::JugadorLua(EstadoJuego& estadoJuego, int id, std::string & ruta) :
+ esta_vivo(true),
+ estadoJuego(estadoJuego),
+ lua(ruta),
+ id(id){
+    std::string nombre("jugadorLua");
+    this->estadoJuego.agregarJugador(nombre, this->id);
     lua.crearMapa(this->estadoJuego.GetMapanumerico());
 }
 

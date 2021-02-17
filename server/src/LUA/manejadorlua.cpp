@@ -1,8 +1,10 @@
 #include "manejadorlua.h"
+#include <iostream>
 
 #define MAPA "mapa"
 
 ManejadorLua::ManejadorLua(std::string & archivo){
+     std::cerr << "=== INSTANCIANDO UN MANEJADOR LUA==== " << std::endl;
     interprete = luaL_newstate();
     luaL_dofile(interprete, archivo.c_str());
 }
@@ -24,6 +26,7 @@ ManejadorLua::~ManejadorLua() {
  * para ser usada por el script
  */
 void ManejadorLua::crearTabla(std::vector<std::vector<int>> &mapa, std::string nombremapa) {
+     std::cerr << "=== CREANDO TABLA LUA==== " << std::endl;
     lua_newtable(interprete);
     for(int i = 0; i < mapa.size(); i++) {
         lua_pushnumber(interprete, i + 1);    // indice de la tabla
@@ -40,13 +43,14 @@ void ManejadorLua::crearTabla(std::vector<std::vector<int>> &mapa, std::string n
 }
 
 void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa) {
+    std::cerr << "=== CREANDO MAPA LUA==== " << std::endl;
     this->mapaLargo = mapa.size();
     this->mapaAncho = mapa[0].size();
     crearTabla(mapa, MAPA);
 }
 
 const char * ManejadorLua::generarEvento(int& posx, int& posy) {
-    //interprete.crear_accion(/*ACA DE ALGUNA FORMA TENDRIA QUE MADNAR EL MAPA QUE LO TIENE EN EL STACK*/posx, posy)  //ESTO NO FUNCIONA
+    std::cerr << "====GENERANDO EVENTO LUA==== " << std::endl;
     lua_getglobal(interprete, "crear_accion");
     lua_pushnumber(interprete, posx);
     lua_pushnumber(interprete, posy);
