@@ -138,7 +138,9 @@ void Servidor::generarComandosLua(JugadorLua& jugadorLua, ProtectedQueue<Comando
 void Servidor::run() {
      std::cerr << "=== CREO JUGADOR LUA==== " << std::endl;
      std::string ruta("modulo.lua");
-    //JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
+
+    //  JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
+
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;
@@ -171,6 +173,7 @@ void Servidor::run() {
             std::chrono::duration<double> sleepTime = tiempoServidor - (fin - inicio);
             //std::cerr << "sleep for" << time_span.count() << std::endl;
             std::this_thread::sleep_for(sleepTime);
+
             /*auto fin = std::chrono::high_resolution_clock::now();
             auto delta = fin - inicio;
             long tardanza = delta.count();
