@@ -1,4 +1,4 @@
-#ifndef BJETOJUEGO_H
+#ifndef OBJETOJUEGO_H
 #define OBJETOJUEGO_H
 
 #include "sprite.h"
