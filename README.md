@@ -295,7 +295,7 @@ Para crear un nuevo mapa, ir a Archivo -> Nuevo (o ctrl + N). Se abrirá la sigu
 Una vez que tengamos el tamaño apropiado, para completarlo se pueden arrastrar las imágenes desde la lista izquierda. Haciendo doble click, se podrá pintar la superficie deseada:
 ![editor](editor3.gif)   
 
-**Importante!**: el mapa debe ser un recinto cerrado de paredes.  
+**Importante!**: el mapa debe ser un recinto cerrado de paredes y todos los clientes deben utilizar el mismo ancho  y alto de pantalla.  
 ##### Guardar el mapa
 Para guardar el mapa una vez que ya este listo ir a Archivo -> Guardar. El mapa deberá ser un archivo .yaml o .yml
 
