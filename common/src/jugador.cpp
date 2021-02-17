@@ -15,8 +15,8 @@
 #include "objetosJuego.h"
 #include "../include/actualizaciones/actualizacionCambioArma.h"
 
-
-#define VELOCIDAD_DE_ROTACION 0.25 * acos(0.0)
+#define PI 3.1415926
+#define VELOCIDAD_DE_ROTACION 0.1  * PI
 
 int Jugador::getId() {
     return this->id;
@@ -111,7 +111,7 @@ void Jugador::agarrarLlave() {
 }
 
 void Jugador::actualizarArma() {
-    if(this->balas <= 0){
+    if(this->balas == 0){
         std::cerr << "PASO A CUCHILLO";
         this->armaActual = ID_CUCHILLO;
     }
