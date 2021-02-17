@@ -132,6 +132,7 @@ void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVis
     std::map<int, Enemigo *>::iterator itEnemigo;
     for (itEnemigo = this->enemigos.begin(); itEnemigo != this->enemigos.end(); ++itEnemigo) {
         Posicion &posEnemigo = itEnemigo->second->getPosicion();
+        std::cerr << "pos del enemigo " << posEnemigo.pixelesEnX() << " " << posEnemigo.pixelesEnY() << "\n";
         esVisible = verificarVisibilidadDeObjeto(posEnemigo);
         if (esVisible) {
             objetosVisibles.push_back(itEnemigo->second);

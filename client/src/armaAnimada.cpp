@@ -32,7 +32,7 @@ ArmaAnimada::ArmaAnimada(SDL_Renderer *render): contador(CONTADOR_INICIAL), atac
     this->animaciones.insert(std::make_pair(ID_PISTOLA, animacionPistola));
     this->animaciones.insert(std::make_pair(ID_AMETRALLADORA, animacionAmetralladora));
     this->animaciones.insert(std::make_pair(ID_CANION_DE_CADENA, animacionCanion));
-    this->armaActual = ID_CUCHILLO;
+    this->armaActual = ID_PISTOLA;
 }
 
 ArmaAnimada::~ArmaAnimada() {}
@@ -44,7 +44,7 @@ void ArmaAnimada::actualizar(int armaActual, bool estado) {
 
 void ArmaAnimada::renderizar() {
 
-    std::cerr << "arma: " << this->armaActual << "\n";
+    //std::cerr << "arma: " << this->armaActual << "\n";
     if (this->atacando) {
         if(this->contador != 0){
             std::cerr << "entre";
