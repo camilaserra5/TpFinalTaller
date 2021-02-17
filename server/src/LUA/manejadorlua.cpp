@@ -1,5 +1,7 @@
 #include "manejadorlua.h"
 
+#define MAPA "mapa"
+
 ManejadorLua::ManejadorLua(std::string & archivo){
     interprete = luaL_newstate();
     luaL_dofile(interprete, archivo.c_str());
@@ -21,7 +23,7 @@ ManejadorLua::~ManejadorLua() {
 /* Crea una tabla en lua que es guardada en el stack
  * para ser usada por el script
  */
-void ManejadorLua::crearTabla(std::vector<std::vector<int>> mapa, std::string nombremapa) {
+void ManejadorLua::crearTabla(std::vector<std::vector<int>> &mapa, std::string nombremapa) {
     lua_newtable(interprete);
     for(int i = 0; i < mapa.size(); i++) {
         lua_pushnumber(interprete, i + 1);    // indice de la tabla
@@ -37,14 +39,19 @@ void ManejadorLua::crearTabla(std::vector<std::vector<int>> mapa, std::string no
     lua_setglobal(interprete, nombremapa.c_str());
 }
 
-void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa, std::string nombreMapa) {
+void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa) {
     this->mapaLargo = mapa.size();
     this->mapaAncho = mapa[0].size();
-    crearTabla(mapa, nombreMapa);
+    crearTabla(mapa, MAPA);
 }
 
-char ManejadorLua::generarEvento(int& posx, int& posy) {
-    interprete.
-
-    return 0;
+const char * ManejadorLua::generarEvento(int& posx, int& posy) {
+    //interprete.crear_accion(/*ACA DE ALGUNA FORMA TENDRIA QUE MADNAR EL MAPA QUE LO TIENE EN EL STACK*/posx, posy)  //ESTO NO FUNCIONA
+    lua_getglobal(interprete, "crear_accion");
+    lua_pushnumber(interprete, posx);
+    lua_pushnumber(interprete, posy);
+    lua_pcall(interprete, 2, 1, 0);
+    const char *tecla = lua_tostring(interprete, 1);
+    lua_pop(interprete, 1); // elimina lua_action
+    return tecla;
 }

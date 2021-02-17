@@ -62,8 +62,6 @@ private:
     std::map<int, Jugador *> jugadores;
     int contador;
     int jugadoresMuertos = 0;
-
-
 };
 
 #endif

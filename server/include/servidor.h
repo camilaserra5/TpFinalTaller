@@ -13,7 +13,7 @@
 #include "iserializable.h"
 #include <atomic>
 #include "manejadorCliente.h"
-//#include "jugadorLua.h"
+#include "jugadorLua.h"
 
 class Servidor : public Thread, public ISerializable {
 public:
@@ -66,7 +66,7 @@ private:
     std::map<int, ManejadorCliente*> clientes;
     //JugadorLua jugadorLua;
 
-    void generarComandosLua(ProtectedQueue<Comando *> cola_comandos, EstadoJuego estadoJuego);
+    void generarComandosLua(JugadorLua &jugadorLua, ProtectedQueue<Comando *> &cola_comandos);
 };
 
 #endif
