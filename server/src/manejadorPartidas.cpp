@@ -19,9 +19,9 @@ void ManejadorPartidas::agregarMapa(std::string nombreMapa, std::string archivoM
     this->mapas.insert(std::make_pair(nombreMapa, archivoMapa));
 }
 
-Map ManejadorPartidas::buscarMapa(std::string &archivoMapa) {
+Map ManejadorPartidas::buscarMapa(std::string &archivoMapa, int& anchoPantalla) {
   std::string ruta = this->mapas.at(archivoMapa);
-  return MapTranslator::yamlToMap(YAML::LoadFile(ruta));
+  return MapTranslator::yamlToMap(YAML::LoadFile(ruta), anchoPantalla);
 }
 
 int ManejadorPartidas::crearPartida(std::string &nombreJugador,int &cant_jugadores,
@@ -31,8 +31,7 @@ int ManejadorPartidas::crearPartida(std::string &nombreJugador,int &cant_jugador
     if (partidas.count(nombre_partida) > 0) {
         return idCliente;
     } else {
-        Map mapa = this->buscarMapa(archivoMapa);
-        mapa.setLadoCelda(screenWidth);
+        Map mapa = this->buscarMapa(archivoMapa,screenWidth);
         Servidor *servidor = new Servidor(mapa, cant_jugadores);
         ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaEventos(),protocolo, idCliente);//cheq
         servidor->agregarCliente(nombreJugador, cliente, idCliente);

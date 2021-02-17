@@ -38,7 +38,7 @@ void Map::sacarDelMapa(Posicion &posicion) {
     this->contenedorDeElementos.sacarElementoDePosicion(posicion);
 }
 
-Map::Map(unsigned rowSize, unsigned colSize) : contenedorDeElementos() {
+Map::Map(unsigned rowSize, unsigned colSize, int anchoPantalla) : contenedorDeElementos() {
     if (rowSize < 1 || colSize < 1) {
         throw std::runtime_error("Invalid map");
     }
@@ -49,7 +49,7 @@ Map::Map(unsigned rowSize, unsigned colSize) : contenedorDeElementos() {
     for (unsigned i = 0; i < rowSize; i++) {
         map[i].resize(colSize, ObjetosJuego::obtenerTipoPorNombre("noItem"));
     }
-    //this->ladoCelda = 40;
+    setLadoCelda(anchoPantalla);
 }
 
 unsigned Map::getRowSize() const {
@@ -211,7 +211,7 @@ void Map::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->colSize = charArrayToNumber(sub);
-    Map newMap(rowSize, colSize);
+    Map newMap(rowSize, colSize,ladoCelda * rowSize);//agregue aca el ancho
     this->map = newMap.map;
     for (unsigned i = 0; i < rowSize; i++) {
         for (unsigned j = 0; j < colSize; j++) {

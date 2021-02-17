@@ -32,7 +32,7 @@ public:
 
     void eliminarPartidasTerminadas();
 
-    Map buscarMapa(std::string& archivoMapa);
+    Map buscarMapa(std::string& archivoMapa, int& anchoPantalla);
 
     void agregarMapa(std::string nombreMapa,std::string archivoMapa);
 
