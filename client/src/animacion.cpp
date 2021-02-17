@@ -26,35 +26,40 @@ Animacion::Animacion(SDL_Renderer *render,
     this->frame_w = frame_w;
     this->frameActual = 0;
     this->velocidad = 1000;
-    this->tiempoViejo = 0;
+    this->contador = 60;
 }
 
 Animacion::~Animacion() {}
 
 void Animacion::renderizar(int posx, int posy, int angulo, SDL_Point *centro) {
-  unsigned int tiempoViejoMasVelocidad = tiempoViejo + velocidad;
-    if (tiempoViejoMasVelocidad > SDL_GetTicks()) {
-
-    }
-    tiempoViejo = SDL_GetTicks();
     int cantFrames = frames.size();
     if (this->frameActual >= cantFrames) {
         this->frameActual = 0;
     }
     SDL_Rect r = {posx, posy, this->frame_h * 2, this->frame_w * 2}; // Donde se renderiza
     textura->renderizar(&frames[this->frameActual], r, angulo, centro);
-    this->frameActual += 1;
-    SDL_Delay(100);
+    if (contador == 0){
+        this->frameActual += 1;
+    }
+    contador--;
+  //  SDL_Delay(100);
 
 }
 
 void Animacion::renderizarColumna(SDL_Rect &dimension, SDL_Rect dest) {
-  dimension.x += this->frames[frameActual].x;
-  dimension.y += this->frames[frameActual].y;
-  dimension.h += this->frame_h;
-  dest.y -= 30;
-//  std::cerr << "renderizo animacion con dimensiones x: " << dimension.x << " y: " << dimension.y << " h: " << dimension.h << " w: " << dimension.w << std::endl << std::endl;
-  //std::cerr << "renderizo animacion en x: " << dest.x << " y: " << dest.y << " h: " << dest.h << " w: " << dest.w << std::endl << std::endl;
-
-  this->textura->renderizar(&dimension, dest, 0, NULL);
+    int cantFrames = frames.size();
+    if (this->frameActual >= cantFrames) {
+        this->frameActual = 0;
+    }
+    dimension.x += this->frames[frameActual].x;
+    dimension.y += this->frames[frameActual].y;
+    dimension.h += this->frame_h;
+    dest.y -= 30;
+  //  std::cerr << "renderizo animacion con dimensiones x: " << dimension.x << " y: " << dimension.y << " h: " << dimension.h << " w: " << dimension.w << std::endl << std::endl;
+    //std::cerr << "renderizo animacion en x: " << dest.x << " y: " << dest.y << " h: " << dest.h << " w: " << dest.w << std::endl << std::endl;
+    this->textura->renderizar(&dimension, dest, 0, NULL);
+    if (contador == 0){
+        this->frameActual += 1;
+    }
+    contador--;
 }
