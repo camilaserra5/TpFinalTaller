@@ -21,7 +21,7 @@
 ClientEventReceiver::ClientEventReceiver(Protocolo *protocolo,
                                          ProtectedQueue<Actualizacion *> &updates, Modelo &modelo, int idJugador) :
 
-        protocolo(protocolo), updates(updates), modelo(modelo), idJugador(idJugador), corriendo(true) {}
+        protocolo(protocolo), modelo(modelo), updates(updates), corriendo(true), idJugador(idJugador) {}
 
 Actualizacion *deserializarActualizacion(std::vector<char> informacion) {
     std::vector<char> sub(4);
@@ -63,7 +63,6 @@ void ClientEventReceiver::run() {
     while (this->corriendo) {
         try {
             std::vector<char> informacion = this->protocolo->recibir();
-            std::cerr << "meto actualizacion\n" << informacion.size() << "\n";
             if (!informacion.empty()) {
                 Actualizacion *actualizacion = deserializarActualizacion(informacion);
 

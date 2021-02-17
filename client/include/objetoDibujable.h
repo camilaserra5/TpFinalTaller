@@ -23,6 +23,8 @@ public:
 
     virtual int obtenerAnchura() = 0;
 
+    virtual ~ObjetoDibujable() = 0;
+
 };
 
 

@@ -181,7 +181,8 @@ void LogInWindow::mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
                 exit(0);
             } else if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.sym == SDLK_DOWN) {
-                    if (!partidas.empty() && option <= partidas.size()) {
+                  int cantPartidas = partidas.size();
+                    if (!partidas.empty() && option <= cantPartidas) {
                         option++;
                     }
                 }
@@ -204,8 +205,8 @@ void LogInWindow::mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
 
         disp_text("New game", fonts.getFont("wolfstein"), renderer, FONT_SIZE,
                   2 * FONT_SIZE, white);
-
-        for (int i = 1; i <= partidas.size(); i++) {
+        int cantPartidas = partidas.size();
+        for (int i = 1; i <= cantPartidas; i++) {
             disp_text(partidas[i - 1], fonts.getFont("wolfstein"),
                       renderer, FONT_SIZE,
                       2 * (i + 1) * FONT_SIZE, white);
@@ -404,7 +405,7 @@ void LogInWindow::run() {
     background.drawBackground();
     bool finished = false;
     while (!finished) {
-        SDL_Event e;
+      //  SDL_Event e;
         start(this->renderer, this->fonts);
 
         std::string ip;
@@ -435,13 +436,13 @@ void LogInWindow::run() {
         uint32_t cantidadPartidas = ntohl(*buf);
 
         int j = 4;
-        for (int i = 0; i < cantidadPartidas; i++) {
+        for (uint32_t i = 0; i < cantidadPartidas; i++) {
             memcpy(number, partidas.data() + j, 4);
             buf = (uint32_t *) number;
             uint32_t longNombre = ntohl(*buf);
             j += 4;
             std::string nombre;
-            for (int k = 0; k < longNombre; k++) {
+            for (uint32_t k = 0; k < longNombre; k++) {
                 nombre += partidas[j++];
             }
             std::ostringstream sstream;
@@ -500,7 +501,7 @@ void LogInWindow::run() {
             memcpy(aux, res.data(), 4);
             uint32_t *buffer = (uint32_t *) aux;
             this->idCliente = ntohl(*buffer);
-            if (this->idCliente == -1) {
+            if ((int)this->idCliente == -1) {
                 std::string error = "Error creando partida";
                 pantallaError(this->renderer, this->fonts, error);
             }
@@ -520,7 +521,7 @@ void LogInWindow::run() {
             memcpy(aux, res.data(), 4);
             uint32_t *buffer = (uint32_t *) aux;
             this->idCliente = ntohl(*buffer);
-            if (this->idCliente == -1) {
+            if ((int)this->idCliente == -1) {
                 std::string error = "Error uniendose a partida";
                 pantallaError(this->renderer, this->fonts, error);
             }

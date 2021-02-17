@@ -33,8 +33,8 @@ Modelo::Modelo(Ventana &ventana, int idJugador, ProtectedQueue<Actualizacion *> 
         ventana(ventana),
         idJugador(idJugador),
         jugador(),
-        enemigos(),
         entidades(),
+        enemigos(),
         anunciador(ventana),
         partidaTerminada(false),
         updates(updates) {
@@ -345,11 +345,9 @@ void Modelo::actualizarBeneficioJugador(int vida, int balas, int puntos, int can
 bool Modelo::procesarActualizaciones() {
     try {
         Actualizacion *actualizacion = this->updates.obtener_dato();
-    //    std::cout << "proceso\n";
         int idActualizacion = actualizacion->obtenerId();
 
         if (idActualizacion == static_cast<int>(Accion::empezoPartida)) {
-        //    std::cerr << "act empexo partida" << std::endl;
             auto inicio = (ActualizacionInicioPartida *) actualizacion;
             EstadoJuego &estadoJuego = inicio->obtenerEstadoJuego();
             std::map<int, Jugador *> &jugadores = estadoJuego.obtenerJugadores();
@@ -387,7 +385,8 @@ bool Modelo::procesarActualizaciones() {
             this->mapa = estadoJuego.obtenerMapa();
             this->mapa.setLadoCelda(ANCHO_CANVAS);
             std::vector<Item *> items = this->mapa.obtenerItems();
-            for (int i = 0; i < items.size(); i++) {
+            int cantItems = items.size();
+            for (int i = 0; i < cantItems; i++) {
                 Item *item = items[i];
                 int idI = item->getId();
                 Type tipo = item->getTipo();
@@ -399,7 +398,8 @@ bool Modelo::procesarActualizaciones() {
             }
         } else if (idActualizacion == static_cast<int>(Accion::aperturaDePuerta)) {
             std::cerr << "act apertura puerta" << std::endl;
-            auto apertura = (ActualizacionAperturaPuerta *) actualizacion;
+          //  auto apertura = (ActualizacionAperturaPuerta *) actualizacion;
+            //HACER Q SE ABRA PUERTA
         } else if (idActualizacion == static_cast<int>(Accion::cambioDeArma)) {
             std::cerr << "act cambio arma" << std::endl;
             auto cambioArma = (ActualizacionCambioArma *) actualizacion;
@@ -478,13 +478,11 @@ bool Modelo::procesarActualizaciones() {
         delete actualizacion;
         return true;
     } catch (QueueException &qe) {
-        //std::cerr << "no hay actualizacion\n";
     } catch (std::exception &e) {
         std::cerr << e.what() << "\n";
-        std::cerr << "falla en actualizacion" << std::endl;
         return false;
     }
-    //std::cerr << "TERMINA LA ATUALIZACION inicial\n";
+    return true;
 }
 
 void Modelo::actualizarPosicionJugador(int posX, int posY, float angulo) {

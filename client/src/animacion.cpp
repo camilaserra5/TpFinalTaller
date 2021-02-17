@@ -32,13 +32,13 @@ Animacion::Animacion(SDL_Renderer *render,
 Animacion::~Animacion() {}
 
 void Animacion::renderizar(int posx, int posy, int angulo, SDL_Point *centro) {
-
-    if (tiempoViejo + velocidad > SDL_GetTicks()) {
+  unsigned int tiempoViejoMasVelocidad = tiempoViejo + velocidad;
+    if (tiempoViejoMasVelocidad > SDL_GetTicks()) {
 
     }
     tiempoViejo = SDL_GetTicks();
-
-    if (this->frameActual >= frames.size()) {
+    int cantFrames = frames.size();
+    if (this->frameActual >= cantFrames) {
         this->frameActual = 0;
     }
     SDL_Rect r = {posx, posy, this->frame_h * 2, this->frame_w * 2}; // Donde se renderiza
@@ -52,9 +52,9 @@ void Animacion::renderizarColumna(SDL_Rect &dimension, SDL_Rect dest) {
   dimension.x += this->frames[frameActual].x;
   dimension.y += this->frames[frameActual].y;
   dimension.h += this->frame_h;
-  dest.y -= 20;
-  std::cerr << "renderizo animacion con dimensiones x: " << dimension.x << " y: " << dimension.y << " h: " << dimension.h << " w: " << dimension.w << std::endl << std::endl;
-  std::cerr << "renderizo animacion en x: " << dest.x << " y: " << dest.y << " h: " << dest.h << " w: " << dest.w << std::endl << std::endl;
+  dest.y -= 30;
+//  std::cerr << "renderizo animacion con dimensiones x: " << dimension.x << " y: " << dimension.y << " h: " << dimension.h << " w: " << dimension.w << std::endl << std::endl;
+  //std::cerr << "renderizo animacion en x: " << dest.x << " y: " << dest.y << " h: " << dest.h << " w: " << dest.w << std::endl << std::endl;
 
   this->textura->renderizar(&dimension, dest, 0, NULL);
 }
