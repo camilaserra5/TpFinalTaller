@@ -93,7 +93,7 @@ private:
 enum class Accion {
     moverse = 0, rotarDerecha = 1, rotarIzquierda = 2, moverArriba = 3, moverAbajo = 4,
     rotar = 5, ataque = 6, aperturaDePuerta = 7, crearPartida = 8, unirseAPartida = 9, cambioDeArma = 10, empezoPartida = 11, terminoPartida = 12,
-    agarreItem = 13
+    agarreItem = 13, agregarItem = 14
 };
 
 
