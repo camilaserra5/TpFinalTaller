@@ -12,7 +12,7 @@
 
 class ManejadorPartidas : public ISerializable {
 public:
-    ManejadorPartidas(std::string &rutaMapas, std::map<std::string, std::string> &mapas);
+    ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas);
 
     ~ManejadorPartidas();
 
@@ -33,7 +33,7 @@ public:
 
     void eliminarPartidasTerminadas();
 
-    Map buscarMapa(std::string &archivoMapa, int &anchoPantalla);
+    Map buscarMapa(std::string archivoMapa, int &anchoPantalla);
 
     void agregarMapa(std::string nombreMapa, std::string archivoMapa);
 
@@ -41,7 +41,7 @@ private:
     std::map<std::string, Servidor *> partidas;
     std::atomic<bool> esta_corriendo;
     std::map<std::string, std::string> &mapas;
-    std::string &rutaMapas;
+    std::string rutaMapas;
 
 };
 

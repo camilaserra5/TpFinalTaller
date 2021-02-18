@@ -1,5 +1,4 @@
 port: 8080
-rutaMapas:
 mapas:
   - name: mapa1
     file: mapa1.yaml
@@ -20,3 +19,4 @@ vAvance:
 vidaMax:
 balasPorRafaga:
 maxBalas:
+rutaMapas: ""
