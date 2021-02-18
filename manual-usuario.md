@@ -41,14 +41,23 @@ foo@bar:~$ editor
 Para levantar el servidor correctamente, se necesita un archivo con la configuración del mismo. Este deberá ser una archivo yaml de la siguiente manera:
 ``` yaml
 port: 8080
-mapa1: "mapa1.yaml"
+rutaMapas: /home/user/mapas
+mapas:
+  - name: mapa1
+    file: mapa1.yaml
+  - name: mapa2
+    file: mapa2.yaml
+vRotacion:
+vAvance:
+vidaMax:
+balasPorRafaga:
+maxBalas:
 ```
 
 ### Forma de uso
 #### Editor
 Una vez levantado el editor se verá la siguiente ventana:
 ![editor](editor1.png)
-
 
 ##### Crear un nuevo mapa
 Para crear un nuevo mapa, ir a Archivo -> Nuevo (o ctrl + N). Se abrirá la siguiente ventana que permite elegir el tamaño deseado del mismo.
@@ -102,4 +111,3 @@ Para unirse a una partida nueva, escribir el número correspondiente y luego ent
 **m**: play/stop music.  
 
 ### Apéndice de errores
-  
