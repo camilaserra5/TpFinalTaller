@@ -66,12 +66,12 @@ std::vector<double> &Modelo::getZBuffer() {
 
 bool normalizarAnguloEnRango(double &angulo) {
     if (angulo < -PI) {
-        angulo += 2 * PI;
+        angulo += 2.0 * PI;
     } else if (angulo > PI) {
-        angulo -= 2 * PI;
+        angulo -= 2.0 * PI;
     }
     double absAngulo = abs(angulo);
-    if (absAngulo < PI / 6) {
+    if (absAngulo < PI / 6.0) {
         return true;
     }
     return false;
@@ -84,7 +84,7 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
     for (int i = 0; i < anchoSprite; i++) {
         int posBuffer = x + i;
 
-        if (this->zbuffer[tamanioBuffer - 1 - posBuffer] > distanciaObjeto) {
+        if (this->zbuffer[posBuffer] > distanciaObjeto) {
             SDL_Rect dimension, dest;
             dimension.x = i;//suma offset
             dimension.y = 0;//sumaoffset
@@ -94,7 +94,6 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
             dest.y = y;
             dest.w = 1;
             dest.h = alturaSprite;
-          //  std::cerr << "dest.x: " << dest.x << " ";
             objeto->renderizarColumna(dimension, dest);
         }
     }
@@ -109,7 +108,7 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
     Posicion &posJugador = jugador->getPosicion();
     double dy = (posObjeto.pixelesEnY() - posJugador.pixelesEnY());
     double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
-    double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
+    double difAngulo = jugador->getAnguloDeVista() -  atan(dy / dx);
     return normalizarAnguloEnRango(difAngulo);
 }
 
@@ -151,21 +150,18 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
     for (int i = 0; i < cantidadItemsVisibles; i++) {
         Posicion &posObjeto = objetosVisibles[i]->getPosicion();
         Posicion &posJugador = jugador->getPosicion();
-        double dy = (posObjeto.pixelesEnY() - posJugador.pixelesEnY());
+        double dy = (posJugador.pixelesEnY() - posObjeto.pixelesEnY());//cambie el orden!!
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
         double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
-          //std::cerr << " x: " << posObjeto.pixelesEnX() << "y : " << posObjeto.pixelesEnY();
-        //  std::cerr << "\ndistancia:  " << distancia;
-        int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
-        //    std::cerr << "\n alturaSprite: " << alturaSprite;
-        int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
-        int y1 = y0 + alturaSprite;
-        normalizarAnguloEnRango(difAngulo);
+        int alturaSprite = floor((this->mapa.getLadoCelda()/ distancia) * DIST_PLANO_P);
+            std::cerr << "\n alturaSprite: " << alturaSprite;
+        int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2) - 20;
+        //saque el normalizarAnguloEnRango(difAngulo);
         double x0 = tan(difAngulo) * DIST_PLANO_P;
         //std::cerr << "x0: " << x0 << "angulo objeto " << difAngulo << "\n";
         int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
-        this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y1, distancia);
+        this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y0, distancia);
     }
 }
 
