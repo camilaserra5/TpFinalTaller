@@ -1,11 +1,19 @@
 port: 8080
-mapa1: "mapa1.yaml"
-mapa2: "mapa2.yaml"
-mapa4: "mapa4.yaml"
-mapa5: "mapa5.yaml"
-mapa6: "mapa6.yaml"
-mapa7: "mapa7.yaml"
-
+mapas:
+  - name: mapa1
+    file: mapa1.yaml
+  - name: mapa2
+    file: mapa2.yaml
+  - name: mapa3
+    file: mapa3.yaml
+  - name: mapa4
+    file: mapa4.yaml
+  - name: mapa5
+    file: mapa5.yaml
+  - name: mapa6
+    file: mapa6.yaml
+  - name: mapa7
+    file: mapa7.yaml
 vRotacion:
 vAvance:
 vidaMax:
