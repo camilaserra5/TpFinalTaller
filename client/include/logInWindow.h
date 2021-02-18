@@ -44,7 +44,7 @@ private:
 
     void pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error);
 
-    void pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo);
+    bool pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo);
 
     void unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::string &nombre, std::string &playerName);
 

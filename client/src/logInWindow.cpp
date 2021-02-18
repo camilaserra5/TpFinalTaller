@@ -16,8 +16,9 @@
 const SDL_Color white = {255, 255, 255, 255};
 const SDL_Color red = {226, 106, 106, 255};
 
-LogInWindow::LogInWindow(int screenWidth, int screenHeight, int screenWJuego) : screenWidth(screenWidth), screenHeight(screenHeight),
-                                                              screenWJuego(screenWJuego) {
+LogInWindow::LogInWindow(int screenWidth, int screenHeight, int screenWJuego) : screenWidth(screenWidth),
+                                                                                screenHeight(screenHeight),
+                                                                                screenWJuego(screenWJuego) {
     int rendererFlags, windowFlags;
 
     rendererFlags = SDL_RENDERER_ACCELERATED;
@@ -181,7 +182,7 @@ void LogInWindow::mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
                 exit(0);
             } else if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.sym == SDLK_DOWN) {
-                  int cantPartidas = partidas.size();
+                    int cantPartidas = partidas.size();
                     if (!partidas.empty() && option <= cantPartidas) {
                         option++;
                     }
@@ -253,7 +254,13 @@ void LogInWindow::crearPartida(SDL_Renderer *renderer, Fonts fonts, std::string 
                         }
                     }
                 }
-                if ((e.key.keysym.sym >= SDLK_ASTERISK && e.key.keysym.sym <= SDLK_z)) {
+                if ((e.key.keysym.sym >= SDLK_ASTERISK && e.key.keysym.sym <= SDLK_SLASH) ||
+                    (e.key.keysym.sym >= SDLK_COLON && e.key.keysym.sym <= SDLK_z)) {
+                    if (option != 1) {
+                        param += e.key.keysym.sym;
+                    }
+                }
+                if (e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9) {
                     param += e.key.keysym.sym;
                 }
                 if (e.key.keysym.sym == SDLK_BACKSPACE) {
@@ -342,11 +349,10 @@ void LogInWindow::unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::strin
 }
 
 
-void LogInWindow::pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo) {
+bool LogInWindow::pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protocolo *protocolo) {
     Background background(BACKGROUND_2_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
-    bool finished = false;
-    while (!finished) {
+    while (true) {
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 exit(0);
@@ -368,14 +374,12 @@ void LogInWindow::pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protoco
         memcpy(number, sub.data(), 4);
         uint32_t *buf = (uint32_t *) number;
         int idAccion = ntohl(*buf);
-        if (idAccion == static_cast<int>(Accion::empezoPartida)) {
-            finished = true;
-        }
+        return (idAccion == static_cast<int>(Accion::empezoPartida));
     }
 }
 
 void LogInWindow::pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error) {
-    Background background(BACKGROUND_2_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
+    Background background(BACKGROUND_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     bool finished = false;
     while (!finished) {
@@ -393,8 +397,10 @@ void LogInWindow::pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string
         SDL_RenderClear(renderer);
         background.drawBackground();
 
-        disp_text("Error :(", fonts.getFont("wolfstein"), renderer, 10, 10, white);
-        disp_text(error, fonts.getFont("wolfstein"), renderer, 10, 10 + 5 * FONT_SIZE, white);
+        disp_text("Error :(", fonts.getFont("wolfstein"), renderer, 10, 10, red);
+        disp_text(error, fonts.getFont("wolfstein"), renderer, this->screenWidth / 4, 10 + 5 * FONT_SIZE, white);
+        disp_text("Press enter to start over", fonts.getFont("wolfstein"), renderer, this->screenWidth / 4,
+                  10 + 7 * FONT_SIZE, white);
 
         SDL_RenderPresent(renderer);
     }
@@ -405,7 +411,7 @@ void LogInWindow::run() {
     background.drawBackground();
     bool finished = false;
     while (!finished) {
-      //  SDL_Event e;
+        //  SDL_Event e;
         start(this->renderer, this->fonts);
 
         std::string ip;
@@ -425,11 +431,9 @@ void LogInWindow::run() {
         }
 
         this->protocolo = new Protocolo(std::move(socket));
-        std::cerr << "llamo a recibir\n";
         std::vector<char> partidas = protocolo->recibir();
         std::vector<std::string> partis;
         std::map<int, std::string> nombresPartidas;
-        std::cerr << "recibiiiiiiii las partidas\n";
         char number[4];
         memcpy(number, partidas.data(), 4);
         uint32_t *buf = (uint32_t *) number;
@@ -493,7 +497,7 @@ void LogInWindow::run() {
 
 
             CrearPartida crearPartida(-1, std::stoi(numberPlayers),
-                                      gameName, mapFile, playerName,this->screenWJuego);
+                                      gameName, mapFile, playerName, this->screenWJuego);
             std::vector<char> serializado = crearPartida.serializar();
             protocolo->enviar(serializado);
             std::vector<char> res = protocolo->recibir();
@@ -501,12 +505,12 @@ void LogInWindow::run() {
             memcpy(aux, res.data(), 4);
             uint32_t *buffer = (uint32_t *) aux;
             this->idCliente = ntohl(*buffer);
-            if ((int)this->idCliente == -1) {
-                std::string error = "Error creando partida";
+            if (((int) this->idCliente != -1) && (pantallaEsperando(this->renderer, this->fonts, protocolo))) {
+                finished = true;
+            } else {
+                std::string error = "Sorry, there was an error!";
                 pantallaError(this->renderer, this->fonts, error);
             }
-            pantallaEsperando(this->renderer, this->fonts, protocolo);
-            finished = true;
         } else {
             // unirse a una existente
             std::string nombre = nombresPartidas.at(gameNumber - 1);
@@ -521,13 +525,12 @@ void LogInWindow::run() {
             memcpy(aux, res.data(), 4);
             uint32_t *buffer = (uint32_t *) aux;
             this->idCliente = ntohl(*buffer);
-            if ((int)this->idCliente == -1) {
-                std::string error = "Error uniendose a partida";
+            if (((int) this->idCliente != -1) && (pantallaEsperando(this->renderer, this->fonts, protocolo))) {
+                finished = true;
+            } else {
+                std::string error = "Sorry, there was an error!";
                 pantallaError(this->renderer, this->fonts, error);
             }
-            pantallaEsperando(this->renderer, this->fonts, protocolo);
-            finished = true;
-            // se bloquea para recibir
         }
     }
     SDL_DestroyRenderer(this->renderer);
