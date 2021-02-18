@@ -4,7 +4,6 @@ project(client)
 find_package(Threads REQUIRED)
 cmake_policy(SET CMP0015 NEW)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g -Wall -Werror")
-
 # Agrego la carpeta con los headers autogenerados a los includes
 message("Agregando '${PROJECT_BINARY_DIR}' como directorio de includes")
 include_directories(${PROJECT_BINARY_DIR})
@@ -24,3 +23,5 @@ add_executable(client ${SOURCES} src/sprite.cpp src/player.cpp include/spriteAni
 target_link_libraries(client ${PROJECT_LINK_LIBS} SDL2 SDL2_image SDL2_ttf SDL2_mixer Threads::Threads -Llib -llua ${YAML_CPP_LIBRARIES})
 
 install(FILES ../resources/images/ParteInferior.png ../resources/images/Guard.png  ../resources/sonidos/musiquita.wav DESTINATION ${CMAKE_BINARY_DIR})
+
+install(TARGETS client COMPONENT client RUNTIME DESTINATION "/usr/local/bin" LIBRARY DESTINATION "/usr/local/bin" DESTINATION "/usr/local/bin")

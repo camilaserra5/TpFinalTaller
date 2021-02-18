@@ -26,3 +26,5 @@ target_link_libraries(server ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threa
 
 install(FILES src/LUA/modulo.lua DESTINATION ${CMAKE_BINARY_DIR})
 install(FILES DESTINATION ${CMAKE_BINARY_DIR})
+
+install(TARGETS server COMPONENT server RUNTIME DESTINATION "/usr/local/bin" LIBRARY DESTINATION "/usr/local/bin" DESTINATION "/usr/local/bin")
