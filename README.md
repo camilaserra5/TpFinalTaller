@@ -233,7 +233,7 @@ Para poder utilizar el juego hay que realizar los siguientes pasos:
 * posicionarse en el directorio se quieran descargar los archivos
 
 ```bash
-foo@bar:~$ cd /home/user/wolfstein
+foo@bar:~$ cd /home/user/wolfestein
 ```
 * clonar el repositorio (**alternativa**: [descargarlo](https://github.com/solfonte/TpFinalTaller/archive/main.zip) desde github y descomprimirlo en la carpeta deseada)
 

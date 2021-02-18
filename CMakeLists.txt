@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 2.8.11)
 #find_package(Lua REQUIRED)
 #include_directories(${LUA_INCLUDE_DIR})
-project(wolfstein)
+project(wolfestein)
 if (POLICY CMP0048)
     cmake_policy(SET CMP0048 NEW)
 endif (POLICY CMP0048)
-project(wolfstein VERSION 1.0.0)
+project(wolfestein VERSION 1.0.0)
 
 set(PROJECT_BASE_DIR ${PROJECT_SOURCE_DIR})
 configure_file(config.h.in config.h)
