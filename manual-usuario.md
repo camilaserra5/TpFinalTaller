@@ -3,8 +3,9 @@
 ### Instalación
 
 #### Requerimientos de software
-La instalación del programa se debe realizar mediante la compilación del código fuente del mismo.
-Idóneamente el programa puede ser compilado en cualquier distribución de Linux, habiendo instalado previamente los siguientes paquetes. Los mismos son fácilmente accesibles a través de apt.
+La instalación del programa se debe realizar mediante la instalación del paquete proporcionado. El programa puede ser corrido en cualquier distribución de Linux.
+
+Si se quisiese compilar el código fuente se deberán instalar estos paquetes a través de apt.
 * gtkmm-3.0-dev
 * libsdl2-dev
 * libsdl2-mixer-dev
@@ -18,29 +19,21 @@ El programa fue probado en computadoras sin una placa gráfica especial, y con p
 
 #### Proceso de Instalación
 Para poder utilizar el juego hay que realizar los siguientes pasos:
-* descargar el instalador
-* instalarlo
-* abrir una terminal (ctlr + alt + T)
-* posicionarse en el directorio donde se instaló el juego
+- descargar el instalador
+- instalarlo (ver como instalar un .deb)
+- abrir una terminal (ctlr + alt + T)
 
+  - **Ejecutar el cliente!**
 ```bash
-foo@bar:~$ cd /home/usr/local/lib
+foo@bar:~$ client
 ```
-
-##### Ejecutar el cliente!
-
+  - **Ejecutar el servidor!**
 ```bash
-foo@bar:~$ ./client
+foo@bar:~$ server config.yaml
 ```
-##### Ejecutar el servidor!
-
+  - **Ejecutar el editor!**
 ```bash
-foo@bar:~$ ./server config.yaml
-```
-##### Ejecutar el editor!
-
-```bash
-foo@bar:~$ ./editor
+foo@bar:~$ editor
 ```
 
 
@@ -48,7 +41,7 @@ foo@bar:~$ ./editor
 Para levantar el servidor correctamente, se necesita un archivo con la configuración del mismo. Este deberá ser una archivo yaml de la siguiente manera:
 ``` yaml
 port: 8080
-
+mapa1: "mapa1.yaml"
 ```
 
 ### Forma de uso
@@ -109,3 +102,4 @@ Para unirse a una partida nueva, escribir el número correspondiente y luego ent
 **m**: play/stop music.  
 
 ### Apéndice de errores
+  
