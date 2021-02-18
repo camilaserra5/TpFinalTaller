@@ -30,13 +30,13 @@ public:
 
     void agregarJugador(std::string &nombreJugador, int &id);
 
-    Actualizacion* realizarAtaque(int idJugador);
+    std::vector<Actualizacion*> realizarAtaque(int idJugador);
 
     std::vector<char> serializar() override;
 
     void deserializar(std::vector<char> &informacion) override;
 
-    void verificarJugadoresMuertos();
+    Actualizacion* verificarJugadoresMuertos();
 
     std::vector<Actualizacion*> verificarMovimientoJugador(Jugador *jugador, int &posX, int &posY);
 

@@ -11,9 +11,9 @@
 
 ThClient::ThClient(Socket &&un_socket, ManejadorPartidas *manejadorDePartidas) :
         protocolo(new Protocolo(std::move(un_socket))),
-        manejadorDePartidas(manejadorDePartidas) ,
+        manejadorDePartidas(manejadorDePartidas),
         keep_talking(true),
-        is_running(true){}
+        is_running(true) {}
 
 ThClient::~ThClient() {
     this->join();
@@ -21,7 +21,7 @@ ThClient::~ThClient() {
 
 void ThClient::stop() {
     this->keep_talking = false;
-  //  this->protocolo->cerrar();
+    //  this->protocolo->cerrar();
 }
 
 void ThClient::procesar_pedido() {
@@ -41,8 +41,9 @@ void ThClient::procesar_pedido() {
         UnirseAPartida unirseAPartida;
         unirseAPartida.deserializar(serializado);
         idJugador = this->manejadorDePartidas->agregarClienteAPartida(unirseAPartida.getNombreJugador(),
-                                                                      unirseAPartida.getNombrePartida(), this->protocolo);
-    } else {
+                                                                      unirseAPartida.getNombrePartida(),
+                                                                      this->protocolo);
+    } else if (idAccion == static_cast<int>(Accion::crearPartida)) {
         std::cout << "CREAR" << std::endl;
         CrearPartida crearPartida;
         crearPartida.deserializar(serializado);
@@ -50,13 +51,14 @@ void ThClient::procesar_pedido() {
                                                             crearPartida.getCantJugadores(),
                                                             crearPartida.getNombrePartida(),
                                                             crearPartida.getRutaArchivo(),
-                                                            this->protocolo,crearPartida.getScreenWidth());
+                                                            this->protocolo, crearPartida.getScreenWidth());
+    } else {
+        return;
     }
     std::vector<char> ret(4);
     unsigned int size = htonl(idJugador);
     memcpy(ret.data(), &size, 4);
     protocolo->enviar(ret);
-
 }
 
 bool ThClient::is_dead() {
@@ -64,15 +66,8 @@ bool ThClient::is_dead() {
 }
 
 void ThClient::run() {
-    std::cerr << "envio partidas\n";
     std::vector<char> partidas = this->manejadorDePartidas->serializar();
-    int cantidadPartidas = partidas.size();
-    for (int i = 0; i < cantidadPartidas; i++) {
-        std::cerr << partidas[i];
-    }
-    std::cerr << "\nfin envio partidas";
     this->protocolo->enviar(partidas);
-    std:: cerr << "envieee partidadsss\n";
     procesar_pedido();
     this->stop();
 }

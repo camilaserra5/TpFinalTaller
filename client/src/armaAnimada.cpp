@@ -1,13 +1,13 @@
 #include "../include/armaAnimada.h"
-
-#define RUTAIMG "../../client/resources/images/Weapons.png"
+#include <config.h>
+#define RUTAIMG IMGS_DIR WEAPONS_IMG
 #define SPRITES_W 64.55
 #define SPRITES_H 65
 #define FRAMES_X 5
 #define FRAMES_Y 4
 #define POSX 318
 #define POSY 420
-#define CONTADOR_INICIAL 10
+#define CONTADOR_INICIAL 100
 
 #define ID_CUCHILLO 3
 #define ID_PISTOLA 4

@@ -9,6 +9,7 @@
 #include "items/tesoro.h"
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
+#include "armas/lanzacohetes.h"
 #include "armas/pistola.h"
 #include "armas/cuchillo.h"
 #include "iostream"
@@ -17,7 +18,7 @@
 #include "../include/actualizaciones/actualizacionMovimiento.h"
 #include "../include/actualizaciones/actualizacionAperturaPuerta.h"
 #include "../include/actualizaciones/actualizacionAgarroItem.h"
-
+#include "../include/actualizaciones/actualizacionAgregarItem.h"
 
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
@@ -43,16 +44,21 @@ Actualizacion *EstadoJuego::abrirPuerta(int idJugador) {
 
 EstadoJuego::EstadoJuego() {}
 
-Actualizacion *EstadoJuego::realizarAtaque(int idJugador) {
+std::vector<Actualizacion*> EstadoJuego::realizarAtaque(int idJugador) {
+    std::vector<Actualizacion*> actualizaciones;
     Jugador *jugador = this->jugadores.at(idJugador);
     std::cerr << "jugador id: " << jugador->getId() << "\n";
     jugador->atacar();
     Arma *arma = jugador->getArma();
     std::cerr << "arma : " << arma->getTipo().getName() << "\n";
     int distancia_inventada = 5;
-    Actualizacion *actualizacion = arma->atacar(distancia_inventada, jugador, this->jugadores);
-    verificarJugadoresMuertos();
-    return actualizacion;
+    Actualizacion* actualizacionItem = this->verificarJugadoresMuertos();
+    if (actualizacionItem != NULL){
+        actualizaciones.push_back(actualizacionItem);
+    }
+    Actualizacion *actualizacionAtaque = arma->atacar(distancia_inventada, jugador, this->jugadores);
+    actualizaciones.push_back(actualizacionAtaque);
+    return actualizaciones;
 }
 
 EstadoJuego::EstadoJuego(Map &mapa) :
@@ -146,8 +152,9 @@ void EstadoJuego::no_me_muevo(int idJugador) {
 
 }
 
-void EstadoJuego::verificarJugadoresMuertos() {
+Actualizacion* EstadoJuego::verificarJugadoresMuertos() {
     std::map<int, Jugador *>::iterator it;
+    Actualizacion* agregarItem = NULL;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if (it->second->estaMuerto()) {
             std::cerr << "=========Se murio alguien :$========" << '\n';
@@ -158,21 +165,31 @@ void EstadoJuego::verificarJugadoresMuertos() {
                 std::cerr << "========= Morision definitiva========" << '\n';
             }
             Arma *arma = it->second->getArma();
-
-            if (arma->getTipo().getName() == "pistola" && arma->getTipo().getName() == "cuchillo") {
-                this->mapa.agregarArma(it->second->getPosicion(), arma);
+            Type tipo = arma->getTipo();
+            if (tipo.getName() == "ametralladora") {
+                Item *ametralladora = new Ametralladora(it->second->getPosicion(),mapa.crearIdValido());
+                this->mapa.agregarElemento(ametralladora);
+                agregarItem = new ActualizacionAgregarItem(ametralladora);
+            } else if (tipo.getName() == "canionDeCadena") {
+                Item *canion = new CanionDeCadena(it->second->getPosicion(), mapa.crearIdValido());
+                this->mapa.agregarElemento(canion);
+                agregarItem = new ActualizacionAgregarItem(canion);
+            } else if (tipo.getName() == "lanzaCohetes") {
+                Item *lanzaCohetes = new LanzaCohetes(it->second->getPosicion(), mapa.crearIdValido());
+                this->mapa.agregarElemento(lanzaCohetes);
+                agregarItem = new ActualizacionAgregarItem(lanzaCohetes);
             }
-            this->mapa.agregarElemento(
-                    new Balas(it->second->getPosicion(), 10/*cte*/,
-                              ObjetosJuego::obtenerTipoPorNombre("balas").getType()));
+            Item* balas = new Balas(it->second->getPosicion(), 10/*cte*/, mapa.crearIdValido());
+            this->mapa.agregarElemento(balas);
+            agregarItem = new ActualizacionAgregarItem(balas);
             if (it->second->tengollave()) {
-                this->mapa.agregarElemento(
-                        new Llave(it->second->getPosicion(),
-                                  ObjetosJuego::obtenerTipoPorNombre(
-                                          "keyDoor").getType()));//hay que cambiarlo a que el jugador se guarde una llave
+              Item* llave = new Llave(it->second->getPosicion(), mapa.crearIdValido());
+                this->mapa.agregarElemento(llave);
+                agregarItem = new ActualizacionAgregarItem(llave);
             }
         }
     }
+    return agregarItem;
 }
 
 bool EstadoJuego::terminoPartida() {

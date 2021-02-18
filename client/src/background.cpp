@@ -1,8 +1,6 @@
 #include "../include/background.h"
 #include "../include/logInWindow.h"
 
-#define TEXTURE_BACKGROUND_ROOT "../../resources/images/background.png"//vrutaBackground
-
 Background::Background(std::string backgroundImage, SDL_Renderer *renderer,int screenWidth,int screenHeight) :
 renderer(renderer),screenWidth(screenWidth),screenHeight(screenHeight) {
     SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Loading %s", backgroundImage.c_str());

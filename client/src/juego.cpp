@@ -1,16 +1,18 @@
 #include "../include/juego.h"
-
+#include <config.h>
 #define EXITO 0
 #define LARGO_PROYECTOR ANCHO_CANVAS
 #define ANCHO_PROYECTOR 20
-#define BLUE_WALL "../../editor/resources/blue-wall.jpg"
-#define GREY_WALL "../../editor/resources/grey-wall.jpg"
-#define WOOD_WALL "../../editor/resources/wood-wall.jpg"
-#define DOOR "../../editor/resources/door.jpg"
-#define KEYDOOR "../../editor/resources/keydoor.jpg"
+
+
+#define BLUE_WALL IMGS_DIR BLUE_WALL_IMG
+#define GREY_WALL IMGS_DIR GREY_WALL_IMG
+#define WOOD_WALL IMGS_DIR DOOR_IMG
+#define DOOR IMGS_DIR DOOR_IMG
+#define KEY_DOOR IMGS_DIR KEYDOOR_IMG
 #define RANGO_DE_VISTA 1.047197551
 
-#define LOWER_TEXTURE_ROOT "../../client/resources/images/ParteInferior.png"
+#define LOWER_TEXTURE_ROOT IMGS_DIR INFERIOR_IMG
 
 
 Juego::Juego(Ventana &ventana, Modelo &modelo) : ventana(ventana), modelo(modelo) {
@@ -21,7 +23,7 @@ Juego::Juego(Ventana &ventana, Modelo &modelo) : ventana(ventana), modelo(modelo
     Textura *t1 = new Textura(BLUE_WALL, render);
     Textura *t2 = new Textura(WOOD_WALL, render);
     Textura *t3 = new Textura(GREY_WALL, render);
-    Textura *t4 = new Textura(KEYDOOR, render);
+    Textura *t4 = new Textura(KEY_DOOR, render);
     Textura *t5 = new Textura(DOOR, render);
 
     this->texturas.insert({TYPE_WALL, t1});

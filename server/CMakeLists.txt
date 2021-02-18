@@ -18,7 +18,7 @@ include_directories(../common/include)
 #link_directories(${PROJECT_SOURCE_DIR}/common/build)
 #include_directories(${PROJECT_SOURCE_DIR}/common/include)
 find_package(yaml-cpp)
-file(GLOB SOURCES src/LUA/manejadorlua.cpp src/jugadorLua.cpp src/thclient.cpp src/manejadorPartidas.cpp src/aceptador.cpp src/server_main.cpp src/cliente.cpp src/server_event_receiver.cpp src/servidor.cpp src/server_event_sender.cpp )
+file(GLOB SOURCES src/LUA/manejadorlua.cpp src/jugadorLua.cpp src/thclient.cpp src/manejadorPartidas.cpp src/aceptador.cpp src/server_main.cpp src/cliente.cpp src/server_event_receiver.cpp src/servidor.cpp src/server_event_sender.cpp src/InvalidMapException.cpp)
 add_executable(server
         ${SOURCES})
 
@@ -26,3 +26,5 @@ target_link_libraries(server ${PROJECT_LINK_LIBS} SDL2 SDL2_image Threads::Threa
 
 install(FILES src/LUA/modulo.lua DESTINATION ${CMAKE_BINARY_DIR})
 install(FILES DESTINATION ${CMAKE_BINARY_DIR})
+
+install(TARGETS server COMPONENT server RUNTIME DESTINATION "/usr/local/bin" LIBRARY DESTINATION "/usr/local/bin" DESTINATION "/usr/local/bin")

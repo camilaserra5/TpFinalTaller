@@ -17,7 +17,7 @@ private:
     int frame_h;
     int frame_w;
     int frameActual;
-    int tiempoViejo;
+    int contador;
     int velocidad;
 
 public:

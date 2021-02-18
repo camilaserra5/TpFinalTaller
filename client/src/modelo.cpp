@@ -10,16 +10,19 @@
 #include <actualizaciones/actualizacionCambioArma.h>
 #include <actualizaciones/actualizacionAperturaPuerta.h>
 #include <actualizaciones/actualizacionAgarroItem.h>
+#include <actualizaciones/actualizacionAgregarItem.h>
+#include <config.h>
 //#include "rayo.h"
 #define SPRITE_LARGO 63
 #define SPRITE_ANCHO SPRITE_LARGO
 #define SPRITES_OBJETOS_ANCHO  64
 #define SPRITES_OBJETOS_LARGO 73
-#define SPRITE_OBJETOS "../../client/resources/images/Objects.png"
+#define SPRITE_OBJETOS IMGS_DIR OBJECTS_IMG
 #define FRAMESX 5
 #define FRAMESY 10
 #define DIST_PLANO_P 692.820323//(ANCHO_CANVAS / 2) / tan(pi/6.0)
 #define PI 3.141592653
+#define WEAPON IMGS_DIR WEAPONS_IMG
 
 Player &Modelo::getPlayer() {
     return *(this->jugador);
@@ -38,7 +41,7 @@ Modelo::Modelo(Ventana &ventana, int idJugador, ProtectedQueue<Actualizacion *> 
         anunciador(ventana),
         partidaTerminada(false),
         updates(updates) {
-    this->jugador = new Player("../../client/resources/images/Weapons.png", this->ventana.obtener_render(),
+    this->jugador = new Player(WEAPON, this->ventana.obtener_render(),
                                this->idJugador);
 
 }
@@ -91,11 +94,11 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
             dest.y = y;
             dest.w = 1;
             dest.h = alturaSprite;
-            std::cerr << "dest.x: " << dest.x <<  " ";
+            std::cerr << "dest.x: " << dest.x << " ";
             objeto->renderizarColumna(dimension, dest);
         }
     }
-          std::cerr << "\n";
+    std::cerr << "\n";
 }
 
 bool compararDistanciasObjetos(ObjetoDibujable *objeto1, ObjetoDibujable *objeto2) {
@@ -113,15 +116,17 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
 void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
     bool esVisible = false;
     std::map<int, ObjetoJuego *>::iterator itItem;
-    std::cerr << "la pos del jugador es x: " << this->jugador->getPosicion().pixelesEnX() << "y en y: " <<this->jugador->getPosicion().pixelesEnY() << std::endl;
+    std::cerr << "la pos del jugador es x: " << this->jugador->getPosicion().pixelesEnX() << "y en y: "
+              << this->jugador->getPosicion().pixelesEnY() << std::endl;
     for (itItem = this->entidades.begin(); itItem != this->entidades.end(); ++itItem) {
         Posicion &posItem = itItem->second->getPosicion();
         esVisible = verificarVisibilidadDeObjeto(posItem);
         if (esVisible) {
             objetosVisibles.push_back(itItem->second);
             double distanciaAItem = posItem.distanciaA(this->jugador->getPosicion());
-            std::cerr << "la pos del objeto" << itItem->first  <<  " es: " << posItem.pixelesEnX() << " y en Y: " << posItem.pixelesEnY() << std::endl;
-            std::cerr << "la distacia parcial es: " << distanciaAItem<< std::endl;
+            std::cerr << "la pos del objeto" << itItem->first << " es: " << posItem.pixelesEnX() << " y en Y: "
+                      << posItem.pixelesEnY() << std::endl;
+            std::cerr << "la distacia parcial es: " << distanciaAItem << std::endl;
             itItem->second->setDistanciaParcialAJugador(distanciaAItem);
         }
     }
@@ -151,15 +156,15 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
         double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
-      //  std::cerr << " x: " << posObjeto.pixelesEnX() << "y : " << posObjeto.pixelesEnY();
-      //  std::cerr << "\ndistancia: " << distancia;
+        //  std::cerr << " x: " << posObjeto.pixelesEnX() << "y : " << posObjeto.pixelesEnY();
+        //  std::cerr << "\ndistancia: " << distancia;
         int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
-    //    std::cerr << "\n alturaSprite: " << alturaSprite;
+        //    std::cerr << "\n alturaSprite: " << alturaSprite;
         int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);//cheq el segundo floor
         int y1 = y0 + alturaSprite;
         normalizarAnguloEnRango(difAngulo);
         double x0 = tan(difAngulo) * DIST_PLANO_P;
-        std::cerr << "x0: " << x0<< "angulo objeto " <<difAngulo << "\n";
+        std::cerr << "x0: " << x0 << "angulo objeto " << difAngulo << "\n";
         int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
         this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y1, distancia);
     }
@@ -200,7 +205,7 @@ void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
     } catch (std::out_of_range &e) {
         enemigo = new Enemigo(this->ventana.obtener_render(), 4);
         this->enemigos.insert({id, enemigo});
-      //  std::cerr << "agrego un enemigo\n";
+        //  std::cerr << "agrego un enemigo\n";
     }
 
     this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador,
@@ -211,12 +216,12 @@ void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
     if (tipo.getName() != "noItem") {
         ObjetoJuego *objeto;
         try {
-          this->entidades.at(id)->settear_estado(posx, posy);
+            this->entidades.at(id)->settear_estado(posx, posy);
 
         } catch (std::out_of_range &e) {
             objeto = this->crearObjeto(tipo);
             this->entidades.insert({id, objeto});
-          //  std::cerr << "creo un obejto: " << tipo.getName() << "\n";
+            //  std::cerr << "creo un obejto: " << tipo.getName() << "\n";
             this->entidades.at(id)->settear_estado(posx, posy);
         }
     }
@@ -231,80 +236,80 @@ void Modelo::terminoPartida(Ranking *rankingJugadores) {
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     if (tipo.getName() == "comida") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "kitsMedicos") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "llave") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "balas") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 3, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "sangre") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 8, 0, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "cruz") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 1, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "copa") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "cofre") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "corona") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "ametralladora") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 6, 4, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "lanzaCohetes") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 0, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "barril") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 7, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "agua") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 0, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "tanque") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 3, 0, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "mesa") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 0, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "lampara") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 1, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "muertoColgante") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 1, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "planta") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
+                SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else {
         //std::cerr << " creo elsee";
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 0, 0,
-                      0);
+                0);
         return new ObjetoJuego(std::move(sprite));
     }
 }
@@ -324,7 +329,8 @@ void Modelo::actualizarArmaEnemigos(int idArma) {
     }
 }
 
-void Modelo::actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas, int puntaje, int cant_vidas, bool atacando) {
+void Modelo::actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas, int puntaje, int cant_vidas,
+                                           bool atacando) {
     this->jugador->actualizarDatosJugador(vida, cant_vidas, puntaje, cant_balas);
     this->jugador->actualizarArma(idArma, atacando);
 }
@@ -333,14 +339,15 @@ void Modelo::actualizarVidaEnemigo(int id, int vida, int idArma) {
     this->enemigos.at(id)->actualizarVida(vida);
     this->enemigos.at(id)->actualizarArma(idArma);
 }
-void Modelo::sacarItem(int& id){
-    ObjetoJuego* objeto = this->entidades.at(id);
+
+void Modelo::sacarItem(int &id) {
+    ObjetoJuego *objeto = this->entidades.at(id);
     delete objeto;
     this->entidades.erase(id);
 }
 
-void Modelo::actualizarBeneficioJugador(int vida, int balas, int puntos, int cant_vidas){
-      this->jugador->actualizarDatosJugador(vida, cant_vidas, puntos, balas);
+void Modelo::actualizarBeneficioJugador(int vida, int balas, int puntos, int cant_vidas) {
+    this->jugador->actualizarDatosJugador(vida, cant_vidas, puntos, balas);
 }
 
 bool Modelo::procesarActualizaciones() {
@@ -393,13 +400,13 @@ bool Modelo::procesarActualizaciones() {
                 Type tipo = item->getTipo();
                 int posxI = item->obtenerPosicion().pixelesEnX();
                 int posyI = item->obtenerPosicion().pixelesEnY();
-              //  std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
-                      //    << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
+                //  std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
+                //    << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
                 this->actualizarObjeto(idI, tipo, posxI, posyI);
             }
         } else if (idActualizacion == static_cast<int>(Accion::aperturaDePuerta)) {
             std::cerr << "act apertura puerta" << std::endl;
-          //  auto apertura = (ActualizacionAperturaPuerta *) actualizacion;
+            //  auto apertura = (ActualizacionAperturaPuerta *) actualizacion;
             //HACER Q SE ABRA PUERTA
         } else if (idActualizacion == static_cast<int>(Accion::cambioDeArma)) {
             std::cerr << "act cambio arma" << std::endl;
@@ -419,9 +426,10 @@ bool Modelo::procesarActualizaciones() {
                 std::cerr << "arma de atacque yo dispare: " << jugadorAux->getArma()->getTipo().getName() << "\n";
                 this->actualizarEstadoAtaqueJugador(jugadorAux->puntos_de_vida(), jugadorAux->getArma()->getId(),
                                                     jugadorAux->cantidad_balas(),
-                                                    jugadorAux->obtenerPuntosTotales(), jugadorAux->cant_de_vida(), jugadorAux->estaDisparando());
+                                                    jugadorAux->obtenerPuntosTotales(), jugadorAux->cant_de_vida(),
+                                                    jugadorAux->estaDisparando());
             }
-            std::map<int, Jugador *>& jugadoresAtacados = ataque->obtenerJugadoresAtacados();
+            std::map<int, Jugador *> &jugadoresAtacados = ataque->obtenerJugadoresAtacados();
             std::map<int, Jugador *>::iterator it;
             for (it = jugadoresAtacados.begin(); it != jugadoresAtacados.end(); it++) {
                 if (it->first == this->jugador->getId()) {
@@ -429,7 +437,8 @@ bool Modelo::procesarActualizaciones() {
                     std::cerr << "arma de atacque: " << it->second->getArma()->getTipo().getName() << "\n";
                     this->actualizarEstadoAtaqueJugador(it->second->puntos_de_vida(), it->second->getArma()->getId(),
                                                         it->second->cantidad_balas(),
-                                                        it->second->obtenerPuntosTotales(), it->second->cant_de_vida(), it->second->estaDisparando());
+                                                        it->second->obtenerPuntosTotales(), it->second->cant_de_vida(),
+                                                        it->second->estaDisparando());
                 } else {
                     int idE = it->first;
                     int vidaE = it->second->puntos_de_vida();
@@ -454,20 +463,31 @@ bool Modelo::procesarActualizaciones() {
                                                                  movimiento->obtenerJugador()->posEnY(),
                                                                  movimiento->obtenerJugador()->getAnguloDeVista());
             }
-        } else if(idActualizacion == static_cast<int>(Accion::agarreItem)){
+        } else if (idActualizacion == static_cast<int>(Accion::agarreItem)) {
             std::cerr << "agarre un item " << std::endl;
-            auto agarroItem = (ActualizacionAgarroItem* ) actualizacion;
+            auto agarroItem = (ActualizacionAgarroItem *) actualizacion;
             int idJugador = agarroItem->obtenerJugador()->getId();
-            Item* item = agarroItem->obtenerItem();
+            Item *item = agarroItem->obtenerItem();
             int idItem = item->getId();
             this->sacarItem(idItem);
-            Jugador* jugador = agarroItem->obtenerJugador();
-            if (idJugador == this->jugador->getId()){
+            Jugador *jugador = agarroItem->obtenerJugador();
+            if (idJugador == this->jugador->getId()) {
                 this->actualizarBeneficioJugador(jugador->puntos_de_vida(),
-                                                  jugador->cantidad_balas(),
-                                                  jugador->obtenerPuntosTotales(),
-                                                  jugador->cant_de_vida());
+                                                 jugador->cantidad_balas(),
+                                                 jugador->obtenerPuntosTotales(),
+                                                 jugador->cant_de_vida());
             }
+        } else if (idActualizacion == static_cast<int>(Accion::agregarItem)) {
+            std::cerr << "agrego un item" << std::endl;
+            auto agregoItem = (ActualizacionAgregarItem *) actualizacion;
+            Item *item = agregoItem->obtenerItem();
+            int idI = item->getId();
+            Type tipo = item->getTipo();
+            int posxI = item->obtenerPosicion().pixelesEnX();
+            int posyI = item->obtenerPosicion().pixelesEnY();
+            //  std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
+            //    << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
+            this->actualizarObjeto(idI, tipo, posxI, posyI);
 
         } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
             std::cerr << "act terminooo" << std::endl;
@@ -478,7 +498,9 @@ bool Modelo::procesarActualizaciones() {
 
         delete actualizacion;
         return true;
+
     } catch (QueueException &qe) {
+        std::cerr << "error al recibir";
     } catch (std::exception &e) {
         std::cerr << e.what() << "\n";
         return false;

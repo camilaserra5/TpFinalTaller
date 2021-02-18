@@ -9,12 +9,13 @@
 #include "map.h"
 #include "map_translator.h"
 #include <yaml-cpp/yaml.h>
+#include <config.h>
 
-#define BLUE_WALL "../../editor/resources/blue-wall.jpg"
-#define GREY_WALL "../../editor/resources/grey-wall.jpg"
-#define WOOD_WALL "../../editor/resources/wood-wall.jpg"
-#define DOOR "../../editor/resources/door.jpg"
-#define KEY_DOOR "../../editor/resources/keydoor.jpg"
+#define BLUE_WALL IMGS_DIR BLUE_WALL_IMG
+#define GREY_WALL IMGS_DIR GREY_WALL_IMG
+#define WOOD_WALL IMGS_DIR DOOR_IMG
+#define DOOR IMGS_DIR DOOR_IMG
+#define KEY_DOOR IMGS_DIR KEYDOOR_IMG
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     setupMenus();
@@ -146,17 +147,17 @@ void MainWindow::newMap() {
 }
 
 void MainWindow::initTiles() {
-    addTile(QStringLiteral("blue wall"), QStringLiteral("../../editor/resources/blue-wall.jpg"),
+    addTile(QStringLiteral("blue wall"), QStringLiteral(BLUE_WALL),
             ObjetosJuego::obtenerTipoPorNombre("wall"));
-    addTile(QStringLiteral("grey wall"), QStringLiteral("../../editor/resources/grey-wall.jpg"),
+    addTile(QStringLiteral("grey wall"), QStringLiteral(GREY_WALL),
             ObjetosJuego::obtenerTipoPorNombre("wall-2"));
-    addTile(QStringLiteral("fake wall"), QStringLiteral("../../editor/resources/grey-wall.jpg"),
+    addTile(QStringLiteral("fake wall"), QStringLiteral(GREY_WALL),
             ObjetosJuego::obtenerTipoPorNombre("fakeDoor"));
-    addTile(QStringLiteral("wood wall"), QStringLiteral("../../editor/resources/wood-wall.jpg"),
+    addTile(QStringLiteral("wood wall"), QStringLiteral(WOOD_WALL),
             ObjetosJuego::obtenerTipoPorNombre("wall-3"));
-    addTile(QStringLiteral("door"), QStringLiteral("../../editor/resources/door.jpg"),
+    addTile(QStringLiteral("door"), QStringLiteral(DOOR),
             ObjetosJuego::obtenerTipoPorNombre("door"));
-    addTile(QStringLiteral("key door"), QStringLiteral("../../editor/resources/keydoor.jpg"),
+    addTile(QStringLiteral("key door"), QStringLiteral(KEY_DOOR),
             ObjetosJuego::obtenerTipoPorNombre("keydoor"));
 }
 

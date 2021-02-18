@@ -1,5 +1,7 @@
 #include "../include/anunciador.h"
+#include <config.h>
 
+#define FONT FONTS_DIR NOUGAT_FONT
 
 Anunciador::Anunciador(Ventana &ventana) : ventana(ventana), mostrar(false) {}
 
@@ -14,8 +16,8 @@ void Anunciador::settearGanadores(std::vector<int> &ganadores) {
     Fonts fuentes;
     int x = 200;
     int y = 300;
-    fuentes.addFont("ganadores", "../../resources/fuentes/Nougat.ttf", 65);//rutGanadores
-    fuentes.addFont("jugador", "../../resources/fuentes/Nougat.ttf", 35);//rutaFontJUgadores
+    fuentes.addFont("ganadores", FONT, 65);//rutGanadores
+    fuentes.addFont("jugador", FONT, 35);//rutaFontJUgadores
     SDL_Color color{255, 0, 0};
     Label ganador(100, 100, "GANADORES", fuentes.getFont("ganadores"), color, ventana.obtener_render());
     this->ganadores.push_back(ganador);
