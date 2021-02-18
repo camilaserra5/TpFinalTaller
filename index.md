@@ -1,6 +1,13 @@
 # Descripción
 El proyecto consiste en realizar un remake del Wolfenstein 3D (1992). Será un juego multijugador, donde cada jugador será William B.J. Blazkowicz y verá al resto de los jugadores como oficiales Nazis.
 
+# Documentación
+[Manual de Proyecto](./manual-proyecto.html).
+
+[Documentación Técnica](./documentacion-tecnica.html).
+
+[Manual de Usuario](./manual-usuario.html).
+
 # Equipo
 - Fontenla, Maria Sol
   - 103870
@@ -14,10 +21,3 @@ El proyecto consiste en realizar un remake del Wolfenstein 3D (1992). Será un j
 - Serra, Camila
   - 97422
   - cserra@fi.uba.ar
-
-# Documentación
-[Manual de Proyecto](./manual-proyecto.html).
-
-[Documentación Técnica](./documentacion-tecnica.html).
-
-[Manual de Usuario](./manual-usuario.html).

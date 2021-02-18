@@ -1,6 +1,5 @@
 # Manual de Usuario
 
-
 ### Instalación
 
 #### Requerimientos de software
