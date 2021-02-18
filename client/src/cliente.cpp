@@ -15,11 +15,14 @@
 #include "../include/audio.h"
 #include "../include/highscoreWindow.h"
 #include <config.h>
-#define ARCHIVO_DE_CONFIGURACION CLIENT_DIR "configClient.yaml"
+
 #define MUSICA_FONDO SOUNDS_DIR MUSIQUITA
 
-Cliente::Cliente(const char *host, const char *server_port) : socket(), corriendo(true) {
-    //  this->socket.conectar(host, server_port);
+Cliente::Cliente(const char *configFile) : socket(),
+                                           corriendo(true) {
+    if (!std::string(configFile).empty()) {
+        this->configFile = configFile;
+    }
 }
 
 Cliente::~Cliente() {}
@@ -34,11 +37,11 @@ void Cliente::run() {
         printf("Failed to init TTF\n");
         exit(1);
     }
-    Parser parser(ARCHIVO_DE_CONFIGURACION);
+    Parser parser(configFile);
     int screenWidthLogin = parser.obtenerAnchoPantallaLogin();
     int screenheightLogin = parser.obtenerAltoPantallaLogin();
     int screenWidthGame = parser.obtenerAnchoPantallaJuego();
-    LogInWindow logIn(screenWidthLogin,screenheightLogin,screenWidthGame);
+    LogInWindow logIn(screenWidthLogin, screenheightLogin, screenWidthGame);
     logIn.run();
     int idJugador = logIn.obtenerIdJugador();
     BlockingQueue<Comando *> events;
@@ -51,7 +54,7 @@ void Cliente::run() {
     //  ambient_music.play(-1);
 
     Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, /*SDL_WINDOW_FULLSCREEN*/0);
-    Modelo modelo(ventana, idJugador,updates);
+    Modelo modelo(ventana, idJugador, updates);
 
     ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
 
@@ -61,7 +64,7 @@ void Cliente::run() {
     try {
         clientEventSender.start();
         clientEventReceiver.start();
-        while (!clientEventReceiver.recibi()){
+        while (!clientEventReceiver.recibi()) {
             std::cout << "";
         }
         std::cout << "recibii main\n";
@@ -70,9 +73,9 @@ void Cliente::run() {
         juego.join();
         clientEventSender.join();
         clientEventSender.join();
-      /*  char c;
-        while ((c = std::cin.get()) != 'q'){
-        }*/
+        /*  char c;
+          while ((c = std::cin.get()) != 'q'){
+          }*/
     } catch (...) {
         std::cout << "error";
         this->corriendo = false;

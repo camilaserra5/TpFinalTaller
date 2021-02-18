@@ -1,8 +1,8 @@
 # Manual de Usuario
 
-### Instalación
+## Instalación
 
-#### Requerimientos de software
+### Requerimientos de software
 La instalación del programa se debe realizar mediante la instalación del paquete proporcionado. El programa puede ser corrido en cualquier distribución de Linux.
 
 Si se quisiese compilar el código fuente se deberán instalar estos paquetes a través de apt.
@@ -14,18 +14,17 @@ Si se quisiese compilar el código fuente se deberán instalar estos paquetes a 
 * libyaml-cpp-dev
 
 
-#### Requerimientos de hardware
+### Requerimientos de hardware
 El programa fue probado en computadoras sin una placa gráfica especial, y con procesadores intel i5 e i7.
 
-#### Proceso de Instalación
+### Proceso de Instalación
 Para poder utilizar el juego hay que realizar los siguientes pasos:
 - descargar el instalador
 - instalarlo (ver como instalar un .deb)
 - abrir una terminal (ctlr + alt + T)
-
   - **Ejecutar el cliente!**
 ```bash
-foo@bar:~$ client
+foo@bar:~$ client [config.yaml]
 ```
   - **Ejecutar el servidor!**
 ```bash
@@ -37,7 +36,7 @@ foo@bar:~$ editor
 ```
 
 
-### Configuración
+## Configuración
 Para levantar el servidor correctamente, se necesita un archivo con la configuración del mismo. Este deberá ser una archivo yaml de la siguiente manera:
 ``` yaml
 port: 8080
@@ -54,12 +53,20 @@ balasPorRafaga:
 maxBalas:
 ```
 
-### Forma de uso
-#### Editor
+Para el cliente hay un archivo de configuración opcional. Los valores por defecto son los siguientes. Para sobreescribirlo, crear un yaml con los valores deseados y pasarselo al correr el cliente.
+``` yaml
+screenWidthLogin: 1280
+screenHeightLogin: 720
+screenHeightGame: 600
+screenWidthGame: 800
+```
+
+## Forma de uso
+### Editor
 Una vez levantado el editor se verá la siguiente ventana:
 ![editor](editor1.png)
 
-##### Crear un nuevo mapa
+#### Crear un nuevo mapa
 Para crear un nuevo mapa, ir a Archivo -> Nuevo (o ctrl + N). Se abrirá la siguiente ventana que permite elegir el tamaño deseado del mismo.
 ![editor](editor2.gif)  
 
@@ -67,26 +74,26 @@ Una vez que tengamos el tamaño apropiado, para completarlo se pueden arrastrar 
 ![editor](editor3.gif)   
 
 **Importante!**: el mapa debe ser un recinto cerrado de paredes y todos los clientes deben utilizar el mismo ancho  y alto de pantalla.  
-##### Guardar el mapa
+#### Guardar el mapa
 Para guardar el mapa una vez que ya este listo ir a Archivo -> Guardar. El mapa deberá ser un archivo .yaml o .yml
 
-##### Abrir un mapa existente
+#### Abrir un mapa existente
 Para editar un mapa ya existente, ir a Archivo -> Abrir. Seleccionar el archivo correspondiente y listo!
 
-#### Servidor
+### Servidor
 Una vez instalado correctamente, y ya teniendo el archivo de configuración, sólo falta levantar el servidor desde su carpeta, y listo!
 ```bash
-foo@bar:~$ ./servidor config.yaml
+foo@bar:~$ server config.yaml
 ```
 
-#### Cliente
+### Cliente
 Una vez levantado el cliente, se verá la pantalla de log in para conectarse al servidor deseado. Ingresar ip y puerto correspondiente:
 ![cliente](cliente1.gif)
 
 Una vez conectado al servidor, se listaran las partidas existentes (en las que haya lugar disponible). Se puede unir a una, o de lo contrario crear una partida propia.
 ![cliente](cliente2.png)
 
-##### Crear una partida nueva
+#### Crear una partida nueva
 Para crear una partida nueva en el servidor, escribir una N y luego ingresar los datos correspondientes:
 
 * Nombre de la partida
@@ -96,11 +103,11 @@ Para crear una partida nueva en el servidor, escribir una N y luego ingresar los
 
 ![cliente](cliente3.gif)
 
-##### Conectarse a una partida existente
+#### Conectarse a una partida existente
 Para unirse a una partida nueva, escribir el número correspondiente y luego enter. Luego ingresar el nombre, y esperar!
 ![cliente](cliente4.gif)
 
-##### Teclas para jugar  
+#### Teclas para jugar  
 
 **->**: rotamos hacia la derecha.    
 **<-**: rotar hacia la izquierda.  
@@ -110,4 +117,4 @@ Para unirse a una partida nueva, escribir el número correspondiente y luego ent
 **SPACE**: cambiar de arma.  
 **m**: play/stop music.  
 
-### Apéndice de errores
+## Apéndice de errores
