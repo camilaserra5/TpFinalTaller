@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8.11)
-
+#find_package(Lua REQUIRED)
+#include_directories(${LUA_INCLUDE_DIR})
 project(wolfstein)
 include_directories(common/include)
 add_subdirectory(common)

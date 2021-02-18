@@ -31,6 +31,7 @@ SDL_Renderer *Ventana::obtener_render() {
 }
 
 void Ventana::renderizar(Textura *texturaInferior) {
+    //renderiza la barra azul
 }
 
 void Ventana::actualizar() {
