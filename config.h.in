@@ -4,6 +4,7 @@
 #define IMGS_DIR "@PROJECT_BASE_DIR@/resources/images/"
 #define MAPS_DIR "@PROJECT_BASE_DIR@/resources/mapas/"
 #define SOUNDS_DIR "@PROJECT_BASE_DIR@/resources/sonidos/"
+#define CLIENT_DIR "@PROJECT_BASE_DIR@/client/src/"
 #define JOYSTICK_FONT "joystix.monospace.ttf"
 #define NOUGAT_FONT "Nougat.ttf"
 #define WOLFENSTEIN_FONT "wolfenstein.ttf"

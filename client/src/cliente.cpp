@@ -15,7 +15,7 @@
 #include "../include/audio.h"
 #include "../include/highscoreWindow.h"
 #include <config.h>
-#define ARCHIVO_DE_CONFIGURACION "configClient.yaml"
+#define ARCHIVO_DE_CONFIGURACION CLIENT_DIR "configClient.yaml"
 #define MUSICA_FONDO SOUNDS_DIR MUSIQUITA
 
 Cliente::Cliente(const char *host, const char *server_port) : socket(), corriendo(true) {
