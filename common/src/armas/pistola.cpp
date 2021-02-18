@@ -22,6 +22,7 @@ Actualizacion* Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map
     srand(time(NULL));
     std::map<int, Jugador*> jugadoresAtacados;
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
+    std::cerr << "entroa  pistola\n\n";
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO && jugador->cantidad_balas() > 0)  {
         std::cerr << "consegui a jugador para matarlo";
         int cantidad_balas = BALAS_POR_RAFAGA;

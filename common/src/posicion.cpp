@@ -1,6 +1,6 @@
 #include "../include/posicion.h"
 
-#define DELTA_DISTANCIA 0.2
+#define DELTA_DISTANCIA 0.5
 #define PI 3.1415926
 
 #include <math.h>
@@ -21,12 +21,24 @@ int Posicion::distanciaA(Posicion &posicion) {
     return sqrt((x * x) + (y * y));
 }
 
+bool Posicion::verificarCuadranteInterseccion(Posicion &otroJugador, float alphaRecta){
+
+
+  if (PI <= anguloDeVista && anguloDeVista < 3 * PI / 2){
+        return (abs(anguloDeVista - alphaRecta + PI) <= DELTA_DISTANCIA);
+  }else if (3 * PI / 2 <= anguloDeVista && anguloDeVista < 2 * PI){
+        return (abs(anguloDeVista - alphaRecta - PI) <= DELTA_DISTANCIA);
+  }
+return (abs(anguloDeVista - alphaRecta) <= DELTA_DISTANCIA);
+}
+
 bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
   std::cerr << "verifico las posiciones de los jugadores inteersecando\n";
   std::cerr << "la pos del atacante es x: " << pixelesX << " y: " << pixelesY << "angulo: " << anguloDeVista << "\n";
   std::cerr << "la pos del atacado es x: " << otroJugador.pixelesX << " y: " << otroJugador.pixelesY << "angulo: " << otroJugador.anguloDeVista << "\n";
     float dx = otroJugador.pixelesX - pixelesX;
-    float dy = otroJugador.pixelesY - pixelesY;
+    float dy = pixelesY - otroJugador.pixelesY ;//cambie el orden!!
+
     float alphaRecta;
     if (dx == 0){
         if (dy < 0) alphaRecta = PI / 2;
@@ -34,12 +46,10 @@ bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
     }else{
         alphaRecta = atan(dy / dx);
     }
-    return (abs(anguloDeVista - alphaRecta) <= DELTA_DISTANCIA);
+    return verificarCuadranteInterseccion(otroJugador,alphaRecta);
 }
 
 void Posicion::actualizar_posicion(int pixelesX, int pixelesY) {
-  //  std::cerr << "x viejo: " << this->pixelesX << "x nuevo: " << pixelesX;
-  //  std::cerr << "Y viejo: " << this->pixelesY << "Y nuevo: " << pixelesY;
     this->pixelesX = pixelesX;
     this->pixelesY = pixelesY;
 }

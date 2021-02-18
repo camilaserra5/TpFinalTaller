@@ -35,7 +35,9 @@ public:
 
     std::vector<char> serializar() override;
 
-    void deserializar(std::vector<char> &serializado) override; 
+    void deserializar(std::vector<char> &serializado) override;
+
+    bool verificarCuadranteInterseccion(Posicion &otroJugador, float alphaRecta);
 
 private:
     int pixelesX;
