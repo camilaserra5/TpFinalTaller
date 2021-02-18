@@ -13,7 +13,7 @@ int main() {
   Jugador jugador(nombre,id);
   jugador.setPosicion(posicion);
   int i = 1;
-  Juego *juego = new Juego("Wolfstein", ANCHO_CANVAS, ALTURA_CANVAS, false,id,jugador);
+  Juego *juego = new Juego("Wolfestein", ANCHO_CANVAS, ALTURA_CANVAS, false,id,jugador);
   try {
       while (juego->estaCorriendo()) {
           juego->run();

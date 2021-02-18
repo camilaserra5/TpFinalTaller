@@ -16,6 +16,8 @@ Posicion::~Posicion() {}
 Posicion::Posicion() {}
 
 int Posicion::distanciaA(Posicion &posicion) {
+//  std::cerr << "la pos del item es x: " << pixelesX << " y: " << pixelesY << "\n";
+//  std::cerr << "la pos del jugador es x: " << posicion.pixelesX << " y: " << posicion.pixelesY << "angulo: " << posicion.anguloDeVista << "\n";
     float x = this->pixelesX - posicion.pixelesX;
     float y = this->pixelesY - posicion.pixelesY;
     return sqrt((x * x) + (y * y));
@@ -65,13 +67,12 @@ int Posicion::pixelesEnY() {
 // le creo un "cuerpo"(circulo) al objeto y veo si el otro objeto esta dentro de ese circulo;
 //ecuacion (x2 -x1)² + (y2 - y1)² < radio²
 bool Posicion::estaCerca(int &posx, int &posy) {
-    int radio = 5;
+    int radio = 10;
     std::cerr << "posxJugador: " << posx << "posyJUgador: " << posy << "\n";
-    int posFinalx = posx - this->pixelesX;
-    int posFinaly = posy - this->pixelesY;
-    std::cerr << "posxItem: " << this->pixelesX << "posyItem" << this->pixelesY << "\n";
-    std::cerr << "distancia en x: " << posFinalx << "distancia en Y: " << posFinaly << "\n";
-    if (((posFinalx * posFinalx) + (posFinaly * posFinaly)) < radio * radio) {
+    Posicion posicionJugador(posx, posy, 0);
+    int distancia = this->distanciaA(posicionJugador);
+    std::cerr << "distancia: " << distancia << std::endl;
+    if (distancia < radio){
         std::cerr << "estoy en rango\n";
         return true;
     }

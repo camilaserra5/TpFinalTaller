@@ -7,7 +7,7 @@
 #define FRAMES_Y 4
 #define POSX 318
 #define POSY 420
-#define CONTADOR_INICIAL 100
+#define CONTADOR_INICIAL 70
 
 #define ID_CUCHILLO 3
 #define ID_PISTOLA 4

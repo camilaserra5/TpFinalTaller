@@ -45,9 +45,11 @@ void ActualizacionAtaque::deserializar(std::vector<char> &serializado) {
                                           serializado.begin() + idx +
                                           charArrayToNumber(sub));
 
-    this->jugador = new Jugador();
-    this->jugador->deserializar(informacionJugador);
+    Jugador* jugadorAux = new Jugador();
+    jugadorAux->deserializar(informacionJugador);
+    this->jugador = jugadorAux;
     std::cerr << "arma juagdor que ataco: " << this->jugador->getArma()->getTipo().getName() << "\n";
+    std::cerr << "balas: " << this->jugador->cantidad_balas() << "\n";
     idx += charArrayToNumber(sub);
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     int jugadoresSize = charArrayToNumber(sub);

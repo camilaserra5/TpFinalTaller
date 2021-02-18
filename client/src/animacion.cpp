@@ -1,5 +1,5 @@
 #include "../include/animacion.h"
-#define TICKS_DISPARO 20
+#define TICKS_DISPARO 10
 
 Animacion::Animacion(SDL_Renderer *render,
                      const char *rutaimg,

@@ -25,7 +25,7 @@ Cliente::Cliente(const char *host, const char *server_port) : socket(), corriend
 Cliente::~Cliente() {}
 
 void Cliente::run() {
-    std::string nombre_juego("Wolfstein");
+    std::string nombre_juego("Wolfestein");
     if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
         printf("Failed to init SDL\n");
         exit(1);
