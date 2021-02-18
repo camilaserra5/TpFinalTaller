@@ -5,43 +5,58 @@
 #include "comandos/comando.h"
 #include "map_translator.h"
 #include <yaml-cpp/yaml.h>
+#include "../include/InvalidMapException.h"
 
-ManejadorPartidas::ManejadorPartidas(std::map<std::string,std::string>& mapas) :
+ManejadorPartidas::ManejadorPartidas(std::map<std::string, std::string> &mapas) :
         partidas(),
         esta_corriendo(true),
         mapas(mapas) {}
 
 void ManejadorPartidas::cerrarPartidas() {
-  this->eliminarPartidasTerminadas();
+    this->eliminarPartidasTerminadas();
 }
 
 void ManejadorPartidas::agregarMapa(std::string nombreMapa, std::string archivoMapa) {
     this->mapas.insert(std::make_pair(nombreMapa, archivoMapa));
 }
 
-Map ManejadorPartidas::buscarMapa(std::string &archivoMapa, int& anchoPantalla) {
-  std::string ruta = this->mapas.at(archivoMapa);
-  return MapTranslator::yamlToMap(YAML::LoadFile(ruta), anchoPantalla);
+Map ManejadorPartidas::buscarMapa(std::string &archivoMapa, int &anchoPantalla) {
+    if (this->mapas.count(archivoMapa) == 0) {
+        std::cerr << "no existe el mapa";
+        throw InvalidMapException("mapa no cargado");
+    }
+    std::string ruta = this->mapas.at(archivoMapa);
+    try {
+        Map map = MapTranslator::yamlToMap(YAML::LoadFile(ruta), anchoPantalla);
+        return map;
+    } catch (YAML::BadFile &badFile) {
+        std::cerr << "error buscando mapa";
+        throw InvalidMapException("error abriendo mapa");
+    }
 }
 
-int ManejadorPartidas::crearPartida(std::string &nombreJugador,int &cant_jugadores,
-                                    std::string &nombre_partida,std::string &archivoMapa,
-                                    Protocolo* protocolo, int& screenWidth) {
+int ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugadores,
+                                    std::string &nombre_partida, std::string &archivoMapa,
+                                    Protocolo *protocolo, int &screenWidth) {
     int idCliente = -1;
     if (partidas.count(nombre_partida) > 0) {
         return idCliente;
     } else {
-        Map mapa = this->buscarMapa(archivoMapa,screenWidth);
-        Servidor *servidor = new Servidor(mapa, cant_jugadores);
-        ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaEventos(),protocolo, idCliente);//cheq
-        servidor->agregarCliente(nombreJugador, cliente, idCliente);
-        this->partidas.insert({nombre_partida, servidor});
+        try {
+            Map mapa = this->buscarMapa(archivoMapa, screenWidth);
+            Servidor *servidor = new Servidor(mapa, cant_jugadores);
+            ManejadorCliente *cliente = new ManejadorCliente(servidor->obtenerColaEventos(), protocolo, idCliente);
+            servidor->agregarCliente(nombreJugador, cliente, idCliente);
+            this->partidas.insert({nombre_partida, servidor});
+        } catch (InvalidMapException &e) {
+            std::cerr << "error creando partida";
+        }
         return idCliente;
     }
 }
 
 int ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
-                                               std::string &nombre_partida, Protocolo* protocolo) {
+                                              std::string &nombre_partida, Protocolo *protocolo) {
 
     Servidor *servidor = this->partidas.at(nombre_partida);
     int idJugador = -1;
@@ -49,7 +64,7 @@ int ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
         std::cout << "ya arranco la partida\n";
         return idJugador;
     } else {
-        ManejadorCliente* cliente = new ManejadorCliente(servidor->obtenerColaEventos(),protocolo, idJugador);
+        ManejadorCliente *cliente = new ManejadorCliente(servidor->obtenerColaEventos(), protocolo, idJugador);
         servidor->agregarCliente(nombreJugador, cliente, idJugador);
         return idJugador;
     }
@@ -57,7 +72,7 @@ int ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
 
 void ManejadorPartidas::eliminarPartidasTerminadas() {
     std::map<std::string, Servidor *>::iterator it;
-    for (it = this->partidas.begin(); it != this->partidas.end();++it) {
+    for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
         if (it->second->terminoPartida()) {
             it->second->joinClientes();
             it->second->join();

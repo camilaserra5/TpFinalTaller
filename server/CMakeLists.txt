@@ -18,7 +18,7 @@ include_directories(../common/include)
 #link_directories(${PROJECT_SOURCE_DIR}/common/build)
 #include_directories(${PROJECT_SOURCE_DIR}/common/include)
 find_package(yaml-cpp)
-file(GLOB SOURCES src/LUA/manejadorlua.cpp src/jugadorLua.cpp src/thclient.cpp src/manejadorPartidas.cpp src/aceptador.cpp src/server_main.cpp src/cliente.cpp src/server_event_receiver.cpp src/servidor.cpp src/server_event_sender.cpp )
+file(GLOB SOURCES src/LUA/manejadorlua.cpp src/jugadorLua.cpp src/thclient.cpp src/manejadorPartidas.cpp src/aceptador.cpp src/server_main.cpp src/cliente.cpp src/server_event_receiver.cpp src/servidor.cpp src/server_event_sender.cpp src/InvalidMapException.cpp)
 add_executable(server
         ${SOURCES})
 
