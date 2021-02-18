@@ -14,6 +14,8 @@ public:
 
     ~Parser();
 
+    std::string obtenerRutaMapas();
+
     int obtenerAnchoPantallaLogin();
 
     int obtenerAltoPantallaLogin();

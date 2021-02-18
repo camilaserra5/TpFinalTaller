@@ -22,6 +22,10 @@ Parser::~Parser() {
 //cerrar
 }
 
+std::string Parser::obtenerRutaMapas() {
+    return this->config["rutaMapas"].as<std::string>();
+}
+
 int Parser::obtenerAnchoPantallaLogin() {
     return this->config["screenWidthLogin"].as<int>();
 }
