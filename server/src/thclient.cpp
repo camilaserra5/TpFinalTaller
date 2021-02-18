@@ -59,7 +59,6 @@ void ThClient::procesar_pedido() {
     unsigned int size = htonl(idJugador);
     memcpy(ret.data(), &size, 4);
     protocolo->enviar(ret);
-
 }
 
 bool ThClient::is_dead() {

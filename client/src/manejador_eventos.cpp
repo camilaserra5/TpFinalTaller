@@ -6,8 +6,9 @@
 #include "comandos/aperturaDePuerta.h"
 #include "comandos/cambioDeArma.h"
 #include <iostream>
+#include <config.h>
 
-#define RUTA_SONIDO_AMBIENTE "../../client/resources/sonidos/wolfenstein-3d-title-theme.wav"
+#define RUTA_SONIDO_AMBIENTE SOUNDS_DIR THEME
 
 ManejadorEventos::ManejadorEventos(int &idJugador, BlockingQueue<Comando *> &eventos) :
         idJugador(idJugador),

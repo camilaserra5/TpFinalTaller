@@ -3,10 +3,10 @@
 #include "SDL2/SDL_ttf.h"
 #include "../include/label.h"
 #include <sstream>
+#include <config.h>
 
-
-#define WOLFSTEIN_TTF_ROOT "../../resources/fuentes/joystix.monospace.ttf"//rutaJoystick
-#define BACKGROUND_IMAGE_ROOT "../../client/resources/images/backgroundHighscore.jpg"
+#define WOLFSTEIN_TTF_ROOT FONTS_DIR JOYSTICK_FONT
+#define BACKGROUND_IMAGE_ROOT IMGS_DIR BACKGROUND_HIGHSCORE_IMG
 #define FONT_SIZE_TITLE 30
 #define FONT_SIZE_SUBTITLE 15
 #define FONT_SIZE_NAMES 12
@@ -48,7 +48,8 @@ void display_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int 
 }
 
 void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
-    Background background(BACKGROUND_IMAGE_ROOT, renderer, 1280, 720);
+    Background background(BACKGROUND_IMAGE_ROOT, renderer,
+    1280, 720);
     SDL_Event e;
     int pressed = false;
     while (!pressed) {
@@ -129,7 +130,8 @@ void HighscoreWindow::settearGanadores(std::vector<int>& ganadores,Player *jugad
     }
 }*/
 void HighscoreWindow::renderizar() {
-    Background background(BACKGROUND_IMAGE_ROOT, this->renderer, 1280, 720);
+    Background background(BACKGROUND_IMAGE_ROOT,
+    this->renderer, 1280, 720);
     background.drawBackground();
     while (1) {
         //SDL_Event e;

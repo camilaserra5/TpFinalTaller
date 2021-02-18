@@ -6,7 +6,7 @@
 #include "map_translator.h"
 #include <yaml-cpp/yaml.h>
 #include "../include/InvalidMapException.h"
-
+#include <config.h>
 ManejadorPartidas::ManejadorPartidas(std::map<std::string, std::string> &mapas) :
         partidas(),
         esta_corriendo(true),
@@ -27,7 +27,7 @@ Map ManejadorPartidas::buscarMapa(std::string &archivoMapa, int &anchoPantalla) 
     }
     std::string ruta = this->mapas.at(archivoMapa);
     try {
-        Map map = MapTranslator::yamlToMap(YAML::LoadFile(ruta), anchoPantalla);
+        Map map = MapTranslator::yamlToMap(YAML::LoadFile(MAPS_DIR + ruta), anchoPantalla);
         return map;
     } catch (YAML::BadFile &badFile) {
         std::cerr << "error buscando mapa";

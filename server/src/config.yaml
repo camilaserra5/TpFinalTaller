@@ -1,10 +1,10 @@
 port: 8080
-mapa1: "../../resources/mapas/mapa1.yaml"
-mapa2: "../../resources/mapas/mapa2.yaml"
-mapa4: "../../resources/mapas/mapa4.yaml"
-mapa5: "../../resources/mapas/mapa5.yaml"
-mapa6: "../../resources/mapas/mapa6.yaml"
-mapa7: "../../resources/mapas/mapa7.yaml"
+mapa1: "mapa1.yaml"
+mapa2: "mapa2.yaml"
+mapa4: "mapa4.yaml"
+mapa5: "mapa5.yaml"
+mapa6: "mapa6.yaml"
+mapa7: "mapa7.yaml"
 
 vRotacion:
 vAvance:

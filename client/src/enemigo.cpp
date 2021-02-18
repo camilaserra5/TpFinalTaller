@@ -1,10 +1,10 @@
 #include "../include/enemigo.h"
-
-#define GUARDIA "../../client/resources/images/Guard.png"
-#define RATA "../../client/resources/images/Rat.png"
-#define OFFICER "../../client/resources/images/Officer.png"
-#define MUTANTE "../../client/resources/images/Mutant.png"
-#define ELITE_GUARD "../../client/resources/images/Elite Guard.png"
+#include <config.h>
+#define GUARDIA IMGS_DIR GUARD_IMG
+#define RATA IMGS_DIR RAT_IMG
+#define OFFICER IMGS_DIR OFFICER_IMG
+#define MUTANTE IMGS_DIR MUTANT_IMG
+#define ELITE_GUARD IMGS_DIR ELITE_GUARD_IMG
 #define SPRITE_W 74.6
 #define SPRITE_H 74
 #define FRAMES_X 3

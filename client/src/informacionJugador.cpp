@@ -1,13 +1,13 @@
 #include <iostream>
 #include "../include/informacionJugador.h"
 #include "../include/textura.h"
-
-#define LOWER_TEXTURE_ROOT "../../client/resources/images/ParteInferior.png"
-
+#include <config.h>
+#define LOWER_TEXTURE_ROOT IMGS_DIR INFERIOR_IMG
+#define FONT FONTS_DIR NOUGAT_FONT
 InfoJugador::InfoJugador(SDL_Renderer *render, int vida, int nivel, int puntaje,
                          int cantVidas, int balas) {
     Fonts fuentes;
-    fuentes.addFont("info", "../../resources/fuentes/Nougat.ttf", 35);
+    fuentes.addFont("info", FONT, 35);
     SDL_Color blanco = {255, 255, 255, 255};
     std::string vidainfo = std::to_string(vida);
     std::string nivelinfo = std::to_string(nivel);

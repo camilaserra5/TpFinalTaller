@@ -14,8 +14,9 @@
 #include "../include/musica.h"
 #include "../include/audio.h"
 #include "../include/highscoreWindow.h"
+#include <config.h>
 #define ARCHIVO_DE_CONFIGURACION "configClient.yaml"
-#define MUSICA_FONDO "../../client/resources/sonidos/musiquita.wav"//rutaMusica
+#define MUSICA_FONDO SOUNDS_DIR MUSIQUITA
 
 Cliente::Cliente(const char *host, const char *server_port) : socket(), corriendo(true) {
     //  this->socket.conectar(host, server_port);

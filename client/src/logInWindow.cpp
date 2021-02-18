@@ -7,11 +7,11 @@
 #include "protocolo.h"
 #include "comandos/crearPartida.h"
 #include "comandos/unirseAPartida.h"
+#include <config.h>
 
-
-#define WOLFSTEIN_TTF_ROOT "../../resources/fuentes/wolfenstein.ttf"
-#define BACKGROUND_IMAGE_ROOT "../../client/resources/images/background.png"
-#define BACKGROUND_2_IMAGE_ROOT "../../client/resources/images/background2.jpg"
+#define BACKGROUND_IMAGE IMGS_DIR BACKGROUND_IMG
+#define WOLFSTEIN_TTF_ROOT FONTS_DIR WOLFENSTEIN_FONT
+#define BACKGROUND_2_IMAGE_ROOT IMGS_DIR BACKGROUND2_IMG
 #define FONT_SIZE 60
 const SDL_Color white = {255, 255, 255, 255};
 const SDL_Color red = {226, 106, 106, 255};
@@ -69,7 +69,7 @@ void disp_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, 
 }
 
 void LogInWindow::start(SDL_Renderer *renderer, Fonts fonts) {
-    Background background(BACKGROUND_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
+    Background background(BACKGROUND_IMAGE, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     int pressed = false;
     while (!pressed) {
@@ -93,7 +93,7 @@ void LogInWindow::start(SDL_Renderer *renderer, Fonts fonts) {
 
 void
 LogInWindow::connect(SDL_Renderer *renderer, Fonts fonts, std::string &ip, std::string &port, std::string &message) {
-    Background background(BACKGROUND_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
+    Background background(BACKGROUND_IMAGE, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     bool ipFinished = false;
     bool portFinished = false;
@@ -379,7 +379,7 @@ bool LogInWindow::pantallaEsperando(SDL_Renderer *renderer, Fonts fonts, Protoco
 }
 
 void LogInWindow::pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string &error) {
-    Background background(BACKGROUND_IMAGE_ROOT, renderer, this->screenWidth, this->screenHeight);
+    Background background(BACKGROUND_IMAGE, renderer, this->screenWidth, this->screenHeight);
     SDL_Event e;
     bool finished = false;
     while (!finished) {
@@ -407,7 +407,7 @@ void LogInWindow::pantallaError(SDL_Renderer *renderer, Fonts fonts, std::string
 }
 
 void LogInWindow::run() {
-    Background background(BACKGROUND_IMAGE_ROOT, this->renderer, this->screenWidth, this->screenHeight);
+    Background background(BACKGROUND_IMAGE, this->renderer, this->screenWidth, this->screenHeight);
     background.drawBackground();
     bool finished = false;
     while (!finished) {
