@@ -19,20 +19,20 @@ El programa fue probado en computadoras sin una placa gráfica especial, y con p
 
 ### Proceso de Instalación
 Para poder utilizar el juego hay que realizar los siguientes pasos:
-- descargar el instalador
-- instalarlo (ver como instalar un .deb)
-- abrir una terminal (ctlr + alt + T)
-  - **Ejecutar el cliente!**
+- Descargar el instalador
+- Instalarlo (ver como instalar un .deb)
+- Abrir una terminal (ctlr + alt + T)
+  - Ejecutar el cliente!
 ```bash
 foo@bar:~$ client [config.yaml]
 ```
-  - **Ejecutar el servidor!**
+  - Ejecutar el servidor!
 ```bash
 foo@bar:~$ server config.yaml
 ```
-  - **Ejecutar el editor!**
+  - Ejecutar el editor!
 ```bash
-foo@bar:~$ editor
+foo@bar:~$ mapeditor
 ```
 
 
@@ -73,7 +73,8 @@ Para crear un nuevo mapa, ir a Archivo -> Nuevo (o ctrl + N). Se abrirá la sigu
 Una vez que tengamos el tamaño apropiado, para completarlo se pueden arrastrar las imágenes desde la lista izquierda. Haciendo doble click, se podrá pintar la superficie deseada:
 ![editor](editor3.gif)   
 
-**Importante!**: el mapa debe ser un recinto cerrado de paredes y todos los clientes deben utilizar el mismo ancho  y alto de pantalla.  
+**Importante!** El mapa debe ser un recinto cerrado de paredes y todos los clientes deben utilizar el mismo ancho  y alto de pantalla.  
+
 #### Guardar el mapa
 Para guardar el mapa una vez que ya este listo ir a Archivo -> Guardar. El mapa deberá ser un archivo .yaml o .yml
 

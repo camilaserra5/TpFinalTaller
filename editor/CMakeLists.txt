@@ -19,9 +19,9 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(yaml-cpp)
 
 file(GLOB SOURCES src/*.cpp include/*.h)
-add_executable(editor
+add_executable(mapeditor
         ${SOURCES})
 
-target_link_libraries(editor ${PROJECT_LINK_LIBS} Qt5::Widgets ${YAML_CPP_LIBRARIES})
+target_link_libraries(mapeditor ${PROJECT_LINK_LIBS} Qt5::Widgets ${YAML_CPP_LIBRARIES})
 
-install(TARGETS editor COMPONENT editor RUNTIME DESTINATION "/usr/local/bin" LIBRARY DESTINATION "/usr/local/bin" DESTINATION "/usr/local/bin")
+install(TARGETS mapeditor COMPONENT mapeditor RUNTIME DESTINATION "/usr/local/bin" LIBRARY DESTINATION "/usr/local/bin" DESTINATION "/usr/local/bin")
