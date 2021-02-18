@@ -1,6 +1,6 @@
 #include "armas/cuchillo.h"
 #include "../include/actualizaciones/actualizacionAtaque.h"
-#define DISTANCIA_ACUCHILLABLE 0.5 /*metros*/
+#define DISTANCIA_ACUCHILLABLE 10 /*metros*/
 #define DISTANCIA_MAX 1
 #define NO_HAY_JUGADOR_CERCANO -1
 
@@ -11,9 +11,11 @@ Cuchillo::~Cuchillo() {}
 
 Actualizacion* Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     srand(time(NULL));
+    std::cerr << "ataco con cuchillo\n";
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     std::map<int, Jugador*> jugadoresAtacados;
     Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
+    std::cerr << "juagdor a atacar: " << idJugadorMasCercano;
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
         int danio = (rand() % DANIO_MAX) + 1;
         danio = -danio;

@@ -19,6 +19,7 @@ bool Logro::operator==(Logro &logro) {
 
 void Logro::aniadirBalasDisparadas(int cantidadDeBalas) {
     this->balasDisparadas += cantidadDeBalas;
+    std::cerr << "balas disparadas: " << this->balasDisparadas;
 }
 
 void Logro::aniadirPuntosPorTesoro(int puntos) {
