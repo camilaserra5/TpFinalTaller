@@ -16,7 +16,7 @@ public:
     JugadorLua(EstadoJuego& estadoJuego, int id, std::string& ruta);
     void instanciarJugador(std::string & nombre);
     char procesar();
-    int& id;
+    int id;
     ~JugadorLua();
 };
 

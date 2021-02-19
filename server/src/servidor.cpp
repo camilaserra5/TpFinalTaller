@@ -131,6 +131,8 @@ void Servidor::generarComandosLua(JugadorLua& jugadorLua, ProtectedQueue<Comando
         case 'p':
             nuevoComando = new Ataque(jugadorLua.id);
             break;
+        default:
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTACION_DERECHA));
     }
     this->cola_comandos.aniadir_dato(nuevoComando);
 }
@@ -142,6 +144,7 @@ void Servidor::run() {
     JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
     std::string nombre("IA");
     jugadorLua.instanciarJugador(nombre);
+    
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;
