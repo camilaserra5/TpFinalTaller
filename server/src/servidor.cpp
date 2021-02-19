@@ -45,10 +45,7 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
 }
 
 void Servidor::agregarCliente(std::string &nombreJugador, ManejadorCliente *cliente, int &id) {
-    // asignarle un id random
-    // el mapa deveria crear al jugador o hay que avisarle que hay un nuevo jugador
-    // para asignarle posicion;
-    //Jugador jugador(nombreJugador, id);
+  
     id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador, id);
     cliente->settearId(id);

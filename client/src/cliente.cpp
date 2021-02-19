@@ -70,11 +70,12 @@ void Cliente::run() {
         std::cout << "recibii main\n";
         juego.start();
         manejador.run();
-        juego.join();
+        juego.cerrar();
         clientEventSender.cerrar();
         clientEventReceiver.cerrar();
         clientEventSender.join();
         clientEventSender.join();
+        juego.join();
     } catch (...) {
         std::cout << "error";
         this->corriendo = false;

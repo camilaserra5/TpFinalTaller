@@ -23,7 +23,7 @@ void Ventana::cerrar() {
     //Quit SDL subsystems
     IMG_Quit();
     SDL_Quit();
-    exit(1);
+    exit(0);
 }
 
 SDL_Renderer *Ventana::obtener_render() {
