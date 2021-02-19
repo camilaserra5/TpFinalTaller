@@ -16,7 +16,7 @@
 #include "../include/actualizaciones/actualizacionCambioArma.h"
 
 #define PI 3.1415926
-#define VELOCIDAD_DE_ROTACION 0.1  * PI
+#define VELOCIDAD_DE_ROTACION 0.05  * PI
 
 int Jugador::getId() {
     return this->id;
@@ -244,7 +244,7 @@ void Jugador::deserializar(std::vector<char> &serializado) {
 
     idx += charArrayToNumber(sub);
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-
+    idx += 4;
     std::vector<char> logroSerializado(serializado.begin() + idx,
                                        serializado.begin() + idx +
                                        charArrayToNumber(sub));

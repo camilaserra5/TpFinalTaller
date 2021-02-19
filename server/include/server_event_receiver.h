@@ -19,6 +19,10 @@ public:
 
     void cerrar() {
         this->corriendo = false;
+        protocolo->cerrar();
+    }
+    bool empezo(){
+        return corriendo;
     }
 
 private:

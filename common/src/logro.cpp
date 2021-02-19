@@ -36,15 +36,20 @@ int Logro::obtenerPuntosTotales() {
 }
 
 std::vector<char> Logro::serializar() {
+    std::cerr << "serializo logro\n";
     std::vector<char> info;
     std::vector<char> aux(4);
     aux = numberToCharArray(this->enemigosMatados);
+    std::cerr << "enemigosMatados" << this->enemigosMatados;
+
     info.insert(info.end(), aux.begin(), aux.end());
 
     aux = numberToCharArray(this->puntosTotalesPorTesoros);
+    std::cerr << "puntosTesoro: " << this->puntosTotalesPorTesoros;
     info.insert(info.end(), aux.begin(), aux.end());
 
     aux = numberToCharArray(this->balasDisparadas);
+    std::cerr << "balasDisparadas: " << this->balasDisparadas;
     info.insert(info.end(), aux.begin(), aux.end());
     return info;
 }

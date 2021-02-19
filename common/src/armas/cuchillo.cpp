@@ -1,6 +1,6 @@
 #include "armas/cuchillo.h"
 #include "../include/actualizaciones/actualizacionAtaque.h"
-#define DISTANCIA_ACUCHILLABLE 10 /*metros*/
+#define DISTANCIA_ACUCHILLABLE 20 /*metros*/
 #define DISTANCIA_MAX 1
 #define NO_HAY_JUGADOR_CERCANO -1
 
@@ -16,16 +16,17 @@ Actualizacion* Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::ma
     std::cerr << "ataco con cuchillo\n";
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     std::map<int, Jugador*> jugadoresAtacados;
-    Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
     std::cerr << "juagdor a atacar: " << idJugadorMasCercano;
-    std::cerr << "ACUCHILLO con distancia: " << jugadorAtacado->getPosicion().distanciaA(jugador->getPosicion());
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
-std::cerr << "ACUCHILLO\n";
+        Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
+        std::cerr << "ACUCHILLO con distancia: " << jugadorAtacado->getPosicion().distanciaA(jugador->getPosicion());
+        std::cerr << "ACUCHILLO\n";
         int danio = (rand() % DANIO_MAX) + 1;
         danio = -danio;
         jugadorAtacado->actualizar_vida(danio);
         if (jugadorAtacado->estaMuerto()) {
             jugador->aniadirEnemigosMatados(1);
+            std::cerr << "MURIO JUGADOR ACUCHILLADO\n";
         }
         jugadoresAtacados.insert({idJugadorMasCercano,jugadorAtacado});
     }
