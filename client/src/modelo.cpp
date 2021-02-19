@@ -104,17 +104,25 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
   Posicion &posJugador = jugador->getPosicion();
   float anguloDeVista = posJugador.getAnguloDeVista();
   bool estaEnSegmento = posJugador.verificarSiPerteneceAlSegmento(posObjeto);//camiar a estaEnRangoSegmento
-  if (!estaEnSegmento) return false;
+  if (!estaEnSegmento) {
+    std::cerr << "no lo encontre en el segmento\n";
+    return false;
+  }
   float pendienteRecta = tan(anguloDeVista);
+  /*
   if ((PI <= anguloDeVista && anguloDeVista < 3 * PI/2) || (3 * PI/2 <= anguloDeVista && anguloDeVista < 2 * PI)){
     pendienteRecta = -pendienteRecta;
-  }
+  }*/
   float ordenadaOrigen = -posJugador.pixelesEnY() - (pendienteRecta * posJugador.pixelesEnX());
   float y = pendienteRecta * posObjeto.pixelesEnX() + ordenadaOrigen;
   if (y < 0) y = (-1) * y;
   float opuesto = y - posObjeto.pixelesEnY();
   float adyacente = posJugador.pixelesEnX() - posObjeto.pixelesEnX();
-  return (abs (atan(opuesto/adyacente)) <= PI/6);
+  bool enVista = (abs (atan(opuesto/adyacente)) <= PI/6);
+  if (!enVista)
+{  std::cerr << "la pos del jugador es x: " << posJugador.pixelesEnX() << " y: " << posJugador.pixelesEnY() << "angulo: " << posJugador.getAnguloDeVista() << "\n";
+  std::cerr << "la pos del objeto es x: " << posObjeto.pixelesEnX() << " y: " << posObjeto.pixelesEnY() << "angulo: " << posObjeto.getAnguloDeVista() << "\n";}
+  return enVista;
 }
 
 void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
@@ -126,13 +134,13 @@ void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibl
         if (esVisible) {
             objetosVisibles.push_back(itItem->second);
             double distanciaAItem = posItem.distanciaA(this->jugador->getPosicion());
-
             itItem->second->setDistanciaParcialAJugador(distanciaAItem);
         }
     }
 }
 
 void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
+  std::cerr << "engulo j: " << this->jugador->getPosicion().getAnguloDeVista() << std::endl;
     bool esVisible = false;
     std::map<int, Enemigo *>::iterator itEnemigo;
     for (itEnemigo = this->enemigos.begin(); itEnemigo != this->enemigos.end(); ++itEnemigo) {
@@ -142,6 +150,8 @@ void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVis
             objetosVisibles.push_back(itEnemigo->second);
             double distanciaAEnemigo = posEnemigo.distanciaA(this->jugador->getPosicion());
             itEnemigo->second->setDistanciaParcialAJugador(distanciaAEnemigo);
+            std::cerr << "\n\nes visible\n\n";
+
         }
     }
 }
@@ -157,8 +167,8 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
         int alturaSprite = floor((this->mapa.getLadoCelda()/ distancia) * DIST_PLANO_P);
         if (alturaSprite > ALTURA_CANVAS) alturaSprite = ALTURA_CANVAS - 10;
-            std::cerr << "\n alturaSprite: " << alturaSprite;
-        int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2) - 20;
+            std::cerr << "alturaSprite: " << alturaSprite;
+        int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);
         //normalizarAnguloEnRango(difAngulo);
         double x0 = tan(difAngulo) * DIST_PLANO_P;
         int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
