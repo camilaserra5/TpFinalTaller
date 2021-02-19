@@ -12,7 +12,8 @@ Si se quisiese compilar el código fuente se deberán instalar estos paquetes a 
 * lua5.3 liblua5.3-dev
 * libsdl2-ttf-dev
 * libyaml-cpp-dev
-
+* libsdl2-image-dev
+* qt5-default
 
 ### Requerimientos de hardware
 El programa fue probado en computadoras sin una placa gráfica especial, y con procesadores intel i5 e i7.
