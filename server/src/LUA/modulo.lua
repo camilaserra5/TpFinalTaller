@@ -35,7 +35,7 @@ function posicion_enemigo_cerca(pos_x, pos_y)
     --local rango = 
     --if(pos_x - rango < 1 or pos_y - rango < 1) then
     rango = 1
-    end
+    --end
     for i = pos_x - rango, i + rango, 1 do
         for j = pos_y - rango, j + rango, 1 do
             if (#mapa[i][j] >= 100) then
