@@ -23,7 +23,7 @@ private:
     Textura *texturaInferior;
     Modelo &modelo;
     bool inicialice = false;
-    std::map<int,Textura*> texturas;
+    std::map<int, Textura *> texturas;
 
 public:
     Juego(Ventana &ventana, Modelo &modelo);

@@ -12,7 +12,7 @@ Movimiento::~Movimiento() {}
 Movimiento::Movimiento() {}
 
 std::vector<Actualizacion *> Movimiento::ejecutar(EstadoJuego &estadoJuego) {
-    Actualizacion* actualizacion = nullptr;
+    Actualizacion *actualizacion = nullptr;
     std::vector<Actualizacion *> actualizaciones;
     if (tipo_de_movimiento == Accion::rotarDerecha) {
         std::cerr << "comando der" << std::endl;
@@ -27,7 +27,7 @@ std::vector<Actualizacion *> Movimiento::ejecutar(EstadoJuego &estadoJuego) {
         std::cerr << "comando abajo" << std::endl;
         actualizaciones = estadoJuego.moverse_abajo(this->idJugador);
     }
-    if (actualizacion != nullptr){
+    if (actualizacion != nullptr) {
         actualizaciones.push_back(actualizacion);
     }
     return actualizaciones;

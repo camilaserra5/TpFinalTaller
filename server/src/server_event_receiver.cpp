@@ -9,7 +9,7 @@ void Server_Event_Receiver::run() {
             std::cerr << "comando size:  " << informacion.size() << std::endl;
             Comando *comando = protocolo->deserializarComando(informacion);
             this->comandos.aniadir_dato(comando);
-        }catch (const SocketError& exc){
+        } catch (const SocketError &exc) {
             std::cout << exc.what() << std::endl;
             this->cerrar();
         } catch (std::exception &exc) {

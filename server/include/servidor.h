@@ -22,7 +22,7 @@ public:
 
     void run() override;
 
-    void agregarCliente(std::string &nombreJugador, ManejadorCliente* cliente, int& id);
+    void agregarCliente(std::string &nombreJugador, ManejadorCliente *cliente, int &id);
 
     bool yaArranco();
 
@@ -30,7 +30,7 @@ public:
 
     ProtectedQueue<Comando *> &obtenerColaEventos();
 
-  //  BlockingQueue<Actualizacion *> &obtenerColaActualizaciones();
+    //  BlockingQueue<Actualizacion *> &obtenerColaActualizaciones();
 
     void lanzarJugadores();
 
@@ -42,7 +42,7 @@ public:
 
     void deserializar(std::vector<char> &serializado) {}
 
-    void enviar_actualizaciones(std::vector<Actualizacion*> actualizaciones);
+    void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones);
 
     void actualizarContador();
 
@@ -62,7 +62,7 @@ private:
     std::atomic<bool> sigue_corriendo;
     std::atomic<bool> arrancoPartida;
     int generadorDeId = 100;
-    std::map<int, ManejadorCliente*> clientes;
+    std::map<int, ManejadorCliente *> clientes;
     //JugadorLua jugadorLua;
 
     void generarComandosLua(JugadorLua &jugadorLua, ProtectedQueue<Comando *> &cola_comandos);

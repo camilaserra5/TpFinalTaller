@@ -59,15 +59,15 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     srand(time(NULL));
     int posElementox = 0;
     int posElementoy = 0;
-    if (rowNumber == 0){
+    if (rowNumber == 0) {
         posElementox = rand() % ladoCelda;
-    }else{
-        posElementox = (ladoCelda *(rowNumber -1) + rand() % ladoCelda);
-    }
-    if (colNumber == 0){
-        posElementoy = rand()%ladoCelda;
     } else {
-        posElementoy = ladoCelda* (colNumber -1) + rand()%ladoCelda;
+        posElementox = (ladoCelda * (rowNumber - 1) + rand() % ladoCelda);
+    }
+    if (colNumber == 0) {
+        posElementoy = rand() % ladoCelda;
+    } else {
+        posElementoy = ladoCelda * (colNumber - 1) + rand() % ladoCelda;
     }
     std::cerr << "posElementox: " << posElementox << "\n";
     std::cerr << "posElemntoY:  " << posElementoy << "\n";
@@ -129,18 +129,18 @@ Item *Map::buscarElemento(int &posx, int &posy) {
     return this->contenedorDeElementos.buscarElemento(posx, posy);
 }
 
-bool verificarTipo(int tipo){
+bool verificarTipo(int tipo) {
     return (tipo != TYPE_WALL_2 && tipo != TYPE_WALL && tipo != TYPE_WALL_3 &&
-            tipo != TYPE_DOOR && tipo != TYPE_EMPTY && tipo!= TYPE_FAKE_WALL);
+            tipo != TYPE_DOOR && tipo != TYPE_EMPTY && tipo != TYPE_FAKE_WALL);
 }
 
 void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type value) {
     this->map[rowNumber][colNumber] = value;
     int tipo = value.getType();
-    if (verificarTipo(tipo)){
+    if (verificarTipo(tipo)) {
         this->crearElementoPosicionable(rowNumber, colNumber, value);
-    }else if(tipo == TYPE_DOOR || tipo == TYPE_KEY_DOOR){
-        this->aniadirPuerta(rowNumber,colNumber,tipo);
+    } else if (tipo == TYPE_DOOR || tipo == TYPE_KEY_DOOR) {
+        this->aniadirPuerta(rowNumber, colNumber, tipo);
     }
 }
 
@@ -199,7 +199,7 @@ void Map::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->colSize = charArrayToNumber(sub);
-    Map newMap(rowSize, colSize,ladoCelda * rowSize);//agregue aca el ancho
+    Map newMap(rowSize, colSize, ladoCelda * rowSize);//agregue aca el ancho
     this->map = newMap.map;
     for (unsigned i = 0; i < rowSize; i++) {
         for (unsigned j = 0; j < colSize; j++) {
@@ -225,8 +225,8 @@ ContenedorDeElementos &Map::obtenerContenedor() {
 
 bool Map::hayColision(int fila, int columna) {
     try {
-      int tamFila = this->rowSize;
-      int tamCol = this->colSize;
+        int tamFila = this->rowSize;
+        int tamCol = this->colSize;
         if (fila < 0 || fila > tamFila || columna < 0 || columna > tamCol)
             return false;
         int tipo = this->map[fila][columna].getType();
@@ -239,7 +239,7 @@ bool Map::hayColision(int fila, int columna) {
         return (tipo == TYPE_DOOR || tipo == TYPE_WALL || tipo == TYPE_WALL_2 || tipo == TYPE_WALL_3 ||
                 tipo == TYPE_KEY_DOOR || tipo == TYPE_FAKE_WALL);
     } catch (std::exception &exc) {
-      return false;//capaz deberia devolver true? no se
+        return false;//capaz deberia devolver true? no se
     }
 }
 
@@ -252,15 +252,15 @@ Posicion Map::obtenerPosicionIncialValida() {
         posY = rand() % this->colSize;
         if (!this->hayColision(posX, posY)) posEsValida = true;
     }
-    std:: cerr << "rowSize: " << rowSize << "colSize: " << colSize << std::endl;
-    if (posX == 0){
+    std::cerr << "rowSize: " << rowSize << "colSize: " << colSize << std::endl;
+    if (posX == 0) {
         posX = rand() % this->ladoCelda;
-    }else{
+    } else {
         posX = posX * (this->ladoCelda - 1) + rand() % this->ladoCelda;
     }
-    if (posY == 0){
+    if (posY == 0) {
         posY = rand() % this->ladoCelda;
-    }else{
+    } else {
         posY = posY * (this->ladoCelda - 1) + rand() % this->ladoCelda;
     }
 
@@ -268,20 +268,20 @@ Posicion Map::obtenerPosicionIncialValida() {
     return posicion;
 }
 
-void Map::setLadoCelda(int anchoPantalla){
-  std::cerr << "ancho oantalla: " << anchoPantalla << '\n';
-  this->ladoCelda = anchoPantalla / rowSize;
+void Map::setLadoCelda(int anchoPantalla) {
+    std::cerr << "ancho oantalla: " << anchoPantalla << '\n';
+    this->ladoCelda = anchoPantalla / rowSize;
 }
 
-int Map::getLadoCelda(){
-  return this->ladoCelda;
+int Map::getLadoCelda() {
+    return this->ladoCelda;
 }
 
 std::vector<std::vector<int>> Map::getMapanumerico() {
     std::vector<std::vector<int>> mapaNumerico;
-    for(unsigned i = 0; i < rowSize; i++){
+    for (unsigned i = 0; i < rowSize; i++) {
         std::vector<int> vector;
-        for(unsigned j = 0; j < colSize; j++){
+        for (unsigned j = 0; j < colSize; j++) {
             vector.push_back(map[i][j].getType());
         }
         mapaNumerico.push_back(vector);

@@ -12,38 +12,39 @@
 
 class EstadoJuego : public ISerializable {
 public:
-    EstadoJuego(Map& mapa);
+    EstadoJuego(Map &mapa);
 
     ~EstadoJuego();
 
     EstadoJuego();
 
-    Actualizacion* rotar_a_derecha(int idJugador);
+    Actualizacion *rotar_a_derecha(int idJugador);
 
-    Actualizacion* rotar_a_izquierda(int idJugador);
+    Actualizacion *rotar_a_izquierda(int idJugador);
 
-    std::vector<Actualizacion*> moverse_arriba(int idJugador);
+    std::vector<Actualizacion *> moverse_arriba(int idJugador);
 
-    std::vector<Actualizacion*> moverse_abajo(int idJugador);
+    std::vector<Actualizacion *> moverse_abajo(int idJugador);
 
     void no_me_muevo(int idJugador);
 
     void agregarJugador(std::string &nombreJugador, int &id);
 
-    std::vector<Actualizacion*> realizarAtaque(int idJugador);
+    std::vector<Actualizacion *> realizarAtaque(int idJugador);
 
     std::vector<char> serializar() override;
 
     void deserializar(std::vector<char> &informacion) override;
 
-    Actualizacion* verificarJugadoresMuertos();
+    Actualizacion *verificarJugadoresMuertos();
 
-    std::vector<Actualizacion*> verificarMovimientoJugador(Jugador *jugador, int &posX, int &posY);
+    std::vector<Actualizacion *> verificarMovimientoJugador(Jugador *jugador, int &posX, int &posY);
 
-    Actualizacion* abrirPuerta(int idJugador);
+    Actualizacion *abrirPuerta(int idJugador);
 
     std::map<int, Jugador *> &obtenerJugadores();
-    Map& obtenerMapa();
+
+    Map &obtenerMapa();
 
     void lanzarContadorTiempoPartida();
 
@@ -51,7 +52,7 @@ public:
 
     bool terminoPartida();
 
-    Actualizacion* cambiarArma(int idJugador);
+    Actualizacion *cambiarArma(int idJugador);
 
     std::vector<std::vector<int>> GetMapanumerico();
 

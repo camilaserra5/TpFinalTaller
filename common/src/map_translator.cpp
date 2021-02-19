@@ -16,7 +16,7 @@ YAML::Node MapTranslator::mapToYaml(Map &map) {
     return node;
 }
 
-Map MapTranslator::yamlToMap(YAML::Node yaml,int anchoPantalla) {
+Map MapTranslator::yamlToMap(YAML::Node yaml, int anchoPantalla) {
     const unsigned rows = yaml["rows"].as<unsigned>();
     const unsigned cols = yaml["cols"].as<unsigned>();
 

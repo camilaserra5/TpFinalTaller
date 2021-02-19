@@ -6,10 +6,10 @@ AperturaDePuerta::AperturaDePuerta(int idJugador) : Comando(idJugador) {}
 AperturaDePuerta::~AperturaDePuerta() {}
 
 std::vector<Actualizacion *> AperturaDePuerta::ejecutar(EstadoJuego &estadoJuego) {
-    Actualizacion* puerta =  estadoJuego.abrirPuerta(idJugador);
+    Actualizacion *puerta = estadoJuego.abrirPuerta(idJugador);
     std::vector<Actualizacion *> actualizaciones;
-    if (puerta != NULL){
-      actualizaciones.push_back(puerta);
+    if (puerta != NULL) {
+        actualizaciones.push_back(puerta);
     }
     return actualizaciones;
 }

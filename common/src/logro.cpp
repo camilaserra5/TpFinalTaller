@@ -69,5 +69,5 @@ void Logro::deserializar(std::vector<char> &serializado) {
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->balasDisparadas = charArrayToNumber(sub);
     std::cerr << " logro deserializar balasDisparadas " << balasDisparadas << std::endl;
-  //  std::cerr << " logro deserializar fin "  << std::endl;
+    //  std::cerr << " logro deserializar fin "  << std::endl;
 }

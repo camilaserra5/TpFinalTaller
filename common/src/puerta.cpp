@@ -26,7 +26,7 @@ bool Puerta::estaEnPosDelMapa(int &fila, int &columna) {
     return (this->fila == fila && this->columna == columna);
 }
 
-std::vector<char> Puerta::serializar(){
+std::vector<char> Puerta::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(this->fila);

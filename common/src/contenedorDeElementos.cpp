@@ -85,7 +85,7 @@ Item *deserializarItem(std::vector<char> &informacion) {
     memcpy(number, sub.data(), 4);
     buf = (uint32_t *) number;
     int idTipo = ntohl(*buf);
-    idx +=4;
+    idx += 4;
     std::cerr << "deserializo item\n";
     std::cerr << "tipoid: " << idTipo << "\n";
     Posicion posicion;
@@ -115,7 +115,7 @@ Item *deserializarItem(std::vector<char> &informacion) {
 }
 
 void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
-  //error con el mapa de 20x20 6
+    //error con el mapa de 20x20 6
 
     std::vector<char> sub(4);
     int idx = 0;
@@ -193,8 +193,8 @@ ContenedorDeElementos::ContenedorDeElementos() :
 ContenedorDeElementos::~ContenedorDeElementos() {}
 
 Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
-  int cantidadElementos = this->elementos.size();
-  std::cerr << "entre a buscar elemento\n";
+    int cantidadElementos = this->elementos.size();
+    std::cerr << "entre a buscar elemento\n";
     for (int i = 0; i < cantidadElementos; i++) {
         if (this->elementos[i]->estaCerca(posx, posy)) {
             return this->elementos[i];

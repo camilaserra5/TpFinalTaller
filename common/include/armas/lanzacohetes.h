@@ -12,8 +12,8 @@ public:
 
     ~LanzaCohetes();
 
-    Actualizacion* atacar(int distancia_a_pared, Jugador *jugador,
-                std::map<int, Jugador *> &jugadores) override;
+    Actualizacion *atacar(int distancia_a_pared, Jugador *jugador,
+                          std::map<int, Jugador *> &jugadores) override;
 
     bool obtenerBeneficio(Jugador *jugador) override;
 

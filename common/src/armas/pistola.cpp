@@ -18,12 +18,12 @@ Type Pistola::getTipo() {
 
 // conviene mandarle coordenadas de yo jugador??
 // or ahora devuelve danio de ataque
-Actualizacion* Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
+Actualizacion *Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     srand(time(NULL));
-    std::map<int, Jugador*> jugadoresAtacados;
+    std::map<int, Jugador *> jugadoresAtacados;
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     std::cerr << "entroa  pistola\n\n";
-    if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO && jugador->cantidad_balas() > 0)  {
+    if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO && jugador->cantidad_balas() > 0) {
         std::cerr << "consegui a jugador para matarlo";
         int cantidad_balas = BALAS_POR_RAFAGA;
         int i = 0;

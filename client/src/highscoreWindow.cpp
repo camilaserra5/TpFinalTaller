@@ -49,7 +49,7 @@ void display_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int 
 
 void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
     Background background(BACKGROUND_IMAGE_ROOT, renderer,
-    1280, 720);
+                          1280, 720);
     SDL_Event e;
     int pressed = false;
     while (!pressed) {
@@ -131,7 +131,7 @@ void HighscoreWindow::settearGanadores(std::vector<int>& ganadores,Player *jugad
 }*/
 void HighscoreWindow::renderizar() {
     Background background(BACKGROUND_IMAGE_ROOT,
-    this->renderer, 1280, 720);
+                          this->renderer, 1280, 720);
     background.drawBackground();
     while (1) {
         //SDL_Event e;

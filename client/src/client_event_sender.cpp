@@ -7,6 +7,7 @@
 #include "protocolo.h"
 #include <sstream>
 #include "socket_error.h"
+
 ClientEventSender::ClientEventSender(Protocolo *protocolo,
                                      BlockingQueue<Comando *> &events) :
         events(events), corriendo(true), protocolo(protocolo) {}
@@ -17,13 +18,13 @@ void ClientEventSender::run() {
             Comando *evento = this->events.pop();
             std::vector<char> informacion = evento->serializar();
             protocolo->enviar(informacion);
-      }catch (const SocketError& exc){
-              std::cout << exc.what() << std::endl;
-              this->cerrar();
-      } catch (std::exception &exc) {
-              std::cout << exc.what() << std::endl;
-              this->cerrar();
-      }
+        } catch (const SocketError &exc) {
+            std::cout << exc.what() << std::endl;
+            this->cerrar();
+        } catch (std::exception &exc) {
+            std::cout << exc.what() << std::endl;
+            this->cerrar();
+        }
     }
 }
 

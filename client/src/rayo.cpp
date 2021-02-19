@@ -4,8 +4,8 @@
 #include <iostream>
 
 Rayo::Rayo(double campoDeVision, int ladoCelda, int largoProyector, double anguloBarrido, Posicion &posicion) :
-        campoDeVision(campoDeVision),anguloBarrido(anguloBarrido),largoProyector(largoProyector), ladoCelda(ladoCelda)
-         {
+        campoDeVision(campoDeVision), anguloBarrido(anguloBarrido), largoProyector(largoProyector),
+        ladoCelda(ladoCelda) {
     this->distanciaProyector = (this->largoProyector / 2) / tan(this->campoDeVision / 2);
     this->posXMapa = posicion.pixelesEnX() / ladoCelda;
     this->posYMapa = posicion.pixelesEnY() / ladoCelda;
@@ -35,7 +35,7 @@ void Rayo::verificarCuadrante(const double anguloJugador) {
 }
 
 void Rayo::verificarInterseccion(Map &mapa, double &distancia, Player &jugador) {
-  //  double distanciaHorizontal = this->ladoCelda * mapa.getRowSize(), distanciaVertical = this->ladoCelda * mapa.getColSize();
+    //  double distanciaHorizontal = this->ladoCelda * mapa.getRowSize(), distanciaVertical = this->ladoCelda * mapa.getColSize();
     this->verificarCuadrante(jugador.getAnguloDeVista());
     if (!this->abajo && !this->izquierda) {
         distancia = this->verificarInterseccionPrimerCuadrante(jugador, mapa);
@@ -185,7 +185,7 @@ bool Rayo::hallarColision(Map &mapa, double &interseccionAX, double &interseccio
         if (mapa.hayColision(yaMapa, xaMapa)) {
             encontrePared = true;
             this->tipoDePared = mapa(yaMapa, xaMapa).getType();
-            std:: cerr << "encuentro en x: " << xaMapa << " y:" << yaMapa << "y tipo de pared: " << tipoDePared <<"\n";
+            std::cerr << "encuentro en x: " << xaMapa << " y:" << yaMapa << "y tipo de pared: " << tipoDePared << "\n";
         } else {
             interseccionAY += yStep;
             interseccionAX += xStep;

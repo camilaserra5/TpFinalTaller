@@ -2,11 +2,11 @@
 #include "actualizaciones/actualizacionCambioArma.h"
 
 std::vector<Actualizacion *> CambioDeArma::ejecutar(EstadoJuego &estadoJuego) {
-    Actualizacion* actualizacion = estadoJuego.cambiarArma(idJugador);
+    Actualizacion *actualizacion = estadoJuego.cambiarArma(idJugador);
     std::vector<Actualizacion *> actualizaciones;
-    if (actualizacion != NULL){
-      actualizaciones.push_back(actualizacion);
-    }  
+    if (actualizacion != NULL) {
+        actualizaciones.push_back(actualizacion);
+    }
     return actualizaciones;
 }
 

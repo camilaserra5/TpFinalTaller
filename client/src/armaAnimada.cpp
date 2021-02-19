@@ -1,5 +1,6 @@
 #include "../include/armaAnimada.h"
 #include <config.h>
+
 #define RUTAIMG IMGS_DIR WEAPONS_IMG
 #define SPRITES_W 64.55
 #define SPRITES_H 65
@@ -15,7 +16,7 @@
 #define ID_LANZACOHETES 5
 #define ID_CANION_DE_CADENA 2
 
-ArmaAnimada::ArmaAnimada(SDL_Renderer *render): contador(CONTADOR_INICIAL), atacando(false) {
+ArmaAnimada::ArmaAnimada(SDL_Renderer *render) : contador(CONTADOR_INICIAL), atacando(false) {
     Sprite spriteCuchillo(render, RUTAIMG, 1, 0, SPRITES_H, SPRITES_W);
     Sprite spritePistola(render, RUTAIMG, 0, 1, SPRITES_H, SPRITES_W);
     Sprite spriteAmetralladora(render, RUTAIMG, 0, 2, SPRITES_H, SPRITES_W);
@@ -46,7 +47,7 @@ void ArmaAnimada::renderizar() {
 
     //std::cerr << "arma: " << this->armaActual << "\n";
     if (this->atacando) {
-        if(this->contador != 0){
+        if (this->contador != 0) {
             std::cerr << "entre";
             this->animaciones.find(this->armaActual)->second.renderizar(POSX, POSY, 0, NULL);
             this->contador--;

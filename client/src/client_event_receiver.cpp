@@ -71,13 +71,13 @@ void ClientEventReceiver::run() {
                 this->recibii = true;
             }
 
-        }catch (const SocketError& exc){
-                std::cout << exc.what() << std::endl;
-                this->cerrar();
+        } catch (const SocketError &exc) {
+            std::cout << exc.what() << std::endl;
+            this->cerrar();
         } catch (std::exception &exc) {
-              std::cout << exc.what() << std::endl;
-              this->cerrar();
-          }
+            std::cout << exc.what() << std::endl;
+            this->cerrar();
+        }
     }
 }
 

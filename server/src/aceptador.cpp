@@ -37,7 +37,7 @@ void Aceptador::run() {
 }
 
 void Aceptador::cerrar() {
-  this->socket_listener.cerrar();
+    this->socket_listener.cerrar();
     for (std::size_t i = 0; i < clientes.size(); i++) {
         clientes.at(i)->stop();
         clientes.at(i)->join();

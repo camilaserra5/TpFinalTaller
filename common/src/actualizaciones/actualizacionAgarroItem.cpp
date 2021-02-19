@@ -1,12 +1,13 @@
 #include "actualizaciones/actualizacionAgarroItem.h"
 #include <iostream>
+
 #define PUNTOS_CRUZ 10
 #define PUNTOS_COPA 50
 #define PUNTOS_COFRE 100
 #define PUNTOS_CORONA 200
 
 ActualizacionAgarroItem::ActualizacionAgarroItem(Jugador *jugador,
-                                                  Item* item) :
+                                                 Item *item) :
         jugador(jugador),
         item(item) {}
 
@@ -33,7 +34,7 @@ std::vector<char> ActualizacionAgarroItem::serializar() {
     return informacion;
 }
 
-Item* ActualizacionAgarroItem::deserializarItem(std::vector<char> &informacion) {
+Item *ActualizacionAgarroItem::deserializarItem(std::vector<char> &informacion) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
@@ -41,7 +42,7 @@ Item* ActualizacionAgarroItem::deserializarItem(std::vector<char> &informacion) 
     idx += 4;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     int idTipo = charArrayToNumber(sub);
-    idx +=4;
+    idx += 4;
     std::cerr << "deserializo item\n";
     std::cerr << "tipoid: " << idTipo << "\n";
     Posicion posicion;
@@ -76,8 +77,8 @@ void ActualizacionAgarroItem::deserializar(std::vector<char> &serializado) {
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     idx += 4;
     std::vector<char> informacionJugador(serializado.begin() + idx,
-                                          serializado.begin() + idx +
-                                          charArrayToNumber(sub));
+                                         serializado.begin() + idx +
+                                         charArrayToNumber(sub));
 
     this->jugador = new Jugador();
     this->jugador->deserializar(informacionJugador);

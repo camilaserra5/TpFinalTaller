@@ -10,9 +10,9 @@ void Server_Event_Sender::run() {
             std::vector<char> informacion = actualizacion->serializar();
             protocolo->enviar(informacion);
 
-        }catch (const SocketError& exc){
-                std::cout << exc.what() << std::endl;
-                this->cerrar();
+        } catch (const SocketError &exc) {
+            std::cout << exc.what() << std::endl;
+            this->cerrar();
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
             this->cerrar();

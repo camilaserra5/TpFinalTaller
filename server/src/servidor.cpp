@@ -22,7 +22,7 @@ Servidor::Servidor(Map mapa, int cantJugadoresPosibles) :
         estadoJuego(mapa),
         cantJugadoresPosibles(cantJugadoresPosibles),
         sigue_corriendo(true),
-        arrancoPartida(false){}
+        arrancoPartida(false) {}
 
 Servidor::~Servidor() {}
 
@@ -45,7 +45,7 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
 }
 
 void Servidor::agregarCliente(std::string &nombreJugador, ManejadorCliente *cliente, int &id) {
-  
+
     id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador, id);
     cliente->settearId(id);
@@ -109,10 +109,10 @@ void Servidor::enviar_actualizaciones(std::vector<Actualizacion *> actualizacion
     }
 }
 
-void Servidor::generarComandosLua(JugadorLua& jugadorLua, ProtectedQueue<Comando *> &cola_comandos){
-    Comando* nuevoComando;
+void Servidor::generarComandosLua(JugadorLua &jugadorLua, ProtectedQueue<Comando *> &cola_comandos) {
+    Comando *nuevoComando;
     char teclaComando = jugadorLua.procesar();
-    switch(teclaComando){
+    switch (teclaComando) {
         case 'w':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ARRIBA));
             std::cerr << "=== SE MUEVE PARA ARRIBA LUA==== " << std::endl;
@@ -148,7 +148,7 @@ void Servidor::run() {
     JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
     std::string nombre("IA");
     jugadorLua.instanciarJugador(nombre);
-    
+
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;

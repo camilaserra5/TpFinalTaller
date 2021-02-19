@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 void MainWindow::openMap() {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Abrir mapa existente"), "",
                                                     tr("YAML Files (*.yaml *.yml)"));
-    Map map = MapTranslator::yamlToMap(YAML::LoadFile(fileName.toStdString()),450);//cheqs
+    Map map = MapTranslator::yamlToMap(YAML::LoadFile(fileName.toStdString()), 450);//cheqs
     mapWidget = new MapWidget(mapWidget->tileSize() * map.getColSize(), mapWidget->tileSize() * map.getRowSize());
     mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
 

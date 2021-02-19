@@ -44,7 +44,7 @@ Jugador::Jugador() {
 }
 
 Jugador::~Jugador() {
-    std::cerr<< "entreee al destructor de Jugador\n";
+    std::cerr << "entreee al destructor de Jugador\n";
 }
 
 std::string Jugador::obtenerNombre() {
@@ -88,7 +88,7 @@ int Jugador::cantidad_balas() {
 }
 
 void Jugador::agregar_balas(int &balas) {
-    if (balas >= 0){
+    if (balas >= 0) {
         this->armaActual = ID_PISTOLA;
     }
     this->balas += balas;
@@ -111,7 +111,7 @@ void Jugador::agarrarLlave() {
 }
 
 void Jugador::actualizarArma() {
-    if(this->balas == 0){
+    if (this->balas == 0) {
         std::cerr << "PASO A CUCHILLO";
         this->armaActual = ID_CUCHILLO;
     }
@@ -264,7 +264,7 @@ void Jugador::atacar() {
     this->disparando = true;
 }
 
-Actualizacion* Jugador::cambiarArma() {
+Actualizacion *Jugador::cambiarArma() {
     std::map<int, Arma *>::iterator it;
     bool cambie = false;
     for (it = this->armas.begin(); it != this->armas.end(); ++it) {
@@ -273,7 +273,7 @@ Actualizacion* Jugador::cambiarArma() {
             cambie = true;
         }
     }
-    if (!cambie){
+    if (!cambie) {
         return NULL;
     }
     return new ActualizacionCambioArma(id, this->armaActual);

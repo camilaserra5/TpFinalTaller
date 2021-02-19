@@ -29,7 +29,8 @@ public:
             this->actualizaciones.push(*it);
         }
     }
-    bool empezo(){
+
+    bool empezo() {
         return corriendo;
     }
 
