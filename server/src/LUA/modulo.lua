@@ -50,12 +50,12 @@ function disparar_al_enemigo()
 end
 
 function crear_accion(pos_x, pos_y)
-    if(estoy_en_el_borde)
     local siguiente_mov = proximo_movimiento(pos_x, pos_y)
     local posicion_enemigo = posicion_enemigo_cerca(pos_x, pos_y)
     if (posicion_enemigo) then
         return disparar_al_enemigo()   --avanzar_hacia_enemigo(posicion_enemigo, pos_x, pos_y)
     end
+    print(siguiente_mov)
     return siguiente_mov
 end
 
