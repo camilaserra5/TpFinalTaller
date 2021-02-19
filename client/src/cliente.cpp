@@ -71,17 +71,18 @@ void Cliente::run() {
         juego.start();
         manejador.run();
         juego.join();
+        clientEventSender.cerrar();
+        clientEventReceiver.cerrar();
         clientEventSender.join();
         clientEventSender.join();
-        /*  char c;
-          while ((c = std::cin.get()) != 'q'){
-          }*/
     } catch (...) {
         std::cout << "error";
         this->corriendo = false;
+        clientEventSender.cerrar();
+        clientEventReceiver.cerrar();
         manejador.join();
         clientEventSender.join();
         clientEventReceiver.join();
     }
-    //  juego->join();
+
 }
