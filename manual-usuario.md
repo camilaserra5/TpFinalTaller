@@ -123,6 +123,14 @@ Para unirse a una partida nueva, escribir el número correspondiente y luego ent
 
 #### Teclas para jugar  
 
+![](keyright.png)
+![](keyup.png)
+![](keydown.png)
+![](keym.png)
+![](keydot.png)
+![](keyspacebar.png)
+![](keydot.png)
+
 **->**: rotamos hacia la derecha.    
 **<-**: rotar hacia la izquierda.  
 **.**: disparar.  
