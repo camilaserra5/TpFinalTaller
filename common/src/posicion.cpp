@@ -1,6 +1,6 @@
 #include "../include/posicion.h"
 
-#define DELTA_DISTANCIA 0.5
+#define DELTA_DISTANCIA 10
 #define PI 3.1415926
 
 #include <math.h>
@@ -23,36 +23,18 @@ int Posicion::distanciaA(Posicion &posicion) {
     return sqrt((x * x) + (y * y));
 }
 
-bool Posicion::verificarCuadranteInterseccion(Posicion &otroJugador, float alphaRecta){
-  /*if (PI <= anguloDeVista && anguloDeVista < 3 * PI / 2){
-        return (abs(anguloDeVista - alphaRecta + PI) <= DELTA_DISTANCIA);
-  }else if (3 * PI / 2 <= anguloDeVista && anguloDeVista < 2 * PI){
-        return (abs(anguloDeVista - alphaRecta - PI) <= DELTA_DISTANCIA);
-  }*/
-  if (alphaRecta < -PI) {
-      alphaRecta += 2.0 * PI;
-  } else if (alphaRecta > PI) {
-      alphaRecta -= 2.0 * PI;
-  }
-return (abs(alphaRecta) <= DELTA_DISTANCIA);
-}
-
 bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
   std::cerr << "verifico las posiciones de los jugadores inteersecando\n";
   std::cerr << "la pos del atacante es x: " << pixelesX << " y: " << pixelesY << "angulo: " << anguloDeVista << "\n";
   std::cerr << "la pos del atacado es x: " << otroJugador.pixelesX << " y: " << otroJugador.pixelesY << "angulo: " << otroJugador.anguloDeVista << "\n";
-    float dx = otroJugador.pixelesX - pixelesX;
-    float dy = otroJugador.pixelesY - pixelesY ;
+//como crece para abajo, tomo los valores de y como negativos
+  float pendienteRecta = tan(anguloDeVista);
+  float ordenadaOrigen = -pixelesY - (pendienteRecta * pixelesX);
+  float y = pendienteRecta * otroJugador.pixelesX + ordenadaOrigen;
+  if (y < 0) y = (-1) * y;
+  std::cerr << "el delta distancia es: " << abs (y - otroJugador.pixelesY) << std::endl;
+  return (abs (y - otroJugador.pixelesY) <= DELTA_DISTANCIA);
 
-    float alphaRecta;
-    if (dx == 0){
-        if (dy < 0) alphaRecta = PI / 2;
-        else alphaRecta = 3 * PI / 2;
-    }else{
-        alphaRecta = atan(dy / dx);
-    }
-    float difAngulo = anguloDeVista - alphaRecta;
-    return verificarCuadranteInterseccion(otroJugador, difAngulo);
 }
 
 void Posicion::actualizar_posicion(int pixelesX, int pixelesY) {
