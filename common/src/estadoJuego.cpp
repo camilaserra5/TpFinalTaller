@@ -22,7 +22,7 @@
 
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
-#define METROS_MOVIDOS 20
+#define METROS_MOVIDOS 10
 #define CANT_TICKS_PARTIDA 10000  //5min
 
 Actualizacion *EstadoJuego::abrirPuerta(int idJugador) {
@@ -75,6 +75,7 @@ EstadoJuego::~EstadoJuego() {
 
 void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
     Posicion posicionValida = this->mapa.obtenerPosicionIncialValida();
+    std::cerr<< "la pos inicial valida es: " << posicionValida.pixelesEnX()<< " y: " << posicionValida.pixelesEnY() <<" angulo: " << posicionValida.getAnguloDeVista() << " id: " << id <<"\n";
     Jugador *jugador = new Jugador(nombreJugador, id, posicionValida);
     std::cerr << "agrego un jugadorrr"<< std::endl;
     if(!jugador){

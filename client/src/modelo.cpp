@@ -78,8 +78,7 @@ bool normalizarAnguloEnRango(double &angulo) {
 }
 
 void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &y, double &distanciaObjeto) {
-  //  std::cerr << "entro a renderizar objeto donde se chequea lo del zbuff\n";
-    int tamanioBuffer = zbuffer.size();
+    //int tamanioBuffer = zbuffer.size();
     int anchoSprite = objeto->obtenerAnchura();
     for (int i = 0; i < anchoSprite; i++) {
         int posBuffer = x + i;
@@ -97,7 +96,6 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
             objeto->renderizarColumna(dimension, dest);
         }
     }
-    std::cerr << "\n";
 }
 
 bool compararDistanciasObjetos(ObjetoDibujable *objeto1, ObjetoDibujable *objeto2) {
@@ -115,16 +113,13 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
 void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
     bool esVisible = false;
     std::map<int, ObjetoJuego *>::iterator itItem;
-    //std::cerr << "la pos del jugador es x: " << this->jugador->getPosicion().pixelesEnX() << "y en y: " << this->jugador->getPosicion().pixelesEnY() << std::endl;
     for (itItem = this->entidades.begin(); itItem != this->entidades.end(); ++itItem) {
         Posicion &posItem = itItem->second->getPosicion();
         esVisible = verificarVisibilidadDeObjeto(posItem);
         if (esVisible) {
             objetosVisibles.push_back(itItem->second);
             double distanciaAItem = posItem.distanciaA(this->jugador->getPosicion());
-        //    std::cerr << "la pos del objeto" << itItem->first << " es: " << posItem.pixelesEnX() << " y en Y: "
-                    //  << posItem.pixelesEnY() << std::endl;
-          //  std::cerr << "la distacia parcial es: " << distanciaAItem << std::endl;
+
             itItem->second->setDistanciaParcialAJugador(distanciaAItem);
         }
     }
@@ -135,7 +130,6 @@ void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVis
     std::map<int, Enemigo *>::iterator itEnemigo;
     for (itEnemigo = this->enemigos.begin(); itEnemigo != this->enemigos.end(); ++itEnemigo) {
         Posicion &posEnemigo = itEnemigo->second->getPosicion();
-      //  std::cerr << "pos del enemigo " << posEnemigo.pixelesEnX() << " " << posEnemigo.pixelesEnY() << "\n";
         esVisible = verificarVisibilidadDeObjeto(posEnemigo);
         if (esVisible) {
             objetosVisibles.push_back(itEnemigo->second);
@@ -150,16 +144,16 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
     for (int i = 0; i < cantidadItemsVisibles; i++) {
         Posicion &posObjeto = objetosVisibles[i]->getPosicion();
         Posicion &posJugador = jugador->getPosicion();
-        double dy = (posJugador.pixelesEnY() - posObjeto.pixelesEnY());//cambie el orden!!
+        double dy = (posJugador.pixelesEnY() - posObjeto.pixelesEnY());
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
         double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
         int alturaSprite = floor((this->mapa.getLadoCelda()/ distancia) * DIST_PLANO_P);
+        if (alturaSprite > ALTURA_CANVAS) alturaSprite = ALTURA_CANVAS - 10;
             std::cerr << "\n alturaSprite: " << alturaSprite;
         int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2) - 20;
-        //saque el normalizarAnguloEnRango(difAngulo);
+        //normalizarAnguloEnRango(difAngulo);
         double x0 = tan(difAngulo) * DIST_PLANO_P;
-        //std::cerr << "x0: " << x0 << "angulo objeto " << difAngulo << "\n";
         int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
         this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y0, distancia);
     }
@@ -174,15 +168,12 @@ void Modelo::verificarObjetosEnRangoDeVista() {
 }
 
 void Modelo::renderizar() {
-
     if (!partidaTerminada) {
         verificarObjetosEnRangoDeVista();
         this->jugador->renderizar();
     } else {
         this->anunciador.renderizar();
     }
-
-
 }
 
 void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int idArma,
@@ -200,7 +191,6 @@ void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
     } catch (std::out_of_range &e) {
         enemigo = new Enemigo(this->ventana.obtener_render(), 4);
         this->enemigos.insert({id, enemigo});
-        //  std::cerr << "agrego un enemigo\n";
     }
 
     this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador,
