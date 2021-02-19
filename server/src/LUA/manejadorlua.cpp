@@ -51,13 +51,14 @@ void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa) {
 }
 
 const char * ManejadorLua::generarEvento(int& posx, int& posy) {
+    std::cerr << "=== MANEJADOR LUA RECIBIO: "<< posx <<" ==== "<< posy << std::endl;
     std::cerr << "====GENERANDO EVENTO LUA==== " << std::endl;
     lua_getglobal(interprete, "crear_accion");
     lua_pushnumber(interprete, posx);
     lua_pushnumber(interprete, posy);
     lua_pcall(interprete, 2, 1, 0);
     const char *tecla = lua_tostring(interprete, 1);
-    std::cerr << "=== LUA ME DEVOLVIO: "<< tecla<<" ==== " << std::endl;
+    std::cerr << "=== LUA ME DEVOLVIO: "<< tecla <<" ==== " << std::endl;
     lua_pop(interprete, 1); // elimina lua_action
     return tecla;
 }
