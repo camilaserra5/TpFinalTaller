@@ -41,7 +41,9 @@ void Juego::eventos() {
     if (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT:
-                exit(0);
+              std::cerr << "entre en quit del juego" << std::endl;
+              this->cerrar();
+                
             default:
                 break;
         }
@@ -54,10 +56,10 @@ void Juego::run() {
             auto inicio = std::chrono::high_resolution_clock::now();
             this->modelo.procesarActualizaciones();
             this->clean();
-            this->eventos();
             this->raycasting(this->modelo.obtenerMapa(), this->modelo.getPlayer());
             this->renderizar();
             this->actualizar();
+            //this->eventos();
             auto final = std::chrono::high_resolution_clock::now();
             auto delta = final - inicio;
             long tardanza = delta.count();
