@@ -20,6 +20,7 @@ public:
 
     void cerrar() {
         this->corriendo = false;
+        protocolo->cerrar();
     }
 
     void enviar_actualizaciones(std::vector<Actualizacion *> act) {
@@ -28,11 +29,14 @@ public:
             this->actualizaciones.push(*it);
         }
     }
+    bool empezo(){
+        return corriendo;
+    }
 
 private:
     BlockingQueue<Actualizacion *> actualizaciones;
     Protocolo *protocolo;
-    std::atomic<bool> corriendo; // deberian ser atomic??
+    std::atomic<bool> corriendo;
 };
 
 #endif

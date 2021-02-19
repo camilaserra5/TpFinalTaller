@@ -32,7 +32,14 @@ public:
         this->enviador->start();
         this->recibidor->start();
       }catch(SocketError &e){
-          this->join();
+          if (this->enviador->empezo()){
+              this->enviador->cerrar();
+                this->enviador->join();
+          } else if (this->recibidor->empezo()){
+              this->recibidor->cerrar();
+              this->recibidor->join();
+          }
+        //  this->join();
       }
     }
 
