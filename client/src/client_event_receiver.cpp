@@ -5,6 +5,7 @@
 #include "jugador.h"
 #include "estadoJuego.h"
 #include "actualizaciones/actualizacion.h"
+#include "socket_error.h"
 
 #include <utility>
 #include <algorithm>
@@ -69,17 +70,20 @@ void ClientEventReceiver::run() {
                 this->updates.aniadir_dato(actualizacion);
                 this->recibii = true;
             }
-        } catch (std::exception &exc) {
-            std::cout << exc.what() << std::endl;
-            std::cerr << "fallooooooooo no recibo mas \n";
 
-            this->corriendo = false;
-        }
+        }catch (const SocketError& exc){
+                std::cout << exc.what() << std::endl;
+                this->cerrar();
+        } catch (std::exception &exc) {
+              std::cout << exc.what() << std::endl;
+              this->cerrar();
+          }
     }
 }
 
 void ClientEventReceiver::cerrar() {
     this->corriendo = false;
+    this->protocolo->cerrar();
 }
 
 ClientEventReceiver::~ClientEventReceiver() {

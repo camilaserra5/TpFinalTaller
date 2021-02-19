@@ -1,12 +1,11 @@
 port: 8080
+rutaMapas: /home/stephi/TpFinalTaller/resources/mapas/
 mapas:
   - name: mapa1
     file: mapa1.yaml
   - name: mapa2
     file: mapa2.yaml
   - name: mapa3
-    file: mapa3.yaml
-  - name: mapa4
     file: mapa4.yaml
   - name: mapa5
     file: mapa5.yaml
@@ -19,4 +18,3 @@ vAvance:
 vidaMax:
 balasPorRafaga:
 maxBalas:
-rutaMapas: ""

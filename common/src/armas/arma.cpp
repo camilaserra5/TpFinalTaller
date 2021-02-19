@@ -3,6 +3,7 @@
 int Arma::posicionAtacable(Posicion &atacante, Posicion &otroJugador) {
     float distancia_jugador = atacante.distanciaA(otroJugador);
     bool intersectaConMiAngulo = atacante.intersectaConMiAngulo(otroJugador);
+    std::cerr << "distancia Jugador: " << distancia_jugador << std::endl;
     if (intersectaConMiAngulo)  std:: cerr << "INTERSECTAAAAA\n";
     if (intersectaConMiAngulo && distancia_jugador <= this->distancia_max_atacable) {
         return distancia_jugador;
