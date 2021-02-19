@@ -91,6 +91,7 @@ foo@bar:~$ server config.yaml
 Además, hay un servidor disponible en la siguiente dirección:
 - 3.236.38.189
 - 8080
+
 Este servidor cuenta con los siguientes mapas cargados:
 - mapa1
 - mapa2
