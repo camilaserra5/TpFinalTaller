@@ -28,6 +28,9 @@ bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
   std::cerr << "la pos del atacante es x: " << pixelesX << " y: " << pixelesY << "angulo: " << anguloDeVista << "\n";
   std::cerr << "la pos del atacado es x: " << otroJugador.pixelesX << " y: " << otroJugador.pixelesY << "angulo: " << otroJugador.anguloDeVista << "\n";
 //como crece para abajo, tomo los valores de y como negativos
+  if ((PI <= anguloDeVista && anguloDeVista < 3 * PI/2) || (3 * PI/2 <= anguloDeVista && anguloDeVista < 2 * PI)){
+    pendienteRecta = -pendienteRecta;
+  }
   float pendienteRecta = tan(anguloDeVista);
   float ordenadaOrigen = -pixelesY - (pendienteRecta * pixelesX);
   float y = pendienteRecta * otroJugador.pixelesX + ordenadaOrigen;
