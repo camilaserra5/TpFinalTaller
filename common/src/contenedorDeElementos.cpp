@@ -1,6 +1,4 @@
 #include "../include/contenedorDeElementos.h"
-#include <iostream>
-#include <protocolo.h>
 
 #define PUNTOS_CRUZ 10
 #define PUNTOS_COPA 50

@@ -1,7 +1,4 @@
 #include "../include/player.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <map>
 
 #define VIDA_MAX 100
 #define NIVEL 1

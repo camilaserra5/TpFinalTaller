@@ -1,7 +1,4 @@
 #include "../include/thclient.h"
-#include "socket.h"
-#include <string>
-#include <utility>
 #include "comandos/crearPartida.h"
 #include "comandos/unirseAPartida.h"
 

@@ -1,5 +1,4 @@
 #include "armas/pistola.h"
-#include <ctime>
 #include "../include/actualizaciones/actualizacionAtaque.h"
 
 #define DISTANCIA_MAX 2000000

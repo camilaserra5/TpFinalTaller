@@ -1,6 +1,5 @@
-#include <errno.h>
+
 #include <iostream>
-#include <string>
 
 #include "socket_error.h"
 

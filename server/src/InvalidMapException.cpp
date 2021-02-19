@@ -1,7 +1,5 @@
 
-#include <errno.h>
 #include <iostream>
-#include <string>
 #include "../include/InvalidMapException.h"
 
 InvalidMapException::InvalidMapException(const std::string &error) noexcept {

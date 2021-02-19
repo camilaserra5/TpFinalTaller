@@ -1,6 +1,5 @@
 #include "../include/jugador.h"
 // hay que verificar que la pos del jugador al incio sea random y valida;
-#include <iostream>
 #include <math.h>
 
 #define MAX_VIDA 100
@@ -9,10 +8,7 @@
 #define CANT_INICAL_BALAS 8
 
 #include "armas/pistola.h"
-#include "armas/lanzacohetes.h"
-#include "armas/ametralladora.h"
 #include "armas/cuchillo.h"
-#include "objetosJuego.h"
 #include "../include/actualizaciones/actualizacionCambioArma.h"
 
 #define PI 3.1415926

@@ -1,8 +1,6 @@
 #include "../include/new_tile.h"
 
 #include <QtWidgets>
-#include "objetosJuego.h"
-#include <string>
 
 NewTile::NewTile(QWidget *parent)
         : QDialog(parent) {

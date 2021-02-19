@@ -1,8 +1,5 @@
 #include "comandos/movimiento.h"
 
-#include "actualizaciones/actualizacionMovimiento.h"
-#include "objetosJuego.h"
-
 Movimiento::Movimiento(int &idJugador, Accion tipo_de_movimiento) :
         Comando(idJugador),
         tipo_de_movimiento(tipo_de_movimiento) {}

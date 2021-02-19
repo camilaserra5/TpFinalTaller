@@ -2,8 +2,7 @@
 
 Protocolo::Protocolo(Socket socket) : socket(std::move(socket)) {}
 
-Protocolo::~Protocolo() {};
-
+Protocolo::~Protocolo() {}
 
 void Protocolo::enviar(std::vector<char> &informacion) {
     unsigned int size = htonl(informacion.size());

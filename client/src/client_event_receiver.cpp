@@ -1,16 +1,7 @@
 #include "../include/client_event_receiver.h"
-#include "socket.h"
-#include "map.h"
-#include "items/item.h"
-#include "jugador.h"
-#include "estadoJuego.h"
-#include "actualizaciones/actualizacion.h"
 #include "socket_error.h"
 
-#include <utility>
 #include <algorithm>
-#include <vector>
-#include <map>
 
 #include <actualizaciones/actualizacionInicioPartida.h>
 #include <actualizaciones/actualizacionCambioArma.h>

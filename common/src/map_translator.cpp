@@ -1,5 +1,4 @@
 #include "../include/map_translator.h"
-#include <iostream>
 
 YAML::Node MapTranslator::mapToYaml(Map &map) {
     YAML::Node node;

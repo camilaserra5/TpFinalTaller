@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../include/informacionJugador.h"
-#include "../include/textura.h"
 #include <config.h>
 
 #define LOWER_TEXTURE_ROOT IMGS_DIR INFERIOR_IMG

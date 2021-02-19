@@ -1,11 +1,6 @@
 #include "../include/client_event_sender.h"
-#include "socket.h"
 
-#include <utility>
 #include <algorithm>
-#include <vector>
-#include "protocolo.h"
-#include <sstream>
 #include "socket_error.h"
 
 ClientEventSender::ClientEventSender(Protocolo *protocolo,

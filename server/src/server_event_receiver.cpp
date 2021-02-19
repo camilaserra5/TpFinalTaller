@@ -1,5 +1,4 @@
 #include "../include/server_event_receiver.h"
-#include <vector>
 #include "socket_error.h"
 
 void Server_Event_Receiver::run() {

@@ -1,5 +1,4 @@
 #include "actualizaciones/actualizacionTerminoPartida.h"
-#include "estadoJuego.h"
 
 ActualizacionTerminoPartida::ActualizacionTerminoPartida(EstadoJuego &estadoJuego) :
         estadoJuego(estadoJuego) {}

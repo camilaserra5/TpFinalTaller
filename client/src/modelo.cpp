@@ -1,6 +1,4 @@
 #include "../include/modelo.h"
-#include <iostream>
-#include <math.h>
 #include <algorithm>
 #include <thread>
 #include <actualizaciones/actualizacionTerminoPartida.h>
@@ -8,7 +6,6 @@
 #include <actualizaciones/actualizacionMovimiento.h>
 #include <actualizaciones/actualizacionAtaque.h>
 #include <actualizaciones/actualizacionCambioArma.h>
-#include <actualizaciones/actualizacionAperturaPuerta.h>
 #include <actualizaciones/actualizacionAgarroItem.h>
 #include <actualizaciones/actualizacionAgregarItem.h>
 #include <config.h>

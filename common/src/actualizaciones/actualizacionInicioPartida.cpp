@@ -1,5 +1,4 @@
 #include "actualizaciones/actualizacionInicioPartida.h"
-#include "estadoJuego.h"
 
 ActualizacionInicioPartida::ActualizacionInicioPartida(EstadoJuego &estadoJuego) :
         estadoJuego(estadoJuego), rankingJugadores(), termine(false) {

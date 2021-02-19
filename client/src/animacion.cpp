@@ -57,7 +57,7 @@ void Animacion::renderizarColumna(SDL_Rect &dimension, SDL_Rect dest) {
     if (this->frameActual >= cantFrames) {
         this->frameActual = 0;
     }
-    bool yaRenderice = (dimension.x >= this->frame_w) ? true : false;
+    bool yaRenderice = (dimension.x >= this->frame_w);
     dimension.x += this->frames[frameActual].x;
     dimension.y += this->frames[frameActual].y;
     dimension.h += this->frame_h;

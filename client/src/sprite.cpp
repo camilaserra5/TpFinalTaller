@@ -1,7 +1,4 @@
 #include "../include/sprite.h"
-#include "../include/textura.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <iostream>
 
 Sprite::Sprite(SDL_Renderer *render, const char *rutaimg, int x, int y, int h, int w) {

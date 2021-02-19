@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "socket.h"
 #include "../include/servidor.h"
 #include "yaml-cpp/yaml.h"

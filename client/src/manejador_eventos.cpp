@@ -1,11 +1,9 @@
 #include "../include/manejador_eventos.h"
-#include "../include/player.h"
 
 #include "comandos/movimiento.h"
 #include "comandos/ataque.h"
 #include "comandos/aperturaDePuerta.h"
 #include "comandos/cambioDeArma.h"
-#include <iostream>
 #include <config.h>
 
 #define RUTA_SONIDO_AMBIENTE SOUNDS_DIR THEME

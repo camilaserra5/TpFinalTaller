@@ -1,10 +1,6 @@
 #include "../include/manejadorPartidas.h"
 
-#include "map.h"
-#include "protected_queue.h"
-#include "comandos/comando.h"
 #include "map_translator.h"
-#include <yaml-cpp/yaml.h>
 #include "../include/InvalidMapException.h"
 #include <config.h>
 

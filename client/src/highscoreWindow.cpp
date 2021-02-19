@@ -1,8 +1,5 @@
 #include "../include/highscoreWindow.h"
 #include "../include/background.h"
-#include "SDL2/SDL_ttf.h"
-#include "../include/label.h"
-#include <sstream>
 #include <config.h>
 
 #define WOLFSTEIN_TTF_ROOT FONTS_DIR JOYSTICK_FONT

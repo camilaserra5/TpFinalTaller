@@ -3,7 +3,6 @@
 #include <QDrag>
 #include <QDragEnterEvent>
 #include <QMimeData>
-#include <iostream>
 #include <include/map_widget.h>
 
 MapTilesList::MapTilesList(int tileSize, QWidget *parent)

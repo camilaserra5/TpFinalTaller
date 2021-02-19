@@ -2,13 +2,8 @@
 #include "../include/map_tiles_list.h"
 #include "../include/map_widget.h"
 #include "../include/new_tile.h"
-#include <string>
-#include <iostream>
-#include <fstream>
 #include <QtWidgets>
-#include "map.h"
 #include "map_translator.h"
-#include <yaml-cpp/yaml.h>
 #include <config.h>
 
 #define BLUE_WALL IMGS_DIR BLUE_WALL_IMG

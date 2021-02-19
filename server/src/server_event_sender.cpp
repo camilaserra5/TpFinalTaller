@@ -1,6 +1,5 @@
 #include "../include/server_event_sender.h"
 
-#include <sstream>
 #include "socket_error.h"
 
 void Server_Event_Sender::run() {

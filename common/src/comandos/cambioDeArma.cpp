@@ -1,5 +1,4 @@
 #include "../include/comandos/cambioDeArma.h"
-#include "actualizaciones/actualizacionCambioArma.h"
 
 std::vector<Actualizacion *> CambioDeArma::ejecutar(EstadoJuego &estadoJuego) {
     Actualizacion *actualizacion = estadoJuego.cambiarArma(idJugador);

@@ -1,16 +1,4 @@
 #include "../include/map.h"
-#include <iostream>
-#include "items/item.h"
-#include "armas/arma.h"
-#include "items/comida.h"
-#include "items/balas.h"
-#include "items/sangre.h"
-#include "items/kitsMedicos.h"
-#include "items/noItem.h"
-#include "items/llave.h"
-#include "items/tesoro.h"
-#include "armas/canionDeCadena.h"
-#include "armas/ametralladora.h"
 #include "armas/lanzacohetes.h"
 #include <algorithm>
 
@@ -145,7 +133,7 @@ void Map::setValue(const unsigned rowNumber, const unsigned colNumber, Type valu
 }
 
 void Map::aniadirPuerta(const unsigned rowNumber, const unsigned colNumber, int tipoPuerta) {
-    bool necesitaLlave = (tipoPuerta == TYPE_DOOR ? false : true);//documentar
+    bool necesitaLlave = !(tipoPuerta == TYPE_DOOR);//documentar
     Posicion pos((colNumber / 2) * this->ladoCelda, (rowNumber / 2) * this->ladoCelda, ANGULO_DEFAULT);
     Puerta puerta(necesitaLlave, pos, rowNumber, colNumber, false);
     this->contenedorDeElementos.aniadirPuerta(puerta);
@@ -221,7 +209,7 @@ std::vector<Item *> &Map::obtenerItems() {
 
 ContenedorDeElementos &Map::obtenerContenedor() {
     return this->contenedorDeElementos;
-};
+}
 
 bool Map::hayColision(int fila, int columna) {
     try {

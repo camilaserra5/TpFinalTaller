@@ -5,7 +5,6 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QPainter>
-#include <iostream>
 
 MapWidget::MapWidget(int height, int width, QWidget *parent)
         : QWidget(parent) {

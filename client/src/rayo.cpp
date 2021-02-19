@@ -1,7 +1,4 @@
 #include "../include/rayo.h"
-#include <math.h>
-#include <stdlib.h>
-#include <iostream>
 
 Rayo::Rayo(double campoDeVision, int ladoCelda, int largoProyector, double anguloBarrido, Posicion &posicion) :
         campoDeVision(campoDeVision), anguloBarrido(anguloBarrido), largoProyector(largoProyector),

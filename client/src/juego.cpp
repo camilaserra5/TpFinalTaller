@@ -99,7 +99,7 @@ Juego::~Juego() {
 void Juego::cerrar() {
     this->corriendo = false;
     this->ventana.cerrar();
-};
+}
 
 void Juego::clean() {
     this->ventana.limpiar();

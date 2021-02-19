@@ -1,5 +1,4 @@
 #include "actualizaciones/actualizacionAtaque.h"
-#include <iostream>
 #include "armas/arma.h"
 
 ActualizacionAtaque::ActualizacionAtaque(Jugador *jugador,

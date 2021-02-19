@@ -4,7 +4,6 @@
 #define PI 3.1415926
 
 #include <math.h>
-#include <iostream>
 
 Posicion::Posicion(int pixelesX, int pixelesY, float anguloDeVista) :
         pixelesX(pixelesX),

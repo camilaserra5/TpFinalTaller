@@ -1,5 +1,4 @@
 #include "comandos/aperturaDePuerta.h"
-#include "actualizaciones/actualizacionAperturaPuerta.h"
 
 AperturaDePuerta::AperturaDePuerta(int idJugador) : Comando(idJugador) {}
 

@@ -1,5 +1,4 @@
 #include "../include/actualizaciones/actualizacionAgregarItem.h"
-#include <iostream>
 
 #define PUNTOS_CRUZ 10
 #define PUNTOS_COPA 50

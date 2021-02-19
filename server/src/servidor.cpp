@@ -1,12 +1,6 @@
 #include "../include/servidor.h"
-#include <iostream>
-#include <exception>
-#include "actualizaciones/actualizacion.h"
-#include "jugador.h"
 #include "actualizaciones/actualizacionInicioPartida.h"
 #include "actualizaciones/actualizacionTerminoPartida.h"
-#include "actualizaciones/actualizacionCambioArma.h"
-#include "ranking.h"
 
 #define TIEMPO_SERVIDOR 0.3
 #define ID_LUA 777

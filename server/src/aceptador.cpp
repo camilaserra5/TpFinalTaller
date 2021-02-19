@@ -1,6 +1,4 @@
 #include "../include/aceptador.h"
-#include <utility>
-#include <vector>
 #include "socket_error_aceptar.h"
 
 Aceptador::Aceptador(Socket &un_socket, ManejadorPartidas *manejadorPartidas) :

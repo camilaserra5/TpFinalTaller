@@ -3,16 +3,11 @@
 #include "socket.h"
 #include "socket_error_aceptar.h"
 #include "socket_error.h"
-#include <string>
 
-#include <errno.h>
 #include <netdb.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 
 #include <cstring>
-#include <exception>
 #include <utility>
 #include <iostream>
 
@@ -76,7 +71,7 @@ void Socket::bind_and_listen(const char *servicio) {
     }
     item_lista = result;
 
-    while (item_lista != NULL && pude_bindear == false) {
+    while (item_lista != NULL && !pude_bindear) {
         int fd = FD_INVALIDO;
         fd = ::socket(item_lista->ai_family,
                       item_lista->ai_socktype,
