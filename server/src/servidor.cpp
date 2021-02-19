@@ -12,9 +12,9 @@
 #define ID_LUA 777
 
 #define ARRIBA 3
-#define DERECHA 1
 #define ABAJO 4
-#define IZQUIERDA 2
+#define ROTAR_DERECHA 1
+#define ROTAR_IZQUIERDA 2
 
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(Map mapa, int cantJugadoresPosibles) :
@@ -120,19 +120,20 @@ void Servidor::generarComandosLua(JugadorLua& jugadorLua, ProtectedQueue<Comando
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ARRIBA));
             break;
         case 'd':
-            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(DERECHA));
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_DERECHA));
             break;
         case 's':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ABAJO));
             break;
         case 'a':
-            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(IZQUIERDA));
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_IZQUIERDA));
             break;
         case 'p':
             nuevoComando = new Ataque(jugadorLua.id);
             break;
         default:
-            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTACION_DERECHA));
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_DERECHA));
+            break;
     }
     this->cola_comandos.aniadir_dato(nuevoComando);
 }
