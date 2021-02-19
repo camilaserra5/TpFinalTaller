@@ -15,7 +15,7 @@
 class Cliente {
 
 public:
-    Cliente(const char *configFile);
+    Cliente(std::string configFile);
 
     ~Cliente();
 

@@ -5,7 +5,10 @@
 #define ERR_CODE 1
 
 int main(int argc, char *argv[]) {
-    Cliente client(argv[1]);
+    std::string path = "";
+    if (argc > 1)
+        path = argv[1];
+    Cliente client(path);
     client.run();
     return OK_CODE;
 }

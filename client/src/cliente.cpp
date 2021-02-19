@@ -18,9 +18,9 @@
 
 #define MUSICA_FONDO SOUNDS_DIR MUSIQUITA
 
-Cliente::Cliente(const char *configFile) : socket(),
+Cliente::Cliente(std::string configFile) : socket(),
                                            corriendo(true) {
-    if (!std::string(configFile).empty()) {
+    if (!configFile.empty()) {
         this->configFile = configFile;
     }
 }
