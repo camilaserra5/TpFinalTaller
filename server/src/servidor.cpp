@@ -12,9 +12,9 @@
 #define ID_LUA 777
 
 #define ARRIBA 3
-#define DERECHA 1
 #define ABAJO 4
-#define IZQUIERDA 2
+#define ROTAR_DERECHA 1
+#define ROTAR_IZQUIERDA 2
 
 // en si recibe un archivo yaml y luego sereializa;
 Servidor::Servidor(Map mapa, int cantJugadoresPosibles) :
@@ -45,10 +45,7 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
 }
 
 void Servidor::agregarCliente(std::string &nombreJugador, ManejadorCliente *cliente, int &id) {
-    // asignarle un id random
-    // el mapa deveria crear al jugador o hay que avisarle que hay un nuevo jugador
-    // para asignarle posicion;
-    //Jugador jugador(nombreJugador, id);
+  
     id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador, id);
     cliente->settearId(id);
@@ -118,18 +115,27 @@ void Servidor::generarComandosLua(JugadorLua& jugadorLua, ProtectedQueue<Comando
     switch(teclaComando){
         case 'w':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ARRIBA));
+            std::cerr << "=== SE MUEVE PARA ARRIBA LUA==== " << std::endl;
             break;
         case 'd':
-            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(DERECHA));
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_DERECHA));
+            std::cerr << "=== ROTA A DERECHA LUA==== " << std::endl;
             break;
         case 's':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ABAJO));
+            std::cerr << "=== SE MUEVE ABAJO LUA==== " << std::endl;
             break;
         case 'a':
-            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(IZQUIERDA));
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_IZQUIERDA));
+            std::cerr << "=== ROTA A IZQUIERDA LUA==== " << std::endl;
             break;
         case 'p':
             nuevoComando = new Ataque(jugadorLua.id);
+            std::cerr << "=== ATACA LUA==== " << std::endl;
+            break;
+        default:
+            nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_DERECHA));
+            std::cerr << "=== mov default LUA==== " << std::endl;
             break;
     }
     this->cola_comandos.aniadir_dato(nuevoComando);
@@ -142,6 +148,7 @@ void Servidor::run() {
     JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
     std::string nombre("IA");
     jugadorLua.instanciarJugador(nombre);
+    
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;

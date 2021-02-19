@@ -21,6 +21,7 @@ ManejadorEventos::~ManejadorEventos() {}
 void ManejadorEventos::run() {
     SDL_Event evento;
     while (this->corriendo) {
+        std::cerr << "sigo en manejador de enventos\n";
         while(SDL_PollEvent(&evento)) {
             detectarEventos(evento);
             std::chrono::milliseconds duration(60);
@@ -54,6 +55,10 @@ void ManejadorEventos::crearCambioDeArma() {
 
 void ManejadorEventos::detectarEventos(SDL_Event &evento) {
     switch (evento.type) {
+        case SDL_QUIT:
+            std::cerr << "entre en quit de manejador " << std::endl;
+            this->stop();
+            break;
         case SDL_KEYDOWN:
             switch (evento.key.keysym.sym) {
                 // aca mandariamos la informacion o crearimos el evento;
@@ -80,6 +85,10 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
                     std::cerr << "comando cambio de arma" << std::endl;
                     crearCambioDeArma();
                     break;
+                case SDLK_SPACE:
+                    crearAperturaDePuerta();
+                        //reproducir_sonido(SONIDO_DE_PUERTA, REPETICION_PUERTA);
+                    break;
             }
             break;
         case SDL_KEYUP:
@@ -88,13 +97,7 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
                 // sonido.stop()
             }
             break;
-        case SDL_QUIT:
-            this->stop();
-            break;
-        case SDLK_SPACE:
-            crearAperturaDePuerta();
-            //reproducir_sonido(SONIDO_DE_PUERTA, REPETICION_PUERTA);
-            break;
+
         default:
             break;
     }
