@@ -37,7 +37,7 @@ public:
 
     void deserializar(std::vector<char> &serializado) override;
 
-    bool verificarCuadranteInterseccion(Posicion &otroJugador, float alphaRecta);
+    bool verificarSiPerteneceAlSegmento(Posicion &otroJugador);
 
 private:
     int pixelesX;

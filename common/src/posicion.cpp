@@ -16,28 +16,38 @@ Posicion::~Posicion() {}
 Posicion::Posicion() {}
 
 int Posicion::distanciaA(Posicion &posicion) {
-//  std::cerr << "la pos del item es x: " << pixelesX << " y: " << pixelesY << "\n";
-//  std::cerr << "la pos del jugador es x: " << posicion.pixelesX << " y: " << posicion.pixelesY << "angulo: " << posicion.anguloDeVista << "\n";
     float x = this->pixelesX - posicion.pixelesX;
     float y = this->pixelesY - posicion.pixelesY;
     return sqrt((x * x) + (y * y));
+}
+
+bool Posicion::verificarSiPerteneceAlSegmento(Posicion &otroJugador){
+  float xMin, xMax;
+  if ((0 <= anguloDeVista && anguloDeVista < PI/2) || (3 * PI/2 <= anguloDeVista && anguloDeVista < 2 * PI)){
+    xMin = pixelesX;
+    return (xMin <= otroJugador.pixelesX);
+  }else{
+    xMin = 0;
+    xMax = pixelesX;
+    return (xMin <= otroJugador.pixelesX  && otroJugador.pixelesX <= xMax);
+  }
 }
 
 bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
   std::cerr << "verifico las posiciones de los jugadores inteersecando\n";
   std::cerr << "la pos del atacante es x: " << pixelesX << " y: " << pixelesY << "angulo: " << anguloDeVista << "\n";
   std::cerr << "la pos del atacado es x: " << otroJugador.pixelesX << " y: " << otroJugador.pixelesY << "angulo: " << otroJugador.anguloDeVista << "\n";
-//como crece para abajo, tomo los valores de y como negativos
+  bool estaEnSegmento = verificarSiPerteneceAlSegmento(otroJugador);
+  if (!estaEnSegmento) return false;
+  float pendienteRecta = tan(anguloDeVista);
   if ((PI <= anguloDeVista && anguloDeVista < 3 * PI/2) || (3 * PI/2 <= anguloDeVista && anguloDeVista < 2 * PI)){
     pendienteRecta = -pendienteRecta;
   }
-  float pendienteRecta = tan(anguloDeVista);
   float ordenadaOrigen = -pixelesY - (pendienteRecta * pixelesX);
   float y = pendienteRecta * otroJugador.pixelesX + ordenadaOrigen;
   if (y < 0) y = (-1) * y;
   std::cerr << "el delta distancia es: " << abs (y - otroJugador.pixelesY) << std::endl;
   return (abs (y - otroJugador.pixelesY) <= DELTA_DISTANCIA);
-
 }
 
 void Posicion::actualizar_posicion(int pixelesX, int pixelesY) {
@@ -69,8 +79,6 @@ bool Posicion::estaCerca(int &posx, int &posy) {
 }
 
 void Posicion::rotar(float anguloRotacion) {
-  //  std::cerr << "angulo viejo: " << this->anguloDeVista;
-  //  std::cerr << "\n";
     float anguloFinal = this->anguloDeVista + anguloRotacion;
     if (anguloFinal < 0) {
         this->anguloDeVista = 2 * PI + anguloFinal;
@@ -79,7 +87,6 @@ void Posicion::rotar(float anguloRotacion) {
     } else {
         this->anguloDeVista = anguloFinal;
     }
-  //  std::cerr << "angulo nuevo: " << this->anguloDeVista;
 }
 
 bool Posicion::operator==(Posicion &otraPosicion) {
@@ -102,27 +109,21 @@ std::vector<char> Posicion::serializar() {
     aux = numberToCharArray(pixelesY);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     int anguloSerializar = (anguloDeVista * 180) / PI;
-    //std::cerr << "el ngulo que serializo es: " << anguloDeVista << " : " << anguloSerializar << std::endl;
     aux = numberToCharArray(anguloSerializar);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     return informacion;
 }
 
 void Posicion::deserializar(std::vector<char> &serializado) {
-    //  std::cerr << " posicion deserializar emp " << std::endl;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->pixelesX = charArrayToNumber(sub);
-    //  std::cerr << " posicion deserializar pixelesX " << pixelesX << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->pixelesY = charArrayToNumber(sub);
-//    std::cerr << " posicion deserializar pixelesY " << pixelesY << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     int anguloDeserializar = charArrayToNumber(sub);
     this->anguloDeVista = (anguloDeserializar * PI) / 180;
-    //std::cerr << " posicion deserializar anguloDeVista " << anguloDeVista <<  " " << anguloDeserializar << std::endl;
-//    std::cerr << " posicion deserializar fin " << std::endl;
 }

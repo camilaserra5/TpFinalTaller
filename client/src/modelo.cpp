@@ -78,12 +78,10 @@ bool normalizarAnguloEnRango(double &angulo) {
 }
 
 void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &y, double &distanciaObjeto) {
-  //  std::cerr << "entro a renderizar objeto donde se chequea lo del zbuff\n";
-    int anchoSprite = objeto->obtenerAnchura();
-    for (int i = 0; i < anchoSprite; i++) {
+    //int anchoSprite = objeto->obtenerAnchura();
+    for (int i = 0; i < 73; i++) {
         int posBuffer = x + i;
-
-        if (this->zbuffer[posBuffer] > distanciaObjeto) {
+        if (this->zbuffer[posBuffer ] > distanciaObjeto) {
             SDL_Rect dimension, dest;
             dimension.x = i;//suma offset
             dimension.y = 0;//sumaoffset
@@ -103,11 +101,20 @@ bool compararDistanciasObjetos(ObjetoDibujable *objeto1, ObjetoDibujable *objeto
 }
 
 bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
-    Posicion &posJugador = jugador->getPosicion();
-    double dy = (posObjeto.pixelesEnY() - posJugador.pixelesEnY());
-    double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
-    double difAngulo = jugador->getAnguloDeVista() -  atan(dy / dx);
-    return normalizarAnguloEnRango(difAngulo);
+  Posicion &posJugador = jugador->getPosicion();
+  float anguloDeVista = posJugador.getAnguloDeVista();
+  bool estaEnSegmento = posJugador.verificarSiPerteneceAlSegmento(posObjeto);//camiar a estaEnRangoSegmento
+  if (!estaEnSegmento) return false;
+  float pendienteRecta = tan(anguloDeVista);
+  if ((PI <= anguloDeVista && anguloDeVista < 3 * PI/2) || (3 * PI/2 <= anguloDeVista && anguloDeVista < 2 * PI)){
+    pendienteRecta = -pendienteRecta;
+  }
+  float ordenadaOrigen = -posJugador.pixelesEnY() - (pendienteRecta * posJugador.pixelesEnX());
+  float y = pendienteRecta * posObjeto.pixelesEnX() + ordenadaOrigen;
+  if (y < 0) y = (-1) * y;
+  float opuesto = y - posObjeto.pixelesEnY();
+  float adyacente = posJugador.pixelesEnX() - posObjeto.pixelesEnX();
+  return (abs (atan(opuesto/adyacente)) <= PI/6);
 }
 
 void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
