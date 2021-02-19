@@ -123,20 +123,18 @@ Para unirse a una partida nueva, escribir el número correspondiente y luego ent
 
 #### Teclas para jugar  
 
-![](keyright.png)
-![](keyup.png)
-![](keydown.png)
-![](keym.png)
-![](keydot.png)
-![](keyspacebar.png)
-![](keydot.png)
+![](keyright.png) Rotar a la derecha
 
-**->**: rotamos hacia la derecha.    
-**<-**: rotar hacia la izquierda.  
-**.**: disparar.  
-**^**: desplazarse hacia delante.  
-**v**: desplazarse hacia atras.  
-**SPACE**: cambiar de arma.  
-**m**: play/stop music.  
+![](keyup.png) Rotar a la izquiera
+
+![](keydown.png) Desplazarse abajo
+
+![](keym.png) Desplazarse arriba
+
+![](keydot.png) Disparar
+
+![](keyspace.png) Cambiar de arma
+
+![](keydot.png) Play/Stop música
 
 ## Apéndice de errores
