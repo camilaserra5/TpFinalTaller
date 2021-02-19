@@ -78,7 +78,7 @@ bool normalizarAnguloEnRango(double &angulo) {
 }
 
 void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &y, double &distanciaObjeto) {
-    //int tamanioBuffer = zbuffer.size();
+  //  std::cerr << "entro a renderizar objeto donde se chequea lo del zbuff\n";
     int anchoSprite = objeto->obtenerAnchura();
     for (int i = 0; i < anchoSprite; i++) {
         int posBuffer = x + i;

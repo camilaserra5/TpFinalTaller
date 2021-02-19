@@ -33,17 +33,17 @@ int main(int argc, const char *argv[]) {
     try {
         Parser parser(argv[ARG_PORT]);
         std::string port = parser.obtenerPuerto();
-        std::map<std::string,std::string> mapas = parser.obtenerMapas();
+        std::map<std::string, std::string> mapas = parser.obtenerMapas();
 
         Socket socket;
         socket.bind_and_listen(port.c_str());
 
-        ManejadorPartidas manejadorPartidas(mapas);
+        ManejadorPartidas manejadorPartidas(parser.obtenerRutaMapas(), mapas);
 
         Aceptador aceptador(socket, &manejadorPartidas);
         aceptador.start();
         char c;
-        while ((c = std::cin.get()) != 'q'){
+        while ((c = std::cin.get()) != 'q') {
         }
         manejadorPartidas.cerrarPartidas();
         aceptador.cerrar();

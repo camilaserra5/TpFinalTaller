@@ -1,90 +1,114 @@
 # Manual de Usuario
 
-### Instalación
+## Instalación
 
-#### Requerimientos de software
-La instalación del programa se debe realizar mediante la compilación del código fuente del mismo.
-Idóneamente el programa puede ser compilado en cualquier distribución de Linux, habiendo instalado previamente los siguientes paquetes. Los mismos son fácilmente accesibles a través de apt.
+### Requerimientos de software
+La instalación del programa se debe realizar mediante la instalación del paquete proporcionado. El programa puede ser corrido en cualquier distribución de Linux.
+
+Si se quisiese compilar el código fuente se deberán instalar estos paquetes a través de apt.
 * gtkmm-3.0-dev
 * libsdl2-dev
 * libsdl2-mixer-dev
 * lua5.3 liblua5.3-dev
 * libsdl2-ttf-dev
 * libyaml-cpp-dev
+* libsdl2-image-dev
+* qt5-default
 
-
-#### Requerimientos de hardware
+### Requerimientos de hardware
 El programa fue probado en computadoras sin una placa gráfica especial, y con procesadores intel i5 e i7.
 
-#### Proceso de Instalación
+### Proceso de Instalación
 Para poder utilizar el juego hay que realizar los siguientes pasos:
-* descargar el instalador
-* instalarlo
-* abrir una terminal (ctlr + alt + T)
-* posicionarse en el directorio donde se instaló el juego
-
+- Descargar el instalador
+- Instalarlo (ver como instalar un .deb)
+- Abrir una terminal (ctlr + alt + T)
+  - Ejecutar el cliente!
 ```bash
-foo@bar:~$ cd /home/usr/local/lib
+foo@bar:~$ client [config.yaml]
 ```
-
-##### Ejecutar el cliente!
-
+  - Ejecutar el servidor!
 ```bash
-foo@bar:~$ ./client
+foo@bar:~$ server config.yaml
 ```
-##### Ejecutar el servidor!
-
+  - Ejecutar el editor!
 ```bash
-foo@bar:~$ ./server config.yaml
-```
-##### Ejecutar el editor!
-
-```bash
-foo@bar:~$ ./editor
+foo@bar:~$ mapeditor
 ```
 
 
-### Configuración
+## Configuración
 Para levantar el servidor correctamente, se necesita un archivo con la configuración del mismo. Este deberá ser una archivo yaml de la siguiente manera:
 ``` yaml
 port: 8080
-
+rutaMapas: /home/user/mapas
+mapas:
+  - name: mapa1
+    file: mapa1.yaml
+  - name: mapa2
+    file: mapa2.yaml
+vRotacion:
+vAvance:
+vidaMax:
+balasPorRafaga:
+maxBalas:
 ```
 
-### Forma de uso
-#### Editor
+Para el cliente hay un archivo de configuración opcional. Los valores por defecto son los siguientes. Para sobreescribirlo, crear un yaml con los valores deseados y pasarselo al correr el cliente.
+``` yaml
+screenWidthLogin: 1280
+screenHeightLogin: 720
+screenHeightGame: 600
+screenWidthGame: 800
+```
+
+## Forma de uso
+### Editor
 Una vez levantado el editor se verá la siguiente ventana:
 ![editor](editor1.png)
 
-
-##### Crear un nuevo mapa
+#### Crear un nuevo mapa
 Para crear un nuevo mapa, ir a Archivo -> Nuevo (o ctrl + N). Se abrirá la siguiente ventana que permite elegir el tamaño deseado del mismo.
 ![editor](editor2.gif)  
 
 Una vez que tengamos el tamaño apropiado, para completarlo se pueden arrastrar las imágenes desde la lista izquierda. Haciendo doble click, se podrá pintar la superficie deseada:
 ![editor](editor3.gif)   
 
-**Importante!**: el mapa debe ser un recinto cerrado de paredes y todos los clientes deben utilizar el mismo ancho  y alto de pantalla.  
-##### Guardar el mapa
+**Importante!** El mapa debe ser un recinto cerrado de paredes y todos los clientes deben utilizar el mismo ancho  y alto de pantalla.  
+
+#### Guardar el mapa
 Para guardar el mapa una vez que ya este listo ir a Archivo -> Guardar. El mapa deberá ser un archivo .yaml o .yml
 
-##### Abrir un mapa existente
+#### Abrir un mapa existente
 Para editar un mapa ya existente, ir a Archivo -> Abrir. Seleccionar el archivo correspondiente y listo!
 
-#### Servidor
+### Servidor
 Una vez instalado correctamente, y ya teniendo el archivo de configuración, sólo falta levantar el servidor desde su carpeta, y listo!
 ```bash
-foo@bar:~$ ./servidor config.yaml
+foo@bar:~$ server config.yaml
 ```
 
-#### Cliente
+Además, hay un servidor disponible en la siguiente dirección:
+- 3.236.38.189
+- 8080
+
+Este servidor cuenta con los siguientes mapas cargados:
+- mapa1
+- mapa2
+- mapa3
+- mapa4
+- mapa5
+- mapa6
+- mapa7
+
+### Cliente
 Una vez levantado el cliente, se verá la pantalla de log in para conectarse al servidor deseado. Ingresar ip y puerto correspondiente:
 ![cliente](cliente1.gif)
 
 Una vez conectado al servidor, se listaran las partidas existentes (en las que haya lugar disponible). Se puede unir a una, o de lo contrario crear una partida propia.
-![cliente](cliente2.png)
+![cliente](cliente2.gif)
 
-##### Crear una partida nueva
+#### Crear una partida nueva
 Para crear una partida nueva en el servidor, escribir una N y luego ingresar los datos correspondientes:
 
 * Nombre de la partida
@@ -94,18 +118,24 @@ Para crear una partida nueva en el servidor, escribir una N y luego ingresar los
 
 ![cliente](cliente3.gif)
 
-##### Conectarse a una partida existente
+#### Conectarse a una partida existente
 Para unirse a una partida nueva, escribir el número correspondiente y luego enter. Luego ingresar el nombre, y esperar!
 ![cliente](cliente4.gif)
 
-##### Teclas para jugar  
+#### Teclas para jugar  
 
-**->**: rotamos hacia la derecha.    
-**<-**: rotar hacia la izquierda.  
-**.**: disparar.  
-**^**: desplazarse hacia delante.  
-**v**: desplazarse hacia atras.  
-**SPACE**: cambiar de arma.  
-**m**: play/stop music.  
+![](keyright.png) Rotar a la derecha
 
-### Apéndice de errores
+![](keyup.png) Rotar a la izquiera
+
+![](keydown.png) Desplazarse abajo
+
+![](keym.png) Desplazarse arriba
+
+![](keydot.png) Disparar
+
+![](keyspace.png) Cambiar de arma
+
+![](keydot.png) Play/Stop música
+
+## Apéndice de errores

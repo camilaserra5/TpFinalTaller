@@ -7,10 +7,12 @@
 #include <yaml-cpp/yaml.h>
 #include "../include/InvalidMapException.h"
 #include <config.h>
-ManejadorPartidas::ManejadorPartidas(std::map<std::string, std::string> &mapas) :
+
+ManejadorPartidas::ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas) :
         partidas(),
         esta_corriendo(true),
-        mapas(mapas) {}
+        mapas(mapas),
+        rutaMapas(rutaMapas) {}
 
 void ManejadorPartidas::cerrarPartidas() {
     this->eliminarPartidasTerminadas();
@@ -20,14 +22,18 @@ void ManejadorPartidas::agregarMapa(std::string nombreMapa, std::string archivoM
     this->mapas.insert(std::make_pair(nombreMapa, archivoMapa));
 }
 
-Map ManejadorPartidas::buscarMapa(std::string &archivoMapa, int &anchoPantalla) {
+Map ManejadorPartidas::buscarMapa(std::string archivoMapa, int &anchoPantalla) {
     if (this->mapas.count(archivoMapa) == 0) {
         std::cerr << "no existe el mapa";
         throw InvalidMapException("mapa no cargado");
     }
     std::string ruta = this->mapas.at(archivoMapa);
     try {
-        Map map = MapTranslator::yamlToMap(YAML::LoadFile(MAPS_DIR + ruta), anchoPantalla);
+        std::string pathMapas = this->rutaMapas;
+        if (pathMapas.empty())
+            pathMapas = MAPS_DIR;
+
+        Map map = MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla);
         return map;
     } catch (YAML::BadFile &badFile) {
         std::cerr << "error buscando mapa";
@@ -112,7 +118,8 @@ std::vector<char> ManejadorPartidas::serializar() {
             informacionPartidas.insert(informacionPartidas.end(), sizeNombre.begin(), sizeNombre.end());
             informacionPartidas.insert(informacionPartidas.end(), pair.first.begin(), pair.first.end());
             std::vector<char> partidaSerializada = pair.second->serializar();
-            informacionPartidas.insert(informacionPartidas.end(), partidaSerializada.begin(), partidaSerializada.end());
+            informacionPartidas.insert(informacionPartidas.end(), partidaSerializada.begin(),
+                                       partidaSerializada.end());
         }
     }
     std::vector<char> sizePartidas = numberToCharArray(i);
