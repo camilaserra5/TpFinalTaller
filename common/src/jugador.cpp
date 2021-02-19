@@ -244,7 +244,7 @@ void Jugador::deserializar(std::vector<char> &serializado) {
 
     idx += charArrayToNumber(sub);
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-
+    idx += 4;
     std::vector<char> logroSerializado(serializado.begin() + idx,
                                        serializado.begin() + idx +
                                        charArrayToNumber(sub));

@@ -26,6 +26,7 @@ std::cerr << "ACUCHILLO\n";
         jugadorAtacado->actualizar_vida(danio);
         if (jugadorAtacado->estaMuerto()) {
             jugador->aniadirEnemigosMatados(1);
+            std::cerr << "MURIO JUGADOR ACUCHILLADO\n";
         }
         jugadoresAtacados.insert({idJugadorMasCercano,jugadorAtacado});
     }
