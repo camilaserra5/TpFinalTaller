@@ -12,6 +12,9 @@ next_position = {
 --Funcion que verifica si puede avanzar
 --Nota: to do lo que sea distinto a 'false' 'nil' es tomado como true;
 function proximo_movimiento(pos_x, pos_y)
+    print(pos_x)
+    print(pos_y)
+    print(#mapa[pos_x + 1][pos_y])
     if (#mapa[pos_x + 1][pos_y] == 0) then
         return next_position[1]
     end
@@ -29,8 +32,8 @@ end
 --Revisa en un rango si hay enemigos en el mapa
 --los jugadores aparecen con numeros mayores o iguales a 100
 function posicion_enemigo_cerca(pos_x, pos_y)
-    local rango = 3
-    if(pos_x - rango < 1 or pos_y - rango < 1) then
+    --local rango = 
+    --if(pos_x - rango < 1 or pos_y - rango < 1) then
     rango = 1
     end
     for i = pos_x - rango, i + rango, 1 do
@@ -46,6 +49,7 @@ end
 
 
 function disparar_al_enemigo()
+    print("piumpium")
     return 'p'
 end
 

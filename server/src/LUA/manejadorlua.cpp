@@ -4,7 +4,7 @@
 #define MAPA "mapa"
 
 ManejadorLua::ManejadorLua(std::string & archivo){
-     std::cerr << "=== INSTANCIANDO UN MANEJADOR LUA==== " << std::endl;
+    std::cerr << "=== INSTANCIANDO UN MANEJADOR LUA==== " << std::endl;
     interprete = luaL_newstate();
     luaL_dofile(interprete, archivo.c_str());
 }
@@ -57,6 +57,7 @@ const char * ManejadorLua::generarEvento(int& posx, int& posy) {
     lua_pushnumber(interprete, posy);
     lua_pcall(interprete, 2, 1, 0);
     const char *tecla = lua_tostring(interprete, 1);
+    std::cerr << "=== LUA ME DEVOLVIO: "<< tecla<<" ==== " << std::endl;
     lua_pop(interprete, 1); // elimina lua_action
     return tecla;
 }
