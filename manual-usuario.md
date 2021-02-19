@@ -126,16 +126,16 @@ Para unirse a una partida nueva, escribir el número correspondiente y luego ent
 
 ![](keyright.png) Rotar a la derecha
 
-![](keyup.png) Rotar a la izquiera
+![](keyleft.png) Rotar a la izquiera
 
 ![](keydown.png) Desplazarse abajo
 
-![](keym.png) Desplazarse arriba
+![](keyup.png) Desplazarse arriba
 
 ![](keydot.png) Disparar
 
 ![](keyspace.png) Cambiar de arma
 
-![](keydot.png) Play/Stop música
+![](keym.png) Play/Stop música
 
 ## Apéndice de errores
