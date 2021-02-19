@@ -24,6 +24,9 @@ public:
     bool empezo(){
         return corriendo;
     }
+    bool termino(){
+        return !this->corriendo;
+    }
 
 private:
     ProtectedQueue<Comando *> &comandos;

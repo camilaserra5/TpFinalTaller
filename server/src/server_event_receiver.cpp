@@ -10,6 +10,7 @@ void Server_Event_Receiver::run() {
             Comando *comando = protocolo->deserializarComando(informacion);
             this->comandos.aniadir_dato(comando);
         }catch (const SocketError& exc){
+            std::cerr << "error en server recibier\n";
             std::cout << exc.what() << std::endl;
             this->cerrar();
         } catch (std::exception &exc) {

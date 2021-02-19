@@ -11,6 +11,7 @@ void Server_Event_Sender::run() {
             protocolo->enviar(informacion);
 
         }catch (const SocketError& exc){
+                std::cerr << "error en server recibier\n";
                 std::cout << exc.what() << std::endl;
                 this->cerrar();
         } catch (std::exception &exc) {

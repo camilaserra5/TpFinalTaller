@@ -45,7 +45,7 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
 }
 
 void Servidor::agregarCliente(std::string &nombreJugador, ManejadorCliente *cliente, int &id) {
-  
+
     id = this->obtenerIdParaJugador();
     this->estadoJuego.agregarJugador(nombreJugador, id);
     cliente->settearId(id);
@@ -140,7 +140,22 @@ void Servidor::generarComandosLua(JugadorLua& jugadorLua, ProtectedQueue<Comando
     }
     this->cola_comandos.aniadir_dato(nuevoComando);
 }
-
+void Servidor::verificarClientes(){
+    std::map<int, ManejadorCliente *>::iterator it;
+    while (it != this->clientes.end()){
+      std::cerr << "entre al loop\n";
+        if(it->second->termino()){
+          std::cerr << "alguno de los hilos termino\n";
+           it->second->cerrar();
+           it->second->join();
+           delete it->second;
+           it = this->clientes.erase(it);
+        }
+    }
+    if (this->clientes.empty()){
+        this->sigue_corriendo = false;
+    }
+}
 void Servidor::run() {
     std::cerr << "=== CREO JUGADOR LUA==== " << std::endl;
     std::string ruta("modulo.lua");
@@ -148,7 +163,7 @@ void Servidor::run() {
     JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
     std::string nombre("IA");
     jugadorLua.instanciarJugador(nombre);
-    
+
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;
@@ -176,7 +191,7 @@ void Servidor::run() {
                 this->arrancoPartida = false;
                 this->sigue_corriendo = false;
             }
-
+            //this->verificarClientes();
             auto fin = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> sleepTime = tiempoServidor - (fin - inicio);
             //std::cerr << "sleep for" << time_span.count() << std::endl;

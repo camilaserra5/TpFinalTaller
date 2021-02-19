@@ -64,6 +64,7 @@ private:
     int generadorDeId = 100;
     std::map<int, ManejadorCliente*> clientes;
     //JugadorLua jugadorLua;
+    void verificarClientes();
 
     void generarComandosLua(JugadorLua &jugadorLua, ProtectedQueue<Comando *> &cola_comandos);
 };

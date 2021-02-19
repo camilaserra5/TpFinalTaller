@@ -30,7 +30,10 @@ public:
         }
     }
     bool empezo(){
-        return corriendo;
+        return this->corriendo;
+    }
+    bool termino(){
+        return !this->corriendo;
     }
 
 private:
