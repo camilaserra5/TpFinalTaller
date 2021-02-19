@@ -74,6 +74,7 @@ EstadoJuego::~EstadoJuego() {
 }
 
 void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
+    std::cerr << "===========EL ID ES: " << id << std::endl;
     Posicion posicionValida = this->mapa.obtenerPosicionIncialValida();
     std::cerr<< "la pos inicial valida es: " << posicionValida.pixelesEnX()<< " y: " << posicionValida.pixelesEnY() <<" angulo: " << posicionValida.getAnguloDeVista() << " id: " << id <<"\n";
     Jugador *jugador = new Jugador(nombreJugador, id, posicionValida);
@@ -81,7 +82,15 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
     if(!jugador){
         std::cerr << "O NO..."<< std::endl;
     }
-    this->jugadores.insert(std::make_pair(id, jugador));
+    try{
+        this->jugadores.insert(std::make_pair(id, jugador));
+        std::cerr << "======CHEQUEO SI ESTA======"<< std::endl;
+        Jugador *jugadorchequeo = this->jugadores.at(id);
+        std::cerr <<"=============EL JUGADOR ES "<< jugadorchequeo->obtenerNombre() << std::endl;
+    } catch(...){
+        std::cerr << "======NO PUDE AGREGAR AL JUGADOR CON ID======"<< std::endl;
+    }
+    
 }
 
 bool puedo_moverme(Map &mapa, int &posx, int &posy, Jugador *jugador) {

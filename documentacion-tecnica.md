@@ -76,7 +76,193 @@ El guardado y mostrar un mapa existente, se hacen fundamentalmente con la clase 
 
 
 ## Descripción de archivos y protocolos  
-El protocolo desarrollado trata a los bytes para su lectura como big endian. Ademas, este protocolo serializa, en general, de la siguiente manera: primero se envia el tamanio del parametro que ese esta serializando, y luego se serializa el parametro. Esto es porque, al ser binario, se requiere saber cuantos bytes corresponden a cada entidad para su deserializacion. De esta manera, se deserializa cada entidad de manera ordenada, evitando posibles errores.  
+El protocolo desarrollado trata a los bytes para su lectura como big endian. Adem}ás, este protocolo serializa, en general, de la siguiente manera: primero se envia el tamanio del parámetro que se está serializando, y luego se serializa el parametro. Esto es porque, al ser binario, se requiere saber cuantos bytes corresponden a cada entidad para su deserializacion. De esta manera, se deserializa cada entidad de manera ordenada, evitando posibles errores.  
+
+A continuación se lista el protocolo según cada entidad serializada.
+
+| Jugador        |                     |
+|----------------|---------------------|
+| id jugador     | 4 bytes             |
+| vida           | 4 bytes             |
+| arma actual    | 4 bytes             |
+| disparando     | 4 bytes             |
+| cantidad vidas | 4 bytes             |
+| balas          | 4 bytes             |
+| size posicion  | 4 bytes             |
+| Posicion       | size posicion bytes |
+| size logro     | 4 bytes             |
+| Logro          | size logro bytes    |
+
+
+| Posicion       |                     |
+|----------------|---------------------|
+| pixeles x      | 4 bytes             |
+| pixeles y      | 4 bytes             |
+| angulo (grados)| 4 bytes             |
+
+
+| Logro             |                     |
+|-------------------|---------------------|
+| enemigos matados  | 4 bytes             |
+| puntos tesoros    | 4 bytes             |
+| balas disparadas  | 4 bytes             |
+
+
+| ManejadorPartidas  |                     |
+|--------------------|---------------------|
+| cant partidas      | 4 bytes             |
+| size nombre        | 4 bytes             |
+| nombre             | size nombre bytes   |
+| Partida (Servidor) | 8 bytes             |
+
+
+| Partida (Servidor)       |                     |
+|--------------------------|---------------------|
+| cant jugadores unidos    | 4 bytes             |
+| cant jugadores posibles  | 4 bytes             |
+
+
+| EstadoJuego        |                      |
+|--------------------|----------------------|
+| cant jugadores     | 4 bytes              |
+| size jugador 1     | 4 bytes              |
+| Jugador 1          | size jugador 1 bytes |
+| .....              | .......              |
+| size jugador n     | 4 bytes              |
+| Jugador n          | size jugador n bytes |
+| Mapa               | n bytes              |
+
+| Mapa                 |                     |
+|----------------------|---------------------|
+| row size             | 4 bytes             |
+| col size             | 4 bytes             |
+| mapa(1,1)            | 4 bytes             |
+| mapa(1,2)            | 4 bytes             |
+| .....                | .......             |
+| mapa(n,n-1)          | 4 bytes             |
+| mapa(n,n)            | 4 bytes             |
+| ContenedorElementos  | n bytes             |
+
+| ContenedorElementos     |                        |
+|-------------------------|------------------------|
+| cant elementos          | 4 bytes                |
+| size item 1             | 4 bytes                |
+| Item 1                  | size item 1 bytes      |
+| .....                   | .......                |
+| size item n             | 4 bytes                |
+| Item n                  | size item n bytes      |
+| cant puertas            | 4 bytes                |
+| size puerta 1           | 4 bytes                |
+| Puerta 1                | size puerta 1 bytes    |
+| .....                   | .......                |
+| size puerta n           | 4 bytes                |
+| Puerta n                | size puterta n bytes   |
+
+| Puerta    |                     |
+|-----------|---------------------|
+| fila      | 4 bytes             |
+| columna   | 4 bytes             |
+| abierta   | 4 bytes             |
+| Posicion  | n bytes             |
+
+| Item      |                     |
+|-----------|---------------------|
+| id        | 4 bytes             |
+| tipo      | 4 bytes             |
+| Posicion  | n bytes             |
+
+
+| Apertura de puerta  |         |
+|---------------------|---------|             
+| id jugador          | 4 bytes |
+| id accion           | 4 bytes |
+
+
+| Ataque              |         |
+|---------------------|---------|             
+| id jugador          | 4 bytes |
+| id accion           | 4 bytes |
+
+| Cambio de arma      |         |
+|---------------------|---------|             
+| id jugador          | 4 bytes |
+| id accion           | 4 bytes |
+
+| Crear partida       |                           |
+|---------------------|---------------------------|             
+| id jugador          | 4 bytes                   |
+| cantidad jugadores  | 4 bytes                   |
+| size nombre partida | 4 bytes                   |       
+| nombre partida      | size nombre partida bytes |       
+| size ruta yaml      | 4 bytes                   |       
+| ruta yaml           | size ruta yaml bytes      |       
+| size nombre cliente | 4 bytes                   |       
+| nombre cliente      | size nombre cliente bytes |       
+
+| Movimiento          |         |
+|---------------------|---------|    
+| id jugador          | 4 bytes |
+| id tipo movimiento  | 4 bytes |
+
+
+| Unirse a partida    |                           |
+|---------------------|---------------------------|             
+| id accion           | 4 bytes                   |
+| size nombre partida | 4 bytes                   |       
+| nombre partida      | size nombre partida bytes |       
+| size nombre cliente | 4 bytes                   |       
+| nombre cliente      | size nombre cliente bytes |       
+
+
+| Actualizacion Agarro Item    |                 |        
+|------------------------------|-----------------|
+| id actualizacion             | 4 bytes         |
+| size item                    | 4 bytes         |
+| Item                         | size item bytes |
+
+| Actualizacion Agregar Item   |                 |       
+|------------------------------|-----------------|
+| id actualizacion             | 4 bytes         |
+| size item                    | 4 bytes         |
+| Item                         | size item bytes |
+
+| Actualizacion Apertura Puerta  |                 |         
+|--------------------------------|-----------------|
+| id actualizacion               | 4 bytes         |
+| Puerta                         | size item bytes |
+
+| Actualizacion Ataque         |                      |
+|------------------------------|----------------------|
+| id actualizacion             | 4 bytes              |
+| size jugador                 | 4 bytes              |
+| Jugador                      | size item bytes      |
+| cant jugadores atacados      | 4 bytes              |
+| size jugador 1               | 4 bytes              |
+| Jugador 1                    | size jugador 1 bytes |
+| .....                        | .......              |
+| size jugador n               | 4 bytes              |
+| Jugador n                    | size jugador n bytes |
+
+| Actualizacion Cambio Arma    |                 |     
+|------------------------------|-----------------|
+| id actualizacion             | 4 bytes         |
+| id jugador                   | 4 bytes         |
+| arma actual                  | size item bytes |
+
+| Actualizacion Inicio Partida |                 |        
+|------------------------------|-----------------|
+| id actualizacion             | 4 bytes         |
+| Estado juego                 | n bytes         |
+
+| Actualizacion Movimiento     |                 |    
+|------------------------------|-----------------|
+| id actualizacion             | 4 bytes         |
+| Jugador                      | n bytes         |
+
+| Actualizacion Termino Partida |                 |         
+|-------------------------------|-----------------|
+| id actualizacion              | 4 bytes         |
+| Estado juego                  | n bytes         |
 
 ## Programas intermedios y de prueba
 Originalmente, el programa lo realizamos en una sola aplicación simulando el cliente y el servidor, para no tener que tratar con la serialización. Una vez que eso estuvo más estable, involucramos los distintos hilos y la conexión mediante socket.
