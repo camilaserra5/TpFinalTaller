@@ -23,7 +23,7 @@ void ThClient::stop() {
 
 void ThClient::procesar_pedido() {
     std::vector<char> serializado = this->protocolo->recibir();
-    int idJugador = -1;
+    int idJugador;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);

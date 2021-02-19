@@ -39,7 +39,6 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     memcpy(number, sub.data(), 4);
     uint32_t *buf = (uint32_t *) number;
-    buf = (uint32_t *) number;
     idx += 4;
     int idJugador = ntohl(*buf);
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);

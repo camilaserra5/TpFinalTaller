@@ -18,8 +18,7 @@ public:
 
     bool obtenerBeneficio(Jugador *jugador);
 
-    Actualizacion *atacarEfectivamente(int distancia_a_pared, Jugador *jugador,
-                                       std::map<int, Jugador *> &jugadores);
+    Actualizacion *atacarEfectivamente(Jugador *jugador, std::map<int, Jugador *> &jugadores);
 
     Type getTipo() override;
 

@@ -85,7 +85,7 @@ void Juego::actualizar() {
 
 void Juego::renderizar() {
     this->modelo.renderizar();
-    this->ventana.renderizar(this->texturaInferior);
+    this->ventana.renderizar();
 }
 
 Juego::~Juego() {

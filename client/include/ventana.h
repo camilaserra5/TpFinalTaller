@@ -17,7 +17,7 @@ public:
 
     SDL_Renderer *obtener_render();
 
-    void renderizar(Textura *textura);
+    void renderizar();
 
     void actualizar();
 

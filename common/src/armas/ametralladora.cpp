@@ -13,7 +13,7 @@ Ametralladora::Ametralladora(Posicion &posicion, int id) :
 Ametralladora::~Ametralladora() {}
 
 Actualizacion *
-Ametralladora::atacarEfectivamente(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
+Ametralladora::atacarEfectivamente(Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     int cantidad_balas = BALAS_POR_RAFAGA;
     jugador->gastarBalas(cantidad_balas);
     srand(time(NULL));
@@ -46,7 +46,7 @@ Actualizacion *Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, st
     int balasJugador = jugador->cantidad_balas();
     if (this->contador == 0 && balasJugador > BALAS_POR_RAFAGA) {
         this->contador = TICKS_DISPARO_AMETRALLADORA;
-        return this->atacarEfectivamente(distancia_a_pared, jugador, jugadores);
+        return this->atacarEfectivamente(jugador, jugadores);
     } else {
         this->contador--; // consultar
         return NULL;

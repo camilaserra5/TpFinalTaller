@@ -46,7 +46,7 @@ void Rayo::verificarInterseccion(Map &mapa, double &distancia, Player &jugador) 
 }
 
 double Rayo::verificarInterseccionPrimerCuadrante(Player &jugador, Map &mapa) {
-    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
+    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal, distanciaVertical, x, y;
     double tangente = abs(tan(this->anguloBarrido));
 
     /*parametros horizontales*/
@@ -78,7 +78,7 @@ double Rayo::verificarInterseccionPrimerCuadrante(Player &jugador, Map &mapa) {
 }
 
 double Rayo::verificarInterseccionSegundoCuadrante(Player &jugador, Map &mapa) {
-    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
+    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal, distanciaVertical, x, y;
     double tangente = abs(tan(this->anguloBarrido));
 
     /*parametros horizontales*/
@@ -111,7 +111,7 @@ double Rayo::verificarInterseccionSegundoCuadrante(Player &jugador, Map &mapa) {
 
 double Rayo::verificarInterseccionTercerCuadrante(Player &jugador, Map &mapa) {
     double tangente = abs(tan(this->anguloBarrido));
-    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
+    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal, distanciaVertical, x, y;
     /*parametros horizontales*/
     dy = 1.0 - std::modf(this->posYMapa, &y);
     xStep = 1.0 / tan(this->anguloBarrido);
@@ -141,7 +141,7 @@ double Rayo::verificarInterseccionTercerCuadrante(Player &jugador, Map &mapa) {
 }
 
 double Rayo::verificarInterseccionCuartoCuadrante(Player &jugador, Map &mapa) {
-    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal = 1000.0, distanciaVertical = 1000.0, x, y;
+    double dy, dx, tileStep = 1.0, xStep, yStep, distanciaHorizontal, distanciaVertical, x, y;
     double tangente = abs(tan(this->anguloBarrido));
 
     /*parametros horizontales*/
@@ -196,7 +196,7 @@ bool Rayo::hallarColision(Map &mapa, double &interseccionAX, double &interseccio
 double
 Rayo::verificarInterseccionHorizontal(Player &jugador, Map &mapa, double &y, double &dy, double &xStep, double &yStep,
                                       double &tg) {
-    bool encontrePared = false;
+    bool encontrePared;
     double x, distancia = this->ladoCelda * mapa.getRowSize();
 
     x = this->posXMapa + (dy / tg);
@@ -215,7 +215,7 @@ Rayo::verificarInterseccionHorizontal(Player &jugador, Map &mapa, double &y, dou
 double
 Rayo::verificarInterseccionVertical(Player &jugador, Map &mapa, double &x, double &dx, double &xStep, double &yStep,
                                     double &tg) {
-    bool encontrePared = false;
+    bool encontrePared;
     double y, distancia = this->ladoCelda * mapa.getColSize();
     y = this->posYMapa + (dx * tg);
     encontrePared = this->hallarColision(mapa, x, y, xStep, yStep);
