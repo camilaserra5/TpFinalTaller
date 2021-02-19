@@ -88,12 +88,24 @@ Una vez instalado correctamente, y ya teniendo el archivo de configuración, só
 foo@bar:~$ server config.yaml
 ```
 
+Además, hay un servidor disponible en la siguiente dirección:
+- 3.236.38.189
+- 8080
+Este servidor cuenta con los siguientes mapas cargados:
+- mapa1
+- mapa2
+- mapa3
+- mapa4
+- mapa5
+- mapa6
+- mapa7
+
 ### Cliente
 Una vez levantado el cliente, se verá la pantalla de log in para conectarse al servidor deseado. Ingresar ip y puerto correspondiente:
 ![cliente](cliente1.gif)
 
 Una vez conectado al servidor, se listaran las partidas existentes (en las que haya lugar disponible). Se puede unir a una, o de lo contrario crear una partida propia.
-![cliente](cliente2.png)
+![cliente](cliente2.gif)
 
 #### Crear una partida nueva
 Para crear una partida nueva en el servidor, escribir una N y luego ingresar los datos correspondientes:
