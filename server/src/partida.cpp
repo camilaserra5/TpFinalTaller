@@ -147,9 +147,9 @@ void Partida::run() {
     std::cerr << "=== CREO JUGADOR LUA==== " << std::endl;
     std::string ruta("modulo.lua");
 
-    //JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
-    //std::string nombre("IA");
-    //jugadorLua.instanciarJugador(nombre);
+    JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
+    std::string nombre("IA");
+    jugadorLua.instanciarJugador(nombre);
 
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
