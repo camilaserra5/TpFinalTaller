@@ -30,13 +30,6 @@ public:
         }
     }
 
-    bool empezo(){
-        return this->corriendo;
-    }
-
-    bool termino(){
-        return !this->corriendo;
-}
     bool estaCorriendo() {
         return corriendo;
     }

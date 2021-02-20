@@ -231,7 +231,7 @@ bool Map::hayColision(int fila, int columna) {
     }
 }
 
-Posicion Map::obtenerPosicionIncialValida() {
+Posicion Map::obtenerPosicionInicialValida() {
     bool posEsValida = false;
     int posX, posY;
     srand(time(NULL));

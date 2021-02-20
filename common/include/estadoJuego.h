@@ -36,7 +36,11 @@ public:
 
     void deserializar(std::vector<char> &informacion) override;
 
-    Actualizacion *verificarJugadoresMuertos();
+    void verificarJugadoresMuertos();
+
+    std::vector<Actualizacion *> desconectarJugador(int idJugador);
+
+    bool estaMuerto(int idJugador);
 
     std::vector<Actualizacion *> verificarMovimientoJugador(Jugador *jugador, int &posX, int &posY);
 

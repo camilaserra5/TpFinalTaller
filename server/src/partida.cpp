@@ -1,3 +1,4 @@
+#include <comandos/desconectarJugador.h>
 #include "../include/partida.h"
 #include "actualizaciones/actualizacionInicioPartida.h"
 #include "actualizaciones/actualizacionTerminoPartida.h"
@@ -21,16 +22,23 @@ Partida::Partida(Map mapa, int cantJugadoresPosibles) :
 Partida::~Partida() {}
 
 void Partida::procesar_comandos(EstadoJuego &estadoJuego) {
+    std::map<int, ThClient *>::iterator it;
+    for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
+        if (it->second->is_dead() && !estadoJuego.estaMuerto(it->second->getId())) {
+            std::cerr << "desconecto jugador " << it->second->getId() << std::endl;
+            auto desconectarJugador = new DesconectarJugador(it->second->getId());
+            this->cola_comandos.aniadir_dato(desconectarJugador);
+        }
+    }
+
     bool termine = false;
     while (!termine) {
         try {
             Comando *comando = cola_comandos.obtener_dato();
-            std::cerr << " proceso comando " << std::endl;
             std::vector<Actualizacion *> actualizaciones = comando->ejecutar(estadoJuego);
             // puede ser una lista de actualizaciones;
             // actualizacion partivulasr -> item comsumido(efecto, id, posicion, id jugador, pos jugador);
             delete comando;
-            std::cerr << "enviar" << std::endl;
             this->enviar_actualizaciones(actualizaciones);
         } catch (const std::exception &exception) {
             termine = true;
@@ -90,13 +98,9 @@ void Partida::enviar_actualizaciones(std::vector<Actualizacion *> actualizacione
     std::map<int, ThClient *>::iterator it;
     for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
         if (!it->second->is_dead()) {
-            std::cerr << " envio act " << std::endl;
+            std::cerr << " envio act a jugador: " << it->second->getId() << std::endl;
             it->second->enviar_actualizaciones(actualizaciones);
-        } else {
-            //delete (it->second);
-            std::cerr << "no mando actualizcion pues murio cli" << std::endl;
         }
-
     }
 }
 
@@ -143,9 +147,9 @@ void Partida::run() {
     std::cerr << "=== CREO JUGADOR LUA==== " << std::endl;
     std::string ruta("modulo.lua");
 
-    JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
-    std::string nombre("IA");
-    jugadorLua.instanciarJugador(nombre);
+    //JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
+    //std::string nombre("IA");
+    //jugadorLua.instanciarJugador(nombre);
 
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
@@ -161,8 +165,8 @@ void Partida::run() {
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-            std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
-            generarComandosLua(jugadorLua);
+            //std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
+            //generarComandosLua(jugadorLua);
             //std::cerr << "proceso" << std::endl;
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();

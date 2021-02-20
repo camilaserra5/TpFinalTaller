@@ -45,36 +45,29 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
     memcpy(number, sub.data(), 4);
     buf = (uint32_t *) number;
     int idAccion = ntohl(*buf);
-
     if (idAccion == static_cast<int>(Accion::ataque)) {
-      //  std::cerr << "COMANDO ATAQUE\n";
+        //  std::cerr << "COMANDO ATAQUE\n";
         return new Ataque(idJugador);
     } else if (idAccion == static_cast<int>(Accion::aperturaDePuerta)) {
-      //  std::cerr << "COMANDO ABRIR PUERTA\n";
+        //  std::cerr << "COMANDO ABRIR PUERTA\n";
         return new AperturaDePuerta(idJugador);
-    } else if(idAccion == static_cast<int>(Accion::cambioDeArma)){
+    } else if (idAccion == static_cast<int>(Accion::cambioDeArma)) {
         //std::cerr << "COMANDO CAMBIO DE ARMA";
         return new CambioDeArma(idJugador);
-    } else {
-        Accion accion;
-        if (idAccion == static_cast<int>(Accion::rotarDerecha)) {
-        //  std::cerr << "COMANDO ROT DERECHA\n";
-            accion = Accion::rotarDerecha;
-        } else if (idAccion == static_cast<int>(Accion::rotarIzquierda)) {
-        //  std::cerr << "COMANDO ROT izq\n";
-
-            accion = Accion::rotarIzquierda;
-        } else if (idAccion == static_cast<int>(Accion::moverArriba)) {
-        //  std::cerr << "COMANDO mov arr\n";
-
-            accion = Accion::moverArriba;
-        } else {
-        //  std::cerr << "COMANDO mov abajo num: " << idAccion << "\n";
-
-            accion = Accion::moverAbajo;
-        }
-        return new Movimiento(idJugador, accion);
+    } else if (idAccion == static_cast<int>(Accion::rotarDerecha)) {
+        std::cerr << "COMANDO ROT DERECHA\n";
+        return new Movimiento(idJugador, Accion::rotarDerecha);
+    } else if (idAccion == static_cast<int>(Accion::rotarIzquierda)) {
+        std::cerr << "COMANDO ROT izq\n";
+        return new Movimiento(idJugador, Accion::rotarIzquierda);
+    } else if (idAccion == static_cast<int>(Accion::moverArriba)) {
+        std::cerr << "COMANDO mov arr\n";
+        return new Movimiento(idJugador, Accion::moverArriba);
+    } else if (idAccion == static_cast<int>(Accion::moverAbajo)) {
+        std::cerr << "COMANDO mov abajo" << "\n";
+        return new Movimiento(idJugador, Accion::moverAbajo);
     }
+    return nullptr;
 }
 
 

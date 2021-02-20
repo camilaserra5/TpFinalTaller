@@ -54,7 +54,7 @@ public:
 
     bool hayColision(int fila, int columna);
 
-    Posicion obtenerPosicionIncialValida();
+    Posicion obtenerPosicionInicialValida();
 
     Map() {}//capaz poner privado
 
