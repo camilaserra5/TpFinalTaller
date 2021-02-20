@@ -58,7 +58,7 @@ EstadoJuego::~EstadoJuego() {
 
 void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
     std::cerr << "===========EL ID ES: " << id << std::endl;
-    Posicion posicionValida = this->mapa.obtenerPosicionIncialValida();
+    Posicion posicionValida = this->mapa.obtenerPosicionInicialValida();
     std::cerr << "la pos inicial valida es: " << posicionValida.pixelesEnX() << " y: " << posicionValida.pixelesEnY()
               << " angulo: " << posicionValida.getAnguloDeVista() << " id: " << id << "\n";
     Jugador *jugador = new Jugador(nombreJugador, id, posicionValida);
