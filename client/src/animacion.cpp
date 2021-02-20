@@ -1,6 +1,6 @@
 #include "../include/animacion.h"
 
-#define TICKS_DISPARO 10
+#define TICKS_ANIMACION 10
 
 Animacion::Animacion(SDL_Renderer *render,
                      const char *rutaimg,
@@ -27,7 +27,7 @@ Animacion::Animacion(SDL_Renderer *render,
     this->frame_w = frame_w;
     this->frameActual = 0;
     this->velocidad = 1000;
-    this->contador = TICKS_DISPARO;
+    this->contador = TICKS_ANIMACION;
 }
 
 Animacion::~Animacion() {}
@@ -42,7 +42,7 @@ void Animacion::renderizar(int posx, int posy, int angulo, SDL_Point *centro) {
     if (this->contador == 0) {
         std::cerr << "cambio de frame\n";
         this->frameActual += 1;
-        this->contador = TICKS_DISPARO;
+        this->contador = TICKS_ANIMACION;
     } else {
         std::cerr << "contador: " << this->contador << "\n";
         contador--;
@@ -67,6 +67,8 @@ void Animacion::renderizarColumna(SDL_Rect &dimension, SDL_Rect dest) {
     this->textura->renderizar(&dimension, dest, 0, NULL);
     if (contador == 0 && yaRenderice) {
         this->frameActual += 1;
+        this->contador = TICKS_ANIMACION;
+    } else {
+        contador--;
     }
-    contador--;
 }
