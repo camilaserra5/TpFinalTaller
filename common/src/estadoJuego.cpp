@@ -149,13 +149,11 @@ void EstadoJuego::verificarJugadoresMuertos() {
     std::map<int, Jugador *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if (it->second->estaMuerto()) {
-            std::cerr << "=========Se murio alguien :$========" << '\n';
+            it->second->actualizarNuevaVida();
             if (it->second->cant_de_vida() == 0) {
                 this->jugadoresMuertos++;
                 std::cerr << "========= Morision definitiva========" << '\n';
-                return;
             }
-            it->second->actualizarNuevaVida();
         }
     }
 }
