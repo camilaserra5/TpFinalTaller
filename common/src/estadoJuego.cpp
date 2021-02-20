@@ -38,8 +38,8 @@ std::vector<Actualizacion *> EstadoJuego::realizarAtaque(int idJugador) {
     Arma *arma = jugador->getArma();
     std::cerr << "arma : " << arma->getTipo().getName() << "\n";
     int distancia_inventada = 5;
-    this->verificarJugadoresMuertos();
     Actualizacion *actualizacionAtaque = arma->atacar(distancia_inventada, jugador, this->jugadores);
+    this->verificarJugadoresMuertos();
     actualizaciones.push_back(actualizacionAtaque);
     return actualizaciones;
 }
@@ -58,9 +58,17 @@ EstadoJuego::~EstadoJuego() {
 
 void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
     std::cerr << "===========EL ID ES: " << id << std::endl;
+    bool repetido = false;
     Posicion posicionValida = this->mapa.obtenerPosicionInicialValida();
     std::cerr << "la pos inicial valida es: " << posicionValida.pixelesEnX() << " y: " << posicionValida.pixelesEnY()
               << " angulo: " << posicionValida.getAnguloDeVista() << " id: " << id << "\n";
+    for (std::map<int,Jugador*>::iterator it = this->jugadores.begin(); it != this->jugadores.end(); ++it){
+        if ((it->second)->getPosicion() == posicionValida) repetido = true;
+    }
+    if (repetido){
+        posicionValida = this->mapa.obtenerPosicionInicialValida();
+    }
+
     Jugador *jugador = new Jugador(nombreJugador, id, posicionValida);
     std::cerr << "agrego un jugadorrr" << std::endl;
     if (!jugador) {
@@ -149,13 +157,13 @@ void EstadoJuego::verificarJugadoresMuertos() {
     std::map<int, Jugador *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if (it->second->estaMuerto()) {
-            std::cerr << "=========Se murio alguien :$========" << '\n';
+            it->second->actualizarNuevaVida();
+            Posicion posicion = this->mapa.obtenerPosicionInicialValida();
+            it->second->moverse(posicion.pixelesEnX(), posicion.pixelesEnY());
             if (it->second->cant_de_vida() == 0) {
                 this->jugadoresMuertos++;
                 std::cerr << "========= Morision definitiva========" << '\n';
-                return;
             }
-            it->second->actualizarNuevaVida();
         }
     }
 }
