@@ -16,6 +16,7 @@ include_directories(../common/include)
 
 find_package(yaml-cpp)
 file(GLOB SOURCES src/LUA/manejadorlua.cpp src/LUA/manejadorlua.h src/LUA/modulo.lua src/aceptador.cpp src/InvalidMapException.cpp src/jugadorLua.cpp src/manejadorPartidas.cpp src/partida.cpp src/server_event_receiver.cpp src/server_event_sender.cpp src/server_main.cpp src/servidor.cpp src/thclient.cpp)
+file(COPY src/LUA/modulo.lua DESTINATION ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY})
 
 add_executable(server
         ${SOURCES})

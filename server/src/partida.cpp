@@ -146,7 +146,7 @@ void Partida::generarComandosLua(JugadorLua &jugadorLua) {
 
 void Partida::run() {
     std::cerr << "=== CREO JUGADOR LUA==== " << std::endl;
-    std::string ruta("modulo.lua");
+    std::string ruta("../../modulo.lua");
 
     JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
     std::string nombre("IA");
