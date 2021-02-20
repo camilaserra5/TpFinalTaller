@@ -52,6 +52,7 @@ void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa) {
 
 const char *ManejadorLua::generarEvento(int &posx, int &posy) {
     std::cerr << "====GENERANDO EVENTO LUA==== " << std::endl;
+    std::cerr << "=== MANEJADOR LUA RECIBIO: " << posx << " ==== " << posy << std::endl;
     lua_getglobal(interprete, "crear_accion");
     lua_pushnumber(interprete, posx);
     lua_pushnumber(interprete, posy);

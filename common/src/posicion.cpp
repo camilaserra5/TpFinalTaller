@@ -33,21 +33,19 @@ bool Posicion::verificarSiPerteneceAlSegmento(Posicion &otroJugador) {
 }
 
 bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
-    std::cerr << "verifico las posiciones de los jugadores inteersecando\n";
-    std::cerr << "la pos del atacante es x: " << pixelesX << " y: " << pixelesY << "angulo: " << anguloDeVista << "\n";
-    std::cerr << "la pos del atacado es x: " << otroJugador.pixelesX << " y: " << otroJugador.pixelesY << "angulo: "
-              << otroJugador.anguloDeVista << "\n";
+//  std::cerr << "verifico las posiciones de los jugadores inteersecando\n";
+//  std::cerr << "la pos del atacante es x: " << pixelesX << " y: " << pixelesY << "angulo: " << anguloDeVista << "\n";
+//  std::cerr << "la pos del atacado es x: " << otroJugador.pixelesX << " y: " << otroJugador.pixelesY << "angulo: " << otroJugador.anguloDeVista << "\n";
     bool estaEnSegmento = verificarSiPerteneceAlSegmento(otroJugador);
     if (!estaEnSegmento) return false;
     float pendienteRecta = tan(anguloDeVista);
-    if ((PI <= anguloDeVista && anguloDeVista < 3 * PI / 2) ||
-        (3 * PI / 2 <= anguloDeVista && anguloDeVista < 2 * PI)) {
-        pendienteRecta = -pendienteRecta;
-    }
+    /*if ((PI <= anguloDeVista && anguloDeVista < 3 * PI/2) || (3 * PI/2 <= anguloDeVista && anguloDeVista < 2 * PI)){
+      pendienteRecta = -pendienteRecta;
+    }*/
     float ordenadaOrigen = -pixelesY - (pendienteRecta * pixelesX);
     float y = pendienteRecta * otroJugador.pixelesX + ordenadaOrigen;
     if (y < 0) y = (-1) * y;
-    std::cerr << "el delta distancia es: " << abs(y - otroJugador.pixelesY) << std::endl;
+    //std::cerr << "el delta distancia es: " << abs (y - otroJugador.pixelesY) << std::endl;
     return (abs(y - otroJugador.pixelesY) <= DELTA_DISTANCIA);
 }
 
@@ -68,12 +66,13 @@ int Posicion::pixelesEnY() {
 //ecuacion (x2 -x1)² + (y2 - y1)² < radio²
 bool Posicion::estaCerca(int &posx, int &posy) {
     int radio = 10;
-    std::cerr << "posxJugador: " << posx << "posyJUgador: " << posy << "\n";
+    //  std::cerr << "posxJugador: " << posx << "posyJUgador: " << posy << "\n";
     Posicion posicionJugador(posx, posy, 0);
     int distancia = this->distanciaA(posicionJugador);
-    std::cerr << "distancia: " << distancia << std::endl;
+//    std::cerr << "distancia: " << distancia << std::endl;
     if (distancia < radio) {
-        std::cerr << "estoy en rango\n";
+        //      std::cerr << "estoy en rango\n";
+
         return true;
     }
     return false;
