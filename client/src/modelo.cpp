@@ -74,18 +74,19 @@ bool normalizarAnguloEnRango(double &angulo) {
     return false;
 }
 
-void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &y, double &distanciaObjeto) {
-    //int anchoSprite = objeto->obtenerAnchura();
-    for (int i = 0; i < 73; i++) {
+void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &drawStart, double &distanciaObjeto) {
+    int anchoSprite = objeto->obtenerAnchura();
+    for (int i = 0; i < anchoSprite; i++) {
         int posBuffer = x + i;
         if (this->zbuffer[posBuffer] > distanciaObjeto) {
+          drawStart += 40;
             SDL_Rect dimension, dest;
             dimension.x = i;//suma offset
             dimension.y = 0;//sumaoffset
             dimension.w = 1;
             dimension.h = 0;
             dest.x = posBuffer;
-            dest.y = y;
+            dest.y = drawStart;
             dest.w = 1;
             dest.h = alturaSprite;
             objeto->renderizarColumna(dimension, dest);
@@ -102,6 +103,9 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
     float anguloDeVista = posJugador.getAnguloDeVista();
     bool estaEnSegmento = posJugador.verificarSiPerteneceAlSegmento(posObjeto);//camiar a estaEnRangoSegmento
     if (!estaEnSegmento) {
+      std::cerr << "la posicion que verifico es: " << posObjeto.pixelesEnX() << " y: " <<  posObjeto.pixelesEnY() << std::endl;
+      std::cerr << "la posicion del jugador es: " << posJugador.pixelesEnX() << " y: " <<  posJugador.pixelesEnY() << std::endl;
+
         std::cerr << "no lo encontre en el segmento\n";
         return false;
     }
@@ -166,9 +170,15 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
         int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
-        if (alturaSprite > ALTURA_CANVAS) alturaSprite = ALTURA_CANVAS - 10;
+        int y0;
+        if (alturaSprite > ALTURA_CANVAS) {
+            alturaSprite = ALTURA_CANVAS - 10;
+            y0 = (alturaSprite / 2);
+
+        }else{
+            y0 = floor(ALTURA_CANVAS / 2) - (alturaSprite / 2);
+        }
         std::cerr << "alturaSprite: " << alturaSprite;
-        int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);
         //normalizarAnguloEnRango(difAngulo);
         double x0 = tan(difAngulo) * DIST_PLANO_P;
         int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
