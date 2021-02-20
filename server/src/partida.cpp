@@ -2,7 +2,7 @@
 #include "../include/partida.h"
 #include "actualizaciones/actualizacionInicioPartida.h"
 #include "actualizaciones/actualizacionTerminoPartida.h"
-
+#include "config.h"
 #define TIEMPO_SERVIDOR 0.3
 #define ID_LUA 777
 
@@ -11,6 +11,7 @@
 #define ROTAR_DERECHA 1
 #define ROTAR_IZQUIERDA 2
 
+#define LUA MODULO_LUA "modulo.lua"
 // en si recibe un archivo yaml y luego sereializa;
 Partida::Partida(Map mapa, int cantJugadoresPosibles) :
         cola_comandos(),
@@ -146,7 +147,7 @@ void Partida::generarComandosLua(JugadorLua &jugadorLua) {
 
 void Partida::run() {
     std::cerr << "=== CREO JUGADOR LUA==== " << std::endl;
-    std::string ruta("../../modulo.lua");
+    std::string ruta(LUA);
 
     JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
     std::string nombre("IA");
