@@ -5,8 +5,7 @@
 
 ObjetoJuego::ObjetoJuego(Sprite sprite) :
         posicion(0, 0, 0),
-        sprite(sprite)
-        {}
+        sprite(sprite) {}
 
 ObjetoJuego::~ObjetoJuego() {}
 

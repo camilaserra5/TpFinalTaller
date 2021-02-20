@@ -34,12 +34,9 @@ public:
       }catch(SocketError &e){
           if (this->enviador->empezo()){
               this->enviador->cerrar();
-                this->enviador->join();
           } else if (this->recibidor->empezo()){
               this->recibidor->cerrar();
-              this->recibidor->join();
           }
-        //  this->join();
       }
     }
 
@@ -54,6 +51,17 @@ public:
 
     void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones){
         this->enviador->enviar_actualizaciones(actualizaciones);
+    }
+    bool termino(){
+        bool resultado = false;
+        if (this->enviador->termino() || this->recibidor->termino()){
+            resultado = true;
+        }
+        return resultado;
+    }
+    void cerrar(){
+        this->enviador->cerrar();
+        this->recibidor->cerrar();
     }
 
 

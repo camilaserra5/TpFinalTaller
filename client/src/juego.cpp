@@ -42,8 +42,8 @@ void Juego::eventos() {
     if (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT:
-              std::cerr << "entre en quit del juego" << std::endl;
-              this->cerrar();
+                std::cerr << "entre en quit del juego" << std::endl;
+                this->cerrar();
 
             default:
                 break;
@@ -85,7 +85,7 @@ void Juego::actualizar() {
 
 void Juego::renderizar() {
     this->modelo.renderizar();
-    this->ventana.renderizar(this->texturaInferior);
+    this->ventana.renderizar();
 }
 
 Juego::~Juego() {
@@ -99,7 +99,7 @@ Juego::~Juego() {
 void Juego::cerrar() {
     this->corriendo = false;
     this->ventana.cerrar();
-};
+}
 
 void Juego::clean() {
     this->ventana.limpiar();
@@ -154,9 +154,10 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
 }
 
 Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
-  try{
-    return this->texturas.at(tipoDePared);
+    try {
+        return this->texturas.at(tipoDePared);
 
-  }catch(...){
-return NULL;}
+    } catch (...) {
+        return NULL;
+    }
 }

@@ -12,12 +12,10 @@ CanionDeCadena::CanionDeCadena(Posicion &posicion, int id) :
 
 CanionDeCadena::~CanionDeCadena() {}
 
-Actualizacion* CanionDeCadena::atacarEfectivamente(int distancia_a_pared,
-                                         Jugador *jugador,
-                                         std::map<int, Jugador *> &jugadores) {
+Actualizacion *CanionDeCadena::atacarEfectivamente(Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
-    std::map<int, Jugador*> jugadoresAtacados;
+    std::map<int, Jugador *> jugadoresAtacados;
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
         int cantidad_balas = BALAS_POR_RAFAGA;
         int i = 0;
@@ -41,12 +39,12 @@ Actualizacion* CanionDeCadena::atacarEfectivamente(int distancia_a_pared,
     return new ActualizacionAtaque(jugador, jugadoresAtacados);
 }
 
-Actualizacion* CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador,
-                            std::map<int, Jugador *> &jugadores) {
+Actualizacion *CanionDeCadena::atacar(int distancia_a_pared, Jugador *jugador,
+                                      std::map<int, Jugador *> &jugadores) {
     int balasJugador = jugador->cantidad_balas();
     if (this->contador == 0 && balasJugador > BALAS_POR_RAFAGA) {
         this->contador = TICKS_DISPARO_CANION;
-        return this->atacarEfectivamente(distancia_a_pared, jugador, jugadores);
+        return this->atacarEfectivamente(jugador, jugadores);
     } else {
         this->contador--;
         return NULL;

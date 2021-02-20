@@ -9,6 +9,8 @@
 #include <vector>
 #include "map.h"
 #include "protocolo.h"
+#include "../include/thclient.h"
+#include "../include/partida.h"
 
 class ManejadorPartidas : public ISerializable {
 public:
@@ -16,14 +18,16 @@ public:
 
     ~ManejadorPartidas();
 
+    void nuevoCliente(ThClient *cliente);
+
     void cerrarPartidas();
 
-    int crearPartida(std::string &nombreJugador, int &cant_jugadores,
+    void crearPartida(std::string &nombreJugador, int &cant_jugadores,
                      std::string &nombre_partida, std::string &archivoMapa,
-                     Protocolo *protocolo, int &screenWidth);
+                     int &screenWidth);
 
-    int agregarClienteAPartida(std::string &nombreJugador,
-                               std::string &nombre_partida, Protocolo *protocolo);
+    void agregarClienteAPartida(std::string &nombreJugador,
+                               std::string &nombre_partida, ThClient *cliente);
 
     std::vector<char> serializar();
 
@@ -38,11 +42,10 @@ public:
     void agregarMapa(std::string nombreMapa, std::string archivoMapa);
 
 private:
-    std::map<std::string, Servidor *> partidas;
+    std::map<std::string, Partida *> partidas;
     std::atomic<bool> esta_corriendo;
     std::map<std::string, std::string> &mapas;
     std::string rutaMapas;
-
 };
 
 #endif

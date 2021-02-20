@@ -3,16 +3,11 @@
 #include "socket.h"
 #include "socket_error_aceptar.h"
 #include "socket_error.h"
-#include <string>
 
-#include <errno.h>
 #include <netdb.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 
 #include <cstring>
-#include <exception>
 #include <utility>
 #include <iostream>
 
@@ -56,7 +51,7 @@ Socket::Socket(Socket &&otro) : filedescriptor(otro.filedescriptor) {
 }
 
 void Socket::bind_and_listen(const char *servicio) {
-    int estado = ERROR;
+    int estado;
     bool pude_bindear = false;
 
     struct addrinfo hints;
@@ -76,8 +71,8 @@ void Socket::bind_and_listen(const char *servicio) {
     }
     item_lista = result;
 
-    while (item_lista != NULL && pude_bindear == false) {
-        int fd = FD_INVALIDO;
+    while (item_lista != NULL && !pude_bindear) {
+        int fd;
         fd = ::socket(item_lista->ai_family,
                       item_lista->ai_socktype,
                       item_lista->ai_protocol);
@@ -124,7 +119,7 @@ Socket Socket::aceptar() {
 }
 
 void Socket::conectar(const char *host, const char *servicio) {
-    int estado = ERROR;
+    int estado;
     bool pude_conectar = false;
 
     struct addrinfo hints;
@@ -146,7 +141,7 @@ void Socket::conectar(const char *host, const char *servicio) {
     item_lista = result;
 
     while (item_lista != NULL && !pude_conectar) {
-        int fd = FD_INVALIDO;
+        int fd;
         fd = socket(item_lista->ai_family,
                     item_lista->ai_socktype,
                     item_lista->ai_protocol);

@@ -2,6 +2,7 @@
 #include <math.h>
 #include <iterator>
 #include "../include/actualizaciones/actualizacionAtaque.h"
+
 #define RADIO_DE_IMPACTO 10
 #define BALAS_POR_LANZACOHETES 5
 
@@ -10,11 +11,11 @@ LanzaCohetes::LanzaCohetes(Posicion &posicion, int id) :
 
 LanzaCohetes::~LanzaCohetes() {}
 
-std::map<int,Jugador*> verificarJugadoresEnRango(Posicion &posicionImpacto,
-                               std::map<int, Jugador *> &jugadores,
-                               Jugador *jugador) {
+std::map<int, Jugador *> verificarJugadoresEnRango(Posicion &posicionImpacto,
+                                                   std::map<int, Jugador *> &jugadores,
+                                                   Jugador *jugador) {
     std::map<int, Jugador *>::iterator it;
-    std::map<int, Jugador*> jugadoresAtacados;
+    std::map<int, Jugador *> jugadoresAtacados;
     int jugadoresMatados = 0;
     for (it = jugadores.begin(); it != jugadores.end(); ++it) {
         if (posicionImpacto.distanciaA(it->second->getPosicion()) < RADIO_DE_IMPACTO) {
@@ -31,14 +32,15 @@ std::map<int,Jugador*> verificarJugadoresEnRango(Posicion &posicionImpacto,
     return jugadoresAtacados;
 }
 
-Actualizacion* LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador,
-                          std::map<int, Jugador *> &jugadores) {
+Actualizacion *LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador,
+                                    std::map<int, Jugador *> &jugadores) {
     /*no cheqyeo las balas porque si no tiene 5 no podria tener un lanzacohetes*/
     jugador->gastarBalas(BALAS_POR_LANZACOHETES);
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
-    std::map<int, Jugador*> jugadoresAtacados;
+    std::map<int, Jugador *> jugadoresAtacados;
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
-        jugadoresAtacados = verificarJugadoresEnRango(jugadores.at(idJugadorMasCercano)->getPosicion(), jugadores, jugador);
+        jugadoresAtacados = verificarJugadoresEnRango(jugadores.at(idJugadorMasCercano)->getPosicion(), jugadores,
+                                                      jugador);
     } else {
         int xPared = floor(distancia_a_pared * cos(jugador->getAnguloDeVista()));
         int yPared = floor(distancia_a_pared * sin(jugador->getAnguloDeVista()));

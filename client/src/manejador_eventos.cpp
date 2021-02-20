@@ -1,11 +1,9 @@
 #include "../include/manejador_eventos.h"
-#include "../include/player.h"
 
 #include "comandos/movimiento.h"
 #include "comandos/ataque.h"
 #include "comandos/aperturaDePuerta.h"
 #include "comandos/cambioDeArma.h"
-#include <iostream>
 #include <config.h>
 
 #define RUTA_SONIDO_AMBIENTE SOUNDS_DIR THEME
@@ -22,7 +20,7 @@ void ManejadorEventos::run() {
     SDL_Event evento;
     while (this->corriendo) {
         std::cerr << "sigo en manejador de enventos\n";
-        while(SDL_PollEvent(&evento)) {
+        while (SDL_PollEvent(&evento)) {
             detectarEventos(evento);
             std::chrono::milliseconds duration(60);
             std::this_thread::sleep_for(duration);
@@ -87,7 +85,7 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
                     break;
                 case SDLK_SPACE:
                     crearAperturaDePuerta();
-                        //reproducir_sonido(SONIDO_DE_PUERTA, REPETICION_PUERTA);
+                    //reproducir_sonido(SONIDO_DE_PUERTA, REPETICION_PUERTA);
                     break;
             }
             break;

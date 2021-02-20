@@ -24,9 +24,9 @@ public:
 
     void deserializar(std::vector<char> &serializado) override;
 
-    std::vector<Actualizacion*> ejecutar(EstadoJuego &estadoJuego) override {
-      std::vector<Actualizacion*> a;
-      return a;
+    std::vector<Actualizacion *> ejecutar(EstadoJuego &estadoJuego) override {
+        std::vector<Actualizacion *> a;
+        return a;
     }
 
     std::string &getNombreJugador();

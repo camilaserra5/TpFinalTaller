@@ -2,8 +2,7 @@
 
 Protocolo::Protocolo(Socket socket) : socket(std::move(socket)) {}
 
-Protocolo::~Protocolo() {};
-
+Protocolo::~Protocolo() {}
 
 void Protocolo::enviar(std::vector<char> &informacion) {
     unsigned int size = htonl(informacion.size());
@@ -16,16 +15,16 @@ void Protocolo::enviar(std::vector<char> &informacion) {
 }
 
 std::vector<char> Protocolo::recibir_aux() {
-  char length_str[4];
-  socket.recibir(length_str, 4);
+    char length_str[4];
+    socket.recibir(length_str, 4);
 
-  unsigned int *buf = (unsigned int *) length_str;
-  unsigned int length = ntohl(*buf);
-  std::vector<char> informacion(length);
+    unsigned int *buf = (unsigned int *) length_str;
+    unsigned int length = ntohl(*buf);
+    std::vector<char> informacion(length);
 
-  //informacion.resize(length);
-  socket.recibir(informacion.data(), length);
-  return informacion;
+    //informacion.resize(length);
+    socket.recibir(informacion.data(), length);
+    return informacion;
 }
 
 std::vector<char> Protocolo::recibir() {
@@ -40,8 +39,7 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     memcpy(number, sub.data(), 4);
     uint32_t *buf = (uint32_t *) number;
-    buf = (uint32_t *) number;
-    idx+=4;
+    idx += 4;
     int idJugador = ntohl(*buf);
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     memcpy(number, sub.data(), 4);

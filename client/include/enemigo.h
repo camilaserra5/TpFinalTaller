@@ -31,7 +31,8 @@ public:
     int getPuntaje() {
         return this->puntaje;
     }
-    void actualizarArma(int idArma){
+
+    void actualizarArma(int idArma) {
         this->idArma = idArma;
     }
 

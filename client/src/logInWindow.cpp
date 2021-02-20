@@ -1,10 +1,6 @@
 #include "../include/logInWindow.h"
-#include "../include/scene.h"
 #include "../include/background.h"
-#include "SDL2/SDL_ttf.h"
 #include "../include/label.h"
-#include <sstream>
-#include "protocolo.h"
 #include "comandos/crearPartida.h"
 #include "comandos/unirseAPartida.h"
 #include <config.h>

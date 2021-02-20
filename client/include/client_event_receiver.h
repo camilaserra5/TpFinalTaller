@@ -33,8 +33,8 @@ public:
 
     ~ClientEventReceiver();
 
-    bool recibi(){
-      return this->recibii;
+    bool recibi() {
+        return this->recibii;
     }
 };
 

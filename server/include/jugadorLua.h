@@ -6,17 +6,21 @@
 #include "../src/LUA/manejadorlua.h"
 #include <string>
 
-class JugadorLua{
+class JugadorLua {
 private:
     bool esta_vivo;
-    EstadoJuego& estadoJuego;
+    EstadoJuego &estadoJuego;
     ManejadorLua lua;
 
 public:
-    JugadorLua(EstadoJuego& estadoJuego, int id, std::string& ruta);
-    void instanciarJugador(std::string & nombre);
+    JugadorLua(EstadoJuego &estadoJuego, int id, std::string &ruta);
+
+    void instanciarJugador(std::string &nombre);
+
     char procesar();
+
     int id;
+
     ~JugadorLua();
 };
 

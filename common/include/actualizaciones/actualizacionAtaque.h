@@ -11,8 +11,10 @@
 
 class ActualizacionAtaque : public Actualizacion {
 public:
-    ActualizacionAtaque(Jugador* jugador, std::map<int, Jugador*>& jugadoresAtacados);
-    ActualizacionAtaque(){}
+    ActualizacionAtaque(Jugador *jugador, std::map<int, Jugador *> &jugadoresAtacados);
+
+    ActualizacionAtaque() {}
+
     ~ActualizacionAtaque();
 
     std::vector<char> serializar() override;
@@ -21,17 +23,17 @@ public:
 
     int obtenerId() override { return static_cast<int>(Accion::ataque); }
 
-    Jugador* obtenerJugador(){
+    Jugador *obtenerJugador() {
         return this->jugador;
     }
 
-    std::map<int, Jugador*>& obtenerJugadoresAtacados(){
+    std::map<int, Jugador *> &obtenerJugadoresAtacados() {
         return jugadoresAtacados;
     }
 
 private:
-    Jugador* jugador;
-    std::map<int, Jugador*> jugadoresAtacados;
+    Jugador *jugador;
+    std::map<int, Jugador *> jugadoresAtacados;
 };
 
 #endif

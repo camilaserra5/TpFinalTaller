@@ -11,62 +11,21 @@
 #include "jugador.h"
 #include "iserializable.h"
 #include <atomic>
-#include "manejadorCliente.h"
 #include "jugadorLua.h"
+#include "parser.h"
+#include <string>
+#include "socket.h"
 
-class Servidor : public Thread, public ISerializable {
+class Servidor {
+private:
+    Socket socket;
+    Parser &parser;
 public:
-    Servidor(Map mapa, int cant_jugadores);
+    Servidor(Parser &parser);
+
+    void correr();
 
     ~Servidor();
-
-    void run() override;
-
-    void agregarCliente(std::string &nombreJugador, ManejadorCliente* cliente, int& id);
-
-    bool yaArranco();
-
-    bool terminoPartida();
-
-    ProtectedQueue<Comando *> &obtenerColaEventos();
-
-  //  BlockingQueue<Actualizacion *> &obtenerColaActualizaciones();
-
-    void lanzarJugadores();
-
-    void lanzarContadorTiempoPartida();
-
-    void borrarClientes();
-
-    std::vector<char> serializar();
-
-    void deserializar(std::vector<char> &serializado) {}
-
-    void enviar_actualizaciones(std::vector<Actualizacion*> actualizaciones);
-
-    void actualizarContador();
-
-    int obtenerIdParaJugador();
-
-    void joinClientes();
-
-    void verificarClientesDesconectados();
-
-private:
-    void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);
-
-    ProtectedQueue<Comando *> cola_comandos;
-    //BlockingQueue<Actualizacion *> cola_actualizaciones;
-    EstadoJuego estadoJuego;
-    int cantJugadoresPosibles;
-    int cantJugadoresAgregados = 0;
-    std::atomic<bool> sigue_corriendo;
-    std::atomic<bool> arrancoPartida;
-    int generadorDeId = 100;
-    std::map<int, ManejadorCliente*> clientes;
-    //JugadorLua jugadorLua;
-
-    void generarComandosLua(JugadorLua &jugadorLua, ProtectedQueue<Comando *> &cola_comandos);
 };
 
-#endif
+#endif /*SERVIDOR_H*/

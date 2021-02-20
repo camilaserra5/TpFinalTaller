@@ -24,8 +24,8 @@ public:
 
     virtual ~Arma() {}
 
-    virtual Actualizacion* atacar(int distancia_a_pared, Jugador *jugador,
-                        std::map<int, Jugador *> &jugadores) = 0;
+    virtual Actualizacion *atacar(int distancia_a_pared, Jugador *jugador,
+                                  std::map<int, Jugador *> &jugadores) = 0;
 
     /*devuelve el id*/
     int JugadorAMenorDistancia(Jugador *jugador,

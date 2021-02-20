@@ -4,16 +4,16 @@
 #define PUNTOS_MATAR 10
 
 bool Logro::operator>(Logro &logro) {
-    bool mateMasEnemigos = (this->enemigosMatados > logro.enemigosMatados ? true : false);
-    bool tengoMasPuntosPorTesoro = (this->puntosTotalesPorTesoros > logro.puntosTotalesPorTesoros ? true : false);
-    bool dispareMasBalas = (this->balasDisparadas > logro.balasDisparadas ? true : false);
+    bool mateMasEnemigos = this->enemigosMatados > logro.enemigosMatados;
+    bool tengoMasPuntosPorTesoro = this->puntosTotalesPorTesoros > logro.puntosTotalesPorTesoros;
+    bool dispareMasBalas = this->balasDisparadas > logro.balasDisparadas;
     return (mateMasEnemigos && tengoMasPuntosPorTesoro && dispareMasBalas);
 }
 
 bool Logro::operator==(Logro &logro) {
-    bool mateMasEnemigos = (this->enemigosMatados == logro.enemigosMatados ? true : false);
-    bool tengoMasPuntosPorTesoro = (this->puntosTotalesPorTesoros == logro.puntosTotalesPorTesoros ? true : false);
-    bool dispareMasBalas = (this->balasDisparadas == logro.balasDisparadas ? true : false);
+    bool mateMasEnemigos = this->enemigosMatados == logro.enemigosMatados;
+    bool tengoMasPuntosPorTesoro = this->puntosTotalesPorTesoros == logro.puntosTotalesPorTesoros;
+    bool dispareMasBalas = this->balasDisparadas == logro.balasDisparadas;
     return (mateMasEnemigos && tengoMasPuntosPorTesoro && dispareMasBalas);
 }
 
@@ -68,6 +68,6 @@ void Logro::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->balasDisparadas = charArrayToNumber(sub);
-//    std::cerr << " logro deserializar balasDisparadas " << balasDisparadas << std::endl;
-  //  std::cerr << " logro deserializar fin "  << std::endl;
+    std::cerr << " logro deserializar balasDisparadas " << balasDisparadas << std::endl;
+    //  std::cerr << " logro deserializar fin "  << std::endl;
 }

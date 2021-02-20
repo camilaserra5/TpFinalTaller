@@ -1,13 +1,13 @@
 #include "../include/actualizaciones/actualizacionAgregarItem.h"
-#include <iostream>
+
 #define PUNTOS_CRUZ 10
 #define PUNTOS_COPA 50
 #define PUNTOS_COFRE 100
 #define PUNTOS_CORONA 200
 
-ActualizacionAgregarItem::ActualizacionAgregarItem(Item* item): item(item){}
+ActualizacionAgregarItem::ActualizacionAgregarItem(Item *item) : item(item) {}
 
-ActualizacionAgregarItem::~ActualizacionAgregarItem(){}
+ActualizacionAgregarItem::~ActualizacionAgregarItem() {}
 
 std::vector<char> ActualizacionAgregarItem::serializar() {
     std::vector<char> informacion;
@@ -23,7 +23,7 @@ std::vector<char> ActualizacionAgregarItem::serializar() {
     return informacion;
 }
 
-Item* ActualizacionAgregarItem::deserializarItem(std::vector<char> &informacion) {
+Item *ActualizacionAgregarItem::deserializarItem(std::vector<char> &informacion) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
@@ -31,7 +31,7 @@ Item* ActualizacionAgregarItem::deserializarItem(std::vector<char> &informacion)
     idx += 4;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     int idTipo = charArrayToNumber(sub);
-    idx +=4;
+    idx += 4;
     std::cerr << "deserializo item\n";
     std::cerr << "tipoid: " << idTipo << "\n";
     Posicion posicion;
