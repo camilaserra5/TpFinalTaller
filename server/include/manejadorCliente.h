@@ -56,6 +56,7 @@ public:
         this->enviador->enviar_actualizaciones(actualizaciones);
     }
 
+
 private:
     Server_Event_Sender *enviador;
     Server_Event_Receiver *recibidor;

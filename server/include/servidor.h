@@ -50,6 +50,7 @@ public:
 
     void joinClientes();
 
+    void verificarClientesDesconectados();
 
 private:
     void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);

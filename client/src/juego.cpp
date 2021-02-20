@@ -1,5 +1,6 @@
 #include "../include/juego.h"
 #include <config.h>
+#include <algorithm>
 #define EXITO 0
 #define LARGO_PROYECTOR ANCHO_CANVAS
 #define ANCHO_PROYECTOR 20
@@ -43,7 +44,7 @@ void Juego::eventos() {
             case SDL_QUIT:
               std::cerr << "entre en quit del juego" << std::endl;
               this->cerrar();
-                
+
             default:
                 break;
         }
@@ -121,11 +122,10 @@ void Juego::raycasting(Map &mapa, Player &jugador) {
         zbuffer.push_back(distancia);
         unsigned int alturaParedProyectada = 0;
         alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-    //    std:: cerr << "renderizo pared " << i << " de altura " << alturaParedProyectada << "\n";
-
         renderizarPared(render, rayo, i, alturaParedProyectada);
         anguloRayo += anguloPorStripe;
     }
+    std::reverse(zbuffer.begin(),zbuffer.end());
 }
 
 void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, unsigned int &alturaParedProyectada) {
