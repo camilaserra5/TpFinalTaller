@@ -19,7 +19,7 @@ ManejadorEventos::~ManejadorEventos() {}
 void ManejadorEventos::run() {
     SDL_Event evento;
     while (this->corriendo) {
-        std::cerr << "sigo en manejador de enventos\n";
+        //std::cerr << "sigo en manejador de enventos\n";
         while (SDL_PollEvent(&evento)) {
             detectarEventos(evento);
             std::chrono::milliseconds duration(60);

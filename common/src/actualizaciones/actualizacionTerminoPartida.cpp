@@ -22,7 +22,3 @@ void ActualizacionTerminoPartida::deserializar(std::vector<char> &serializado) {
                                              serializado.end());
     this->estadoJuego.deserializar(estadoJuegoSerializado);
 }
-
-Ranking *ActualizacionTerminoPartida::obtenerRanking() {
-    return new Ranking(this->estadoJuego.obtenerJugadores());
-}

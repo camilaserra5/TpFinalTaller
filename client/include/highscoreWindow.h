@@ -23,7 +23,7 @@ public:
 
     void show_highscores(SDL_Renderer *renderer, Fonts fonts);
 
-    void settearGanadores(Ranking *ranking);
+    void settearGanadores(Ranking &ranking);
 
     ~HighscoreWindow();
 

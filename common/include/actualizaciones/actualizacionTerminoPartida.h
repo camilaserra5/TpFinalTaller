@@ -23,7 +23,9 @@ public:
 
     int obtenerId() override { return static_cast<int>(Accion::terminoPartida); }
 
-    Ranking *obtenerRanking();
+    EstadoJuego &obtenerEstadoJuego() {
+        return this->estadoJuego;
+    }
 
 private:
     EstadoJuego estadoJuego;

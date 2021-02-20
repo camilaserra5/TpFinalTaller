@@ -52,7 +52,7 @@ public:
 
     Player &getPlayer();
 
-    void terminoPartida(Ranking *rankingJugadores);
+    void terminoPartida(Ranking &rankingJugadores);
 
     void actualizar();
 
