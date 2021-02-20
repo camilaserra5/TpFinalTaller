@@ -17,8 +17,6 @@ public:
 
     SDL_Renderer *obtener_render();
 
-    void renderizar();
-
     void actualizar();
 
     void limpiar();

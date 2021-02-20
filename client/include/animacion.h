@@ -12,7 +12,7 @@
 
 class Animacion {
 private:
-    Textura *textura;
+    Textura textura;
     std::vector<SDL_Rect> frames;
     int frame_h;
     int frame_w;

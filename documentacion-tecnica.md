@@ -37,10 +37,10 @@ El servidor se encarga de recibir a todos los clientes, crear y manejar las dist
 
 ### Clases y Diagramas UML
 Cuando un cliente se conecta, se le mandan las partidas que no empezaron serializadas. Luego, se recibe si el cliente va a crear una nueva o unirse a la existente, y en base a eso se sigue la lógica.
-![](http://www.plantuml.com/plantuml/png/jLHDRzim3BtxL-Ze04jt7x2WnSu31gptWfQOb9jC6PISVVpwoOuQoOvQ0mDwI60_yecFV9JlVG09Os-RPpAeZiw5plrk6j31YHezIZF41D8q00VL0_42UD0u131kcVRu_CKISbY0tvt-YKleAp3-cDZV9j20Nn9GpZGTtJIJ4BK_pFNL9tNtqQUOqewFTBhx0xsTHDCP0bvaJd-Ha-f6LaTidY3-BFc0t0vEmYwJaZw3QqGBnhUAs5JXDXABCVvAn696YP2Hb5Z3PsDQFqlueFfrYIoyEDywDwWBvUaCbenhL0xl3zTHm8n9kulnTRigFUmFfPm1KMB8u6rwQlDgUb4oDdN5Bxssqq7LVahQafTcKOWjg-N4LwpmA0IM_fRzrWrLjzXAoP1J3RvrKYQLAuXyfYXZo4tNymGrTVIsFojbn4SdFMXo_8fFO8CYepwhaKayRazkTlRbVNDsQG_ojQrFCyMlkx-T1IV14yX5AhRi-avmj-s0mTgseFMeDdjVLtr8aHVh_cUHwdMwqMkGzV7lDfOOHpRhErhUT4iT2iWZIaySCH-TdoWb8M-gHf7vOXciV90IcZ_AzyXcxEq_)
+![](http://www.plantuml.com/plantuml/png/vLLDRzim3BtxL-Ze06rt7z2YHKyTK210ktD1MsogJPOCIiu-VlqaXqh5Qa6mymw1b2S-FZwQicz318hBPBiter6zUXy7_xFhO8oUr1AGkZa5cD7CuAAQm3W1R84-nZmXxOts4hmRSOxm4NtoutUC0de4Xzzou3Q36e8uPL1Wps_trg2BCf1yzAEtlkko2NLvizQkFgkhJu4BLADthsPtzGiccmsRFKGyM1m9qxwuor3Am7zJ3eS_-egyAV75Uc4Ke73cDS7cRyUZ9qBgDrn8dQniH0b-YEYGjWjIz3MDQ-P0AJAlqPr66Iqa-A6awC4u_GBfPqr8Ols1NSnMZxHc5vGjdpnRvwuFgzQ5eYN28ymGBjIK5_OZPLYtdP0IaaNQO-vzAs6zdzMXWfSzs5HbfzxbBc-EZO0Lomz7gL9NcLt5cykRsjsCIEb8OnlEBihK9aIKNt2kEYTgsfCMetCnvuqlkFU7XDYFXrMuQ9kfMapMLKRlta_Wj7zmPZHW-wcmdf3IV_CxxOLKvRXiS-BZJKsPqUqDq8bKfsc4enbCVNcg-_yUA5qOzrhTX9eXXTXcOcWCfHxgCxtIuwXEbLscrd8Z1sXiE5AlwNv5vebg-WasbXXrVQtk2O5KmbMRxQH4ufJ_ww0V9vN1q-bupnEx-JTTs17kW7X6x_YacjNpgZ95JUNEW8jVbbrEW27rHm9R7ynWCQpXggIj5VXbnSxGwRIY3LYt_Aip5F3_iExq-PS4N-K7pM8fWnZUXYxVPl9ROSs01FICD1cNi92ovIggVCTm1kKNLAFylDyczZBPFm00)
 
 Una vez que la partida está completa, se da inicio y el servidor la maneja de la siguiente manera:
-![](http://www.plantuml.com/plantuml/png/VLH1Rjmm3Bpp5Jvw3m5wwY6786tGOu6sUK2WbIOjKriqP7bHz4TzHpzMxcvSByCeHv4pmn57zkrSGwdBED0FJkWUHUfUVX65MALqoun2am8uyXHoxUvH3fp45Z-7ZAUWrRk1aIiS0-NJGHlto0cbrVs62DO37OTsLpV_PtNNNLbolpjwuaEes5pG839ryJnsfhMkR6VAgpZRZg8oNufKYJA8yf4F74gFSKBy-sVdy5StxhBNf_LQxnQoNWAAV8XI2cjLoC6EPZuE4dzo_lvrmG8rDCcq2PicMQXodQ3obRk4WN-7o98feQ7rgfSFbrpLcb7uT2wR9OCXosXOulmePNI6h98Zlangrcf_8RKZBH1TAZgDPfpcTRO2DQ1ceWRdRHT4tlEsmAr96qmvNiglpckq7Dp96DIWAYJu5B7sQSKr3SHdO8BZld5vn8gqlkYGEIGk3obKwP_rpk4blBdnXFPtVU8tC-4ahtkHVKN6sOkDP8EHFThVbb-8ewzWcmEU49VgCcYjTfKmi-S1cFhtxyxRkoIk8BhLpZ8E_m00)
+![](http://www.plantuml.com/plantuml/png/VLIzRjj03Dxv51hb8K2d3Xc2j47tjkaUdE--D6obeq2TZA9lrEVeY-LaMuSJA7apoU_d4odvSKnEqzHtzCO1pQj8EieV8kUJQ3EDK1eoW3qFBgRcw_mxk5NlnzjJnuXfrNo6dg1VJhd_Z1YWUzFlyE1SqEpLt3qi5irzerDi3tCIFhc4uasToD3uioT6Ml2PkYInt9AnG6OdbIHUEibun1CxRT4FyF__7Ghkxi4yoVrvPRMwWLmp8YDVlAXoxWePs1pYSoV-DyUVtoPCo4466OhmUaYhAdEjR-PdxkGw_kiyIwI0RQtjB9zgRjOQeNokjKHQOsXLxKNY-2hQru6iqdQW-a9ZxhQLr85oWwXIjERL6Sqhjtr80zgyfC7Pk0hFHwuMLuPKViqSAsLNPZHs4pn9xsAO_GCshhVCQS7j1l1NO83XtdXu-8ImlCakiWkiBy4bQQzwbwC5tDnuWFrkpxojMrJVluqWnuI8IuJw4ZMCrcNz5sJNODd5lbu-Vi5FoIn-Uvz5eJOUEs1eFtwuBAoYBHXwp8Efxzu1)
 
 
 ## Módulo 3 - Common
@@ -52,7 +52,6 @@ En este se encapsula la logica de las armas, los movimientos, el mapa, la serial
 ### Clases y Diagramas UML
 Serialización: para la serialización se creo la clase ISerializable, la cual luego extienden todas las clases que necesiten ser serializadas. Por ejemplo, los comandos, las actualizaciones y el mapa.
 ![](http://www.plantuml.com/plantuml/png/bPAnJiCm48RtF8Kdr0uii4KLQbKwK06gH7VanaTgbFZGnOu0yV3OLLo5sf5njlZ-xtBnVSjESzAcROgZ5C3U4FK1FulYuGL8yaP-yqC3RF5pxHwsghGv7LOILJJ3rjXo9J1Mj3MbGO50keTD0oqeZLsypSRE9N1heCQ9MRQcjWcAuuzOKto69_uHHtROoSdVSfo2T_V17ISj1P-OsvxrqerrKIvPBybT7kkqACiUAesqg8wSxbZdWpIRJs8zIi44ZB9XewjpLM3OASmhqnw0zhYsRoiY_ZKpKkdRcrSzbC8cvq3bcJq-ksni7kxgy-AFDV--YG1Bn0Vnqi6eXMbiP6GwFCYP3fv4JSUijUcGDpYT36HE8rviLkRkBTzSlyfyTdgxsPqk5fxFUmVoMQz5FkbDoUT6ykJ3CP_okumKouUNe8Hfcry0)
-
 
 
 ## Módulo 4 - Editor
@@ -83,6 +82,8 @@ A continuación se lista el protocolo según cada entidad serializada.
 | Jugador        |                     |
 |----------------|---------------------|
 | id jugador     | 4 bytes             |
+| size nombre    | 4 bytes             |
+| nombre         | size nombre bytes   |
 | vida           | 4 bytes             |
 | arma actual    | 4 bytes             |
 | disparando     | 4 bytes             |
@@ -113,10 +114,10 @@ A continuación se lista el protocolo según cada entidad serializada.
 | cant partidas      | 4 bytes             |
 | size nombre        | 4 bytes             |
 | nombre             | size nombre bytes   |
-| Partida (Servidor) | 8 bytes             |
+| Partida            | 8 bytes             |
 
 
-| Partida (Servidor)       |                     |
+| Partida                  |                     |
 |--------------------------|---------------------|
 | cant jugadores unidos    | 4 bytes             |
 | cant jugadores posibles  | 4 bytes             |

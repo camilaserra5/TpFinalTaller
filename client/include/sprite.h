@@ -8,7 +8,7 @@
 
 class Sprite {
 private:
-    Textura *textura;
+    Textura textura;
     SDL_Rect infoSprite;
     SDL_Rect destino;
 
