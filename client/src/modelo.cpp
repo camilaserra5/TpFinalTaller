@@ -225,7 +225,7 @@ void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
     }
 }
 
-void Modelo::terminoPartida(Ranking *rankingJugadores) {
+void Modelo::terminoPartida(Ranking &rankingJugadores) {
     this->anunciador.settearGanadores(rankingJugadores);
     this->partidaTerminada = true;
 }
@@ -491,8 +491,8 @@ bool Modelo::procesarActualizaciones() {
         } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
             std::cerr << "act terminooo" << std::endl;
             auto termino = (ActualizacionTerminoPartida *) actualizacion;
-            Ranking *ranking = termino->obtenerRanking();
-            this->terminoPartida(ranking);
+            Ranking *ranking = new Ranking(std::move(termino->obtenerEstadoJuego().obtenerJugadores()));
+            this->terminoPartida(*ranking);
         }
 
         delete actualizacion;

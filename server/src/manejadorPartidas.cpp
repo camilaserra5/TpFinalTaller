@@ -63,8 +63,10 @@ void ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugad
                                      std::string &nombre_partida, std::string &archivoMapa,
                                      int &screenWidth) {
     if (partidas.count(nombre_partida) > 0) {
-        std::cerr << "No existe la partida con nombre: " << nombre_partida << std::endl;
-        return;
+        if (partidas.at(nombre_partida)->terminoPartida() || partidas.at(nombre_partida)->yaArranco()) {
+            std::cerr << "Ya existe la partida con nombre: " << nombre_partida << std::endl;
+            return;
+        }
     }
     try {
         Map mapa = this->buscarMapa(archivoMapa, screenWidth);
