@@ -57,9 +57,9 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     } else {
         posElementoy = ladoCelda * (colNumber - 1) + rand() % ladoCelda;
     }
-    std::cerr << "posElementox: " << posElementox << "\n";
-    std::cerr << "posElemntoY:  " << posElementoy << "\n";
-    std::cerr << "agrego un item\n";
+//    std::cerr << "posElementox: " << posElementox << "\n";
+//    std::cerr << "posElemntoY:  " << posElementoy << "\n";
+//    std::cerr << "agrego un item\n";
     Posicion posicion = Posicion(posElementox, posElementoy, ANGULO_DEFAULT);
     if (value.getName() == "comida") {
         int idValido = this->crearIdValido();
@@ -199,7 +199,7 @@ void Map::deserializar(std::vector<char> &serializado) {
 
     idx += 4;
     std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
-    std::cerr << "tam srializado " << serializado.size() << "tam idx" << idx << std::endl;
+//    std::cerr << "tam srializado " << serializado.size() << "tam idx" << idx << std::endl;
     this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
 }
 
@@ -256,9 +256,9 @@ Posicion Map::obtenerPosicionIncialValida() {
     return posicion;
 }
 
-void Map::setLadoCelda(int anchoPantalla) {
-    std::cerr << "ancho oantalla: " << anchoPantalla << '\n';
-    this->ladoCelda = anchoPantalla / rowSize;
+void Map::setLadoCelda(int anchoPantalla){
+  //std::cerr << "ancho oantalla: " << anchoPantalla << '\n';
+  this->ladoCelda = anchoPantalla / rowSize;
 }
 
 int Map::getLadoCelda() {
