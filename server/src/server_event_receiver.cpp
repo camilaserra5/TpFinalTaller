@@ -10,7 +10,11 @@ void Server_Event_Receiver::run() {
             } else {
                 std::cerr << "comando size:  " << informacion.size() << std::endl;
                 Comando *comando = protocolo->deserializarComando(informacion);
-                this->comandos.aniadir_dato(comando);
+                if (comando == nullptr) {
+                    this->cerrar();
+                } else {
+                    this->comandos.aniadir_dato(comando);
+                }
             }
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;

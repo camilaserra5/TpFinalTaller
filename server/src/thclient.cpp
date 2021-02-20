@@ -76,6 +76,8 @@ void ThClient::stop() {
 }
 
 bool ThClient::is_dead() {
+    if (this->enviador == nullptr || this->recibidor == nullptr)
+        return true;
     return !this->enviador->estaCorriendo() || !this->recibidor->estaCorriendo();
 }
 

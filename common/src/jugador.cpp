@@ -49,14 +49,12 @@ std::string Jugador::obtenerNombre() {
 
 // recibo la posicion a moverse
 void Jugador::moverse(int posx, int posy) {
-
     this->posicion.actualizar_posicion(posx, posy);
 }
 
 
 // recibo cuando gano de vida + o cuanto pierdo -
 void Jugador::actualizar_vida(int &vidaActualizada) {
-
     this->vida += vidaActualizada;
 }
 
@@ -144,7 +142,6 @@ void Jugador::usarLlave() {
 }
 
 bool Jugador::estaMuerto() {
-
     return (this->vida <= 0);
 }
 
