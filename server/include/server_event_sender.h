@@ -29,17 +29,16 @@ public:
             this->actualizaciones.push(*it);
         }
     }
-<<<<<<< HEAD
+
     bool empezo(){
         return this->corriendo;
     }
+
     bool termino(){
         return !this->corriendo;
-=======
-
+}
     bool estaCorriendo() {
         return corriendo;
->>>>>>> 0fc9e59f0849ab6be23f77097005aecaf12a9b57
     }
 
 private:
