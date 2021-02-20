@@ -50,6 +50,7 @@ EstadoJuego::EstadoJuego(Map &mapa) :
         contador(0) {}
 
 EstadoJuego::~EstadoJuego() {
+    std::cerr << "entre al destructor de estadoJuego";
     std::map<int, Jugador *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         delete it->second;
@@ -207,6 +208,7 @@ void EstadoJuego::actualizarTiempoPartida() {
 }
 
 std::vector<char> EstadoJuego::serializar() {
+    std::cerr << "serializo en estado juego\n";
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(jugadores.size());
@@ -225,6 +227,7 @@ std::vector<char> EstadoJuego::serializar() {
 }
 
 void EstadoJuego::deserializar(std::vector<char> &informacion) {
+    std::cerr << "DESERIALIZO ESTADO JUEGO\n";
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);

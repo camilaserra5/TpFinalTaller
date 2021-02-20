@@ -1,6 +1,3 @@
---PREGUNTA: SE PUEDE QUEDAR QUIETO MIENTRAS DISPARA?? O SI O SI TIENE QUE HACER MOVIMIENTO MIENTRA ATACA?
--- EN ESE CSAO COMO SERIA PORQUE SOLO PUEDE DEVOLVER UN CARACTER PARA QUE AFUERA SE GENERE UN COMANDO
-
 -- macro Variable
 next_position = {
     [-1] = "a", -- IZQUIERDA
@@ -52,6 +49,7 @@ function disparar_al_enemigo()
 end
 
 function crear_accion(pos_x, pos_y)
+    print("CREAR ACCION")
     print(string.format("MODULO LUA RECIBIO: %d, %d", pos_x, pos_y))
     --print(pos_y)
     local siguiente_mov = proximo_movimiento(pos_x, pos_y)

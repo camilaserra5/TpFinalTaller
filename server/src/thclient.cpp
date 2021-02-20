@@ -16,9 +16,8 @@ ThClient::ThClient(Socket &&un_socket, std::string rutaMapas,
         rutaMapas(std::move(rutaMapas)),
         mapas(mapas),
         keep_talking(true),
-        is_running(true) {
-    this->id = id;
-}
+        is_running(true),
+        id(id){}
 
 Comando *ThClient::obtenerComandoInicial(std::vector<char> partidas) {
     this->protocolo->enviar(partidas);
@@ -62,7 +61,9 @@ void ThClient::agregarColaEventos(ProtectedQueue<Comando *> &cola_comandos) {
 }
 
 ThClient::~ThClient() {
-    this->join();
+    delete this->protocolo;
+    delete this->enviador;
+    delete this->recibidor;
 }
 
 void ThClient::stop() {
@@ -76,8 +77,9 @@ void ThClient::stop() {
 }
 
 bool ThClient::is_dead() {
-    if (this->enviador == nullptr || this->recibidor == nullptr)
+    if (this->enviador == nullptr || this->recibidor == nullptr){
         return true;
+    }
     return !this->enviador->estaCorriendo() || !this->recibidor->estaCorriendo();
 }
 
@@ -99,12 +101,9 @@ void ThClient::run() {
     } catch (SocketError &e) {
         if (this->enviador->estaCorriendo()) {
             this->enviador->cerrar();
-            this->enviador->join();
         } else if (this->recibidor->estaCorriendo()) {
             this->recibidor->cerrar();
-            this->recibidor->join();
         }
     }
 
 }
-

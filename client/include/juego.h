@@ -20,7 +20,6 @@ class Juego : public Thread {
 private:
     bool corriendo;
     Ventana &ventana;
-    Textura *texturaInferior;
     Modelo &modelo;
     bool inicialice = false;
     std::map<int, Textura *> texturas;

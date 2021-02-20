@@ -26,8 +26,6 @@ public:
 
 private:
     EstadoJuego estadoJuego;
-    std::vector<int> rankingJugadores;
-    bool termine;
 };
 
 #endif

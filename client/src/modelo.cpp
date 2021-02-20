@@ -452,6 +452,9 @@ bool Modelo::procesarActualizaciones() {
                     int vidaE = it->second->puntos_de_vida();
                     std::cerr << "se ataco al enemigo\n";
                     this->actualizarVidaEnemigo(idE, vidaE, jugadorAux->getArma()->getId());
+                    this->enemigos.at(idE)->actualizarPosicion(ataque->obtenerJugador()->posEnX(),
+                                                              ataque->obtenerJugador()->posEnY(),
+                                                              ataque->obtenerJugador()->getAnguloDeVista());
                 }
             }
 

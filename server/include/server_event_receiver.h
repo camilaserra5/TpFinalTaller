@@ -17,17 +17,10 @@ public:
 
     void run() override;
 
-    void cerrar() {
-        this->corriendo = false;
-        protocolo->cerrar();
-    }
+    void cerrar();
 
-    bool estaCorriendo() {
-        return corriendo;
-    }
-    bool termino(){
-        return !this->corriendo;
-    }
+    bool estaCorriendo();
+    
 
 private:
     ProtectedQueue<Comando *> &comandos;
