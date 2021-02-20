@@ -64,7 +64,7 @@ void Animacion::renderizarColumna(SDL_Rect &dimension, SDL_Rect dest) {
     //dest.y += 30;
     std::cerr << "renderizo animacion con dimensiones x: " << dimension.x << " y: " << dimension.y << " h: " << dimension.h << " w: " << dimension.w << std::endl << std::endl;
     std::cerr << "renderizo animacion en x: " << dest.x << " y: " << dest.y << " h: " << dest.h << " w: " << dest.w << std::endl << std::endl;
-    this->textura->renderizar(&dimension, dest, 0, NULL);
+    this->textura.renderizar(&dimension, dest, 0, NULL);
     if (contador == 0 && yaRenderice) {
         this->frameActual += 1;
         this->contador = TICKS_ANIMACION;
