@@ -3,38 +3,49 @@
 
 #include <sstream>
 #include <atomic>
-#include "socket.h"
 #include "thread.h"
-#include "manejadorPartidas.h"
+#include "socket.h"
 #include "protocolo.h"
+#include <map>
+#include "server_event_receiver.h"
+#include "server_event_sender.h"
 
 class ThClient : public Thread {
 private:
-    std::stringstream mensaje_cliente;
     Protocolo *protocolo;
-    ManejadorPartidas *manejadorDePartidas;
+    std::string rutaMapas;
+    std::map<std::string, std::string> &mapas;
     std::atomic<bool> keep_talking;
     std::atomic<bool> is_running;
+    Server_Event_Sender *enviador;
+    Server_Event_Receiver *recibidor;
+    int id;
 
     void procesar_pedido();
 
 public:
-    ThClient(Socket &&un_socket, ManejadorPartidas *manejadorDePartidas);
+    ThClient(Socket &&un_socket, std::string rutaMapas,
+             std::map<std::string, std::string> &mapas, int id);
 
-    /*
-     * Atiende a un cliente. Procesa su pedido y le responde.
-     */
+    Comando *obtenerComandoInicial(std::vector<char> info);
+
+    void enviarIdJugador();
+
+    void agregarColaEventos(ProtectedQueue<Comando *> &cola_comandos);
+
     void run() override;
 
-    /*
-     * Indica si ya terminó de atenderse
-     */
     bool is_dead();
 
-    /*
-     * corta con el proceso.
-     */
     void stop();
+
+    int getId() {
+        return this->id;
+    }
+
+    void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
+        this->enviador->enviar_actualizaciones(actualizaciones);
+    }
 
     ~ThClient();
 };

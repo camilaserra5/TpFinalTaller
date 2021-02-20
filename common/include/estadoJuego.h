@@ -28,7 +28,7 @@ public:
 
     void no_me_muevo(int idJugador);
 
-    void agregarJugador(std::string &nombreJugador, int &id);
+    void agregarJugador(std::string &nombreJugador, int id);
 
     std::vector<Actualizacion *> realizarAtaque(int idJugador);
 

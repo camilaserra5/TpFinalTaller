@@ -3,12 +3,34 @@
 #include "map_translator.h"
 #include "../include/InvalidMapException.h"
 #include <config.h>
+#include "../include/partida.h"
+#include "comandos/crearPartida.h"
+#include "comandos/unirseAPartida.h"
 
 ManejadorPartidas::ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas) :
         partidas(),
         esta_corriendo(true),
         mapas(mapas),
-        rutaMapas(rutaMapas) {}
+        rutaMapas(std::move(rutaMapas)) {}
+
+void ManejadorPartidas::nuevoCliente(ThClient *cliente) {
+    std::vector<char> info = this->serializar();
+    Comando *comando = cliente->obtenerComandoInicial(info);
+    if (comando == nullptr) {
+        return;
+    }
+
+    if (auto crear = dynamic_cast<CrearPartida *>(comando)) {
+        this->crearPartida(crear->getNombreJugador(), crear->getCantJugadores(),
+                           crear->getNombrePartida(), crear->getRutaArchivo(), crear->getScreenWidth());
+        this->agregarClienteAPartida(crear->getNombreJugador(), crear->getNombrePartida(), cliente);
+    }
+    if (auto unirse = dynamic_cast<UnirseAPartida *>(comando)) {
+        this->agregarClienteAPartida(unirse->getNombreJugador(), unirse->getNombrePartida(), cliente);
+    }
+
+    cliente->enviarIdJugador();
+}
 
 void ManejadorPartidas::cerrarPartidas() {
     this->eliminarPartidasTerminadas();
@@ -20,7 +42,7 @@ void ManejadorPartidas::agregarMapa(std::string nombreMapa, std::string archivoM
 
 Map ManejadorPartidas::buscarMapa(std::string archivoMapa, int &anchoPantalla) {
     if (this->mapas.count(archivoMapa) == 0) {
-        std::cerr << "no existe el mapa";
+        std::cerr << "No existe el mapa" << std::endl;
         throw InvalidMapException("mapa no cargado");
     }
     std::string ruta = this->mapas.at(archivoMapa);
@@ -32,48 +54,42 @@ Map ManejadorPartidas::buscarMapa(std::string archivoMapa, int &anchoPantalla) {
         Map map = MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla);
         return map;
     } catch (YAML::BadFile &badFile) {
-        std::cerr << "error buscando mapa";
+        std::cerr << "Error buscando mapa" << std::endl;
         throw InvalidMapException("error abriendo mapa");
     }
 }
 
-int ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugadores,
-                                    std::string &nombre_partida, std::string &archivoMapa,
-                                    Protocolo *protocolo, int &screenWidth) {
-    int idCliente = -1;
+void ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugadores,
+                                     std::string &nombre_partida, std::string &archivoMapa,
+                                     int &screenWidth) {
     if (partidas.count(nombre_partida) > 0) {
-        return idCliente;
-    } else {
-        try {
-            Map mapa = this->buscarMapa(archivoMapa, screenWidth);
-            Servidor *servidor = new Servidor(mapa, cant_jugadores);
-            ManejadorCliente *cliente = new ManejadorCliente(servidor->obtenerColaEventos(), protocolo, idCliente);
-            servidor->agregarCliente(nombreJugador, cliente, idCliente);
-            this->partidas.insert({nombre_partida, servidor});
-        } catch (InvalidMapException &e) {
-            std::cerr << "error creando partida";
-        }
-        return idCliente;
+        std::cerr << "No existe la partida con nombre: " << nombre_partida << std::endl;
+        return;
+    }
+    try {
+        Map mapa = this->buscarMapa(archivoMapa, screenWidth);
+        Partida *servidor = new Partida(mapa, cant_jugadores);
+        this->partidas.insert({nombre_partida, servidor});
+    } catch (InvalidMapException &e) {
+        std::cerr << "Error creando partida";
     }
 }
 
-int ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
-                                              std::string &nombre_partida, Protocolo *protocolo) {
-
-    Servidor *servidor = this->partidas.at(nombre_partida);
-    int idJugador = -1;
-    if (servidor->yaArranco()) {
-        std::cout << "ya arranco la partida\n";
-        return idJugador;
-    } else {
-        ManejadorCliente *cliente = new ManejadorCliente(servidor->obtenerColaEventos(), protocolo, idJugador);
-        servidor->agregarCliente(nombreJugador, cliente, idJugador);
-        return idJugador;
+void ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
+                                               std::string &nombre_partida,
+                                               ThClient *cliente) {
+    Partida *partida = this->partidas.at(nombre_partida);
+    if (partida->yaArranco()) {
+        std::cerr << "Ya arranco la partida" << std::endl;
+        return;
     }
+    std::cerr << "agrego cola a clii";
+    cliente->agregarColaEventos(partida->obtenerColaEventos());
+    partida->agregarCliente(nombreJugador, cliente);
 }
 
 void ManejadorPartidas::eliminarPartidasTerminadas() {
-    std::map<std::string, Servidor *>::iterator it;
+    std::map<std::string, Partida *>::iterator it;
     for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
         if (it->second->terminoPartida()) {
             it->second->joinClientes();
@@ -86,16 +102,6 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {
     }
 }
 
-void ManejadorPartidas::run() {
-    while (this->esta_corriendo) {
-        /*deberia bloquearse esperando partidas*/
-        this->eliminarPartidasTerminadas();
-        std::chrono::milliseconds duration(100);
-        std::this_thread::sleep_for(duration);
-        this->esta_corriendo = this->partidas.size() != 0;
-    }
-
-}
 
 ManejadorPartidas::~ManejadorPartidas() {
 
@@ -104,10 +110,10 @@ ManejadorPartidas::~ManejadorPartidas() {
 std::vector<char> ManejadorPartidas::serializar() {
     std::vector<char> informacion;
     std::vector<char> informacionPartidas;
-    std::map<std::string, Servidor *>::iterator it;
+    std::map<std::string, Partida *>::iterator it;
     int i = 0;
     for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
-        std::pair<std::string, Servidor *> pair = *it;
+        std::pair<std::string, Partida *> pair = *it;
         if (!pair.second->terminoPartida() && !pair.second->yaArranco()) {
             i++;
             std::vector<char> sizeNombre = numberToCharArray(pair.first.size());
@@ -123,6 +129,5 @@ std::vector<char> ManejadorPartidas::serializar() {
     if (i > 0) {
         informacion.insert(informacion.end(), informacionPartidas.begin(), informacionPartidas.end());
     }
-    std::cout << "TAMANIO DE LAS PARTIDASSSSSSS: " << informacion.size() << std::endl;
     return informacion;
 }

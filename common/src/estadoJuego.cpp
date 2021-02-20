@@ -59,7 +59,7 @@ EstadoJuego::~EstadoJuego() {
     }
 }
 
-void EstadoJuego::agregarJugador(std::string &nombreJugador, int &id) {
+void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
     std::cerr << "===========EL ID ES: " << id << std::endl;
     Posicion posicionValida = this->mapa.obtenerPosicionIncialValida();
     std::cerr << "la pos inicial valida es: " << posicionValida.pixelesEnX() << " y: " << posicionValida.pixelesEnY()
