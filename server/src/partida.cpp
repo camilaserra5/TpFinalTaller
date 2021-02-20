@@ -94,6 +94,7 @@ void Partida::enviar_actualizaciones(std::vector<Actualizacion *> actualizacione
             it->second->enviar_actualizaciones(actualizaciones);
         } else {
             //delete (it->second);
+            std::cerr << "no mando actualizcion pues murio cli" << std::endl;
         }
 
     }
