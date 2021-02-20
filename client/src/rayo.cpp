@@ -185,7 +185,6 @@ bool Rayo::hallarColision(Map &mapa, double &interseccionAX, double &interseccio
         if (mapa.hayColision(yaMapa, xaMapa)) {
             encontrePared = true;
             this->tipoDePared = mapa(yaMapa, xaMapa).getType();
-            std:: cerr << "encuentro en x: " << xaMapa << " y:" << yaMapa << "y tipo de pared: " << tipoDePared <<"\n";
         } else {
             interseccionAY += yStep;
             interseccionAX += xStep;

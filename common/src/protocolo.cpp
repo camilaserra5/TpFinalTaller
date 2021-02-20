@@ -12,7 +12,7 @@ void Protocolo::enviar(std::vector<char> &informacion) {
     socket.enviar(number_str, 4);
     std::string buffer(informacion.begin(), informacion.end());
     socket.enviar(buffer.c_str(), buffer.size());
-    std::cout << "termine de enviar";
+    //std::cout << "termine de enviar";
 }
 
 std::vector<char> Protocolo::recibir_aux() {
@@ -49,29 +49,29 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
     int idAccion = ntohl(*buf);
 
     if (idAccion == static_cast<int>(Accion::ataque)) {
-        std::cerr << "COMANDO ATAQUE\n";
+      //  std::cerr << "COMANDO ATAQUE\n";
         return new Ataque(idJugador);
     } else if (idAccion == static_cast<int>(Accion::aperturaDePuerta)) {
-        std::cerr << "COMANDO ABRIR PUERTA\n";
+      //  std::cerr << "COMANDO ABRIR PUERTA\n";
         return new AperturaDePuerta(idJugador);
     } else if(idAccion == static_cast<int>(Accion::cambioDeArma)){
-        std::cerr << "COMANDO CAMBIO DE ARMA";
+        //std::cerr << "COMANDO CAMBIO DE ARMA";
         return new CambioDeArma(idJugador);
     } else {
         Accion accion;
         if (idAccion == static_cast<int>(Accion::rotarDerecha)) {
-          std::cerr << "COMANDO ROT DERECHA\n";
+        //  std::cerr << "COMANDO ROT DERECHA\n";
             accion = Accion::rotarDerecha;
         } else if (idAccion == static_cast<int>(Accion::rotarIzquierda)) {
-          std::cerr << "COMANDO ROT izq\n";
+        //  std::cerr << "COMANDO ROT izq\n";
 
             accion = Accion::rotarIzquierda;
         } else if (idAccion == static_cast<int>(Accion::moverArriba)) {
-          std::cerr << "COMANDO mov arr\n";
+        //  std::cerr << "COMANDO mov arr\n";
 
             accion = Accion::moverArriba;
         } else {
-          std::cerr << "COMANDO mov abajo num: " << idAccion << "\n";
+        //  std::cerr << "COMANDO mov abajo num: " << idAccion << "\n";
 
             accion = Accion::moverAbajo;
         }
