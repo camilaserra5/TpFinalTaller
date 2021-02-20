@@ -47,6 +47,7 @@ void Partida::procesar_comandos(EstadoJuego &estadoJuego) {
 }
 
 void Partida::agregarCliente(std::string &nombreJugador, ThClient *cliente) {
+    std::cerr << "Partida agrega un Jugador" << std::endl;
     this->estadoJuego.agregarJugador(nombreJugador, cliente->getId());
     this->clientes.insert({cliente->getId(), cliente});
     this->cantJugadoresAgregados++;
@@ -165,8 +166,8 @@ void Partida::run() {
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-            //std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
-            //generarComandosLua(jugadorLua);
+            std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
+            generarComandosLua(jugadorLua);
             //std::cerr << "proceso" << std::endl;
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();
