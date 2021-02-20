@@ -25,6 +25,9 @@ public:
     bool estaCorriendo() {
         return corriendo;
     }
+    bool termino(){
+        return !this->corriendo;
+    }
 
 private:
     ProtectedQueue<Comando *> &comandos;

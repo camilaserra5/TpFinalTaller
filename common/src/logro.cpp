@@ -19,7 +19,7 @@ bool Logro::operator==(Logro &logro) {
 
 void Logro::aniadirBalasDisparadas(int cantidadDeBalas) {
     this->balasDisparadas += cantidadDeBalas;
-    std::cerr << "balas disparadas: " << this->balasDisparadas;
+//    std::cerr << "balas disparadas: " << this->balasDisparadas;
 }
 
 void Logro::aniadirPuntosPorTesoro(int puntos) {
@@ -36,20 +36,20 @@ int Logro::obtenerPuntosTotales() {
 }
 
 std::vector<char> Logro::serializar() {
-    std::cerr << "serializo logro\n";
+//    std::cerr << "serializo logro\n";
     std::vector<char> info;
     std::vector<char> aux(4);
     aux = numberToCharArray(this->enemigosMatados);
-    std::cerr << "enemigosMatados" << this->enemigosMatados;
+    //std::cerr << "enemigosMatados" << this->enemigosMatados;
 
     info.insert(info.end(), aux.begin(), aux.end());
 
     aux = numberToCharArray(this->puntosTotalesPorTesoros);
-    std::cerr << "puntosTesoro: " << this->puntosTotalesPorTesoros;
+  //  std::cerr << "puntosTesoro: " << this->puntosTotalesPorTesoros;
     info.insert(info.end(), aux.begin(), aux.end());
 
     aux = numberToCharArray(this->balasDisparadas);
-    std::cerr << "balasDisparadas: " << this->balasDisparadas;
+    //std::cerr << "balasDisparadas: " << this->balasDisparadas;
     info.insert(info.end(), aux.begin(), aux.end());
     return info;
 }
@@ -60,11 +60,11 @@ void Logro::deserializar(std::vector<char> &serializado) {
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->enemigosMatados = charArrayToNumber(sub);
-    std::cerr << " logro deserializar enemigosMatados " << enemigosMatados << std::endl;
+//    std::cerr << " logro deserializar enemigosMatados " << enemigosMatados << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-    this->puntosTotalesPorTesoros = charArrayToNumber(sub);
-    std::cerr << " logro deserializar puntosTotalesPorTesoros " << puntosTotalesPorTesoros << std::endl;
+  ///  this->puntosTotalesPorTesoros = charArrayToNumber(sub);
+  //  std::cerr << " logro deserializar puntosTotalesPorTesoros " << puntosTotalesPorTesoros << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->balasDisparadas = charArrayToNumber(sub);

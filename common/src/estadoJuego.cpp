@@ -38,10 +38,7 @@ std::vector<Actualizacion *> EstadoJuego::realizarAtaque(int idJugador) {
     Arma *arma = jugador->getArma();
     std::cerr << "arma : " << arma->getTipo().getName() << "\n";
     int distancia_inventada = 5;
-    Actualizacion *actualizacionItem = this->verificarJugadoresMuertos();
-    if (actualizacionItem != NULL) {
-        actualizaciones.push_back(actualizacionItem);
-    }
+    this->verificarJugadoresMuertos();
     Actualizacion *actualizacionAtaque = arma->atacar(distancia_inventada, jugador, this->jugadores);
     actualizaciones.push_back(actualizacionAtaque);
     return actualizaciones;
@@ -146,52 +143,46 @@ std::vector<Actualizacion *> EstadoJuego::moverse_abajo(int idJugador) {
 void EstadoJuego::no_me_muevo(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
     jugador->moverse(0, 0);
-
 }
 
-Actualizacion *EstadoJuego::verificarJugadoresMuertos() {
+void EstadoJuego::verificarJugadoresMuertos() {
     std::map<int, Jugador *>::iterator it;
-    Actualizacion *agregarItem = NULL;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if (it->second->estaMuerto()) {
             std::cerr << "=========Se murio alguien :$========" << '\n';
-            if (it->second->cant_de_vida() > 0) {
-                it->second->actualizarNuevaVida();
-            } else {
+            if (it->second->cant_de_vida() == 0) {
                 this->jugadoresMuertos++;
                 std::cerr << "========= Morision definitiva========" << '\n';
+                return;
             }
-            Arma *arma = it->second->getArma();
-            Type tipo = arma->getTipo();
-            if (tipo.getName() == "ametralladora") {
-                Item *ametralladora = new Ametralladora(it->second->getPosicion(), mapa.crearIdValido());
-                this->mapa.agregarElemento(ametralladora);
-                agregarItem = new ActualizacionAgregarItem(ametralladora);
-            } else if (tipo.getName() == "canionDeCadena") {
-                Item *canion = new CanionDeCadena(it->second->getPosicion(), mapa.crearIdValido());
-                this->mapa.agregarElemento(canion);
-                agregarItem = new ActualizacionAgregarItem(canion);
-            } else if (tipo.getName() == "lanzaCohetes") {
-                Item *lanzaCohetes = new LanzaCohetes(it->second->getPosicion(), mapa.crearIdValido());
-                this->mapa.agregarElemento(lanzaCohetes);
-                agregarItem = new ActualizacionAgregarItem(lanzaCohetes);
-            }
-            Item *balas = new Balas(it->second->getPosicion(), 10/*cte*/, mapa.crearIdValido());
-            this->mapa.agregarElemento(balas);
-            agregarItem = new ActualizacionAgregarItem(balas);
-            if (it->second->tengollave()) {
-                Item *llave = new Llave(it->second->getPosicion(), mapa.crearIdValido());
-                this->mapa.agregarElemento(llave);
-                agregarItem = new ActualizacionAgregarItem(llave);
-            }
+            it->second->actualizarNuevaVida();
         }
     }
-    return agregarItem;
+}
+
+std::vector<Actualizacion *> EstadoJuego::desconectarJugador(int idJugador) {
+    std::vector<Actualizacion *> actualizaciones;
+    Jugador *jugador = this->jugadores.at(idJugador);
+    int vida = jugador->puntos_de_vida() * -1;
+    jugador->actualizar_vida(vida);
+    while (jugador->cant_de_vida() > 0) {
+        jugador->actualizarNuevaVida();
+        vida = jugador->puntos_de_vida() * -1;
+        jugador->actualizar_vida(vida);
+    }
+    this->verificarJugadoresMuertos();
+    return actualizaciones;
+}
+
+bool EstadoJuego::estaMuerto(int idJugador) {
+    Jugador *jugador = this->jugadores.at(idJugador);
+    return jugador->estaMuerto() && jugador->cant_de_vida() == 0;
 }
 
 bool EstadoJuego::terminoPartida() {
     bool termino = false;
     int cantidadJugadores = this->jugadores.size();
+    std::cerr << "cant jugadors: " << cantidadJugadores << " muertos: " << this->jugadoresMuertos << std::endl;
     if ((this->jugadoresMuertos == cantidadJugadores - 1) || this->contador == 0) {
         termino = true;
     }
