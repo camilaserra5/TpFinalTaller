@@ -30,10 +30,6 @@ SDL_Renderer *Ventana::obtener_render() {
     return this->render;
 }
 
-void Ventana::renderizar() {
-    //renderiza la barra azul
-}
-
 void Ventana::actualizar() {
     SDL_RenderPresent(this->render);
 }

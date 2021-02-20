@@ -19,7 +19,6 @@
 Juego::Juego(Ventana &ventana, Modelo &modelo) : ventana(ventana), modelo(modelo) {
     SDL_Renderer *render = this->ventana.obtener_render();
 
-    this->texturaInferior = new Textura(LOWER_TEXTURE_ROOT, render);
     this->corriendo = true;
     Textura *t1 = new Textura(BLUE_WALL, render);
     Textura *t2 = new Textura(WOOD_WALL, render);
@@ -85,11 +84,9 @@ void Juego::actualizar() {
 
 void Juego::renderizar() {
     this->modelo.renderizar();
-    this->ventana.renderizar();
 }
 
 Juego::~Juego() {
-    delete this->texturaInferior;
     std::map<int, Textura *>::iterator i;
     for (i = texturas.begin(); i != texturas.end(); ++i) {
         delete i->second;
