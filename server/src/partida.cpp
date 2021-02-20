@@ -197,8 +197,8 @@ void Partida::run() {
             std::this_thread::sleep_for(duration);
 */
         } catch (...) {
+            std::cerr << "ENTRE AL CATCH" <<std::endl;
             this->sigue_corriendo = false;
-
         }
 
 
