@@ -51,7 +51,7 @@ void Partida::agregarCliente(std::string &nombreJugador, ThClient *cliente) {
 
 void Partida::lanzarJugadores() {
     for (auto it = this->clientes.begin(); it != this->clientes.end(); ++it) {
-        it->second->run();
+        it->second->start();
     }
 }
 
@@ -87,10 +87,22 @@ void Partida::enviar_actualizaciones(std::vector<Actualizacion *> actualizacione
     //serializa y manda por sockets a cada jugador
     //Actualizacion *actualizacion = new Actualizacion(this->estadoJuego);
     // mandar una actualizaion en particular;
-    std::cerr << " envio act " << std::endl;
     std::map<int, ThClient *>::iterator it;
     for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
-        it->second->enviar_actualizaciones(actualizaciones);
+        if (!it->second->is_dead()) {
+            std::cerr << " envio act " << std::endl;
+            it->second->enviar_actualizaciones(actualizaciones);
+        } else {
+            //delete (it->second);
+        }
+
+    }
+}
+
+void Partida::finalizarClientes() {
+    std::map<int, ThClient *>::iterator it;
+    for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
+        it->second->stop();
     }
 }
 
@@ -158,6 +170,7 @@ void Partida::run() {
                 Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego);
                 actualizacionTermino.push_back(terminoPartida);
                 this->enviar_actualizaciones(actualizacionTermino);
+                this->finalizarClientes();
                 this->arrancoPartida = false;
                 this->sigue_corriendo = false;
             }

@@ -22,7 +22,7 @@ public:
         protocolo->cerrar();
     }
 
-    bool empezo() {
+    bool estaCorriendo() {
         return corriendo;
     }
 

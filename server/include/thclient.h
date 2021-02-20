@@ -43,9 +43,7 @@ public:
         return this->id;
     }
 
-    void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
-        this->enviador->enviar_actualizaciones(actualizaciones);
-    }
+    void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones);
 
     ~ThClient();
 };

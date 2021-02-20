@@ -26,6 +26,8 @@ public:
 
     bool yaArranco();
 
+    void finalizarClientes();
+
     bool terminoPartida();
 
     ProtectedQueue<Comando *> &obtenerColaEventos();

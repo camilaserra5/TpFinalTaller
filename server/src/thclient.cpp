@@ -66,11 +66,21 @@ ThClient::~ThClient() {
 }
 
 void ThClient::stop() {
-    //this->keep_talking = false;
+    if (this->enviador->estaCorriendo()) {
+        this->enviador->cerrar();
+        this->enviador->join();
+    } else if (this->recibidor->estaCorriendo()) {
+        this->recibidor->cerrar();
+        this->recibidor->join();
+    }
 }
 
 bool ThClient::is_dead() {
-    return !this->is_running;
+    return !this->enviador->estaCorriendo() || !this->recibidor->estaCorriendo();
+}
+
+void ThClient::enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
+    this->enviador->enviar_actualizaciones(actualizaciones);
 }
 
 void ThClient::run() {
@@ -85,17 +95,14 @@ void ThClient::run() {
         this->enviador->start();
         this->recibidor->start();
     } catch (SocketError &e) {
-        if (this->enviador->empezo()) {
+        if (this->enviador->estaCorriendo()) {
             this->enviador->cerrar();
             this->enviador->join();
-        } else if (this->recibidor->empezo()) {
+        } else if (this->recibidor->estaCorriendo()) {
             this->recibidor->cerrar();
             this->recibidor->join();
         }
     }
-    while (this->keep_talking) {
 
-    }
-    is_running = false;
 }
 

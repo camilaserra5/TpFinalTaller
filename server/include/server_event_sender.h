@@ -30,7 +30,7 @@ public:
         }
     }
 
-    bool empezo() {
+    bool estaCorriendo() {
         return corriendo;
     }
 
