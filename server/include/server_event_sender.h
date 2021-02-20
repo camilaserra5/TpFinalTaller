@@ -18,21 +18,10 @@ public:
 
     void run() override;
 
-    void cerrar() {
-        this->corriendo = false;
-        protocolo->cerrar();
-    }
+    void cerrar();
+    void enviar_actualizaciones(std::vector<Actualizacion *> act);
 
-    void enviar_actualizaciones(std::vector<Actualizacion *> act) {
-        std::vector<Actualizacion *>::iterator it;
-        for (it = act.begin(); it != act.end(); ++it) {
-            this->actualizaciones.push(*it);
-        }
-    }
-
-    bool estaCorriendo() {
-        return corriendo;
-    }
+    bool estaCorriendo();
 
 private:
     BlockingQueue<Actualizacion *> actualizaciones;

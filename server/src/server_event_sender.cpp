@@ -18,3 +18,19 @@ void Server_Event_Sender::run() {
 
     }
 }
+
+void Server_Event_Sender::cerrar() {
+    this->corriendo = false;
+    protocolo->cerrar();
+}
+
+void Server_Event_Sender::enviar_actualizaciones(std::vector<Actualizacion *> act) {
+    std::vector<Actualizacion *>::iterator it;
+    for (it = act.begin(); it != act.end(); ++it) {
+        this->actualizaciones.push(*it);
+    }
+}
+
+bool Server_Event_Sender::estaCorriendo() {
+    return corriendo;
+}
