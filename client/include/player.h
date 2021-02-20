@@ -18,7 +18,7 @@ public:
 
     void renderizar();
 
-    void actualizarArma(int idArma, bool estado){
+    void actualizarArma(int idArma, bool estado) {
         this->arma.actualizar(idArma, estado);
     }
 

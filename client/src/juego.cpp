@@ -1,5 +1,6 @@
 #include "../include/juego.h"
 #include <config.h>
+
 #define EXITO 0
 #define LARGO_PROYECTOR ANCHO_CANVAS
 #define ANCHO_PROYECTOR 20
@@ -41,9 +42,9 @@ void Juego::eventos() {
     if (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT:
-              std::cerr << "entre en quit del juego" << std::endl;
-              this->cerrar();
-                
+                std::cerr << "entre en quit del juego" << std::endl;
+                this->cerrar();
+
             default:
                 break;
         }
@@ -84,7 +85,7 @@ void Juego::actualizar() {
 
 void Juego::renderizar() {
     this->modelo.renderizar();
-    this->ventana.renderizar(this->texturaInferior);
+    this->ventana.renderizar();
 }
 
 Juego::~Juego() {
@@ -98,7 +99,7 @@ Juego::~Juego() {
 void Juego::cerrar() {
     this->corriendo = false;
     this->ventana.cerrar();
-};
+}
 
 void Juego::clean() {
     this->ventana.limpiar();
@@ -121,7 +122,7 @@ void Juego::raycasting(Map &mapa, Player &jugador) {
         zbuffer.push_back(distancia);
         unsigned int alturaParedProyectada = 0;
         alturaParedProyectada = (ladoCelda / distancia) * rayo.getDistanciaProyector();
-    //    std:: cerr << "renderizo pared " << i << " de altura " << alturaParedProyectada << "\n";
+        //    std:: cerr << "renderizo pared " << i << " de altura " << alturaParedProyectada << "\n";
 
         renderizarPared(render, rayo, i, alturaParedProyectada);
         anguloRayo += anguloPorStripe;
@@ -154,9 +155,10 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
 }
 
 Textura *Juego::verificarTextura(SDL_Renderer *render, int &tipoDePared) {
-  try{
-    return this->texturas.at(tipoDePared);
+    try {
+        return this->texturas.at(tipoDePared);
 
-  }catch(...){
-return NULL;}
+    } catch (...) {
+        return NULL;
+    }
 }

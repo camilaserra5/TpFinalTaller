@@ -2,7 +2,7 @@
 
 CrearPartida::CrearPartida(int idJugador, int cantidadJugadores,
                            std::string nombrePartida, std::string rutaYaml,
-                           std::string nombreCliente,int screenWidth) :
+                           std::string nombreCliente, int screenWidth) :
         Comando(idJugador),
         cantidadJugadores(cantidadJugadores),
         nombrePartida(nombrePartida),

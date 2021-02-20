@@ -11,49 +11,19 @@
 #include "jugador.h"
 #include "iserializable.h"
 #include <atomic>
-#include "manejadorCliente.h"
 #include "jugadorLua.h"
+#include "parser.h"
+#include <string>
+#include "socket.h"
 
-class Servidor : public Thread, public ISerializable {
-public:
-    Servidor(Map mapa, int cant_jugadores);
-
-    ~Servidor();
-
-    void run() override;
-
-    void agregarCliente(std::string &nombreJugador, ManejadorCliente* cliente, int& id);
-
-    bool yaArranco();
-
-    bool terminoPartida();
-
-    ProtectedQueue<Comando *> &obtenerColaEventos();
-
-  //  BlockingQueue<Actualizacion *> &obtenerColaActualizaciones();
-
-    void lanzarJugadores();
-
-    void lanzarContadorTiempoPartida();
-
-    void borrarClientes();
-
-    std::vector<char> serializar();
-
-    void deserializar(std::vector<char> &serializado) {}
-
-    void enviar_actualizaciones(std::vector<Actualizacion*> actualizaciones);
-
-    void actualizarContador();
-
-    int obtenerIdParaJugador();
-
-    void joinClientes();
-
-
+class Servidor {
 private:
-    void procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego);
+    Socket socket;
+    Parser &parser;
+public:
+    Servidor(Parser &parser);
 
+<<<<<<< HEAD
     ProtectedQueue<Comando *> cola_comandos;
     //BlockingQueue<Actualizacion *> cola_actualizaciones;
     EstadoJuego estadoJuego;
@@ -65,8 +35,11 @@ private:
     std::map<int, ManejadorCliente*> clientes;
     //JugadorLua jugadorLua;
     void verificarClientes();
+=======
+    void correr();
+>>>>>>> 0fc9e59f0849ab6be23f77097005aecaf12a9b57
 
-    void generarComandosLua(JugadorLua &jugadorLua, ProtectedQueue<Comando *> &cola_comandos);
+    ~Servidor();
 };
 
-#endif
+#endif /*SERVIDOR_H*/

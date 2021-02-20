@@ -1,5 +1,4 @@
 #include "../include/map_translator.h"
-#include <iostream>
 
 YAML::Node MapTranslator::mapToYaml(Map &map) {
     YAML::Node node;
@@ -16,7 +15,7 @@ YAML::Node MapTranslator::mapToYaml(Map &map) {
     return node;
 }
 
-Map MapTranslator::yamlToMap(YAML::Node yaml,int anchoPantalla) {
+Map MapTranslator::yamlToMap(YAML::Node yaml, int anchoPantalla) {
     const unsigned rows = yaml["rows"].as<unsigned>();
     const unsigned cols = yaml["cols"].as<unsigned>();
 

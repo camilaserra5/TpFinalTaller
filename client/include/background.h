@@ -8,7 +8,7 @@
 class Background {
 
 public:
-    Background(std::string backgroundImg, SDL_Renderer *renderer,int screenWidth,int screenHeight);
+    Background(std::string backgroundImg, SDL_Renderer *renderer, int screenWidth, int screenHeight);
 
     void drawBackground();
 

@@ -1,5 +1,6 @@
 #include "../include/enemigo.h"
 #include <config.h>
+
 #define GUARDIA IMGS_DIR GUARD_IMG
 #define RATA IMGS_DIR RAT_IMG
 #define OFFICER IMGS_DIR OFFICER_IMG
@@ -22,8 +23,8 @@
 
 
 Enemigo::Enemigo(SDL_Renderer *render, int idArmaJugador) :
-        idArma(idArmaJugador), anguloJugador(0), estado(MOVERSE),distanciaParcialAJugador(0) ,
-         posicion(0, 0, 0),enemigos(), puntaje(0){
+        idArma(idArmaJugador), anguloJugador(0), estado(MOVERSE), distanciaParcialAJugador(0),
+        posicion(0, 0, 0), enemigos(), puntaje(0) {
     // guardia
     Animacion dispararG(render, GUARDIA, FRAMES_Y, SPRITE_H, SPRITE_W, -1, 0); // disparar
     Animacion moverseG(render, GUARDIA, FRAMES_Y, SPRITE_H, SPRITE_W, -1, 1);
@@ -118,8 +119,8 @@ void Enemigo::renderizarColumna(SDL_Rect &dimension, SDL_Rect &dest) {
     tipo[this->estado].renderizarColumna(dimension, dest);
 }
 
-void Enemigo::actualizarVida(int vida){
-    if (vida <= 0){
+void Enemigo::actualizarVida(int vida) {
+    if (vida <= 0) {
         this->estado = MORIRSE;
     }
 }
@@ -128,7 +129,7 @@ int Enemigo::obtenerAnchura() {
     return SPRITE_W;
 }
 
-void Enemigo::actualizarPosicion(int posX, int posY, float angulo){
-  this->posicion.actualizar_posicion(posX,posY);
-  this->posicion.setAngulo(angulo);
+void Enemigo::actualizarPosicion(int posX, int posY, float angulo) {
+    this->posicion.actualizar_posicion(posX, posY);
+    this->posicion.setAngulo(angulo);
 }

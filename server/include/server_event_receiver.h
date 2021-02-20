@@ -10,7 +10,7 @@
 
 class Server_Event_Receiver : public Thread {
 public:
-    Server_Event_Receiver(ProtectedQueue<Comando *> &comandos, Protocolo* protocolo) :
+    Server_Event_Receiver(ProtectedQueue<Comando *> &comandos, Protocolo *protocolo) :
             comandos(comandos), protocolo(protocolo), corriendo(true) {}
 
     ~Server_Event_Receiver() {}
@@ -21,7 +21,8 @@ public:
         this->corriendo = false;
         protocolo->cerrar();
     }
-    bool empezo(){
+
+    bool estaCorriendo() {
         return corriendo;
     }
     bool termino(){
@@ -30,7 +31,7 @@ public:
 
 private:
     ProtectedQueue<Comando *> &comandos;
-    Protocolo* protocolo;
+    Protocolo *protocolo;
     std::atomic<bool> corriendo;
 
 };

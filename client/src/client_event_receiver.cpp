@@ -1,16 +1,7 @@
 #include "../include/client_event_receiver.h"
-#include "socket.h"
-#include "map.h"
-#include "items/item.h"
-#include "jugador.h"
-#include "estadoJuego.h"
-#include "actualizaciones/actualizacion.h"
 #include "socket_error.h"
 
-#include <utility>
 #include <algorithm>
-#include <vector>
-#include <map>
 
 #include <actualizaciones/actualizacionInicioPartida.h>
 #include <actualizaciones/actualizacionCambioArma.h>
@@ -71,13 +62,13 @@ void ClientEventReceiver::run() {
                 this->recibii = true;
             }
 
-        }catch (const SocketError& exc){
-                std::cout << exc.what() << std::endl;
-                this->cerrar();
+        } catch (const SocketError &exc) {
+            std::cout << exc.what() << std::endl;
+            this->cerrar();
         } catch (std::exception &exc) {
-              std::cout << exc.what() << std::endl;
-              this->cerrar();
-          }
+            std::cout << exc.what() << std::endl;
+            this->cerrar();
+        }
     }
 }
 

@@ -1,20 +1,26 @@
-#include "../include/servidor.h"
-#include "../include/aceptador.h"
+#include "../include/partida.h"
+#include "actualizaciones/actualizacionInicioPartida.h"
+#include "actualizaciones/actualizacionTerminoPartida.h"
 
-#define TERMINAR 'q'
+#define TIEMPO_SERVIDOR 0.3
+#define ID_LUA 777
 
-Servidor::Servidor(Parser &parser) : parser(parser) {}
+#define ARRIBA 3
+#define ABAJO 4
+#define ROTAR_DERECHA 1
+#define ROTAR_IZQUIERDA 2
 
-void Servidor::correr() {
-    std::string port = parser.obtenerPuerto();
-    this->socket.bind_and_listen(port.c_str());
-    Aceptador aceptador(this->socket, parser.obtenerRutaMapas(), parser.obtenerMapas());
-    aceptador.start();
+// en si recibe un archivo yaml y luego sereializa;
+Partida::Partida(Map mapa, int cantJugadoresPosibles) :
+        cola_comandos(),
+        estadoJuego(mapa),
+        cantJugadoresPosibles(cantJugadoresPosibles),
+        sigue_corriendo(true),
+        arrancoPartida(false) {}
 
-<<<<<<< HEAD
-Servidor::~Servidor() {}
+Partida::~Partida() {}
 
-void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, EstadoJuego &estadoJuego) {
+void Partida::procesar_comandos(EstadoJuego &estadoJuego) {
     bool termine = false;
     while (!termine) {
         try {
@@ -32,12 +38,9 @@ void Servidor::procesar_comandos(ProtectedQueue<Comando *> &cola_comandos, Estad
     }
 }
 
-void Servidor::agregarCliente(std::string &nombreJugador, ManejadorCliente *cliente, int &id) {
-
-    id = this->obtenerIdParaJugador();
-    this->estadoJuego.agregarJugador(nombreJugador, id);
-    cliente->settearId(id);
-    this->clientes.insert({id, cliente});
+void Partida::agregarCliente(std::string &nombreJugador, ThClient *cliente) {
+    this->estadoJuego.agregarJugador(nombreJugador, cliente->getId());
+    this->clientes.insert({cliente->getId(), cliente});
     this->cantJugadoresAgregados++;
     if (this->cantJugadoresAgregados == this->cantJugadoresPosibles) {
         this->arrancoPartida = true;
@@ -46,45 +49,68 @@ void Servidor::agregarCliente(std::string &nombreJugador, ManejadorCliente *clie
 
 }
 
-int Servidor::obtenerIdParaJugador() {
-    int id = this->generadorDeId;
-    this->generadorDeId += 1;
-    return id;
-}
-
-void Servidor::lanzarJugadores() {
+void Partida::lanzarJugadores() {
     for (auto it = this->clientes.begin(); it != this->clientes.end(); ++it) {
-        it->second->run();
+        it->second->start();
     }
 }
-=======
-    char caracter;
-    do {
-        std::cin >> caracter;
-    } while (caracter != TERMINAR);
->>>>>>> 0fc9e59f0849ab6be23f77097005aecaf12a9b57
 
-    this->socket.cerrar();
-    aceptador.join();
+void Partida::lanzarContadorTiempoPartida() {
+    this->estadoJuego.lanzarContadorTiempoPartida();
 }
 
-<<<<<<< HEAD
+void Partida::actualizarContador() {
+    this->estadoJuego.actualizarTiempoPartida();
+}
 
-void Servidor::enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
+bool Partida::yaArranco() {
+    return this->arrancoPartida;
+}
+
+bool Partida::terminoPartida() {
+    return !(this->sigue_corriendo);
+}
+
+ProtectedQueue<Comando *> &Partida::obtenerColaEventos() {
+    return this->cola_comandos;
+}
+/*
+BlockingQueue<Actualizacion *> &Partida::obtenerColaActualizaciones() {
+    return this->cola_actualizaciones;
+}
+*/
+//servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
+// servidor es partida
+
+
+void Partida::enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
     //serializa y manda por sockets a cada jugador
     //Actualizacion *actualizacion = new Actualizacion(this->estadoJuego);
     // mandar una actualizaion en particular;
-    std::cerr << " envio act " << std::endl;
-    std::map<int, ManejadorCliente *>::iterator it;
+    std::map<int, ThClient *>::iterator it;
     for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
-        it->second->enviar_actualizaciones(actualizaciones);
+        if (!it->second->is_dead()) {
+            std::cerr << " envio act " << std::endl;
+            it->second->enviar_actualizaciones(actualizaciones);
+        } else {
+            //delete (it->second);
+            std::cerr << "no mando actualizcion pues murio cli" << std::endl;
+        }
+
     }
 }
 
-void Servidor::generarComandosLua(JugadorLua& jugadorLua, ProtectedQueue<Comando *> &cola_comandos){
-    Comando* nuevoComando;
+void Partida::finalizarClientes() {
+    std::map<int, ThClient *>::iterator it;
+    for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
+        it->second->stop();
+    }
+}
+
+void Partida::generarComandosLua(JugadorLua &jugadorLua) {
+    Comando *nuevoComando;
     char teclaComando = jugadorLua.procesar();
-    switch(teclaComando){
+    switch (teclaComando) {
         case 'w':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ARRIBA));
             std::cerr << "=== SE MUEVE PARA ARRIBA LUA==== " << std::endl;
@@ -112,23 +138,8 @@ void Servidor::generarComandosLua(JugadorLua& jugadorLua, ProtectedQueue<Comando
     }
     this->cola_comandos.aniadir_dato(nuevoComando);
 }
-void Servidor::verificarClientes(){
-    std::map<int, ManejadorCliente *>::iterator it;
-    while (it != this->clientes.end()){
-      std::cerr << "entre al loop\n";
-        if(it->second->termino()){
-          std::cerr << "alguno de los hilos termino\n";
-           it->second->cerrar();
-           it->second->join();
-           delete it->second;
-           it = this->clientes.erase(it);
-        }
-    }
-    if (this->clientes.empty()){
-        this->sigue_corriendo = false;
-    }
-}
-void Servidor::run() {
+
+void Partida::run() {
     std::cerr << "=== CREO JUGADOR LUA==== " << std::endl;
     std::string ruta("modulo.lua");
 
@@ -144,28 +155,29 @@ void Servidor::run() {
 
     //std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
     //std::this_thread::sleep_for(duration);
-    std::chrono::duration<double> tiempoServidor(TIEMPO_SERVIDOR);
+    std::chrono::duration<double> tiempoPartida(TIEMPO_SERVIDOR);
     while (this->sigue_corriendo) {
         //el while va a depender del obtener comandos con un try catch
         //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
             std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
-            generarComandosLua(jugadorLua, this->cola_comandos);
+            generarComandosLua(jugadorLua);
             //std::cerr << "proceso" << std::endl;
-            procesar_comandos(this->cola_comandos, this->estadoJuego);
+            procesar_comandos(this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
                 std::vector<Actualizacion *> actualizacionTermino;
                 Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego);
                 actualizacionTermino.push_back(terminoPartida);
                 this->enviar_actualizaciones(actualizacionTermino);
+                this->finalizarClientes();
                 this->arrancoPartida = false;
                 this->sigue_corriendo = false;
             }
-            //this->verificarClientes();
+
             auto fin = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double> sleepTime = tiempoServidor - (fin - inicio);
+            std::chrono::duration<double> sleepTime = tiempoPartida - (fin - inicio);
             //std::cerr << "sleep for" << time_span.count() << std::endl;
             std::this_thread::sleep_for(sleepTime);
 
@@ -190,7 +202,7 @@ void Servidor::run() {
     //  this->sigue_corriendo = false; creo que no va esta linea
 }
 
-std::vector<char> Servidor::serializar() {
+std::vector<char> Partida::serializar() {
     std::vector<char> informacion;
     std::vector<char> cantJugadoresAct = numberToCharArray(this->cantJugadoresAgregados);
     informacion.insert(informacion.end(), cantJugadoresAct.begin(), cantJugadoresAct.end());
@@ -199,12 +211,9 @@ std::vector<char> Servidor::serializar() {
     return informacion;
 }
 
-void Servidor::joinClientes() {
-    std::map<int, ManejadorCliente *>::iterator it;
+void Partida::joinClientes() {
+    std::map<int, ThClient *>::iterator it;
     for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
         it->second->join();
     }
 }
-=======
-Servidor::~Servidor() {}
->>>>>>> 0fc9e59f0849ab6be23f77097005aecaf12a9b57

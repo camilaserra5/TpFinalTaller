@@ -1,9 +1,10 @@
 #include <iostream>
 #include "../include/informacionJugador.h"
-#include "../include/textura.h"
 #include <config.h>
+
 #define LOWER_TEXTURE_ROOT IMGS_DIR INFERIOR_IMG
 #define FONT FONTS_DIR NOUGAT_FONT
+
 InfoJugador::InfoJugador(SDL_Renderer *render, int vida, int nivel, int puntaje,
                          int cantVidas, int balas) {
     Fonts fuentes;

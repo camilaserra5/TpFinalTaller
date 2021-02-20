@@ -10,9 +10,9 @@
 
 class ActualizacionCambioArma : public Actualizacion {
 public:
-    ActualizacionCambioArma(int& id, int& armaActual);
+    ActualizacionCambioArma(int &id, int &armaActual);
 
-    ActualizacionCambioArma(){}
+    ActualizacionCambioArma() {}
 
     ~ActualizacionCambioArma();
 
@@ -22,10 +22,11 @@ public:
 
     int obtenerId() override { return static_cast<int>(Accion::cambioDeArma); }
 
-    int obtenerIdArma(){
+    int obtenerIdArma() {
         return armaActual;
     }
-    int obtenerIdJugador(){
+
+    int obtenerIdJugador() {
         return id;
     }
 

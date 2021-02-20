@@ -1,5 +1,4 @@
 #include "../include/scene.h"
-#include <unistd.h>
 
 Scene::Scene(SDL_Renderer *renderer) : renderer(renderer) {}
 

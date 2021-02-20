@@ -67,12 +67,12 @@ public:
     void actualizarArmaEnemigos(int idArma);
 
     void actualizarEstadoAtaqueJugador(int vida, int idArma, int cant_balas,
-                                        int puntaje, int cant_vidas,
-                                        bool atacando);
+                                       int puntaje, int cant_vidas,
+                                       bool atacando);
 
     void actualizarVidaEnemigo(int id, int vida, int idArma);
 
-    void sacarItem(int& id);
+    void sacarItem(int &id);
 
     void actualizarBeneficioJugador(int vida, int balas, int puntos,
                                     int cant_vidas);

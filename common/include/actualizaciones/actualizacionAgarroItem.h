@@ -14,27 +14,33 @@
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
 
-class ActualizacionAgarroItem: public Actualizacion{
+class ActualizacionAgarroItem : public Actualizacion {
 public:
-    ActualizacionAgarroItem(Jugador* jugador, Item* item);
+    ActualizacionAgarroItem(Jugador *jugador, Item *item);
 
     ~ActualizacionAgarroItem();
+
     ActualizacionAgarroItem();
+
     std::vector<char> serializar() override;
-    Item* deserializarItem(std::vector<char>& informacion);
+
+    Item *deserializarItem(std::vector<char> &informacion);
+
     void deserializar(std::vector<char> &serializado) override;
 
-    Jugador* obtenerJugador(){
+    Jugador *obtenerJugador() {
         return this->jugador;
     }
-    Item* obtenerItem(){
+
+    Item *obtenerItem() {
         return this->item;
     }
 
     int obtenerId() override { return static_cast<int>(Accion::agarreItem); }
+
 private:
-        Jugador* jugador;
-        Item* item;
+    Jugador *jugador;
+    Item *item;
 };
 
 #endif

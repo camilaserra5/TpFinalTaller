@@ -10,8 +10,10 @@
 
 class ActualizacionAperturaPuerta : public Actualizacion {
 public:
-    ActualizacionAperturaPuerta(Puerta& puerta);
-    ActualizacionAperturaPuerta(){}
+    ActualizacionAperturaPuerta(Puerta &puerta);
+
+    ActualizacionAperturaPuerta() {}
+
     ~ActualizacionAperturaPuerta();
 
     std::vector<char> serializar() override;

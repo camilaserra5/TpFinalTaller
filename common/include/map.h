@@ -41,6 +41,7 @@ public:
     std::vector<char> serializar() override;
 
     void deserializar(std::vector<char> &serializado) override;
+
     std::vector<Item *> &obtenerItems();
 
     Puerta &puertaMasCercana(Posicion &posicionJugador, double &distancia);
@@ -55,7 +56,7 @@ public:
 
     Posicion obtenerPosicionIncialValida();
 
-    Map(){}//capaz poner privado
+    Map() {}//capaz poner privado
 
     void setLadoCelda(int anchoPantalla);
 

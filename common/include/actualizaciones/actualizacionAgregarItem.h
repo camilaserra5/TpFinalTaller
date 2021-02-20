@@ -13,22 +13,28 @@
 #include "armas/canionDeCadena.h"
 #include "armas/ametralladora.h"
 
-class ActualizacionAgregarItem: public Actualizacion{
-    public:
-    ActualizacionAgregarItem(Item* item);
-    ActualizacionAgregarItem(){}
-    ~ActualizacionAgregarItem();
-    std::vector<char> serializar() override;
-    Item* deserializarItem(std::vector<char>& informacion);
+class ActualizacionAgregarItem : public Actualizacion {
+public:
+    ActualizacionAgregarItem(Item *item);
 
-    Item* obtenerItem(){
+    ActualizacionAgregarItem() {}
+
+    ~ActualizacionAgregarItem();
+
+    std::vector<char> serializar() override;
+
+    Item *deserializarItem(std::vector<char> &informacion);
+
+    Item *obtenerItem() {
         return this->item;
     }
+
     void deserializar(std::vector<char> &serializado) override;
 
     int obtenerId() override { return static_cast<int>(Accion::agregarItem); }
-  private:
-    Item* item;
+
+private:
+    Item *item;
 };
 
 #endif

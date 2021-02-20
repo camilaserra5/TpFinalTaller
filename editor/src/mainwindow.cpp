@@ -2,13 +2,8 @@
 #include "../include/map_tiles_list.h"
 #include "../include/map_widget.h"
 #include "../include/new_tile.h"
-#include <string>
-#include <iostream>
-#include <fstream>
 #include <QtWidgets>
-#include "map.h"
 #include "map_translator.h"
-#include <yaml-cpp/yaml.h>
 #include <config.h>
 
 #define BLUE_WALL IMGS_DIR BLUE_WALL_IMG
@@ -30,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 void MainWindow::openMap() {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Abrir mapa existente"), "",
                                                     tr("YAML Files (*.yaml *.yml)"));
-    Map map = MapTranslator::yamlToMap(YAML::LoadFile(fileName.toStdString()),450);//cheqs
+    Map map = MapTranslator::yamlToMap(YAML::LoadFile(fileName.toStdString()), 450);//cheqs
     mapWidget = new MapWidget(mapWidget->tileSize() * map.getColSize(), mapWidget->tileSize() * map.getRowSize());
     mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
 

@@ -8,7 +8,7 @@ class SpriteAnimado {
 public:
 
 private:
-    std::vector<Sprite> secuencia;
+    std::vector <Sprite> secuencia;
 };
 
 #endif //SPRITEANIMADO_H

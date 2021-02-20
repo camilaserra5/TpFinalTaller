@@ -3,33 +3,29 @@
 
 #include <string>
 #include <vector>
-
 #include "thread.h"
-
 #include "socket.h"
-#include "thclient.h"
-#include "manejadorPartidas.h"
+#include "../include/thclient.h"
 
 class Aceptador : public Thread {
 private:
     Socket &socket_listener;
-    ManejadorPartidas *manejadorPartidas;
     std::vector<ThClient *> clientes;
+    std::string rutaMapas;
+    std::map<std::string, std::string> mapas;
+    ProtectedQueue<Comando *> cola_comandos;
+    int generadorDeId = 100;
+
+    int obtenerIdParaJugador();
 
 public:
-    Aceptador(Socket &un_socket, ManejadorPartidas *manejadorPartidas);
+    Aceptador(Socket &un_socket, std::string rutaMapas, std::map<std::string, std::string> mapas);
 
-    /*
-     * Aceptara los clientes que quieren conectarse al servidor.
-     * Los insertará en un vector e ira procesando cada uno.
-     * Se limpiara este vector los cliente finalizados
-     * cada vez que se conecte un nuevo cliente
-     */
     void run() override;
 
     void cerrar();
 
-    ~Aceptador() {}
+    ~Aceptador() { this->join(); }
 };
 
 #endif /*ACEPTADOR_H*/

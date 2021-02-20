@@ -2,8 +2,7 @@
 
 Protocolo::Protocolo(Socket socket) : socket(std::move(socket)) {}
 
-Protocolo::~Protocolo() {};
-
+Protocolo::~Protocolo() {}
 
 void Protocolo::enviar(std::vector<char> &informacion) {
     unsigned int size = htonl(informacion.size());
@@ -16,16 +15,16 @@ void Protocolo::enviar(std::vector<char> &informacion) {
 }
 
 std::vector<char> Protocolo::recibir_aux() {
-  char length_str[4];
-  socket.recibir(length_str, 4);
+    char length_str[4];
+    socket.recibir(length_str, 4);
 
-  unsigned int *buf = (unsigned int *) length_str;
-  unsigned int length = ntohl(*buf);
-  std::vector<char> informacion(length);
+    unsigned int *buf = (unsigned int *) length_str;
+    unsigned int length = ntohl(*buf);
+    std::vector<char> informacion(length);
 
-  //informacion.resize(length);
-  socket.recibir(informacion.data(), length);
-  return informacion;
+    //informacion.resize(length);
+    socket.recibir(informacion.data(), length);
+    return informacion;
 }
 
 std::vector<char> Protocolo::recibir() {
@@ -40,8 +39,7 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     memcpy(number, sub.data(), 4);
     uint32_t *buf = (uint32_t *) number;
-    buf = (uint32_t *) number;
-    idx+=4;
+    idx += 4;
     int idJugador = ntohl(*buf);
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     memcpy(number, sub.data(), 4);
@@ -54,24 +52,24 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
     } else if (idAccion == static_cast<int>(Accion::aperturaDePuerta)) {
         std::cerr << "COMANDO ABRIR PUERTA\n";
         return new AperturaDePuerta(idJugador);
-    } else if(idAccion == static_cast<int>(Accion::cambioDeArma)){
+    } else if (idAccion == static_cast<int>(Accion::cambioDeArma)) {
         std::cerr << "COMANDO CAMBIO DE ARMA";
         return new CambioDeArma(idJugador);
     } else {
         Accion accion;
         if (idAccion == static_cast<int>(Accion::rotarDerecha)) {
-          std::cerr << "COMANDO ROT DERECHA\n";
+            std::cerr << "COMANDO ROT DERECHA\n";
             accion = Accion::rotarDerecha;
         } else if (idAccion == static_cast<int>(Accion::rotarIzquierda)) {
-          std::cerr << "COMANDO ROT izq\n";
+            std::cerr << "COMANDO ROT izq\n";
 
             accion = Accion::rotarIzquierda;
         } else if (idAccion == static_cast<int>(Accion::moverArriba)) {
-          std::cerr << "COMANDO mov arr\n";
+            std::cerr << "COMANDO mov arr\n";
 
             accion = Accion::moverArriba;
         } else {
-          std::cerr << "COMANDO mov abajo num: " << idAccion << "\n";
+            std::cerr << "COMANDO mov abajo num: " << idAccion << "\n";
 
             accion = Accion::moverAbajo;
         }

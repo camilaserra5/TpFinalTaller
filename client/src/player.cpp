@@ -1,7 +1,4 @@
 #include "../include/player.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <map>
 
 #define VIDA_MAX 100
 #define NIVEL 1
@@ -10,8 +7,8 @@
 #define BALAS_INICIAL 8
 
 Player::Player(const char *rutaimg, SDL_Renderer *render, int id) :
-        posicion(70, 70, 0),id(id), arma(render),
-        infoJugador(render, VIDA_MAX, NIVEL, PUNTAJE_INICIAL, CANT_VIDA_MAX, BALAS_INICIAL){
+        posicion(70, 70, 0), id(id), arma(render),
+        infoJugador(render, VIDA_MAX, NIVEL, PUNTAJE_INICIAL, CANT_VIDA_MAX, BALAS_INICIAL) {
 
 }
 
@@ -44,8 +41,8 @@ int Player::getId() {
     return id;
 }
 
-void Player::actualizarDatosJugador(int vida, int cant_vidas, int puntaje, int balas){
-      this->infoJugador.actualizarDatosJugador(vida, 1, puntaje, cant_vidas, balas);
+void Player::actualizarDatosJugador(int vida, int cant_vidas, int puntaje, int balas) {
+    this->infoJugador.actualizarDatosJugador(vida, 1, puntaje, cant_vidas, balas);
 }
 
 Player::~Player() {

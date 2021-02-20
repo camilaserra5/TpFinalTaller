@@ -25,6 +25,7 @@ public:
     std::vector<char> serializar() override;
 
     void deserializar(std::vector<char> &serializado) override;
+
     int getId();
 
     virtual Type getTipo() = 0;

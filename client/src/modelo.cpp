@@ -1,6 +1,4 @@
 #include "../include/modelo.h"
-#include <iostream>
-#include <math.h>
 #include <algorithm>
 #include <thread>
 #include <actualizaciones/actualizacionTerminoPartida.h>
@@ -8,7 +6,6 @@
 #include <actualizaciones/actualizacionMovimiento.h>
 #include <actualizaciones/actualizacionAtaque.h>
 #include <actualizaciones/actualizacionCambioArma.h>
-#include <actualizaciones/actualizacionAperturaPuerta.h>
 #include <actualizaciones/actualizacionAgarroItem.h>
 #include <actualizaciones/actualizacionAgregarItem.h>
 #include <config.h>
@@ -81,7 +78,7 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
     //int anchoSprite = objeto->obtenerAnchura();
     for (int i = 0; i < 73; i++) {
         int posBuffer = x + i;
-        if (this->zbuffer[posBuffer ] > distanciaObjeto) {
+        if (this->zbuffer[posBuffer] > distanciaObjeto) {
             SDL_Rect dimension, dest;
             dimension.x = i;//suma offset
             dimension.y = 0;//sumaoffset
@@ -101,24 +98,35 @@ bool compararDistanciasObjetos(ObjetoDibujable *objeto1, ObjetoDibujable *objeto
 }
 
 bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
-  Posicion &posJugador = jugador->getPosicion();
-  float anguloDeVista = posJugador.getAnguloDeVista();
-  bool estaEnSegmento = posJugador.verificarSiPerteneceAlSegmento(posObjeto);//camiar a estaEnRangoSegmento
-  if (!estaEnSegmento) return false;
-  float pendienteRecta = tan(anguloDeVista);
-  if ((PI <= anguloDeVista && anguloDeVista < 3 * PI/2) || (3 * PI/2 <= anguloDeVista && anguloDeVista < 2 * PI)){
-    pendienteRecta = -pendienteRecta;
-  }
-  float ordenadaOrigen = -posJugador.pixelesEnY() - (pendienteRecta * posJugador.pixelesEnX());
-  float y = pendienteRecta * posObjeto.pixelesEnX() + ordenadaOrigen;
-  if (y < 0) y = (-1) * y;
-  float opuesto = y - posObjeto.pixelesEnY();
-  float adyacente = posJugador.pixelesEnX() - posObjeto.pixelesEnX();
-  return (abs (atan(opuesto/adyacente)) <= PI/6);
+    Posicion &posJugador = jugador->getPosicion();
+    float anguloDeVista = posJugador.getAnguloDeVista();
+    bool estaEnSegmento = posJugador.verificarSiPerteneceAlSegmento(posObjeto);//camiar a estaEnRangoSegmento
+    if (!estaEnSegmento) {
+        std::cerr << "no lo encontre en el segmento\n";
+        return false;
+    }
+    float pendienteRecta = tan(anguloDeVista);
+    /*
+    if ((PI <= anguloDeVista && anguloDeVista < 3 * PI/2) || (3 * PI/2 <= anguloDeVista && anguloDeVista < 2 * PI)){
+      pendienteRecta = -pendienteRecta;
+    }*/
+    float ordenadaOrigen = -posJugador.pixelesEnY() - (pendienteRecta * posJugador.pixelesEnX());
+    float y = pendienteRecta * posObjeto.pixelesEnX() + ordenadaOrigen;
+    if (y < 0) y = (-1) * y;
+    float opuesto = y - posObjeto.pixelesEnY();
+    float adyacente = posJugador.pixelesEnX() - posObjeto.pixelesEnX();
+    bool enVista = (abs(atan(opuesto / adyacente)) <= PI / 6);
+    if (!enVista) {
+        std::cerr << "la pos del jugador es x: " << posJugador.pixelesEnX() << " y: " << posJugador.pixelesEnY()
+                  << "angulo: " << posJugador.getAnguloDeVista() << "\n";
+        std::cerr << "la pos del objeto es x: " << posObjeto.pixelesEnX() << " y: " << posObjeto.pixelesEnY()
+                  << "angulo: " << posObjeto.getAnguloDeVista() << "\n";
+    }
+    return enVista;
 }
 
 void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
-    bool esVisible = false;
+    bool esVisible;
     std::map<int, ObjetoJuego *>::iterator itItem;
     for (itItem = this->entidades.begin(); itItem != this->entidades.end(); ++itItem) {
         Posicion &posItem = itItem->second->getPosicion();
@@ -126,14 +134,14 @@ void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibl
         if (esVisible) {
             objetosVisibles.push_back(itItem->second);
             double distanciaAItem = posItem.distanciaA(this->jugador->getPosicion());
-
             itItem->second->setDistanciaParcialAJugador(distanciaAItem);
         }
     }
 }
 
 void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
-    bool esVisible = false;
+    std::cerr << "engulo j: " << this->jugador->getPosicion().getAnguloDeVista() << std::endl;
+    bool esVisible;
     std::map<int, Enemigo *>::iterator itEnemigo;
     for (itEnemigo = this->enemigos.begin(); itEnemigo != this->enemigos.end(); ++itEnemigo) {
         Posicion &posEnemigo = itEnemigo->second->getPosicion();
@@ -142,6 +150,8 @@ void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVis
             objetosVisibles.push_back(itEnemigo->second);
             double distanciaAEnemigo = posEnemigo.distanciaA(this->jugador->getPosicion());
             itEnemigo->second->setDistanciaParcialAJugador(distanciaAEnemigo);
+            std::cerr << "\n\nes visible\n\n";
+
         }
     }
 }
@@ -155,10 +165,10 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
         double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
-        int alturaSprite = floor((this->mapa.getLadoCelda()/ distancia) * DIST_PLANO_P);
+        int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
         if (alturaSprite > ALTURA_CANVAS) alturaSprite = ALTURA_CANVAS - 10;
-            std::cerr << "\n alturaSprite: " << alturaSprite;
-        int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2) - 20;
+        std::cerr << "alturaSprite: " << alturaSprite;
+        int y0 = floor(ALTURA_CANVAS / 2) - floor(alturaSprite / 2);
         //normalizarAnguloEnRango(difAngulo);
         double x0 = tan(difAngulo) * DIST_PLANO_P;
         int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
@@ -192,14 +202,10 @@ void Modelo::actualizarJugador(int x, int y, int vida, int angulo, int idArma,
 void Modelo::actualizarEnemigo(int id, int vida, bool disparando,
                                int posx, int posy, int idArma,
                                int anguloJugador, int angulo, int puntaje) {
-    Enemigo *enemigo;
-    try {
-        enemigo = this->enemigos.at(id);
-    } catch (std::out_of_range &e) {
-        enemigo = new Enemigo(this->ventana.obtener_render(), 4);
+    if (this->enemigos.count(id) == 0) {
+        auto enemigo = new Enemigo(this->ventana.obtener_render(), 4);
         this->enemigos.insert({id, enemigo});
     }
-
     this->enemigos[id]->actualizar(posx, posy, idArma, angulo, anguloJugador,
                                    vida, disparando, puntaje);
 }
@@ -228,80 +234,80 @@ void Modelo::terminoPartida(Ranking *rankingJugadores) {
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
     if (tipo.getName() == "comida") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "kitsMedicos") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 2, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "llave") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 2, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "balas") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 3, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "sangre") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 8, 0, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "cruz") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 1, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "copa") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "cofre") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "corona") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "ametralladora") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 6, 4, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "lanzaCohetes") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 0, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "barril") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 7, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "agua") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 0, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "tanque") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 3, 0, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "mesa") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 0, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "lampara") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 1, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "muertoColgante") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 1, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else if (tipo.getName() == "planta") {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 2, SPRITES_OBJETOS_LARGO,
-                SPRITES_OBJETOS_ANCHO);
+                      SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else {
         //std::cerr << " creo elsee";
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 0, 0,
-                0);
+                      0);
         return new ObjetoJuego(std::move(sprite));
     }
 }
