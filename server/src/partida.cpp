@@ -13,12 +13,12 @@
 
 #define LUA MODULO_LUA "modulo.lua"
 // en si recibe un archivo yaml y luego sereializa;
-Partida::Partida(Map mapa, int cantJugadoresPosibles) :
+Partida::Partida(Map mapa, int cantJugadoresPosibles, ConfiguracionPartida configuracion) :
         cola_comandos(),
-        estadoJuego(mapa),
+        estadoJuego(mapa,configuracion),
         cantJugadoresPosibles(cantJugadoresPosibles),
         sigue_corriendo(true),
-        arrancoPartida(false) {}
+        arrancoPartida(false){}
 
 Partida::~Partida() {}
 

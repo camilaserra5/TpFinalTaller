@@ -27,7 +27,7 @@ bool Posicion::verificarSiPerteneceAlSegmento(Posicion &otroJugador) {
         return (xMin <= otroJugador.pixelesX);
     } else {
         xMax = pixelesX;
-        return (/*xMin <= otroJugador.pixelesX && */otroJugador.pixelesX <= xMax);
+        return (otroJugador.pixelesX <= xMax);
     }
 }
 

@@ -3,8 +3,6 @@
 #include <math.h>
 
 #define MAX_VIDA 100
-#define POSX_INICIAL 5
-#define POSY_INICIAL 5
 #define CANT_INICAL_BALAS 8
 
 #include "armas/pistola.h"
@@ -18,20 +16,20 @@ int Jugador::getId() {
     return this->id;
 }
 
-Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion) :
+Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion,float vidaMax, float vRotacion, int cantBalasInicial) :
         posicion(posicion),
         id(id),
         nombre(nombre),
-        vida(MAX_VIDA),
+        vida(vidaMax),
         armas(),
-        balas(CANT_INICAL_BALAS),
-        velocidadDeRotacion(VELOCIDAD_DE_ROTACION),
+        balas(cantBalasInicial),
+        velocidadDeRotacion(vRotacion),
         armaActual(ID_PISTOLA),
         llaves(0),
         cantidad_vidas(2),
         logro(),
         disparando(false) {
-    std::cerr << "entro al constructor de jugador\n";      
+    std::cerr << "entro al constructor de jugador\n";
     this->armas.insert(std::make_pair(ID_PISTOLA, new Pistola()));
     this->armas.insert(std::make_pair(ID_CUCHILLO, new Cuchillo()));
     //this->armas.insert(std::make_pair(ID_AMETRALLADORA, new Ametralladora(posicion, ID_AMETRALLADORA)));
@@ -41,12 +39,11 @@ Jugador::Jugador() {
 }
 
 Jugador::~Jugador() {
-    std::cerr << "entreee al destructor de Jugador\n";
+  /*  std::cerr << "entreee al destructor de Jugador\n";
     std::map<int, Arma *>::iterator it;
     for (it = this->armas.begin(); it != this->armas.end(); ++it) {
-         delete it->second;
-    }
-
+        delete it->second;
+    }*/
 }
 
 std::string Jugador::obtenerNombre() {

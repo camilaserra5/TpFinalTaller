@@ -1,5 +1,6 @@
 #include "../include/servidor.h"
 #include "../include/aceptador.h"
+#include "configuracionPartida.h"
 
 #define TERMINAR 'q'
 
@@ -8,9 +9,8 @@ Servidor::Servidor(Parser &parser) : parser(parser) {}
 void Servidor::correr() {
     std::string port = parser.obtenerPuerto();
     this->socket.bind_and_listen(port.c_str());
-    Aceptador aceptador(this->socket, parser.obtenerRutaMapas(), parser.obtenerMapas());
+    Aceptador aceptador(this->socket, parser.obtenerRutaMapas(), parser.obtenerMapas(),parser.obtenerParametrosDeConfiguracion());
     aceptador.start();
-
     char caracter;
     do {
         std::cin >> caracter;

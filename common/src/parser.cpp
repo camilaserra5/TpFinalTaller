@@ -37,3 +37,34 @@ int Parser::obtenerAltoPantallaLogin() {
 int Parser::obtenerAnchoPantallaJuego() {
     return this->config["screenWidthGame"].as<int>();
 }
+
+ConfiguracionPartida Parser::obtenerParametrosDeConfiguracion(){
+  float vRotacion = this->config["vRotacion"].as<float>();
+  float vAvance = this->config["vAvance"].as<float>();
+  float vidaMax = this->config["vidaMax"].as<float>();
+  int balasPorRafagaAmetralladora = this->config["balasPorRafagaAmetralladora"].as<int>();
+  int balasPorRafagaCanion = this->config["balasPorRafagaCanion"].as<int>();
+  int maxBalas = this->config["maxBalas"].as<int>();
+  float cantidadBalasInicial = this->config["cantidadBalasInicial"].as<float>();
+  float distanciaMaxAcuchillable = this->config["distanciaMaxAcuchillable"].as<float>();
+  float puntos_cruz = this->config["puntos_cruz"].as<float>();
+  float punto_copa = this->config["punto_copa"].as<float>();
+  float punto_cofre = this->config["punto_cofre"].as<float>();
+  float puntos_corona = this->config["puntos_corona"].as<float>();
+  int cantidadVidas = this->config["cantidadVidas"].as<int>();
+  ConfiguracionPartida config;
+  config.setVRotacion(vRotacion);
+  config.setVAvance(vAvance);
+  config.setVidaMax(vidaMax);
+  config.setBalasPorRafagaAmetralladora(balasPorRafagaAmetralladora);
+  config.setBalasPorRafagaCanion(balasPorRafagaCanion);
+  config.setMaxBalas(maxBalas);
+  config.setCantidadBalasInicial(cantidadBalasInicial);
+  config.setDistanciaMaxAcuchillable(distanciaMaxAcuchillable);
+  config.setPuntos_cruz(puntos_cruz);
+  config.setPunto_copa(punto_copa);
+  config.setPunto_cofre(punto_cofre);
+  config.setPuntos_corona(puntos_corona);
+  config.setCantidadVidas(cantidadVidas);
+  return config;
+}

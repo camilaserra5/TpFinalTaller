@@ -13,10 +13,11 @@
 #include <atomic>
 #include "jugadorLua.h"
 #include "../include/thclient.h"
+#include "configuracionPartida.h"
 
 class Partida : public Thread, public ISerializable {
 public:
-    Partida(Map mapa, int cant_jugadores);
+    Partida(Map mapa, int cant_jugadores, ConfiguracionPartida configuracion);
 
     ~Partida();
 

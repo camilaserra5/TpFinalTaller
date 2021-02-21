@@ -7,12 +7,13 @@
 #include <string>
 #include "armas/arma.h"
 #include "iserializable.h"
+#include "configuracionPartida.h"
 
 #define CANTIDAD_TOP_JUGADORES 5
 
 class EstadoJuego : public ISerializable {
 public:
-    EstadoJuego(Map &mapa);
+    EstadoJuego(Map &mapa, ConfiguracionPartida configuracion);
 
     ~EstadoJuego();
 
@@ -69,6 +70,7 @@ private:
     std::map<int, Jugador *> jugadores;
     int contador;
     int jugadoresMuertos = 0;
+    ConfiguracionPartida configuracion;
 };
 
 #endif

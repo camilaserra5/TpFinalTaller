@@ -8,7 +8,6 @@
 
 #define ROTACION_DERECHA -1
 #define ROTACION_IZQUIERDA 1
-#define METROS_MOVIDOS 10
 #define CANT_TICKS_PARTIDA 10000  //5min
 
 Actualizacion *EstadoJuego::abrirPuerta(int idJugador) {
@@ -44,10 +43,11 @@ std::vector<Actualizacion *> EstadoJuego::realizarAtaque(int idJugador) {
     return actualizaciones;
 }
 
-EstadoJuego::EstadoJuego(Map &mapa) :
+EstadoJuego::EstadoJuego(Map &mapa, ConfiguracionPartida configuracion) :
         mapa(mapa),
         jugadores(),
-        contador(0) {}
+        contador(0),
+        configuracion(configuracion) {}
 
 EstadoJuego::~EstadoJuego() {
     std::cerr << "entre al destructor de estadoJuego";
@@ -70,7 +70,8 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
         posicionValida = this->mapa.obtenerPosicionInicialValida();
     }
 
-    Jugador *jugador = new Jugador(nombreJugador, id, posicionValida);
+    Jugador *jugador = new Jugador(nombreJugador, id, posicionValida,configuracion.getVidaMax(),
+    configuracion.getVRotacion(), configuracion.getBalasInicial());
     std::cerr << "agrego un jugadorrr" << std::endl;
     if (!jugador) {
         std::cerr << "O NO..." << std::endl;
@@ -87,8 +88,8 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
 }
 
 bool puedo_moverme(Map &mapa, int &posx, int &posy, Jugador *jugador) {
-    int posXMax = mapa.getRowSize() * mapa.getLadoCelda() - 1;
-    int posYMax = mapa.getColSize() * mapa.getLadoCelda() - 1;
+    int posXMax = mapa.getRowSize() * mapa.getLadoCelda() - 5;
+    int posYMax = mapa.getColSize() * mapa.getLadoCelda() - 5;
     if (posx < 0 || posy < 0 || posx > posXMax || posy > posYMax) return false;
     int posEnMapaJugadorx = posx / mapa.getLadoCelda();
     int posEnMapaJugadory = posy / mapa.getLadoCelda();
@@ -136,16 +137,17 @@ Actualizacion *EstadoJuego::rotar_a_izquierda(int idJugador) {
 
 std::vector<Actualizacion *> EstadoJuego::moverse_arriba(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-
-    int xFinal = jugador->posEnX() + (METROS_MOVIDOS * cos(jugador->getAnguloDeVista()));
-    int yFinal = jugador->posEnY() + (METROS_MOVIDOS * (-1) * sin(jugador->getAnguloDeVista()));
+    float avance = configuracion.obtenerVAvance();
+    int xFinal = jugador->posEnX() + (avance * cos(jugador->getAnguloDeVista()));
+    int yFinal = jugador->posEnY() + (avance * (-1) * sin(jugador->getAnguloDeVista()));
     return this->verificarMovimientoJugador(jugador, xFinal, yFinal);
 }
 
 std::vector<Actualizacion *> EstadoJuego::moverse_abajo(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
-    int xFinal = jugador->posEnX() + (METROS_MOVIDOS * (-1) * cos(jugador->getAnguloDeVista()));
-    int yFinal = jugador->posEnY() + (METROS_MOVIDOS * sin(jugador->getAnguloDeVista()));
+    float avance = configuracion.obtenerVAvance();
+    int xFinal = jugador->posEnX() + (avance * (-1) * cos(jugador->getAnguloDeVista()));
+    int yFinal = jugador->posEnY() + (avance * sin(jugador->getAnguloDeVista()));
     return this->verificarMovimientoJugador(jugador, xFinal, yFinal);
 }
 

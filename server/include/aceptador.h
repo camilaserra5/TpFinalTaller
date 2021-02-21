@@ -6,6 +6,7 @@
 #include "thread.h"
 #include "socket.h"
 #include "../include/thclient.h"
+#include "configuracionPartida.h"
 
 class Aceptador : public Thread {
 private:
@@ -15,11 +16,12 @@ private:
     std::map<std::string, std::string> mapas;
     ProtectedQueue<Comando *> cola_comandos;
     int generadorDeId = 100;
+    ConfiguracionPartida configuracionPartida;
 
     int obtenerIdParaJugador();
 
 public:
-    Aceptador(Socket &un_socket, std::string rutaMapas, std::map<std::string, std::string> mapas);
+    Aceptador(Socket &un_socket, std::string rutaMapas, std::map<std::string, std::string> mapas,ConfiguracionPartida configuracion);
 
     void run() override;
 

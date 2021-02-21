@@ -3,6 +3,7 @@
 
 #include <string>
 #include <yaml-cpp/yaml.h>
+#include "configuracionPartida.h"
 
 class Parser {
 public:
@@ -22,6 +23,7 @@ public:
 
     int obtenerAnchoPantallaJuego();
 
+    ConfiguracionPartida obtenerParametrosDeConfiguracion();
 
 private:
     YAML::Node config;

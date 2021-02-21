@@ -11,10 +11,11 @@
 #include "protocolo.h"
 #include "../include/thclient.h"
 #include "../include/partida.h"
+#include "configuracionPartida.h"
 
 class ManejadorPartidas : public ISerializable {
 public:
-    ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas);
+    ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,ConfiguracionPartida configuracion);
 
     ~ManejadorPartidas();
 
@@ -46,6 +47,7 @@ private:
     std::atomic<bool> esta_corriendo;
     std::map<std::string, std::string> &mapas;
     std::string rutaMapas;
+    ConfiguracionPartida configuracion;
 };
 
 #endif

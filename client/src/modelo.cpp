@@ -76,10 +76,15 @@ bool normalizarAnguloEnRango(double &angulo) {
 
 void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &drawStart, double &distanciaObjeto) {
     int anchoSprite = objeto->obtenerAnchura();
+    //float drawEnd;
     for (int i = 0; i < anchoSprite; i++) {
         int posBuffer = x + i;
         if (this->zbuffer[posBuffer] > distanciaObjeto) {
-          drawStart += 40;
+            if (alturaSprite >= ALTURA_CANVAS){
+              drawStart = 100;
+            }else{
+              drawStart = 500 - alturaSprite;
+            }
             SDL_Rect dimension, dest;
             dimension.x = i;//suma offset
             dimension.y = 0;//sumaoffset
@@ -91,11 +96,46 @@ void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x
             dest.h = alturaSprite;
             objeto->renderizarColumna(dimension, dest);
         }
-    }
+    }/*
+    int anchoSprite = objeto->obtenerAnchura();
+    float drawEnd;
+    for (int i = 0; i < anchoSprite; i++) {
+        int posBuffer = x + i;
+        if (this->zbuffer[posBuffer] > distanciaObjeto) {
+            if (alturaSprite >= ALTURA_CANVAS){
+              drawEnd = ALTURA_CANVAS - 20;
+            }else{
+              drawEnd = drawStart + alturaSprite;
+            }
+            SDL_Rect dimension, dest;
+            dimension.x = i;//suma offset
+            dimension.y = 0;//sumaoffset
+            dimension.w = 1;
+            dimension.h = 0;
+            dest.x = posBuffer;
+            dest.y = drawStart;
+            dest.w = 1;
+            dest.h = abs(drawEnd - drawStart);
+            objeto->renderizarColumna(dimension, dest);
+        }
+    }*/
 }
 
 bool compararDistanciasObjetos(ObjetoDibujable *objeto1, ObjetoDibujable *objeto2) {
     return (objeto1->getDistanciaParcialAJugador() < objeto2->getDistanciaParcialAJugador());
+}
+
+bool verificarsiEstaDelante(Posicion& posObjeto, Posicion& posJugador){
+  float angulo = posJugador.getAnguloDeVista();
+  int yJugador = posJugador.pixelesEnY();
+  int yObjeto = posObjeto.pixelesEnY();
+    if (0 <= angulo && angulo <= PI){
+      if (yObjeto <= yJugador) return true;
+      else return false;
+    }else{
+      if (yObjeto >= yJugador) return true;
+      else return false;
+    }
 }
 
 bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
@@ -109,17 +149,18 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
         std::cerr << "no lo encontre en el segmento\n";
         return false;
     }
+    bool enVista;
     float pendienteRecta = tan(anguloDeVista);
-    /*
-    if ((PI <= anguloDeVista && anguloDeVista < 3 * PI/2) || (3 * PI/2 <= anguloDeVista && anguloDeVista < 2 * PI)){
-      pendienteRecta = -pendienteRecta;
-    }*/
     float ordenadaOrigen = -posJugador.pixelesEnY() - (pendienteRecta * posJugador.pixelesEnX());
     float y = pendienteRecta * posObjeto.pixelesEnX() + ordenadaOrigen;
     if (y < 0) y = (-1) * y;
-    float opuesto = y - posObjeto.pixelesEnY();
-    float adyacente = posJugador.pixelesEnX() - posObjeto.pixelesEnX();
-    bool enVista = (abs(atan(opuesto / adyacente)) <= PI / 6);
+    float opuesto = abs(y - posObjeto.pixelesEnY());
+    float adyacente = abs(posJugador.pixelesEnX() - posObjeto.pixelesEnX());
+    if (adyacente == 0){
+        enVista = verificarsiEstaDelante(posObjeto,posJugador);
+    }else{
+        enVista = (abs(atan(opuesto / adyacente)) <= PI / 6);
+    }
     if (!enVista) {
         std::cerr << "la pos del jugador es x: " << posJugador.pixelesEnX() << " y: " << posJugador.pixelesEnY()
                   << "angulo: " << posJugador.getAnguloDeVista() << "\n";
@@ -169,20 +210,17 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
         double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
-        int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
-        int y0;
-        if (alturaSprite > ALTURA_CANVAS) {
-            alturaSprite = ALTURA_CANVAS - 10;
-            y0 = (alturaSprite / 2);
+        if (distancia > 0){
+          int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
+          int y0 = floor(ALTURA_CANVAS / 2);
 
-        }else{
-            y0 = floor(ALTURA_CANVAS / 2) - (alturaSprite / 2);
+          std::cerr << "alturaSprite: " << alturaSprite << " " << this->mapa.getLadoCelda() << " " << distancia;
+          //normalizarAnguloEnRango(difAngulo);
+          double x0 = tan(difAngulo) * DIST_PLANO_P;
+          int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
+          this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y0, distancia);
         }
-        std::cerr << "alturaSprite: " << alturaSprite;
-        //normalizarAnguloEnRango(difAngulo);
-        double x0 = tan(difAngulo) * DIST_PLANO_P;
-        int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
-        this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y0, distancia);
+
     }
 }
 

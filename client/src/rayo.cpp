@@ -32,7 +32,6 @@ void Rayo::verificarCuadrante(const double anguloJugador) {
 }
 
 void Rayo::verificarInterseccion(Map &mapa, double &distancia, Player &jugador) {
-    //  double distanciaHorizontal = this->ladoCelda * mapa.getRowSize(), distanciaVertical = this->ladoCelda * mapa.getColSize();
     this->verificarCuadrante(jugador.getAnguloDeVista());
     if (!this->abajo && !this->izquierda) {
         distancia = this->verificarInterseccionPrimerCuadrante(jugador, mapa);
@@ -119,11 +118,11 @@ double Rayo::verificarInterseccionTercerCuadrante(Player &jugador, Map &mapa) {
     if (xStep > 0.0) {
         xStep = -xStep;
     }
-    yStep = tileStep;//pos o neg?? (estaba neg)
+    yStep = tileStep;
     distanciaHorizontal = this->verificarInterseccionHorizontal(jugador, mapa, y, dy, xStep, yStep, tangente);
 
     /*parametros para vertical*/
-    dx = -std::modf(this->posXMapa, &x);// pos o neg???
+    dx = -std::modf(this->posXMapa, &x);
     x = floor(x) - 0.025;
     xStep = -tileStep;
     yStep = tan(this->anguloBarrido);

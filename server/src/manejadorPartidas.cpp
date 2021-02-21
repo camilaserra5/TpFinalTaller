@@ -1,5 +1,4 @@
 #include "../include/manejadorPartidas.h"
-
 #include "map_translator.h"
 #include "../include/InvalidMapException.h"
 #include <config.h>
@@ -7,11 +6,12 @@
 #include "comandos/crearPartida.h"
 #include "comandos/unirseAPartida.h"
 
-ManejadorPartidas::ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas) :
+ManejadorPartidas::ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,ConfiguracionPartida configuracion) :
         partidas(),
         esta_corriendo(true),
         mapas(mapas),
-        rutaMapas(std::move(rutaMapas)) {}
+        rutaMapas(std::move(rutaMapas)),
+        configuracion(configuracion) {}
 
 void ManejadorPartidas::nuevoCliente(ThClient *cliente) {
     std::vector<char> info = this->serializar();
@@ -70,7 +70,7 @@ void ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugad
     }
     try {
         Map mapa = this->buscarMapa(archivoMapa, screenWidth);
-        Partida *servidor = new Partida(mapa, cant_jugadores);
+        Partida *servidor = new Partida(mapa, cant_jugadores,this->configuracion);
         this->partidas.insert({nombre_partida, servidor});
     } catch (InvalidMapException &e) {
         std::cerr << "Error creando partida";
