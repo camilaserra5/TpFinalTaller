@@ -11,7 +11,9 @@ ActualizacionAgarroItem::ActualizacionAgarroItem(Jugador *jugador,
         item(item) {}
 
 
-ActualizacionAgarroItem::~ActualizacionAgarroItem() {}
+ActualizacionAgarroItem::~ActualizacionAgarroItem() {
+    delete this->jugador;
+}
 
 ActualizacionAgarroItem::ActualizacionAgarroItem(){}
 

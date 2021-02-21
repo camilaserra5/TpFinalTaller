@@ -7,7 +7,14 @@ ActualizacionAtaque::ActualizacionAtaque(Jugador *jugador,
         jugadoresAtacados(jugadoresAtacados) {}
 
 
-ActualizacionAtaque::~ActualizacionAtaque() {}
+ActualizacionAtaque::~ActualizacionAtaque() {
+    std::map<int, Jugador*>::iterator it = this->jugadoresAtacados.begin();
+    while (it != this->jugadoresAtacados.end()){
+          delete it->second;
+          ++it;
+    }
+    delete this->jugador;
+}
 
 
 std::vector<char> ActualizacionAtaque::serializar() {
