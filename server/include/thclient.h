@@ -20,7 +20,7 @@ private:
     Server_Event_Sender *enviador;
     Server_Event_Receiver *recibidor;
     int id;
-
+    bool isDead = false;
     void procesar_pedido();
 
 public:
