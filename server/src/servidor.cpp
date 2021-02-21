@@ -3,9 +3,9 @@
 #include "configuracionPartida.h"
 
 
-Servidor::Servidor(Parser &parser) : parser(parser),
+Servidor::Servidor(Parser &parser, ConfiguracionPartida& config) : parser(parser),
                   aceptador(this->socket, parser.obtenerRutaMapas(),
-                          parser.obtenerMapas()) {}
+                          parser.obtenerMapas(), config) {}
 
 void Servidor::correr() {
     std::string port = parser.obtenerPuerto();

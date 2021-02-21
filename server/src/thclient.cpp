@@ -64,17 +64,19 @@ ThClient::~ThClient() {
     if (this->enviador == nullptr || this->recibidor == nullptr) {
         return;
     }
-    delete this->enviador;
-    delete this->recibidor;
 }
 
 void ThClient::stop() {
+
     if (this->enviador->estaCorriendo()) {
         this->enviador->cerrar();
         this->enviador->join();
+        delete this->enviador;
+
     } else if (this->recibidor->estaCorriendo()) {
         this->recibidor->cerrar();
         this->recibidor->join();
+        delete this->recibidor;
     }
     isDead = true;
 }

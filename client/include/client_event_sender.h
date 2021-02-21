@@ -20,12 +20,23 @@ private:
     Protocolo *protocolo;
 
 public:
+    /*
+      * creara a la clase client event sender dejandola valida para uso
+      * tanto como el protocolo y la cola bloqueate deben estar inicializadas
+    */
     ClientEventSender(Protocolo *protocolo, BlockingQueue<Comando *> &events);
-
+    /*
+      * sacara un comando de la cola de comandos, la serializara y la
+      * enviara a travez del protocolo
+    */
     void run() override;
-
+    /*
+      * cerrara el protocolo de comunacion
+    */
     void cerrar();
-
+    /*
+      * liberera a la clase con todos sus recursos
+    */  
     ~ClientEventSender();
 };
 

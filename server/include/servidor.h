@@ -16,6 +16,7 @@
 #include <string>
 #include "socket.h"
 #include "aceptador.h"
+#include "configuracionPartida.h"
 
 class Servidor {
 private:
@@ -23,7 +24,7 @@ private:
     Parser &parser;
     Aceptador aceptador;
 public:
-    Servidor(Parser &parser);
+    Servidor(Parser &parser, ConfiguracionPartida& config);
 
     void correr();
 

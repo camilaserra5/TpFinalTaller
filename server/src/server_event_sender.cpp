@@ -1,6 +1,7 @@
 #include "../include/server_event_sender.h"
 
 #include "socket_error.h"
+#include "protected_queue.h"
 
 void Server_Event_Sender::run() {
     while (this->corriendo) {
@@ -15,6 +16,7 @@ void Server_Event_Sender::run() {
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
             this->cerrar();
+
         }
 
     }
@@ -23,6 +25,7 @@ void Server_Event_Sender::run() {
 void Server_Event_Sender::cerrar() {
     this->corriendo = false;
     protocolo->cerrar();
+    this->actualizaciones.cerrar();
 }
 
 void Server_Event_Sender::enviar_actualizaciones(std::vector<Actualizacion *> act) {

@@ -181,7 +181,7 @@ void Partida::run() {
                 Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego);
                 actualizacionTermino.push_back(terminoPartida);
                 this->enviar_actualizaciones(actualizacionTermino);
-                this->finalizarClientes();
+              //  this->finalizarClientes();
                 this->arrancoPartida = false;
                 this->sigue_corriendo = false;
             }

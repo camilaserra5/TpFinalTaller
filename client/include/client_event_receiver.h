@@ -24,15 +24,29 @@ private:
     bool recibii = false;
 
 public:
+    /*
+      * creara la clase cliente Event receiver dejandola valida para uso
+      * tanto como el protocolo, la protected_queue, el modeloy el idJugador
+      * deben estar inicialiados/validos
+    */
     ClientEventReceiver(Protocolo *protocolo, ProtectedQueue<Actualizacion *> &updates,
                         Modelo &modelo, int idJugador);
-
+    /*
+      * recibira un vector de caracteres por medio del protocolo y encolara
+      * una atualizacion en la cola protegida
+    */
     void run() override;
-
+    /*
+      * cerrara el protocolo de comunicacion
+    */
     void cerrar();
-
+    /*
+      * liberara la clase client event reciber con sus recursos
+    */
     ~ClientEventReceiver();
-
+    /*
+      * determina si recibio
+    */  
     bool recibi() {
         return this->recibii;
     }

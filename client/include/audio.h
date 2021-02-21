@@ -5,8 +5,13 @@
 
 class Audio {
 public:
+    /*
+      * crea el audio dejandolo valido para uso
+    */
     Audio();
-
+    /*
+      * libera la clase audio
+    */
     ~Audio();
 };
 
