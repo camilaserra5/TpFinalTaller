@@ -18,7 +18,7 @@ vAvance: 10
 vidaMax: 100
 balasPorRafagaAmetralladora: 5
 balasPorRafagaCanion: 1
-maxBalas:
+maxBalas: 8 #a cheqeuar
 cantidadBalasInicial: 8
 distanciaMaxAcuchillable: 20
 puntos_cruz: 10
