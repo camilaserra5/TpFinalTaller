@@ -104,7 +104,6 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {
     }
 }
 
-
 ManejadorPartidas::~ManejadorPartidas() {
 
 }

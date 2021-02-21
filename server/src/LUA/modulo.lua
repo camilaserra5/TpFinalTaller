@@ -1,26 +1,26 @@
 -- macro Variable
 next_position = {
-    [-1] = "a", -- IZQUIERDA
-    [0] = "w", -- ADELANTE
-    [1] = "d", -- DERECHA
-    [2] = "s" -- RETROCEDER
+    [0] = "a", -- IZQUIERDA
+    [1] = "w", -- ADELANTE
+    [2] = "d", -- DERECHA
+    [3] = "s" -- RETROCEDER
 }
 
 --Funcion que verifica si puede avanzar
 --Nota: to do lo que sea distinto a 'false' 'nil' es tomado como true;
 function proximo_movimiento(pos_x, pos_y)
-    print(string.format("MODULO LUA RECIBIO: %d, %d", pos_x, pos_y))
-    if (#mapa[pos_x + 1][pos_y] == 0) then
-        return next_position[1]
-    end
-    if (#mapa[pos_x - 1][pos_y] == 0) then
-        return next_position[-1]
-    end
-    if (#mapa[pos_x][pos_y + 1] == 0) then
+    print(string.format("MODULO LUA PROX MOV RECIBIO: %d, %d", pos_x, pos_y))
+    if (mapa[pos_x + 1][pos_y] == 0) then
         return next_position[0]
     end
-    if (#mapa[pos_x][pos_y - 1] == 0) then
+    if (mapa[pos_x - 1][pos_y] == 0) then
+        return next_position[1]
+    end
+    if (mapa[pos_x][pos_y + 1] == 0) then
         return next_position[2]
+    end
+    if (mapa[pos_x][pos_y - 1] == 0) then
+        return next_position[3]
     end
 end
 
@@ -33,7 +33,7 @@ function posicion_enemigo_cerca(pos_x, pos_y)
     --end
     for i = pos_x - rango, i + rango, 1 do
         for j = pos_y - rango, j + rango, 1 do
-            if (#mapa[i][j] >= 100) then
+            if (mapa[i][j] >= 100) then
                 return {posicionX = i, posicionY = j}
             end
         end
@@ -51,14 +51,12 @@ end
 function crear_accion(pos_x, pos_y)
     print("CREAR ACCION")
     print(string.format("MODULO LUA RECIBIO: %d, %d", pos_x, pos_y))
-    --print(pos_y)
     local siguiente_mov = proximo_movimiento(pos_x, pos_y)
-    local posicion_enemigo = posicion_enemigo_cerca(pos_x, pos_y)
-    if (posicion_enemigo) then
-        return disparar_al_enemigo()   --avanzar_hacia_enemigo(posicion_enemigo, pos_x, pos_y)
-    end
-    print(siguiente_mov)
-    return siguiente_mov
+    --local posicion_enemigo = posicion_enemigo_cerca(pos_x, pos_y)
+    --if (posicion_enemigo) then
+    --    return disparar_al_enemigo()   --avanzar_hacia_enemigo(posicion_enemigo, pos_x, pos_y)
+    --end\
+    return siguiente_mov--siguiente_mov
 end
 
 
