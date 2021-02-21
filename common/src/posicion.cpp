@@ -23,12 +23,11 @@ int Posicion::distanciaA(Posicion &posicion) {
 bool Posicion::verificarSiPerteneceAlSegmento(Posicion &otroJugador) {
     float xMin, xMax;
     if ((0 <= anguloDeVista && anguloDeVista < PI / 2) || (3 * PI / 2 <= anguloDeVista && anguloDeVista < 2 * PI)) {
-        xMin = pixelesX;
+        xMin = this->pixelesX;
         return (xMin <= otroJugador.pixelesX);
     } else {
-        xMin = 0;
         xMax = pixelesX;
-        return (xMin <= otroJugador.pixelesX && otroJugador.pixelesX <= xMax);
+        return (/*xMin <= otroJugador.pixelesX && */otroJugador.pixelesX <= xMax);
     }
 }
 

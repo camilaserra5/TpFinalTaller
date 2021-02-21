@@ -23,3 +23,11 @@ void Server_Event_Receiver::run() {
         }
     }
 }
+void Server_Event_Receiver::cerrar() {
+    this->corriendo = false;
+    protocolo->cerrar();
+}
+
+bool Server_Event_Receiver::estaCorriendo() {
+    return corriendo;
+}

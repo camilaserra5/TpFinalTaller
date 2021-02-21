@@ -3,6 +3,7 @@
 
 #define MAPA "mapa"
 
+
 ManejadorLua::ManejadorLua(std::string &archivo) {
     std::cerr << "=== INSTANCIANDO UN MANEJADOR LUA==== " << std::endl;
     interprete = luaL_newstate();

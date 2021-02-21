@@ -188,7 +188,12 @@ void ContenedorDeElementos::sacarElementoDePosicion(Posicion &posicion) {
 ContenedorDeElementos::ContenedorDeElementos() :
         elementos() {}
 
-ContenedorDeElementos::~ContenedorDeElementos() {}
+ContenedorDeElementos::~ContenedorDeElementos() {
+    int cantidadElementos = this->elementos.size();
+    for(int i = 0; i < cantidadElementos; i++){
+        delete this->elementos[i];
+    }
+}
 
 Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
     int cantidadElementos = this->elementos.size();

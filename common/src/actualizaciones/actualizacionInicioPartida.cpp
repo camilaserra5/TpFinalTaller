@@ -1,11 +1,7 @@
 #include "actualizaciones/actualizacionInicioPartida.h"
 
 ActualizacionInicioPartida::ActualizacionInicioPartida(EstadoJuego &estadoJuego) :
-        estadoJuego(estadoJuego), rankingJugadores(), termine(false) {
-    estadoJuego.verificarJugadoresMuertos();
-    this->termine = this->estadoJuego.terminoPartida();
-    Ranking ranking(estadoJuego.obtenerJugadores());
-    this->rankingJugadores = ranking.obtenerTopJugadores(5);
+        estadoJuego(estadoJuego){
 }
 
 ActualizacionInicioPartida::~ActualizacionInicioPartida() {
@@ -27,7 +23,6 @@ void ActualizacionInicioPartida::deserializar(std::vector<char> &serializado) {
     std::vector<char> estadoJuegoSerializado(serializado.begin(),
                                              serializado.end());
     this->estadoJuego.deserializar(estadoJuegoSerializado);
-    //  std::cerr << "actualizacion deserializar fin" << std::endl;
 }
 
 EstadoJuego &ActualizacionInicioPartida::obtenerEstadoJuego() {
