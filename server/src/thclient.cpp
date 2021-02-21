@@ -80,7 +80,16 @@ void ThClient::stop() {
 }
 
 bool ThClient::is_dead() {
-    return isDead;
+    if (isDead)
+        return true;
+    try {
+        if (this->enviador != nullptr && this->recibidor != nullptr) {
+            return !this->enviador->estaCorriendo() || !this->recibidor->estaCorriendo();
+        }
+    } catch (...) {
+        std::cerr << "error " << std::endl;
+    }
+    return false;
 }
 
 void ThClient::enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
