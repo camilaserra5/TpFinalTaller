@@ -21,17 +21,26 @@ private:
     int velocidad;
 
 public:
+    /*
+      * crea la animacion dejandola valida para uso
+    */
     Animacion(SDL_Renderer *render,
               const char *rutaimg,
               int frames,
               int frame_h,
               int frame_w,
               int fila, int columna);
-
+    /*
+      *
+    */  
     ~Animacion();
-
+    /*
+      * realiza el renderizado del sprite completo en la posx e y
+    */
     void renderizar(int posx, int posy, int angulo, SDL_Point *centro);
-
+    /*
+      * realiza el renderizado por comuna del sprite
+    */
     void renderizarColumna(SDL_Rect &dimension, SDL_Rect dest);
 };
 

@@ -28,7 +28,8 @@ int main(int argc, const char *argv[]) {
 
     try {
         Parser parser(argv[ARG_PORT]);
-        Servidor servidor(parser);
+        ConfiguracionPartida config = parser.obtenerParametrosDeConfiguracion();
+        Servidor servidor(parser, config);
         servidor.correr();
         char caracter;
         do {

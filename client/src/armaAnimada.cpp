@@ -45,7 +45,6 @@ void ArmaAnimada::actualizar(int armaActual, bool estado) {
 
 void ArmaAnimada::renderizar() {
 
-    //std::cerr << "arma: " << this->armaActual << "\n";
     if (this->atacando) {
         if (this->contador != 0) {
             std::cerr << "entre";
@@ -56,7 +55,7 @@ void ArmaAnimada::renderizar() {
             this->atacando = false;
         }
     } else {
-        //this->sprites.find(this->armaActual)->second.reescalar(2, 2);
+
         this->sprites.find(this->armaActual)->second.renderizar(POSX, POSY, 0, NULL);
     }
 
