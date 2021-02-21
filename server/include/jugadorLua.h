@@ -13,13 +13,19 @@ private:
     ManejadorLua lua;
 
 public:
+    int id;
+
     JugadorLua(EstadoJuego &estadoJuego, int id, std::string &ruta);
 
+    /*
+     * Agrega un Jugador al estadoJuego y se le pasa el mapa numerico al manejador de Lua.
+     */
     void instanciarJugador(std::string &nombre);
 
+    /*
+     * Se le pide al modulo lua la proxima accion a hacer (puede moverse o disparar)
+     */
     char procesar();
-
-    int id;
 
     ~JugadorLua();
 };
