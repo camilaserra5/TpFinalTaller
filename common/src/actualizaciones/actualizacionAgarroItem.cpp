@@ -13,6 +13,7 @@ ActualizacionAgarroItem::ActualizacionAgarroItem(Jugador *jugador,
 
 ActualizacionAgarroItem::~ActualizacionAgarroItem() {}
 
+ActualizacionAgarroItem::ActualizacionAgarroItem(){}
 
 std::vector<char> ActualizacionAgarroItem::serializar() {
     std::vector<char> informacion;

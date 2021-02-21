@@ -3,6 +3,7 @@
 #include "actualizaciones/actualizacionInicioPartida.h"
 #include "actualizaciones/actualizacionTerminoPartida.h"
 #include "config.h"
+
 #define TIEMPO_SERVIDOR 0.3
 #define ID_LUA 777
 
@@ -12,6 +13,7 @@
 #define ROTAR_IZQUIERDA 2
 
 #define LUA MODULO_LUA "modulo.lua"
+
 // en si recibe un archivo yaml y luego sereializa;
 Partida::Partida(Map mapa, int cantJugadoresPosibles, ConfiguracionPartida configuracion) :
         cola_comandos(),
@@ -104,6 +106,8 @@ void Partida::enviar_actualizaciones(std::vector<Actualizacion *> actualizacione
             it->second->enviar_actualizaciones(actualizaciones);
         }
     }
+    this->ultAct = actualizaciones;
+
 }
 
 void Partida::finalizarClientes() {
@@ -187,6 +191,10 @@ void Partida::run() {
             //std::cerr << "sleep for" << time_span.count() << std::endl;
             std::this_thread::sleep_for(sleepTime);
 
+            for (auto &act : this->ultAct) {
+                std::cerr << "borro :" << act->obtenerId() << std::endl;
+                delete act;
+            }
             /*auto fin = std::chrono::high_resolution_clock::now();
             auto delta = fin - inicio;
             long tardanza = delta.count();
@@ -198,7 +206,7 @@ void Partida::run() {
             std::this_thread::sleep_for(duration);
 */
         } catch (...) {
-            std::cerr << "ENTRE AL CATCH" <<std::endl;
+            std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
         }
 

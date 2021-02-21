@@ -6,6 +6,7 @@ void Server_Event_Sender::run() {
     while (this->corriendo) {
         try {
             Actualizacion *actualizacion = this->actualizaciones.pop();
+            std::cerr << "envio" << std::endl;
             std::vector<char> informacion = actualizacion->serializar();
             protocolo->enviar(informacion);
         } catch (const SocketError &exc) {

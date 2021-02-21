@@ -39,11 +39,12 @@ Jugador::Jugador() {
 }
 
 Jugador::~Jugador() {
-  /*  std::cerr << "entreee al destructor de Jugador\n";
+    std::cerr << "entreee al destructor de Jugador " << this->id << std::endl;
     std::map<int, Arma *>::iterator it;
-    for (it = this->armas.begin(); it != this->armas.end(); ++it) {
-        delete it->second;
-    }*/
+    for (auto &arm: this->armas) {
+        delete arm.second;
+    }
+
 }
 
 std::string Jugador::obtenerNombre() {
@@ -160,6 +161,11 @@ void Jugador::actualizarNuevaVida() {
     std::cerr << "=====reviviendo==========" << '\n';
     this->vida = MAX_VIDA;
     this->cantidad_vidas -= 1;
+}
+
+void Jugador::morir() {
+    this->cantidad_vidas = 0;
+    this->vida = 0;
 }
 
 int Jugador::cant_de_vida() {

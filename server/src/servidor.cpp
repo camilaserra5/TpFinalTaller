@@ -2,20 +2,18 @@
 #include "../include/aceptador.h"
 #include "configuracionPartida.h"
 
-#define TERMINAR 'q'
 
-Servidor::Servidor(Parser &parser) : parser(parser) {}
+Servidor::Servidor(Parser &parser) : parser(parser),
+                  aceptador(this->socket, parser.obtenerRutaMapas(),
+                          parser.obtenerMapas()) {}
 
 void Servidor::correr() {
     std::string port = parser.obtenerPuerto();
     this->socket.bind_and_listen(port.c_str());
-    Aceptador aceptador(this->socket, parser.obtenerRutaMapas(), parser.obtenerMapas(),parser.obtenerParametrosDeConfiguracion());
-    aceptador.start();
-    char caracter;
-    do {
-        std::cin >> caracter;
-    } while (caracter != TERMINAR);
+    this->aceptador.start();
+}
 
+void Servidor::cerrar(){
     this->socket.cerrar();
     aceptador.join();
 }

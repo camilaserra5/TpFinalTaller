@@ -10,18 +10,22 @@ Aceptador::Aceptador(Socket &un_socket, std::string rutaMapas, std::map<std::str
         socket_listener(un_socket), rutaMapas(rutaMapas), mapas(mapas), configuracionPartida(configuracion){}
 
 static void liberar_terminados(std::vector<ThClient *> &clientes) {
-    std::vector<ThClient *> temp;
-    std::vector<ThClient *>::iterator iterador_clientes = clientes.begin();
-    while (iterador_clientes != clientes.end()) {
-        if ((*iterador_clientes)->is_dead()) {
-            (*iterador_clientes)->join();
-            delete (*iterador_clientes);
-        } else {
-            temp.push_back(*iterador_clientes);
+    try {
+        std::vector<ThClient *> temp;
+        std::vector<ThClient *>::iterator iterador_clientes = clientes.begin();
+        while (iterador_clientes != clientes.end()) {
+            if ((*iterador_clientes)->is_dead()) {
+                (*iterador_clientes)->join();
+                //delete (*iterador_clientes);
+            } else {
+                temp.push_back(*iterador_clientes);
+            }
+            ++iterador_clientes;
         }
-        ++iterador_clientes;
+        clientes.swap(temp);
+    } catch (...) {
+        std::cerr << "error";
     }
-    clientes.swap(temp);
 }
 
 void Aceptador::run() {
@@ -29,10 +33,12 @@ void Aceptador::run() {
     bool socket_es_valido = true;
     while (socket_es_valido) {
         try {
+            std::cerr << "estoy en acpetador\n";
             Socket peer = this->socket_listener.aceptar();
             clientes.push_back(new ThClient(std::move(peer), this->rutaMapas,
                                             this->mapas, this->obtenerIdParaJugador()));
 
+            manejadorPartidas.cerrarPartidas();
             manejadorPartidas.nuevoCliente(clientes.back());
             liberar_terminados(clientes);
         } catch (SocketErrorAceptar &exc) {

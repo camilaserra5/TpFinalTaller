@@ -43,6 +43,7 @@ Comando *ThClient::obtenerComandoInicial(std::vector<char> partidas) {
         crearPartida->deserializar(serializado);
         return crearPartida;
     }
+    isDead = true;
     return nullptr;
 }
 
@@ -75,18 +76,20 @@ void ThClient::stop() {
         this->recibidor->cerrar();
         this->recibidor->join();
     }
+    isDead = true;
 }
 
 bool ThClient::is_dead() {
+    if (isDead)
+        return true;
     try {
-        if (this->enviador == nullptr || this->recibidor == nullptr) {
-            return true;
+        if (this->enviador != nullptr && this->recibidor != nullptr) {
+            return !this->enviador->estaCorriendo() || !this->recibidor->estaCorriendo();
         }
-        return !this->enviador->estaCorriendo() || !this->recibidor->estaCorriendo();
     } catch (...) {
         std::cerr << "error " << std::endl;
     }
-    return true;
+    return false;
 }
 
 void ThClient::enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
@@ -105,6 +108,7 @@ void ThClient::run() {
         this->enviador->start();
         this->recibidor->start();
     } catch (SocketError &e) {
+        isDead = true;
         if (this->enviador->estaCorriendo()) {
             this->enviador->cerrar();
         } else if (this->recibidor->estaCorriendo()) {

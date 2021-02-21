@@ -37,6 +37,8 @@ public:
 
     int puntos_de_vida();
 
+    void morir();
+
     void agregar_balas(int &balas);
 
     int posEnX();

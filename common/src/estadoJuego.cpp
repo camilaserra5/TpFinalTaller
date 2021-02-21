@@ -63,10 +63,10 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
     Posicion posicionValida = this->mapa.obtenerPosicionInicialValida();
     std::cerr << "la pos inicial valida es: " << posicionValida.pixelesEnX() << " y: " << posicionValida.pixelesEnY()
               << " angulo: " << posicionValida.getAnguloDeVista() << " id: " << id << "\n";
-    for (std::map<int,Jugador*>::iterator it = this->jugadores.begin(); it != this->jugadores.end(); ++it){
+    for (std::map<int, Jugador *>::iterator it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if ((it->second)->getPosicion() == posicionValida) repetido = true;
     }
-    if (repetido){
+    if (repetido) {
         posicionValida = this->mapa.obtenerPosicionInicialValida();
     }
 
@@ -163,7 +163,7 @@ void EstadoJuego::verificarJugadoresMuertos() {
             it->second->actualizarNuevaVida();
             Posicion posicion = this->mapa.obtenerPosicionInicialValida();
             it->second->moverse(posicion.pixelesEnX(), posicion.pixelesEnY());
-            if (it->second->cant_de_vida() == 0) {
+            if (it->second->cant_de_vida() <= 0) {
                 this->jugadoresMuertos++;
                 std::cerr << "========= Morision definitiva========" << '\n';
             }
@@ -173,14 +173,7 @@ void EstadoJuego::verificarJugadoresMuertos() {
 
 std::vector<Actualizacion *> EstadoJuego::desconectarJugador(int idJugador) {
     std::vector<Actualizacion *> actualizaciones;
-    Jugador *jugador = this->jugadores.at(idJugador);
-    int vida = jugador->puntos_de_vida() * -1;
-    jugador->actualizar_vida(vida);
-    while (jugador->cant_de_vida() > 0) {
-        jugador->actualizarNuevaVida();
-        vida = jugador->puntos_de_vida() * -1;
-        jugador->actualizar_vida(vida);
-    }
+    this->jugadores.at(idJugador)->morir();
     this->verificarJugadoresMuertos();
     return actualizaciones;
 }
@@ -217,8 +210,8 @@ std::vector<char> EstadoJuego::serializar() {
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     std::map<int, Jugador *>::iterator it;
     for (it = jugadores.begin(); it != jugadores.end(); ++it) {
-        Jugador jugador = *it->second;
-        std::vector<char> jugadorSerializado = jugador.serializar();
+        std::cerr << "asdsdasd";
+        std::vector<char> jugadorSerializado = (*it->second).serializar();
         aux = numberToCharArray(jugadorSerializado.size());
         informacion.insert(informacion.end(), aux.begin(), aux.end());
         informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
@@ -271,7 +264,7 @@ std::vector<std::vector<int>> EstadoJuego::GetMapanumerico() {
 }
 
 std::vector<int> EstadoJuego::getPosicionJugador(int idJugador) {
-    Jugador *jugador = this->jugadores.at(idJugador); //No se por que falla :( carita triste
+    Jugador *jugador = this->jugadores.at(idJugador);
     int posEnMapaJugadorx = jugador->posEnX() / mapa.getLadoCelda();
     int posEnMapaJugadory = jugador->posEnY() / mapa.getLadoCelda();
     std::vector<int> posiciones;
