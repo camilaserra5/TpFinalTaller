@@ -16,7 +16,7 @@ static void liberar_terminados(std::vector<ThClient *> &clientes) {
         while (iterador_clientes != clientes.end()) {
             if ((*iterador_clientes)->is_dead()) {
                 (*iterador_clientes)->join();
-                delete (*iterador_clientes);
+                //delete (*iterador_clientes);
             } else {
                 temp.push_back(*iterador_clientes);
             }
@@ -38,8 +38,8 @@ void Aceptador::run() {
             clientes.push_back(new ThClient(std::move(peer), this->rutaMapas,
                                             this->mapas, this->obtenerIdParaJugador()));
 
-            manejadorPartidas.nuevoCliente(clientes.back());
             manejadorPartidas.cerrarPartidas();
+            manejadorPartidas.nuevoCliente(clientes.back());
             liberar_terminados(clientes);
         } catch (SocketErrorAceptar &exc) {
             socket_es_valido = false;
