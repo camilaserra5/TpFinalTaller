@@ -26,7 +26,9 @@ public:
      * Recibe mapa de la partida actual para guardar y usarla para poder moverse.
      */
     void crearMapa(std::vector<std::vector<int>> mapa);
-
+    /*
+     * Vacia el Stack de Lua
+     */
     void vaciarStack();
 
     const char *generarEvento(int &posx, int &posy);

@@ -269,7 +269,7 @@ std::vector<std::vector<int>> EstadoJuego::GetMapanumerico() {
 }
 
 std::vector<int> EstadoJuego::getPosicionJugador(int idJugador) {
-    Jugador *jugador = this->jugadores.at(idJugador); //No se por que falla :( carita triste
+    Jugador *jugador = this->jugadores.at(idJugador);
     int posEnMapaJugadorx = jugador->posEnX() / mapa.getLadoCelda();
     int posEnMapaJugadory = jugador->posEnY() / mapa.getLadoCelda();
     std::vector<int> posiciones;
