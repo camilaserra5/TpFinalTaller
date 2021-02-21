@@ -15,15 +15,19 @@
 #include "parser.h"
 #include <string>
 #include "socket.h"
+#include "aceptador.h"
 
 class Servidor {
 private:
     Socket socket;
     Parser &parser;
+    Aceptador aceptador;
 public:
     Servidor(Parser &parser);
 
     void correr();
+
+    void cerrar();
 
     ~Servidor();
 };

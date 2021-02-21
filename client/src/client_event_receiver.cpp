@@ -9,6 +9,8 @@
 #include <actualizaciones/actualizacionAperturaPuerta.h>
 #include <actualizaciones/actualizacionMovimiento.h>
 #include <actualizaciones/actualizacionTerminoPartida.h>
+#include <actualizaciones/actualizacionAgarroItem.h>
+#include <actualizaciones/actualizacionAgregarItem.h>
 
 ClientEventReceiver::ClientEventReceiver(Protocolo *protocolo,
                                          ProtectedQueue<Actualizacion *> &updates, Modelo &modelo, int idJugador) :
@@ -45,6 +47,14 @@ Actualizacion *deserializarActualizacion(std::vector<char> informacion) {
         return act;
     } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
         auto act = new ActualizacionTerminoPartida();
+        act->deserializar(actualizacionSerializada);
+        return act;
+    } else if (idActualizacion == static_cast<int>(Accion::agarreItem)){
+        auto act = new ActualizacionAgarroItem();
+        act->deserializar(actualizacionSerializada);
+        return act;
+    } else if(idActualizacion == static_cast<int>(Accion::agregarItem)){
+        auto act = new ActualizacionAgregarItem();
         act->deserializar(actualizacionSerializada);
         return act;
     }

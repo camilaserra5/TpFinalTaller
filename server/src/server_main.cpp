@@ -5,6 +5,7 @@
 #define ARGUMENTOS_CORRECTOS 2
 #define ERROR_ARGUMENTOS 1
 #define ARG_PORT 1
+#define TERMINAR 'q'
 
 static void mensaje_de_error_argumentos() {
     std::cerr << "La cantidad de argumentos ingresados son incorrectos. ";
@@ -29,6 +30,11 @@ int main(int argc, const char *argv[]) {
         Parser parser(argv[ARG_PORT]);
         Servidor servidor(parser);
         servidor.correr();
+        char caracter;
+        do {
+            std::cin >> caracter;
+        } while (caracter != TERMINAR);
+        servidor.cerrar();
     } catch (std::exception &exc) {
         std::cout << exc.what() << std::endl;
         return 0;

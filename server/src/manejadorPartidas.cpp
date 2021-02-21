@@ -91,10 +91,14 @@ void ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
 }
 
 void ManejadorPartidas::eliminarPartidasTerminadas() {
+    std::cerr << "entro a elimianr partidas\n";
     std::map<std::string, Partida *>::iterator it;
-    for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
+    std::cerr << "cantidad de partidas: " << this->partidas.size() << std::endl;
+    it = this->partidas.begin();
+    while(it != this->partidas.end()) {
+        std::cerr << "verifico una partida\n";
         if (it->second->terminoPartida()) {
-            it->second->joinClientes();
+            std::cerr << "elimino partida: " << it->first << std::endl;
             it->second->join();
             delete it->second;
             it = this->partidas.erase(it);
@@ -102,6 +106,7 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {
             ++it;
         }
     }
+    std::cerr << "salgo de eliminarPartidas\n";
 }
 
 ManejadorPartidas::~ManejadorPartidas() {
