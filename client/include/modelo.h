@@ -11,6 +11,7 @@
 #include "highscoreWindow.h"
 #include "actualizaciones/actualizacion.h"
 #include "protected_queue.h"
+#include "procesadorDeActualizaciones.h"
 
 class Modelo {
 public:
@@ -76,6 +77,10 @@ public:
 
     void actualizarBeneficioJugador(int vida, int balas, int puntos,
                                     int cant_vidas);
+
+    void setMapa(Map& mapa);
+
+    void actualizarPosicionEnemigo(int idE,int posX, int posY, float angulo);
 
 private:
     Ventana &ventana;
