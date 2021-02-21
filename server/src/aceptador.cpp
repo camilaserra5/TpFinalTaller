@@ -38,6 +38,7 @@ void Aceptador::run() {
                                             this->mapas, this->obtenerIdParaJugador()));
 
             manejadorPartidas.nuevoCliente(clientes.back());
+            manejadorPartidas.eliminarPartidasTerminadas();
             liberar_terminados(clientes);
         } catch (SocketErrorAceptar &exc) {
             socket_es_valido = false;
@@ -60,4 +61,3 @@ int Aceptador::obtenerIdParaJugador() {
     this->generadorDeId += 1;
     return id;
 }
-
