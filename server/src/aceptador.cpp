@@ -10,18 +10,22 @@ Aceptador::Aceptador(Socket &un_socket, std::string rutaMapas, std::map<std::str
         socket_listener(un_socket), rutaMapas(rutaMapas), mapas(mapas) {}
 
 static void liberar_terminados(std::vector<ThClient *> &clientes) {
-    std::vector<ThClient *> temp;
-    std::vector<ThClient *>::iterator iterador_clientes = clientes.begin();
-    while (iterador_clientes != clientes.end()) {
-        if ((*iterador_clientes)->is_dead()) {
-            (*iterador_clientes)->join();
-            delete (*iterador_clientes);
-        } else {
-            temp.push_back(*iterador_clientes);
+    try {
+        std::vector<ThClient *> temp;
+        std::vector<ThClient *>::iterator iterador_clientes = clientes.begin();
+        while (iterador_clientes != clientes.end()) {
+            if ((*iterador_clientes)->is_dead()) {
+                (*iterador_clientes)->join();
+               // delete (*iterador_clientes);
+            } else {
+                temp.push_back(*iterador_clientes);
+            }
+            ++iterador_clientes;
         }
-        ++iterador_clientes;
+        clientes.swap(temp);
+    } catch (...) {
+        std::cerr << "error";
     }
-    clientes.swap(temp);
 }
 
 void Aceptador::run() {
