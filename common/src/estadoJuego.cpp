@@ -215,8 +215,7 @@ std::vector<char> EstadoJuego::serializar() {
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     std::map<int, Jugador *>::iterator it;
     for (it = jugadores.begin(); it != jugadores.end(); ++it) {
-        Jugador jugador = *it->second;
-        std::vector<char> jugadorSerializado = jugador.serializar();
+        std::vector<char> jugadorSerializado = (*it->second).serializar();
         aux = numberToCharArray(jugadorSerializado.size());
         informacion.insert(informacion.end(), aux.begin(), aux.end());
         informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());

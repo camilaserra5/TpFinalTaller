@@ -31,7 +31,7 @@ Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion) :
         cantidad_vidas(2),
         logro(),
         disparando(false) {
-    std::cerr << "entro al constructor de jugador\n";      
+    std::cerr << "entro al constructor de jugador\n";
     this->armas.insert(std::make_pair(ID_PISTOLA, new Pistola()));
     this->armas.insert(std::make_pair(ID_CUCHILLO, new Cuchillo()));
     //this->armas.insert(std::make_pair(ID_AMETRALLADORA, new Ametralladora(posicion, ID_AMETRALLADORA)));
@@ -41,10 +41,10 @@ Jugador::Jugador() {
 }
 
 Jugador::~Jugador() {
-    std::cerr << "entreee al destructor de Jugador\n";
+    std::cerr << "entreee al destructor de Jugador " << this->id << std::endl;
     std::map<int, Arma *>::iterator it;
-    for (it = this->armas.begin(); it != this->armas.end(); ++it) {
-         delete it->second;
+    for (auto &arm: this->armas) {
+        delete arm.second;
     }
 
 }

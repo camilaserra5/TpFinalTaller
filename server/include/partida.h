@@ -62,6 +62,7 @@ private:
     std::atomic<bool> sigue_corriendo;
     std::atomic<bool> arrancoPartida;
     std::map<int, ThClient *> clientes;
+    std::vector<Actualizacion*> ultAct;
     //JugadorLua jugadorLua;
 
     void generarComandosLua(JugadorLua &jugadorLua);
