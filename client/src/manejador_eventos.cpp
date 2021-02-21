@@ -62,19 +62,15 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
                 // aca mandariamos la informacion o crearimos el evento;
                 case SDLK_LEFT:         // x, y, vida, angulo;
                     crearMovimiento(Accion::rotarIzquierda);
-                    //reproducir_sonido(SONIDO-DE-PASOS, REPRODUCCION_PASOS);
                     break;
                 case SDLK_RIGHT:
                     crearMovimiento(Accion::rotarDerecha);
-                    //reproducir_sonido(SONIDO-DE-PASOS, REPRODUCCION_PASOS);
                     break;
                 case SDLK_UP:
                     crearMovimiento(Accion::moverArriba);
-                    //reproducir_sonido(SONIDO-DE-PASOS, REPRODUCCION_PASOS);
                     break;
                 case SDLK_DOWN:
                     crearMovimiento(Accion::moverAbajo);
-                    //reproducir_sonido(SONIDO-DE-PASOS, REPRODUCCION_PASOS);
                     break;
                 case SDLK_PERIOD:
                     crearAtaque();

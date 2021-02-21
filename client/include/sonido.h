@@ -7,14 +7,14 @@
 class Sonido {
 private:
     Mix_Chunk *chunk;
-    int channel;
+    int canal;
 
 public:
-    explicit Sonido(const std::string &file);
+    explicit Sonido(const std::string &archivo);
 
     void settearVolumen(int volume);
 
-    void play(int loops = 0);
+    void play(int loops);
 
     void stop();
 
