@@ -7,7 +7,6 @@ JugadorLua::JugadorLua(EstadoJuego &estadoJuego, int id, std::string &ruta) :
         id(id) {}
 
 void JugadorLua::instanciarJugador(std::string &nombre) {
-    std::cerr << "===========EL ID ES: " << this->id << std::endl;
     this->estadoJuego.agregarJugador(nombre, this->id);
     lua.crearMapa(this->estadoJuego.GetMapanumerico());
 }

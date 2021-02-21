@@ -1,16 +1,16 @@
 #include "../include/sonido.h"
 
-Sonido::Sonido(const std::string &file) {
-    chunk = Mix_LoadWAV(file.c_str());
+Sonido::Sonido(const std::string &archivo) {
+    chunk = Mix_LoadWAV(archivo.c_str());
     if (!chunk) {
         printf("Mix_LoadWAV: %s\n", Mix_GetError());
     }
-    this->channel = -1;
+    this->canal = -1;
 }
 
 void Sonido::play(int loops) {
-    if (!Mix_Playing(this->channel))
-        this->channel = Mix_PlayChannel(-1, this->chunk, loops);
+    if (!Mix_Playing(this->canal))
+        this->canal = Mix_PlayChannel(-1, this->chunk, loops);
 }
 
 void Sonido::settearVolumen(int volume) {
@@ -18,7 +18,7 @@ void Sonido::settearVolumen(int volume) {
 }
 
 void Sonido::stop() {
-    Mix_FadeOutChannel(this->channel, 1000);
+    Mix_FadeOutChannel(this->canal, 1000);
 }
 
 Sonido::~Sonido() {
