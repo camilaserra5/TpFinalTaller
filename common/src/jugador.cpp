@@ -165,6 +165,11 @@ void Jugador::actualizarNuevaVida() {
     this->cantidad_vidas -= 1;
 }
 
+void Jugador::morir() {
+    this->cantidad_vidas = 0;
+    this->vida = 0;
+}
+
 int Jugador::cant_de_vida() {
     return this->cantidad_vidas;
 }
