@@ -33,3 +33,4 @@
 #define MAPA_7 "mapa7.yaml"
 #define MUSIQUITA "musiquita.wav"
 #define THEME "wolfenstein-3d-title-theme.mp3"
+#define MODULO_LUA "@PROJECT_BASE_DIR@/server/src/LUA/"

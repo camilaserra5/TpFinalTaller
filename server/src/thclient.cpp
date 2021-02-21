@@ -17,7 +17,7 @@ ThClient::ThClient(Socket &&un_socket, std::string rutaMapas,
         mapas(mapas),
         keep_talking(true),
         is_running(true),
-        id(id){}
+        id(id) {}
 
 Comando *ThClient::obtenerComandoInicial(std::vector<char> partidas) {
     this->protocolo->enviar(partidas);
@@ -54,14 +54,15 @@ void ThClient::enviarIdJugador() {
 }
 
 void ThClient::agregarColaEventos(ProtectedQueue<Comando *> &cola_comandos) {
-    std::cerr << "aTOY";
     this->enviador = new Server_Event_Sender(protocolo);
-    std::cerr << "bTOY";
     this->recibidor = new Server_Event_Receiver(cola_comandos, protocolo);
 }
 
 ThClient::~ThClient() {
     delete this->protocolo;
+    if (this->enviador == nullptr || this->recibidor == nullptr) {
+        return;
+    }
     delete this->enviador;
     delete this->recibidor;
 }
@@ -77,10 +78,15 @@ void ThClient::stop() {
 }
 
 bool ThClient::is_dead() {
-    if (this->enviador == nullptr || this->recibidor == nullptr){
-        return true;
+    try {
+        if (this->enviador == nullptr || this->recibidor == nullptr) {
+            return true;
+        }
+        return !this->enviador->estaCorriendo() || !this->recibidor->estaCorriendo();
+    } catch (...) {
+        std::cerr << "error " << std::endl;
     }
-    return !this->enviador->estaCorriendo() || !this->recibidor->estaCorriendo();
+    return true;
 }
 
 void ThClient::enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
