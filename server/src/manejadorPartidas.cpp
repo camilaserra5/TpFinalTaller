@@ -6,7 +6,8 @@
 #include "comandos/crearPartida.h"
 #include "comandos/unirseAPartida.h"
 
-ManejadorPartidas::ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,ConfiguracionPartida configuracion) :
+ManejadorPartidas::ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,
+                                     ConfiguracionPartida configuracion) :
         partidas(),
         esta_corriendo(true),
         mapas(mapas),
@@ -30,6 +31,7 @@ void ManejadorPartidas::nuevoCliente(ThClient *cliente) {
     }
 
     cliente->enviarIdJugador();
+    delete comando;
 }
 
 void ManejadorPartidas::cerrarPartidas() {
@@ -51,8 +53,7 @@ Map ManejadorPartidas::buscarMapa(std::string archivoMapa, int &anchoPantalla) {
         if (pathMapas.empty())
             pathMapas = MAPS_DIR;
 
-        Map map = MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla);
-        return map;
+        return MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla);
     } catch (YAML::BadFile &badFile) {
         std::cerr << "Error buscando mapa" << std::endl;
         throw InvalidMapException("error abriendo mapa");
@@ -69,8 +70,9 @@ void ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugad
         }
     }
     try {
-        Map mapa = this->buscarMapa(archivoMapa, screenWidth);
-        Partida *servidor = new Partida(mapa, cant_jugadores,this->configuracion);
+        Partida *servidor = new Partida(this->buscarMapa(archivoMapa, screenWidth), cant_jugadores,
+                                        this->configuracion);
+        std::cerr << "holi3";
         this->partidas.insert({nombre_partida, servidor});
     } catch (InvalidMapException &e) {
         std::cerr << "Error creando partida";
@@ -95,10 +97,11 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {
     std::map<std::string, Partida *>::iterator it;
     std::cerr << "cantidad de partidas: " << this->partidas.size() << std::endl;
     it = this->partidas.begin();
-    while(it != this->partidas.end()) {
+    while (it != this->partidas.end()) {
         std::cerr << "verifico una partida\n";
         if (it->second->terminoPartida()) {
             std::cerr << "elimino partida: " << it->first << std::endl;
+            it->second->join();
             it = this->partidas.erase(it);
         } else {
             ++it;

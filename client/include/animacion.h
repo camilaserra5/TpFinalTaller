@@ -31,8 +31,8 @@ public:
               int frame_w,
               int fila, int columna);
     /*
-      *
-    */  
+      * liberara la clase aniamcion con sus recursos
+    */
     ~Animacion();
     /*
       * realiza el renderizado del sprite completo en la posx e y

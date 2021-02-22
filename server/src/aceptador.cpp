@@ -38,9 +38,9 @@ void Aceptador::run() {
             clientes.push_back(new ThClient(std::move(peer), this->rutaMapas,
                                             this->mapas, this->obtenerIdParaJugador()));
 
-            manejadorPartidas.cerrarPartidas();
             manejadorPartidas.nuevoCliente(clientes.back());
             liberar_terminados(clientes);
+            manejadorPartidas.cerrarPartidas();
         } catch (SocketErrorAceptar &exc) {
             socket_es_valido = false;
         }

@@ -6,14 +6,25 @@
 class Scene {
 
 public:
+    /*
+      * crea la clase scene dejandola valida para uso
+    */
     Scene(SDL_Renderer *renderer);
-
+    /*
+      * prepara la escena
+    */
     void prepareScene();
-
+    /*
+      * presenta la escena
+    */
     void presentScene();
-
+    /*
+      * verifica los evnetos que llegan 
+    */
     void doInput();
-
+    /*
+      * liberra la clas escena con sus recursos
+    */
     ~Scene();
 
 private:
