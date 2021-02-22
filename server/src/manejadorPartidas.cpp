@@ -20,16 +20,16 @@ void ManejadorPartidas::nuevoCliente(ThClient *cliente) {
     if (comando == nullptr) {
         return;
     }
-
     if (auto crear = dynamic_cast<CrearPartida *>(comando)) {
         this->crearPartida(crear->getNombreJugador(), crear->getCantJugadores(),
-                           crear->getNombrePartida(), crear->getRutaArchivo(), crear->getScreenWidth());
+               crear->getNombrePartida(), crear->getRutaArchivo(), crear->getScreenWidth());
+        //CUANDO PONEN MAL EL MAPA ESTE CREAR PARTIDA SALE CON UN TROW DEL ERROR Y LUEGO SIGUE A AGREGAR A CLIENTE
+        //PERO CON COSAS INVALIDAS.
         this->agregarClienteAPartida(crear->getNombreJugador(), crear->getNombrePartida(), cliente);
     }
     if (auto unirse = dynamic_cast<UnirseAPartida *>(comando)) {
         this->agregarClienteAPartida(unirse->getNombreJugador(), unirse->getNombrePartida(), cliente);
     }
-
     cliente->enviarIdJugador();
     delete comando;
 }

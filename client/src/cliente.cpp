@@ -9,6 +9,7 @@
 #include <config.h>
 
 #define MUSICA_FONDO SOUNDS_DIR MUSIQUITA
+#define ERROR -1
 
 Cliente::Cliente(std::string configFile) : socket(),
                                            corriendo(true) {
@@ -21,11 +22,11 @@ Cliente::~Cliente() {}
 
 void Cliente::run() {
     std::string nombre_juego("Wolfestein");
-    if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
+    if (SDL_Init(SDL_INIT_EVERYTHING) == ERROR) {
         printf("Failed to init SDL\n");
         exit(1);
     }
-    if (TTF_Init() == -1) {
+    if (TTF_Init() == ERROR) {
         printf("Failed to init TTF\n");
         exit(1);
     }
