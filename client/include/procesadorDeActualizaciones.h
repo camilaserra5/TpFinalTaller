@@ -16,16 +16,47 @@ class Modelo;
 class ProcesadorDeActualizaciones{
 
     public:
+        /*
+          * Creara el procesador de actualizaciones dejandolo valido para uso
+          * el modelo, y la actualizacion deben estar inicializados
+        */
         ProcesadorDeActualizaciones(Modelo* modelo,Actualizacion* actualizacion):
                                   modelo(modelo),actualizacion(actualizacion){}
+        /*
+          * se encarga de verificar el tipo de actualizacion y ejecurtarla
+        */
         void ejecutar();
+        /*
+          * procesa la actualizacion de emepzar partida
+        */
         void procesarActualizacionEmpezoPartida();
+        /*
+          * procesar actualizaciones de apertura de puerta
+        */
         void procesarActualizacionAperturaDePuerta();
+        /*
+          * peocesar actualizacion de cambio de arma
+        */
         void procesarActualizacionCambioDeArma();
+        /*
+          * procesar actualizacion de ataque
+        */
         void procesarActualizacionAtaque();
+        /*
+          * procesa actualiazcion de moverse
+        */
         void procesarActualizacionMoverse();
+        /*
+          * procesa actualizacion de agarrrar item
+        */
         void procesarActualizacionAgarreItem();
+        /*
+          * procesa actualizacion de agregar item
+        */
         void procesarActualizacionAgregarItem();
+        /*
+          * procesa actualizaciones de terminar partida
+        */   
         void procesarActualizacionTerminoPartida();
 
     private:
