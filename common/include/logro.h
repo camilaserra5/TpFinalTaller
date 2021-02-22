@@ -10,8 +10,8 @@ por tesoros y más balas disparadas
 
 class Logro : public ISerializable {
 public:
-    Logro(ConfiguracionPartida& configuracion): puntosBalas(configuracion.getPuntosBalas()),
-                                                puntosMatar(configuracion.getPuntosMatar()){}
+    Logro(ConfiguracionPartida& configuracion): puntosBalas(/*configuracion.getPuntosBalas()*/5),
+                                                puntosMatar(10/*configuracion.getPuntosMatar()*/){}
 
     Logro();
 

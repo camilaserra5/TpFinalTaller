@@ -63,7 +63,7 @@ protected:
     int distancia_max_atacable;
     /*
       * devuelve la poscion atacable
-    */  
+    */
     int posicionAtacable(Posicion &atacante, Posicion &otroJugador);
 
     int id;

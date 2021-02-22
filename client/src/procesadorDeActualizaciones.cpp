@@ -3,6 +3,7 @@
 #include "../include/player.h"
 
 void ProcesadorDeActualizaciones::procesarActualizacionEmpezoPartida() {
+  std::cerr << "emtro a procesar empezoPartida\n";
     Player &player = this->modelo->getPlayer();
     auto inicio = (ActualizacionInicioPartida *) actualizacion;
     EstadoJuego &estadoJuego = inicio->obtenerEstadoJuego();
@@ -15,6 +16,7 @@ void ProcesadorDeActualizaciones::procesarActualizacionEmpezoPartida() {
     int posy = jugador->getPosicion().pixelesEnY();
     int angulo = jugador->getAnguloDeVista();
     int idArma = jugador->getArma()->getId();
+    std::cerr << "el id arma es: " <<  idArma << std::endl;
     int puntaje = jugador->obtenerPuntosTotales();
     bool disparando = jugador->estaDisparando();
     int cantVidas = jugador->cant_de_vida();

@@ -29,6 +29,11 @@ void Logro::aniadirEnemigosMatados(int cantidadDeEnemigos) {
 }
 
 int Logro::obtenerPuntosTotales() {
+  std::cerr << "puntosBalas "  <<puntosBalas;
+  std::cerr << " puntos tesoros: " <<puntosTotalesPorTesoros;
+  std::cerr << " puntosMatar: " <<puntosMatar;
+  std::cerr << " balas disparadas: " << balasDisparadas;
+  std::cerr<< "puntosBalas" << puntosBalas<<'\n';
     return (this->puntosTotalesPorTesoros + this->enemigosMatados * this->puntosMatar +
             this->balasDisparadas * this->puntosBalas);
 }
@@ -45,17 +50,30 @@ std::vector<char> Logro::serializar() {
 
     aux = numberToCharArray(this->balasDisparadas);
     info.insert(info.end(), aux.begin(), aux.end());
+
+    aux = numberToCharArray(this->puntosBalas);
+    info.insert(info.end(), aux.begin(), aux.end());
+
+    aux = numberToCharArray(this->puntosMatar);
+    info.insert(info.end(), aux.begin(), aux.end());
     return info;
 }
 
 void Logro::deserializar(std::vector<char> &serializado) {
-    std::vector<char> sub(4);
-    int idx = 0;
-    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-    this->enemigosMatados = charArrayToNumber(sub);
-    idx += 4;
-    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-    idx += 4;
-    sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-    this->balasDisparadas = charArrayToNumber(sub);
+  std::vector<char> sub(4);
+  int idx = 0;
+  sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+  this->enemigosMatados = charArrayToNumber(sub);
+  idx += 4;
+  sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+  this->puntosTotalesPorTesoros = charArrayToNumber(sub);
+  idx += 4;
+  sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+  this->balasDisparadas = charArrayToNumber(sub);
+  idx += 4;
+  sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+  this->puntosBalas = charArrayToNumber(sub);
+  idx += 4;
+  sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
+  this->puntosMatar = charArrayToNumber(sub);
 }
