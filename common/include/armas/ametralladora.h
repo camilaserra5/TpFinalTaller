@@ -9,7 +9,7 @@
 
 class Ametralladora : public Arma, public Item {
 public:
-    Ametralladora(Posicion &posicion, int id);
+    Ametralladora(Posicion &posicion, int id, ConfiguracionPartida& configuracion);
 
     ~Ametralladora();
 
@@ -25,6 +25,7 @@ public:
 
 private:
     double contador;
+    ConfiguracionPartida configuracion;
 };
 
 #endif

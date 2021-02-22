@@ -2,10 +2,6 @@
 #include "armas/lanzacohetes.h"
 #include <algorithm>
 
-#define PUNTOS_CRUZ 10
-#define PUNTOS_COPA 50
-#define PUNTOS_COFRE 100
-#define PUNTOS_CORONA 200
 #define ANGULO_DEFAULT 0
 
 void Map::agregarArma(Posicion &posicion, Arma *arma) {}
@@ -14,7 +10,8 @@ void Map::sacarDelMapa(Posicion &posicion) {
     this->contenedorDeElementos->sacarElementoDePosicion(posicion);
 }
 
-Map::Map(unsigned rowSize, unsigned colSize, int anchoPantalla) {
+Map::Map(unsigned rowSize, unsigned colSize, int anchoPantalla, ConfiguracionPartida& configuracion):
+configuracion(configuracion) {
     if (rowSize < 1 || colSize < 1) {
         throw std::runtime_error("Invalid map");
     }
@@ -77,29 +74,29 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
         this->contenedorDeElementos->agregarElemento(new Balas(posicion, BALAS, idValido));
     } else if (value.getName() == "ametralladora") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos->agregarElemento(new Ametralladora(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new Ametralladora(posicion, idValido,configuracion));
     } else if (value.getName() == "canionDeCadena") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos->agregarElemento(new CanionDeCadena(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new CanionDeCadena(posicion, idValido,configuracion));
     } else if (value.getName() == "lanzaCohetes") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos->agregarElemento(new LanzaCohetes(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new LanzaCohetes(posicion, idValido,configuracion));
     } else if (value.getName() == "cruz") {
         int idValido = this->crearIdValido();
         this->contenedorDeElementos->agregarElemento(
-                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("cruz"), PUNTOS_CRUZ, posicion));
+                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("cruz"), configuracion.getPuntosCruz(), posicion));
     } else if (value.getName() == "copa") {
         int idValido = this->crearIdValido();
         this->contenedorDeElementos->agregarElemento(
-                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("copa"), PUNTOS_COPA, posicion));
+                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("copa"), configuracion.getPuntosCopa(), posicion));
     } else if (value.getName() == "cofre") {
         int idValido = this->crearIdValido();
         this->contenedorDeElementos->agregarElemento(
-                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("cofre"), PUNTOS_COFRE, posicion));
+                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("cofre"), configuracion.getPuntosCofre(), posicion));
     } else if (value.getName() == "corona") {
         int idValido = this->crearIdValido();
         this->contenedorDeElementos->agregarElemento(
-                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("corona"), PUNTOS_CORONA, posicion));
+                new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("corona"), configuracion.getPuntosCorona(), posicion));
     } else if (value.getName() == "llave") {
         int idValido = this->crearIdValido();
         this->contenedorDeElementos->agregarElemento(new Llave(posicion, idValido));
@@ -196,7 +193,7 @@ void Map::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->colSize = charArrayToNumber(sub);
-    Map newMap(rowSize, colSize, ladoCelda * rowSize);//agregue aca el ancho
+    Map newMap(rowSize, colSize, ladoCelda * rowSize,configuracion);
     this->map = newMap.map;
     for (unsigned i = 0; i < rowSize; i++) {
         for (unsigned j = 0; j < colSize; j++) {
@@ -267,7 +264,6 @@ Posicion Map::obtenerPosicionInicialValida() {
 }
 
 void Map::setLadoCelda(int anchoPantalla) {
-    //std::cerr << "ancho oantalla: " << anchoPantalla << '\n';
     this->ladoCelda = anchoPantalla / rowSize;
 }
 

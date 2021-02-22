@@ -9,7 +9,7 @@
 namespace MapTranslator {
     YAML::Node mapToYaml(Map &map);
 
-    Map yamlToMap(YAML::Node yaml, int anchoPantalla);
+    Map yamlToMap(YAML::Node yaml, int anchoPantalla, ConfiguracionPartida& configuracion);
 };
 
 

@@ -2,37 +2,34 @@
 // hay que verificar que la pos del jugador al incio sea random y valida;
 #include <math.h>
 
-#define MAX_VIDA 100
-#define CANT_INICAL_BALAS 8
 
 #include "armas/pistola.h"
 #include "armas/cuchillo.h"
 #include "../include/actualizaciones/actualizacionCambioArma.h"
 
 #define PI 3.1415926
-#define VELOCIDAD_DE_ROTACION 0.05  * PI
 
 int Jugador::getId() {
     return this->id;
 }
 
-Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion, float vidaMax, float vRotacion, int cantBalasInicial)
-        :
+Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion, ConfiguracionPartida& configuracion):
         posicion(posicion),
         id(id),
         nombre(nombre),
-        vida(vidaMax),
+        vida(configuracion.getVidaMax()),
+        vidaMax(configuracion.getVidaMax()),
         armas(),
-        balas(cantBalasInicial),
-        velocidadDeRotacion(vRotacion),
+        balas(configuracion.getBalasInicial()),
+        velocidadDeRotacion(configuracion.getVRotacion()),
         armaActual(ID_PISTOLA),
         llaves(0),
-        cantidad_vidas(2),
-        logro(),
+        cantidad_vidas(configuracion.getCantidadDeVidas()),
+        logro(configuracion),
         disparando(false) {
     std::cerr << "entro al constructor de jugador\n";
-    this->armas.insert(std::make_pair(ID_PISTOLA, new Pistola()));
-    this->armas.insert(std::make_pair(ID_CUCHILLO, new Cuchillo()));
+    this->armas.insert(std::make_pair(ID_PISTOLA, new Pistola(configuracion)));
+    this->armas.insert(std::make_pair(ID_CUCHILLO, new Cuchillo(configuracion)));
     //this->armas.insert(std::make_pair(ID_AMETRALLADORA, new Ametralladora(posicion, ID_AMETRALLADORA)));
 }
 
@@ -61,8 +58,8 @@ void Jugador::moverse(int posx, int posy) {
 // recibo cuando gano de vida + o cuanto pierdo -
 void Jugador::actualizar_vida(int &vidaActualizada) {
     this->vida += vidaActualizada;
-    if (this->vida > MAX_VIDA)
-        this->vida = MAX_VIDA;
+    if (this->vida > this->vidaMax)
+        this->vida = this->vidaMax;
 }
 
 void Jugador::agregar_arma(Arma *arma) {
@@ -113,7 +110,6 @@ void Jugador::agarrarLlave() {
 
 void Jugador::actualizarArma() {
     if (this->balas == 0) {
-        std::cerr << "PASO A CUCHILLO";
         this->armaActual = ID_CUCHILLO;
     }
 }
@@ -128,7 +124,6 @@ Logro &Jugador::obtenerLogro() {
 
 void Jugador::gastarBalas(int cantidadDeBalas) {
     this->balas -= cantidadDeBalas;
-    std::cerr << "cantidad de balas: " << this->balas << "\n";
     this->logro.aniadirBalasDisparadas(cantidadDeBalas);
 }
 
@@ -161,8 +156,7 @@ bool Jugador::estaDisparando() {
 }
 
 void Jugador::actualizarNuevaVida() {
-    std::cerr << "=====reviviendo==========" << '\n';
-    this->vida = MAX_VIDA;
+    this->vida = this->vidaMax;
     this->cantidad_vidas -= 1;
 }
 
@@ -227,32 +221,23 @@ void Jugador::deserializar(std::vector<char> &serializado) {
     for (uint32_t k = 0; k < longitudnombre; k++) {
         this->nombre += serializado[idx++];
     }
-
-    //std::cerr << " juegador deserializar id " << this->id << std::endl;
     //idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->vida = charArrayToNumber(sub);
-    //std::cerr << " juegador deserializar vida " << this->vida << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->armaActual = charArrayToNumber(sub);
-    std::cerr << " juegador deserializar armaActual " << this->armaActual << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->disparando = charArrayToNumber(sub);
-    //std::cerr << " juegador deserializar disparando " << this->disparando << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->cantidad_vidas = charArrayToNumber(sub);
-    //std::cerr << " juegador deserializar cantidad_vidas " << this->cantidad_vidas << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->balas = charArrayToNumber(sub);
-    std::cerr << " juegador deserializar balas " << this->balas << std::endl;
-
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-    //std::cerr << "posicion: " << charArrayToNumber(sub);
     idx += 4;
     std::vector<char> posicionSerializado(serializado.begin() + idx,
                                           serializado.begin() + idx +
@@ -267,7 +252,6 @@ void Jugador::deserializar(std::vector<char> &serializado) {
                                        charArrayToNumber(sub));
 
     this->logro.deserializar(logroSerializado);
-    //std::cerr << " juegador deserializar fin" << std::endl;
 
     this->armas.insert(std::make_pair(ID_PISTOLA, new Pistola()));
     this->armas.insert(std::make_pair(ID_CUCHILLO, new Cuchillo()));

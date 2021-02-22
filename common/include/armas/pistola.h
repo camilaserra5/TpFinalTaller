@@ -6,7 +6,7 @@
 
 class Pistola : public Arma {
 public:
-    Pistola();
+    Pistola(ConfiguracionPartida& configuracion);
 
     ~Pistola();
 
@@ -15,9 +15,11 @@ public:
 
     Type getTipo() override;
 
+    Pistola() {}
+
 private:
-    int precision;
-    int probalidad_acierto;
+
+    ConfiguracionPartida configuracion;
 };
 
 #endif

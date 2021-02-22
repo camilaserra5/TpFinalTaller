@@ -15,14 +15,17 @@
 #include "posicion.h"
 #include "jugador.h"
 #include "actualizaciones/actualizacion.h"
+#include "configuracionPartida.h"
 
 
 class Arma {
 public:
-    Arma(int distancia_max_atacable, int id) :
+    Arma(int distancia_max_atacable, int id, int danio_maximo) :
             distancia_max_atacable(distancia_max_atacable), id(id) {}
 
     virtual ~Arma() {}
+
+    Arma();
 
     virtual Actualizacion *atacar(int distancia_a_pared, Jugador *jugador,
                                   std::map<int, Jugador *> &jugadores) = 0;

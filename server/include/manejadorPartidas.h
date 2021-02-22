@@ -16,7 +16,7 @@
 class ManejadorPartidas : public ISerializable {
 public:
     ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,
-                      ConfiguracionPartida configuracion);
+                      ConfiguracionPartida& configuracion);
 
     ~ManejadorPartidas();
 

@@ -8,13 +8,14 @@
 #include "iserializable.h"
 #include <iostream>
 #include "puerta.h"
+#include "configuracionPartida.h"
 // faltaria agregar una posicion para los jugadores
 // tambien el tema de los itemas(comida, sangre, todas las armas);
 
 class Map : public ISerializable {
 public:
 //largo preconcatenado
-    Map(unsigned rowSize, unsigned colSize, int anchoPantalla);
+    Map(unsigned rowSize, unsigned colSize, int anchoPantalla, ConfiguracionPartida& configuracion);
 
     unsigned getRowSize() const;
 
@@ -85,6 +86,7 @@ private:
     std::vector<int> idCargados;
     int ladoCelda;
     int generadorDeId = 0;
+    ConfiguracionPartida configuracion;
 };
 
 #endif //MAP_H

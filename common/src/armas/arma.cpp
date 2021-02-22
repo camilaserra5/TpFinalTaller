@@ -12,6 +12,8 @@ int Arma::posicionAtacable(Posicion &atacante, Posicion &otroJugador) {
     }
 }
 
+Arma::Arma(){}
+
 int Arma::JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     std::map<int, Jugador *>::iterator it;
     int menorDistancia = this->distancia_max_atacable;

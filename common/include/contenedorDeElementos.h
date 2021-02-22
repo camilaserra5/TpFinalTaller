@@ -20,6 +20,8 @@
 class ContenedorDeElementos : public ISerializable {
 
 public:
+    ContenedorDeElementos(ConfiguracionPartida& configuracion);
+
     ContenedorDeElementos();
 
     ~ContenedorDeElementos();
@@ -46,8 +48,11 @@ public:
 
     ContenedorDeElementos(ContenedorDeElementos&& contenedor);
 
+    Item *deserializarItem(std::vector<char> &informacion);
+
 private:
     std::vector<Item *> elementos;
+    ConfiguracionPartida configuracion;
     std::vector<Puerta> puertas;
 };
 
