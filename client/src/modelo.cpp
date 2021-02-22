@@ -34,7 +34,7 @@ Modelo::Modelo(Ventana &ventana, int idJugador, ProtectedQueue<Actualizacion *> 
         idJugador(idJugador),
         entidades(),
         enemigos(),
-        anunciador(ventana),
+        anunciador(),
         partidaTerminada(false),
         updates(updates) {
     this->jugador = new Player(WEAPON, this->ventana.obtener_render(),
@@ -53,8 +53,8 @@ Modelo::~Modelo() {
     }
 }
 
-void Modelo::setMapa(Map &mapa) {
-    this->mapa = mapa;
+void Modelo::setMapa(Map &&mapa) {
+    this->mapa = std::move(mapa);
 }
 
 bool Modelo::inicializar() {
@@ -222,6 +222,7 @@ void Modelo::renderizar() {
         this->jugador->renderizar();
     } else {
         this->anunciador.renderizar();
+        this->ventana.cerrar();
     }
 }
 

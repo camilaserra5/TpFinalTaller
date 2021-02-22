@@ -43,8 +43,8 @@ std::vector<Actualizacion *> EstadoJuego::realizarAtaque(int idJugador) {
     return actualizaciones;
 }
 
-EstadoJuego::EstadoJuego(Map &mapa, ConfiguracionPartida configuracion) :
-        mapa(mapa),
+EstadoJuego::EstadoJuego(Map &&mapa, ConfiguracionPartida configuracion) :
+        mapa(std::move(mapa)),
         jugadores(),
         contador(0),
         configuracion(configuracion) {}

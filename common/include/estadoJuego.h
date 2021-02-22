@@ -13,7 +13,7 @@
 
 class EstadoJuego : public ISerializable {
 public:
-    EstadoJuego(Map &mapa, ConfiguracionPartida configuracion);
+    EstadoJuego(Map &&mapa, ConfiguracionPartida configuracion);
 
     ~EstadoJuego();
 

@@ -6,12 +6,13 @@
 #include "iserializable.h"
 #include "ranking.h"
 #include "actualizacion.h"
-#include "estadoJuego.h"
+#include "jugador.h"
+#include <map>
 
 
 class ActualizacionTerminoPartida : public Actualizacion {
 public:
-    ActualizacionTerminoPartida(EstadoJuego &estadoJuego);
+    ActualizacionTerminoPartida(std::map<int, Jugador*> jugadores );
 
     ActualizacionTerminoPartida() {}
 
@@ -23,12 +24,12 @@ public:
 
     int obtenerId() override { return static_cast<int>(Accion::terminoPartida); }
 
-    EstadoJuego &obtenerEstadoJuego() {
-        return this->estadoJuego;
+    std::map<int, Jugador*> &obtenerJugadores() {
+        return this->jugadores;
     }
 
 private:
-    EstadoJuego estadoJuego;
+    std::map<int, Jugador*> jugadores;
 };
 
 #endif

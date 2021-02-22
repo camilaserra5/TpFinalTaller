@@ -46,6 +46,8 @@ public:
 
     void aniadirPuerta(Puerta &puerta);
 
+    ContenedorDeElementos(ContenedorDeElementos&& contenedor);
+
     Item *deserializarItem(std::vector<char> &informacion);
 
 private:

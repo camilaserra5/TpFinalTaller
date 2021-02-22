@@ -18,13 +18,12 @@ class HighscoreWindow {
 
 public:
     /*
-      * creara la clase highscorewindow dejandola valida para uso
-      * la venta ya debe estar incializada
+      * creara la clase highscorewindow
     */
-    HighscoreWindow(Ventana &ventana);
+    HighscoreWindow();
 
     /*
-      * renderiza la ventana de puntaje
+        * renderiza la ventana de puntaje
     */
     void renderizar();
 
@@ -45,10 +44,12 @@ public:
 
 private:
     SDL_Renderer *renderer;
-    Ventana &ventana;
     Fonts fonts;
     Ranking *ranking;
+    SDL_Window *window;
+    bool initialized = false;
 
+    void init();
 };
 
 #endif

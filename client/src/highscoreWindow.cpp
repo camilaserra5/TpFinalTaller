@@ -8,29 +8,7 @@
 #define FONT_SIZE_SUBTITLE 15
 #define FONT_SIZE_NAMES 12
 
-HighscoreWindow::HighscoreWindow(Ventana &ventana) : ventana(ventana) {
-
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf("Couldn't initialize SDL: %s\n", SDL_GetError());
-        exit(1);
-    }
-
-    /*SDL_CreateWindow("Wolfstein 3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
-                                    SCREEN_HEIGHT, windowFlags);*/
-
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-
-    if (TTF_Init() == -1) {
-        printf("Failed to init TTF\n");
-        exit(1);
-    }
-
-    fonts.addFont("wolfstein-title", WOLFSTEIN_TTF_ROOT, FONT_SIZE_TITLE);
-    fonts.addFont("wolfstein-subtitle", WOLFSTEIN_TTF_ROOT, FONT_SIZE_SUBTITLE);
-    fonts.addFont("wolfstein-names", WOLFSTEIN_TTF_ROOT, FONT_SIZE_NAMES);
-
-    this->renderer = ventana.obtener_render();
-}
+HighscoreWindow::HighscoreWindow() {}
 
 void display_text(std::string text, TTF_Font *font, SDL_Renderer *renderer, int w, int h) {
     SDL_Color white = {255, 255, 255, 255};
@@ -126,7 +104,37 @@ void HighscoreWindow::settearGanadores(std::vector<int>& ganadores,Player *jugad
         }
     }
 }*/
+
+void HighscoreWindow::init() {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("Couldn't initialize SDL: %s\n", SDL_GetError());
+        exit(1);
+    }
+
+    this->window = SDL_CreateWindow("Wolfstein 3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                    SCREEN_WIDTH,
+                                    SCREEN_HEIGHT, 0);
+
+
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+
+    if (TTF_Init() == -1) {
+        printf("Failed to init TTF\n");
+        exit(1);
+    }
+
+    fonts.addFont("wolfstein-title", WOLFSTEIN_TTF_ROOT, FONT_SIZE_TITLE);
+    fonts.addFont("wolfstein-subtitle", WOLFSTEIN_TTF_ROOT, FONT_SIZE_SUBTITLE);
+    fonts.addFont("wolfstein-names", WOLFSTEIN_TTF_ROOT, FONT_SIZE_NAMES);
+
+    this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED);
+
+    this->initialized = true;
+}
+
 void HighscoreWindow::renderizar() {
+    if (!this->initialized)
+        init();
     Background background(BACKGROUND_IMAGE_ROOT,
                           this->renderer, 1280, 720);
     background.drawBackground();
@@ -137,6 +145,10 @@ void HighscoreWindow::renderizar() {
 }
 
 HighscoreWindow::~HighscoreWindow() {
-    this->ventana.cerrar();
+    SDL_DestroyRenderer(this->renderer);
+    SDL_DestroyWindow(this->window);
+
+    IMG_Quit();
     SDL_Quit();
+    exit(0);
 }

@@ -161,7 +161,7 @@ public:
     /*
       * settea el mapa
     */
-    void setMapa(Map &mapa);
+    void setMapa(Map &&mapa);
 
     /*
       * actualiza la posicion del enemigo

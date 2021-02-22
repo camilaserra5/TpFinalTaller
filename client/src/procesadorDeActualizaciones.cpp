@@ -38,7 +38,7 @@ void ProcesadorDeActualizaciones::procesarActualizacionEmpezoPartida() {
         }
     }
 
-    Map mapa = estadoJuego.obtenerMapa();
+    Map& mapa = estadoJuego.obtenerMapa();
     mapa.setLadoCelda(ANCHO_CANVAS);
     std::vector<Item *> items = mapa.obtenerItems();
     int cantItems = items.size();
@@ -50,7 +50,7 @@ void ProcesadorDeActualizaciones::procesarActualizacionEmpezoPartida() {
         int posyI = item->obtenerPosicion().pixelesEnY();
         this->modelo->actualizarObjeto(idI, tipo, posxI, posyI);
     }
-    this->modelo->setMapa(mapa);
+    this->modelo->setMapa(std::move(mapa));
 }
 
 void ProcesadorDeActualizaciones::procesarActualizacionAperturaDePuerta() {
@@ -140,7 +140,7 @@ void ProcesadorDeActualizaciones::procesarActualizacionAgregarItem() {
 
 void ProcesadorDeActualizaciones::procesarActualizacionTerminoPartida() {
     auto termino = (ActualizacionTerminoPartida *) actualizacion;
-    Ranking *ranking = new Ranking(std::move(termino->obtenerEstadoJuego().obtenerJugadores()));
+    Ranking *ranking = new Ranking(std::move(termino->obtenerJugadores()));
     this->modelo->terminoPartida(*ranking);
 }
 

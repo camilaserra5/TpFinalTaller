@@ -15,9 +15,9 @@
 #define LUA MODULO_LUA "modulo.lua"
 
 // en si recibe un archivo yaml y luego sereializa;
-Partida::Partida(Map mapa, int cantJugadoresPosibles, ConfiguracionPartida configuracion) :
+Partida::Partida(Map&& mapa, int cantJugadoresPosibles, ConfiguracionPartida configuracion) :
         cola_comandos(),
-        estadoJuego(mapa, configuracion),
+        estadoJuego(std::move(mapa), configuracion),
         cantJugadoresPosibles(cantJugadoresPosibles),
         sigue_corriendo(true),
         arrancoPartida(false) {}
@@ -196,7 +196,7 @@ void Partida::run() {
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
                 std::vector<Actualizacion *> actualizacionTermino;
-                Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego);
+                Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego.obtenerJugadores());
                 actualizacionTermino.push_back(terminoPartida);
                 this->enviar_actualizaciones(actualizacionTermino);
                 this->arrancoPartida = false;

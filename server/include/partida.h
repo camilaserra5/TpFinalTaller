@@ -17,7 +17,7 @@
 
 class Partida : public Thread, public ISerializable {
 public:
-    Partida(Map mapa, int cant_jugadores, ConfiguracionPartida configuracion);
+    Partida(Map&& mapa, int cant_jugadores, ConfiguracionPartida configuracion);
 
     ~Partida();
 
