@@ -66,15 +66,15 @@ ThClient::~ThClient() {
 }
 
 void ThClient::stop() {
-    if (this->enviador->estaCorriendo()) {
+      if (this->enviador->estaCorriendo()) {
         this->enviador->cerrar();
-        this->enviador->join();
-
-    } else if (this->recibidor->estaCorriendo()) {
+      }
+      this->enviador->join();
+      if (this->recibidor->estaCorriendo()) {
         this->recibidor->cerrar();
-        this->recibidor->join();
-    }
-    isDead = true;
+      }
+      this->recibidor->join();
+      isDead = true;
 }
 
 bool ThClient::is_dead() {
