@@ -200,8 +200,8 @@ void Partida::run() {
                 delete actu;
             }
         }
-        delete act;
     }
+    delete act;
 }
 
 std::vector<char> Partida::serializar() {
