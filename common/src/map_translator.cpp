@@ -27,5 +27,5 @@ Map MapTranslator::yamlToMap(YAML::Node yaml, int anchoPantalla) {
             map.setValue(i, j, ObjetosJuego::obtenerTipoPorId(rowNode[j].as<unsigned>()));
         }
     }
-    return map;
+    return std::move(map);
 }

@@ -6,7 +6,8 @@
 #include "comandos/crearPartida.h"
 #include "comandos/unirseAPartida.h"
 
-ManejadorPartidas::ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,ConfiguracionPartida configuracion) :
+ManejadorPartidas::ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,
+                                     ConfiguracionPartida configuracion) :
         partidas(),
         esta_corriendo(true),
         mapas(mapas),
@@ -68,7 +69,8 @@ void ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugad
         }
     }
     try {
-        Partida *servidor = new Partida(this->buscarMapa(archivoMapa, screenWidth), cant_jugadores,this->configuracion);
+        Partida *servidor = new Partida(this->buscarMapa(archivoMapa, screenWidth), cant_jugadores,
+                                        this->configuracion);
         std::cerr << "holi3";
         this->partidas.insert({nombre_partida, servidor});
     } catch (InvalidMapException &e) {
@@ -94,7 +96,7 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {
     std::map<std::string, Partida *>::iterator it;
     std::cerr << "cantidad de partidas: " << this->partidas.size() << std::endl;
     it = this->partidas.begin();
-    while(it != this->partidas.end()) {
+    while (it != this->partidas.end()) {
         std::cerr << "verifico una partida\n";
         if (it->second->terminoPartida()) {
             std::cerr << "elimino partida: " << it->first << std::endl;

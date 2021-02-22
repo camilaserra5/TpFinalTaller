@@ -10,14 +10,25 @@ private:
     int canal;
 
 public:
+    /*
+      * creara la clase sonido dejandola valida para uso
+    */
     explicit Sonido(const std::string &archivo);
-
+    /*
+      * settea el volumen del sonido
+    */
     void settearVolumen(int volume);
-
+    /*
+      * hace que el sonido suene
+    */
     void play(int loops);
-
+    /*
+      * frena el sonido
+    */
     void stop();
-
+    /*
+      * libera la clase sonido con sus recursos
+    */  
     ~Sonido();
 
 };
