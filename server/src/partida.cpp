@@ -176,9 +176,9 @@ void Partida::run() {
     this->enviar_actualizaciones(actualizaciones);
 
 
-    std::chrono::duration<double> tiempoPartida(TIEMPO_SERVIDOR);
+    std::chrono::duration<double> tiempoPartida(2);
     delete act;
-    
+
     while (this->sigue_corriendo) {
 
         try {
