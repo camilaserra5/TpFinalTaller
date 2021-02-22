@@ -1,7 +1,3 @@
-//
-// Created by cami on 27/1/21.
-//
-
 #ifndef WOLFSTEIN_FONTS_H
 #define WOLFSTEIN_FONTS_H
 
