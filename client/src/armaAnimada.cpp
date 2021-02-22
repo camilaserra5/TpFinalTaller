@@ -10,6 +10,9 @@
 #define POSY 420
 #define CONTADOR_INICIAL 70
 
+#define RUTA_SONIDO_CUCHILLO SOUNDS_DIR KNIFE_SOUND
+#define RUTA_SONIDO_PISTOLA SOUNDS_DIR PISTOL_SOUND
+
 #define ID_CUCHILLO 3
 #define ID_PISTOLA 4
 #define ID_AMETRALLADORA 1
@@ -25,6 +28,10 @@ ArmaAnimada::ArmaAnimada(SDL_Renderer *render) : contador(CONTADOR_INICIAL), ata
     Animacion animacionPistola(render, RUTAIMG, FRAMES_X, SPRITES_H, SPRITES_W, 1, -1);
     Animacion animacionAmetralladora(render, RUTAIMG, FRAMES_X, SPRITES_H, SPRITES_W, 2, -1);
     Animacion animacionCanion(render, RUTAIMG, FRAMES_X, SPRITES_H, SPRITES_W, 3, -1);
+    //Sonido sonidoCuchillo(RUTA_SONIDO_CUCHILLO);
+    //Sonido sonidoPistola(RUTA_SONIDO_PISTOLA);
+    //Sonido sonidoAmetralladora(RUTA_SONIDO_AMETRALLADORA);
+    //Sonido sonidoCanion(RUTA_SONIDO_CANION);
     this->sprites.insert(std::make_pair(ID_CUCHILLO, spriteCuchillo));
     this->sprites.insert(std::make_pair(ID_PISTOLA, spritePistola));
     this->sprites.insert(std::make_pair(ID_AMETRALLADORA, spriteAmetralladora));
