@@ -11,14 +11,15 @@
 void Map::agregarArma(Posicion &posicion, Arma *arma) {}
 
 void Map::sacarDelMapa(Posicion &posicion) {
-    this->contenedorDeElementos.sacarElementoDePosicion(posicion);
+    this->contenedorDeElementos->sacarElementoDePosicion(posicion);
 }
 
-Map::Map(unsigned rowSize, unsigned colSize, int anchoPantalla) : contenedorDeElementos() {
+Map::Map(unsigned rowSize, unsigned colSize, int anchoPantalla)  {
     if (rowSize < 1 || colSize < 1) {
         throw std::runtime_error("Invalid map");
     }
 
+    this->contenedorDeElementos = new ContenedorDeElementos();
     this->rowSize = rowSize;
     this->colSize = colSize;
     map.resize(rowSize);
@@ -64,47 +65,47 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     if (value.getName() == "comida") {
         int idValido = this->crearIdValido();
         std::cerr << "\nid: " << idValido;
-        this->contenedorDeElementos.agregarElemento(new Comida(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new Comida(posicion, idValido));
     } else if (value.getName() == "sangre") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new Sangre(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new Sangre(posicion, idValido));
     } else if (value.getName() == "kitsMedicos") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new KitsMedicos(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new KitsMedicos(posicion, idValido));
     } else if (value.getName() == "balas") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new Balas(posicion, BALAS, idValido));
+        this->contenedorDeElementos->agregarElemento(new Balas(posicion, BALAS, idValido));
     } else if (value.getName() == "ametralladora") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new Ametralladora(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new Ametralladora(posicion, idValido));
     } else if (value.getName() == "canionDeCadena") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new CanionDeCadena(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new CanionDeCadena(posicion, idValido));
     } else if (value.getName() == "lanzaCohetes") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new LanzaCohetes(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new LanzaCohetes(posicion, idValido));
     } else if (value.getName() == "cruz") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(
+        this->contenedorDeElementos->agregarElemento(
                 new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("cruz"), PUNTOS_CRUZ, posicion));
     } else if (value.getName() == "copa") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(
+        this->contenedorDeElementos->agregarElemento(
                 new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("copa"), PUNTOS_COPA, posicion));
     } else if (value.getName() == "cofre") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(
+        this->contenedorDeElementos->agregarElemento(
                 new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("cofre"), PUNTOS_COFRE, posicion));
     } else if (value.getName() == "corona") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(
+        this->contenedorDeElementos->agregarElemento(
                 new Tesoro(idValido, ObjetosJuego::obtenerTipoPorNombre("corona"), PUNTOS_CORONA, posicion));
     } else if (value.getName() == "llave") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new Llave(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new Llave(posicion, idValido));
     } else {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos.agregarElemento(new NoItem(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new NoItem(posicion, idValido));
     }
 
 }
@@ -114,7 +115,7 @@ void Map::agregarElemento(Item *item) {
 }
 
 Item *Map::buscarElemento(int &posx, int &posy) {
-    return this->contenedorDeElementos.buscarElemento(posx, posy);
+    return this->contenedorDeElementos->buscarElemento(posx, posy);
 }
 
 bool verificarTipo(int tipo) {
@@ -136,7 +137,7 @@ void Map::aniadirPuerta(const unsigned rowNumber, const unsigned colNumber, int 
     bool necesitaLlave = !(tipoPuerta == TYPE_DOOR);//documentar
     Posicion pos((colNumber / 2) * this->ladoCelda, (rowNumber / 2) * this->ladoCelda, ANGULO_DEFAULT);
     Puerta puerta(necesitaLlave, pos, rowNumber, colNumber, false);
-    this->contenedorDeElementos.aniadirPuerta(puerta);
+    this->contenedorDeElementos->aniadirPuerta(puerta);
 }
 
 Type &Map::operator()(const unsigned rowNumber, const unsigned colNumber) {
@@ -148,11 +149,11 @@ Map::~Map() {
 }
 
 bool Map::hayPuertas() {
-    return this->contenedorDeElementos.hayPuertas();
+    return this->contenedorDeElementos->hayPuertas();
 }
 
 Puerta &Map::puertaMasCercana(Posicion &posicionJugador, double &distancia) {
-    return this->contenedorDeElementos.puertaMasCercana(posicionJugador, distancia);
+    return this->contenedorDeElementos->puertaMasCercana(posicionJugador, distancia);
 
 }
 
@@ -172,7 +173,7 @@ std::vector<char> Map::serializar() {
         }
     }
 
-    std::vector<char> contenedorSerializado = this->contenedorDeElementos.serializar();
+    std::vector<char> contenedorSerializado = this->contenedorDeElementos->serializar();
     informacion.insert(informacion.end(), contenedorSerializado.begin(), contenedorSerializado.end());
     return informacion;
 }
@@ -200,15 +201,15 @@ void Map::deserializar(std::vector<char> &serializado) {
     idx += 4;
     std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
 //    std::cerr << "tam srializado " << serializado.size() << "tam idx" << idx << std::endl;
-    this->contenedorDeElementos.deserializar(contenedorDeElementosSerializado);
+    this->contenedorDeElementos->deserializar(contenedorDeElementosSerializado);
 }
 
 std::vector<Item *> &Map::obtenerItems() {
-    return this->contenedorDeElementos.obtenerItems();
+    return this->contenedorDeElementos->obtenerItems();
 }
 
 ContenedorDeElementos &Map::obtenerContenedor() {
-    return this->contenedorDeElementos;
+    return *this->contenedorDeElementos;
 }
 
 bool Map::hayColision(int fila, int columna) {
@@ -219,7 +220,7 @@ bool Map::hayColision(int fila, int columna) {
             return false;
         int tipo = this->map[fila][columna].getType();
         if (tipo == TYPE_DOOR) {
-            Puerta &puerta = this->contenedorDeElementos.obtenerPuertaEn(fila, columna);
+            Puerta &puerta = this->contenedorDeElementos->obtenerPuertaEn(fila, columna);
             if (puerta.estaAbierta()) {
                 tipo = TYPE_EMPTY;
             }
