@@ -17,13 +17,6 @@ Ventana::~Ventana() {
 void Ventana::cerrar() {
     SDL_DestroyRenderer(this->render);
     SDL_DestroyWindow(this->ventana);
-    this->ventana = NULL;
-    this->render = NULL;
-
-    //Quit SDL subsystems
-    IMG_Quit();
-    SDL_Quit();
-    exit(0);
 }
 
 SDL_Renderer *Ventana::obtener_render() {

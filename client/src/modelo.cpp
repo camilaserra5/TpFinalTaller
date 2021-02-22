@@ -34,7 +34,7 @@ Modelo::Modelo(Ventana &ventana, int idJugador, ProtectedQueue<Actualizacion *> 
         idJugador(idJugador),
         entidades(),
         enemigos(),
-        anunciador(ventana),
+        anunciador(),
         partidaTerminada(false),
         updates(updates) {
     this->jugador = new Player(WEAPON, this->ventana.obtener_render(),
@@ -243,6 +243,7 @@ void Modelo::renderizar() {
         this->jugador->renderizar();
     } else {
         this->anunciador.renderizar();
+        this->ventana.cerrar();
     }
 }
 
