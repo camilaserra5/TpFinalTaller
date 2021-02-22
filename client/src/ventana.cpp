@@ -17,6 +17,8 @@ Ventana::~Ventana() {
 void Ventana::cerrar() {
     SDL_DestroyRenderer(this->render);
     SDL_DestroyWindow(this->ventana);
+    this->render = NULL;
+    this->ventana = NULL;
 }
 
 SDL_Renderer *Ventana::obtener_render() {

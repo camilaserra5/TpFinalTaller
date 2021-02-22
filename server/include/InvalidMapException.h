@@ -8,10 +8,17 @@ class InvalidMapException : public std::exception {
 private:
     std::string mensaje_error;
 public:
+    /*
+      * creara la clase de invalidmap dejandola valida para uso
+    */
     explicit InvalidMapException(const std::string &error) noexcept;
-
+    /*
+      * devuelve el error
+    */
     virtual const char *what() const noexcept;
-
+    /*
+      * liberara a la clase
+    */  
     virtual ~InvalidMapException() noexcept;
 };
 

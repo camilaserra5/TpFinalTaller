@@ -233,16 +233,16 @@ void Jugador::deserializar(std::vector<char> &serializado) {
         this->nombre += serializado[idx];
         idx += 1;
     }*/
-    std::cerr << "deserializo nombre: " << nombre << std::endl;
+  //  std::cerr << "deserializo nombre: " << nombre << std::endl;
     idx += longitudnombre;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->vida = charArrayToNumber(sub);
-    std::cerr << "deserializo vida: " << vida << std::endl;
+  //  std::cerr << "deserializo vida: " << vida << std::endl;
 
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->armaActual = charArrayToNumber(sub);
-    std::cerr << "deserializo arma: " << armaActual << std::endl;
+  //  std::cerr << "deserializo arma: " << armaActual << std::endl;
 
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);

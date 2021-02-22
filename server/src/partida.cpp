@@ -194,9 +194,8 @@ void Partida::run() {
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
-                std::vector<Actualizacion *> actualizacionTermino;
                 Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego.obtenerJugadores());
-                actualizacionTermino.push_back(terminoPartida);
+                this->ultAct.push_back(terminoPartida);
                 this->enviar_actualizaciones(actualizacionTermino);
                 this->arrancoPartida = false;
                 this->sigue_corriendo = false;
@@ -204,23 +203,12 @@ void Partida::run() {
 
             auto fin = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> sleepTime = tiempoPartida - (fin - inicio);
-            //std::cerr << "sleep for" << time_span.count() << std::endl;
             std::this_thread::sleep_for(sleepTime);
 
             for (auto &actu : this->ultAct) {
-                //std::cerr << "borro :" << actu->obtenerId() << std::endl;
+                std::cerr << "borro :" << actu->obtenerId() << std::endl;
                 delete actu;
             }
-            /*auto fin = std::chrono::high_resolution_clock::now();
-            auto delta = fin - inicio;
-            long tardanza = delta.count();
-            if (tardanza >= TIEMPO_SERVIDOR) {
-                tardanza = TIEMPO_SERVIDOR;
-            }
-            std::cerr << "sleep for" << TIEMPO_SERVIDOR-tardanza <<std::endl;
-            std::chrono::milliseconds duration(TIEMPO_SERVIDOR - tardanza);
-            std::this_thread::sleep_for(duration);
-*/
         } catch (...) {
             std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
