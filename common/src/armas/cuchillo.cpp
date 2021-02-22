@@ -6,9 +6,12 @@
 #define NO_HAY_JUGADOR_CERCANO -1
 
 
-Cuchillo::Cuchillo() : Arma(DISTANCIA_ACUCHILLABLE, 3) {}
+Cuchillo::Cuchillo(ConfiguracionPartida& configuracion) : Arma(DISTANCIA_ACUCHILLABLE, 3, configuracion.getDanioMaximoArma()),
+configuracion(configuracion)  {}
 
 Cuchillo::~Cuchillo() {}
+
+Cuchillo::Cuchillo() {}
 
 Actualizacion *Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     std::cerr << "ataque con cuchiiii\ns";
@@ -22,7 +25,7 @@ Actualizacion *Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::ma
         Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
         std::cerr << "ACUCHILLO con distancia: " << jugadorAtacado->getPosicion().distanciaA(jugador->getPosicion());
         std::cerr << "ACUCHILLO\n";
-        int danio = (rand() % DANIO_MAX) + 1;
+        int danio = (rand() % configuracion.getDanioMaximoArma()) + 1;
         danio = -danio;
         jugadorAtacado->actualizar_vida(danio);
         if (jugadorAtacado->estaMuerto()) {

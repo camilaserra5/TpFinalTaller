@@ -1,10 +1,5 @@
 #include "../include/contenedorDeElementos.h"
 
-#define PUNTOS_CRUZ 10
-#define PUNTOS_COPA 50
-#define PUNTOS_COFRE 100
-#define PUNTOS_CORONA 200
-
 void ContenedorDeElementos::aniadirPuerta(Puerta &puerta) {
     this->puertas.push_back(puerta);
 }
@@ -70,7 +65,7 @@ Puerta deserializarPuerta(std::vector<char> &informacion) {
     return puerta;
 }
 
-Item *deserializarItem(std::vector<char> &informacion) {
+Item *ContenedorDeElementos::deserializarItem(std::vector<char> &informacion) {
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
@@ -101,13 +96,13 @@ Item *deserializarItem(std::vector<char> &informacion) {
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("sangre").getType()) {
         return new Sangre(posicion, id);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("cruz").getType()) {
-        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("cruz"), PUNTOS_CRUZ, posicion);
+        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("cruz"), configuracion.getPuntosCruz(), posicion);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("copa").getType()) {
-        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("copa"), PUNTOS_COPA, posicion);
+        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("copa"), configuracion.getPuntosCopa(), posicion);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("cofre").getType()) {
-        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("cofre"), PUNTOS_COFRE, posicion);
+        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("cofre"), configuracion.getPuntosCofre(), posicion);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("corona").getType()) {
-        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("corona"), PUNTOS_CORONA, posicion);
+        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("corona"), configuracion.getPuntosCorona(), posicion);
     }
     return new NoItem(posicion, idTipo);
 }
@@ -185,8 +180,9 @@ void ContenedorDeElementos::sacarElementoDePosicion(Posicion &posicion) {
     this->elementos.swap(elementosFiltrados);
 }
 
-ContenedorDeElementos::ContenedorDeElementos() :
-        elementos() {}
+ContenedorDeElementos::ContenedorDeElementos(ConfiguracionPartida& configuracion) :
+        elementos(),
+        configuracion(configuracion) {}
 
 ContenedorDeElementos::~ContenedorDeElementos() {
     int cantidadElementos = this->elementos.size();
@@ -220,3 +216,5 @@ Puerta &ContenedorDeElementos::obtenerPuertaEn(int &fila, int &columna) {
     }
     return this->puertas[puertaEnPos];
 }
+
+ContenedorDeElementos::ContenedorDeElementos(){}

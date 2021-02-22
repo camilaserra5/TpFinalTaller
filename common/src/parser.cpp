@@ -41,9 +41,10 @@ int Parser::obtenerAnchoPantallaJuego() {
 ConfiguracionPartida Parser::obtenerParametrosDeConfiguracion() {
     float vRotacion = this->config["vRotacion"].as<float>();
     float vAvance = this->config["vAvance"].as<float>();
-    float vidaMax = this->config["vidaMax"].as<float>();
+    int vidaMax = this->config["vidaMax"].as<int>();
     int balasPorRafagaAmetralladora = this->config["balasPorRafagaAmetralladora"].as<int>();
     int balasPorRafagaCanion = this->config["balasPorRafagaCanion"].as<int>();
+    int balasPorRafagaPistola = this->config["balasPorRafagaPistola"].as<int>();
     int maxBalas = this->config["maxBalas"].as<int>();
     float cantidadBalasInicial = this->config["cantidadBalasInicial"].as<float>();
     float distanciaMaxAcuchillable = this->config["distanciaMaxAcuchillable"].as<float>();
@@ -52,12 +53,16 @@ ConfiguracionPartida Parser::obtenerParametrosDeConfiguracion() {
     float punto_cofre = this->config["punto_cofre"].as<float>();
     float puntos_corona = this->config["puntos_corona"].as<float>();
     int cantidadVidas = this->config["cantidadVidas"].as<int>();
+    int puntosMatar = this->config["puntos_matar"].as<int>();
+    int puntosBalas = this->config["puntos_balas"].as<int>();
+    int danio_maximo_arma = this->config["danio_maximo_arma"].as<int>();
     ConfiguracionPartida config;
     config.setVRotacion(vRotacion);
     config.setVAvance(vAvance);
     config.setVidaMax(vidaMax);
     config.setBalasPorRafagaAmetralladora(balasPorRafagaAmetralladora);
     config.setBalasPorRafagaCanion(balasPorRafagaCanion);
+    config.setBalasPorRafagaPistola(balasPorRafagaPistola);
     config.setMaxBalas(maxBalas);
     config.setCantidadBalasInicial(cantidadBalasInicial);
     config.setDistanciaMaxAcuchillable(distanciaMaxAcuchillable);
@@ -66,5 +71,9 @@ ConfiguracionPartida Parser::obtenerParametrosDeConfiguracion() {
     config.setPunto_cofre(punto_cofre);
     config.setPuntos_corona(puntos_corona);
     config.setCantidadVidas(cantidadVidas);
+    config.setPuntosMatar(puntosMatar);
+    config.setPuntosBalas(puntosBalas);
+    config.setDanioMaximoArma(danio_maximo_arma);
+
     return config;
 }

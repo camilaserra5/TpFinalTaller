@@ -8,7 +8,7 @@
 
 class LanzaCohetes : public Arma, public Item {
 public:
-    LanzaCohetes(Posicion &posicion, int id);
+    LanzaCohetes(Posicion &posicion, int id, ConfiguracionPartida& configuracion);
 
     ~LanzaCohetes();
 
@@ -19,6 +19,11 @@ public:
 
     Type getTipo() override;
 
+    std::map<int, Jugador *> verificarJugadoresEnRango(Posicion &posicionImpacto,
+                                                      std::map<int, Jugador *> &jugadores,Jugador *jugador);
+
+  private:
+    ConfiguracionPartida configuracion;
 };
 
 #endif

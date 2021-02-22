@@ -7,15 +7,14 @@
 #include "logro.h"
 #include <map>
 #include "iserializable.h"
+#include "configuracionPartida.h"
 
 class Actualizacion;
-
-
 class Arma;
 
 class Jugador : public ISerializable {
 public:
-    Jugador(std::string &nombre, int &id, Posicion &posicion, float vidaMax, float vRotacion, int cantBalasInicial);
+    Jugador(std::string &nombre, int &id, Posicion &posicion, ConfiguracionPartida& configuracion);
 
     ~Jugador();
 
@@ -56,8 +55,6 @@ public:
     float getAnguloDeVista();
 
     void actualizarArma();
-
-    //void setAnguloDeVista(float anguloJugador){this->angulo = anguloJugador; }
 
     bool tengollave();
 
@@ -100,6 +97,7 @@ private:
     int id;
     std::string nombre;
     int vida;
+    int vidaMax;
     std::map<int, Arma *> armas;
     int balas;
     float velocidadDeRotacion;

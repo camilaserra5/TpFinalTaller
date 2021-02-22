@@ -13,6 +13,8 @@ public:
 
     void setBalasPorRafagaCanion(int balasPorRafagaCanion);
 
+    void setBalasPorRafagaPistola(int balasPorRafagaPistola);
+
     void setMaxBalas(int maxBalas);
 
     void setCantidadBalasInicial(int cantidadBalasInicial);
@@ -29,28 +31,60 @@ public:
 
     void setCantidadVidas(int cantidadVidas);
 
+    void setPuntosBalas(int puntosBalas);
+
+    void setPuntosMatar(int puntosMatar);
+
     int getBalasInicial();
 
     float getVRotacion();
 
-    float getVidaMax();
+    int getVidaMax();
 
     float obtenerVAvance();
+
+    int getCantidadDeVidas();
+
+    int getPuntosCruz();
+
+    int getPuntosCopa();
+
+    int getPuntosCofre();
+
+    int getPuntosCorona();
+
+    int getPuntosBalas();
+
+    int getPuntosMatar();
+
+    int getDanioMaximoArma();
+
+    int getBalasPorRafagaAmetralladora();
+
+    int getBalasPorRafagaCanion();
+
+    int getBalasPorRafagaPistola();
+
+    void setDanioMaximoArma(int danio_maximo_arma);
 
 private:
     float vRotacion;
     float vAvance;
-    float vidaMax;
+    int vidaMax;
     int balasPorRafagaAmetralladora;
     int balasPorRafagaCanion;
+    int balasPorRafagaPistola;
     int maxBalas;
     float cantidadBalasInicial;
     float distanciaMaxAcuchillable;
-    float puntos_cruz;
-    float puntos_copa;
-    float puntos_cofre;
-    float puntos_corona;
+    float puntosCruz;
+    float puntosCopa;
+    float puntosCofre;
+    float puntosCorona;
     int cantidadVidas;
+    int puntosMatar;
+    int puntosBalas;
+    int danio_maximo_arma;
 };
 
 #endif
