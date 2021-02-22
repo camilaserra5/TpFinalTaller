@@ -13,7 +13,12 @@ public:
     Server_Event_Receiver(ProtectedQueue<Comando *> &comandos, Protocolo *protocolo) :
             comandos(comandos), protocolo(protocolo), corriendo(true) {}
 
-    ~Server_Event_Receiver() {}
+    ~Server_Event_Receiver() {
+    /*  for (int i = 0; i < this->comandos.size(); i++){
+        Comando* c = comandos.obtener_dato();
+        delete c;
+      }*/
+    }
 
     void run() override;
 

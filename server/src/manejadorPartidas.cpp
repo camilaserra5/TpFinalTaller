@@ -93,7 +93,7 @@ void ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
     partida->agregarCliente(nombreJugador, cliente);
 }
 
-void ManejadorPartidas::eliminarPartidasTerminadas() {
+void ManejadorPartidas::eliminarPartidasTerminadas() {//cambiar por swap
     std::cerr << "entro a elimianr partidas\n";
     std::map<std::string, Partida *>::iterator it;
     std::cerr << "cantidad de partidas: " << this->partidas.size() << std::endl;
@@ -112,9 +112,7 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {
     std::cerr << "salgo de eliminarPartidas\n";
 }
 
-ManejadorPartidas::~ManejadorPartidas() {
-
-}
+ManejadorPartidas::~ManejadorPartidas() {}
 
 std::vector<char> ManejadorPartidas::serializar() {
     std::vector<char> informacion;
