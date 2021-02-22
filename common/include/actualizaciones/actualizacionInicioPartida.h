@@ -12,7 +12,7 @@ class ActualizacionInicioPartida : public Actualizacion {
 public:
     ActualizacionInicioPartida() {}
 
-    ActualizacionInicioPartida(EstadoJuego &estadoJuego);
+    ActualizacionInicioPartida(std::vector<char>& informacion);
 
     ~ActualizacionInicioPartida();
 
@@ -25,6 +25,7 @@ public:
     EstadoJuego &obtenerEstadoJuego();
 
 private:
+    std::vector<char> informacion;
     EstadoJuego estadoJuego;
 };
 

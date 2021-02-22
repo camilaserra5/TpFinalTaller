@@ -11,6 +11,7 @@ void Server_Event_Sender::run() {
             std::vector<char> informacion = actualizacion->serializar();
             protocolo->enviar(informacion);
             std::cerr << "finnnnenvio" << std::endl;
+            delete actualizacion;
         } catch (const SocketError &exc) {
             std::cout << exc.what() << std::endl;
             this->cerrar();

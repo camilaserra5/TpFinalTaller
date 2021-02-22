@@ -7,7 +7,9 @@
 
 ActualizacionAgregarItem::ActualizacionAgregarItem(Item *item) : item(item) {}
 
-ActualizacionAgregarItem::~ActualizacionAgregarItem() {}
+ActualizacionAgregarItem::~ActualizacionAgregarItem() {
+    delete this->item;
+}
 
 std::vector<char> ActualizacionAgregarItem::serializar() {
     std::vector<char> informacion;
