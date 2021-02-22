@@ -15,12 +15,21 @@ class ObjetosJuego;
 
 class Type {
 public:
+    /*
+      * crearara la clase type dejandola valida para uso
+    */
     Type(std::string name, int type) : name(name), type(type) {}
-
+    /*
+      * devuelve el nombre del tipo
+    */
     std::string getName() { return this->name; }
-
+    /*
+      * devuelve el numero del tipo
+    */
     int getType() { return this->type; }
-
+    /*
+      * liberaraa la clase
+      */
     ~Type() {}
 
 private:
@@ -34,6 +43,9 @@ private:
 
 class ObjetosJuego {
 public:
+    /*
+      * carga los objetos en el vector de typos
+    */  
     static std::vector<Type> obtenerObjetos() {
         std::vector<Type> types;
         types.push_back(Type("empty", TYPE_EMPTY));

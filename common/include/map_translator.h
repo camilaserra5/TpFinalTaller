@@ -7,8 +7,13 @@
 #include <yaml-cpp/yaml.h>
 
 namespace MapTranslator {
+    /*
+      * traduce de la clase mama pa un yaml
+    */
     YAML::Node mapToYaml(Map &map);
-
+    /*
+      * traduce de un yaml a la clase mapa
+    */  
     Map yamlToMap(YAML::Node yaml, int anchoPantalla, ConfiguracionPartida& configuracion);
 };
 
