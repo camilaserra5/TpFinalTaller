@@ -185,7 +185,6 @@ void Partida::run() {
         std::cerr << "borro :" << actu->obtenerId() << std::endl;
         //   delete act;
     }
-    delete act;
     while (this->sigue_corriendo) {
 
         try {

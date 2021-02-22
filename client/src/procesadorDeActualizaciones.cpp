@@ -99,15 +99,15 @@ void ProcesadorDeActualizaciones::procesarActualizacionAtaque() {
 void ProcesadorDeActualizaciones::procesarActualizacionMoverse() {
     Player &player = this->modelo->getPlayer();
     auto movimiento = (ActualizacionMovimiento *) actualizacion;
-    int idJugador = movimiento->obtenerJugador()->getId();
+    int idJugador = movimiento->obtenerJugador().getId();
     if (idJugador == player.getId()) {
-        this->modelo->actualizarPosicionJugador(movimiento->obtenerJugador()->posEnX(),
-                                                movimiento->obtenerJugador()->posEnY(),
-                                                movimiento->obtenerJugador()->getAnguloDeVista());
+        this->modelo->actualizarPosicionJugador(movimiento->obtenerJugador().posEnX(),
+                                                movimiento->obtenerJugador().posEnY(),
+                                                movimiento->obtenerJugador().getAnguloDeVista());
     } else {
-        this->modelo->actualizarPosicionEnemigo(idJugador, movimiento->obtenerJugador()->posEnX(),
-                                                movimiento->obtenerJugador()->posEnY(),
-                                                movimiento->obtenerJugador()->getAnguloDeVista());
+        this->modelo->actualizarPosicionEnemigo(idJugador, movimiento->obtenerJugador().posEnX(),
+                                                movimiento->obtenerJugador().posEnY(),
+                                                movimiento->obtenerJugador().getAnguloDeVista());
     }
 }
 
