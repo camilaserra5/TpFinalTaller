@@ -61,7 +61,7 @@ void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
         int cantidadTopScore = topScore.size();
         for (int i = 0; i < cantidadTopScore; i++) {
             display_text("#" + std::to_string(i + 1) + " - " + topScore.at(i).second->obtenerNombre() + " - " +
-                         std::to_string(topScore.at(i).second->obtenerLogro().obtenerEnemigosMatados()),
+                         std::to_string(topScore.at(i).second->obtenerLogro().obtenerPuntosTotalesPorTesoros()),
                          fonts.getFont("wolfstein-names"), renderer,
                          SCREEN_WIDTH * 8 / 15,
                          70 + FONT_SIZE_TITLE + FONT_SIZE_SUBTITLE * i * 1.3);
@@ -73,7 +73,7 @@ void HighscoreWindow::show_highscores(SDL_Renderer *renderer, Fonts fonts) {
         int cantTopShooter = topShooter.size();
         for (int i = 0; i < cantTopShooter; i++) {
             display_text("#" + std::to_string(i + 1) + " - " + topShooter.at(i).second->obtenerNombre() + " - " +
-                         std::to_string(topShooter.at(i).second->obtenerLogro().obtenerEnemigosMatados()),
+                         std::to_string(topShooter.at(i).second->obtenerLogro().obtenerBalasDisparadas()),
                          fonts.getFont("wolfstein-names"), renderer,
                          SCREEN_WIDTH * 9 / 12,
                          70 + FONT_SIZE_TITLE + FONT_SIZE_SUBTITLE * i * 1.3);
