@@ -15,7 +15,8 @@
 
 class ManejadorPartidas : public ISerializable {
 public:
-    ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,ConfiguracionPartida configuracion);
+    ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,
+                      ConfiguracionPartida configuracion);
 
     ~ManejadorPartidas();
 
@@ -24,11 +25,11 @@ public:
     void cerrarPartidas();
 
     void crearPartida(std::string &nombreJugador, int &cant_jugadores,
-                     std::string &nombre_partida, std::string &archivoMapa,
-                     int &screenWidth);
+                      std::string &nombre_partida, std::string &archivoMapa,
+                      int &screenWidth);
 
     void agregarClienteAPartida(std::string &nombreJugador,
-                               std::string &nombre_partida, ThClient *cliente);
+                                std::string &nombre_partida, ThClient *cliente);
 
     std::vector<char> serializar();
 

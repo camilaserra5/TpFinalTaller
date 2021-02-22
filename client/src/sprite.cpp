@@ -1,7 +1,7 @@
 #include "../include/sprite.h"
 #include <iostream>
 
-Sprite::Sprite(SDL_Renderer *render, const char *rutaimg, int x, int y, int h, int w): textura(rutaimg, render) {
+Sprite::Sprite(SDL_Renderer *render, const char *rutaimg, int x, int y, int h, int w) : textura(rutaimg, render) {
     this->infoSprite.x = x * w;
     this->infoSprite.y = y * h;
     this->infoSprite.w = w;
@@ -22,7 +22,7 @@ void Sprite::renderizarColumna(SDL_Rect dimension, SDL_Rect &dest) {
     dimension.y += this->infoSprite.y;
     dimension.h += this->infoSprite.h;
     //std::cerr << "renderizo sprite con dimensiones x: " << dimension.x << " y: " << dimension.y << " h: " << dimension.h
-      //        << " w: " << dimension.w << std::endl;
+    //        << " w: " << dimension.w << std::endl;
     //std::cerr << "renderizo sprite en x: " << dest.x << " y: " << dest.y << " h: " << dest.h << " w: " << dest.w
     //        << std::endl << std::endl;
     this->textura.renderizar(&dimension, dest, 0, NULL);

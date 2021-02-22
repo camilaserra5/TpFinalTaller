@@ -7,7 +7,7 @@ Animacion::Animacion(SDL_Renderer *render,
                      int frames,
                      int frame_h,
                      int frame_w,
-                     int fila, int columna): textura(rutaimg, render) {
+                     int fila, int columna) : textura(rutaimg, render) {
 
     if (fila > -1) {
         SDL_Rect rect = {0, fila * frame_h, frame_h, frame_w};
@@ -22,7 +22,7 @@ Animacion::Animacion(SDL_Renderer *render,
             rect.y += frame_h;
         }
     }
-  //  this->textura = new Textura(rutaimg, render);
+    //  this->textura = new Textura(rutaimg, render);
     this->frame_h = frame_h;
     this->frame_w = frame_w;
     this->frameActual = 0;

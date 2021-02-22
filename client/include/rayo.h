@@ -29,21 +29,25 @@ private:
       * verifica el tipo de cuadrante en el que esta el angulo del jugador
     */
     void verificarCuadrante(const double anguloJugador);
+
     /*
       * verificar la interseccion del primer cuadrante
     */
     double verificarInterseccionPrimerCuadrante(Player &jugador, Map &mapa);
+
     /*
       * verifica la interseecion del segundo cuadrante
     */
     double verificarInterseccionSegundoCuadrante(Player &jugador, Map &mapa);
+
     /*
       * verifica la interseccion del tercer cuadrante
     */
     double verificarInterseccionTercerCuadrante(Player &jugador, Map &mapa);
+
     /*
       * verifica la interseccion del cuarto cuadrante
-    */  
+    */
     double verificarInterseccionCuartoCuadrante(Player &jugador, Map &mapa);
 
 public:

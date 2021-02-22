@@ -3,9 +3,9 @@
 #include "configuracionPartida.h"
 
 
-Servidor::Servidor(Parser &parser, ConfiguracionPartida& config) : parser(parser),
-                  aceptador(this->socket, parser.obtenerRutaMapas(),
-                          parser.obtenerMapas(), config) {}
+Servidor::Servidor(Parser &parser, ConfiguracionPartida &config) : parser(parser),
+                                                                   aceptador(this->socket, parser.obtenerRutaMapas(),
+                                                                             parser.obtenerMapas(), config) {}
 
 void Servidor::correr() {
     std::string port = parser.obtenerPuerto();
@@ -13,7 +13,7 @@ void Servidor::correr() {
     this->aceptador.start();
 }
 
-void Servidor::cerrar(){
+void Servidor::cerrar() {
     this->socket.cerrar();
     aceptador.join();
 }

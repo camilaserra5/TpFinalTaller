@@ -16,7 +16,8 @@ ActualizacionAgarroItem::~ActualizacionAgarroItem() {
     delete this->jugador;
     delete this->item;
 }
-ActualizacionAgarroItem::ActualizacionAgarroItem(){}
+
+ActualizacionAgarroItem::ActualizacionAgarroItem() {}
 
 std::vector<char> ActualizacionAgarroItem::serializar() {
     std::cerr << "serializo agarro itemm" << std::endl;

@@ -19,6 +19,7 @@ public:
     void run() override;
 
     void cerrar();
+
     void enviar_actualizaciones(std::vector<Actualizacion *> act);
 
     bool estaCorriendo();

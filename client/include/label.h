@@ -12,25 +12,30 @@ public:
       * debe recibir sus parametros inicalizados
     */
     Label(int xpos, int ypos, std::string text, TTF_Font *font, SDL_Color &color, SDL_Renderer *renderer);
+
     /*
       * settea el texto que va a renderizar
     */
     void setLabelText();
+
     /*
       * actualiza el texto que va a renderizar
     */
     void actualizarTexto(std::string texto);
+
     /*
       * dibuja el texto correspondiente
     */
     void draw();
+
     /*
       * devuelve el texto
     */
     int getTexto();
+
     /*
       * libera la clase label junto a sus recursos
-    */  
+    */
     ~Label();
 
 private:

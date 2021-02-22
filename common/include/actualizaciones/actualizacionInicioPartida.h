@@ -12,7 +12,7 @@ class ActualizacionInicioPartida : public Actualizacion {
 public:
     ActualizacionInicioPartida() {}
 
-    ActualizacionInicioPartida(std::vector<char>& informacion);
+    ActualizacionInicioPartida(std::vector<char> &informacion);
 
     ~ActualizacionInicioPartida();
 

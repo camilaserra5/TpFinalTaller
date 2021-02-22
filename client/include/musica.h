@@ -13,13 +13,15 @@ public:
       * creara la clase musica dejandola valida para uso
     */
     explicit Musica(const std::string &archivo);
+
     /*
       * hace que suene la musica
     */
     void play(int loop);
+
     /*
       * liberara la clase musica con sus recursos
-    */  
+    */
     ~Musica();
 };
 

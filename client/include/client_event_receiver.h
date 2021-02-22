@@ -31,22 +31,26 @@ public:
     */
     ClientEventReceiver(Protocolo *protocolo, ProtectedQueue<Actualizacion *> &updates,
                         Modelo &modelo, int idJugador);
+
     /*
       * recibira un vector de caracteres por medio del protocolo y encolara
       * una atualizacion en la cola protegida
     */
     void run() override;
+
     /*
       * cerrara el protocolo de comunicacion
     */
     void cerrar();
+
     /*
       * liberara la clase client event reciber con sus recursos
     */
     ~ClientEventReceiver();
+
     /*
       * determina si recibio
-    */  
+    */
     bool recibi() {
         return this->recibii;
     }

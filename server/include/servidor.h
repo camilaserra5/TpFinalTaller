@@ -24,7 +24,7 @@ private:
     Parser &parser;
     Aceptador aceptador;
 public:
-    Servidor(Parser &parser, ConfiguracionPartida& config);
+    Servidor(Parser &parser, ConfiguracionPartida &config);
 
     void correr();
 

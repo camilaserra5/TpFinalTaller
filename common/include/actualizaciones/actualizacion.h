@@ -13,13 +13,15 @@ public:
       * creara la actualizacion dejandola valida para uso
     */
     Actualizacion();
+
     /*
       * liberara la actualizacion con sus recursos
     */
     ~Actualizacion();
+
     /*
       * devuelve el id de la actualizacion
-    */  
+    */
     virtual int obtenerId() = 0;
 
 private:

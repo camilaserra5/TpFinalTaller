@@ -190,7 +190,7 @@ ContenedorDeElementos::ContenedorDeElementos() :
 
 ContenedorDeElementos::~ContenedorDeElementos() {
     int cantidadElementos = this->elementos.size();
-    for(int i = 0; i < cantidadElementos; i++){
+    for (int i = 0; i < cantidadElementos; i++) {
         delete this->elementos[i];
     }
 }

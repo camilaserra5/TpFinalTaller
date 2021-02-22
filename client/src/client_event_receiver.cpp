@@ -49,11 +49,11 @@ Actualizacion *deserializarActualizacion(std::vector<char> informacion) {
         auto act = new ActualizacionTerminoPartida();
         act->deserializar(actualizacionSerializada);
         return act;
-    } else if (idActualizacion == static_cast<int>(Accion::agarreItem)){
+    } else if (idActualizacion == static_cast<int>(Accion::agarreItem)) {
         auto act = new ActualizacionAgarroItem();
         act->deserializar(actualizacionSerializada);
         return act;
-    } else if(idActualizacion == static_cast<int>(Accion::agregarItem)){
+    } else if (idActualizacion == static_cast<int>(Accion::agregarItem)) {
         auto act = new ActualizacionAgregarItem();
         act->deserializar(actualizacionSerializada);
         return act;

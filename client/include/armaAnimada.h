@@ -14,17 +14,20 @@ public:
       * crea al arma animada dejandola valida para uno
     */
     ArmaAnimada(SDL_Renderer *render);
+
     /*
       * libera la clase arma Nimada con todos sus recursos
     */
     ~ArmaAnimada();
+
     /*
       * se encarga de renderizar El arma actual
     */
     void renderizar();
+
     /*
       * actualizar el arma con el cual se renderiza
-    */  
+    */
     void actualizar(int idArma, bool estado);
 
 private:

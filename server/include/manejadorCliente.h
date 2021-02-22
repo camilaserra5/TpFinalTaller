@@ -21,23 +21,23 @@ public:
     }
 
     void run() {
-        try{
-        std::chrono::milliseconds duration(100);
-        std::this_thread::sleep_for(duration);
-        std::vector<char> empece(4);
-        unsigned int size = htonl(static_cast<int>(Accion::empezoPartida));
-        memcpy(empece.data(), &size, 4);
-        this->protocolo->enviar(empece);
-        std::this_thread::sleep_for(duration);
-        this->enviador->start();
-        this->recibidor->start();
-      }catch(SocketError &e){
-          if (this->enviador->empezo()){
-              this->enviador->cerrar();
-          } else if (this->recibidor->empezo()){
-              this->recibidor->cerrar();
-          }
-      }
+        try {
+            std::chrono::milliseconds duration(100);
+            std::this_thread::sleep_for(duration);
+            std::vector<char> empece(4);
+            unsigned int size = htonl(static_cast<int>(Accion::empezoPartida));
+            memcpy(empece.data(), &size, 4);
+            this->protocolo->enviar(empece);
+            std::this_thread::sleep_for(duration);
+            this->enviador->start();
+            this->recibidor->start();
+        } catch (SocketError &e) {
+            if (this->enviador->empezo()) {
+                this->enviador->cerrar();
+            } else if (this->recibidor->empezo()) {
+                this->recibidor->cerrar();
+            }
+        }
     }
 
     void settearId(int &id) {
@@ -49,17 +49,19 @@ public:
         this->recibidor->join();
     }
 
-    void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones){
+    void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
         this->enviador->enviar_actualizaciones(actualizaciones);
     }
-    bool termino(){
+
+    bool termino() {
         bool resultado = false;
-        if (this->enviador->termino() || this->recibidor->termino()){
+        if (this->enviador->termino() || this->recibidor->termino()) {
             resultado = true;
         }
         return resultado;
     }
-    void cerrar(){
+
+    void cerrar() {
         this->enviador->cerrar();
         this->recibidor->cerrar();
     }

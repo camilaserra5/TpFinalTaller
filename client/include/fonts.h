@@ -13,13 +13,15 @@ public:
       *  crea la clase fonts dejandola valida para uso
     */
     Fonts();
+
     /*
       * crea una fuente y la agregra al mapa de fuentes
     */
     void addFont(std::string id, std::string path, int fontSize);
+
     /*
       * devuelve una fuente de acuerdo al id correspondiente
-    */  
+    */
     TTF_Font *getFont(std::string id);
 
     ~Fonts();

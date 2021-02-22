@@ -53,8 +53,8 @@ Modelo::~Modelo() {
     }
 }
 
-void Modelo::setMapa(Map& mapa){
-  this->mapa = mapa;
+void Modelo::setMapa(Map &mapa) {
+    this->mapa = mapa;
 }
 
 bool Modelo::inicializar() {
@@ -78,16 +78,17 @@ bool normalizarAnguloEnRango(double &angulo) {
     return false;
 }
 
-void Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &drawStart, double &distanciaObjeto) {
+void
+Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &drawStart, double &distanciaObjeto) {
     int anchoSprite = objeto->obtenerAnchura();
     //float drawEnd;
     for (int i = 0; i < anchoSprite; i++) {
         int posBuffer = x + i;
         if (this->zbuffer[posBuffer] > distanciaObjeto) {
-            if (alturaSprite >= ALTURA_CANVAS){
-              drawStart = 100;
-            }else{
-              drawStart = 500 - alturaSprite;
+            if (alturaSprite >= ALTURA_CANVAS) {
+                drawStart = 100;
+            } else {
+                drawStart = 500 - alturaSprite;
             }
             SDL_Rect dimension, dest;
             dimension.x = i;//suma offset
@@ -129,16 +130,16 @@ bool compararDistanciasObjetos(ObjetoDibujable *objeto1, ObjetoDibujable *objeto
     return (objeto1->getDistanciaParcialAJugador() < objeto2->getDistanciaParcialAJugador());
 }
 
-bool verificarsiEstaDelante(Posicion& posObjeto, Posicion& posJugador){
-  float angulo = posJugador.getAnguloDeVista();
-  int yJugador = posJugador.pixelesEnY();
-  int yObjeto = posObjeto.pixelesEnY();
-    if (0 <= angulo && angulo <= PI){
-      if (yObjeto <= yJugador) return true;
-      else return false;
-    }else{
-      if (yObjeto >= yJugador) return true;
-      else return false;
+bool verificarsiEstaDelante(Posicion &posObjeto, Posicion &posJugador) {
+    float angulo = posJugador.getAnguloDeVista();
+    int yJugador = posJugador.pixelesEnY();
+    int yObjeto = posObjeto.pixelesEnY();
+    if (0 <= angulo && angulo <= PI) {
+        if (yObjeto <= yJugador) return true;
+        else return false;
+    } else {
+        if (yObjeto >= yJugador) return true;
+        else return false;
     }
 }
 
@@ -160,9 +161,9 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
     if (y < 0) y = (-1) * y;
     float opuesto = abs(y - posObjeto.pixelesEnY());
     float adyacente = abs(posJugador.pixelesEnX() - posObjeto.pixelesEnX());
-    if (adyacente == 0){
-        enVista = verificarsiEstaDelante(posObjeto,posJugador);
-    }else{
+    if (adyacente == 0) {
+        enVista = verificarsiEstaDelante(posObjeto, posJugador);
+    } else {
         enVista = (abs(atan(opuesto / adyacente)) <= PI / 6);
     }
     if (!enVista) {
@@ -214,15 +215,15 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         double dx = (posObjeto.pixelesEnX() - posJugador.pixelesEnX());
         double difAngulo = jugador->getAnguloDeVista() - atan(dy / dx);
         double distancia = objetosVisibles[i]->getDistanciaParcialAJugador();
-        if (distancia > 0){
-          int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
-          int y0 = floor(ALTURA_CANVAS / 2);
+        if (distancia > 0) {
+            int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
+            int y0 = floor(ALTURA_CANVAS / 2);
 //a la altura de la pantalla le resto la altura del sprite
             //std::cerr << "alturaSprite: " << alturaSprite << " " << this->mapa.getLadoCelda() << " " << distancia;
-          //normalizarAnguloEnRango(difAngulo);
-          double x0 = tan(difAngulo) * DIST_PLANO_P;
-          int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
-          this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y0, distancia);
+            //normalizarAnguloEnRango(difAngulo);
+            double x0 = tan(difAngulo) * DIST_PLANO_P;
+            int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
+            this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y0, distancia);
         }
 
     }
@@ -570,6 +571,6 @@ void Modelo::actualizarPosicionJugador(int posX, int posY, float angulo) {
     this->jugador->getPosicion().setAngulo(angulo);
 }
 
-void Modelo::actualizarPosicionEnemigo(int idE,int posX, int posY, float angulo){
-  this->enemigos.at(idE)->actualizarPosicion(posX,posY,angulo);
+void Modelo::actualizarPosicionEnemigo(int idE, int posX, int posY, float angulo) {
+    this->enemigos.at(idE)->actualizarPosicion(posX, posY, angulo);
 }

@@ -1,11 +1,11 @@
 #include "actualizaciones/actualizacionInicioPartida.h"
 
-ActualizacionInicioPartida::ActualizacionInicioPartida(std::vector<char>& informacion) :
-        informacion(informacion), estadoJuego(){
+ActualizacionInicioPartida::ActualizacionInicioPartida(std::vector<char> &informacion) :
+        informacion(informacion), estadoJuego() {
 }
 
 ActualizacionInicioPartida::~ActualizacionInicioPartida() {
-  std::cerr << "entro al destructor de actalizacion inicializo partida\n";
+    std::cerr << "entro al destructor de actalizacion inicializo partida\n";
 }
 
 std::vector<char> ActualizacionInicioPartida::serializar() {

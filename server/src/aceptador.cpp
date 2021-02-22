@@ -6,8 +6,9 @@
 #include <vector>
 #include "../include/manejadorPartidas.h"
 
-Aceptador::Aceptador(Socket &un_socket, std::string rutaMapas, std::map<std::string, std::string> mapas,ConfiguracionPartida configuracion):
-        socket_listener(un_socket), rutaMapas(rutaMapas), mapas(mapas), configuracionPartida(configuracion){}
+Aceptador::Aceptador(Socket &un_socket, std::string rutaMapas, std::map<std::string, std::string> mapas,
+                     ConfiguracionPartida configuracion) :
+        socket_listener(un_socket), rutaMapas(rutaMapas), mapas(mapas), configuracionPartida(configuracion) {}
 
 static void liberar_terminados(std::vector<ThClient *> &clientes) {
     try {
@@ -29,7 +30,7 @@ static void liberar_terminados(std::vector<ThClient *> &clientes) {
 }
 
 void Aceptador::run() {
-    ManejadorPartidas manejadorPartidas(this->rutaMapas, this->mapas,this->configuracionPartida);
+    ManejadorPartidas manejadorPartidas(this->rutaMapas, this->mapas, this->configuracionPartida);
     bool socket_es_valido = true;
     while (socket_es_valido) {
         try {

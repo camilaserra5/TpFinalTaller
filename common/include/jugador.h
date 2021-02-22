@@ -15,7 +15,7 @@ class Arma;
 
 class Jugador : public ISerializable {
 public:
-    Jugador(std::string &nombre, int &id, Posicion &posicion,float vidaMax, float vRotacion, int cantBalasInicial);
+    Jugador(std::string &nombre, int &id, Posicion &posicion, float vidaMax, float vRotacion, int cantBalasInicial);
 
     ~Jugador();
 

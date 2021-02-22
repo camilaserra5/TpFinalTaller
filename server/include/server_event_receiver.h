@@ -20,7 +20,7 @@ public:
     void cerrar();
 
     bool estaCorriendo();
-    
+
 
 private:
     ProtectedQueue<Comando *> &comandos;

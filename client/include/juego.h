@@ -30,46 +30,57 @@ public:
       * tanto como la ventana y el modelo ya deben estar inicializados
     */
     Juego(Ventana &ventana, Modelo &modelo);
+
     /*
       * liberara a la clase juego con sus recursos
     */
     ~Juego();
+
     /*
       * devuelve si el juego esta corriendo o no
     */
     bool estaCorriendo() { return corriendo; }
+
     /*
       * es donde se ejecuta el loop game
     */
     void run() override;
+
     /*
       * actualiza la ventana que ve el juagdor
     */
     void actualizar();
+
     /*
       * renderiza las correspondientes entidades
     */
     void renderizar();
+
     /*
       * limpia la ventana que ve el juagdor
     */
     void clean();
+
     /*
       * cerrara el juego
     */
     void cerrar();
+
     /*
       * realiza el algortimo de raycasting
     */
     void raycasting(Map &mapa, Player &jugador);
+
     /*
       * realiza el loop de eventos
     */
     void eventos();
+
     /*
       * verifica el tipo de pared y  devuelve la textura correspondiente
     */
     Textura *verificarTextura(SDL_Renderer *render, int &tipoDePared);
+
     /*
       * renderiza la pared correspondiente con la determina textura
     */

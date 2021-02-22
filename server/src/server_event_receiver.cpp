@@ -3,7 +3,7 @@
 
 void Server_Event_Receiver::run() {
     while (this->corriendo) {
-      std::vector<char> informacion;
+        std::vector<char> informacion;
         try {
             std::vector<char> informacion = this->protocolo->recibir();
             if (informacion.empty()) {
@@ -23,6 +23,7 @@ void Server_Event_Receiver::run() {
         }
     }
 }
+
 void Server_Event_Receiver::cerrar() {
     this->corriendo = false;
     protocolo->cerrar();

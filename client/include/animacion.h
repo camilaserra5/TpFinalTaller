@@ -30,14 +30,17 @@ public:
               int frame_h,
               int frame_w,
               int fila, int columna);
+
     /*
       * liberara la clase aniamcion con sus recursos
     */
     ~Animacion();
+
     /*
       * realiza el renderizado del sprite completo en la posx e y
     */
     void renderizar(int posx, int posy, int angulo, SDL_Point *centro);
+
     /*
       * realiza el renderizado por comuna del sprite
     */

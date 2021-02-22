@@ -15,24 +15,28 @@ public:
       * los parametros deben ser validos
     */
     LogInWindow(int screnWidth, int screenHeight, int screenWJuego);
+
     /*
       * ejecuta la pantalla de log int mostrandole al cliente lo necesario
       * para poder jugar
     */
     void run();
+
     /*
       * libera a la clase log in con sus recursos cerrando la ventana
     */
     ~LogInWindow();
+
     /*
       * devuelve el protocolo de comunicacion
     */
     Protocolo *obtenerProtocolo() {
         return this->protocolo;
     }
+
     /*
       * devuelve el id del jugador generado por el servidor
-    */  
+    */
     uint32_t obtenerIdJugador() {
         return this->idCliente;
     }

@@ -16,25 +16,30 @@ public:
       * sus parametros deben ser validos
     */
     Ventana(const std::string &titulo, int x, int y, int ancho, int alto, int flags);
+
     /*
       * liberara la ventana con sus recursos
     */
     ~Ventana();
+
     /*
       * devuelve el render
     */
     SDL_Renderer *obtener_render();
+
     /*
       * actualiza la ventana
     */
     void actualizar();
+
     /*
       * limbia la ventana
     */
     void limpiar();
+
     /*
       * cierra la ventana
-    */  
+    */
     void cerrar();
 
 private:

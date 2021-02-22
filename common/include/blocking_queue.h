@@ -18,7 +18,7 @@ private:
     std::atomic<bool> esta_cerrado;
 
 public:
-    BlockingQueue(): esta_cerrado(false) {}
+    BlockingQueue() : esta_cerrado(false) {}
 
     ~BlockingQueue() {}
 
@@ -33,14 +33,15 @@ public:
         while (cola_datos.empty() && !esta_cerrado) {
             esta_vacia.wait(l);
         }
-        if (esta_cerrado){
-              throw QueueException("no hay elementos en la cola\n");
+        if (esta_cerrado) {
+            throw QueueException("no hay elementos en la cola\n");
         }
         T objeto = this->cola_datos.front();
         this->cola_datos.pop();
         return objeto;
     }
-    void cerrar(){
+
+    void cerrar() {
         this->esta_cerrado = true;
         esta_vacia.notify_all();
     }

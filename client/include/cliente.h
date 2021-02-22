@@ -19,15 +19,17 @@ public:
       * creara al cliente dejandolo valido para uso
     */
     Cliente(std::string configFile);
+
     /*
       * liberara al cliente con sus recursos
     */
     ~Cliente();
+
     /*
       * ejecutara el programa, creando la pantalla de login, y lanzara el juego
       * y los hilos de neviar y recibir. Sera el encargado de cerrar el rpograma
       * y hacer join de los hilos
-    */   
+    */
     void run();
 
 private:

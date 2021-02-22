@@ -21,7 +21,8 @@ private:
     int obtenerIdParaJugador();
 
 public:
-    Aceptador(Socket &un_socket, std::string rutaMapas, std::map<std::string, std::string> mapas,ConfiguracionPartida configuracion);
+    Aceptador(Socket &un_socket, std::string rutaMapas, std::map<std::string, std::string> mapas,
+              ConfiguracionPartida configuracion);
 
     void run() override;
 

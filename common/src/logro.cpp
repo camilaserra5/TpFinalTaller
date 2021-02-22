@@ -45,7 +45,7 @@ std::vector<char> Logro::serializar() {
     info.insert(info.end(), aux.begin(), aux.end());
 
     aux = numberToCharArray(this->puntosTotalesPorTesoros);
-  //  std::cerr << "puntosTesoro: " << this->puntosTotalesPorTesoros;
+    //  std::cerr << "puntosTesoro: " << this->puntosTotalesPorTesoros;
     info.insert(info.end(), aux.begin(), aux.end());
 
     aux = numberToCharArray(this->balasDisparadas);
@@ -63,8 +63,8 @@ void Logro::deserializar(std::vector<char> &serializado) {
 //    std::cerr << " logro deserializar enemigosMatados " << enemigosMatados << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
-  ///  this->puntosTotalesPorTesoros = charArrayToNumber(sub);
-  //  std::cerr << " logro deserializar puntosTotalesPorTesoros " << puntosTotalesPorTesoros << std::endl;
+    ///  this->puntosTotalesPorTesoros = charArrayToNumber(sub);
+    //  std::cerr << " logro deserializar puntosTotalesPorTesoros " << puntosTotalesPorTesoros << std::endl;
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->balasDisparadas = charArrayToNumber(sub);
