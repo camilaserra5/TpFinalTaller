@@ -79,29 +79,8 @@ bool normalizarAnguloEnRango(double &angulo) {
 }
 
 void
-Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int &drawStart, double &distanciaObjeto) {
-    int anchoSprite = objeto->obtenerAnchura();
-    //float drawEnd;
-    for (int i = 0; i < anchoSprite; i++) {
-        int posBuffer = x + i;
-        if (this->zbuffer[posBuffer] > distanciaObjeto) {
-            if (alturaSprite >= ALTURA_CANVAS) {
-                drawStart = 100;
-            } else {
-                drawStart = 500 - alturaSprite;
-            }
-            SDL_Rect dimension, dest;
-            dimension.x = i;//suma offset
-            dimension.y = 0;//sumaoffset
-            dimension.w = 1;
-            dimension.h = 0;
-            dest.x = posBuffer;
-            dest.y = drawStart;
-            dest.w = 1;
-            dest.h = alturaSprite;
-            objeto->renderizarColumna(dimension, dest);
-        }
-    }/*
+Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite,
+                        int &x, int &drawStart, double &distanciaObjeto) {
     int anchoSprite = objeto->obtenerAnchura();
     float drawEnd;
     for (int i = 0; i < anchoSprite; i++) {
@@ -110,7 +89,7 @@ Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int
             if (alturaSprite >= ALTURA_CANVAS){
               drawEnd = ALTURA_CANVAS - 20;
             }else{
-              drawEnd = drawStart + alturaSprite;
+              drawEnd = alturaSprite;//drawStart + alturaSprite + 40;
             }
             SDL_Rect dimension, dest;
             dimension.x = i;//suma offset
@@ -118,12 +97,12 @@ Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite, int &x, int
             dimension.w = 1;
             dimension.h = 0;
             dest.x = posBuffer;
-            dest.y = drawStart;
+            dest.y = ALTURA_CANVAS - (1/alturaSprite )- alturaSprite;
             dest.w = 1;
-            dest.h = abs(drawEnd - drawStart);
+            dest.h = drawEnd;
             objeto->renderizarColumna(dimension, dest);
         }
-    }*/
+    }
 }
 
 bool compararDistanciasObjetos(ObjetoDibujable *objeto1, ObjetoDibujable *objeto2) {
@@ -272,7 +251,6 @@ void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
         } catch (std::out_of_range &e) {
             objeto = this->crearObjeto(tipo);
             this->entidades.insert({id, objeto});
-            //  std::cerr << "creo un obejto: " << tipo.getName() << "\n";
             this->entidades.at(id)->settear_estado(posx, posy);
         }
     }
@@ -358,7 +336,6 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
                       SPRITES_OBJETOS_ANCHO);
         return new ObjetoJuego(std::move(sprite));
     } else {
-        //std::cerr << " creo elsee";
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 0, 0,
                       0);
         return new ObjetoJuego(std::move(sprite));
@@ -406,155 +383,6 @@ bool Modelo::procesarActualizaciones() {
         Actualizacion *actualizacion = this->updates.obtener_dato();
         ProcesadorDeActualizaciones procesador(this, actualizacion);
         procesador.ejecutar();
-        return true;
-/*
-        int idActualizacion = actualizacion->obtenerId();
-
-        if (idActualizacion == static_cast<int>(Accion::empezoPartida)) {
-            auto inicio = (ActualizacionInicioPartida *) actualizacion;
-            EstadoJuego &estadoJuego = inicio->obtenerEstadoJuego();
-            std::map<int, Jugador *> &jugadores = estadoJuego.obtenerJugadores();
-            std::map<int, Jugador *>::iterator it;
-            Jugador *jugador = jugadores.at(this->idJugador);
-
-            int vida = jugador->puntos_de_vida();
-            int posx = jugador->getPosicion().pixelesEnX();
-            int posy = jugador->getPosicion().pixelesEnY();
-            int angulo = jugador->getAnguloDeVista();
-            int idArma = jugador->getArma()->getId();
-            int puntaje = jugador->obtenerPuntosTotales();
-            bool disparando = jugador->estaDisparando();
-            int cantVidas = jugador->cant_de_vida();
-            int balas = jugador->cantidad_balas();
-            this->actualizarJugador(posx, posy, vida, angulo, idArma,
-                                    disparando, puntaje, cantVidas, balas);
-            for (it = jugadores.begin(); it != jugadores.end(); it++) {
-                if (it->second->getId() != idJugador) {
-                    int idE = it->first;
-                    int vidaE = it->second->puntos_de_vida();
-                    int posxE = it->second->getPosicion().pixelesEnX();
-                    int posyE = it->second->getPosicion().pixelesEnY();
-                    int idArmaE = idArma;
-                    int anguloJugador = angulo;
-                    int anguloE = it->second->getAnguloDeVista();
-                    bool disparandoE = it->second->estaDisparando();
-                    int puntajeE = it->second->obtenerPuntosTotales();
-                    this->actualizarEnemigo(idE, vidaE, disparandoE, posxE,
-                                            posyE, idArmaE, anguloJugador,
-                                            anguloE, puntajeE);
-                }
-            }
-
-            this->mapa = estadoJuego.obtenerMapa();
-            this->mapa.setLadoCelda(ANCHO_CANVAS);
-            std::vector<Item *> items = this->mapa.obtenerItems();
-            int cantItems = items.size();
-            for (int i = 0; i < cantItems; i++) {
-                Item *item = items[i];
-                int idI = item->getId();
-                Type tipo = item->getTipo();
-                int posxI = item->obtenerPosicion().pixelesEnX();
-                int posyI = item->obtenerPosicion().pixelesEnY();
-                //  std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
-                //    << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
-                this->actualizarObjeto(idI, tipo, posxI, posyI);
-            }
-        } else if (idActualizacion == static_cast<int>(Accion::aperturaDePuerta)) {
-            std::cerr << "act apertura puerta" << std::endl;
-            //  auto apertura = (ActualizacionAperturaPuerta *) actualizacion;
-            //HACER Q SE ABRA PUERTA
-        } else if (idActualizacion == static_cast<int>(Accion::cambioDeArma)) {
-            std::cerr << "act cambio arma" << std::endl;
-            auto cambioArma = (ActualizacionCambioArma *) actualizacion;
-            int idJugador = cambioArma->obtenerIdJugador();
-            if (idJugador == this->jugador->getId()) {
-                this->actualizarArmaJugador(cambioArma->obtenerIdArma());
-                this->actualizarArmaEnemigos(cambioArma->obtenerIdArma());
-            }
-        } else if (idActualizacion == static_cast<int>(Accion::ataque)) {
-            std::cerr << "act ataque" << std::endl;
-            auto ataque = (ActualizacionAtaque *) actualizacion;
-            Jugador *jugadorAux = ataque->obtenerJugador();
-            std::cerr << "juagdorid: " << jugadorAux->getId();
-            std::cerr << "juagdoryo: " << this->jugador->getId();
-            if (jugadorAux->getId() == this->jugador->getId()) {
-                std::cerr << "arma de atacque yo dispare: " << jugadorAux->getArma()->getTipo().getName() << "\n";
-                this->actualizarEstadoAtaqueJugador(jugadorAux->puntos_de_vida(), jugadorAux->getArma()->getId(),
-                                                    jugadorAux->cantidad_balas(),
-                                                    jugadorAux->obtenerPuntosTotales(), jugadorAux->cant_de_vida(),
-                                                    jugadorAux->estaDisparando());
-            }
-            std::map<int, Jugador *> &jugadoresAtacados = ataque->obtenerJugadoresAtacados();
-            std::map<int, Jugador *>::iterator it;
-            for (it = jugadoresAtacados.begin(); it != jugadoresAtacados.end(); it++) {
-                if (it->first == this->jugador->getId()) {
-                    std::cerr << "me ataque a mi mismo\n";
-                    std::cerr << "arma de atacque: " << it->second->getArma()->getTipo().getName() << "\n";
-                    this->actualizarEstadoAtaqueJugador(it->second->puntos_de_vida(), it->second->getArma()->getId(),
-                                                        it->second->cantidad_balas(),
-                                                        it->second->obtenerPuntosTotales(), it->second->cant_de_vida(),
-                                                        it->second->estaDisparando());
-                } else {
-                    int idE = it->first;
-                    int vidaE = it->second->puntos_de_vida();
-                    std::cerr << "se ataco al enemigo\n";
-                    this->actualizarVidaEnemigo(idE, vidaE, jugadorAux->getArma()->getId());
-                    this->enemigos.at(idE)->actualizarPosicion(ataque->obtenerJugador()->posEnX(),
-                                                              ataque->obtenerJugador()->posEnY(),
-                                                              ataque->obtenerJugador()->getAnguloDeVista());
-                }
-            }
-
-        } else if (idActualizacion == static_cast<int>(Accion::moverse)) {
-            std::cerr << "act moveerse" << std::endl;
-            auto movimiento = (ActualizacionMovimiento *) actualizacion;
-            std::cerr << "JUGADOR:" << movimiento->obtenerJugador()->getId() << std::endl;
-            std::cerr << "posx:" << movimiento->obtenerJugador()->posEnX() << " posy:"
-                      << movimiento->obtenerJugador()->posEnY() << " ang: "
-                      << movimiento->obtenerJugador()->getAnguloDeVista() << std::endl;
-            int idJugador = movimiento->obtenerJugador()->getId();
-            if (idJugador == this->jugador->getId()) {
-                this->actualizarPosicionJugador(movimiento->obtenerJugador()->posEnX(),
-                                                movimiento->obtenerJugador()->posEnY(),
-                                                movimiento->obtenerJugador()->getAnguloDeVista());
-            } else {
-                this->enemigos.at(idJugador)->actualizarPosicion(movimiento->obtenerJugador()->posEnX(),
-                                                                 movimiento->obtenerJugador()->posEnY(),
-                                                                 movimiento->obtenerJugador()->getAnguloDeVista());
-            }
-        } else if (idActualizacion == static_cast<int>(Accion::agarreItem)) {
-            std::cerr << "agarre un item " << std::endl;
-            auto agarroItem = (ActualizacionAgarroItem *) actualizacion;
-            int idJugador = agarroItem->obtenerJugador()->getId();
-            Item *item = agarroItem->obtenerItem();
-            int idItem = item->getId();
-            this->sacarItem(idItem);
-            Jugador *jugador = agarroItem->obtenerJugador();
-            if (idJugador == this->jugador->getId()) {
-                this->actualizarBeneficioJugador(jugador->puntos_de_vida(),
-                                                 jugador->cantidad_balas(),
-                                                 jugador->obtenerPuntosTotales(),
-                                                 jugador->cant_de_vida());
-            }
-        } else if (idActualizacion == static_cast<int>(Accion::agregarItem)) {
-            std::cerr << "agrego un item" << std::endl;
-            auto agregoItem = (ActualizacionAgregarItem *) actualizacion;
-            Item *item = agregoItem->obtenerItem();
-            int idI = item->getId();
-            Type tipo = item->getTipo();
-            int posxI = item->obtenerPosicion().pixelesEnX();
-            int posyI = item->obtenerPosicion().pixelesEnY();
-            //  std::cerr << "item id:" << item->getId() << " tipo " << item->getTipo().getName() << "x "
-            //    << item->getPosicion().pixelesEnX() << "y " << item->getPosicion().pixelesEnY() << std::endl;
-            this->actualizarObjeto(idI, tipo, posxI, posyI);
-
-        } else if (idActualizacion == static_cast<int>(Accion::terminoPartida)) {
-            std::cerr << "act terminooo" << std::endl;
-            auto termino = (ActualizacionTerminoPartida *) actualizacion;
-            Ranking *ranking = new Ranking(std::move(termino->obtenerEstadoJuego().obtenerJugadores()));
-            this->terminoPartida(*ranking);
-        }*/
-
         delete actualizacion;
         return true;
 
