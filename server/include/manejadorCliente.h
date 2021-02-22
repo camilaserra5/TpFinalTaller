@@ -8,18 +8,27 @@
 
 class ManejadorCliente {
 public:
+    /*
+      * creara la clase manejador de cliente dejandola valida para uso
+      * tanto como el porotocolo como la cola de cmandos  deben estar
+      * inicalizados
+    */
     ManejadorCliente(ProtectedQueue<Comando *> &comandos,
                      Protocolo *protocolo, int &id) {
         this->enviador = new Server_Event_Sender(protocolo);
         this->recibidor = new Server_Event_Receiver(comandos, protocolo);
-        this->id = id;//no lo necesita porq se settea
+        this->id = id;
         this->protocolo = protocolo;
     }
-
+    /*
+      * Liberara a la clase
+    */
     ~ManejadorCliente() {
 
     }
-
+    /*
+      * lanza a los dos hilos enviador y recibidor
+    */
     void run() {
         try {
             std::chrono::milliseconds duration(100);
@@ -39,20 +48,28 @@ public:
             }
         }
     }
-
+    /*
+      * settea el id
+    */
     void settearId(int &id) {
         this->id = id;
     }
-
+    /*
+      * hace join de los dos hilos
+    */
     void join() {
         this->enviador->join();
         this->recibidor->join();
     }
-
+    /*
+      * envia las actualizaciones a los clientes
+    */
     void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
         this->enviador->enviar_actualizaciones(actualizaciones);
     }
-
+    /*
+      * devuelve true si alguno de los dos hilos termino sino false
+    */
     bool termino() {
         bool resultado = false;
         if (this->enviador->termino() || this->recibidor->termino()) {
@@ -60,7 +77,9 @@ public:
         }
         return resultado;
     }
-
+    /*
+      * cierra a los dos hilos
+    */
     void cerrar() {
         this->enviador->cerrar();
         this->recibidor->cerrar();

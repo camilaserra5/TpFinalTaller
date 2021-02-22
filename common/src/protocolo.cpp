@@ -48,13 +48,13 @@ Comando *Protocolo::deserializarComando(std::vector<char> &informacion) {
     buf = (uint32_t *) number;
     int idAccion = ntohl(*buf);
     if (idAccion == static_cast<int>(Accion::ataque)) {
-        //  std::cerr << "COMANDO ATAQUE\n";
+          std::cerr << "COMANDO ATAQUE\n";
         return new Ataque(idJugador);
     } else if (idAccion == static_cast<int>(Accion::aperturaDePuerta)) {
-        //  std::cerr << "COMANDO ABRIR PUERTA\n";
+          std::cerr << "COMANDO ABRIR PUERTA\n";
         return new AperturaDePuerta(idJugador);
     } else if (idAccion == static_cast<int>(Accion::cambioDeArma)) {
-        //std::cerr << "COMANDO CAMBIO DE ARMA";
+      std::cerr << "COMANDO CAMBIO DE ARMA";
         return new CambioDeArma(idJugador);
     } else if (idAccion == static_cast<int>(Accion::rotarDerecha)) {
         std::cerr << "COMANDO ROT DERECHA\n";
