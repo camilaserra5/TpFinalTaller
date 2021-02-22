@@ -18,16 +18,26 @@ private:
     std::atomic<bool> esta_cerrado;
 
 public:
+    /*
+      * creara la cola bloquenate dejandola valida para uso
+    */
     BlockingQueue() : esta_cerrado(false) {}
-
+    /*
+      * liberara la cola bloquenate con sus recursos
+    */
     ~BlockingQueue() {}
-
+    /*
+      * agregara un elemento a la cola
+    */
     void push(T objeto) {
         std::unique_lock<std::mutex> l(this->m);
         this->cola_datos.push(objeto);
         esta_vacia.notify_all();
     }
-
+    /*
+      * sacara un elemento de la cola si es que hay y no esta cerrada.
+      * si nohay se queda esperando hasta que alla un elemento
+    */
     T pop() {
         std::unique_lock<std::mutex> l(this->m);
         while (cola_datos.empty() && !esta_cerrado) {
@@ -40,7 +50,9 @@ public:
         this->cola_datos.pop();
         return objeto;
     }
-
+    /*
+      * cierra la cola y le avisa a todos
+    */   
     void cerrar() {
         this->esta_cerrado = true;
         esta_vacia.notify_all();

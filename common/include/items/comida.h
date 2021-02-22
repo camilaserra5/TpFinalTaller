@@ -5,12 +5,21 @@
 
 class Comida : public Item {
 public:
+    /*
+      * crearar la clase comida dejandola valida para uso
+    */
     Comida(Posicion &posicion, int id);
-
+    /*
+      * liberara la comida con sus recursos
+    */
     ~Comida();
-
+    /*
+      * devuelve true si pudo agarrar la comida o false sino
+    */
     bool obtenerBeneficio(Jugador *jugador) override;
-
+    /*
+      * devuelve el tipo
+    */  
     Type getTipo() override;
 
 private:

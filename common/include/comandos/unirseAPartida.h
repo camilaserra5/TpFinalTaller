@@ -30,16 +30,22 @@ public:
     /*
       * deserializara la clase crandola y dejandola en sus valores
       * corrspondientes
-    */  
+    */
     void deserializar(std::vector<char> &serializado) override;
-
+    /*
+      * ejecuta la acualizacion
+    */
     std::vector<Actualizacion *> ejecutar(EstadoJuego &estadoJuego) override {
         std::vector<Actualizacion *> a;
         return a;
     }
-
+    /*
+      * devuelbe el nombre del juagdor
+      */
     std::string &getNombreJugador();
-
+    /*
+      * devuelve le nombre de la partida
+    */  
     std::string &getNombrePartida();
 };
 

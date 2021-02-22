@@ -219,7 +219,8 @@ void Jugador::deserializar(std::vector<char> &serializado) {
     uint32_t longitudnombre = charArrayToNumber(sub);
     idx += 4;
     for (uint32_t k = 0; k < longitudnombre; k++) {
-        this->nombre += serializado[idx++];
+        this->nombre += serializado[idx];
+        idx++;
     }
     //idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
