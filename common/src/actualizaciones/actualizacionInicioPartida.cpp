@@ -1,22 +1,20 @@
 #include "actualizaciones/actualizacionInicioPartida.h"
 
-ActualizacionInicioPartida::ActualizacionInicioPartida(EstadoJuego &estadoJuego) :
-        estadoJuego(estadoJuego){
+ActualizacionInicioPartida::ActualizacionInicioPartida(std::vector<char>& informacion) :
+        informacion(informacion), estadoJuego(){
 }
 
 ActualizacionInicioPartida::~ActualizacionInicioPartida() {
-
+  std::cerr << "entro al destructor de actalizacion inicializo partida\n";
 }
 
 std::vector<char> ActualizacionInicioPartida::serializar() {
-    std::vector<char> informacion;
+    std::vector<char> infoAux;
     std::vector<char> aux(4);
     aux = numberToCharArray(this->obtenerId());
-    informacion.insert(informacion.end(), aux.begin(), aux.end());
-
-    std::vector<char> infoJuego = this->estadoJuego.serializar();
-    informacion.insert(informacion.end(), infoJuego.begin(), infoJuego.end());
-    return informacion;
+    infoAux.insert(infoAux.end(), aux.begin(), aux.end());
+    infoAux.insert(infoAux.end(), this->informacion.begin(), this->informacion.end());
+    return infoAux;
 }
 
 void ActualizacionInicioPartida::deserializar(std::vector<char> &serializado) {

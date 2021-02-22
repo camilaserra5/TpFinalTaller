@@ -19,6 +19,6 @@ add_executable(client ${SOURCES} src/sprite.cpp src/player.cpp  include/audio.h 
 
 target_link_libraries(client ${PROJECT_LINK_LIBS} SDL2 SDL2_image SDL2_ttf SDL2_mixer Threads::Threads -Llib -llua5.3 ${YAML_CPP_LIBRARIES})
 
-install(FILES ../resources/images/ParteInferior.png ../resources/images/Guard.png ../resources/sonidos/musiquita.wav ../resources/sonidos/Knife.wav ../resources/sonidos/Pistol.wav DESTINATION ${CMAKE_BINARY_DIR})
+install(FILES ../resources/images/ParteInferior.png ../resources/images/Guard.png ../resources/sonidos/musiquita.wav ../resources/sonidos/Knife.wav ../resources/sonidos/Pistol.wav ../resources/sonidos/ametralladora.wav ../resources/sonidos/MachineGun.wav DESTINATION ${CMAKE_BINARY_DIR})
 
 install(TARGETS client COMPONENT client RUNTIME DESTINATION "/usr/local/bin" LIBRARY DESTINATION "/usr/local/bin" DESTINATION "/usr/local/bin")
