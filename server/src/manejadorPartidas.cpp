@@ -111,8 +111,20 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {//cambiar por swap
     }
     std::cerr << "salgo de eliminarPartidas\n";
 }
+void ManejadorPartidas::cerrar(){
+    std::map<std::string, Partida *>::iterator it;
+    std::cerr << "cantidad de partidas: " << this->partidas.size() << std::endl;
+    it = this->partidas.begin();
+    while (it != this->partidas.end()) {
+        it->second->join();
+        delete it->second;
+        ++it;
+    }
+    std::cerr << "salgo de eliminarPartidasDEfinitaviamete\n";
+}
+ManejadorPartidas::~ManejadorPartidas() {
 
-ManejadorPartidas::~ManejadorPartidas() {}
+}
 
 std::vector<char> ManejadorPartidas::serializar() {
     std::vector<char> informacion;

@@ -1,4 +1,5 @@
--- macro Variable
+--Revisa en un rango si hay enemigos en el mapa
+--los jugadores aparecen con numeros mayores o iguales a 10-- macro Variable
 next_position = {
     [0] = "a", -- IZQUIERDA
     [1] = "w", -- ADELANTE
@@ -27,9 +28,10 @@ end
 --los jugadores aparecen con numeros mayores o iguales a 100
 --En un mismo cuadrado de mapa puede haber 1 o mas jugadores
 function posicion_enemigo_cerca(pos_x, pos_y)
-    rango = 1
-    for i = pos_x - rango, i + rango, 1 do
-        for j = pos_y - rango, j + rango, 1 do
+    local posicionX
+    local posicionY
+    for i = pos_x - 1, pos_x + 1, 1 do
+        for j = pos_y - 1, pos_y + 1, 1 do
             if (mapa[i][j] >= 100) then
                 return {posicionX = i, posicionY = j}
             end
@@ -51,6 +53,3 @@ function crear_accion(pos_x, pos_y)
     end
     return siguiente_mov--siguiente_mov
 end
-
-
-
