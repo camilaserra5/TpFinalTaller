@@ -108,13 +108,10 @@ BlockingQueue<Actualizacion *> &Partida::obtenerColaActualizaciones() {
 
 
 void Partida::enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
-    //serializa y manda por sockets a cada jugador
-    //Actualizacion *actualizacion = new Actualizacion(this->estadoJuego);
-    // mandar una actualizaion en particular;
+
     std::map<int, ThClient *>::iterator it;
     for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
         if (!it->second->is_dead()) {
-            //std::cerr << " envio act a jugador: " << it->second->getId() << std::endl;
             it->second->enviar_actualizaciones(actualizaciones);
         }
     }
@@ -224,6 +221,10 @@ void Partida::run() {
         } catch (...) {
             std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
+            for (auto &actu : this->ultAct) {
+                //std::cerr << "borro :" << actu->obtenerId() << std::endl;
+                delete actu;
+            }
         }
 
 
