@@ -17,22 +17,22 @@
 // en si recibe un archivo yaml y luego sereializa;
 Partida::Partida(Map mapa, int cantJugadoresPosibles, ConfiguracionPartida configuracion) :
         cola_comandos(),
-        estadoJuego(mapa,configuracion),
+        estadoJuego(mapa, configuracion),
         cantJugadoresPosibles(cantJugadoresPosibles),
         sigue_corriendo(true),
-        arrancoPartida(false){}
+        arrancoPartida(false) {}
 
 Partida::~Partida() {
-  // libero todos los comandos que no pudieron mandarse
-  bool termine = false;
-  while(!termine){
-    try{
-        Comando* comando = cola_comandos.obtener_dato();
-        delete comando;
-    } catch(const std::exception &exception){
-        termine = true;
+    // libero todos los comandos que no pudieron mandarse
+    bool termine = false;
+    while (!termine) {
+        try {
+            Comando *comando = cola_comandos.obtener_dato();
+            delete comando;
+        } catch (const std::exception &exception) {
+            termine = true;
+        }
     }
-  }
 }
 
 void Partida::procesar_comandos(EstadoJuego &estadoJuego) {
@@ -171,14 +171,20 @@ void Partida::run() {
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;
-    Actualizacion* act = new ActualizacionInicioPartida(this->estadoJuego);
+    Actualizacion *act = new ActualizacionInicioPartida(this->estadoJuego);
     actualizaciones.push_back(act);
     this->enviar_actualizaciones(actualizaciones);
 
 
     std::chrono::duration<double> tiempoPartida(2);
-    delete act;
 
+
+
+    for (auto &actu : actualizaciones) {
+        std::cerr << "borro :" << actu->obtenerId() << std::endl;
+        //   delete act;
+    }
+      delete act;
     while (this->sigue_corriendo) {
 
         try {
@@ -201,9 +207,9 @@ void Partida::run() {
             //std::cerr << "sleep for" << time_span.count() << std::endl;
             std::this_thread::sleep_for(sleepTime);
 
-            for (auto &act : this->ultAct) {
-                std::cerr << "borro :" << act->obtenerId() << std::endl;
-                delete act;
+            for (auto &actu : this->ultAct) {
+                std::cerr << "borro :" << actu->obtenerId() << std::endl;
+                delete actu;
             }
             /*auto fin = std::chrono::high_resolution_clock::now();
             auto delta = fin - inicio;
