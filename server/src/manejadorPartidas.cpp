@@ -100,6 +100,7 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {
         std::cerr << "verifico una partida\n";
         if (it->second->terminoPartida()) {
             std::cerr << "elimino partida: " << it->first << std::endl;
+            it->second->join();
             it = this->partidas.erase(it);
         } else {
             ++it;

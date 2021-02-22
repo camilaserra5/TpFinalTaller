@@ -163,17 +163,17 @@ void Partida::run() {
     actualizaciones.push_back(new ActualizacionInicioPartida(this->estadoJuego));
     this->enviar_actualizaciones(actualizaciones);
 
-    //std::chrono::milliseconds duration(TIEMPO_SERVIDOR);
-    //std::this_thread::sleep_for(duration);
+
     std::chrono::duration<double> tiempoPartida(TIEMPO_SERVIDOR);
+    for (int i = 0; i < actualizaciones.size(); i++){
+        delete actualizaciones[i];
+    }
     while (this->sigue_corriendo) {
-        //el while va a depender del obtener comandos con un try catch
-        //deberia haber un obtener comandos pero como lo tiene de atributo por ahora no
+
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
             std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
             generarComandosLua(jugadorLua);
-            //std::cerr << "proceso" << std::endl;
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
@@ -181,7 +181,6 @@ void Partida::run() {
                 Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego);
                 actualizacionTermino.push_back(terminoPartida);
                 this->enviar_actualizaciones(actualizacionTermino);
-              //  this->finalizarClientes();
                 this->arrancoPartida = false;
                 this->sigue_corriendo = false;
             }

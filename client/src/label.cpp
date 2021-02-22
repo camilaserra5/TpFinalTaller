@@ -29,5 +29,5 @@ int Label::getTexto() {
 }
 
 Label::~Label() {
-
+    SDL_DestroyTexture(this->labelTexture);
 }
