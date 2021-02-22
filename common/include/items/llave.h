@@ -6,14 +6,22 @@
 
 class Llave : public Item {
 public:
-    // esta llave es la misma para todas las puerta no hay una llave por puerta;
-    //llave magica
+    /*
+      * creara la llave dejandola valida para uso
+      * la llave abre todas las key doors
+    */
     Llave(Posicion &posicion, int id) : Item(posicion, id) {}
-
+    /*
+      * liberara la clase con sus recursos
+    */
     ~Llave();
-
+    /*
+      * devuelve true si pudo obtener el beneficio sino false
+    */
     bool obtenerBeneficio(Jugador *jugador) override;
-
+    /*
+      * devuelve el tipo de item
+    */  
     Type getTipo() override;
 
 };

@@ -3,6 +3,7 @@
 
 class ConfiguracionPartida {
 public:
+    
     void setVRotacion(float vRotacion);
 
     void setVAvance(float vAvance);

@@ -66,14 +66,27 @@ void Cliente::run() {
         juego.cerrar();
         clientEventSender.cerrar();
         clientEventReceiver.cerrar();
+        manejador.join();
         clientEventSender.join();
         clientEventSender.join();
         juego.join();
+    } catch (std::exception & exc){
+            std::cerr << exc.what() << std::endl;
+            this->corriendo = false;
+            clientEventSender.cerrar();
+            clientEventReceiver.cerrar();
+            juego.cerrar();
+            juego.join();
+            manejador.join();
+            clientEventSender.join();
+            clientEventReceiver.join();
     } catch (...) {
         std::cout << "error";
         this->corriendo = false;
         clientEventSender.cerrar();
         clientEventReceiver.cerrar();
+        juego.cerrar();
+        juego.join();
         manejador.join();
         clientEventSender.join();
         clientEventReceiver.join();

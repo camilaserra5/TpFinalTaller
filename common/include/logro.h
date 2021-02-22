@@ -10,31 +10,58 @@ por tesoros y más balas disparadas
 
 class Logro : public ISerializable {
 public:
+    /*
+      * creara la clase logro dejandola valida para uso
+    */
     Logro(ConfiguracionPartida& configuracion): puntosBalas(configuracion.getPuntosBalas()),
                                                 puntosMatar(configuracion.getPuntosMatar()){}
-
+    /*
+      * constructor por defautl
+    */
     Logro();
-
+    /*
+      * operador >
+    */
     bool operator>(Logro &logro);
-
+    /*
+      * operador ==
+    */
     bool operator==(Logro &logro);
-
+    /*
+      * agrego balas disparadas
+    */
     void aniadirBalasDisparadas(int cantidadDeBalas);
-
+    /*
+      * agrego puntos pos tersosor
+    */
     void aniadirPuntosPorTesoro(int puntos);
-
+    /*
+      * agrego enemigos matados
+    */
     void aniadirEnemigosMatados(int cantidadDeEnemigos);
-
+    /*
+      * seriliza la clase devolvuneod la informacion de ella
+    */
     std::vector<char> serializar() override;
-
+    /*
+      * deserializa la clase poniendole sus valores previos
+    */
     void deserializar(std::vector<char> &serializado) override;
-
+    /*
+      * devuelve los puntos puntosTotales
+    */
     int obtenerPuntosTotales();
-
+    /*
+      * devuelve enemigos matados
+    */
     int obtenerEnemigosMatados() { return enemigosMatados; }
-
+    /*
+      * dvuelves puntos por tesoro
+    */
     int obtenerPuntosTotalesPorTesoros() { return puntosTotalesPorTesoros; }
-
+    /*
+      * devuelve las balas disparadas
+    */
     int obtenerBalasDisparadas() { return balasDisparadas; }
 
 private:

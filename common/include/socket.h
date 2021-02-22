@@ -12,8 +12,13 @@ private:
     explicit Socket(int fd);
 
 public:
+    /*
+      * creara la clase dejandola valida para uso
+    */
     Socket();
-
+    /*
+      * liberara la clase con sus recusos
+    */
     ~Socket();
 
     /*
@@ -24,9 +29,13 @@ public:
     Socket(const Socket &copia) = delete;
 
     Socket &operator=(const Socket &copia) = delete;
-
+    /*
+      * construtor por movimiento
+    */
     Socket(Socket &&otro);
-
+    /*
+      * operador igual por movimeinto 
+    */
     Socket &operator=(Socket &&other);
 
     /*

@@ -8,10 +8,17 @@ class SocketError : public std::exception {
 private:
     std::string mensaje_error;
 public:
+    /*
+      * Creara la clase Socket error dejandola valida para uso
+    */
     explicit SocketError(const std::string &error) noexcept;
-
+    /*
+      * devuelve el error que ocurrio de socket
+    */
     virtual const char *what() const noexcept;
-
+    /*
+      * liberara la clase
+    */
     virtual ~SocketError() noexcept;
 };
 

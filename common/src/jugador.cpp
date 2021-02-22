@@ -129,7 +129,9 @@ void Jugador::gastarBalas(int cantidadDeBalas) {
 
 float Jugador::getAnguloDeVista() { return this->posicion.getAnguloDeVista(); }
 
-Arma *Jugador::getArma() { return this->armas.find(this->armaActual)->second; }
+Arma *Jugador::getArma() {
+  return this->armas.find(this->armaActual)->second;
+ }
 
 void Jugador::setPosicion(Posicion &posicion) { this->posicion = posicion; }
 
@@ -178,17 +180,25 @@ std::vector<char> Jugador::serializar() {
     std::vector<char> aux(4);
     aux = numberToCharArray(this->id);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
+
     std::vector<char> sizeNombre = numberToCharArray(this->nombre.size());
     informacion.insert(informacion.end(), sizeNombre.begin(), sizeNombre.end());
+
     informacion.insert(informacion.end(), this->nombre.begin(), this->nombre.end());
+
     aux = numberToCharArray(this->vida);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
+
     aux = numberToCharArray(this->armaActual);
+    std::cerr << "serializo arma: " <<armaActual << std::endl;
     informacion.insert(informacion.end(), aux.begin(), aux.end());
+
     aux = numberToCharArray(this->disparando);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
+
     aux = numberToCharArray(this->cantidad_vidas);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
+
     aux = numberToCharArray(this->balas);
     informacion.insert(informacion.end(), aux.begin(), aux.end());
 
@@ -208,7 +218,6 @@ std::vector<char> Jugador::serializar() {
 }
 
 void Jugador::deserializar(std::vector<char> &serializado) {
-    //std::cerr << " juegador deserializar empieza" << std::endl;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -218,15 +227,23 @@ void Jugador::deserializar(std::vector<char> &serializado) {
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     uint32_t longitudnombre = charArrayToNumber(sub);
     idx += 4;
-    for (uint32_t k = 0; k < longitudnombre; k++) {
-        this->nombre += serializado[idx++];
-    }
-    //idx += 4;
+    sub = std::vector<char>(&serializado[idx], &serializado[idx + longitudnombre]);
+    this->nombre = std::string(sub.begin(), sub.end());
+  /*  for (uint32_t k = 0; k < longitudnombre; k++) {
+        this->nombre += serializado[idx];
+        idx += 1;
+    }*/
+    std::cerr << "deserializo nombre: " << nombre << std::endl;
+    idx += longitudnombre;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->vida = charArrayToNumber(sub);
+    std::cerr << "deserializo vida: " << vida << std::endl;
+
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->armaActual = charArrayToNumber(sub);
+    std::cerr << "deserializo arma: " << armaActual << std::endl;
+
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->disparando = charArrayToNumber(sub);
