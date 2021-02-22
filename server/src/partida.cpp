@@ -51,8 +51,6 @@ void Partida::procesar_comandos(EstadoJuego &estadoJuego) {
         try {
             Comando *comando = cola_comandos.obtener_dato();
             std::vector<Actualizacion *> actualizaciones = comando->ejecutar(estadoJuego);
-            // puede ser una lista de actualizaciones;
-            // actualizacion partivulasr -> item comsumido(efecto, id, posicion, id jugador, pos jugador);
             delete comando;
             this->enviar_actualizaciones(actualizaciones);
         } catch (const std::exception &exception) {
@@ -98,23 +96,13 @@ bool Partida::terminoPartida() {
 ProtectedQueue<Comando *> &Partida::obtenerColaEventos() {
     return this->cola_comandos;
 }
-/*
-BlockingQueue<Actualizacion *> &Partida::obtenerColaActualizaciones() {
-    return this->cola_actualizaciones;
-}
-*/
-//servidor->deberia llamarse JuegoServer y despues le cambiamos a Juego
-// servidor es partida
 
 
 void Partida::enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones) {
-    //serializa y manda por sockets a cada jugador
-    //Actualizacion *actualizacion = new Actualizacion(this->estadoJuego);
-    // mandar una actualizaion en particular;
+
     std::map<int, ThClient *>::iterator it;
     for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
         if (!it->second->is_dead()) {
-            //std::cerr << " envio act a jugador: " << it->second->getId() << std::endl;
             it->second->enviar_actualizaciones(actualizaciones);
         }
     }
@@ -179,11 +167,7 @@ void Partida::run() {
 
     std::chrono::duration<double> tiempoPartida(1.5);
 
-
-    for (auto &actu : actualizaciones) {
-        std::cerr << "borro :" << actu->obtenerId() << std::endl;
-        //   delete act;
-    }
+    //delete act;
 
     while (this->sigue_corriendo) {
 
@@ -194,8 +178,9 @@ void Partida::run() {
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
+                std::vector<Actualizacion*> actualizacionTermino;
                 Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego.obtenerJugadores());
-                this->ultAct.push_back(terminoPartida);
+                actualizacionTermino.push_back(terminoPartida);
                 this->enviar_actualizaciones(actualizacionTermino);
                 this->arrancoPartida = false;
                 this->sigue_corriendo = false;
@@ -212,6 +197,10 @@ void Partida::run() {
         } catch (...) {
             std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
+            for (auto &actu : this->ultAct) {
+                std::cerr << "borro :" << actu->obtenerId() << std::endl;
+                delete actu;
+            }
         }
 
 
