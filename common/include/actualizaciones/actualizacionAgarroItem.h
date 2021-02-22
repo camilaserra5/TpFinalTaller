@@ -19,7 +19,7 @@ public:
     /*
       * creara la actualizacion de agarrar item dejandola valida para uso
     */
-    ActualizacionAgarroItem(Jugador *jugador, Item *item);
+    ActualizacionAgarroItem(Jugador *jugador, std::vector<char> item);
     /*
       * liberara la actualizacion agarrar item con sus recursos
     */
@@ -59,7 +59,8 @@ public:
 
 private:
     Jugador *jugador;
-    Item *item;
+    std::vector<char> itemSerializado;
+    Item* item;
 };
 
 #endif

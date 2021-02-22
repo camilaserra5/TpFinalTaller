@@ -61,8 +61,8 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
     std::cerr << "===========EL ID ES: " << id << std::endl;
     bool repetido = false;
     Posicion posicionValida = this->mapa.obtenerPosicionInicialValida();
-    std::cerr << "la pos inicial valida es: " << posicionValida.pixelesEnX() << " y: " << posicionValida.pixelesEnY()
-              << " angulo: " << posicionValida.getAnguloDeVista() << " id: " << id << "\n";
+    //std::cerr << "la pos inicial valida es: " << posicionValida.pixelesEnX() << " y: " << posicionValida.pixelesEnY()
+    //        << " angulo: " << posicionValida.getAnguloDeVista() << " id: " << id << "\n";
     for (std::map<int, Jugador *>::iterator it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if ((it->second)->getPosicion() == posicionValida) repetido = true;
     }
@@ -70,9 +70,9 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
         posicionValida = this->mapa.obtenerPosicionInicialValida();
     }
 
-    Jugador *jugador = new Jugador(nombreJugador, id, posicionValida,configuracion.getVidaMax(),
-    configuracion.getVRotacion(), configuracion.getBalasInicial());
-    std::cerr << "agrego un jugadorrr" << std::endl;
+    Jugador *jugador = new Jugador(nombreJugador, id, posicionValida, configuracion.getVidaMax(),
+                                   configuracion.getVRotacion(), configuracion.getBalasInicial());
+    //std::cerr << "agrego un jugadorrr" << std::endl;
     if (!jugador) {
         std::cerr << "O NO..." << std::endl;
     }
@@ -104,13 +104,12 @@ Item *EstadoJuego::verificarItems(int &posx, int &posy) {
 }
 
 std::vector<Actualizacion *> EstadoJuego::verificarMovimientoJugador(Jugador *jugador, int &xFinal, int &yFinal) {
-    bool obtuvoBeneficio = false;
     std::vector<Actualizacion *> actualizaciones;
     if (puedo_moverme(this->mapa, xFinal, yFinal, jugador)) {
         Item *item = verificarItems(xFinal, yFinal);
         if (item != nullptr) {
-            obtuvoBeneficio = item->obtenerBeneficio(jugador);
-            Actualizacion *obtengoItem = new ActualizacionAgarroItem(jugador, item);
+            bool obtuvoBeneficio = item->obtenerBeneficio(jugador);
+            Actualizacion *obtengoItem = new ActualizacionAgarroItem(jugador, item->serializar());
             actualizaciones.push_back(obtengoItem);
             if (obtuvoBeneficio) {
                 this->mapa.sacarDelMapa(item->getPosicion());
@@ -186,7 +185,7 @@ bool EstadoJuego::estaMuerto(int idJugador) {
 bool EstadoJuego::terminoPartida() {
     bool termino = false;
     int cantidadJugadores = this->jugadores.size();
-    std::cerr << "cant jugadors: " << cantidadJugadores << " muertos: " << this->jugadoresMuertos << std::endl;
+    //std::cerr << "cant jugadors: " << cantidadJugadores << " muertos: " << this->jugadoresMuertos << std::endl;
     if ((this->jugadoresMuertos == cantidadJugadores - 1) || this->contador == 0) {
         termino = true;
     }

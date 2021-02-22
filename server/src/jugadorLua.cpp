@@ -15,12 +15,12 @@ char JugadorLua::procesar() {
     std::vector<int> posicion = estadoJuego.getPosicionJugador(777);
     std::string retorno(lua.generarEvento(posicion.front(), posicion.back()));
     char teclaComando = retorno.at(0);
-    std::cerr << "======RETORNO DE PROCESAR: "<< teclaComando << std::endl;
+    //  std::cerr << "======RETORNO DE PROCESAR: "<< teclaComando << std::endl;
     return teclaComando;
 }
 
 JugadorLua::~JugadorLua() {
     esta_vivo = false;
     estadoJuego.desconectarJugador(this->id);
-    std::cerr << "=== DESTRUYENDO JUGADOR LUA==== " << std::endl;
+//    std::cerr << "=== DESTRUYENDO JUGADOR LUA==== " << std::endl;
 }

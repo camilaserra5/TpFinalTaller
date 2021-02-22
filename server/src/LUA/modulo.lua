@@ -9,7 +9,6 @@ next_position = {
 --Funcion que verifica si puede avanzar
 --Nota: to do lo que sea distinto a 'false' 'nil' es tomado como true;
 function proximo_movimiento(pos_x, pos_y)
-    print(string.format("MODULO LUA PROX MOV RECIBIO: %d, %d", pos_x, pos_y))
     if (mapa[pos_x + 1][pos_y] == 0) then
         return next_position[0]
     end
@@ -49,8 +48,6 @@ function disparar_al_enemigo()
 end
 
 function crear_accion(pos_x, pos_y)
-    print("CREAR ACCION")
-    print(string.format("MODULO LUA RECIBIO: %d, %d", pos_x, pos_y))
     local siguiente_mov = proximo_movimiento(pos_x, pos_y)
     --local posicion_enemigo = posicion_enemigo_cerca(pos_x, pos_y)
     --if (posicion_enemigo) then

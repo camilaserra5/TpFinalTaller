@@ -12,16 +12,16 @@ std::vector<Actualizacion *> Movimiento::ejecutar(EstadoJuego &estadoJuego) {
     Actualizacion *actualizacion = nullptr;
     std::vector<Actualizacion *> actualizaciones;
     if (tipo_de_movimiento == Accion::rotarDerecha) {
-        std::cerr << "comando der" << std::endl;
+//        std::cerr << "comando der" << std::endl;
         actualizacion = estadoJuego.rotar_a_derecha(this->idJugador);
     } else if (tipo_de_movimiento == Accion::rotarIzquierda) {
-        std::cerr << "comando izq" << std::endl;
+        //      std::cerr << "comando izq" << std::endl;
         actualizacion = estadoJuego.rotar_a_izquierda(this->idJugador);
     } else if (tipo_de_movimiento == Accion::moverArriba) {
-        std::cerr << "comando arriba" << std::endl;
+        //std::cerr << "comando arriba" << std::endl;
         actualizaciones = estadoJuego.moverse_arriba(this->idJugador);
     } else if (tipo_de_movimiento == Accion::moverAbajo) {
-        std::cerr << "comando abajo" << std::endl;
+        //std::cerr << "comando abajo" << std::endl;
         actualizaciones = estadoJuego.moverse_abajo(this->idJugador);
     }
     if (actualizacion != nullptr) {

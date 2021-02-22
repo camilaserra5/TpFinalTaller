@@ -16,7 +16,8 @@ int Jugador::getId() {
     return this->id;
 }
 
-Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion,float vidaMax, float vRotacion, int cantBalasInicial) :
+Jugador::Jugador(std::string &nombre, int &id, Posicion &posicion, float vidaMax, float vRotacion, int cantBalasInicial)
+        :
         posicion(posicion),
         id(id),
         nombre(nombre),
@@ -60,6 +61,8 @@ void Jugador::moverse(int posx, int posy) {
 // recibo cuando gano de vida + o cuanto pierdo -
 void Jugador::actualizar_vida(int &vidaActualizada) {
     this->vida += vidaActualizada;
+    if (this->vida > MAX_VIDA)
+        this->vida = MAX_VIDA;
 }
 
 void Jugador::agregar_arma(Arma *arma) {

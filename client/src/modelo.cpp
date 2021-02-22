@@ -147,10 +147,10 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
     float anguloDeVista = posJugador.getAnguloDeVista();
     bool estaEnSegmento = posJugador.verificarSiPerteneceAlSegmento(posObjeto);//camiar a estaEnRangoSegmento
     if (!estaEnSegmento) {
-      std::cerr << "la posicion que verifico es: " << posObjeto.pixelesEnX() << " y: " <<  posObjeto.pixelesEnY() << std::endl;
-      std::cerr << "la posicion del jugador es: " << posJugador.pixelesEnX() << " y: " <<  posJugador.pixelesEnY() << std::endl;
+        //std::cerr << "la posicion que verifico es: " << posObjeto.pixelesEnX() << " y: " <<  posObjeto.pixelesEnY() << std::endl;
+        //std::cerr << "la posicion del jugador es: " << posJugador.pixelesEnX() << " y: " <<  posJugador.pixelesEnY() << std::endl;
 
-        std::cerr << "no lo encontre en el segmento\n";
+        //std::cerr << "no lo encontre en el segmento\n";
         return false;
     }
     bool enVista;
@@ -166,10 +166,10 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
         enVista = (abs(atan(opuesto / adyacente)) <= PI / 6);
     }
     if (!enVista) {
-        std::cerr << "la pos del jugador es x: " << posJugador.pixelesEnX() << " y: " << posJugador.pixelesEnY()
-                  << "angulo: " << posJugador.getAnguloDeVista() << "\n";
-        std::cerr << "la pos del objeto es x: " << posObjeto.pixelesEnX() << " y: " << posObjeto.pixelesEnY()
-                  << "angulo: " << posObjeto.getAnguloDeVista() << "\n";
+        //std::cerr << "la pos del jugador es x: " << posJugador.pixelesEnX() << " y: " << posJugador.pixelesEnY()
+        //        << "angulo: " << posJugador.getAnguloDeVista() << "\n";
+        //std::cerr << "la pos del objeto es x: " << posObjeto.pixelesEnX() << " y: " << posObjeto.pixelesEnY()
+        //        << "angulo: " << posObjeto.getAnguloDeVista() << "\n";
     }
     return enVista;
 }
@@ -189,7 +189,7 @@ void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibl
 }
 
 void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
-    std::cerr << "engulo j: " << this->jugador->getPosicion().getAnguloDeVista() << std::endl;
+    //std::cerr << "engulo j: " << this->jugador->getPosicion().getAnguloDeVista() << std::endl;
     bool esVisible;
     std::map<int, Enemigo *>::iterator itEnemigo;
     for (itEnemigo = this->enemigos.begin(); itEnemigo != this->enemigos.end(); ++itEnemigo) {
@@ -199,7 +199,7 @@ void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVis
             objetosVisibles.push_back(itEnemigo->second);
             double distanciaAEnemigo = posEnemigo.distanciaA(this->jugador->getPosicion());
             itEnemigo->second->setDistanciaParcialAJugador(distanciaAEnemigo);
-            std::cerr << "\n\nes visible\n\n";
+            //std::cerr << "\n\nes visible\n\n";
 
         }
     }
@@ -218,7 +218,7 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
           int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
           int y0 = floor(ALTURA_CANVAS / 2);
 //a la altura de la pantalla le resto la altura del sprite
-          std::cerr << "alturaSprite: " << alturaSprite << " " << this->mapa.getLadoCelda() << " " << distancia;
+            //std::cerr << "alturaSprite: " << alturaSprite << " " << this->mapa.getLadoCelda() << " " << distancia;
           //normalizarAnguloEnRango(difAngulo);
           double x0 = tan(difAngulo) * DIST_PLANO_P;
           int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);

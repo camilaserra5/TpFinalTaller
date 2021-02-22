@@ -6,9 +6,9 @@
 #define PUNTOS_CORONA 200
 
 ActualizacionAgarroItem::ActualizacionAgarroItem(Jugador *jugador,
-                                                 Item *item) :
+                                                 std::vector<char> item) :
         jugador(jugador),
-        item(item) {}
+        itemSerializado(item) {}
 
 
 ActualizacionAgarroItem::~ActualizacionAgarroItem() {
@@ -18,6 +18,7 @@ ActualizacionAgarroItem::~ActualizacionAgarroItem() {
 ActualizacionAgarroItem::ActualizacionAgarroItem(){}
 
 std::vector<char> ActualizacionAgarroItem::serializar() {
+    std::cerr << "serializo agarro itemm" << std::endl;
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(this->obtenerId());
@@ -28,7 +29,6 @@ std::vector<char> ActualizacionAgarroItem::serializar() {
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
 
-    std::vector<char> itemSerializado = item->serializar();
     aux = numberToCharArray(itemSerializado.size());
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     informacion.insert(informacion.end(), itemSerializado.begin(), itemSerializado.end());
@@ -37,6 +37,7 @@ std::vector<char> ActualizacionAgarroItem::serializar() {
 }
 
 Item *ActualizacionAgarroItem::deserializarItem(std::vector<char> &informacion) {
+    std::cerr << "deserializo agarro itemm" << std::endl;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
