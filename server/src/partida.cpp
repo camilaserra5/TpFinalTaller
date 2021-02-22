@@ -165,8 +165,9 @@ void Partida::run() {
 
 
     std::chrono::duration<double> tiempoPartida(TIEMPO_SERVIDOR);
-    for (int i = 0; i < actualizaciones.size(); i++){
-        delete actualizaciones[i];
+    for (auto &act : actualizaciones) {
+        std::cerr << "borro :" << act->obtenerId() << std::endl;
+     //   delete act;
     }
     while (this->sigue_corriendo) {
 
