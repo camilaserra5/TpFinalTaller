@@ -45,7 +45,6 @@ void Partida::procesar_comandos(EstadoJuego &estadoJuego) {
             this->cola_comandos.aniadir_dato(desconectarJugador);
         }
     }
-
     bool termine = false;
     while (!termine) {
         try {
@@ -167,7 +166,7 @@ void Partida::run() {
 
     std::chrono::duration<double> tiempoPartida(1.5);
 
-    //delete act;
+    delete act;
 
     while (this->sigue_corriendo) {
 
@@ -205,8 +204,6 @@ void Partida::run() {
 
 
     }
-    //mostramos el ranking, podemos mandar una actualizacion con los jugadores que ganaron
-    //  this->sigue_corriendo = false; creo que no va esta linea
 }
 
 std::vector<char> Partida::serializar() {

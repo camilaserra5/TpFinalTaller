@@ -46,10 +46,12 @@ void Aceptador::run() {
             socket_es_valido = false;
         }
     }
+    manejadorPartidas.cerrar();
     this->cerrar();
 }
 
 void Aceptador::cerrar() {
+
     for (std::size_t i = 0; i < clientes.size(); i++) {
         clientes.at(i)->stop();
         clientes.at(i)->join();

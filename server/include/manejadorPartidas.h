@@ -68,8 +68,12 @@ public:
     Map buscarMapa(std::string archivoMapa, int &anchoPantalla);
     /*
       * agrega un mapa
-    */  
+    */
     void agregarMapa(std::string nombreMapa, std::string archivoMapa);
+    /*
+      * cierra las partidas 
+    */
+    void cerrar();
 
 private:
     std::map<std::string, Partida *> partidas;

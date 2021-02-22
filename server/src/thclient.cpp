@@ -66,14 +66,13 @@ ThClient::~ThClient() {
 }
 
 void ThClient::stop() {
-    if (this->enviador->estaCorriendo()) {
+
         this->enviador->cerrar();
         this->enviador->join();
 
-    } else if (this->recibidor->estaCorriendo()) {
         this->recibidor->cerrar();
         this->recibidor->join();
-    }
+
     isDead = true;
 }
 

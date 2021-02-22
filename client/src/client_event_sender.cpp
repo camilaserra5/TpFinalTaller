@@ -13,6 +13,7 @@ void ClientEventSender::run() {
             Comando *evento = this->events.pop();
             std::vector<char> informacion = evento->serializar();
             protocolo->enviar(informacion);
+            delete evento;
         } catch (const SocketError &exc) {
             std::cout << exc.what() << std::endl;
             this->cerrar();
