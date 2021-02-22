@@ -20,29 +20,50 @@
 
 class Arma {
 public:
+    /*
+      * crearar la clase arma dejandola valida pra uso
+      * los parametris debene estar inicializados
+    */
     Arma(int distancia_max_atacable, int id, int danio_maximo) :
             distancia_max_atacable(distancia_max_atacable), id(id) {}
-
+    /*
+      * libera a la clase con sus recursos
+    */
     virtual ~Arma() {}
-
+    /*
+      * constructor por default
+    */
     Arma();
-
+    /*
+      * realiza el ataque si puedo. Devuelve una actualizacion del ataque
+    */
     virtual Actualizacion *atacar(int distancia_a_pared, Jugador *jugador,
                                   std::map<int, Jugador *> &jugadores) = 0;
 
-    /*devuelve el id*/
+    /*
+      * busca el juagdor a menor distancia y devuelve el id
+      * sino no hay devuelve -1
+    */
     int JugadorAMenorDistancia(Jugador *jugador,
                                std::map<int, Jugador *> &jugadores);
-
+    /*
+      * devuelve true si el arma posee el mismo id, sino false
+    */
     bool esIgual(Arma *arma);
-
+    /*
+      * devuelve el id
+    */
     int getId();
-
+    /*
+      * devuelve el tipo de arma
+    */
     virtual Type getTipo() = 0;
 
 protected:
     int distancia_max_atacable;
-
+    /*
+      * devuelve la poscion atacable
+    */  
     int posicionAtacable(Posicion &atacante, Posicion &otroJugador);
 
     int id;

@@ -24,11 +24,17 @@ public:
       * liberara la apertura de puertas
     */
     ~ActualizacionAperturaPuerta();
-
+    /*
+      * serializa la actualizacion y devuelve la informacion
+    */
     std::vector<char> serializar() override;
-
+    /*
+      * deserializa la clase, dejandola en sus valores correspondientes
+    */
     void deserializar(std::vector<char> &serializado) override;
-
+    /*
+      * devuelve el id Correspondiente
+    */  
     int obtenerId() override { return static_cast<int>(Accion::aperturaDePuerta); }
 
 private:

@@ -11,6 +11,9 @@
 
 class ActualizacionAtaque : public Actualizacion {
 public:
+    /*
+      * creara la actualizacion de ataque dejandola valida para uso
+    */  
     ActualizacionAtaque(Jugador *jugador, std::map<int, Jugador *> &jugadoresAtacados);
 
     ActualizacionAtaque() {}
