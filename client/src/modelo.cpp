@@ -53,6 +53,10 @@ Modelo::~Modelo() {
     }
 }
 
+void Modelo::setMapa(Map& mapa){
+  this->mapa = mapa;
+}
+
 bool Modelo::inicializar() {
     return procesarActualizaciones();
 }
@@ -213,7 +217,7 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         if (distancia > 0){
           int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
           int y0 = floor(ALTURA_CANVAS / 2);
-
+//a la altura de la pantalla le resto la altura del sprite
           std::cerr << "alturaSprite: " << alturaSprite << " " << this->mapa.getLadoCelda() << " " << distancia;
           //normalizarAnguloEnRango(difAngulo);
           double x0 = tan(difAngulo) * DIST_PLANO_P;
@@ -399,6 +403,10 @@ void Modelo::actualizarBeneficioJugador(int vida, int balas, int puntos, int can
 bool Modelo::procesarActualizaciones() {
     try {
         Actualizacion *actualizacion = this->updates.obtener_dato();
+        ProcesadorDeActualizaciones procesador(this, actualizacion);
+        procesador.ejecutar();
+        return true;
+/*
         int idActualizacion = actualizacion->obtenerId();
 
         if (idActualizacion == static_cast<int>(Accion::empezoPartida)) {
@@ -544,13 +552,12 @@ bool Modelo::procesarActualizaciones() {
             auto termino = (ActualizacionTerminoPartida *) actualizacion;
             Ranking *ranking = new Ranking(std::move(termino->obtenerEstadoJuego().obtenerJugadores()));
             this->terminoPartida(*ranking);
-        }
+        }*/
 
         delete actualizacion;
         return true;
 
     } catch (QueueException &qe) {
-        //std::cerr << "";
     } catch (std::exception &e) {
         std::cerr << e.what() << "\n";
         return false;
@@ -561,4 +568,8 @@ bool Modelo::procesarActualizaciones() {
 void Modelo::actualizarPosicionJugador(int posX, int posY, float angulo) {
     this->jugador->getPosicion().actualizar_posicion(posX, posY);
     this->jugador->getPosicion().setAngulo(angulo);
+}
+
+void Modelo::actualizarPosicionEnemigo(int idE,int posX, int posY, float angulo){
+  this->enemigos.at(idE)->actualizarPosicion(posX,posY,angulo);
 }
