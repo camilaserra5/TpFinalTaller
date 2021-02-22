@@ -14,7 +14,7 @@ void Map::sacarDelMapa(Posicion &posicion) {
     this->contenedorDeElementos->sacarElementoDePosicion(posicion);
 }
 
-Map::Map(unsigned rowSize, unsigned colSize, int anchoPantalla)  {
+Map::Map(unsigned rowSize, unsigned colSize, int anchoPantalla) {
     if (rowSize < 1 || colSize < 1) {
         throw std::runtime_error("Invalid map");
     }
@@ -201,6 +201,7 @@ void Map::deserializar(std::vector<char> &serializado) {
     idx += 4;
     std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
 //    std::cerr << "tam srializado " << serializado.size() << "tam idx" << idx << std::endl;
+    this->contenedorDeElementos = new ContenedorDeElementos();
     this->contenedorDeElementos->deserializar(contenedorDeElementosSerializado);
 }
 
@@ -257,9 +258,9 @@ Posicion Map::obtenerPosicionInicialValida() {
     return posicion;
 }
 
-void Map::setLadoCelda(int anchoPantalla){
-  //std::cerr << "ancho oantalla: " << anchoPantalla << '\n';
-  this->ladoCelda = anchoPantalla / rowSize;
+void Map::setLadoCelda(int anchoPantalla) {
+    //std::cerr << "ancho oantalla: " << anchoPantalla << '\n';
+    this->ladoCelda = anchoPantalla / rowSize;
 }
 
 int Map::getLadoCelda() {
