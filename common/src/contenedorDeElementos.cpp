@@ -182,7 +182,11 @@ void ContenedorDeElementos::sacarElementoDePosicion(Posicion &posicion) {
 ContenedorDeElementos::ContenedorDeElementos(ContenedorDeElementos&& contenedor){
     this->elementos = contenedor.elementos;
     this->puertas = contenedor.puertas;
-    this->configugarion = contendor.configuracion;
+    this->configuracion = contenedor.configuracion;
+    int cantidadDeElementos = contenedor.elementos.size();
+    for (int i = 0; i < cantidadDeElementos; i++){
+      elementos[i] = NULL;
+    }
 }
 ContenedorDeElementos::ContenedorDeElementos() :
         elementos() {}
@@ -194,7 +198,7 @@ ContenedorDeElementos::ContenedorDeElementos(ConfiguracionPartida& configuracion
 ContenedorDeElementos::~ContenedorDeElementos() {
     int cantidadElementos = this->elementos.size();
     for (int i = 0; i < cantidadElementos; i++) {
-        delete this->elementos[i];
+        if (this->elementos[i] != NULL) delete this->elementos[i];
     }
 }
 
@@ -223,5 +227,3 @@ Puerta &ContenedorDeElementos::obtenerPuertaEn(int &fila, int &columna) {
     }
     return this->puertas[puertaEnPos];
 }
-
-ContenedorDeElementos::ContenedorDeElementos(){}

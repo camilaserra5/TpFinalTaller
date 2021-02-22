@@ -53,11 +53,8 @@ Map ManejadorPartidas::buscarMapa(std::string archivoMapa, int &anchoPantalla) {
         if (pathMapas.empty())
             pathMapas = MAPS_DIR;
 
-<<<<<<< HEAD
-        return std::move(MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla));
-=======
+        return std::move(MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla,configuracion));
         return MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla, configuracion);
->>>>>>> 2b978a1b8c5289a1abb5806a6e3c99cfd992bbae
     } catch (YAML::BadFile &badFile) {
         std::cerr << "Error buscando mapa" << std::endl;
         throw InvalidMapException("error abriendo mapa");
