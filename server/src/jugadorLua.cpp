@@ -15,7 +15,7 @@ char JugadorLua::procesar() {
     std::vector<int> posicion = estadoJuego.getPosicionJugador(777);
     std::string retorno(lua.generarEvento(posicion.front(), posicion.back()));
     char teclaComando = retorno.at(0);
-    //  std::cerr << "======RETORNO DE PROCESAR: "<< teclaComando << std::endl;
+      std::cerr << "======RETORNO DE PROCESAR: "<< retorno << std::endl;
     return teclaComando;
 }
 

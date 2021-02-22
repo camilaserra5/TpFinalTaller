@@ -135,27 +135,27 @@ void Partida::generarComandosLua(JugadorLua &jugadorLua) {
     switch (teclaComando) {
         case 'w':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ARRIBA));
-            //std::cerr << "=== SE MUEVE PARA ARRIBA LUA==== " << std::endl;
+            std::cerr << "=== SE MUEVE PARA ARRIBA LUA==== " << std::endl;
             break;
         case 'd':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_DERECHA));
-            //std::cerr << "=== ROTA A DERECHA LUA==== " << std::endl;
+            std::cerr << "=== ROTA A DERECHA LUA==== " << std::endl;
             break;
         case 's':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ABAJO));
-            //   std::cerr << "=== SE MUEVE ABAJO LUA==== " << std::endl;
+            std::cerr << "=== SE MUEVE ABAJO LUA==== " << std::endl;
             break;
         case 'a':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_IZQUIERDA));
-            //  std::cerr << "=== ROTA A IZQUIERDA LUA==== " << std::endl;
+            std::cerr << "=== ROTA A IZQUIERDA LUA==== " << std::endl;
             break;
         case 'p':
             nuevoComando = new Ataque(jugadorLua.id);
-            //   std::cerr << "=== ATACA LUA==== " << std::endl;
+            std::cerr << "=== ATACA LUA==== " << std::endl;
             break;
         default:
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_DERECHA));
-            //   std::cerr << "=== mov default LUA==== " << std::endl;
+            std::cerr << "=== mov default LUA==== " << std::endl;
             break;
     }
     this->cola_comandos.aniadir_dato(nuevoComando);
@@ -189,7 +189,7 @@ void Partida::run() {
 
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-            //std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
+            std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
             generarComandosLua(jugadorLua);
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();
