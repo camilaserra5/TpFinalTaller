@@ -47,10 +47,14 @@ public:
     }
     /*
       * agrega un dato a la cola
-    */        
+    */
     void aniadir_dato(T objeto) {
         std::lock_guard<std::mutex> l(this->m);
         this->cola_datos.push(objeto);
+    }
+
+    int size(){
+      return this->cola_datos.size();
     }
 
 };

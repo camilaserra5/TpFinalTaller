@@ -38,9 +38,9 @@ public:
     */
     void cerrar();
     /*
-      * liberara a la clase 
+      * liberara a la clase
     */
-    ~Aceptador() {}
+    ~Aceptador(){}
 };
 
 #endif /*ACEPTADOR_H*/
