@@ -70,8 +70,7 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
         posicionValida = this->mapa.obtenerPosicionInicialValida();
     }
 
-    Jugador *jugador = new Jugador(nombreJugador, id, posicionValida, configuracion.getVidaMax(),
-                                   configuracion.getVRotacion(), configuracion.getBalasInicial());
+    Jugador *jugador = new Jugador(nombreJugador, id, posicionValida, configuracion);
     //std::cerr << "agrego un jugadorrr" << std::endl;
     if (!jugador) {
         std::cerr << "O NO..." << std::endl;
@@ -185,7 +184,6 @@ bool EstadoJuego::estaMuerto(int idJugador) {
 bool EstadoJuego::terminoPartida() {
     bool termino = false;
     int cantidadJugadores = this->jugadores.size();
-    //std::cerr << "cant jugadors: " << cantidadJugadores << " muertos: " << this->jugadoresMuertos << std::endl;
     if ((this->jugadoresMuertos == cantidadJugadores - 1) || this->contador == 0) {
         termino = true;
     }

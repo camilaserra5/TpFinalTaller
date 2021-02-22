@@ -7,7 +7,7 @@
 #include "comandos/unirseAPartida.h"
 
 ManejadorPartidas::ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,
-                                     ConfiguracionPartida configuracion) :
+                                     ConfiguracionPartida& configuracion) :
         partidas(),
         esta_corriendo(true),
         mapas(mapas),
@@ -53,7 +53,7 @@ Map ManejadorPartidas::buscarMapa(std::string archivoMapa, int &anchoPantalla) {
         if (pathMapas.empty())
             pathMapas = MAPS_DIR;
 
-        return MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla);
+        return MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla, configuracion);
     } catch (YAML::BadFile &badFile) {
         std::cerr << "Error buscando mapa" << std::endl;
         throw InvalidMapException("error abriendo mapa");

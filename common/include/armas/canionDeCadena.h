@@ -9,7 +9,7 @@
 
 class CanionDeCadena : public Arma, public Item {
 public:
-    CanionDeCadena(Posicion &posicion, int id);
+    CanionDeCadena(Posicion &posicion, int id, ConfiguracionPartida& configuracion);
 
     ~CanionDeCadena();
 
@@ -24,6 +24,7 @@ public:
 
 private:
     double contador;
+    ConfiguracionPartida configuracion;
 };
 
 #endif

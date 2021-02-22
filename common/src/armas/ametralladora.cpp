@@ -1,20 +1,20 @@
 #include "armas/ametralladora.h"
 
-#define BALAS_POR_RAFAGA 5
 
 #include "../include/actualizaciones/actualizacionAtaque.h"
 
 
-Ametralladora::Ametralladora(Posicion &posicion, int id) :
-        Arma(DISTANCIA_MAX, 1),
+Ametralladora::Ametralladora(Posicion &posicion, int id, ConfiguracionPartida& configuracion) :
+        Arma(DISTANCIA_MAX, 1,configuracion.getDanioMaximoArma()),
         Item(posicion, id),
-        contador(TICKS_DISPARO_AMETRALLADORA) {}
+        contador(TICKS_DISPARO_AMETRALLADORA),
+        configuracion(configuracion) {}
 
 Ametralladora::~Ametralladora() {}
 
 Actualizacion *
 Ametralladora::atacarEfectivamente(Jugador *jugador, std::map<int, Jugador *> &jugadores) {
-    int cantidad_balas = BALAS_POR_RAFAGA;
+    int cantidad_balas = configuracion.getBalasPorRafagaAmetralladora();
     jugador->gastarBalas(cantidad_balas);
     srand(time(NULL));
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
@@ -26,7 +26,7 @@ Ametralladora::atacarEfectivamente(Jugador *jugador, std::map<int, Jugador *> &j
         while (i < cantidad_balas && !jugadorMurio) {
             //distancia influye en el danio y lode la precision
             //  int danioPorDistancia = 1 / (jugador->distanciaA(jugadorAtacado));
-            int danio = (rand() % DANIO_MAX) + 1;
+            int danio = (rand() % configuracion.getDanioMaximoArma()) + 1;
             danio = -danio;
             jugadorAtacado->actualizar_vida(danio);
             if (jugadorAtacado->estaMuerto()) {
@@ -37,14 +37,14 @@ Ametralladora::atacarEfectivamente(Jugador *jugador, std::map<int, Jugador *> &j
         }
         jugadoresAtacados.insert({idJugadorMasCercano, jugadorAtacado});
     }
-    jugador->gastarBalas(BALAS_POR_RAFAGA);
+    jugador->gastarBalas(configuracion.getBalasPorRafagaAmetralladora());
     jugador->actualizarArma();
     return new ActualizacionAtaque(jugador, jugadoresAtacados);
 }
 
 Actualizacion *Ametralladora::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     int balasJugador = jugador->cantidad_balas();
-    if (this->contador == 0 && balasJugador > BALAS_POR_RAFAGA) {
+    if (this->contador == 0 && balasJugador > configuracion.getBalasPorRafagaAmetralladora()) {
         this->contador = TICKS_DISPARO_AMETRALLADORA;
         return this->atacarEfectivamente(jugador, jugadores);
     } else {

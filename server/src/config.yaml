@@ -18,6 +18,7 @@ vAvance: 10
 vidaMax: 100
 balasPorRafagaAmetralladora: 5
 balasPorRafagaCanion: 1
+balasPorRafagaPistola: 1
 maxBalas: 8 #a cheqeuar
 cantidadBalasInicial: 8
 distanciaMaxAcuchillable: 20
@@ -26,3 +27,8 @@ punto_copa: 50
 punto_cofre: 100
 puntos_corona: 200
 cantidadVidas: 2
+puntos_balas: 5
+puntos_matar: 10
+danio_maximo_arma: 10
+precisionPistola: 10
+probalidad_acierto: 10

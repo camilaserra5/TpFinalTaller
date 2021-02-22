@@ -6,12 +6,13 @@
 #define RADIO_DE_IMPACTO 10
 #define BALAS_POR_LANZACOHETES 5
 
-LanzaCohetes::LanzaCohetes(Posicion &posicion, int id) :
-        Arma(DISTANCIA_MAX, 5), Item(posicion, id) {}
+LanzaCohetes::LanzaCohetes(Posicion &posicion, int id,ConfiguracionPartida& configuracion) :
+        Arma(DISTANCIA_MAX, 5,configuracion.getDanioMaximoArma()), Item(posicion, id),
+        configuracion(configuracion) {}
 
 LanzaCohetes::~LanzaCohetes() {}
 
-std::map<int, Jugador *> verificarJugadoresEnRango(Posicion &posicionImpacto,
+std::map<int, Jugador *> LanzaCohetes::verificarJugadoresEnRango(Posicion &posicionImpacto,
                                                    std::map<int, Jugador *> &jugadores,
                                                    Jugador *jugador) {
     std::map<int, Jugador *>::iterator it;
@@ -19,7 +20,7 @@ std::map<int, Jugador *> verificarJugadoresEnRango(Posicion &posicionImpacto,
     int jugadoresMatados = 0;
     for (it = jugadores.begin(); it != jugadores.end(); ++it) {
         if (posicionImpacto.distanciaA(it->second->getPosicion()) < RADIO_DE_IMPACTO) {
-            int danio = -DANIO_MAX;//por ahora
+            int danio = -this->configuracion.getDanioMaximoArma();
             it->second->actualizar_vida(danio);
             jugadoresAtacados.insert({it->first, it->second});
             if (it->second->estaMuerto()) {
