@@ -14,7 +14,7 @@ ActualizacionAtaque::~ActualizacionAtaque() {
         delete it->second;
         ++it;
     }
-    delete this->jugador;
+    if (esCliente) delete this->jugador;
 }
 
 
@@ -44,6 +44,7 @@ std::vector<char> ActualizacionAtaque::serializar() {
 }
 
 void ActualizacionAtaque::deserializar(std::vector<char> &serializado) {
+    this->esCliente = true;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);

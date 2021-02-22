@@ -279,3 +279,23 @@ Actualizacion *Jugador::cambiarArma() {
     }
     return new ActualizacionCambioArma(id, this->armaActual);
 }
+/*/
+Jugador::Jugador(Jugador& otroJugador){
+  this->posicion = otroJugador.posicion;
+  this->id = otroJugador.id;
+  this->nombre = otroJugador.nombre;
+  this->vida = otroJugador.vida;
+  this->vidaMax = otroJugador.vidaMax;
+  int cantidadDeArmas = otroJugador.armas.size();
+  for (auto &arm: this->armas){
+    this->arma[arm.first] =
+  }
+
+  this->balas = otroJugador.balas;
+  this->velocidadDeRotacion = otroJugador.velocidadDeRotacion;
+  this->armaActual = otroJugador.armaActual;
+  this->llaves = otroJugador.llaves;
+  this->cantidad_vidas = otroJugador.cantidad_vidas;
+  this->logro = otroJugador.logro;
+  this->disparando = otroJugador.disparando;
+}*/

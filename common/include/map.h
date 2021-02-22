@@ -81,7 +81,7 @@ public:
 private:
     unsigned rowSize;
     unsigned colSize;
-    ContenedorDeElementos *contenedorDeElementos;
+    ContenedorDeElementos *contenedorDeElementos = NULL;
     std::vector<std::vector<Type>> map;
     std::vector<int> idCargados;
     int ladoCelda;

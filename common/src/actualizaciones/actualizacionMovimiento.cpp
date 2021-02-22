@@ -1,14 +1,12 @@
 #include "actualizaciones/actualizacionMovimiento.h"
 
 
-ActualizacionMovimiento::ActualizacionMovimiento(Jugador *jugador) : jugador(jugador) {
-
-}
+ActualizacionMovimiento::ActualizacionMovimiento(Jugador* jugador) : jugador(jugador) {}
 
 
 ActualizacionMovimiento::~ActualizacionMovimiento() {
     std::cerr << "entro al destructor de actalizacion movimiento\n";
-    delete this->jugador;
+    if (esCliente) delete jugador;
 }
 
 std::vector<char> ActualizacionMovimiento::serializar() {
@@ -25,6 +23,7 @@ std::vector<char> ActualizacionMovimiento::serializar() {
 }
 
 void ActualizacionMovimiento::deserializar(std::vector<char> &serializado) {
-    this->jugador = new Jugador();
-    this->jugador->deserializar(serializado);
+  this->jugador = new Jugador();
+  this->esCliente = true;
+  this->jugador->deserializar(serializado);
 }

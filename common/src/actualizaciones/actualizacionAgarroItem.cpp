@@ -13,7 +13,7 @@ ActualizacionAgarroItem::ActualizacionAgarroItem(Jugador *jugador,
 
 ActualizacionAgarroItem::~ActualizacionAgarroItem() {
     std::cerr << "entro al destructor de actalizacion agarro item\n";
-    delete this->jugador;
+    if (esCliente) delete this->jugador;
     delete this->item;
 }
 
@@ -86,6 +86,7 @@ void ActualizacionAgarroItem::deserializar(std::vector<char> &serializado) {
                                          charArrayToNumber(sub));
 
     this->jugador = new Jugador();
+    this->esCliente = true;
     this->jugador->deserializar(informacionJugador);
     idx += charArrayToNumber(sub);
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
