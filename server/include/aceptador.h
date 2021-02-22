@@ -21,14 +21,26 @@ private:
     int obtenerIdParaJugador();
 
 public:
-    Aceptador(Socket &un_socket, std::string rutaMapas, std::map<std::string, std::string> mapas,
+    /*
+      * creara la clase acpetador dejandola valida para uso
+      * suspametros deben estar inicializados
+    */
+    Aceptador(Socket &un_socket, std::string rutaMapas,
+              std::map<std::string, std::string> mapas,
               ConfiguracionPartida configuracion);
-
+    /*
+      * ejecuta el loop de ir aceptando clientes e ir limpiandolos cuando
+      * terminan . Tambien liberara las partidas terminadas.
+    */
     void run() override;
-
+    /*
+      * cerrara el socket listener
+    */
     void cerrar();
-
-    ~Aceptador() { this->join(); }
+    /*
+      * liberara a la clase 
+    */
+    ~Aceptador() {}
 };
 
 #endif /*ACEPTADOR_H*/

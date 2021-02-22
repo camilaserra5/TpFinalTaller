@@ -66,7 +66,6 @@ void Cliente::run() {
         juego.cerrar();
         clientEventSender.cerrar();
         clientEventReceiver.cerrar();
-        manejador.join();
         clientEventSender.join();
         clientEventSender.join();
         juego.join();
@@ -77,7 +76,6 @@ void Cliente::run() {
             clientEventReceiver.cerrar();
             juego.cerrar();
             juego.join();
-            manejador.join();
             clientEventSender.join();
             clientEventReceiver.join();
     } catch (...) {
@@ -87,7 +85,6 @@ void Cliente::run() {
         clientEventReceiver.cerrar();
         juego.cerrar();
         juego.join();
-        manejador.join();
         clientEventSender.join();
         clientEventReceiver.join();
     }

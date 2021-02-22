@@ -47,18 +47,19 @@ void InfoJugador::actualizarDatosJugador(int vida, int nivel, int puntaje, int c
 }
 
 void InfoJugador::renderizar() {
+    std::cerr << "renderizo textura\n";
     SDL_Rect posiciontexturadest{0, 550, 800, 60};
-
     texturaInferior->renderizar(NULL, posiciontexturadest, 0, NULL);
+    std::cerr << "dibijo info\n";
     this->vida->setLabelText();
-    this->vida->draw();
     this->nivel->setLabelText();
-    this->nivel->draw();
     this->puntaje->setLabelText();
-    this->puntaje->draw();
     this->cantVidas->setLabelText();
-    this->cantVidas->draw();
     this->balas->setLabelText();
+    this->vida->draw();
+    this->nivel->draw();
+    this->puntaje->draw();
+    this->cantVidas->draw();
     this->balas->draw();
 }
 

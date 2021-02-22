@@ -17,9 +17,16 @@ void Server_Event_Receiver::run() {
                     this->comandos.aniadir_dato(comando);
                 }
             }
-        } catch (std::exception &exc) {
+        } catch (const SocketError &exc) {
+            std::cerr << "error socket";
             std::cout << exc.what() << std::endl;
             this->cerrar();
+        } catch (std::exception &exc) {
+            std::cerr << "otro error\n";
+            std::cout << exc.what() << std::endl;
+            this->cerrar();
+        } catch (...){
+            std::cout << "error desconocido\n";
         }
     }
 }

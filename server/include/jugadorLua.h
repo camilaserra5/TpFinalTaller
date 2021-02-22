@@ -14,7 +14,9 @@ private:
 
 public:
     int id;
-
+    /*
+      * Creara el juagdor lua dejandolo valido para uso 
+    */
     JugadorLua(EstadoJuego &estadoJuego, int id, std::string &ruta);
 
     /*
