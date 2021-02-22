@@ -82,14 +82,14 @@ void
 Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite,
                         int &x, int &drawStart, double &distanciaObjeto) {
     int anchoSprite = objeto->obtenerAnchura();
-    float drawEnd;
+    //float drawEnd;
     for (int i = 0; i < anchoSprite; i++) {
         int posBuffer = x + i;
         if (this->zbuffer[posBuffer] > distanciaObjeto) {
-            if (alturaSprite >= ALTURA_CANVAS){
-              drawEnd = ALTURA_CANVAS - 20;
-            }else{
-              drawEnd = alturaSprite;//drawStart + alturaSprite + 40;
+            if (alturaSprite >= ALTURA_CANVAS) {
+                drawStart = 100;
+            } else {
+                drawStart = 500 - alturaSprite;
             }
             SDL_Rect dimension, dest;
             dimension.x = i;//suma offset
@@ -97,9 +97,9 @@ Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite,
             dimension.w = 1;
             dimension.h = 0;
             dest.x = posBuffer;
-            dest.y = ALTURA_CANVAS - (1/alturaSprite )- alturaSprite;
+            dest.y = drawStart;
             dest.w = 1;
-            dest.h = drawEnd;
+            dest.h = alturaSprite;
             objeto->renderizarColumna(dimension, dest);
         }
     }

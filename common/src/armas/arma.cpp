@@ -12,7 +12,6 @@ int Arma::posicionAtacable(Posicion &atacante, Posicion &otroJugador) {
     }
 }
 
-Arma::Arma(){}
 
 int Arma::JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     std::map<int, Jugador *>::iterator it;
@@ -39,5 +38,6 @@ bool Arma::esIgual(Arma *arma) {
 }
 
 int Arma::getId() {
+  std:: cerr <<"el id q tengo es: "<<id<<std::endl;
     return this->id;
 }

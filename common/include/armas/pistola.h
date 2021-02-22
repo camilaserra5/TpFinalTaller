@@ -28,8 +28,8 @@ public:
     Type getTipo() override;
     /*
       * constructor por default
-    */  
-    Pistola() {}
+    */
+    Pistola():Arma(ID_PISTOLA) {}
 
 private:
 

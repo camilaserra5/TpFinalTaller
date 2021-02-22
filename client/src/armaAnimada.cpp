@@ -76,7 +76,7 @@ void ArmaAnimada::renderizar() {
             this->atacando = false;
         }
     } else {
-    //    this->sprites.find(armaActuall)->second.renderizar(POSX, POSY, 0, NULL);
+        this->sprites.find(armaActual)->second.renderizar(POSX, POSY, 0, NULL);
     }
 
 }

@@ -33,7 +33,7 @@ public:
     /*
       * constructor por default
     */
-    Arma();
+    Arma(int id): id(id){}
     /*
       * realiza el ataque si puedo. Devuelve una actualizacion del ataque
     */

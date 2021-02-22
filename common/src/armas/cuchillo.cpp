@@ -11,7 +11,7 @@ configuracion(configuracion)  {}
 
 Cuchillo::~Cuchillo() {}
 
-Cuchillo::Cuchillo() {}
+Cuchillo::Cuchillo():Arma(ID_CUCHILLO) {}
 
 Actualizacion *Cuchillo::atacar(int distancia_a_pared, Jugador *jugador, std::map<int, Jugador *> &jugadores) {
     std::cerr << "ataque con cuchiiii\ns";
