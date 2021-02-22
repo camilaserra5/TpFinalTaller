@@ -7,12 +7,8 @@ ActualizacionMovimiento::ActualizacionMovimiento(Jugador *jugador) : jugador(jug
 
 
 ActualizacionMovimiento::~ActualizacionMovimiento() {
-<<<<<<< HEAD
     std::cerr << "entro al destructor de actalizacion movimiento\n";
     delete this->jugador;
-=======
- //   delete this->jugador;
->>>>>>> 190dd80e3c82174bfc20e18742ff227d0c201967
 }
 
 std::vector<char> ActualizacionMovimiento::serializar() {
