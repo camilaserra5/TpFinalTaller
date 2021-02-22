@@ -14,8 +14,8 @@ include_directories(../common/include)
 
 find_package(yaml-cpp)
 
-file(GLOB SOURCES src/animacion.cpp src/anunciador.cpp src/armaAnimada.cpp src/audio.cpp src/background.cpp src/client_event_receiver.cpp src/client_event_sender.cpp src/client_main.cpp src/cliente.cpp src/enemigo.cpp src/fonts.cpp src/highscoreWindow.cpp src/informacionJugador.cpp src/juego.cpp src/label.cpp src/logInWindow.cpp src/manejador_eventos.cpp src/modelo.cpp src/musica.cpp src/objetoDibujable.cpp src/objetoJuego.cpp src/player.cpp src/rayo.cpp src/sonido.cpp src/scene.cpp src/sprite.cpp src/textura.cpp src/ventana.cpp src/procesadorDeActualizaciones.cpp)
-add_executable(client ${SOURCES} src/sprite.cpp src/player.cpp include/spriteAnimado.h include/audio.h src/audio.cpp include/sonido.h src/sonido.cpp include/musica.h src/musica.cpp ../server/src/LUA/manejadorlua.cpp ../server/src/LUA/manejadorlua.h ../server/src/jugadorLua.cpp ../server/include/jugadorLua.h)
+file(GLOB SOURCES src/animacion.cpp src/armaAnimada.cpp src/audio.cpp src/background.cpp src/client_event_receiver.cpp src/client_event_sender.cpp src/client_main.cpp src/cliente.cpp src/enemigo.cpp src/fonts.cpp src/highscoreWindow.cpp src/informacionJugador.cpp src/juego.cpp src/label.cpp src/logInWindow.cpp src/manejador_eventos.cpp src/modelo.cpp src/musica.cpp src/objetoDibujable.cpp src/objetoJuego.cpp src/player.cpp src/rayo.cpp src/sonido.cpp src/scene.cpp src/sprite.cpp src/textura.cpp src/ventana.cpp src/procesadorDeActualizaciones.cpp)
+add_executable(client ${SOURCES} src/sprite.cpp src/player.cpp  include/audio.h src/audio.cpp include/sonido.h src/sonido.cpp include/musica.h src/musica.cpp ../server/src/LUA/manejadorlua.cpp ../server/src/LUA/manejadorlua.h ../server/src/jugadorLua.cpp ../server/include/jugadorLua.h)
 
 target_link_libraries(client ${PROJECT_LINK_LIBS} SDL2 SDL2_image SDL2_ttf SDL2_mixer Threads::Threads -Llib -llua5.3 ${YAML_CPP_LIBRARIES})
 
