@@ -5,10 +5,12 @@ ActualizacionTerminoPartida::ActualizacionTerminoPartida(std::map<int,Jugador*> 
 
 ActualizacionTerminoPartida::~ActualizacionTerminoPartida() {
   std::cerr << "entro al destructor de termino partida \n";
-  std::map<int, Jugador *>::iterator it = this->jugadores.begin();
-  while (it != this->jugadores.end()) {
-      delete it->second;
-      ++it;
+  if (esCliente){
+    std::map<int, Jugador *>::iterator it = this->jugadores.begin();
+    while (it != this->jugadores.end()) {
+        delete it->second;
+        ++it;
+    }
   }
 }
 
@@ -32,6 +34,7 @@ std::vector<char> ActualizacionTerminoPartida::serializar() {
 }
 
 void ActualizacionTerminoPartida::deserializar(std::vector<char> &serializado) {
+  this->esCliente = true;
   int idx = 0;
   std::vector<char> sub;
   sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);

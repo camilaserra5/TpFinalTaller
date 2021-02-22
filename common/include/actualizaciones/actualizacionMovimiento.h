@@ -10,7 +10,7 @@
 
 class ActualizacionMovimiento : public Actualizacion {
 public:
-    ActualizacionMovimiento(Jugador jugador);
+    ActualizacionMovimiento(Jugador *jugador);
 
     ActualizacionMovimiento() {}
 
@@ -22,10 +22,10 @@ public:
 
     int obtenerId() override { return static_cast<int>(Accion::moverse); }
 
-    Jugador &obtenerJugador() { return jugador; }
+    Jugador *obtenerJugador() { return jugador; }
 
 private:
-    Jugador jugador;
+    Jugador *jugador;
 };
 
 #endif

@@ -24,7 +24,8 @@ public:
     */
     virtual int obtenerId() = 0;
 
-private:
+protected:
+  bool esCliente = false;
 };
 
 #endif

@@ -117,20 +117,20 @@ std::vector<Actualizacion *> EstadoJuego::verificarMovimientoJugador(Jugador *ju
         jugador->moverse(xFinal, yFinal);
     }
     std::cerr << "jugador:  posx: " << jugador->posEnX() << "posy: " << jugador->posEnY() << "\n";
-    actualizaciones.push_back(new ActualizacionMovimiento(*jugador));
+    actualizaciones.push_back(new ActualizacionMovimiento(jugador));
     return actualizaciones;
 }
 
 Actualizacion *EstadoJuego::rotar_a_derecha(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     jugador->rotar(ROTACION_DERECHA);
-    return new ActualizacionMovimiento(*jugador);
+    return new ActualizacionMovimiento(jugador);
 }
 
 Actualizacion *EstadoJuego::rotar_a_izquierda(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
     jugador->rotar(ROTACION_IZQUIERDA);
-    return new ActualizacionMovimiento(*jugador);
+    return new ActualizacionMovimiento(jugador);
 }
 
 std::vector<Actualizacion *> EstadoJuego::moverse_arriba(int idJugador) {

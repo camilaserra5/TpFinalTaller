@@ -1,13 +1,12 @@
 #include "actualizaciones/actualizacionMovimiento.h"
 
 
-ActualizacionMovimiento::ActualizacionMovimiento(Jugador jugador) : jugador(jugador) {
-
-}
+ActualizacionMovimiento::ActualizacionMovimiento(Jugador* jugador) : jugador(jugador) {}
 
 
 ActualizacionMovimiento::~ActualizacionMovimiento() {
     std::cerr << "entro al destructor de actalizacion movimiento\n";
+    if (esCliente) delete jugador;
 }
 
 std::vector<char> ActualizacionMovimiento::serializar() {
@@ -16,7 +15,7 @@ std::vector<char> ActualizacionMovimiento::serializar() {
     aux = numberToCharArray(this->obtenerId());
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     //std::cerr << "serializo jugadooor q se movio" << std::endl;
-    std::vector<char> jugadorSerializado = jugador.serializar();
+    std::vector<char> jugadorSerializado = jugador->serializar();
     //std::cerr << "fin :) serializo jugadooor q se movio" << std::endl;
     informacion.insert(informacion.end(), jugadorSerializado.begin(), jugadorSerializado.end());
 
@@ -24,5 +23,7 @@ std::vector<char> ActualizacionMovimiento::serializar() {
 }
 
 void ActualizacionMovimiento::deserializar(std::vector<char> &serializado) {
-    this->jugador.deserializar(serializado);
+  this->jugador = new Jugador();
+  this->esCliente = true;
+  this->jugador->deserializar(serializado);
 }
