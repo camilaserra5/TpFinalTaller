@@ -31,6 +31,7 @@ void ManejadorPartidas::nuevoCliente(ThClient *cliente) {
     }
 
     cliente->enviarIdJugador();
+    delete comando;
 }
 
 void ManejadorPartidas::cerrarPartidas() {

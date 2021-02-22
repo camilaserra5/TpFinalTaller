@@ -22,7 +22,18 @@ Partida::Partida(Map mapa, int cantJugadoresPosibles, ConfiguracionPartida confi
         sigue_corriendo(true),
         arrancoPartida(false){}
 
-Partida::~Partida() {}
+Partida::~Partida() {
+  // libero todos los comandos que no pudieron mandarse
+  bool termine = false;
+  while(!termine){
+    try{
+        Comando* comando = cola_comandos.obtener_dato();
+        delete comando;
+    } catch(const std::exception &exception){
+        termine = true;
+    }
+  }
+}
 
 void Partida::procesar_comandos(EstadoJuego &estadoJuego) {
     std::map<int, ThClient *>::iterator it;
@@ -160,14 +171,14 @@ void Partida::run() {
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;
-    actualizaciones.push_back(new ActualizacionInicioPartida(this->estadoJuego));
+    Actualizacion* act = new ActualizacionInicioPartida(this->estadoJuego);
+    actualizaciones.push_back(act);
     this->enviar_actualizaciones(actualizaciones);
 
 
     std::chrono::duration<double> tiempoPartida(TIEMPO_SERVIDOR);
-    for (int i = 0; i < actualizaciones.size(); i++){
-        delete actualizaciones[i];
-    }
+    delete act;
+    
     while (this->sigue_corriendo) {
 
         try {
