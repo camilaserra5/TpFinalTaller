@@ -53,8 +53,8 @@ Modelo::~Modelo() {
     }
 }
 
-void Modelo::setMapa(Map &mapa) {
-    this->mapa = mapa;
+void Modelo::setMapa(Map &&mapa) {
+    this->mapa = std::move(mapa);
 }
 
 bool Modelo::inicializar() {

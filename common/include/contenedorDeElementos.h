@@ -44,6 +44,8 @@ public:
 
     void aniadirPuerta(Puerta &puerta);
 
+    ContenedorDeElementos(ContenedorDeElementos&& contenedor);
+
 private:
     std::vector<Item *> elementos;
     std::vector<Puerta> puertas;

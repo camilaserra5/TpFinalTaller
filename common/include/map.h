@@ -64,6 +64,19 @@ public:
 
     std::vector<std::vector<int>> getMapanumerico();
 
+    Map(Map&& mapa);
+    Map& operator=(Map&& mapa){
+      if (this == &mapa) {
+          return *this;
+      }
+      this->rowSize = mapa.rowSize;
+      this->colSize = mapa.colSize;
+      this->contenedorDeElementos = std::move(mapa.contenedorDeElementos);
+      this->map = mapa.map;
+      this->ladoCelda= mapa.ladoCelda;
+      this->generadorDeId = mapa.generadorDeId;
+      return *this;
+    }
 private:
     unsigned rowSize;
     unsigned colSize;

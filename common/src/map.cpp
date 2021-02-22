@@ -109,6 +109,14 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     }
 
 }
+Map::Map(Map&& mapa){
+    this->rowSize = mapa.rowSize;
+    this->colSize = mapa.colSize;
+    this->contenedorDeElementos = std::move(mapa.contenedorDeElementos);
+    this->map = mapa.map;
+    this->idCargados = mapa.idCargados;
+    this->generadorDeId = mapa.generadorDeId;
+}
 
 void Map::agregarElemento(Item *item) {
     this->agregarElemento(item);

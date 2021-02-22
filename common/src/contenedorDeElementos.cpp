@@ -184,7 +184,10 @@ void ContenedorDeElementos::sacarElementoDePosicion(Posicion &posicion) {
     }
     this->elementos.swap(elementosFiltrados);
 }
-
+ContenedorDeElementos::ContenedorDeElementos(ContenedorDeElementos&& contenedor){
+    this->elementos = contenedor.elementos;
+    this->puertas = contenedor.puertas;
+}
 ContenedorDeElementos::ContenedorDeElementos() :
         elementos() {}
 

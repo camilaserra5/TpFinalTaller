@@ -53,7 +53,7 @@ Map ManejadorPartidas::buscarMapa(std::string archivoMapa, int &anchoPantalla) {
         if (pathMapas.empty())
             pathMapas = MAPS_DIR;
 
-        return MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla);
+        return std::move(MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla));
     } catch (YAML::BadFile &badFile) {
         std::cerr << "Error buscando mapa" << std::endl;
         throw InvalidMapException("error abriendo mapa");
@@ -70,7 +70,7 @@ void ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugad
         }
     }
     try {
-        Partida *servidor = new Partida(this->buscarMapa(archivoMapa, screenWidth), cant_jugadores,
+        Partida *servidor = new Partida(std::move(this->buscarMapa(archivoMapa, screenWidth)), cant_jugadores,
                                         this->configuracion);
         std::cerr << "holi3";
         this->partidas.insert({nombre_partida, servidor});
