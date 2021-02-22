@@ -145,7 +145,7 @@ Type &Map::operator()(const unsigned rowNumber, const unsigned colNumber) {
 }
 
 Map::~Map() {
-
+    delete this->contenedorDeElementos;
 }
 
 bool Map::hayPuertas() {

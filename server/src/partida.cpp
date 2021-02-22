@@ -24,6 +24,7 @@ Partida::Partida(Map mapa, int cantJugadoresPosibles, ConfiguracionPartida confi
 
 Partida::~Partida() {
     // libero todos los comandos que no pudieron mandarse
+    std::cerr << "entre al destructor de partida\n";
     bool termine = false;
     while (!termine) {
         try {
@@ -171,12 +172,13 @@ void Partida::run() {
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
     std::vector<Actualizacion *> actualizaciones;
-    Actualizacion *act = new ActualizacionInicioPartida(this->estadoJuego);
+    std::vector<char> informacion = this->estadoJuego.serializar();
+    Actualizacion *act = new ActualizacionInicioPartida(informacion);
     actualizaciones.push_back(act);
     this->enviar_actualizaciones(actualizaciones);
 
 
-    std::chrono::duration<double> tiempoPartida(2);
+    std::chrono::duration<double> tiempoPartida(1.5);
 
 
 
@@ -184,7 +186,7 @@ void Partida::run() {
         std::cerr << "borro :" << actu->obtenerId() << std::endl;
         //   delete act;
     }
-      delete act;
+    delete act;
     while (this->sigue_corriendo) {
 
         try {
