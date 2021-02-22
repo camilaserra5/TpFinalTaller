@@ -164,9 +164,8 @@ void Partida::run() {
     actualizaciones.push_back(act);
     this->enviar_actualizaciones(actualizaciones);
 
-    std::chrono::duration<double> tiempoPartida(1.5);
+    std::chrono::duration<double> tiempoPartida(3);
 
-    delete act;
 
     while (this->sigue_corriendo) {
 
@@ -201,8 +200,7 @@ void Partida::run() {
                 delete actu;
             }
         }
-
-
+        delete act;
     }
 }
 

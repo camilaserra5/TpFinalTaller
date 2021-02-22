@@ -17,7 +17,7 @@ static void liberar_terminados(std::vector<ThClient *> &clientes) {
         while (iterador_clientes != clientes.end()) {
             if ((*iterador_clientes)->is_dead()) {
                 (*iterador_clientes)->join();
-                //delete (*iterador_clientes);
+                delete (*iterador_clientes);
             } else {
                 temp.push_back(*iterador_clientes);
             }
@@ -51,7 +51,6 @@ void Aceptador::run() {
 }
 
 void Aceptador::cerrar() {
-
     for (std::size_t i = 0; i < clientes.size(); i++) {
         clientes.at(i)->stop();
         clientes.at(i)->join();
