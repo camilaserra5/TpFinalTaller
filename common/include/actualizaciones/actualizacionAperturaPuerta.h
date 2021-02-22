@@ -10,10 +10,17 @@
 
 class ActualizacionAperturaPuerta : public Actualizacion {
 public:
+    /*
+      * creara la actualizacion apertura de prueba dejandola valida
+    */
     ActualizacionAperturaPuerta(Puerta &puerta);
-
+    /*
+      * constructor por default
+    */
     ActualizacionAperturaPuerta() {}
-
+    /*
+      * liberara la apertura de puertas
+    */  
     ~ActualizacionAperturaPuerta();
 
     std::vector<char> serializar() override;
