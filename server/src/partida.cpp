@@ -15,7 +15,7 @@
 #define LUA MODULO_LUA "modulo.lua"
 
 // en si recibe un archivo yaml y luego sereializa;
-Partida::Partida(Map&& mapa, int cantJugadoresPosibles, ConfiguracionPartida configuracion) :
+Partida::Partida(Map &&mapa, int cantJugadoresPosibles, ConfiguracionPartida configuracion) :
         cola_comandos(),
         estadoJuego(std::move(mapa), configuracion),
         cantJugadoresPosibles(cantJugadoresPosibles),
@@ -106,7 +106,7 @@ void Partida::enviar_actualizaciones(std::vector<Actualizacion *> actualizacione
             it->second->enviar_actualizaciones(actualizaciones);
         }
     }
-    this->ultAct = actualizaciones;
+    this->ultAct.insert(this->ultAct.end(), actualizaciones.begin(), actualizaciones.end());
 
 }
 
@@ -154,8 +154,8 @@ void Partida::run() {
     std::string ruta(LUA);
 
 //    JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
-  //  std::string nombre("IA");
-  //  jugadorLua.instanciarJugador(nombre);
+    //  std::string nombre("IA");
+    //  jugadorLua.instanciarJugador(nombre);
 
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
@@ -172,12 +172,12 @@ void Partida::run() {
 
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-          //  std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
-          //  generarComandosLua(jugadorLua);
+            //  std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
+            //  generarComandosLua(jugadorLua);
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
-                std::vector<Actualizacion*> actualizacionTermino;
+                std::vector<Actualizacion *> actualizacionTermino;
                 Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego.obtenerJugadores());
                 actualizacionTermino.push_back(terminoPartida);
                 this->enviar_actualizaciones(actualizacionTermino);
@@ -189,25 +189,31 @@ void Partida::run() {
             std::chrono::duration<double> sleepTime = tiempoPartida - (fin - inicio);
             std::this_thread::sleep_for(sleepTime);
 
-            for (auto &actu : this->ultAct) {
+            std::cerr << "SIZE: " << ultAct.size() << std::endl;
+            for (auto &actu: this->ultAct) {
                 if (actu != NULL) {
-                  delete actu;
-                  actu = NULL;
+                    delete actu;
+                    actu = NULL;
                 }
             }
+            std::vector<Actualizacion *> temp;
+            ultAct.swap(temp);
+            std::cerr << "SIZE: " << ultAct.size() << std::endl;
         } catch (...) {
             std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
-            for (auto &actu : this->ultAct) {
-              if (actu != NULL) {
-                delete actu;
-                actu = NULL;
-              }
+            for (auto &actu: this->ultAct) {
+                if (actu != NULL) {
+                    delete actu;
+                    actu = NULL;
+                }
             }
+            std::vector<Actualizacion *> temp;
+            ultAct.swap(temp);
         }
     }
     std::cerr << "sigue corriendo: " << this->sigue_corriendo << std::endl;
-  //  std::cerr << "borro :" << act->obtenerId() << std::endl;
+    //  std::cerr << "borro :" << act->obtenerId() << std::endl;
     //delete act;
 }
 
@@ -227,6 +233,6 @@ void Partida::joinClientes() {
     }
 }
 
-void Partida::stop(){
+void Partida::stop() {
     this->sigue_corriendo = false;
 }
