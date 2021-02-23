@@ -153,9 +153,9 @@ void Partida::run() {
     std::cerr << "=== CREO JUGADOR LUA==== " << std::endl;
     std::string ruta(LUA);
 
-//    JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
-    //  std::string nombre("IA");
-    //  jugadorLua.instanciarJugador(nombre);
+    JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
+      std::string nombre("IA");
+      jugadorLua.instanciarJugador(nombre);
 
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
@@ -172,8 +172,8 @@ void Partida::run() {
 
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-            //  std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
-            //  generarComandosLua(jugadorLua);
+              std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
+              generarComandosLua(jugadorLua);
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
@@ -213,8 +213,6 @@ void Partida::run() {
         }
     }
     std::cerr << "sigue corriendo: " << this->sigue_corriendo << std::endl;
-    //  std::cerr << "borro :" << act->obtenerId() << std::endl;
-    //delete act;
 }
 
 std::vector<char> Partida::serializar() {
