@@ -15,8 +15,6 @@ Ventana::~Ventana() {
 }
 
 void Ventana::cerrar() {
-  std::cerr << "estro a entrar ventana\n";
-//  std::cerr << "this->ventana: " << this->ventana << std::endl;
   if (this->render != NULL){
     SDL_DestroyRenderer(this->render);
     this->render = NULL;
@@ -25,7 +23,6 @@ void Ventana::cerrar() {
     SDL_DestroyWindow(this->ventana);
     this->ventana = NULL;
   }
-
 }
 
 SDL_Renderer *Ventana::obtener_render() {
