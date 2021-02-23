@@ -19,6 +19,6 @@ add_executable(client ${SOURCES} src/sprite.cpp src/player.cpp include/audio.h s
 
 target_link_libraries(client ${PROJECT_LINK_LIBS} SDL2 SDL2_image SDL2_ttf SDL2_mixer Threads::Threads -Llib -llua5.3 ${YAML_CPP_LIBRARIES})
 
-install(FILES ../resources/images/ParteInferior.png ../resources/images/Guard.png ../resources/sonidos/musiquita.wav ../resources/sonidos/Knife.wav ../resources/sonidos/Pistol.wav ../resources/sonidos/ametralladora.wav ../resources/sonidos/MachineGun.wav DESTINATION ${CMAKE_BINARY_DIR})
+install(FILES ../resources/images/ParteInferior.png ../resources/images/Guard.png ../resources/sonidos/ametralladora.mp3 ../resources/sonidos/Death.mp3 ../resources/sonidos/Knife.mp3 ../resources/sonidos/MachineGun.mp3 ../resources/sonidos/musicaMientrasJuego.mp3 ../resources/sonidos/Pistol.mp3 ../resources/sonidos/wolfenstein-3d-title-theme.mp3 DESTINATION ${CMAKE_BINARY_DIR})
 
 install(TARGETS client COMPONENT client RUNTIME DESTINATION "/usr/local/bin" LIBRARY DESTINATION "/usr/local/bin" DESTINATION "/usr/local/bin")
