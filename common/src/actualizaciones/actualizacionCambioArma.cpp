@@ -28,5 +28,4 @@ void ActualizacionCambioArma::deserializar(std::vector<char> &serializado) {
     idx += 4;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     this->armaActual = charArrayToNumber(sub);
-    std::cerr << this->id << this->armaActual << std::endl;
 }

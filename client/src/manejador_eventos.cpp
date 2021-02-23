@@ -69,7 +69,6 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
                     crearAtaque();
                     break;
                 case SDLK_g:
-                    std::cerr << "comando cambio de arma" << std::endl;
                     crearCambioDeArma();
                     break;
                 case SDLK_SPACE:

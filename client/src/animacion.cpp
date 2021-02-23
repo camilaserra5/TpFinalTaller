@@ -39,13 +39,10 @@ void Animacion::renderizar(int posx, int posy, int angulo, SDL_Point *centro) {
     SDL_Rect r = {posx, posy, this->frame_h * 2, this->frame_w * 2}; // Donde se renderiza
     textura.renderizar(&frames[this->frameActual], r, angulo, centro);
     if (this->contador == 0) {
-        //std::cerr << "cambio de frame\n";
         this->frameActual += 1;
         this->contador = TICKS_ANIMACION;
     } else {
-        //std::cerr << "contador: " << this->contador << "\n";
         contador--;
-        //std::cerr << "actualizo Contador" << this->contador << "\n";
     }
 }
 
@@ -58,9 +55,6 @@ void Animacion::renderizarColumna(SDL_Rect &dimension, SDL_Rect dest) {
     dimension.x += this->frames[frameActual].x;
     dimension.y += this->frames[frameActual].y;
     dimension.h += this->frame_h;
-    //dest.y += 30;
-    //std::cerr << "renderizo animacion con dimensiones x: " << dimension.x << " y: " << dimension.y << " h: " << dimension.h << " w: " << dimension.w << std::endl << std::endl;
-    //std::cerr << "renderizo animacion en x: " << dest.x << " y: " << dest.y << " h: " << dest.h << " w: " << dest.w << std::endl << std::endl;
     this->textura.renderizar(&dimension, dest, 0, NULL);
     if (contador == 0 && yaRenderice) {
         this->frameActual += 1;
