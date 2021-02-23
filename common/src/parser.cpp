@@ -18,9 +18,7 @@ std::map<std::string, std::string> Parser::obtenerMapas() {
     return mapas;
 }
 
-Parser::~Parser() {
-//cerrar
-}
+Parser::~Parser() {}
 
 std::string Parser::obtenerRutaMapas() {
     return this->config["rutaMapas"].as<std::string>();

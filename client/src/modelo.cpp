@@ -9,7 +9,7 @@
 #include <actualizaciones/actualizacionAgarroItem.h>
 #include <actualizaciones/actualizacionAgregarItem.h>
 #include <config.h>
-//#include "rayo.h"
+
 #define SPRITE_LARGO 63
 #define SPRITE_ANCHO SPRITE_LARGO
 #define SPRITES_OBJETOS_ANCHO  65
@@ -17,7 +17,7 @@
 #define SPRITE_OBJETOS IMGS_DIR OBJECTS_IMG
 #define FRAMESX 5
 #define FRAMESY 10
-#define DIST_PLANO_P 692.820323//(ANCHO_CANVAS / 2) / tan(pi/6.0)
+#define DIST_PLANO_P 692.820323
 #define PI 3.141592653
 #define WEAPON IMGS_DIR WEAPONS_IMG
 
@@ -110,8 +110,8 @@ Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite,
                 drawStart = 500 - alturaSprite;
             }
             SDL_Rect dimension, dest;
-            dimension.x = i;//suma offset
-            dimension.y = 0;//sumaoffset
+            dimension.x = i;
+            dimension.y = 0;
             dimension.w = 1;
             dimension.h = 0;
             dest.x = posBuffer;
@@ -143,7 +143,7 @@ bool verificarsiEstaDelante(Posicion &posObjeto, Posicion &posJugador) {
 bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
     Posicion &posJugador = jugador->getPosicion();
     float anguloDeVista = posJugador.getAnguloDeVista();
-    bool estaEnSegmento = posJugador.verificarSiPerteneceAlSegmento(posObjeto);//camiar a estaEnRangoSegmento
+    bool estaEnSegmento = posJugador.verificarSiPerteneceAlSegmento(posObjeto);
     if (!estaEnSegmento) {
         return false;
     }
@@ -202,13 +202,10 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         if (distancia > 0) {
             int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
             int y0 = floor(ALTURA_CANVAS / 2);
-            //a la altura de la pantalla le resto la altura del sprite
-            //normalizarAnguloEnRango(difAngulo);
             double x0 = tan(difAngulo) * DIST_PLANO_P;
             int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
             this->renderizarObjeto(objetosVisibles[i], alturaSprite, x, y0, distancia);
         }
-
     }
 }
 
