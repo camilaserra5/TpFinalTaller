@@ -81,7 +81,7 @@ double Rayo::verificarInterseccionSegundoCuadrante(Player &jugador, Map &mapa) {
     double tangente = abs(tan(this->anguloBarrido));
 
     /*parametros horizontales*/
-    dy = -std::modf(this->posYMapa, &y);//creo que deberia ser negativo el diferencial
+    dy = -std::modf(this->posYMapa, &y);
     y = floor(y) - 0.025;
     xStep = 1.0 / tan(this->anguloBarrido);
     if (xStep > 0.0) {
