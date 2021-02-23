@@ -172,6 +172,7 @@ private:
     Ventana &ventana;
     int idJugador;
     Player *jugador;
+    std::map<std::string, Sprite> coord;
     Map mapa;
     std::map<int, ObjetoJuego *> entidades;
     std::map<int, Enemigo *> enemigos;

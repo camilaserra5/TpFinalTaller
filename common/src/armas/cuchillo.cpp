@@ -1,7 +1,7 @@
 #include "armas/cuchillo.h"
 #include "../include/actualizaciones/actualizacionAtaque.h"
 
-#define DISTANCIA_ACUCHILLABLE 20 /*metros*/
+#define DISTANCIA_ACUCHILLABLE 100 /*metros*/
 #define DISTANCIA_MAX 1
 #define NO_HAY_JUGADOR_CERCANO -1
 

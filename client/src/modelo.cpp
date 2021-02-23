@@ -12,7 +12,7 @@
 //#include "rayo.h"
 #define SPRITE_LARGO 63
 #define SPRITE_ANCHO SPRITE_LARGO
-#define SPRITES_OBJETOS_ANCHO  64.8
+#define SPRITES_OBJETOS_ANCHO  65
 #define SPRITES_OBJETOS_LARGO 65
 #define SPRITE_OBJETOS IMGS_DIR OBJECTS_IMG
 #define FRAMESX 5
@@ -38,6 +38,26 @@ Modelo::Modelo(Ventana &ventana, int idJugador, ProtectedQueue<Actualizacion *> 
         partidaTerminada(false),
         updates(updates) {
     this->jugador = new Player(WEAPON, this->ventana.obtener_render(), this->idJugador);
+
+    coord.insert(std::make_pair("comida", Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("kitsMedicos", Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 5, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("llave",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 4, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("balas",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 3, 5, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("sangre",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 8, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("cruz",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 6, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("copa",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 6, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("cofre",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 3, 6, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("corona",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 6, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("ametralladora",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 5, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("lanzaCohetes",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 6, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("barril",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 7, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("agua",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 0, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("tanque",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 3, 0, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("mesa",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 0, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("lampara",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 1, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("muertoColgante",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 1, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+    coord.insert(std::make_pair("planta",  Sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 2, SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO)));
+
 }
 
 Modelo::~Modelo() {
@@ -247,35 +267,12 @@ void Modelo::terminoPartida(Ranking &rankingJugadores) {
 
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
-    std::map<std::string, std::pair<int, int>> coord;
-    coord.insert(std::make_pair("comida", std::make_pair(1, 5)));
-    coord.insert(std::make_pair("kitsMedicos", std::make_pair(2, 5)));
-    coord.insert(std::make_pair("llave", std::make_pair(2, 4)));
-    coord.insert(std::make_pair("balas", std::make_pair(3, 5)));
-    coord.insert(std::make_pair("sangre", std::make_pair(0, 8)));
-    coord.insert(std::make_pair("cruz", std::make_pair(1, 6)));
-    coord.insert(std::make_pair("copa", std::make_pair(2, 6)));
-    coord.insert(std::make_pair("cofre", std::make_pair(3, 6)));
-    coord.insert(std::make_pair("corona", std::make_pair(4, 6)));
-    coord.insert(std::make_pair("ametralladora", std::make_pair(4, 5)));
-    coord.insert(std::make_pair("lanzaCohetes", std::make_pair(0, 6)));
-    coord.insert(std::make_pair("barril", std::make_pair(2, 7)));
-    coord.insert(std::make_pair("agua", std::make_pair(2, 0)));
-    coord.insert(std::make_pair("tanque", std::make_pair(3, 0)));
-    coord.insert(std::make_pair("mesa", std::make_pair(4, 0)));
-    coord.insert(std::make_pair("lampara", std::make_pair(0, 1)));
-    coord.insert(std::make_pair("muertoColgante", std::make_pair(2, 1)));
-    coord.insert(std::make_pair("planta", std::make_pair(0, 2)));
-
     if (coord.count(tipo.getName()) == 0) {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 0, 0,
                       0);
-        return new ObjetoJuego(std::move(sprite));
+        return new ObjetoJuego(sprite);
     }
-    Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, coord.at(tipo.getName()).first,
-                  coord.at(tipo.getName()).second,
-                  SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO);
-    return new ObjetoJuego(std::move(sprite));
+    return new ObjetoJuego(coord.at(tipo.getName()));
 }
 
 void Modelo::actualizar() {
