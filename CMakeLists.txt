@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.11)
 if (POLICY CMP0048)
     cmake_policy(SET CMP0048 NEW)
 endif (POLICY CMP0048)
-project(wolfestein VERSION 1.1.1)
+project(wolfestein VERSION 2.0.0)
 
 find_package(Lua REQUIRED)
 include_directories(${LUA_INCLUDE_DIR})
