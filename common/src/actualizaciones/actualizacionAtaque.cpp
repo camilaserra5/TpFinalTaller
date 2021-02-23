@@ -34,7 +34,6 @@ std::vector<char> ActualizacionAtaque::serializar() {
     aux = numberToCharArray(this->jugadoresAtacados.size());
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     for (it = jugadoresAtacados.begin(); it != jugadoresAtacados.end(); ++it) {
-        std::cerr << "\njugador que fue atacando: " << it->first;
         Jugador *jug = it->second;
         jugadorSerializado = jug->serializar();
         aux = numberToCharArray(jugadorSerializado.size());
@@ -57,12 +56,9 @@ void ActualizacionAtaque::deserializar(std::vector<char> &serializado) {
     Jugador *jugadorAux = new Jugador();
     jugadorAux->deserializar(informacionJugador);
     this->jugador = jugadorAux;
-    std::cerr << "arma juagdor que ataco: " << this->jugador->getArma()->getTipo().getName() << "\n";
-    std::cerr << "balas: " << this->jugador->cantidad_balas() << "\n";
     idx += charArrayToNumber(sub);
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     int jugadoresSize = charArrayToNumber(sub);
-    std::cerr << "jugadoresSize: " << jugadoresSize << "\n";
     idx += 4;
     for (int i = 0; i < jugadoresSize; i++) {
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -72,7 +68,6 @@ void ActualizacionAtaque::deserializar(std::vector<char> &serializado) {
         idx += charArrayToNumber(sub);
         Jugador *jugador = new Jugador();
         jugador->deserializar(jugadorSerializado);
-        std::cerr << "juagdor a insertar: " << jugador->getId();
         this->jugadoresAtacados.insert(std::make_pair(jugador->getId(), jugador));
     }
 

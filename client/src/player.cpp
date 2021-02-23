@@ -48,5 +48,4 @@ void Player::actualizarDatosJugador(int vida, int cant_vidas, int puntaje, int b
 }
 
 Player::~Player() {
-    std::cerr << "entre a destructor";
 }

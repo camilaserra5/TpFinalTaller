@@ -50,6 +50,14 @@ public:
         this->cola_datos.pop();
         return objeto;
     }
+
+    /*
+     * devuelve true si ya cerró
+     */
+    bool estaCerrada() {
+        return this->esta_cerrado;
+    }
+
     /*
       * cierra la cola y le avisa a todos
     */

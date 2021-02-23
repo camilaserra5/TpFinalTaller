@@ -17,7 +17,7 @@ ManejadorEventos::~ManejadorEventos() {}
 
 void ManejadorEventos::run() {
     SDL_Event evento;
-    while (this->corriendo) {
+    while (this->corriendo && !this->eventos.estaCerrada()) {
         while (SDL_PollEvent(&evento)) {
             detectarEventos(evento);
             std::chrono::milliseconds duration(60);
@@ -69,7 +69,6 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
                     crearAtaque();
                     break;
                 case SDLK_g:
-                    std::cerr << "comando cambio de arma" << std::endl;
                     crearCambioDeArma();
                     break;
                 case SDLK_SPACE:

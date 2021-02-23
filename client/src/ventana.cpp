@@ -15,17 +15,17 @@ Ventana::~Ventana() {
 }
 
 void Ventana::cerrar() {
-  std::cerr << "estro a entrar ventana\n";
-//  std::cerr << "this->ventana: " << this->ventana << std::endl;
-  if (this->render != NULL){
-    SDL_DestroyRenderer(this->render);
-    this->render = NULL;
-  }
-  if (this->ventana != NULL){
-    SDL_DestroyWindow(this->ventana);
-    this->ventana = NULL;
-  }
-
+    if (!this->cerrada) {
+        if (this->render != nullptr) {
+            SDL_DestroyRenderer(this->render);
+            this->render = nullptr;
+        }
+        if (this->ventana != nullptr) {
+            SDL_DestroyWindow(this->ventana);
+            this->ventana = nullptr;
+        }
+    }
+    this->cerrada = true;
 }
 
 SDL_Renderer *Ventana::obtener_render() {
@@ -33,9 +33,9 @@ SDL_Renderer *Ventana::obtener_render() {
 }
 
 void Ventana::actualizar() {
-    if (this->render != NULL) SDL_RenderPresent(this->render);
+    if (this->render != nullptr) SDL_RenderPresent(this->render);
 }
 
 void Ventana::limpiar() {
-    if (this->render != NULL) SDL_RenderClear(this->render);
+    if (this->render != nullptr) SDL_RenderClear(this->render);
 }

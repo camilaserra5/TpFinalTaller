@@ -32,13 +32,11 @@ Comando *ThClient::obtenerComandoInicial(std::vector<char> partidas) {
     std::string nombre_partida;
 
     if (idAccion == static_cast<int>(Accion::unirseAPartida)) {
-        std::cout << "UNIRSE" << std::endl;
         auto unirseAPartida = new UnirseAPartida();
         unirseAPartida->deserializar(serializado);
         return unirseAPartida;
     }
     if (idAccion == static_cast<int>(Accion::crearPartida)) {
-        std::cout << "CREAR" << std::endl;
         auto crearPartida = new CrearPartida();
         crearPartida->deserializar(serializado);
         return crearPartida;

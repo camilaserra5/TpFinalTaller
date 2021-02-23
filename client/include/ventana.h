@@ -47,6 +47,7 @@ private:
     SDL_Renderer *render;
     int x;
     int y;
+    bool cerrada = false;
 };
 
 #endif

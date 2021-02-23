@@ -72,20 +72,14 @@ void ClientEventReceiver::run() {
         } catch (const SocketError &exc) {
             std::cout << exc.what() << std::endl;
             this->cerrar();
-            std::cerr << "receiverr\n";
-
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
-            std::cerr << "receiverr\n";
-
             this->cerrar();
         } catch (...) {
             std::cout << "error desconocido\n";
             this->cerrar();
         }
     }
-    std::cerr<< "CORTO EJECUCION DE RECEIVER\n";
-
 }
 
 void ClientEventReceiver::cerrar() {

@@ -32,7 +32,6 @@ void Server_Event_Sender::cerrar() {
 void Server_Event_Sender::enviar_actualizaciones(std::vector<Actualizacion *> act) {
     std::vector<Actualizacion *>::iterator it;
     for (it = act.begin(); it != act.end(); ++it) {
-        //std::cerr << "push actu " << (*it)->obtenerId() << std::endl;
         this->actualizaciones.push(*it);
     }
 }
