@@ -5,6 +5,7 @@
 #define MAPS_DIR "@PROJECT_BASE_DIR@/resources/mapas/"
 #define SOUNDS_DIR "@PROJECT_BASE_DIR@/resources/sonidos/"
 #define CLIENT_DIR "@PROJECT_BASE_DIR@/client/src/"
+#define EDITOR_DIR "@PROJECT_BASE_DIR@/editor/src/"
 #define JOYSTICK_FONT "joystix.monospace.ttf"
 #define NOUGAT_FONT "Nougat.ttf"
 #define WOLFENSTEIN_FONT "wolfenstein.ttf"

@@ -6,8 +6,8 @@
 #include <QMimeData>
 #include <QPainter>
 
-MapWidget::MapWidget(int height, int width, QWidget *parent)
-        : QWidget(parent) {
+MapWidget::MapWidget(int height, int width, ConfiguracionPartida configuracionPartida, QWidget *parent)
+        : configuracionPartida(configuracionPartida), QWidget(parent) {
     setAcceptDrops(true);
     setMinimumSize(height, width);
     setMaximumSize(height, width);
@@ -112,7 +112,7 @@ const QRect MapWidget::targetSquare(const QPoint &position) const {
 }
 
 Map MapWidget::toMap() {
-    Map map(this->height() / this->tileSize(), this->width() / this->tileSize(), this->width()/*cheq*/);
+    Map map(this->height() / this->tileSize(), this->width() / this->tileSize(), this->width(), this->configuracionPartida);
     for (int i = 0; i < map.getRowSize(); ++i) {
         for (int j = 0; j < map.getColSize(); ++j) {
             QPoint point(i * tileSize(), j * tileSize());

@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QPixmap>
 #include "map.h"
+#include <config.h>
+
+#define ARCHIVO_DE_CONFIGURACION EDITOR_DIR "config.yaml"
 
 class MapTilesList;
 
@@ -12,10 +15,10 @@ class MapWidget;
 class QListWidgetItem;
 
 class MainWindow : public QMainWindow {
-Q_OBJECT
+    Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(std::string configFile, QWidget *parent = nullptr);
 
     void initTiles();
 
@@ -26,7 +29,7 @@ public:
 public
     slots:
 
-    void openMap();
+            void openMap();
 
     void addTile();
 
@@ -47,7 +50,8 @@ private:
 
     MapTilesList *mapTilesList;
     MapWidget *mapWidget;
-
+    std::string configFile = ARCHIVO_DE_CONFIGURACION;
+    ConfiguracionPartida configuracionPartida;
 
 };
 
