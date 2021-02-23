@@ -18,7 +18,7 @@ class MapWidget : public QWidget {
 Q_OBJECT
 
 public:
-    explicit MapWidget(int height, int width, QWidget *parent = nullptr);
+    explicit MapWidget(int height, int width, ConfiguracionPartida configuracionPartida, QWidget *parent = nullptr);
 
     void clear();
 
@@ -69,6 +69,7 @@ private:
 
     QVector<Tile> tiles;
     QRect highlightedRect;
+    ConfiguracionPartida configuracionPartida;
 };
 
 #endif // MAP_WIDGET_H
