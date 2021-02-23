@@ -1,7 +1,6 @@
 #ifndef BALAS_H
 #define BALAS_H
 
-#define BALAS 5
 
 #include "item.h"
 
@@ -10,7 +9,7 @@ public:
     /*
       * creara la clase balas dejandla valida para uso
     */
-    Balas(Posicion &posicion, int cantidad, int id);
+    Balas(Posicion &posicion, int cantidad, int id, int cantBalasMaxJugador);
     /*
       * liberara la clase con sus recursos
     */
@@ -21,11 +20,12 @@ public:
     bool obtenerBeneficio(Jugador *jugador) override;
     /*
       * devuelve el tipo
-    */  
+    */
     Type getTipo() override;
 
 private:
     int cant_balas;
+    int cantidadBalasMax;
 };
 
 #endif

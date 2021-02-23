@@ -62,16 +62,16 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     if (value.getName() == "comida") {
         int idValido = this->crearIdValido();
         std::cerr << "\nid: " << idValido;
-        this->contenedorDeElementos->agregarElemento(new Comida(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new Comida(posicion, idValido,configuracion.getPuntosVidaComida(),configuracion.getVidaMax()));
     } else if (value.getName() == "sangre") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos->agregarElemento(new Sangre(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new Sangre(posicion, idValido,configuracion.getVidaMax(),configuracion.getPuntosDeVidaSangre()));
     } else if (value.getName() == "kitsMedicos") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos->agregarElemento(new KitsMedicos(posicion, idValido));
+        this->contenedorDeElementos->agregarElemento(new KitsMedicos(posicion, idValido,configuracion.getVidaMax(),configuracion.getPuntosDeVidaKits()));
     } else if (value.getName() == "balas") {
         int idValido = this->crearIdValido();
-        this->contenedorDeElementos->agregarElemento(new Balas(posicion, BALAS, idValido));
+        this->contenedorDeElementos->agregarElemento(new Balas(posicion, configuracion.getBalasEnMapa(), idValido, configuracion.getMaxBalas()));
     } else if (value.getName() == "ametralladora") {
         int idValido = this->crearIdValido();
         this->contenedorDeElementos->agregarElemento(new Ametralladora(posicion, idValido,configuracion));

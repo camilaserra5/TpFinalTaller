@@ -128,3 +128,38 @@ int ConfiguracionPartida::getBalasPorRafagaCanion(){
 int ConfiguracionPartida::getBalasPorRafagaPistola(){
   return this->balasPorRafagaPistola;
 }
+
+int ConfiguracionPartida::getMaxBalas() {
+    return this->maxBalas;
+}
+int ConfiguracionPartida::getPuntosVidaComida(){
+  return this->puntosVidaComida;
+}
+
+int ConfiguracionPartida::getBalasEnMapa(){
+  return this->balasEnMapa;
+}
+
+void ConfiguracionPartida::setPuntosVidaComida(int puntosVidaComida){
+  this->puntosVidaComida = puntosVidaComida;
+}
+
+void ConfiguracionPartida::setBalasEnMapa(int balasEnMapa){
+  this->balasEnMapa = balasEnMapa;
+}
+
+int ConfiguracionPartida::getPuntosDeVidaKits(){
+  return this->puntosVidaKits;
+}
+
+int ConfiguracionPartida::getPuntosDeVidaSangre(){
+  return this->puntosVidaSangre;
+}
+
+void ConfiguracionPartida::setPuntosDeVidaKits(int puntosKits){
+  this->puntosVidaKits = puntosKits;
+}
+
+void ConfiguracionPartida::setPuntosDeVidaSangre(int puntosSangre){
+  this->puntosVidaSangre = puntosSangre;
+}
