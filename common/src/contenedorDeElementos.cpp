@@ -139,9 +139,9 @@ std::vector<Item *> &ContenedorDeElementos::obtenerItems() {
     return this->elementos;
 }
 
-Puerta ContenedorDeElementos::puertaMasCercana(Posicion &posicionJugador,
+Puerta& ContenedorDeElementos::puertaMasCercana(Posicion &posicionJugador,
                                                 double &distancia) {
-    Puerta puertaMasCercana = this->puertas[0];
+    Puerta& puertaMasCercana = this->puertas[0];
     distancia = this->puertas[0].distanciaA(posicionJugador);
     for (auto &puerta : this->puertas) {
         double distanciaParcial = puerta.distanciaA(posicionJugador);
