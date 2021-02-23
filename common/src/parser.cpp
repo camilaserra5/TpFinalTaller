@@ -38,6 +38,10 @@ int Parser::obtenerAnchoPantallaJuego() {
     return this->config["screenWidthGame"].as<int>();
 }
 
+int Parser::obtenerAltoPantallaJuego() {
+    return this->config["screenHeightGame"].as<int>();
+}
+
 ConfiguracionPartida Parser::obtenerParametrosDeConfiguracion() {
     float vRotacion = this->config["vRotacion"].as<float>();
     float vAvance = this->config["vAvance"].as<float>();
