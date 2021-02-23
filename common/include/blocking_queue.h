@@ -52,7 +52,7 @@ public:
     }
     /*
       * cierra la cola y le avisa a todos
-    */   
+    */
     void cerrar() {
         this->esta_cerrado = true;
         esta_vacia.notify_all();

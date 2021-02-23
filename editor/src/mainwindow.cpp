@@ -5,14 +5,19 @@
 #include <QtWidgets>
 #include "map_translator.h"
 #include <config.h>
-
+#include "parser.h"
 #define BLUE_WALL IMGS_DIR BLUE_WALL_IMG
 #define GREY_WALL IMGS_DIR GREY_WALL_IMG
 #define WOOD_WALL IMGS_DIR WOOD_WALL_IMG
 #define DOOR IMGS_DIR DOOR_IMG
 #define KEY_DOOR IMGS_DIR KEYDOOR_IMG
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+MainWindow::MainWindow(std::string configFile, QWidget *parent) : QMainWindow(parent) {
+    if (!configFile.empty()) {
+        this->configFile = configFile;
+    }
+    Parser parser(this->configFile);
+    this->configuracionPartida = parser.obtenerParametrosDeConfiguracion();
     setupMenus();
     setupWidgets();
 
@@ -25,10 +30,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 void MainWindow::openMap() {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Abrir mapa existente"), "",
                                                     tr("YAML Files (*.yaml *.yml)"));
-    Map map = MapTranslator::yamlToMap(YAML::LoadFile(fileName.toStdString()), 450);//cheqs
-    mapWidget = new MapWidget(mapWidget->tileSize() * map.getColSize(), mapWidget->tileSize() * map.getRowSize());
+    Map map = MapTranslator::yamlToMap(YAML::LoadFile(fileName.toStdString()), 450, configuracionPartida);//cheqs
+    mapWidget = new MapWidget(mapWidget->tileSize() * map.getColSize(), mapWidget->tileSize() * map.getRowSize(), this->configuracionPartida);
     mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
-
+    QObject::connect(mapTilesList, SIGNAL(tileDoubleClicked(int, QPixmap)), mapWidget,
+                     SLOT(onTileDoubleClicked(int, QPixmap)));
     QFrame *frame = new QFrame;
     QHBoxLayout *mapLayout = new QHBoxLayout(frame);
     mapLayout->addWidget(mapTilesList);
@@ -123,9 +129,11 @@ void MainWindow::newMap() {
     int result = d->exec();
     if (result == QDialog::Accepted) {
         mapWidget = new MapWidget(mapWidget->tileSize() * widthSpinbox->value(),
-                                  mapWidget->tileSize() * heightSpinbox->value());
+                                  mapWidget->tileSize() * heightSpinbox->value(),
+                                  this->configuracionPartida);
         mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
-
+        QObject::connect(mapTilesList, SIGNAL(tileDoubleClicked(int, QPixmap)), mapWidget,
+                         SLOT(onTileDoubleClicked(int, QPixmap)));
         QFrame *frame = new QFrame;
         QHBoxLayout *mapLayout = new QHBoxLayout(frame);
         mapLayout->addWidget(mapTilesList);
@@ -254,7 +262,7 @@ void MainWindow::showContextMenu(const QPoint &pos) {
 }
 
 void MainWindow::setupWidgets() {
-    mapWidget = new MapWidget(400, 400);
+    mapWidget = new MapWidget(400, 400, this->configuracionPartida);
     mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
 
     mapTilesList->setContextMenuPolicy(Qt::CustomContextMenu);

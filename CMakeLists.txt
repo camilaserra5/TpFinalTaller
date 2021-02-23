@@ -19,6 +19,6 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(common/include)
 
 add_subdirectory(common)
-#add_subdirectory(editor)
+add_subdirectory(editor)
 add_subdirectory(server)
 add_subdirectory(client)
