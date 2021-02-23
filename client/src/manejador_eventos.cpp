@@ -11,8 +11,7 @@
 ManejadorEventos::ManejadorEventos(int &idJugador, BlockingQueue<Comando *> &eventos) :
         idJugador(idJugador),
         eventos(eventos),
-        corriendo(true),
-        sonidoAmbiente(RUTA_SONIDO_AMBIENTE) {}
+        corriendo(true){}
 
 ManejadorEventos::~ManejadorEventos() {}
 
@@ -76,14 +75,12 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
                     break;
                 case SDLK_SPACE:
                     crearAperturaDePuerta();
-                    //reproducir_sonido(SONIDO_DE_PUERTA, REPETICION_PUERTA);
                     break;
             }
             break;
         case SDL_KEYUP:
             if (evento.key.keysym.sym == SDLK_PERIOD) {
                 // dejo de disparar;
-                // sonido.stop()
             }
             break;
 

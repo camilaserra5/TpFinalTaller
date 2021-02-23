@@ -3,7 +3,8 @@
 
 #include "sprite.h"
 #include "animacion.h"
-#include "sonido.h"
+#include "musica.h"
+#include "audio.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <map>
@@ -33,7 +34,7 @@ public:
 private:
     std::map<int, Sprite> sprites;
     std::map<int, Animacion> animaciones;
-    std::map<int, Sonido> sonidos;
+    std::map<int, Musica> sonidos;
     int armaActual;
     int contador;
     bool atacando;

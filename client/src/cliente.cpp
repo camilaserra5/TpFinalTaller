@@ -35,7 +35,6 @@ void Cliente::run() {
     int screenWidthLogin = parser.obtenerAnchoPantallaLogin();
     int screenheightLogin = parser.obtenerAltoPantallaLogin();
     int screenWidthGame = parser.obtenerAnchoPantallaJuego();
-    //  int screenHeightGame = parser.obtenerAltoPantallaJuego();
     LogInWindow logIn(screenWidthLogin, screenheightLogin, screenWidthGame);
     logIn.run();
     int idJugador = logIn.obtenerIdJugador();
@@ -44,9 +43,9 @@ void Cliente::run() {
     Protocolo *protocolo = logIn.obtenerProtocolo();
     ClientEventSender clientEventSender(protocolo, events);
 
-      Audio audio;
-    //  Musica ambient_music = Musica(MUSICA_FONDO);
-      //ambient_music.play(-1);
+    Audio audio;
+    //Musica ambient_music = Musica(MUSICA_FONDO);
+    //ambient_music.play(-1);
 
     Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidthGame,
                     600, /*SDL_WINDOW_FULLSCREEN*/0);
