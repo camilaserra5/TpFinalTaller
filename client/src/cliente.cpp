@@ -34,7 +34,7 @@ void Cliente::run() {
     int screenWidthLogin = parser.obtenerAnchoPantallaLogin();
     int screenheightLogin = parser.obtenerAltoPantallaLogin();
     int screenWidthGame = parser.obtenerAnchoPantallaJuego();
-  //  int screenHeightGame = parser.obtenerAltoPantallaJuego();
+    //  int screenHeightGame = parser.obtenerAltoPantallaJuego();
     LogInWindow logIn(screenWidthLogin, screenheightLogin, screenWidthGame);
     logIn.run();
     int idJugador = logIn.obtenerIdJugador();
@@ -47,7 +47,8 @@ void Cliente::run() {
     //  Musica ambient_music = Musica(MUSICA_FONDO);
     //  ambient_music.play(-1);
 
-    Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidthGame, 600, /*SDL_WINDOW_FULLSCREEN*/0);
+    Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidthGame,
+                    600, /*SDL_WINDOW_FULLSCREEN*/0);
     Modelo modelo(ventana, idJugador, updates);
 
     ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
@@ -91,7 +92,8 @@ void Cliente::run() {
         juego.join();
         std::cerr << "sali del join del juego\n";
 
-
+        ventana.cerrar();
+        exit(1);
     }
 
 }

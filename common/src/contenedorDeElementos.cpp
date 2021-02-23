@@ -207,10 +207,11 @@ bool ContenedorDeElementos::hayPuertas() {
     return this->puertas.empty();
 }
 
-Puerta &ContenedorDeElementos::obtenerPuertaEn(int &fila, int &columna) {
+Puerta *ContenedorDeElementos::obtenerPuertaEn(int &fila, int &columna) {
     for (auto &puerta : this->puertas) {
         if (puerta.estaEnPosDelMapa(fila, columna)) {
-            return puerta;
+            return &puerta;
         }
     }
+    return nullptr;
 }

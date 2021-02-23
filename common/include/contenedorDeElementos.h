@@ -68,7 +68,7 @@ public:
     /*
       * devuelve la puerta en la fila y columna que llega por parametros
     */
-    Puerta &obtenerPuertaEn(int &fila, int &columna);
+    Puerta *obtenerPuertaEn(int &fila, int &columna);
     /*
       * agregar una puerta al contenedor
     */

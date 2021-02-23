@@ -228,8 +228,8 @@ bool Map::hayColision(int fila, int columna) {
             return false;
         int tipo = this->map[fila][columna].getType();
         if (tipo == TYPE_DOOR) {
-            Puerta &puerta = this->contenedorDeElementos->obtenerPuertaEn(fila, columna);
-            if (puerta.estaAbierta()) {
+            Puerta *puerta = this->contenedorDeElementos->obtenerPuertaEn(fila, columna);
+            if (puerta->estaAbierta()) {
                 tipo = TYPE_EMPTY;
             }
         }
