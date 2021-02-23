@@ -87,8 +87,8 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
 }
 
 bool puedo_moverme(Map &mapa, int &posx, int &posy, Jugador *jugador) {
-    int posXMax = mapa.getRowSize() * mapa.getLadoCelda() - 5;
-    int posYMax = mapa.getColSize() * mapa.getLadoCelda() - 5;
+    int posXMax = mapa.getRowSize() * mapa.getLadoCelda() - 10;
+    int posYMax = mapa.getColSize() * mapa.getLadoCelda() - 10;
     if (posx < 0 || posy < 0 || posx > posXMax || posy > posYMax) return false;
     int posEnMapaJugadorx = posx / mapa.getLadoCelda();
     int posEnMapaJugadory = posy / mapa.getLadoCelda();
@@ -281,4 +281,3 @@ std::vector<int> EstadoJuego::getPosicionesEnemigos(int idJugador) {
     }
     return posicionesmultiples;
 }
-

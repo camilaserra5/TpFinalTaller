@@ -27,6 +27,7 @@ void Server_Event_Receiver::run() {
             this->cerrar();
         } catch (...){
             std::cout << "error desconocido\n";
+            this->cerrar();
         }
     }
 }

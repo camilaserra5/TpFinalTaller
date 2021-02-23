@@ -5,6 +5,7 @@
 #include "../include/client_event_sender.h"
 #include "../include/manejador_eventos.h"
 #include "../include/logInWindow.h"
+#include "../include/audio.h"
 
 #include <config.h>
 
@@ -43,9 +44,9 @@ void Cliente::run() {
     Protocolo *protocolo = logIn.obtenerProtocolo();
     ClientEventSender clientEventSender(protocolo, events);
 
-    //  Audio audio;
+      Audio audio;
     //  Musica ambient_music = Musica(MUSICA_FONDO);
-    //  ambient_music.play(-1);
+      //ambient_music.play(-1);
 
     Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidthGame,
                     600, /*SDL_WINDOW_FULLSCREEN*/0);
@@ -54,7 +55,7 @@ void Cliente::run() {
     ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
 
     Juego juego(ventana, modelo);
-    ManejadorEventos manejador(idJugador, events);//no lanzar hilo
+    ManejadorEventos manejador(idJugador, events);
 
     try {
         clientEventSender.start();
@@ -62,38 +63,37 @@ void Cliente::run() {
         while (!clientEventReceiver.recibi()) {
             std::cout << "";
         }
-        std::cout << "recibii main\n";
         juego.start();
         manejador.run();
-        juego.cerrar();
+        clientEventReceiver.cerrar();
+        std::cerr << "sali del cerrar del receiver\n";
+        clientEventReceiver.join();
+        std::cerr << "sali del join del receiver\n";
         clientEventSender.cerrar();
         std::cerr << "sali del cerrar del sender\n";
-
-        clientEventReceiver.cerrar();
         clientEventSender.join();
-        clientEventReceiver.join();
+        std::cerr << "sali del join del sender\n";
+        juego.cerrar();
+        std::cerr << "sali del cerrar del juego\n";
         juego.join();
+        std::cerr << "sali del join del juego\n";
     } catch (...) {
-        std::cout << "error";
+        std::cout << "ESTMAOS EN CATCH ";
         this->corriendo = false;
 
         juego.cerrar();
-        std::cerr << "sali del cerrar del juego\n";
         clientEventSender.cerrar();
 
         clientEventReceiver.cerrar();
-        std::cerr << "sali del cerrar del receiver\n";
 
         clientEventSender.join();
-        std::cerr << "sali del join del sender\n";
 
         clientEventReceiver.join();
-        std::cerr << "sali del join del receiver\n";
         juego.join();
-        std::cerr << "sali del join del juego\n";
 
-        ventana.cerrar();
-        exit(1);
     }
+
+    //  ventana.cerrar();
+    //  exit(1);
 
 }
