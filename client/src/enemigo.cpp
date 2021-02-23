@@ -25,8 +25,8 @@
 Enemigo::Enemigo(SDL_Renderer *render, int idArmaJugador) :
         idArma(idArmaJugador), anguloJugador(0), estado(MOVERSE), distanciaParcialAJugador(0),
         posicion(0, 0, 0), enemigos(), puntaje(0) {
-    // guardia
-    Animacion dispararG(render, GUARDIA, FRAMES_Y, SPRITE_H, SPRITE_W, -1, 0); // disparar
+    
+    Animacion dispararG(render, GUARDIA, FRAMES_Y, SPRITE_H, SPRITE_W, -1, 0);
     Animacion moverseG(render, GUARDIA, FRAMES_Y, SPRITE_H, SPRITE_W, -1, 1);
     Animacion morirseG(render, GUARDIA, FRAMES_Y, SPRITE_H, SPRITE_W, -1, 2);
 
