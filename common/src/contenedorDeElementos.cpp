@@ -139,7 +139,7 @@ std::vector<Item *> &ContenedorDeElementos::obtenerItems() {
     return this->elementos;
 }
 
-Puerta &ContenedorDeElementos::puertaMasCercana(Posicion &posicionJugador,
+Puerta& ContenedorDeElementos::puertaMasCercana(Posicion &posicionJugador,
                                                 double &distancia) {
     Puerta& puertaMasCercana = this->puertas[0];
     distancia = this->puertas[0].distanciaA(posicionJugador);
@@ -204,7 +204,7 @@ Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
 }
 
 bool ContenedorDeElementos::hayPuertas() {
-    return this->puertas.empty();
+    return !this->puertas.empty();
 }
 
 Puerta *ContenedorDeElementos::obtenerPuertaEn(int &fila, int &columna) {

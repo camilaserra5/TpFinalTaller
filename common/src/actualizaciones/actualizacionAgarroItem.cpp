@@ -13,8 +13,10 @@ ActualizacionAgarroItem::ActualizacionAgarroItem(Jugador *jugador,
 
 ActualizacionAgarroItem::~ActualizacionAgarroItem() {
     std::cerr << "entro al destructor de actalizacion agarro item\n";
-    if (esCliente) delete this->jugador;
-    delete this->item;
+    if (esCliente) {
+      delete this->jugador;
+      delete this->item;
+    }
 }
 
 ActualizacionAgarroItem::ActualizacionAgarroItem() {}
