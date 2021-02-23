@@ -134,7 +134,12 @@ ManejadorPartidas::~ManejadorPartidas() {
   }
 
 }
-
+void ManejadorPartidas::stop(){
+    std::map<std::string, Partida *>::iterator it;
+    for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
+           it->second->stop();
+    }
+}
 std::vector<char> ManejadorPartidas::serializar() {
     std::vector<char> informacion;
     std::vector<char> informacionPartidas;
