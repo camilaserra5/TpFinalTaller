@@ -80,7 +80,7 @@ bool normalizarAnguloEnRango(double &angulo) {
 
 void
 Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite,
-                        int &x, int &drawStart, double &distanciaObjeto) {
+                         int &x, int &drawStart, double &distanciaObjeto) {
     int anchoSprite = objeto->obtenerAnchura();
     //float drawEnd;
     for (int i = 0; i < anchoSprite; i++) {
@@ -221,8 +221,8 @@ void Modelo::renderizar() {
         verificarObjetosEnRangoDeVista();
         this->jugador->renderizar();
     } else {
-        this->anunciador.renderizar();
         this->ventana.cerrar();
+        this->anunciador.renderizar();
     }
 }
 
