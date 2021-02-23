@@ -8,7 +8,9 @@
 ActualizacionAgregarItem::ActualizacionAgregarItem(Item *item) : item(item) {}
 
 ActualizacionAgregarItem::~ActualizacionAgregarItem() {
-    delete this->item;
+    if (esCliente){
+        delete this->item;
+    }    
 }
 
 std::vector<char> ActualizacionAgregarItem::serializar() {
@@ -63,6 +65,7 @@ Item *ActualizacionAgregarItem::deserializarItem(std::vector<char> &informacion)
 }
 
 void ActualizacionAgregarItem::deserializar(std::vector<char> &serializado) {
+    this->esCliente = true;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
