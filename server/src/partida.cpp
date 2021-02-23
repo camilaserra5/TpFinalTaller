@@ -196,6 +196,7 @@ void Partida::run() {
                     delete (*iteratorAct);
                 }
             }
+            ultAct.clear();
         } catch (...) {
             std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
@@ -206,6 +207,7 @@ void Partida::run() {
                     delete (*iteratorAct);
                 }
             }
+            ultAct.clear();
         }
     }
     std::cerr << "sigue corriendo: " << this->sigue_corriendo << std::endl;
