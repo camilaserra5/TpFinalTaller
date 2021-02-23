@@ -53,20 +53,22 @@ void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa) {
 }
 
 const char *ManejadorLua::generarEvento(int &posx, int &posy,
-                    std::vector<int>& posiciones_jugadores, int cantJugadores) {
+                    std::vector<int>& posiciones_jugadores, int cantJugadores,
+                    int &posPixelX, int &posPixelY) {
     std::cerr << "=== MANEJADOR LUA GENERAR EVENTO==== " << std::endl;
     lua_getglobal(interprete, "crear_accion");
 
     lua_pushnumber(interprete, posx);
     lua_pushnumber(interprete, posy);
     lua_pushnumber(interprete, cantJugadores);
-
+    lua_pushnumber(interprete, posPixelX);
+    lua_pushnumber(interprete, posPixelY);
     lua_newtable(interprete);//tabla esta en el top del stack
     for (int i = 0; i < cantJugadores*2; i++) {
         lua_pushnumber(interprete, posiciones_jugadores.at(i));//ahora hay un numero arriba de todo
         lua_rawseti(interprete,-2,i+1); //inserta el numero en la tabla y la tabla vuelve a estar en el top
     }
-    lua_pcall(interprete, 4, 1, 0);
+    lua_pcall(interprete, 6, 1, 0);
     const char *tecla = lua_tostring(interprete, 1);
     lua_pop(interprete, 1); // elimina
     //std::cerr << "=== LUA ME DEVOLVIO: " << tecla << " ==== " << std::endl;

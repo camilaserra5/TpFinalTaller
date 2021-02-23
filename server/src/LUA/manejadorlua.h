@@ -32,7 +32,11 @@ public:
      */
     void vaciarStack();
 
-    const char *generarEvento(int &posx, int &posy, std::vector<int>& posiciones_jugadores, int cantJugadores);
+    /*
+     *Genera un evento de lua.
+     */
+    const char *generarEvento(int &posx, int &posy, std::vector<int>& posiciones_jugadores,
+                                int cantJugadores, int &posPixelX, int &posPixelY);
 
 };
 

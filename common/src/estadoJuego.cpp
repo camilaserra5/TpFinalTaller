@@ -272,12 +272,23 @@ std::vector<int> EstadoJuego::getPosicionEspecificaJugador(int idJugador) {
 std::vector<int> EstadoJuego::getPosicionesEnemigos(int idJugador) {
     std::vector<int> posicionesmultiples;
     for ( auto it = jugadores.begin(); it != jugadores.end(); ++it  ){
-        int id= it->first;
+        int id = it->first;
+        std::cerr << "======ID EN POS ENEMIGO "<< id << std::endl;
         if(id != idJugador){
             Jugador* jugador = it->second;
+            std::cerr << "======POSICIONES: "<< jugador->posEnX()<< ", "<< jugador->posEnY()<< std::endl;
             posicionesmultiples.push_back(jugador->posEnX());
             posicionesmultiples.push_back(jugador->posEnY());
         }
     }
     return posicionesmultiples;
+}
+
+std::vector<int> EstadoJuego::getPosicionPixels(int idJugador){
+    std::cerr << "======ID RECIBIDO "<< idJugador << std::endl;
+    Jugador *jugador = this->jugadores.at(idJugador);
+    std::vector<int> posicionesPixels;
+    posicionesPixels.push_back(jugador->posEnX());
+    posicionesPixels.push_back(jugador->posEnY());
+    return posicionesPixels;
 }

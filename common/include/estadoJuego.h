@@ -119,7 +119,7 @@ public:
     */
     std::vector<std::vector<int>> GetMapanumerico();
     /*
-      * devuelve la posicon del juagdor
+      * devuelve la posicon del juagdor en base al mapa numerico
     */
     std::vector<int> getPosicionEspecificaJugador(int idJugador);
     /*
@@ -132,7 +132,10 @@ public:
      *en las posiciones 2N estan las posX, en las 2N+1 las posiciones en Y.
      */
     std::vector<int> getPosicionesEnemigos(int idJugador);
-
+    /*
+      * devuelve la posicion del jugador en base a los pixeles
+    */
+    std::vector<int> getPosicionPixels(int idJugador);
 private:
     Map mapa;
     std::map<int, Jugador *> jugadores;
