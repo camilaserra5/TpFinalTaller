@@ -127,7 +127,7 @@ void Enemigo::actualizarVida(int vida) {
 void Enemigo::actualizarArma(int idArma){
      this->idArma = idArma;
 }
-int Enemigo:getPuntaje() {
+int Enemigo::getPuntaje() {
     return this->puntaje;
 }
 
