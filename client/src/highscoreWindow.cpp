@@ -87,24 +87,6 @@ void HighscoreWindow::settearGanadores(Ranking &ran) {
     this->ranking = &ran;
 }
 
-/*
-void HighscoreWindow::settearGanadores(std::vector<int>& ganadores,Player *jugador, std::map<int, Enemigo *> &enemigos){
-    for (int i = 0; i < ganadores.size(); i++) {
-        int id = ganadores[i];
-        if (jugador->getId() == id) {
-            int logro = jugador->getPuntaje();
-            std::string puntaje = std::to_string(logro);
-            this->ganadores.insert(std::make_pair(id, logro));
-
-        } else {
-            Enemigo *enemigo = enemigos.find(ganadores[i])->second;
-            int logro = enemigo->getPuntaje();
-            std::string puntaje = std::to_string(logro);
-            this->ganadores.insert(std::make_pair(id, logro));
-        }
-    }
-}*/
-
 void HighscoreWindow::init() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("Couldn't initialize SDL: %s\n", SDL_GetError());
@@ -139,7 +121,6 @@ void HighscoreWindow::renderizar() {
                           this->renderer, 1280, 720);
     background.drawBackground();
     while (1) {
-        //SDL_Event e;
         show_highscores(this->renderer, this->fonts);
     }//CHQUEAR ESTE WHILE SE VA A RE COLGAR
 }

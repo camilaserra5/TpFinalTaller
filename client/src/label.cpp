@@ -13,7 +13,6 @@ void Label::actualizarTexto(std::string texto) {
 }
 
 void Label::setLabelText() {
-
     SDL_Surface *surface = TTF_RenderText_Blended(font, label.c_str(), textColor);
     labelTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);

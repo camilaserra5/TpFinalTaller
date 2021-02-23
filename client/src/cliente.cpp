@@ -83,8 +83,6 @@ void Cliente::run() {
         clientEventReceiver.cerrar();
         std::cerr << "sali del cerrar del receiver\n";
 
-
-
         clientEventSender.join();
         std::cerr << "sali del join del sender\n";
 

@@ -3,8 +3,7 @@
 #include <algorithm>
 #include "socket_error.h"
 
-ClientEventSender::ClientEventSender(Protocolo *protocolo,
-                                     BlockingQueue<Comando *> &events) :
+ClientEventSender::ClientEventSender(Protocolo *protocolo, BlockingQueue<Comando *> &events) :
         events(events), corriendo(true), protocolo(protocolo) {}
 
 void ClientEventSender::run() {
@@ -25,10 +24,9 @@ void ClientEventSender::run() {
 }
 
 void ClientEventSender::cerrar() {
-    std::cerr << "entre al cerrar del sender" << std::endl;
-    if (this->corriendo){
-    this->corriendo = false;
-    this->protocolo->cerrar();
+    if (this->corriendo) {
+        this->corriendo = false;
+        this->protocolo->cerrar();
     }
 }
 

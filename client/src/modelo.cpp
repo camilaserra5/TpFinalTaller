@@ -37,18 +37,15 @@ Modelo::Modelo(Ventana &ventana, int idJugador, ProtectedQueue<Actualizacion *> 
         anunciador(),
         partidaTerminada(false),
         updates(updates) {
-    this->jugador = new Player(WEAPON, this->ventana.obtener_render(),
-                               this->idJugador);
-    std::cerr << "TENGO ID: " << this->idJugador;
-
+    this->jugador = new Player(WEAPON, this->ventana.obtener_render(), this->idJugador);
 }
 
 Modelo::~Modelo() {
     delete this->jugador;
-    for (std::map<int, Enemigo *>::iterator it = enemigos.begin(); it != enemigos.end(); ++it) {
+    for (auto it = enemigos.begin(); it != enemigos.end(); ++it) {
         delete it->second;
     }
-    for (std::map<int, ObjetoJuego *>::iterator it = entidades.begin(); it != entidades.end(); ++it) {
+    for (auto it = entidades.begin(); it != entidades.end(); ++it) {
         delete it->second;
     }
 }
@@ -127,10 +124,6 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
     float anguloDeVista = posJugador.getAnguloDeVista();
     bool estaEnSegmento = posJugador.verificarSiPerteneceAlSegmento(posObjeto);//camiar a estaEnRangoSegmento
     if (!estaEnSegmento) {
-        //std::cerr << "la posicion que verifico es: " << posObjeto.pixelesEnX() << " y: " <<  posObjeto.pixelesEnY() << std::endl;
-        //std::cerr << "la posicion del jugador es: " << posJugador.pixelesEnX() << " y: " <<  posJugador.pixelesEnY() << std::endl;
-
-        //std::cerr << "no lo encontre en el segmento\n";
         return false;
     }
     bool enVista;
@@ -144,12 +137,6 @@ bool Modelo::verificarVisibilidadDeObjeto(Posicion &posObjeto) {
         enVista = verificarsiEstaDelante(posObjeto, posJugador);
     } else {
         enVista = (abs(atan(opuesto / adyacente)) <= PI / 6);
-    }
-    if (!enVista) {
-        //std::cerr << "la pos del jugador es x: " << posJugador.pixelesEnX() << " y: " << posJugador.pixelesEnY()
-        //        << "angulo: " << posJugador.getAnguloDeVista() << "\n";
-        //std::cerr << "la pos del objeto es x: " << posObjeto.pixelesEnX() << " y: " << posObjeto.pixelesEnY()
-        //        << "angulo: " << posObjeto.getAnguloDeVista() << "\n";
     }
     return enVista;
 }
@@ -169,7 +156,6 @@ void Modelo::verificarItemsEnRango(std::vector<ObjetoDibujable *> &objetosVisibl
 }
 
 void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVisibles) {
-    //std::cerr << "engulo j: " << this->jugador->getPosicion().getAnguloDeVista() << std::endl;
     bool esVisible;
     std::map<int, Enemigo *>::iterator itEnemigo;
     for (itEnemigo = this->enemigos.begin(); itEnemigo != this->enemigos.end(); ++itEnemigo) {
@@ -179,8 +165,6 @@ void Modelo::verificarEnemigosEnRango(std::vector<ObjetoDibujable *> &objetosVis
             objetosVisibles.push_back(itEnemigo->second);
             double distanciaAEnemigo = posEnemigo.distanciaA(this->jugador->getPosicion());
             itEnemigo->second->setDistanciaParcialAJugador(distanciaAEnemigo);
-            //std::cerr << "\n\nes visible\n\n";
-
         }
     }
 }
@@ -197,8 +181,7 @@ void Modelo::renderizarObjetosDibujables(std::vector<ObjetoDibujable *> &objetos
         if (distancia > 0) {
             int alturaSprite = floor((this->mapa.getLadoCelda() / distancia) * DIST_PLANO_P);
             int y0 = floor(ALTURA_CANVAS / 2);
-//a la altura de la pantalla le resto la altura del sprite
-            //std::cerr << "alturaSprite: " << alturaSprite << " " << this->mapa.getLadoCelda() << " " << distancia;
+            //a la altura de la pantalla le resto la altura del sprite
             //normalizarAnguloEnRango(difAngulo);
             double x0 = tan(difAngulo) * DIST_PLANO_P;
             int x = (ANCHO_CANVAS / 2) + x0 - (objetosVisibles[i]->obtenerAnchura() / 2);
@@ -263,7 +246,6 @@ void Modelo::terminoPartida(Ranking &rankingJugadores) {
 
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
-
     std::map<std::string, std::pair<int, int>> coord;
     coord.insert(std::make_pair("comida", std::make_pair(1, 5)));
     coord.insert(std::make_pair("kitsMedicos", std::make_pair(2, 5)));
@@ -338,7 +320,6 @@ bool Modelo::procesarActualizaciones() {
         procesador.ejecutar();
         delete actualizacion;
         return true;
-
     } catch (QueueException &qe) {
     } catch (std::exception &e) {
         std::cerr << e.what() << "\n";

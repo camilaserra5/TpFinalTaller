@@ -19,7 +19,6 @@ ManejadorEventos::~ManejadorEventos() {}
 void ManejadorEventos::run() {
     SDL_Event evento;
     while (this->corriendo) {
-        //std::cerr << "sigo en manejador de enventos\n";
         while (SDL_PollEvent(&evento)) {
             detectarEventos(evento);
             std::chrono::milliseconds duration(60);
@@ -31,13 +30,11 @@ void ManejadorEventos::run() {
 void ManejadorEventos::crearMovimiento(Accion direccion) {
     Comando *movimiento = new Movimiento(this->idJugador, direccion);
     this->eventos.push(movimiento);
-
 }
 
 void ManejadorEventos::crearAtaque() {
     Comando *ataque = new Ataque(this->idJugador);
     this->eventos.push(ataque);
-
 }
 
 void ManejadorEventos::crearAperturaDePuerta() {
@@ -48,7 +45,6 @@ void ManejadorEventos::crearAperturaDePuerta() {
 void ManejadorEventos::crearCambioDeArma() {
     Comando *cambio = new CambioDeArma(this->idJugador);
     this->eventos.push(cambio);
-
 }
 
 void ManejadorEventos::detectarEventos(SDL_Event &evento) {
@@ -59,7 +55,6 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
             break;
         case SDL_KEYDOWN:
             switch (evento.key.keysym.sym) {
-                // aca mandariamos la informacion o crearimos el evento;
                 case SDLK_LEFT:         // x, y, vida, angulo;
                     crearMovimiento(Accion::rotarIzquierda);
                     break;

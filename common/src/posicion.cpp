@@ -32,19 +32,12 @@ bool Posicion::verificarSiPerteneceAlSegmento(Posicion &otroJugador) {
 }
 
 bool Posicion::intersectaConMiAngulo(Posicion &otroJugador) {
-//  std::cerr << "verifico las posiciones de los jugadores inteersecando\n";
-//  std::cerr << "la pos del atacante es x: " << pixelesX << " y: " << pixelesY << "angulo: " << anguloDeVista << "\n";
-//  std::cerr << "la pos del atacado es x: " << otroJugador.pixelesX << " y: " << otroJugador.pixelesY << "angulo: " << otroJugador.anguloDeVista << "\n";
     bool estaEnSegmento = verificarSiPerteneceAlSegmento(otroJugador);
     if (!estaEnSegmento) return false;
     float pendienteRecta = tan(anguloDeVista);
-    /*if ((PI <= anguloDeVista && anguloDeVista < 3 * PI/2) || (3 * PI/2 <= anguloDeVista && anguloDeVista < 2 * PI)){
-      pendienteRecta = -pendienteRecta;
-    }*/
     float ordenadaOrigen = -pixelesY - (pendienteRecta * pixelesX);
     float y = pendienteRecta * otroJugador.pixelesX + ordenadaOrigen;
     if (y < 0) y = (-1) * y;
-    //std::cerr << "el delta distancia es: " << abs (y - otroJugador.pixelesY) << std::endl;
     return (abs(y - otroJugador.pixelesY) <= DELTA_DISTANCIA);
 }
 
@@ -80,10 +73,7 @@ void Posicion::rotar(float anguloRotacion) {
 }
 
 bool Posicion::operator==(Posicion &otraPosicion) {
-    if (this->pixelesX == otraPosicion.pixelesEnX() && this->pixelesY == otraPosicion.pixelesEnY()) {
-        return true;
-    }
-    return false;
+    return (this->pixelesX == otraPosicion.pixelesEnX() && this->pixelesY == otraPosicion.pixelesEnY());
 }
 
 void Posicion::setAngulo(float angulo) {
