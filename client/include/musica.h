@@ -26,7 +26,9 @@ public:
       * frena la musica;
     */
     void stop();
-
+    /*
+      * libera la musica
+    */  
     ~Musica();
 };
 

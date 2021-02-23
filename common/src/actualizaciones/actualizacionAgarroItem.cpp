@@ -6,7 +6,6 @@ ActualizacionAgarroItem::ActualizacionAgarroItem(Jugador *jugador,
 
 
 ActualizacionAgarroItem::~ActualizacionAgarroItem() {
-    std::cerr << "entro al destructor de actalizacion agarro item\n";
     if (esCliente) {
       delete this->jugador;
       delete this->item;
@@ -16,7 +15,6 @@ ActualizacionAgarroItem::~ActualizacionAgarroItem() {
 ActualizacionAgarroItem::ActualizacionAgarroItem() {}
 
 std::vector<char> ActualizacionAgarroItem::serializar() {
-    std::cerr << "serializo agarro itemm" << std::endl;
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(this->obtenerId());
@@ -35,7 +33,6 @@ std::vector<char> ActualizacionAgarroItem::serializar() {
 }
 
 Item *ActualizacionAgarroItem::deserializarItem(std::vector<char> &informacion) {
-    std::cerr << "deserializo agarro itemm" << std::endl;
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
@@ -44,8 +41,6 @@ Item *ActualizacionAgarroItem::deserializarItem(std::vector<char> &informacion) 
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     int idTipo = charArrayToNumber(sub);
     idx += 4;
-    std::cerr << "deserializo item\n";
-    std::cerr << "tipoid: " << idTipo << "\n";
     Posicion posicion;
     std::vector<char> posicionSerializado(informacion.begin() + idx,
                                           informacion.end());

@@ -4,7 +4,6 @@ ActualizacionTerminoPartida::ActualizacionTerminoPartida(std::map<int,Jugador*> 
         jugadores(jugadores) {}
 
 ActualizacionTerminoPartida::~ActualizacionTerminoPartida() {
-  std::cerr << "entro al destructor de termino partida \n";
   if (esCliente){
     std::map<int, Jugador *>::iterator it = this->jugadores.begin();
     while (it != this->jugadores.end()) {
@@ -39,7 +38,6 @@ void ActualizacionTerminoPartida::deserializar(std::vector<char> &serializado) {
   std::vector<char> sub;
   sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
   int jugadoresSize = charArrayToNumber(sub);
-  std::cerr << "jugadoresSize: " << jugadoresSize << "\n";
   idx += 4;
   for (int i = 0; i < jugadoresSize; i++) {
       sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
@@ -49,7 +47,6 @@ void ActualizacionTerminoPartida::deserializar(std::vector<char> &serializado) {
       idx += charArrayToNumber(sub);
       Jugador *jugador = new Jugador();
       jugador->deserializar(jugadorSerializado);
-      std::cerr << "juagdor a insertar: " << jugador->getId();
       this->jugadores.insert(std::make_pair(jugador->getId(), jugador));
   }
 }

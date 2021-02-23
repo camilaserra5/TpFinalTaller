@@ -8,7 +8,6 @@ ActualizacionAtaque::ActualizacionAtaque(Jugador *jugador,
 
 
 ActualizacionAtaque::~ActualizacionAtaque() {
-    std::cerr << "entro al destructor de actalizacion ataque\n";
     std::map<int, Jugador *>::iterator it = this->jugadoresAtacados.begin();
     if (esCliente){
         while (it != this->jugadoresAtacados.end()) {

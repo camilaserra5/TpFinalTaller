@@ -24,7 +24,9 @@ void Player::renderizar() {
     this->arma.renderizar();
     this->infoJugador.renderizar();
 }
-
+void Player::actualizarArma(int idArma, bool estado) {
+    this->arma.actualizar(idArma, estado);
+}
 Posicion &Player::getPosicion() {
     return this->posicion;
 }

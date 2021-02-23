@@ -3,8 +3,9 @@
 //#define VIDA 1
 //#define VIDA_MAXIMA 11
 
-Sangre::Sangre(Posicion &posicion, int id, int vidaMax, int puntosDeVidaSangre) : Item(posicion, id), puntos_de_vida(puntosDeVidaSangre),
-                                                                                  maxPuntosDeVida(vidaMax){}
+Sangre::Sangre(Posicion &posicion, int id, int vidaMax, int puntosDeVidaSangre)
+                : Item(posicion, id), puntos_de_vida(puntosDeVidaSangre),
+                  maxPuntosDeVida(vidaMax){}
 
 Sangre::~Sangre() {}
 

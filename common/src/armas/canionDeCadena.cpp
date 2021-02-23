@@ -22,7 +22,6 @@ Actualizacion *CanionDeCadena::atacarEfectivamente(Jugador *jugador, std::map<in
         bool jugadorMurio = false;
         Jugador *jugadorAtacado = jugadores.at(idJugadorMasCercano);
         while (i < cantidad_balas && !jugadorMurio) {
-            //distancia influye en el danio y lode la precision
             int danio = (rand() % configuracion.getDanioMaximoArma()) + 1;
             danio = -danio;
             jugadorAtacado->actualizar_vida(danio);

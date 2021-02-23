@@ -32,10 +32,8 @@ EstadoJuego::EstadoJuego() {}
 std::vector<Actualizacion *> EstadoJuego::realizarAtaque(int idJugador) {
     std::vector<Actualizacion *> actualizaciones;
     Jugador *jugador = this->jugadores.at(idJugador);
-    std::cerr << "jugador id: " << jugador->getId() << "\n";
     jugador->atacar();
     Arma *arma = jugador->getArma();
-    std::cerr << "arma : " << arma->getTipo().getName() << "\n";
     int distancia_inventada = 5;
     Actualizacion *actualizacionAtaque = arma->atacar(distancia_inventada, jugador, this->jugadores);
     this->verificarJugadoresMuertos();
@@ -50,7 +48,6 @@ EstadoJuego::EstadoJuego(Map &&mapa, ConfiguracionPartida configuracion) :
         configuracion(configuracion) {}
 
 EstadoJuego::~EstadoJuego() {
-    std::cerr << "entre al destructor de estadoJuego";
     std::map<int, Jugador *>::iterator it;
     for (it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         delete it->second;
@@ -58,11 +55,8 @@ EstadoJuego::~EstadoJuego() {
 }
 
 void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
-    std::cerr << "===========EL ID ES: " << id << std::endl;
     bool repetido = false;
     Posicion posicionValida = this->mapa.obtenerPosicionInicialValida();
-    //std::cerr << "la pos inicial valida es: " << posicionValida.pixelesEnX() << " y: " << posicionValida.pixelesEnY()
-    //        << " angulo: " << posicionValida.getAnguloDeVista() << " id: " << id << "\n";
     for (std::map<int, Jugador *>::iterator it = this->jugadores.begin(); it != this->jugadores.end(); ++it) {
         if ((it->second)->getPosicion() == posicionValida) repetido = true;
     }
@@ -71,17 +65,13 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
     }
 
     Jugador *jugador = new Jugador(nombreJugador, id, posicionValida, configuracion);
-    //std::cerr << "agrego un jugadorrr" << std::endl;
     if (!jugador) {
         std::cerr << "O NO..." << std::endl;
     }
     try {
         this->jugadores.insert(std::make_pair(id, jugador));
-        std::cerr << "======CHEQUEO SI ESTA======" << std::endl;
-        Jugador *jugadorchequeo = this->jugadores.at(id);
-        std::cerr << "=============EL JUGADOR ES " << jugadorchequeo->obtenerNombre() << std::endl;
     } catch (...) {
-        std::cerr << "======NO PUDE AGREGAR AL JUGADOR CON ID======" << std::endl;
+
     }
 
 }
@@ -121,19 +111,19 @@ std::vector<Actualizacion *> EstadoJuego::verificarMovimientoJugador(Jugador *ju
 }
 
 Actualizacion *EstadoJuego::rotar_a_derecha(int idJugador) {
-    Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
+    Jugador *jugador = this->jugadores.at(idJugador);
     jugador->rotar(ROTACION_DERECHA);
     return new ActualizacionMovimiento(jugador);
 }
 
 Actualizacion *EstadoJuego::rotar_a_izquierda(int idJugador) {
-    Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
+    Jugador *jugador = this->jugadores.at(idJugador);
     jugador->rotar(ROTACION_IZQUIERDA);
     return new ActualizacionMovimiento(jugador);
 }
 
 std::vector<Actualizacion *> EstadoJuego::moverse_arriba(int idJugador) {
-    Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
+    Jugador *jugador = this->jugadores.at(idJugador);
     float avance = configuracion.obtenerVAvance();
     int xFinal = jugador->posEnX() + (avance * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() + (avance * (-1) * sin(jugador->getAnguloDeVista()));
@@ -141,7 +131,7 @@ std::vector<Actualizacion *> EstadoJuego::moverse_arriba(int idJugador) {
 }
 
 std::vector<Actualizacion *> EstadoJuego::moverse_abajo(int idJugador) {
-    Jugador *jugador = this->jugadores.at(idJugador); // lanzar excepcion en caso de que no lo tenga al jugador
+    Jugador *jugador = this->jugadores.at(idJugador);
     float avance = configuracion.obtenerVAvance();
     int xFinal = jugador->posEnX() + (avance * (-1) * cos(jugador->getAnguloDeVista()));
     int yFinal = jugador->posEnY() + (avance * sin(jugador->getAnguloDeVista()));
@@ -162,7 +152,6 @@ void EstadoJuego::verificarJugadoresMuertos() {
             it->second->moverse(posicion.pixelesEnX(), posicion.pixelesEnY());
             if (it->second->cant_de_vida() <= 0) {
                 this->jugadoresMuertos++;
-                std::cerr << "========= Morision definitiva========" << '\n';
             }
         }
     }
@@ -199,14 +188,12 @@ void EstadoJuego::actualizarTiempoPartida() {
 }
 
 std::vector<char> EstadoJuego::serializar() {
-    std::cerr << "serializo en estado juego\n";
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(jugadores.size());
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     std::map<int, Jugador *>::iterator it;
     for (it = jugadores.begin(); it != jugadores.end(); ++it) {
-        std::cerr << "asdsdasd";
         std::vector<char> jugadorSerializado = (*it->second).serializar();
         aux = numberToCharArray(jugadorSerializado.size());
         informacion.insert(informacion.end(), aux.begin(), aux.end());
@@ -218,7 +205,6 @@ std::vector<char> EstadoJuego::serializar() {
 }
 
 void EstadoJuego::deserializar(std::vector<char> &informacion) {
-    std::cerr << "DESERIALIZO ESTADO JUEGO\n";
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
@@ -234,7 +220,6 @@ void EstadoJuego::deserializar(std::vector<char> &informacion) {
         jugador->deserializar(jugadorSerializado);
         this->jugadores.insert(std::make_pair(jugador->getId(), jugador));
     }
-    std::cerr << "tam vector: " << informacion.size() << " y el idx es: " << idx << std::endl;
     std::vector<char> mapaSerializado(informacion.begin() + idx,
                                       informacion.end());
     this->mapa.deserializar(mapaSerializado);
@@ -273,10 +258,8 @@ std::vector<int> EstadoJuego::getPosicionesEnemigos(int idJugador) {
     std::vector<int> posicionesmultiples;
     for ( auto it = jugadores.begin(); it != jugadores.end(); ++it  ){
         int id = it->first;
-        std::cerr << "======ID EN POS ENEMIGO "<< id << std::endl;
         if(id != idJugador){
             Jugador* jugador = it->second;
-            std::cerr << "======POSICIONES: "<< jugador->posEnX()<< ", "<< jugador->posEnY()<< std::endl;
             posicionesmultiples.push_back(jugador->posEnX());
             posicionesmultiples.push_back(jugador->posEnY());
         }
@@ -285,7 +268,6 @@ std::vector<int> EstadoJuego::getPosicionesEnemigos(int idJugador) {
 }
 
 std::vector<int> EstadoJuego::getPosicionPixels(int idJugador){
-    std::cerr << "======ID RECIBIDO "<< idJugador << std::endl;
     Jugador *jugador = this->jugadores.at(idJugador);
     std::vector<int> posicionesPixels;
     posicionesPixels.push_back(jugador->posEnX());

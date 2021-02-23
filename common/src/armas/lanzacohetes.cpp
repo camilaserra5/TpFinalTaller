@@ -34,7 +34,6 @@ std::map<int, Jugador *> LanzaCohetes::verificarJugadoresEnRango(Posicion &posic
 
 Actualizacion *LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador,
                                     std::map<int, Jugador *> &jugadores) {
-    /*no cheqyeo las balas porque si no tiene 5 no podria tener un lanzacohetes*/
     jugador->gastarBalas(configuracion.getBalasPorRafagaAmetralladora());
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     std::map<int, Jugador *> jugadoresAtacados;
@@ -55,7 +54,6 @@ Actualizacion *LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador,
 bool LanzaCohetes::obtenerBeneficio(Jugador *jugador) {
     if (!jugador->poseeArma(this)) {
         jugador->agregar_arma(this);
-        // sacar arma del mapa;
         return true;
     }
     return false;

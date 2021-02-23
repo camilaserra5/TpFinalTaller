@@ -31,8 +31,6 @@ Item *ActualizacionAgregarItem::deserializarItem(std::vector<char> &informacion)
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     int idTipo = charArrayToNumber(sub);
     idx += 4;
-    std::cerr << "deserializo item\n";
-    std::cerr << "tipoid: " << idTipo << "\n";
     Posicion posicion;
     std::vector<char> posicionSerializado(informacion.begin() + idx,
                                           informacion.end());

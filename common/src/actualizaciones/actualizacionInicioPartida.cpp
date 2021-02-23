@@ -5,8 +5,6 @@ ActualizacionInicioPartida::ActualizacionInicioPartida(std::vector<char> &inform
 }
 
 ActualizacionInicioPartida::~ActualizacionInicioPartida() {
-    std::cerr << "entro al destructor de actalizacion inicializo partida\n";
-
 }
 
 std::vector<char> ActualizacionInicioPartida::serializar() {

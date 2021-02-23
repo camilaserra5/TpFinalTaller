@@ -3,8 +3,6 @@
 int Arma::posicionAtacable(Posicion &atacante, Posicion &otroJugador) {
     float distancia_jugador = atacante.distanciaA(otroJugador);
     bool intersectaConMiAngulo = atacante.intersectaConMiAngulo(otroJugador);
-    std::cerr << "distancia Jugador: " << distancia_jugador << std::endl;
-    if (intersectaConMiAngulo) std::cerr << "INTERSECTAAAAA\n";
     if (intersectaConMiAngulo && distancia_jugador <= this->distancia_max_atacable) {
         return distancia_jugador;
     } else {
@@ -21,9 +19,6 @@ int Arma::JugadorAMenorDistancia(Jugador *jugador, std::map<int, Jugador *> &jug
     for (it = jugadores.begin(); it != jugadores.end(); ++it) {
         if (jugador->getId() != it->second->getId()) {
             distanciaActual = posicionAtacable(jugador->getPosicion(), it->second->getPosicion());
-            //std::cerr << "distancia actual: " << distanciaActual << std::endl;
-            //  std::cerr << "\ncon jugador: " << it->second->getId();
-            //std::cerr << "\n menorDistancia : " << menorDistancia;
             if (distanciaActual != -1 && distanciaActual < menorDistancia) {
                 menorDistancia = distanciaActual;
                 idJugadorMasCercano = it->first;
@@ -38,6 +33,5 @@ bool Arma::esIgual(Arma *arma) {
 }
 
 int Arma::getId() {
-  std:: cerr <<"el id q tengo es: "<<id<<std::endl;
     return this->id;
 }

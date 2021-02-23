@@ -409,7 +409,6 @@ void LogInWindow::run() {
     background.drawBackground();
     bool finished = false;
     while (!finished) {
-        //  SDL_Event e;
         start(this->renderer, this->fonts);
 
         std::string ip;

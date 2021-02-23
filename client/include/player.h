@@ -34,9 +34,7 @@ public:
     /*
       * actualiza el arma del jugador
     */
-    void actualizarArma(int idArma, bool estado) {
-        this->arma.actualizar(idArma, estado);
-    }
+    void actualizarArma(int idArma, bool estado);
 
     /*
       * devuelve la posicion del juagdor

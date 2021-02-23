@@ -22,7 +22,6 @@ Animacion::Animacion(SDL_Renderer *render,
             rect.y += frame_h;
         }
     }
-    //  this->textura = new Textura(rutaimg, render);
     this->frame_h = frame_h;
     this->frame_w = frame_w;
     this->frameActual = 0;
@@ -40,16 +39,14 @@ void Animacion::renderizar(int posx, int posy, int angulo, SDL_Point *centro) {
     SDL_Rect r = {posx, posy, this->frame_h * 2, this->frame_w * 2}; // Donde se renderiza
     textura.renderizar(&frames[this->frameActual], r, angulo, centro);
     if (this->contador == 0) {
-        std::cerr << "cambio de frame\n";
+        //std::cerr << "cambio de frame\n";
         this->frameActual += 1;
         this->contador = TICKS_ANIMACION;
     } else {
-        std::cerr << "contador: " << this->contador << "\n";
+        //std::cerr << "contador: " << this->contador << "\n";
         contador--;
-        std::cerr << "actualizo Contador" << this->contador << "\n";
+        //std::cerr << "actualizo Contador" << this->contador << "\n";
     }
-    //  SDL_Delay(100);
-
 }
 
 void Animacion::renderizarColumna(SDL_Rect &dimension, SDL_Rect dest) {
