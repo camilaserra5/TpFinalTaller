@@ -5,6 +5,7 @@
 #include "../include/client_event_sender.h"
 #include "../include/manejador_eventos.h"
 #include "../include/logInWindow.h"
+#include "../include/audio.h"
 
 #include <config.h>
 
@@ -43,9 +44,9 @@ void Cliente::run() {
     Protocolo *protocolo = logIn.obtenerProtocolo();
     ClientEventSender clientEventSender(protocolo, events);
 
-    //  Audio audio;
+      Audio audio;
     //  Musica ambient_music = Musica(MUSICA_FONDO);
-    //  ambient_music.play(-1);
+      //ambient_music.play(-1);
 
     Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidthGame,
                     600, /*SDL_WINDOW_FULLSCREEN*/0);
@@ -54,7 +55,7 @@ void Cliente::run() {
     ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
 
     Juego juego(ventana, modelo);
-    ManejadorEventos manejador(idJugador, events);//no lanzar hilo
+    ManejadorEventos manejador(idJugador, events);
 
     try {
         clientEventSender.start();
@@ -74,7 +75,7 @@ void Cliente::run() {
         clientEventReceiver.join();
         juego.join();
     } catch (...) {
-        std::cout << "error";
+        std::cout << "ESTMAOS EN CATCH ";
         this->corriendo = false;
 
         juego.cerrar();
@@ -92,7 +93,7 @@ void Cliente::run() {
         juego.join();
         std::cerr << "sali del join del juego\n";
 
-        ventana.cerrar();
+        //ventana.cerrar();
         exit(1);
     }
 
