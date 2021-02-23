@@ -14,9 +14,7 @@ class Server_Event_Sender : public Thread {
 public:
     Server_Event_Sender(Protocolo *protocolo) : protocolo(protocolo), corriendo(true) {}
 
-    ~Server_Event_Sender() {
-      
-    }
+    ~Server_Event_Sender() {}
 
     void run() override;
 

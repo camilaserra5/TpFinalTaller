@@ -84,10 +84,10 @@ void ClientEventReceiver::run() {
 
 void ClientEventReceiver::cerrar() {
     std::cerr << "entre al cerrar del reciber" << std::endl;
+    if (this->corriendo){
     this->corriendo = false;
     this->protocolo->cerrar();
+    }
 }
 
-ClientEventReceiver::~ClientEventReceiver() {
-    this->corriendo = false;
-}
+ClientEventReceiver::~ClientEventReceiver() {}

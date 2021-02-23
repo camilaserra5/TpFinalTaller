@@ -118,16 +118,16 @@ void ManejadorPartidas::cerrar(){
     it = this->partidas.begin();
     while (it != this->partidas.end()) {
         it->second->join();
-        //delete it->second;
-        //++it;
+        delete it->second;
+        ++it;
     }
     std::cerr << "salgo de eliminarPartidasDEfinitaviamete\n";
 }
 ManejadorPartidas::~ManejadorPartidas() {
-  std::map<std::string, Partida *>::iterator it;
+  /*std::map<std::string, Partida *>::iterator it;
   for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
     delete it->second;
-  }
+  }*/
 
 }
 
