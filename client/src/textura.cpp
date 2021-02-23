@@ -5,7 +5,7 @@ Textura::Textura(const char *archivo, SDL_Renderer *un_render) {
     SDL_Surface *superficie = IMG_Load(archivo);
     SDL_Texture *unaTextura = SDL_CreateTextureFromSurface(un_render, superficie);
     if (!unaTextura || !superficie) {
-        throw std::runtime_error("no se creo la textura")
+        throw std::runtime_error("no se creo la textura");
     }
     SDL_FreeSurface(superficie);
     this->textura = unaTextura;

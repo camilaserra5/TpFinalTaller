@@ -4,9 +4,10 @@
 
 #define LOWER_TEXTURE_ROOT IMGS_DIR INFERIOR_IMG
 #define FONT FONTS_DIR NOUGAT_FONT
+#define RUTA_SONIDO_CANION SOUNDS_DIR MUERTE
 
 InfoJugador::InfoJugador(SDL_Renderer *render, int vida, int nivel, int puntaje,
-                         int cantVidas, int balas) {
+                         int cantVidas, int balas){
     Fonts fuentes;
     fuentes.addFont("info", FONT, 35);
     SDL_Color blanco = {255, 255, 255, 255};
