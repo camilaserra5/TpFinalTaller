@@ -23,6 +23,9 @@ void ClientEventSender::run() {
             std::cerr << "senderr\n";
 
             this->cerrar();
+        } catch (...){
+            std::cout << "error desconocido\n";
+            this->cerrar();
         }
     }
     std::cerr<< "CORTO EJECUCION DE SENDER\n";
