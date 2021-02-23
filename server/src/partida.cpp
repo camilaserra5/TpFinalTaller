@@ -189,25 +189,27 @@ void Partida::run() {
             std::chrono::duration<double> sleepTime = tiempoPartida - (fin - inicio);
             std::this_thread::sleep_for(sleepTime);
 
-            auto iteratorAct = ultAct.begin();
-            while (iteratorAct != ultAct.end()) {
-                if ((*iteratorAct) != nullptr) {
-                    std::cerr << "borro act : " << (*iteratorAct)->obtenerId() << std::endl;
-                    delete (*iteratorAct);
+            std::cerr << "SIZE: " << ultAct.size() << std::endl;
+            for (auto &actu: this->ultAct) {
+                if (actu != NULL) {
+                    delete actu;
+                    actu = NULL;
                 }
             }
-            ultAct.clear();
+            std::vector<Actualizacion *> temp;
+            ultAct.swap(temp);
+            std::cerr << "SIZE: " << ultAct.size() << std::endl;
         } catch (...) {
             std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
-            auto iteratorAct = ultAct.begin();
-            while (iteratorAct != ultAct.end()) {
-                if ((*iteratorAct) != nullptr) {
-                    std::cerr << "borro act : " << (*iteratorAct)->obtenerId() << std::endl;
-                    delete (*iteratorAct);
+            for (auto &actu: this->ultAct) {
+                if (actu != NULL) {
+                    delete actu;
+                    actu = NULL;
                 }
             }
-            ultAct.clear();
+            std::vector<Actualizacion *> temp;
+            ultAct.swap(temp);
         }
     }
     std::cerr << "sigue corriendo: " << this->sigue_corriendo << std::endl;
