@@ -57,23 +57,23 @@ Item *ActualizacionAgarroItem::deserializarItem(std::vector<char> &informacion) 
                                           informacion.end());
     posicion.deserializar(posicionSerializado);
     if (idTipo == ObjetosJuego::obtenerTipoPorNombre("balas").getType()) {
-        return new Balas(posicion, 5, id,10);
+        return new Balas(posicion, 0, id,0);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("comida").getType()) {
-        return new Comida(posicion, id,10,100);
+        return new Comida(posicion, id,0,0);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("kitsMedicos").getType()) {
-        return new KitsMedicos(posicion, id,100,20);
+        return new KitsMedicos(posicion, id,0,0);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("llave").getType()) {
         return new Llave(posicion, id);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("sangre").getType()) {
-        return new Sangre(posicion, id, 10,10);
+        return new Sangre(posicion, id, 0,0);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("cruz").getType()) {
-        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("cruz"), PUNTOS_CRUZ, posicion);
+        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("cruz"), 0, posicion);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("copa").getType()) {
-        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("copa"), PUNTOS_COPA, posicion);
+        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("copa"), 0, posicion);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("cofre").getType()) {
-        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("cofre"), PUNTOS_COFRE, posicion);
+        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("cofre"), 0, posicion);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("corona").getType()) {
-        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("corona"), PUNTOS_CORONA, posicion);
+        return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("corona"), 0, posicion);
     }
     return new NoItem(posicion, idTipo);
 }
