@@ -47,11 +47,25 @@ mapas:
     file: mapa1.yaml
   - name: mapa2
     file: mapa2.yaml
-vRotacion:
-vAvance:
-vidaMax:
-balasPorRafaga:
-maxBalas:
+vRotacion: 
+vAvance: 
+vidaMax: 
+balasPorRafagaAmetralladora: 
+balasPorRafagaCanion: 
+balasPorRafagaPistola: 
+maxBalas: 
+cantidadBalasInicial: 
+distanciaMaxAcuchillable: 
+puntos_cruz: 
+punto_copa: 
+punto_cofre: 
+puntos_corona: 
+cantidadVidas: 
+puntos_balas: 
+puntos_matar: 
+danio_maximo_arma: 
+precisionPistola: 
+probalidad_acierto: 
 ```
 
 Para el cliente hay un archivo de configuración opcional. Los valores por defecto son los siguientes. Para sobreescribirlo, crear un yaml con los valores deseados y pasarselo al correr el cliente.
@@ -87,19 +101,6 @@ Una vez instalado correctamente, y ya teniendo el archivo de configuración, só
 ```bash
 foo@bar:~$ server config.yaml
 ```
-
-Además, hay un servidor disponible en la siguiente dirección:
-- 3.230.172.100
-- 8081
-
-Este servidor cuenta con los siguientes mapas cargados:
-- mapa1
-- mapa2
-- mapa3
-- mapa4
-- mapa5
-- mapa6
-- mapa7
 
 ### Cliente
 Una vez levantado el cliente, se verá la pantalla de log in para conectarse al servidor deseado. Ingresar ip y puerto correspondiente:
