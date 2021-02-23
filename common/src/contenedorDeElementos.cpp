@@ -8,7 +8,6 @@ std::vector<char> ContenedorDeElementos::serializar() {
     std::vector<char> informacion;
     std::vector<char> aux(4);
     aux = numberToCharArray(elementos.size());
-    std::cerr << "serializ contenedorr" << elementos.size();
     informacion.insert(informacion.end(), aux.begin(), aux.end());
     for (auto &elemento : elementos) {
         std::vector<char> itemSerializado = ((Item *) elemento)->serializar();
@@ -39,28 +38,23 @@ Puerta deserializarPuerta(std::vector<char> &informacion) {
     memcpy(number, sub.data(), 4);
     uint32_t *buf = (uint32_t *) number;
     int fila = ntohl(*buf); //fila
-    std::cerr << "puerta fila: " << fila << "\n";
     idx += 4;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     char number2[4];
     memcpy(number2, sub.data(), 4);
     uint32_t *buf2 = (uint32_t *) number2;
     int columna = ntohl(*buf2); // colmuna
-    std::cerr << "puerta columna: " << columna << "\n";
     idx += 4;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     char number3[4];
     memcpy(number3, sub.data(), 4);
     uint32_t *buf3 = (uint32_t *) number3;
     bool abierta = ntohl(*buf3); // puerta esta abierta;
-    std::cerr << "puerta abierta: " << abierta << "\n";
     idx += 4;
     Posicion posicion;
     std::vector<char> posicionSerializado(informacion.begin() + idx,
                                           informacion.end());
     posicion.deserializar(posicionSerializado);
-    std::cerr << "puerta posx: " << posicion.pixelesEnX() << "\n";
-    std::cerr << "puerta posy: " << posicion.pixelesEnY() << "\n";
     Puerta puerta(false, posicion, fila, columna, abierta);
     return puerta;
 }
@@ -139,28 +133,24 @@ void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
         Puerta puerta = deserializarPuerta(puertaSerializada);
         this->puertas.push_back(puerta);
     }
-    std::cerr << "acam llego joya\n";
 }
-
 
 std::vector<Item *> &ContenedorDeElementos::obtenerItems() {
     return this->elementos;
 }
 
-
 Puerta &ContenedorDeElementos::puertaMasCercana(Posicion &posicionJugador,
                                                 double &distancia) {
-    int cantPuertas = this->puertas.size();
-    int posPuertaMasCercana = 0;
+    Puerta& puertaMasCercana = this->puertas[0];
     distancia = this->puertas[0].distanciaA(posicionJugador);
-    for (int i = 1; i < cantPuertas; i++) {
-        double distanciaParcial = this->puertas[i].distanciaA(posicionJugador);
+    for (auto &puerta : this->puertas) {
+        double distanciaParcial = puerta.distanciaA(posicionJugador);
         if (distanciaParcial < distancia) {
             distancia = distanciaParcial;
-            posPuertaMasCercana = i;
+            puertaMasCercana = puerta;
         }
     }
-    return this->puertas[posPuertaMasCercana];
+    return puertaMasCercana;
 }
 
 void ContenedorDeElementos::agregarElemento(Item *item) {
@@ -169,65 +159,58 @@ void ContenedorDeElementos::agregarElemento(Item *item) {
 
 void ContenedorDeElementos::sacarElementoDePosicion(Posicion &posicion) {
     std::vector<Item *> elementosFiltrados;
-    int cantidadElementos = this->elementos.size();
-    for (int i = 0; i < cantidadElementos; i++) {
-        if (this->elementos[i]->obtenerPosicion() == posicion) {
-            delete this->elementos[i];
+    for (auto &elem : this->elementos) {
+        if (elem->obtenerPosicion() == posicion) {
+            delete elem;
         } else {
-            elementosFiltrados.push_back(this->elementos[i]);
+            elementosFiltrados.push_back(elem);
         }
     }
     this->elementos.swap(elementosFiltrados);
 }
-ContenedorDeElementos::ContenedorDeElementos(ContenedorDeElementos&& contenedor){
+
+ContenedorDeElementos::ContenedorDeElementos(ContenedorDeElementos &&contenedor) {
     this->elementos = contenedor.elementos;
     this->puertas = contenedor.puertas;
     this->configuracion = contenedor.configuracion;
     int cantidadDeElementos = contenedor.elementos.size();
-    for (int i = 0; i < cantidadDeElementos; i++){
-      elementos[i] = NULL;
+    for (int i = 0; i < cantidadDeElementos; i++) {
+        elementos[i] = nullptr;
     }
 }
+
 ContenedorDeElementos::ContenedorDeElementos() :
         elementos() {}
 
-ContenedorDeElementos::ContenedorDeElementos(ConfiguracionPartida& configuracion) :
+ContenedorDeElementos::ContenedorDeElementos(ConfiguracionPartida &configuracion) :
         elementos(),
         configuracion(configuracion) {}
 
 ContenedorDeElementos::~ContenedorDeElementos() {
     int cantidadElementos = this->elementos.size();
     for (int i = 0; i < cantidadElementos; i++) {
-        if (this->elementos[i] != NULL) delete this->elementos[i];
+        if (this->elementos[i] != nullptr) delete this->elementos[i];
     }
 }
 
 Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
-    int cantidadElementos = this->elementos.size();
-    std::cerr << "entre a buscar elemento\n";
-    for (int i = 0; i < cantidadElementos; i++) {
-
-        float radio = this->configuracion.obtenerVAvance()*2;
-        std::cerr << "v avabce " << radio;
-        if (this->elementos[i]->estaCerca(posx, posy, radio)) {
-            std::cerr << "chiiii" <<std::endl;
-            return this->elementos[i];
+    for (auto &elem : this->elementos) {
+        float radio = this->configuracion.obtenerVAvance() * 2;
+        if (elem->estaCerca(posx, posy, radio)) {
+            return elem;
         }
     }
     return nullptr;
 }
 
 bool ContenedorDeElementos::hayPuertas() {
-    return (this->puertas.size() > 0);
+    return this->puertas.empty();
 }
 
 Puerta &ContenedorDeElementos::obtenerPuertaEn(int &fila, int &columna) {
-    int cantidadDePuertas = this->puertas.size();
-    int puertaEnPos = 0;
-    for (int i = 0; i < cantidadDePuertas; i++) {
-        if (this->puertas[i].estaEnPosDelMapa(fila, columna)) {
-            puertaEnPos = i;
+    for (auto &puerta : this->puertas) {
+        if (puerta.estaEnPosDelMapa(fila, columna)) {
+            return puerta;
         }
     }
-    return this->puertas[puertaEnPos];
 }

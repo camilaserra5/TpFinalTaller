@@ -64,16 +64,8 @@ int Posicion::pixelesEnY() {
 // le creo un "cuerpo"(circulo) al objeto y veo si el otro objeto esta dentro de ese circulo;
 //ecuacion (x2 -x1)² + (y2 - y1)² < radio²
 bool Posicion::estaCerca(int &posx, int &posy, float radio) {
-    //  std::cerr << "posxJugador: " << posx << "posyJUgador: " << posy << "\n";
     Posicion posicionJugador(posx, posy, 0);
-    int distancia = this->distanciaA(posicionJugador);
-    std::cerr << "distancia: " << distancia  << " radio:" << radio<< std::endl;
-    if (distancia < radio) {
-        //      std::cerr << "estoy en rango\n";
-
-        return true;
-    }
-    return false;
+    return this->distanciaA(posicionJugador) <= radio;
 }
 
 void Posicion::rotar(float anguloRotacion) {

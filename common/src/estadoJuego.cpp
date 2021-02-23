@@ -107,9 +107,7 @@ std::vector<Actualizacion *> EstadoJuego::verificarMovimientoJugador(Jugador *ju
     if (puedo_moverme(this->mapa, xFinal, yFinal, jugador)) {
         Item *item = verificarItems(xFinal, yFinal);
         if (item != nullptr) {
-            std::cerr << "tengo itemmm ";
             bool obtuvoBeneficio = item->obtenerBeneficio(jugador);
-            std::cerr << "obtuvoBeneficio " << obtuvoBeneficio << std::endl;
             Actualizacion *obtengoItem = new ActualizacionAgarroItem(jugador, item->serializar());
             actualizaciones.push_back(obtengoItem);
             if (obtuvoBeneficio) {
@@ -118,7 +116,6 @@ std::vector<Actualizacion *> EstadoJuego::verificarMovimientoJugador(Jugador *ju
         }
         jugador->moverse(xFinal, yFinal);
     }
-    std::cerr << "jugador:  posx: " << jugador->posEnX() << "posy: " << jugador->posEnY() << "\n";
     actualizaciones.push_back(new ActualizacionMovimiento(jugador));
     return actualizaciones;
 }

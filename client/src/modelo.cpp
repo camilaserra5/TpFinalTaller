@@ -250,7 +250,6 @@ void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
             this->entidades.at(id)->settear_estado(posx, posy);
         } catch (std::out_of_range &e) {
             objeto = this->crearObjeto(tipo);
-            std::cerr << " creo objetou posx " << posx << " posy " << posy;
             this->entidades.insert({id, objeto});
             this->entidades.at(id)->settear_estado(posx, posy);
         }
@@ -290,8 +289,6 @@ ObjetoJuego *Modelo::crearObjeto(Type tipo) {
                       0);
         return new ObjetoJuego(std::move(sprite));
     }
-    std::cerr << " sip  x " << coord.at(tipo.getName()).first <<
-    " y " << coord.at(tipo.getName()).second << std::endl;
     Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, coord.at(tipo.getName()).first,
                   coord.at(tipo.getName()).second,
                   SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO);
