@@ -15,10 +15,11 @@ void Server_Event_Sender::run() {
             this->cerrar();
         } catch (std::exception &exc) {
           //  std::cerr << "otro error\n";
-          //  std::cout << exc.what() << std::endl;
+            std::cout << exc.what() << std::endl;
             this->cerrar();
         } catch(...){
             std::cout << "error desconocido\n";
+            this->cerrar();
         }
 
     }

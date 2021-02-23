@@ -79,7 +79,9 @@ void ClientEventReceiver::run() {
             std::cerr << "receiverr\n";
 
             this->cerrar();
-
+        } catch (...) {
+            std::cout << "error desconocido\n";
+            this->cerrar();
         }
     }
     std::cerr<< "CORTO EJECUCION DE RECEIVER\n";

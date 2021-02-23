@@ -45,7 +45,7 @@ class ObjetosJuego {
 public:
     /*
       * carga los objetos en el vector de typos
-    */  
+    */
     static std::vector<Type> obtenerObjetos() {
         std::vector<Type> types;
         types.push_back(Type("empty", TYPE_EMPTY));
@@ -80,7 +80,9 @@ public:
         types.push_back(Type("cuchillo", 27));
         return types;
     }
-
+    /*
+      * devuelve el tipo por medio del id
+    */
     static Type obtenerTipoPorId(int id) {
         for (Type t: obtenerObjetos()) {
             if (t.getType() == id)
@@ -89,7 +91,9 @@ public:
         return Type("noItem", 18);
     }
 
-
+    /*
+      * devuelve el tipo por medio del nombre
+    */
     static Type obtenerTipoPorNombre(std::string nombre) {
         for (Type t: obtenerObjetos()) {
             if (t.getName() == nombre)
@@ -99,7 +103,7 @@ public:
     }
 
 private:
-    ObjetosJuego() {} //??
+    ObjetosJuego() {}
 };
 
 enum class Accion {

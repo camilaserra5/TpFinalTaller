@@ -17,7 +17,7 @@ char JugadorLua::procesar() {
     std::vector<int> posicionesJugadores = estadoJuego.getPosicionesEnemigos(777);
     int cantidadJugadores = posicionesJugadores.size()/2;
 
-    std::string retorno(lua.generarEvento(posicion.front(), posicion.back(), this->estadoJuego.GetMapanumerico(), cantidadJugadores));
+    std::string retorno(lua.generarEvento(posicion.front(), posicion.back(), posicionesJugadores, cantidadJugadores));
     char teclaComando = retorno.at(0);
       std::cerr << "======RETORNO DE PROCESAR: "<< retorno << std::endl;
     return teclaComando;
