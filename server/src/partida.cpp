@@ -24,8 +24,8 @@ Partida::Partida(Map&& mapa, int cantJugadoresPosibles, ConfiguracionPartida con
 
 Partida::~Partida() {
     // libero todos los comandos que no pudieron mandarse
-    /*std::cerr << "entre al destructor de partida\n";
-    bool termine = false;
+    std::cerr << "entre al destructor de partida\n";
+  /*  bool termine = false;
     while (!termine) {
         try {
             Comando *comando = cola_comandos.obtener_dato();

@@ -98,17 +98,18 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {//cambiar por swap
     std::map<std::string, Partida *>::iterator it;
     std::cerr << "cantidad de partidas: " << this->partidas.size() << std::endl;
     it = this->partidas.begin();
+    std::map<std::string, Partida *> aux;
     while (it != this->partidas.end()) {
         std::cerr << "verifico una partida\n";
         if (it->second->terminoPartida()) {
             std::cerr << "elimino partida: " << it->first << std::endl;
             it->second->join();
-            delete it->second;
-            it = this->partidas.erase(it);
         } else {
-            ++it;
+          aux[it->first] = it->second;
         }
+        ++it;
     }
+    this->partidas.swap(aux);
     std::cerr << "salgo de eliminarPartidas\n";
 }
 void ManejadorPartidas::cerrar(){
@@ -117,12 +118,16 @@ void ManejadorPartidas::cerrar(){
     it = this->partidas.begin();
     while (it != this->partidas.end()) {
         it->second->join();
-        delete it->second;
-        ++it;
+        //delete it->second;
+        //++it;
     }
     std::cerr << "salgo de eliminarPartidasDEfinitaviamete\n";
 }
 ManejadorPartidas::~ManejadorPartidas() {
+  std::map<std::string, Partida *>::iterator it;
+  for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
+    delete it->second;
+  }
 
 }
 
