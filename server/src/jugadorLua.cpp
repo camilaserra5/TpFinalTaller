@@ -12,8 +12,12 @@ void JugadorLua::instanciarJugador(std::string &nombre) {
 }
 
 char JugadorLua::procesar() {
-    std::vector<int> posicion = estadoJuego.getPosicionJugador(777);
-    std::string retorno(lua.generarEvento(posicion.front(), posicion.back()));
+    std::vector<int> posicion = estadoJuego.getPosicionEspecificaJugador(777);
+    
+    std::vector<int> posicionesJugadores = estadoJuego.getPosicionesEnemigos(777);
+    int cantidadJugadores = posicionesJugadores.size()/2;
+
+    std::string retorno(lua.generarEvento(posicion.front(), posicion.back(), this->estadoJuego.GetMapanumerico(), cantidadJugadores));
     char teclaComando = retorno.at(0);
       std::cerr << "======RETORNO DE PROCESAR: "<< retorno << std::endl;
     return teclaComando;
