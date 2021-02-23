@@ -25,25 +25,46 @@ private:
     void procesar_pedido();
 
 public:
+    /*
+      * CReara la clase thclient dejandola valia para uso
+      * sus parametros deben ser valido y estar inicializados
+    */
     ThClient(Socket &&un_socket, std::string rutaMapas,
              std::map<std::string, std::string> &mapas, int id);
-
+    /*
+      * devuelve el comando inical si se trata de un crear partida o
+      * unirse a una partida
+    */
     Comando *obtenerComandoInicial(std::vector<char> info);
-
+    /*
+      * envia el id del juagdor por medio del protocolo
+    */
     void enviarIdJugador();
-
+    /*
+      * agrega la cola de eventos
+    */
     void agregarColaEventos(ProtectedQueue<Comando *> &cola_comandos);
-
+    /*
+      * lanza los dos hilos de enviador y recibidor
+    */
     void run() override;
-
+    /*
+      * devuelve true si el hilo sigue corriendo o false en caso contrario
+    */
     bool is_dead();
-
+    /*
+      * frena al cliente
+    */
     void stop();
-
+    /*
+      * devuelve el id del cliente que le asigno el servior
+    */
     int getId() {
         return this->id;
     }
-
+    /*
+      * envia las actualizaciones al enviador 
+    */
     void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones);
 
     ~ThClient();
