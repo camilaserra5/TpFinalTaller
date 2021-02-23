@@ -5,6 +5,8 @@
 ### Requerimientos de software
 La instalación del programa se debe realizar mediante la instalación del paquete proporcionado. El programa puede ser corrido en cualquier distribución de Linux.
 
+![instalador](wolfestein-2.0.0-Linux.deb)
+
 Si se quisiese compilar el código fuente se deberán instalar estos paquetes a través de apt.
 * gtkmm-3.0-dev
 * libsdl2-dev
