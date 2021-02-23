@@ -80,9 +80,10 @@ Modelo::renderizarObjeto(ObjetoDibujable *objeto, int &alturaSprite,
                          int &x, int &drawStart, double &distanciaObjeto) {
     int anchoSprite = objeto->obtenerAnchura();
     //float drawEnd;
+    int tamanioZBuffer = zbuffer.size();
     for (int i = 0; i < anchoSprite; i++) {
         int posBuffer = x + i;
-        if (this->zbuffer[posBuffer] > distanciaObjeto) {
+        if ((0 <= posBuffer && posBuffer < tamanioZBuffer) && this->zbuffer[posBuffer] > distanciaObjeto) {
             if (alturaSprite >= ALTURA_CANVAS) {
                 drawStart = 100;
             } else {
