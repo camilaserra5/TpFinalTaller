@@ -47,6 +47,13 @@ Comando *ThClient::obtenerComandoInicial(std::vector<char> partidas) {
     return nullptr;
 }
 
+void ThClient::enviarError() {
+    std::vector<char> ret(4);
+    unsigned int size = htonl(-1);
+    memcpy(ret.data(), &size, 4);
+    this->protocolo->enviar(ret);
+}
+
 void ThClient::enviarIdJugador() {
     std::vector<char> ret(4);
     unsigned int size = htonl(this->id);

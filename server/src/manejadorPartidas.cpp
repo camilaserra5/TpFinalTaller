@@ -7,7 +7,7 @@
 #include "comandos/unirseAPartida.h"
 
 ManejadorPartidas::ManejadorPartidas(std::string rutaMapas, std::map<std::string, std::string> &mapas,
-                                     ConfiguracionPartida& configuracion) :
+                                     ConfiguracionPartida &configuracion) :
         partidas(),
         esta_corriendo(true),
         mapas(mapas),
@@ -21,10 +21,12 @@ void ManejadorPartidas::nuevoCliente(ThClient *cliente) {
         return;
     }
     if (auto crear = dynamic_cast<CrearPartida *>(comando)) {
-        this->crearPartida(crear->getNombreJugador(), crear->getCantJugadores(),
-               crear->getNombrePartida(), crear->getRutaArchivo(), crear->getScreenWidth());
-        //CUANDO PONEN MAL EL MAPA ESTE CREAR PARTIDA SALE CON UN TROW DEL ERROR Y LUEGO SIGUE A AGREGAR A CLIENTE
-        //PERO CON COSAS INVALIDAS.
+        if (!this->crearPartida(crear->getNombreJugador(), crear->getCantJugadores(),
+                                crear->getNombrePartida(), crear->getRutaArchivo(), crear->getScreenWidth())) {
+            cliente->enviarError();
+            delete comando;
+            return;
+        }
         this->agregarClienteAPartida(crear->getNombreJugador(), crear->getNombrePartida(), cliente);
     }
     if (auto unirse = dynamic_cast<UnirseAPartida *>(comando)) {
@@ -53,7 +55,7 @@ Map ManejadorPartidas::buscarMapa(std::string archivoMapa, int &anchoPantalla) {
         if (pathMapas.empty())
             pathMapas = MAPS_DIR;
 
-        return std::move(MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla,configuracion));
+        return std::move(MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla, configuracion));
         return MapTranslator::yamlToMap(YAML::LoadFile(pathMapas + ruta), anchoPantalla, configuracion);
     } catch (YAML::BadFile &badFile) {
         std::cerr << "Error buscando mapa" << std::endl;
@@ -61,13 +63,13 @@ Map ManejadorPartidas::buscarMapa(std::string archivoMapa, int &anchoPantalla) {
     }
 }
 
-void ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugadores,
+bool ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugadores,
                                      std::string &nombre_partida, std::string &archivoMapa,
                                      int &screenWidth) {
     if (partidas.count(nombre_partida) > 0) {
         if (partidas.at(nombre_partida)->terminoPartida() || partidas.at(nombre_partida)->yaArranco()) {
             std::cerr << "Ya existe la partida con nombre: " << nombre_partida << std::endl;
-            return;
+            return false;
         }
     }
     try {
@@ -77,7 +79,9 @@ void ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugad
         this->partidas.insert({nombre_partida, servidor});
     } catch (InvalidMapException &e) {
         std::cerr << "Error creando partida";
+        return false;
     }
+    return true;
 }
 
 void ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
@@ -112,7 +116,8 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {//cambiar por swap
     this->partidas.swap(aux);
     std::cerr << "salgo de eliminarPartidas\n";
 }
-void ManejadorPartidas::cerrar(){
+
+void ManejadorPartidas::cerrar() {
     std::map<std::string, Partida *>::iterator it;
     std::cerr << "cantidad de partidas: " << this->partidas.size() << std::endl;
     it = this->partidas.begin();
@@ -123,6 +128,7 @@ void ManejadorPartidas::cerrar(){
     }
     std::cerr << "salgo de eliminarPartidasDEfinitaviamete\n";
 }
+
 ManejadorPartidas::~ManejadorPartidas() {
   /*std::map<std::string, Partida *>::iterator it;
   for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {

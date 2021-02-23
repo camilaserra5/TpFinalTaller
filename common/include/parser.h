@@ -40,6 +40,10 @@ public:
     */
     int obtenerAnchoPantallaJuego();
     /*
+      * devuelve el alto de la pantalla juego
+    */
+    int obtenerAltoPantallaJuego();
+    /*
       * deuvleve los parametros de configiuracion
     */
     ConfiguracionPartida obtenerParametrosDeConfiguracion();

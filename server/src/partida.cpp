@@ -201,6 +201,7 @@ void Partida::run() {
             }
         }
     }
+    std::cerr << "sigue corriendo: " << this->sigue_corriendo << std::endl;
     delete act;
 }
 

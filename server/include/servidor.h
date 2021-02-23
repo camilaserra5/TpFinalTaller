@@ -24,12 +24,22 @@ private:
     Parser &parser;
     Aceptador aceptador;
 public:
+    /*
+      * creara la clase server djenadola valida para uso
+      * sus parametros deben estar inicalizados
+    */
     Servidor(Parser &parser, ConfiguracionPartida &config);
-
+    /*
+      * levanta al servidor
+    */
     void correr();
-
+    /*
+      * cierra el socket y hace join del aceptador
+    */
     void cerrar();
-
+    /*
+      * liberara la clase servidor 
+    */
     ~Servidor();
 };
 
