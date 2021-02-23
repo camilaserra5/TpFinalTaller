@@ -60,6 +60,10 @@ ConfiguracionPartida Parser::obtenerParametrosDeConfiguracion() {
     int puntosMatar = this->config["puntos_matar"].as<int>();
     int puntosBalas = this->config["puntos_balas"].as<int>();
     int danio_maximo_arma = this->config["danio_maximo_arma"].as<int>();
+    int puntosVidaComida = this->config["puntosVidaComida"].as<int>();
+    int balasEnMapa = this->config["balasEnMapas"].as<int>();
+    int puntosKits = this->config["puntosVidaKits"].as<int>();
+    int puntosSangre = this->config["puntosVidaSangre"].as<int>();
     ConfiguracionPartida config;
     config.setVRotacion(vRotacion);
     config.setVAvance(vAvance);
@@ -78,6 +82,9 @@ ConfiguracionPartida Parser::obtenerParametrosDeConfiguracion() {
     config.setPuntosMatar(puntosMatar);
     config.setPuntosBalas(puntosBalas);
     config.setDanioMaximoArma(danio_maximo_arma);
-
+    config.setPuntosVidaComida(puntosVidaComida);
+    config.setBalasEnMapa(balasEnMapa);
+    config.setPuntosDeVidaKits(puntosKits);
+    config.setPuntosDeVidaSangre(puntosSangre);
     return config;
 }

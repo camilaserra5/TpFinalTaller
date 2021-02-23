@@ -179,7 +179,7 @@ void LogInWindow::mostrarMenuPartidas(SDL_Renderer *renderer, Fonts fonts,
             } else if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.sym == SDLK_DOWN) {
                     int cantPartidas = partidas.size();
-                    if (!partidas.empty() && option <= cantPartidas) {
+                    if (!partidas.empty() && option < cantPartidas) {
                         option++;
                     }
                 }

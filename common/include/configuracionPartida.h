@@ -3,7 +3,7 @@
 
 class ConfiguracionPartida {
 public:
-    
+
     void setVRotacion(float vRotacion);
 
     void setVAvance(float vAvance);
@@ -56,6 +56,8 @@ public:
 
     int getPuntosBalas();
 
+    int getMaxBalas();
+
     int getPuntosMatar();
 
     int getDanioMaximoArma();
@@ -67,6 +69,27 @@ public:
     int getBalasPorRafagaPistola();
 
     void setDanioMaximoArma(int danio_maximo_arma);
+
+    int getPuntosVidaComida();
+
+    int getBalasEnMapa();
+
+    int getPuntosDeVidaKits();
+
+    int getPuntosDeVidaSangre();
+
+    void setPuntosDeVidaKits(int puntosKits);
+
+    void setPuntosDeVidaSangre(int puntosSangre);
+
+    void setPuntosVidaComida(int puntosVidaComida);
+
+    void setBalasEnMapa(int balasEnMapa);
+
+    /*
+getPuntosDeVidaKits 20
+getPuntosDeVidaSangre 1
+    */
 
 private:
     float vRotacion;
@@ -86,6 +109,10 @@ private:
     int puntosMatar;
     int puntosBalas;
     int danio_maximo_arma;
+    int puntosVidaComida;
+    int balasEnMapa;
+    int puntosVidaKits;
+    int puntosVidaSangre;
 };
 
 #endif

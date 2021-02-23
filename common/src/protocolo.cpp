@@ -87,15 +87,15 @@ Item *Protocolo::deserializarItem(std::vector<char> &informacion) {
                                           informacion.end());
     posicion.deserializar(posicionSerializado);
     if (idTipo == ObjetosJuego::obtenerTipoPorNombre("balas").getType()) {
-        return new Balas(posicion, 0, idTipo);
+        return new Balas(posicion, 0, idTipo,0);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("comida").getType()) {
-        return new Comida(posicion, idTipo);
+        return new Comida(posicion, idTipo,0,0);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("kitsMedicos").getType()) {
-        return new KitsMedicos(posicion, idTipo);
+        return new KitsMedicos(posicion, idTipo,0,0);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("llave").getType()) {
         return new Llave(posicion, idTipo);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("sangre").getType()) {
-        return new Sangre(posicion, idTipo);
+        return new Sangre(posicion, idTipo,0,0);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("tesoro").getType()) {
         return new Tesoro(idTipo, ObjetosJuego::obtenerTipoPorNombre("tesoro"), 0, posicion);
     }

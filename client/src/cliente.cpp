@@ -35,6 +35,12 @@ void Cliente::run() {
     int screenWidthLogin = parser.obtenerAnchoPantallaLogin();
     int screenheightLogin = parser.obtenerAltoPantallaLogin();
     int screenWidthGame = parser.obtenerAnchoPantallaJuego();
+    int screenHeightGame = parser.obtenerAltoPantallaJuego();
+  //  int formatoPnatalla = parser.obtenerFormato(); para full screen capaz
+  //pantalla de highscrore tamanio
+  //tamanios de letras
+
+
     LogInWindow logIn(screenWidthLogin, screenheightLogin, screenWidthGame);
     logIn.run();
     int idJugador = logIn.obtenerIdJugador();
@@ -48,7 +54,7 @@ void Cliente::run() {
     //ambient_music.play(-1);
 
     Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidthGame,
-                    600, /*SDL_WINDOW_FULLSCREEN*/0);
+                    screenHeightGame, /*SDL_WINDOW_FULLSCREEN*/0);
     Modelo modelo(ventana, idJugador, updates);
 
     ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);

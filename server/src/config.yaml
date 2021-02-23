@@ -23,7 +23,7 @@ vidaMax: 100
 balasPorRafagaAmetralladora: 5
 balasPorRafagaCanion: 1
 balasPorRafagaPistola: 1
-maxBalas: 8 #a cheqeuar
+maxBalas: 25
 cantidadBalasInicial: 8
 distanciaMaxAcuchillable: 20.0
 puntos_cruz: 10.0
@@ -36,3 +36,7 @@ puntos_matar: 10
 danio_maximo_arma: 10
 precisionPistola: 10
 probalidad_acierto: 10
+puntosVidaComida: 10
+balasEnMapa: 5
+puntosVidaKits: 20
+puntosVidaSangre: 1
