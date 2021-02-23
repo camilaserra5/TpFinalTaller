@@ -62,16 +62,10 @@ const char *ManejadorLua::generarEvento(int &posx, int &posy,
     lua_pushnumber(interprete, cantJugadores);
 
     lua_newtable(interprete);//tabla esta en el top del stack
-    std::cerr << "CANT JUGADORES" << cantJugadores <<std::endl;
     for (int i = 0; i < cantJugadores*2; i++) {
         lua_pushnumber(interprete, posiciones_jugadores.at(i));//ahora hay un numero arriba de todo
-        std::cerr << "HOLI. ITERACION NUMERO:"<< i << std::endl;
         lua_rawseti(interprete,-2,i+1); //inserta el numero en la tabla y la tabla vuelve a estar en el top
     }
-    if (!lua_istable(interprete, -1)){
-        std::cerr << "=== EL TOP NO ES UNA TABLAAAAAAAA!==== " << std::endl;
-    }
-    std::cerr << "=== APUNTO DE LLAMAR LUA==== " << std::endl;
     lua_pcall(interprete, 4, 1, 0);
     const char *tecla = lua_tostring(interprete, 1);
     lua_pop(interprete, 1); // elimina
