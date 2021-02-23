@@ -262,7 +262,7 @@ std::vector<std::vector<int>> EstadoJuego::GetMapanumerico() {
     return this->mapa.getMapanumerico();
 }
 
-std::vector<int> EstadoJuego::getPosicionJugador(int idJugador) {
+std::vector<int> EstadoJuego::getPosicionEspecificaJugador(int idJugador) {
     Jugador *jugador = this->jugadores.at(idJugador);
     int posEnMapaJugadorx = jugador->posEnX() / mapa.getLadoCelda();
     int posEnMapaJugadory = jugador->posEnY() / mapa.getLadoCelda();
@@ -271,3 +271,17 @@ std::vector<int> EstadoJuego::getPosicionJugador(int idJugador) {
     posiciones.push_back(posEnMapaJugadory);
     return posiciones;
 }
+
+std::vector<int> EstadoJuego::getPosicionesEnemigos(int idJugador) {
+    std::vector<int> posicionesmultiples;
+    for ( auto it = jugadores.begin(); it != jugadores.end(); ++it  ){
+        int id= it->first;
+        if(id != idJugador){
+            Jugador* jugador = it->second;
+            posicionesmultiples.push_back(jugador->posEnX());
+            posicionesmultiples.push_back(jugador->posEnY());
+        }
+    }
+    return posicionesmultiples;
+}
+

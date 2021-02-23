@@ -15,10 +15,14 @@ Ventana::~Ventana() {
 }
 
 void Ventana::cerrar() {
-    SDL_DestroyRenderer(this->render);
+  if (this->ventana != NULL){
     SDL_DestroyWindow(this->ventana);
-    this->render = NULL;
     this->ventana = NULL;
+  }
+  if (this->render != NULL){
+    SDL_DestroyRenderer(this->render);
+    this->render = NULL;
+  }
 }
 
 SDL_Renderer *Ventana::obtener_render() {

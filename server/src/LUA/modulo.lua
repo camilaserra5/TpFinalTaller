@@ -10,17 +10,17 @@ next_position = {
 --Funcion que verifica si puede avanzar
 --Nota: to do lo que sea distinto a 'false' 'nil' es tomado como true;
 function proximo_movimiento(pos_x, pos_y)
-    if (mapa[pos_x + 1][pos_y] == 0) then
-        return next_position[0]
-    end
-    if (mapa[pos_x - 1][pos_y] == 0) then
-        return next_position[1]
-    end
     if (mapa[pos_x][pos_y + 1] == 0) then
-        return next_position[2]
+        return next_position[1]
     end
     if (mapa[pos_x][pos_y - 1] == 0) then
         return next_position[3]
+    end
+    if (mapa[pos_x - 1][pos_y] == 0) then
+        return next_position[0]
+    end
+    if (mapa[pos_x + 1][pos_y] == 0) then
+        return next_position[2]
     end
 end
 
@@ -33,6 +33,7 @@ function posicion_enemigo_cerca(pos_x, pos_y)
     for i = pos_x - 1, pos_x + 1, 1 do
         for j = pos_y - 1, pos_y + 1, 1 do
             if (mapa[i][j] >= 100) then
+                print("======ENEMIGO CERCA======")
                 return {posicionX = i, posicionY = j}
             end
         end
@@ -45,7 +46,7 @@ function disparar_al_enemigo()
     return 'p'
 end
 
-function crear_accion(pos_x, pos_y)
+function crear_accion(pos_x, pos_y, cantEnemigos)
     local siguiente_mov = proximo_movimiento(pos_x, pos_y)
     local posicion_enemigo = posicion_enemigo_cerca(pos_x, pos_y)
     if (posicion_enemigo) then

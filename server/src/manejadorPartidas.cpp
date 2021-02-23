@@ -100,7 +100,7 @@ void ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
 void ManejadorPartidas::eliminarPartidasTerminadas() {//cambiar por swap
     std::cerr << "entro a elimianr partidas\n";
     std::map<std::string, Partida *>::iterator it;
-    std::cerr << "cantidad de partidas: " << this->partidas.size() << std::endl;
+    std::cerr << "cantidad de partidas : " << this->partidas.size() << std::endl;
     it = this->partidas.begin();
     std::map<std::string, Partida *> aux;
     while (it != this->partidas.end()) {
@@ -119,12 +119,10 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {//cambiar por swap
 
 void ManejadorPartidas::cerrar() {
     std::map<std::string, Partida *>::iterator it;
-    std::cerr << "cantidad de partidas: " << this->partidas.size() << std::endl;
-    it = this->partidas.begin();
-    while (it != this->partidas.end()) {
+    std::cerr << "cantidad de partidas definitivas: " << this->partidas.size() << std::endl;
+    for (it = this->partidas.begin(); it != this->partidas.end(); ++it){
+        std::cerr << "hago join de partida\n";
         it->second->join();
-        //delete it->second;
-        //++it;
     }
     std::cerr << "salgo de eliminarPartidasDEfinitaviamete\n";
 }
@@ -132,7 +130,7 @@ void ManejadorPartidas::cerrar() {
 ManejadorPartidas::~ManejadorPartidas() {
   std::map<std::string, Partida *>::iterator it;
   for (it = this->partidas.begin(); it != this->partidas.end(); ++it) {
-    delete it->second;
+        delete it->second;
   }
 
 }
