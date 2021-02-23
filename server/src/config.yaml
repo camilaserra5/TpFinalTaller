@@ -34,8 +34,6 @@ cantidadVidas: 2
 puntos_balas: 5
 puntos_matar: 10
 danio_maximo_arma: 10
-precisionPistola: 10
-probalidad_acierto: 10
 puntosVidaComida: 10
 balasEnMapas: 5
 puntosVidaKits: 20
