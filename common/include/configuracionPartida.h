@@ -100,7 +100,7 @@ public:
     int getBalasPorRafagaPistola();
 
     /*settea el danio maximo producido por un arma*/
-    void setDanioMaximoArma();
+    void setDanioMaximoArma(int danio_maximo_arma);
 
     /*devuelve los puntos de vida por comida*/
     int getPuntosVidaComida();
