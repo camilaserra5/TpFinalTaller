@@ -67,7 +67,7 @@ void ThClient::agregarColaEventos(ProtectedQueue<Comando *> &cola_comandos) {
 ThClient::~ThClient() {
     delete this->protocolo;
     if (this->enviador != NULL) delete this->enviador;
-    if (this->recibidor != NULL) delete this->recibidor;//chequeo immortante porque si no se crearon no se tienen que destruir
+    if (this->recibidor != NULL) delete this->recibidor;
 }
 
 void ThClient::stop() {

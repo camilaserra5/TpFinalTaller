@@ -92,7 +92,6 @@ private:
     void procesar_comandos(EstadoJuego &estadoJuego);
 
     ProtectedQueue<Comando *> cola_comandos;
-    //BlockingQueue<Actualizacion *> cola_actualizaciones;
     EstadoJuego estadoJuego;
     int cantJugadoresPosibles;
     int cantJugadoresAgregados = 0;
@@ -100,7 +99,6 @@ private:
     std::atomic<bool> arrancoPartida;
     std::map<int, ThClient *> clientes;
     std::vector<Actualizacion *> ultAct;
-    //JugadorLua jugadorLua;
     /*
       * genera comandos del jugador lua
     */

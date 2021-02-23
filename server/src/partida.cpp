@@ -14,7 +14,6 @@
 
 #define LUA MODULO_LUA "modulo.lua"
 
-// en si recibe un archivo yaml y luego sereializa;
 Partida::Partida(Map &&mapa, int cantJugadoresPosibles, ConfiguracionPartida configuracion) :
         cola_comandos(),
         estadoJuego(std::move(mapa), configuracion),
@@ -23,7 +22,6 @@ Partida::Partida(Map &&mapa, int cantJugadoresPosibles, ConfiguracionPartida con
         arrancoPartida(false) {}
 
 Partida::~Partida() {
-    // libero todos los comandos que no pudieron mandarse
     bool termine = false;
     while (!termine) {
         try {
