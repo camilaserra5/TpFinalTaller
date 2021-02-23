@@ -24,6 +24,7 @@ Partida::Partida(Map&& mapa, int cantJugadoresPosibles, ConfiguracionPartida con
 
 Partida::~Partida() {
     // libero todos los comandos que no pudieron mandarse
+
     std::cerr << "entre al destructor de partida\n";
     bool termine = false;
     while (!termine) {
@@ -189,15 +190,19 @@ void Partida::run() {
             std::this_thread::sleep_for(sleepTime);
 
             for (auto &actu : this->ultAct) {
-                std::cerr << "borro :" << actu->obtenerId() << std::endl;
-                delete actu;
+                if (actu != NULL) {
+                  delete actu;
+                  actu = NULL;
+                }
             }
         } catch (...) {
             std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
             for (auto &actu : this->ultAct) {
-                std::cerr << "borro :" << actu->obtenerId() << std::endl;
+              if (actu != NULL) {
                 delete actu;
+                actu = NULL;
+              }
             }
         }
     }
