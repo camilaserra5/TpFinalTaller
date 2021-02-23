@@ -15,7 +15,7 @@
 #define LUA MODULO_LUA "modulo.lua"
 
 // en si recibe un archivo yaml y luego sereializa;
-Partida::Partida(Map&& mapa, int cantJugadoresPosibles, ConfiguracionPartida configuracion) :
+Partida::Partida(Map &&mapa, int cantJugadoresPosibles, ConfiguracionPartida configuracion) :
         cola_comandos(),
         estadoJuego(std::move(mapa), configuracion),
         cantJugadoresPosibles(cantJugadoresPosibles),
@@ -106,7 +106,7 @@ void Partida::enviar_actualizaciones(std::vector<Actualizacion *> actualizacione
             it->second->enviar_actualizaciones(actualizaciones);
         }
     }
-    this->ultAct = actualizaciones;
+    this->ultAct.insert(this->ultAct.end(), actualizaciones.begin(), actualizaciones.end());
 
 }
 
@@ -165,7 +165,7 @@ void Partida::run() {
     actualizaciones.push_back(act);
     this->enviar_actualizaciones(actualizaciones);
 
-    std::chrono::duration<double> tiempoPartida(3);
+    std::chrono::duration<double> tiempoPartida(1.5);
 
 
     while (this->sigue_corriendo) {
@@ -177,7 +177,7 @@ void Partida::run() {
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
-                std::vector<Actualizacion*> actualizacionTermino;
+                std::vector<Actualizacion *> actualizacionTermino;
                 Actualizacion *terminoPartida = new ActualizacionTerminoPartida(this->estadoJuego.obtenerJugadores());
                 actualizacionTermino.push_back(terminoPartida);
                 this->enviar_actualizaciones(actualizacionTermino);
@@ -189,25 +189,25 @@ void Partida::run() {
             std::chrono::duration<double> sleepTime = tiempoPartida - (fin - inicio);
             std::this_thread::sleep_for(sleepTime);
 
-            for (auto &actu : this->ultAct) {
-                if (actu != NULL) {
-                  delete actu;
-                  actu = NULL;
-                }
+            auto iter = this->ultAct.begin();
+            while (iter != this->ultAct.end()) {
+                Actualizacion *actu = *iter;
+                iter = this->ultAct.erase(iter);
+                delete actu;
             }
         } catch (...) {
             std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
-            for (auto &actu : this->ultAct) {
-              if (actu != NULL) {
+            auto iter = this->ultAct.begin();
+            while (iter != this->ultAct.end()) {
+                Actualizacion *actu = *iter;
+                iter = this->ultAct.erase(iter);
                 delete actu;
-                actu = NULL;
-              }
             }
         }
     }
     std::cerr << "sigue corriendo: " << this->sigue_corriendo << std::endl;
-  //  std::cerr << "borro :" << act->obtenerId() << std::endl;
+    //  std::cerr << "borro :" << act->obtenerId() << std::endl;
     //delete act;
 }
 
@@ -227,6 +227,6 @@ void Partida::joinClientes() {
     }
 }
 
-void Partida::stop(){
+void Partida::stop() {
     this->sigue_corriendo = false;
 }

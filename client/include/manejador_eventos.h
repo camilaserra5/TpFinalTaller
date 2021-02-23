@@ -66,7 +66,6 @@ private:
     int idJugador;
     BlockingQueue<Comando *> &eventos;
     std::atomic<bool> corriendo;
-    Sonido sonidoAmbiente;
 };
 
 #endif
