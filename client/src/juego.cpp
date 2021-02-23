@@ -13,6 +13,9 @@
 #define DOOR IMGS_DIR DOOR_IMG
 #define KEY_DOOR IMGS_DIR KEYDOOR_IMG
 #define RANGO_DE_VISTA 1.047197551
+#define TIEMPO_CLIENTE 60
+#define ALTURA_IMAGEN_INFERIOR 20
+#define ANCHO_SPRITE 64
 
 #define LOWER_TEXTURE_ROOT IMGS_DIR INFERIOR_IMG
 
@@ -58,17 +61,18 @@ void Juego::run() {
             this->raycasting(this->modelo.obtenerMapa(), this->modelo.getPlayer());
             if (this->corriendo) this->renderizar();
             this->actualizar();
-            //this->eventos();
             auto final = std::chrono::high_resolution_clock::now();
             auto delta = final - inicio;
             long tardanza = delta.count();
-            if (tardanza >= 60) {
-                tardanza = 60;
+            if (tardanza >= TIEMPO_CLIENTE) {
+                tardanza = TIEMPO_CLIENTE;
             }
-            std::chrono::milliseconds duration(60 - tardanza);
+            std::chrono::milliseconds duration(TIEMPO_CLIENTE - tardanza);
             std::this_thread::sleep_for(duration);
         } catch (std::exception &exc) {
             std::cout << exc.what() << std::endl;
+            this->corriendo = false;
+        } catch (...){
             this->corriendo = false;
         }
     }
@@ -130,14 +134,14 @@ void Juego::renderizarPared(SDL_Renderer *render, Rayo &rayo, int &posCanvas, un
     Textura *wall = verificarTextura(render, rayo.getTipoPared());
     if (!wall) return;
     int drawStart, drawEnd;
-    drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - 20;
+    drawStart = floor((ANCHO_CANVAS / 2) - (alturaParedProyectada / 2)) - ALTURA_IMAGEN_INFERIOR;
     drawEnd = drawStart + alturaParedProyectada;
     if (alturaParedProyectada > ALTURA_CANVAS) {
         drawStart = 0;
         drawEnd = ALTURA_CANVAS - 1;
     }
     SDL_Rect wallDimension, wallDest;
-    wallDimension.x = rayo.getOffset() % 64;
+    wallDimension.x = rayo.getOffset() % ANCHO_SPRITE;
     wallDimension.y = 0;
     wallDimension.w = 1;
     wallDimension.h = alturaParedProyectada;
