@@ -46,8 +46,8 @@ void Aceptador::run() {
             socket_es_valido = false;
         }
     }
-    manejadorPartidas.cerrar();
     this->cerrar();
+    manejadorPartidas.cerrar();
 }
 
 void Aceptador::cerrar() {
