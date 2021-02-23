@@ -313,7 +313,9 @@ void LogInWindow::unirseAPartida(SDL_Renderer *renderer, Fonts fonts, std::strin
                     playerName += e.key.keysym.sym;
                 }
                 if (e.key.keysym.sym == SDLK_BACKSPACE) {
-                    playerName.erase(playerName.size() - 1);
+                    if (!playerName.empty()) {
+                        playerName.erase(playerName.size() - 1);
+                    }
                 }
                 if (e.key.keysym.sym == SDLK_RETURN) {
                     if (!nombre.empty()) {
