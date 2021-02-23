@@ -5,7 +5,6 @@
 
 
 ManejadorLua::ManejadorLua(std::string &archivo) {
-    std::cerr << "=== INSTANCIANDO UN MANEJADOR LUA==== " << std::endl;
     interprete = luaL_newstate();
     luaL_openlibs(interprete);
     luaL_dofile(interprete, archivo.c_str());
@@ -28,7 +27,6 @@ ManejadorLua::~ManejadorLua() {
  * para ser usada por el script
  */
 void ManejadorLua::crearTabla(std::vector<std::vector<int>> &mapa, std::string nombremapa) {
-    std::cerr << "=== CREANDO TABLA LUA==== " << std::endl;
     lua_newtable(interprete);
     int tamanioMapa = mapa.size();
     for (int i = 0; i < tamanioMapa; i++) {
@@ -46,7 +44,6 @@ void ManejadorLua::crearTabla(std::vector<std::vector<int>> &mapa, std::string n
 }
 
 void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa) {
-    std::cerr << "=== CREANDO MAPA LUA==== " << std::endl;
     this->mapaLargo = mapa.size();
     this->mapaAncho = mapa[0].size();
     crearTabla(mapa, MAPA);
@@ -55,7 +52,6 @@ void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa) {
 const char *ManejadorLua::generarEvento(int &posx, int &posy,
                     std::vector<int>& posiciones_jugadores, int cantJugadores,
                     int &posPixelX, int &posPixelY) {
-    std::cerr << "=== MANEJADOR LUA GENERAR EVENTO==== " << std::endl;
     lua_getglobal(interprete, "crear_accion");
 
     lua_pushnumber(interprete, posx);
@@ -71,6 +67,5 @@ const char *ManejadorLua::generarEvento(int &posx, int &posy,
     lua_pcall(interprete, 6, 1, 0);
     const char *tecla = lua_tostring(interprete, 1);
     lua_pop(interprete, 1); // elimina
-    //std::cerr << "=== LUA ME DEVOLVIO: " << tecla << " ==== " << std::endl;
     return tecla;
 }

@@ -36,9 +36,6 @@ void Cliente::run() {
     int screenheightLogin = parser.obtenerAltoPantallaLogin();
     int screenWidthGame = parser.obtenerAnchoPantallaJuego();
     int screenHeightGame = parser.obtenerAltoPantallaJuego();
-  //  int formatoPnatalla = parser.obtenerFormato(); para full screen capaz
-  //pantalla de highscrore tamanio
-  //tamanios de letras
 
     Audio audio;
     Musica musica(MUSICA_FONDO);
@@ -51,7 +48,6 @@ void Cliente::run() {
     ProtectedQueue<Actualizacion *> updates;
     Protocolo *protocolo = logIn.obtenerProtocolo();
     ClientEventSender clientEventSender(protocolo, events);
-
 
 
     Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidthGame,
@@ -72,19 +68,12 @@ void Cliente::run() {
         juego.start();
         manejador.run();
         clientEventReceiver.cerrar();
-        std::cerr << "sali del cerrar del receiver\n";
         clientEventReceiver.join();
-        std::cerr << "sali del join del receiver\n";
         clientEventSender.cerrar();
-        std::cerr << "sali del cerrar del sender\n";
         clientEventSender.join();
-        std::cerr << "sali del join del sender\n";
         juego.cerrar();
-        std::cerr << "sali del cerrar del juego\n";
         juego.join();
-        std::cerr << "sali del join del juego\n";
     } catch (...) {
-        std::cout << "ESTMAOS EN CATCH ";
         this->corriendo = false;
 
         juego.cerrar();
@@ -96,10 +85,5 @@ void Cliente::run() {
 
         clientEventReceiver.join();
         juego.join();
-
     }
-
-    //  ventana.cerrar();
-    //  exit(1);
-
 }

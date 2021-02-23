@@ -16,20 +16,14 @@ void ClientEventSender::run() {
         } catch (const SocketError &exc) {
             std::cout << exc.what() << std::endl;
             this->cerrar();
-            std::cerr << "senderr\n";
         } catch (std::exception &exc) {
-
             std::cout << exc.what() << std::endl;
-            std::cerr << "senderr\n";
-
             this->cerrar();
         } catch (...){
             std::cout << "error desconocido\n";
             this->cerrar();
         }
     }
-    std::cerr<< "CORTO EJECUCION DE SENDER\n";
-
 }
 
 void ClientEventSender::cerrar() {

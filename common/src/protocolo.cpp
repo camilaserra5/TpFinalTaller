@@ -8,12 +8,9 @@ void Protocolo::enviar(std::vector<char> &informacion) {
     unsigned int size = htonl(informacion.size());
     char number_str[4];
     memcpy(number_str, &size, 4);
-    //std::cerr << "envio casi" << std::endl;
     socket.enviar(number_str, 4);
     std::string buffer(informacion.begin(), informacion.end());
-    //std::cerr << "envio posta" << std::endl;
     socket.enviar(buffer.c_str(), buffer.size());
-    //std::cout << "termine de enviar" << std::endl;
 }
 
 std::vector<char> Protocolo::recibir_aux() {
@@ -24,7 +21,6 @@ std::vector<char> Protocolo::recibir_aux() {
     unsigned int length = ntohl(*buf);
     std::vector<char> informacion(length);
 
-    //informacion.resize(length);
     socket.recibir(informacion.data(), length);
     return informacion;
 }

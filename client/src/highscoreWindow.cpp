@@ -126,9 +126,17 @@ void HighscoreWindow::renderizar() {
 }
 
 HighscoreWindow::~HighscoreWindow() {
-    SDL_DestroyRenderer(this->renderer);
-    SDL_DestroyWindow(this->window);
-
+    if (this->initialized) {
+        if (this->renderer != nullptr) {
+            SDL_DestroyRenderer(this->renderer);
+            this->renderer = nullptr;
+        }
+        if (this->window != nullptr) {
+            SDL_DestroyWindow(this->window);
+            this->window = nullptr;
+        }
+        this->initialized = false;
+    }
     IMG_Quit();
     SDL_Quit();
     exit(0);

@@ -24,8 +24,6 @@ Partida::Partida(Map &&mapa, int cantJugadoresPosibles, ConfiguracionPartida con
 
 Partida::~Partida() {
     // libero todos los comandos que no pudieron mandarse
-
-    std::cerr << "entre al destructor de partida\n";
     bool termine = false;
     while (!termine) {
         try {
@@ -41,7 +39,6 @@ void Partida::procesar_comandos(EstadoJuego &estadoJuego) {
     std::map<int, ThClient *>::iterator it;
     for (it = this->clientes.begin(); it != this->clientes.end(); ++it) {
         if (it->second->is_dead() && !estadoJuego.estaMuerto(it->second->getId())) {
-            std::cerr << "desconecto jugador " << it->second->getId() << std::endl;
             auto desconectarJugador = new DesconectarJugador(it->second->getId());
             this->cola_comandos.aniadir_dato(desconectarJugador);
         }
@@ -60,7 +57,6 @@ void Partida::procesar_comandos(EstadoJuego &estadoJuego) {
 }
 
 void Partida::agregarCliente(std::string &nombreJugador, ThClient *cliente) {
-    std::cerr << "Partida agrega un Jugador" << std::endl;
     this->estadoJuego.agregarJugador(nombreJugador, cliente->getId());
     this->clientes.insert({cliente->getId(), cliente});
     this->cantJugadoresAgregados++;
@@ -123,34 +119,27 @@ void Partida::generarComandosLua(JugadorLua &jugadorLua) {
     switch (teclaComando) {
         case 'w':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ARRIBA));
-            std::cerr << "=== SE MUEVE PARA ARRIBA LUA==== " << std::endl;
             break;
         case 'd':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_DERECHA));
-            std::cerr << "=== ROTA A DERECHA LUA==== " << std::endl;
             break;
         case 's':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ABAJO));
-            std::cerr << "=== SE MUEVE ABAJO LUA==== " << std::endl;
             break;
         case 'a':
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_IZQUIERDA));
-            std::cerr << "=== ROTA A IZQUIERDA LUA==== " << std::endl;
             break;
         case 'p':
             nuevoComando = new Ataque(jugadorLua.id);
-            std::cerr << "=== ATACA LUA==== " << std::endl;
             break;
         default:
             nuevoComando = new Movimiento(jugadorLua.id, static_cast<Accion>(ROTAR_DERECHA));
-            std::cerr << "=== mov default LUA==== " << std::endl;
             break;
     }
     this->cola_comandos.aniadir_dato(nuevoComando);
 }
 
 void Partida::run() {
-    std::cerr << "=== CREO JUGADOR LUA==== " << std::endl;
     std::string ruta(LUA);
 
     JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
