@@ -17,7 +17,7 @@ public:
     Server_Event_Receiver(ProtectedQueue<Comando *> &comandos, Protocolo *protocolo) :
             comandos(comandos), protocolo(protocolo), corriendo(true) {}
     /*
-       * libera la clase con sus recursos 
+       * libera la clase con sus recursos
     */
     ~Server_Event_Receiver() {}
     /*

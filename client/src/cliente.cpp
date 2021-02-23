@@ -34,6 +34,7 @@ void Cliente::run() {
     int screenWidthLogin = parser.obtenerAnchoPantallaLogin();
     int screenheightLogin = parser.obtenerAltoPantallaLogin();
     int screenWidthGame = parser.obtenerAnchoPantallaJuego();
+    int screenHeightGame = parser.obtenerAltoPantallaJuego();
     LogInWindow logIn(screenWidthLogin, screenheightLogin, screenWidthGame);
     logIn.run();
     int idJugador = logIn.obtenerIdJugador();
@@ -46,7 +47,7 @@ void Cliente::run() {
     //  Musica ambient_music = Musica(MUSICA_FONDO);
     //  ambient_music.play(-1);
 
-    Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, /*SDL_WINDOW_FULLSCREEN*/0);
+    Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidthGame, 600, /*SDL_WINDOW_FULLSCREEN*/0);
     Modelo modelo(ventana, idJugador, updates);
 
     ClientEventReceiver clientEventReceiver(protocolo, updates, modelo, idJugador);
@@ -65,28 +66,34 @@ void Cliente::run() {
         manejador.run();
         juego.cerrar();
         clientEventSender.cerrar();
+        std::cerr << "sali del cerrar del sender\n";
+
         clientEventReceiver.cerrar();
         clientEventSender.join();
-        clientEventSender.join();
+        clientEventReceiver.join();
         juego.join();
-    } catch (std::exception & exc){
-            std::cerr << exc.what() << std::endl;
-            this->corriendo = false;
-            clientEventSender.cerrar();
-            clientEventReceiver.cerrar();
-            juego.cerrar();
-            juego.join();
-            clientEventSender.join();
-            clientEventReceiver.join();
     } catch (...) {
         std::cout << "error";
         this->corriendo = false;
-        clientEventSender.cerrar();
-        clientEventReceiver.cerrar();
+
         juego.cerrar();
-        juego.join();
+        std::cerr << "sali del cerrar del juego\n";
+        clientEventSender.cerrar();
+
+        clientEventReceiver.cerrar();
+        std::cerr << "sali del cerrar del receiver\n";
+
+
+
         clientEventSender.join();
+        std::cerr << "sali del join del sender\n";
+
         clientEventReceiver.join();
+        std::cerr << "sali del join del receiver\n";
+        juego.join();
+        std::cerr << "sali del join del juego\n";
+
+
     }
 
 }

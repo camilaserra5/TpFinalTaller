@@ -36,7 +36,7 @@ public:
     void enviar_actualizaciones(std::vector<Actualizacion *> act);
     /*
       * devuelve true si esta corriendo
-    */  
+    */
     bool estaCorriendo();
 
 private:

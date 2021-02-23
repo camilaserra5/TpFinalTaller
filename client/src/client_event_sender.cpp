@@ -26,8 +26,10 @@ void ClientEventSender::run() {
 
 void ClientEventSender::cerrar() {
     std::cerr << "entre al cerrar del sender" << std::endl;
+    if (this->corriendo){
     this->corriendo = false;
     this->protocolo->cerrar();
+    }
 }
 
 ClientEventSender::~ClientEventSender() {}
