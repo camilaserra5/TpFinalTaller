@@ -52,13 +52,25 @@ void ManejadorLua::crearMapa(std::vector<std::vector<int>> mapa) {
     crearTabla(mapa, MAPA);
 }
 
-const char *ManejadorLua::generarEvento(int &posx, int &posy) {
-    //std::cerr << "====GENERANDO EVENTO LUA==== " << std::endl;
-    //std::cerr << "=== MANEJADOR LUA RECIBIO: " << posx << " ==== " << posy << std::endl;
-    lua_getglobal(interprete, "crear_accion");
+const char *ManejadorLua::generarEvento(int &posx, int &posy,
+                    /*std::vector<int>& posiciones_jugadores*/std::vector<std::vector<int>> mapa, int& cantJugadores) {
+    std::cerr << "=== MANEJADOR LUA GENERAR EVENTO==== " << std::endl;
+    /*lua_newtable(interprete);//tabla esta en el top del stack
+    for (int i = 0; i < cantJugadores*2; i++) {
+        lua_pushnumber(interprete, posiciones_jugadores.at(i));//ahora hay un numero arriba de todo
+        std::cerr << "HOLI " << std::endl;
+        lua_rawseti(interprete,-2,i=1); //inserta el numero en la tabla y la tabla vuelve a estar en el top
+    }
+    lua_settable(interprete, -1);
+    std::string enemigos("enemigos")
+    lua_setglobal(interprete, enemigos.c_str());
+    */
+    //crearMapa(mapa);
     lua_pushnumber(interprete, posx);
     lua_pushnumber(interprete, posy);
-    lua_pcall(interprete, 2, 1, 0);
+    lua_pushnumber(interprete, cantJugadores);
+    std::cerr << "=== APUNTO DE LLAMAR LUA==== " << std::endl;
+    lua_pcall(interprete, 3, 1, 0);
     const char *tecla = lua_tostring(interprete, 1);
     lua_pop(interprete, 1); // elimina
     //std::cerr << "=== LUA ME DEVOLVIO: " << tecla << " ==== " << std::endl;

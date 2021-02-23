@@ -121,11 +121,17 @@ public:
     /*
       * devuelve la posicon del juagdor
     */
-    std::vector<int> getPosicionJugador(int idJugador);
+    std::vector<int> getPosicionEspecificaJugador(int idJugador);
     /*
       * verifica si en la poscion del juagdor hay items
     */  
     Item *verificarItems(int &posx, int &posy);
+
+    /*
+     *Devuelve un vector en el cual estan todas las posiciones de los jugadores enemigos
+     *en las posiciones 2N estan las posX, en las 2N+1 las posiciones en Y.
+     */
+    std::vector<int> getPosicionesEnemigos(int idJugador);
 
 private:
     Map mapa;

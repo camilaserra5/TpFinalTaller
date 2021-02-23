@@ -32,7 +32,7 @@ public:
      */
     void vaciarStack();
 
-    const char *generarEvento(int &posx, int &posy);
+    const char *generarEvento(int &posx, int &posy, std::vector<std::vector<int>> mapa, int& cantJugadores);
 
 };
 
