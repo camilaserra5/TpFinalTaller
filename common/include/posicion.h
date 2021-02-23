@@ -22,7 +22,7 @@ public:
     /*
       * devuelve la distancia a la poscion que le llega
     */
-    int distanciaA(Posicion &posicion);
+    float distanciaA(Posicion &posicion);
     /*
       * devuelve true si interseca con mig angulo
     */
@@ -50,7 +50,7 @@ public:
     /*
       * devuelve si esta cerca
     */
-    bool estaCerca(int &posx, int &posy);
+    bool estaCerca(int &posx, int &posy, float radio);
     /*
       * rita el angulo
     */

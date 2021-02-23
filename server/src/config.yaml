@@ -15,19 +15,21 @@ mapas:
     file: mapa6.yaml
   - name: mapa7
     file: mapa7.yaml
+  - name: mapa8
+    file: mapaitemms.yaml
 vRotacion: 0.157079
-vAvance: 10
+vAvance: 10.0
 vidaMax: 100
 balasPorRafagaAmetralladora: 5
 balasPorRafagaCanion: 1
 balasPorRafagaPistola: 1
 maxBalas: 8 #a cheqeuar
 cantidadBalasInicial: 8
-distanciaMaxAcuchillable: 20
-puntos_cruz: 10
-punto_copa: 50
-punto_cofre: 100
-puntos_corona: 200
+distanciaMaxAcuchillable: 20.0
+puntos_cruz: 10.0
+punto_copa: 50.0
+punto_cofre: 100.0
+puntos_corona: 200.0
 cantidadVidas: 2
 puntos_balas: 5
 puntos_matar: 10

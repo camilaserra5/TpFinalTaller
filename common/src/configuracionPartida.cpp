@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../include/configuracionPartida.h"
 
 void ConfiguracionPartida::setVRotacion(float vRotacion) {

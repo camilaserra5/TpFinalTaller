@@ -5,8 +5,8 @@ Item::Item(Posicion &posicion, int id) : posicion(posicion), id(id) {}
 Item::Item() {}
 
 
-bool Item::estaCerca(int &posx, int &posy) {
-    return this->posicion.estaCerca(posx, posy);
+bool Item::estaCerca(int &posx, int &posy, float radio) {
+    return this->posicion.estaCerca(posx, posy, radio);
 }
 
 Posicion Item::obtenerPosicion() {

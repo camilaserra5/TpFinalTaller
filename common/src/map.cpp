@@ -16,7 +16,7 @@ configuracion(configuracion) {
         throw std::runtime_error("Invalid map");
     }
 
-    this->contenedorDeElementos = new ContenedorDeElementos();
+    this->contenedorDeElementos = new ContenedorDeElementos(configuracion);
     this->rowSize = rowSize;
     this->colSize = colSize;
     map.resize(rowSize);
@@ -208,7 +208,7 @@ void Map::deserializar(std::vector<char> &serializado) {
     idx += 4;
     std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
 //    std::cerr << "tam srializado " << serializado.size() << "tam idx" << idx << std::endl;
-    this->contenedorDeElementos = new ContenedorDeElementos();
+    this->contenedorDeElementos = new ContenedorDeElementos(configuracion);
     this->contenedorDeElementos->deserializar(contenedorDeElementosSerializado);
 }
 

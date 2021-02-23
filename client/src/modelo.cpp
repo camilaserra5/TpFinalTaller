@@ -12,8 +12,8 @@
 //#include "rayo.h"
 #define SPRITE_LARGO 63
 #define SPRITE_ANCHO SPRITE_LARGO
-#define SPRITES_OBJETOS_ANCHO  64
-#define SPRITES_OBJETOS_LARGO 73
+#define SPRITES_OBJETOS_ANCHO  64.8
+#define SPRITES_OBJETOS_LARGO 65
 #define SPRITE_OBJETOS IMGS_DIR OBJECTS_IMG
 #define FRAMESX 5
 #define FRAMESY 10
@@ -248,9 +248,9 @@ void Modelo::actualizarObjeto(int id, Type tipo, int posx, int posy) {
         ObjetoJuego *objeto;
         try {
             this->entidades.at(id)->settear_estado(posx, posy);
-
         } catch (std::out_of_range &e) {
             objeto = this->crearObjeto(tipo);
+            std::cerr << " creo objetou posx " << posx << " posy " << posy;
             this->entidades.insert({id, objeto});
             this->entidades.at(id)->settear_estado(posx, posy);
         }
@@ -264,83 +264,38 @@ void Modelo::terminoPartida(Ranking &rankingJugadores) {
 
 
 ObjetoJuego *Modelo::crearObjeto(Type tipo) {
-    if (tipo.getName() == "comida") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 1, 5, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "kitsMedicos") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "llave") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "balas") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 5, 3, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "sangre") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 8, 0, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "cruz") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 1, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "copa") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "cofre") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "corona") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "ametralladora") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 6, 4, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "lanzaCohetes") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 7, 0, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "barril") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 7, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "agua") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 0, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "tanque") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 3, 0, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "mesa") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 4, 0, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "lampara") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 1, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "muertoColgante") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 2, 1, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else if (tipo.getName() == "planta") {
-        Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 2, SPRITES_OBJETOS_LARGO,
-                      SPRITES_OBJETOS_ANCHO);
-        return new ObjetoJuego(std::move(sprite));
-    } else {
+
+    std::map<std::string, std::pair<int, int>> coord;
+    coord.insert(std::make_pair("comida", std::make_pair(1, 5)));
+    coord.insert(std::make_pair("kitsMedicos", std::make_pair(2, 5)));
+    coord.insert(std::make_pair("llave", std::make_pair(2, 4)));
+    coord.insert(std::make_pair("balas", std::make_pair(3, 5)));
+    coord.insert(std::make_pair("sangre", std::make_pair(0, 8)));
+    coord.insert(std::make_pair("cruz", std::make_pair(1, 6)));
+    coord.insert(std::make_pair("copa", std::make_pair(2, 6)));
+    coord.insert(std::make_pair("cofre", std::make_pair(3, 6)));
+    coord.insert(std::make_pair("corona", std::make_pair(4, 6)));
+    coord.insert(std::make_pair("ametralladora", std::make_pair(4, 5)));
+    coord.insert(std::make_pair("lanzaCohetes", std::make_pair(0, 6)));
+    coord.insert(std::make_pair("barril", std::make_pair(2, 7)));
+    coord.insert(std::make_pair("agua", std::make_pair(2, 0)));
+    coord.insert(std::make_pair("tanque", std::make_pair(3, 0)));
+    coord.insert(std::make_pair("mesa", std::make_pair(4, 0)));
+    coord.insert(std::make_pair("lampara", std::make_pair(0, 1)));
+    coord.insert(std::make_pair("muertoColgante", std::make_pair(2, 1)));
+    coord.insert(std::make_pair("planta", std::make_pair(0, 2)));
+
+    if (coord.count(tipo.getName()) == 0) {
         Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, 0, 0, 0,
                       0);
         return new ObjetoJuego(std::move(sprite));
     }
+    std::cerr << " sip  x " << coord.at(tipo.getName()).first <<
+    " y " << coord.at(tipo.getName()).second << std::endl;
+    Sprite sprite(ventana.obtener_render(), SPRITE_OBJETOS, coord.at(tipo.getName()).first,
+                  coord.at(tipo.getName()).second,
+                  SPRITES_OBJETOS_LARGO, SPRITES_OBJETOS_ANCHO);
+    return new ObjetoJuego(std::move(sprite));
 }
 
 void Modelo::actualizar() {

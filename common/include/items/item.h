@@ -29,7 +29,7 @@ public:
     /*
       * devuelve true si el item esta cerca de la poscion que le llega
     */
-    bool estaCerca(int &posx, int &posy);
+    bool estaCerca(int &posx, int &posy, float radio);
     /*
       * devuelve su posicion
     */

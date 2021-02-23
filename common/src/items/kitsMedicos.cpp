@@ -8,7 +8,7 @@ KitsMedicos::KitsMedicos(Posicion &posicion, int id) : Item(posicion, id), punto
 KitsMedicos::~KitsMedicos() {}
 
 bool KitsMedicos::obtenerBeneficio(Jugador *jugador) {
-    if (jugador->puntos_de_vida() == VIDA_MAXIMA) {
+    if (jugador->puntos_de_vida() != VIDA_MAXIMA) {
         jugador->actualizar_vida(this->puntos_de_vida);
         return true;
     }

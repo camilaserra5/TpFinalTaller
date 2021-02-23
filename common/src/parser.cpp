@@ -50,7 +50,7 @@ ConfiguracionPartida Parser::obtenerParametrosDeConfiguracion() {
     int balasPorRafagaCanion = this->config["balasPorRafagaCanion"].as<int>();
     int balasPorRafagaPistola = this->config["balasPorRafagaPistola"].as<int>();
     int maxBalas = this->config["maxBalas"].as<int>();
-    float cantidadBalasInicial = this->config["cantidadBalasInicial"].as<float>();
+    int cantidadBalasInicial = this->config["cantidadBalasInicial"].as<int>();
     float distanciaMaxAcuchillable = this->config["distanciaMaxAcuchillable"].as<float>();
     float puntos_cruz = this->config["puntos_cruz"].as<float>();
     float punto_copa = this->config["punto_copa"].as<float>();

@@ -22,8 +22,8 @@ Juego::Juego(Ventana &ventana, Modelo &modelo) : ventana(ventana), modelo(modelo
 
     this->corriendo = true;
     Textura *t1 = new Textura(BLUE_WALL, render);
-    Textura *t2 = new Textura(WOOD_WALL, render);
-    Textura *t3 = new Textura(GREY_WALL, render);
+    Textura *t2 = new Textura(GREY_WALL, render);
+    Textura *t3 = new Textura(WOOD_WALL, render);
     Textura *t4 = new Textura(KEY_DOOR, render);
     Textura *t5 = new Textura(DOOR, render);
 
@@ -33,8 +33,6 @@ Juego::Juego(Ventana &ventana, Modelo &modelo) : ventana(ventana), modelo(modelo
     this->texturas.insert({TYPE_KEY_DOOR, t4});
     this->texturas.insert({TYPE_DOOR, t5});
     this->texturas.insert({TYPE_FAKE_WALL, t3});
-
-
 }
 
 void Juego::eventos() {

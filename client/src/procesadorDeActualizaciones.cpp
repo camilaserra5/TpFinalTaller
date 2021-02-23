@@ -44,10 +44,12 @@ void ProcesadorDeActualizaciones::procesarActualizacionEmpezoPartida() {
     mapa.setLadoCelda(ANCHO_CANVAS);
     std::vector<Item *> items = mapa.obtenerItems();
     int cantItems = items.size();
+    std::cerr << "CANT ITEMS " << cantItems;
     for (int i = 0; i < cantItems; i++) {
         Item *item = items[i];
         int idI = item->getId();
         Type tipo = item->getTipo();
+        std::cerr << " item tipo " << tipo.getName();
         int posxI = item->obtenerPosicion().pixelesEnX();
         int posyI = item->obtenerPosicion().pixelesEnY();
         this->modelo->actualizarObjeto(idI, tipo, posxI, posyI);

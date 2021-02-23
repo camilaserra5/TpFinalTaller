@@ -102,8 +102,10 @@ void MapWidget::paintEvent(QPaintEvent *event) {
         painter.drawRect(highlightedRect.adjusted(0, 0, -1, -1));
     }
 
-    for (const Tile &tile : tiles)
+    for (const Tile &tile : tiles) {
+        painter.eraseRect(tile.rect);
         painter.drawPixmap(tile.rect, tile.pixmap);
+    }
 }
 
 const QRect MapWidget::targetSquare(const QPoint &position) const {

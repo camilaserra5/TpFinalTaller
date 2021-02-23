@@ -206,7 +206,11 @@ Item *ContenedorDeElementos::buscarElemento(int &posx, int &posy) {
     int cantidadElementos = this->elementos.size();
     std::cerr << "entre a buscar elemento\n";
     for (int i = 0; i < cantidadElementos; i++) {
-        if (this->elementos[i]->estaCerca(posx, posy)) {
+
+        float radio = this->configuracion.obtenerVAvance()*2;
+        std::cerr << "v avabce " << radio;
+        if (this->elementos[i]->estaCerca(posx, posy, radio)) {
+            std::cerr << "chiiii" <<std::endl;
             return this->elementos[i];
         }
     }
