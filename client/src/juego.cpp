@@ -73,6 +73,7 @@ void Juego::run() {
         }
     }
     this->cerrar();
+    std::cerr<< "CORTO EJECUCION DE JUEGO\n";
 
 }
 
@@ -93,8 +94,10 @@ Juego::~Juego() {
 }
 
 void Juego::cerrar() {
+  if (this->corriendo){
     this->corriendo = false;
     this->ventana.cerrar();
+    }
 }
 
 void Juego::clean() {

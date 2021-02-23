@@ -62,38 +62,37 @@ void Cliente::run() {
         while (!clientEventReceiver.recibi()) {
             std::cout << "";
         }
-        std::cout << "recibii main\n";
         juego.start();
         manejador.run();
-        juego.cerrar();
+        clientEventReceiver.cerrar();
+        std::cerr << "sali del cerrar del receiver\n";
+        clientEventReceiver.join();
+        std::cerr << "sali del join del receiver\n";
         clientEventSender.cerrar();
         std::cerr << "sali del cerrar del sender\n";
-
-        clientEventReceiver.cerrar();
         clientEventSender.join();
-        clientEventReceiver.join();
+        std::cerr << "sali del join del sender\n";
+        juego.cerrar();
+        std::cerr << "sali del cerrar del juego\n";
         juego.join();
+        std::cerr << "sali del join del juego\n";
     } catch (...) {
         std::cout << "error";
         this->corriendo = false;
 
         juego.cerrar();
-        std::cerr << "sali del cerrar del juego\n";
         clientEventSender.cerrar();
 
         clientEventReceiver.cerrar();
-        std::cerr << "sali del cerrar del receiver\n";
 
         clientEventSender.join();
-        std::cerr << "sali del join del sender\n";
 
         clientEventReceiver.join();
-        std::cerr << "sali del join del receiver\n";
         juego.join();
-        std::cerr << "sali del join del juego\n";
 
-        ventana.cerrar();
-        exit(1);
     }
+
+      ventana.cerrar();
+      exit(1);
 
 }
