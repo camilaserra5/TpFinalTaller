@@ -154,8 +154,13 @@ void Partida::run() {
     std::string ruta(LUA);
 
     JugadorLua jugadorLua(this->estadoJuego, ID_LUA, ruta);
+<<<<<<< HEAD
       std::string nombre("IA");
       jugadorLua.instanciarJugador(nombre);
+=======
+    std::string nombre("IA");
+    jugadorLua.instanciarJugador(nombre);
+>>>>>>> 9fd233f72a6b289a85a24562fcf6a7d5c44d465b
 
     this->lanzarJugadores();
     this->lanzarContadorTiempoPartida();
@@ -172,8 +177,13 @@ void Partida::run() {
 
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
+<<<<<<< HEAD
               std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
               generarComandosLua(jugadorLua);
+=======
+            std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
+            generarComandosLua(jugadorLua);
+>>>>>>> 9fd233f72a6b289a85a24562fcf6a7d5c44d465b
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
