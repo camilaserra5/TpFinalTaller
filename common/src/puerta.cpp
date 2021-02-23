@@ -1,6 +1,6 @@
 #include "../include/puerta.h"
 
-#define DISTANCIA_APERTURA  23 //pixeles,en realidad es ladocelda/2 + error
+#define DISTANCIA_APERTURA  23 
 
 void Puerta::abrir() {
     this->abierta = true;

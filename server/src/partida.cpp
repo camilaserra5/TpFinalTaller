@@ -172,11 +172,7 @@ void Partida::run() {
 
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
-
-              std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
-              generarComandosLua(jugadorLua);
-
-            std::cerr << "=== GENERO COMANDOS LUA==== " << std::endl;
+            generarComandosLua(jugadorLua);
             generarComandosLua(jugadorLua);
 
             procesar_comandos(this->estadoJuego);
@@ -201,7 +197,6 @@ void Partida::run() {
                 delete actu;
             }
         } catch (...) {
-            std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
             auto iter = this->ultAct.begin();
             while (iter != this->ultAct.end()) {
@@ -211,7 +206,6 @@ void Partida::run() {
             }
         }
     }
-    std::cerr << "sigue corriendo: " << this->sigue_corriendo << std::endl;
 }
 
 std::vector<char> Partida::serializar() {

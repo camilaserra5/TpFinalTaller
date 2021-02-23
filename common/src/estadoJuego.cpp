@@ -65,15 +65,7 @@ void EstadoJuego::agregarJugador(std::string &nombreJugador, int id) {
     }
 
     Jugador *jugador = new Jugador(nombreJugador, id, posicionValida, configuracion);
-    if (!jugador) {
-        std::cerr << "O NO..." << std::endl;
-    }
-    try {
-        this->jugadores.insert(std::make_pair(id, jugador));
-    } catch (...) {
-
-    }
-
+    this->jugadores.insert(std::make_pair(id, jugador));
 }
 
 bool puedo_moverme(Map &mapa, int &posx, int &posy, Jugador *jugador) {

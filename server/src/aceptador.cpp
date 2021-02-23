@@ -34,7 +34,6 @@ void Aceptador::run() {
     bool socket_es_valido = true;
     while (socket_es_valido) {
         try {
-            std::cerr << "estoy en acpetador\n";
             Socket peer = this->socket_listener.aceptar();
             clientes.push_back(new ThClient(std::move(peer), this->rutaMapas,
                                             this->mapas, this->obtenerIdParaJugador()));

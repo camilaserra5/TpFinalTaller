@@ -1,7 +1,5 @@
 #include "items/comida.h"
 
-//#define VIDA 10
-//#define VIDA_MAXIMA 100
 
 Comida::Comida(Posicion &posicion, int id, int puntosVidaComida,
               int puntosDeVidaMax) : Item(posicion, id),
