@@ -23,6 +23,9 @@ public:
     void initTiles();
 
     void addTile(const QString &name, const QString &path, Type type);
+    void addItemTile(const QString &name, const QString &path, Type type, int x, int y);
+    void addItemTileZoomed(const QString &name, const QString &path, Type type, int x, int y);
+
 
     ~MainWindow();
 
@@ -52,7 +55,7 @@ private:
     MapWidget *mapWidget;
     std::string configFile = ARCHIVO_DE_CONFIGURACION;
     ConfiguracionPartida configuracionPartida;
-
+    std::map<std::string, QPixmap> images;
 };
 
 #endif // MAINWINDOW_H

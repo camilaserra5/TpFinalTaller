@@ -6,6 +6,10 @@
 #include "map_translator.h"
 #include <config.h>
 #include "parser.h"
+
+#define SPRITE_WIDTH 64.8
+#define SPRITE_HEIGHT 65
+#define SPRITE_OBJETOS IMGS_DIR OBJECTS_IMG
 #define BLUE_WALL IMGS_DIR BLUE_WALL_IMG
 #define GREY_WALL IMGS_DIR GREY_WALL_IMG
 #define WOOD_WALL IMGS_DIR WOOD_WALL_IMG
@@ -25,13 +29,15 @@ MainWindow::MainWindow(std::string configFile, QWidget *parent) : QMainWindow(pa
     setWindowTitle(tr("Editor"));
     mapTilesList->clear();
     mapWidget->clear();
+
 }
 
 void MainWindow::openMap() {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Abrir mapa existente"), "",
                                                     tr("YAML Files (*.yaml *.yml)"));
     Map map = MapTranslator::yamlToMap(YAML::LoadFile(fileName.toStdString()), 450, configuracionPartida);//cheqs
-    mapWidget = new MapWidget(mapWidget->tileSize() * map.getColSize(), mapWidget->tileSize() * map.getRowSize(), this->configuracionPartida);
+    mapWidget = new MapWidget(mapWidget->tileSize() * map.getColSize(), mapWidget->tileSize() * map.getRowSize(),
+                              this->configuracionPartida);
     mapTilesList = new MapTilesList(mapWidget->tileSize(), this);
     QObject::connect(mapTilesList, SIGNAL(tileDoubleClicked(int, QPixmap)), mapWidget,
                      SLOT(onTileDoubleClicked(int, QPixmap)));
@@ -51,42 +57,9 @@ void MainWindow::openMap() {
     for (int i = 0; i < map.getColSize(); ++i) {
         for (int j = 0; j < map.getRowSize(); ++j) {
             Type type = map(i, j);
-            if ("wall" == type.getName()) {
+            if (images.count(type.getName()) > 0) {
                 QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
-                QPixmap newImage;
-                newImage.load(QStringLiteral(BLUE_WALL));
-                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
-                mapWidget->addTile(point, pixmap, map(i, j).getType());
-            } else if ("wall-2" == type.getName()) {
-                QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
-                QPixmap newImage;
-                newImage.load(QStringLiteral(WOOD_WALL));
-                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
-                mapWidget->addTile(point, pixmap, map(i, j).getType());
-            } else if ("wall-3" == type.getName()) {
-                QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
-                QPixmap newImage;
-                newImage.load(QStringLiteral(GREY_WALL));
-                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
-                mapWidget->addTile(point, pixmap, map(i, j).getType());
-            } else if ("door" == type.getName()) {
-                QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
-                QPixmap newImage;
-                newImage.load(QStringLiteral(DOOR));
-                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
-                mapWidget->addTile(point, pixmap, map(i, j).getType());
-            } else if ("fakeDoor" == type.getName()) {
-                QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
-                QPixmap newImage;
-                newImage.load(QStringLiteral(GREY_WALL));
-                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
-                mapWidget->addTile(point, pixmap, map(i, j).getType());
-            } else if ("keyDoor" == type.getName()) {
-                QPoint point(i * mapWidget->tileSize(), j * mapWidget->tileSize());
-                QPixmap newImage;
-                newImage.load(QStringLiteral(KEY_DOOR));
-                QPixmap pixmap = newImage.scaled(mapWidget->tileSize(), mapWidget->tileSize());
-                mapWidget->addTile(point, pixmap, map(i, j).getType());
+                mapWidget->addTile(point, images.at(type.getName()), map(i, j).getType());
             }
         }
     }
@@ -150,18 +123,48 @@ void MainWindow::newMap() {
 }
 
 void MainWindow::initTiles() {
-    addTile(QStringLiteral("blue wall"), QStringLiteral(BLUE_WALL),
-            ObjetosJuego::obtenerTipoPorNombre("wall"));
-    addTile(QStringLiteral("grey wall"), QStringLiteral(GREY_WALL),
-            ObjetosJuego::obtenerTipoPorNombre("wall-2"));
-    addTile(QStringLiteral("fake wall"), QStringLiteral(GREY_WALL),
-            ObjetosJuego::obtenerTipoPorNombre("fakeDoor"));
-    addTile(QStringLiteral("wood wall"), QStringLiteral(WOOD_WALL),
-            ObjetosJuego::obtenerTipoPorNombre("wall-3"));
-    addTile(QStringLiteral("door"), QStringLiteral(DOOR),
-            ObjetosJuego::obtenerTipoPorNombre("door"));
-    addTile(QStringLiteral("key door"), QStringLiteral(KEY_DOOR),
-            ObjetosJuego::obtenerTipoPorNombre("keydoor"));
+    addTile(QStringLiteral("blue wall"), QStringLiteral(BLUE_WALL), ObjetosJuego::obtenerTipoPorNombre("wall"));
+    addTile(QStringLiteral("grey wall"), QStringLiteral(GREY_WALL), ObjetosJuego::obtenerTipoPorNombre("wall-2"));
+    addTile(QStringLiteral("fake wall"), QStringLiteral(GREY_WALL), ObjetosJuego::obtenerTipoPorNombre("fakeDoor"));
+    addTile(QStringLiteral("wood wall"), QStringLiteral(WOOD_WALL), ObjetosJuego::obtenerTipoPorNombre("wall-3"));
+    addTile(QStringLiteral("door"), QStringLiteral(DOOR), ObjetosJuego::obtenerTipoPorNombre("door"));
+    addTile(QStringLiteral("key door"), QStringLiteral(KEY_DOOR), ObjetosJuego::obtenerTipoPorNombre("keydoor"));
+    addItemTileZoomed(QStringLiteral("comida"), QStringLiteral(SPRITE_OBJETOS),
+                      ObjetosJuego::obtenerTipoPorNombre("comida"), 1, 5);
+    addItemTileZoomed(QStringLiteral("kits medicos"), QStringLiteral(SPRITE_OBJETOS),
+                      ObjetosJuego::obtenerTipoPorNombre("kitsMedicos"), 2, 5);
+    addItemTileZoomed(QStringLiteral("llave"), QStringLiteral(SPRITE_OBJETOS),
+                      ObjetosJuego::obtenerTipoPorNombre("llave"), 2, 4);
+    addItemTileZoomed(QStringLiteral("balas"), QStringLiteral(SPRITE_OBJETOS),
+                      ObjetosJuego::obtenerTipoPorNombre("balas"), 3, 5);
+    addItemTileZoomed(QStringLiteral("sangre"), QStringLiteral(SPRITE_OBJETOS),
+                      ObjetosJuego::obtenerTipoPorNombre("sangre"), 0, 8);
+    addItemTileZoomed(QStringLiteral("cruz"), QStringLiteral(SPRITE_OBJETOS),
+                      ObjetosJuego::obtenerTipoPorNombre("cruz"), 1, 6);
+    addItemTileZoomed(QStringLiteral("copa"), QStringLiteral(SPRITE_OBJETOS),
+                      ObjetosJuego::obtenerTipoPorNombre("copa"), 2, 6);
+    addItemTileZoomed(QStringLiteral("cofre"), QStringLiteral(SPRITE_OBJETOS),
+                      ObjetosJuego::obtenerTipoPorNombre("cofre"), 3, 6);
+    addItemTileZoomed(QStringLiteral("corona"), QStringLiteral(SPRITE_OBJETOS),
+                      ObjetosJuego::obtenerTipoPorNombre("corona"), 4, 6);
+    addItemTile(QStringLiteral("ametralladora"), QStringLiteral(SPRITE_OBJETOS),
+                ObjetosJuego::obtenerTipoPorNombre("ametralladora"), 4, 5);
+    addItemTile(QStringLiteral("lanza cohetes"), QStringLiteral(SPRITE_OBJETOS),
+                ObjetosJuego::obtenerTipoPorNombre("lanzaCohetes"), 0, 6);
+    addItemTile(QStringLiteral("barril"), QStringLiteral(SPRITE_OBJETOS), ObjetosJuego::obtenerTipoPorNombre("barril"),
+                2, 7);
+    addItemTileZoomed(QStringLiteral("agua"), QStringLiteral(SPRITE_OBJETOS),
+                      ObjetosJuego::obtenerTipoPorNombre("agua"), 2, 0);
+    addItemTile(QStringLiteral("tanque"), QStringLiteral(SPRITE_OBJETOS), ObjetosJuego::obtenerTipoPorNombre("tanque"),
+                3, 0);
+    addItemTile(QStringLiteral("mesa"), QStringLiteral(SPRITE_OBJETOS), ObjetosJuego::obtenerTipoPorNombre("mesa"), 4,
+                0);
+    addItemTile(QStringLiteral("lampara"), QStringLiteral(SPRITE_OBJETOS),
+                ObjetosJuego::obtenerTipoPorNombre("lampara"), 0, 1);
+    addItemTile(QStringLiteral("muerto colgante"), QStringLiteral(SPRITE_OBJETOS),
+                ObjetosJuego::obtenerTipoPorNombre("muertoColgante"), 2, 1);
+    addItemTile(QStringLiteral("planta"), QStringLiteral(SPRITE_OBJETOS), ObjetosJuego::obtenerTipoPorNombre("planta"),
+                0, 2);
 }
 
 void MainWindow::saveMap() {
@@ -190,6 +193,44 @@ void MainWindow::addTile(const QString &name, const QString &path, Type type) {
     int tileSize = mapWidget->tileSize();
     QPixmap scaledImg = newImage.scaled(tileSize, tileSize);
     mapTilesList->addTile(name, scaledImg, type);
+    images.insert(std::make_pair(type.getName(), scaledImg));
+}
+
+
+void MainWindow::addItemTile(const QString &name, const QString &path, Type type, int x, int y) {
+    QPixmap newImage;
+    if (!newImage.load(path)) {
+        QMessageBox::warning(this, tr("Error"),
+                             tr("No se pudo cargar el icono"),
+                             QMessageBox::Close);
+        return;
+    }
+
+    int tileSize = mapWidget->tileSize();
+    QRect rect(x * SPRITE_WIDTH, y * SPRITE_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT);
+    QPixmap cropped = newImage.copy(rect);
+    QPixmap scaledImg = cropped.scaled(tileSize, tileSize);
+    mapTilesList->addTile(name, scaledImg, type);
+
+    images.insert(std::make_pair(type.getName(), scaledImg));
+}
+
+
+void MainWindow::addItemTileZoomed(const QString &name, const QString &path, Type type, int x, int y) {
+    QPixmap newImage;
+    if (!newImage.load(path)) {
+        QMessageBox::warning(this, tr("Error"),
+                             tr("No se pudo cargar el icono"),
+                             QMessageBox::Close);
+        return;
+    }
+
+    int tileSize = mapWidget->tileSize();
+    QRect rect((x + 0.25) * SPRITE_WIDTH, (y + 0.5) * SPRITE_HEIGHT, SPRITE_WIDTH / 2, SPRITE_HEIGHT / 2);
+    QPixmap cropped = newImage.copy(rect);
+    QPixmap scaledImg = cropped.scaled(tileSize, tileSize);
+    mapTilesList->addTile(name, scaledImg, type);
+    images.insert(std::make_pair(type.getName(), scaledImg));
 }
 
 
