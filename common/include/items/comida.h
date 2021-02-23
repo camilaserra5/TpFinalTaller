@@ -8,7 +8,7 @@ public:
     /*
       * crearar la clase comida dejandola valida para uso
     */
-    Comida(Posicion &posicion, int id);
+    Comida(Posicion &posicion, int id, int puntosVidaComida,int vidaMaxJugador);
     /*
       * liberara la comida con sus recursos
     */
@@ -19,11 +19,12 @@ public:
     bool obtenerBeneficio(Jugador *jugador) override;
     /*
       * devuelve el tipo
-    */  
+    */
     Type getTipo() override;
 
 private:
     int puntos_de_vida;
+    int puntosDeVidaMax;
 };
 
 #endif

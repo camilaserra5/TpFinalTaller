@@ -80,15 +80,15 @@ Item *ContenedorDeElementos::deserializarItem(std::vector<char> &informacion) {
                                           informacion.end());
     posicion.deserializar(posicionSerializado);
     if (idTipo == ObjetosJuego::obtenerTipoPorNombre("balas").getType()) {
-        return new Balas(posicion, 5, id);
+        return new Balas(posicion, configuracion.getBalasEnMapa(), id,configuracion.getMaxBalas());
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("comida").getType()) {
-        return new Comida(posicion, id);
+        return new Comida(posicion, id, configuracion.getPuntosVidaComida(), configuracion.getVidaMax());
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("kitsMedicos").getType()) {
-        return new KitsMedicos(posicion, id);
+        return new KitsMedicos(posicion, id,configuracion.getVidaMax(),configuracion.getPuntosDeVidaKits());
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("llave").getType()) {
         return new Llave(posicion, id);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("sangre").getType()) {
-        return new Sangre(posicion, id);
+        return new Sangre(posicion, id, configuracion.getVidaMax(), configuracion.getPuntosDeVidaSangre());
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("cruz").getType()) {
         return new Tesoro(id, ObjetosJuego::obtenerTipoPorNombre("cruz"), configuracion.getPuntosCruz(), posicion);
     } else if (idTipo == ObjetosJuego::obtenerTipoPorNombre("copa").getType()) {

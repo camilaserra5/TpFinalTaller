@@ -8,7 +8,7 @@ public:
     /*
       * creara la clase sangre dejandola valida para uso
     */
-    Sangre(Posicion &posicion, int id);
+    Sangre(Posicion &posicion, int id, int vidaMaxJugador, int puntosVidaSangre);
     /*
       * liberarar la clase con sus recursos
     */
@@ -19,11 +19,12 @@ public:
     bool obtenerBeneficio(Jugador *jugador) override;
     /*
       * devuelve el tipo de item
-    */  
+    */
     Type getTipo() override;
 
 private:
     int puntos_de_vida;
+    int maxPuntosDeVida;
 };
 
 #endif
