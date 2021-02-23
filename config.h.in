@@ -37,6 +37,7 @@
 #define PISTOL_SOUND "Pistol.mp3"
 #define AMETRALLADORA_SOUND "ametralladora.mp3"
 #define CANION_SOUND "MachineGun.mp3"
+#define MUERTE "Death.mp3"
 #define THEME "wolfenstein-3d-title-theme.mp3"
 #define THEMEWHILEPLAYING "musicaMIentrasJuego.mp3"
 #define DEATH_SOUND "Death.mp3"
