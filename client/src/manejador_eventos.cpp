@@ -17,7 +17,7 @@ ManejadorEventos::~ManejadorEventos() {}
 
 void ManejadorEventos::run() {
     SDL_Event evento;
-    while (this->corriendo) {
+    while (this->corriendo && !this->eventos.estaCerrada()) {
         while (SDL_PollEvent(&evento)) {
             detectarEventos(evento);
             std::chrono::milliseconds duration(60);
