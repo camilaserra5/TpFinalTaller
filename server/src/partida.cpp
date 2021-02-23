@@ -154,14 +154,10 @@ void Partida::run() {
 
     std::chrono::duration<double> tiempoPartida(1.5);
 
-
     while (this->sigue_corriendo) {
-
         try {
             auto inicio = std::chrono::high_resolution_clock::now();
             generarComandosLua(jugadorLua);
-            generarComandosLua(jugadorLua);
-
             procesar_comandos(this->estadoJuego);
             this->actualizarContador();
             if (this->estadoJuego.terminoPartida()) {
@@ -172,7 +168,6 @@ void Partida::run() {
                 this->arrancoPartida = false;
                 this->sigue_corriendo = false;
             }
-
             auto fin = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> sleepTime = tiempoPartida - (fin - inicio);
             std::this_thread::sleep_for(sleepTime);
