@@ -38,4 +38,6 @@
 #define AMETRALLADORA_SOUND "ametralladora.mp3"
 #define CANION_SOUND "MachineGun.mp3"
 #define THEME "wolfenstein-3d-title-theme.mp3"
+#define THEMEWHILEPLAYING "musicaMIentrasJuego.mp3"
+#define DEATH_SOUND "Death.mp3"
 #define MODULO_LUA "@PROJECT_BASE_DIR@/server/src/LUA/"
