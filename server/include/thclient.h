@@ -17,8 +17,8 @@ private:
     std::map<std::string, std::string> &mapas;
     std::atomic<bool> keep_talking;
     std::atomic<bool> is_running;
-    Server_Event_Sender *enviador;
-    Server_Event_Receiver *recibidor;
+    Server_Event_Sender *enviador = NULL;
+    Server_Event_Receiver *recibidor = NULL;
     int id;
     bool isDead = false;
 
@@ -69,7 +69,7 @@ public:
         return this->id;
     }
     /*
-      * envia las actualizaciones al enviador 
+      * envia las actualizaciones al enviador
     */
     void enviar_actualizaciones(std::vector<Actualizacion *> actualizaciones);
 
