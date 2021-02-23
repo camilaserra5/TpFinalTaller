@@ -189,27 +189,21 @@ void Partida::run() {
             std::chrono::duration<double> sleepTime = tiempoPartida - (fin - inicio);
             std::this_thread::sleep_for(sleepTime);
 
-            std::cerr << "SIZE: " << ultAct.size() << std::endl;
-            for (auto &actu: this->ultAct) {
-                if (actu != NULL) {
-                    delete actu;
-                    actu = NULL;
-                }
+            auto iter = this->ultAct.begin();
+            while (iter != this->ultAct.end()) {
+                Actualizacion *actu = *iter;
+                iter = this->ultAct.erase(iter);
+                delete actu;
             }
-            std::vector<Actualizacion *> temp;
-            ultAct.swap(temp);
-            std::cerr << "SIZE: " << ultAct.size() << std::endl;
         } catch (...) {
             std::cerr << "ENTRE AL CATCH" << std::endl;
             this->sigue_corriendo = false;
-            for (auto &actu: this->ultAct) {
-                if (actu != NULL) {
-                    delete actu;
-                    actu = NULL;
-                }
+            auto iter = this->ultAct.begin();
+            while (iter != this->ultAct.end()) {
+                Actualizacion *actu = *iter;
+                iter = this->ultAct.erase(iter);
+                delete actu;
             }
-            std::vector<Actualizacion *> temp;
-            ultAct.swap(temp);
         }
     }
     std::cerr << "sigue corriendo: " << this->sigue_corriendo << std::endl;
