@@ -135,7 +135,9 @@ Para unirse a una partida nueva, escribir el número correspondiente y luego ent
 
 ![](keydot.png) Disparar
 
-![](keyspace.png) Cambiar de arma
+![](keyg.png) Cambiar arma
+
+![](keyspace.png) Abrir puerta
 
 ![](keym.png) Play/Stop música
 
