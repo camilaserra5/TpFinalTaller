@@ -36,7 +36,7 @@ void Animacion::renderizar(int posx, int posy, int angulo, SDL_Point *centro) {
     if (this->frameActual >= cantFrames) {
         this->frameActual = 0;
     }
-    SDL_Rect r = {posx, posy, this->frame_h * 2, this->frame_w * 2}; // Donde se renderiza
+    SDL_Rect r = {posx, posy, this->frame_h * 2, this->frame_w * 2}; 
     textura.renderizar(&frames[this->frameActual], r, angulo, centro);
     if (this->contador == 0) {
         this->frameActual += 1;

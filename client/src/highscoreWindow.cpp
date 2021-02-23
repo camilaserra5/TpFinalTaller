@@ -122,7 +122,7 @@ void HighscoreWindow::renderizar() {
     background.drawBackground();
     while (1) {
         show_highscores(this->renderer, this->fonts);
-    }//CHQUEAR ESTE WHILE SE VA A RE COLGAR
+    }
 }
 
 HighscoreWindow::~HighscoreWindow() {
