@@ -8,7 +8,7 @@
 #define FRAMES_Y 4
 #define POSX 318
 #define POSY 420
-#define CONTADOR_INICIAL 70
+#define CONTADOR_INICIAL 50
 
 #define RUTA_SONIDO_CUCHILLO SOUNDS_DIR KNIFE_SOUND
 #define RUTA_SONIDO_PISTOLA SOUNDS_DIR PISTOL_SOUND
@@ -22,7 +22,6 @@
 #define ID_CANION_DE_CADENA 2
 
 ArmaAnimada::ArmaAnimada(SDL_Renderer *render) : contador(CONTADOR_INICIAL), atacando(false) {
-    //Audio audio;
     Sprite spriteCuchillo(render, RUTAIMG, 1, 0, SPRITES_H, SPRITES_W);
     Sprite spritePistola(render, RUTAIMG, 0, 1, SPRITES_H, SPRITES_W);
     Sprite spriteAmetralladora(render, RUTAIMG, 0, 2, SPRITES_H, SPRITES_W);
@@ -32,11 +31,6 @@ ArmaAnimada::ArmaAnimada(SDL_Renderer *render) : contador(CONTADOR_INICIAL), ata
     Animacion animacionPistola(render, RUTAIMG, FRAMES_X, SPRITES_H, SPRITES_W, 1, -1);
     Animacion animacionAmetralladora(render, RUTAIMG, FRAMES_X, SPRITES_H, SPRITES_W, 2, -1);
     Animacion animacionCanion(render, RUTAIMG, FRAMES_X, SPRITES_H, SPRITES_W, 3, -1);
-
-    //Musica sonidoCuchillo(RUTA_SONIDO_CUCHILLO);
-    //Musica sonidoPistola(RUTA_SONIDO_PISTOLA);
-    //Musica sonidoAmetralladora(RUTA_SONIDO_AMETRALLADORA);
-    //Musica sonidoCanion(RUTA_SONIDO_CANION);
 
     this->sprites.insert(std::make_pair(ID_CUCHILLO, spriteCuchillo));
     this->sprites.insert(std::make_pair(ID_PISTOLA, spritePistola));
@@ -48,15 +42,19 @@ ArmaAnimada::ArmaAnimada(SDL_Renderer *render) : contador(CONTADOR_INICIAL), ata
     this->animaciones.insert(std::make_pair(ID_AMETRALLADORA, animacionAmetralladora));
     this->animaciones.insert(std::make_pair(ID_CANION_DE_CADENA, animacionCanion));
 
-    //this->sonidos.insert(std::move(std::make_pair(ID_CUCHILLO, sonidoCuchillo)));
-    //this->sonidos.insert(std::move(std::make_pair(ID_PISTOLA, sonidoPistola)));
-    //this->sonidos.insert(std::move(std::make_pair(ID_AMETRALLADORA, sonidoAmetralladora)));
-    //this->sonidos.insert(std::move(std::make_pair(ID_CANION_DE_CADENA, sonidoCanion)));
+    this->sonidos.insert(std::move(std::make_pair(ID_CUCHILLO, new Musica(RUTA_SONIDO_CUCHILLO))));
+    this->sonidos.insert(std::move(std::make_pair(ID_PISTOLA, new Musica(RUTA_SONIDO_PISTOLA))));
+    this->sonidos.insert(std::move(std::make_pair(ID_AMETRALLADORA, new Musica(RUTA_SONIDO_AMETRALLADORA))));
+    this->sonidos.insert(std::move(std::make_pair(ID_CANION_DE_CADENA, new Musica(RUTA_SONIDO_CANION))));
 
     this->armaActual = ID_PISTOLA;
 }
 
-ArmaAnimada::~ArmaAnimada() {}
+ArmaAnimada::~ArmaAnimada() {
+    for (auto it = sonidos.begin(); it != sonidos.end(); ++it) {
+          delete it->second;
+    }
+}
 
 void ArmaAnimada::actualizar(int armaActual, bool estado) {
     this->armaActual = armaActual;
@@ -64,11 +62,12 @@ void ArmaAnimada::actualizar(int armaActual, bool estado) {
 }
 
 void ArmaAnimada::renderizar() {
-    // Audio audio;
+
     if (this->atacando) {
-    //    this->sonidos.find(this->armaActual)->second.play(-1);
+        if (contador == CONTADOR_INICIAL){
+            this->sonidos.find(this->armaActual)->second->play(1);
+        }
         if (this->contador != 0) {
-            std::cerr << "entre";
             this->animaciones.find(this->armaActual)->second.renderizar(POSX, POSY, 0, NULL);
             this->contador--;
         } else {

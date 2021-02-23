@@ -124,6 +124,12 @@ void Enemigo::actualizarVida(int vida) {
         this->estado = MORIRSE;
     }
 }
+void Enemigo::actualizarArma(int idArma){
+     this->idArma = idArma;
+}
+int Enemigo:getPuntaje() {
+    return this->puntaje;
+}
 
 int Enemigo::obtenerAnchura() {
     return SPRITE_W;

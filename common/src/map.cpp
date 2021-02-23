@@ -55,9 +55,6 @@ void Map::crearElementoPosicionable(const unsigned rowNumber, const unsigned col
     } else {
         posElementoy = ladoCelda * (colNumber - 1) + rand() % ladoCelda;
     }
-//    std::cerr << "posElementox: " << posElementox << "\n";
-//    std::cerr << "posElemntoY:  " << posElementoy << "\n";
-//    std::cerr << "agrego un item\n";
     Posicion posicion = Posicion(posElementox, posElementoy, ANGULO_DEFAULT);
     if (value.getName() == "comida") {
         int idValido = this->crearIdValido();
@@ -207,7 +204,6 @@ void Map::deserializar(std::vector<char> &serializado) {
 
     idx += 4;
     std::vector<char> contenedorDeElementosSerializado(serializado.begin() + idx, serializado.end());
-//    std::cerr << "tam srializado " << serializado.size() << "tam idx" << idx << std::endl;
     this->contenedorDeElementos = new ContenedorDeElementos(configuracion);
     this->contenedorDeElementos->deserializar(contenedorDeElementosSerializado);
 }
@@ -236,7 +232,7 @@ bool Map::hayColision(int fila, int columna) {
         return (tipo == TYPE_DOOR || tipo == TYPE_WALL || tipo == TYPE_WALL_2 || tipo == TYPE_WALL_3 ||
                 tipo == TYPE_KEY_DOOR || tipo == TYPE_FAKE_WALL);
     } catch (std::exception &exc) {
-        return false;//capaz deberia devolver true? no se
+        return false;
     }
 }
 
@@ -249,7 +245,6 @@ Posicion Map::obtenerPosicionInicialValida() {
         posY = rand() % this->colSize;
         if (!this->hayColision(posX, posY)) posEsValida = true;
     }
-    std::cerr << "rowSize: " << rowSize << "colSize: " << colSize << std::endl;
     if (posX == 0) {
         posX = rand() % this->ladoCelda;
     } else {

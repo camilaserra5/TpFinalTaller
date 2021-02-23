@@ -37,19 +37,19 @@ Puerta deserializarPuerta(std::vector<char> &informacion) {
     char number[4];
     memcpy(number, sub.data(), 4);
     uint32_t *buf = (uint32_t *) number;
-    int fila = ntohl(*buf); //fila
+    int fila = ntohl(*buf);
     idx += 4;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     char number2[4];
     memcpy(number2, sub.data(), 4);
     uint32_t *buf2 = (uint32_t *) number2;
-    int columna = ntohl(*buf2); // colmuna
+    int columna = ntohl(*buf2);
     idx += 4;
     sub = std::vector<char>(&informacion[idx], &informacion[idx + 4]);
     char number3[4];
     memcpy(number3, sub.data(), 4);
     uint32_t *buf3 = (uint32_t *) number3;
-    bool abierta = ntohl(*buf3); // puerta esta abierta;
+    bool abierta = ntohl(*buf3);
     idx += 4;
     Posicion posicion;
     std::vector<char> posicionSerializado(informacion.begin() + idx,
@@ -73,8 +73,6 @@ Item *ContenedorDeElementos::deserializarItem(std::vector<char> &informacion) {
     buf = (uint32_t *) number;
     int idTipo = ntohl(*buf);
     idx += 4;
-    std::cerr << "deserializo item\n";
-    std::cerr << "tipoid: " << idTipo << "\n";
     Posicion posicion;
     std::vector<char> posicionSerializado(informacion.begin() + idx,
                                           informacion.end());
@@ -102,15 +100,11 @@ Item *ContenedorDeElementos::deserializarItem(std::vector<char> &informacion) {
 }
 
 void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
-    //error con el mapa de 20x20 6
-
     std::vector<char> sub(4);
     int idx = 0;
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
     int elementosSize = charArrayToNumber(sub);
     idx += 4;
-    std::cout << "el char array to number devuelve: " << elementosSize << std::endl;
-//    std::cerr << "size elementos: " <<elementosSize <<std::endl;
     for (int i = 0; i < elementosSize; i++) {
         sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);
         idx += 4;
@@ -118,7 +112,6 @@ void ContenedorDeElementos::deserializar(std::vector<char> &serializado) {
                                           serializado.begin() + idx + charArrayToNumber(sub));
         idx += charArrayToNumber(sub);
         Item *item = deserializarItem(itemSerializado);
-        //    std::cerr << "fin item: " <<i <<std::endl;
         this->elementos.push_back(item);
     }
     sub = std::vector<char>(&serializado[idx], &serializado[idx + 4]);

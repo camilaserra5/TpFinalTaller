@@ -5,7 +5,6 @@ ActualizacionMovimiento::ActualizacionMovimiento(Jugador* jugador) : jugador(jug
 
 
 ActualizacionMovimiento::~ActualizacionMovimiento() {
-    std::cerr << "entro al destructor de actalizacion movimiento\n";
     if (esCliente) delete jugador;
 }
 

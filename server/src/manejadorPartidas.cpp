@@ -68,14 +68,12 @@ bool ManejadorPartidas::crearPartida(std::string &nombreJugador, int &cant_jugad
                                      int &screenWidth) {
     if (partidas.count(nombre_partida) > 0) {
         if (partidas.at(nombre_partida)->terminoPartida() || partidas.at(nombre_partida)->yaArranco()) {
-            std::cerr << "Ya existe la partida con nombre: " << nombre_partida << std::endl;
             return false;
         }
     }
     try {
         Partida *servidor = new Partida(std::move(this->buscarMapa(archivoMapa, screenWidth)), cant_jugadores,
                                         this->configuracion);
-        std::cerr << "holi3";
         this->partidas.insert({nombre_partida, servidor});
     } catch (InvalidMapException &e) {
         std::cerr << "Error creando partida";
@@ -89,24 +87,18 @@ void ManejadorPartidas::agregarClienteAPartida(std::string &nombreJugador,
                                                ThClient *cliente) {
     Partida *partida = this->partidas.at(nombre_partida);
     if (partida->yaArranco()) {
-        std::cerr << "Ya arranco la partida" << std::endl;
         return;
     }
-    std::cerr << "agrego cola a clii";
     cliente->agregarColaEventos(partida->obtenerColaEventos());
     partida->agregarCliente(nombreJugador, cliente);
 }
 
-void ManejadorPartidas::eliminarPartidasTerminadas() {//cambiar por swap
-    std::cerr << "entro a elimianr partidas\n";
+void ManejadorPartidas::eliminarPartidasTerminadas() {
     std::map<std::string, Partida *>::iterator it;
-    std::cerr << "cantidad de partidas : " << this->partidas.size() << std::endl;
     it = this->partidas.begin();
     std::map<std::string, Partida *> aux;
     while (it != this->partidas.end()) {
-        std::cerr << "verifico una partida\n";
         if (it->second->terminoPartida()) {
-            std::cerr << "elimino partida: " << it->first << std::endl;
             it->second->join();
         } else {
           aux[it->first] = it->second;
@@ -114,17 +106,13 @@ void ManejadorPartidas::eliminarPartidasTerminadas() {//cambiar por swap
         ++it;
     }
     this->partidas.swap(aux);
-    std::cerr << "salgo de eliminarPartidas\n";
 }
 
 void ManejadorPartidas::cerrar() {
     std::map<std::string, Partida *>::iterator it;
-    std::cerr << "cantidad de partidas definitivas: " << this->partidas.size() << std::endl;
     for (it = this->partidas.begin(); it != this->partidas.end(); ++it){
-        std::cerr << "hago join de partida\n";
         it->second->join();
     }
-    std::cerr << "salgo de eliminarPartidasDEfinitaviamete\n";
 }
 
 ManejadorPartidas::~ManejadorPartidas() {

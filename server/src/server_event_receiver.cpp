@@ -9,7 +9,6 @@ void Server_Event_Receiver::run() {
             if (informacion.empty()) {
                 this->cerrar();
             } else {
-                std::cerr << "comando size:  " << informacion.size() << std::endl;
                 Comando *comando = protocolo->deserializarComando(informacion);
                 if (comando == nullptr) {
                     this->cerrar();
@@ -18,11 +17,9 @@ void Server_Event_Receiver::run() {
                 }
             }
         } catch (const SocketError &exc) {
-            std::cerr << "error socket";
             std::cout << exc.what() << std::endl;
             this->cerrar();
         } catch (std::exception &exc) {
-            std::cerr << "otro error\n";
             std::cout << exc.what() << std::endl;
             this->cerrar();
         } catch (...){

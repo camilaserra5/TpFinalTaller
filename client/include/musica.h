@@ -22,6 +22,13 @@ public:
     /*
       * liberara la clase musica con sus recursos
     */
+    /*
+      * frena la musica;
+    */
+    void stop();
+    /*
+      * libera la musica
+    */  
     ~Musica();
 };
 

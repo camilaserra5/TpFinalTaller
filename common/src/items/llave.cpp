@@ -4,7 +4,7 @@ Llave::~Llave() {}
 
 bool Llave::obtenerBeneficio(Jugador *jugador) {
     jugador->agarrarLlave();
-    return true;//lo dejamos asi asi el jugador le saca las llaves a los demas
+    return true;
 }
 
 Type Llave::getTipo() {

@@ -34,7 +34,7 @@ public:
 private:
     std::map<int, Sprite> sprites;
     std::map<int, Animacion> animaciones;
-    std::map<int, Musica> sonidos;
+    std::map<int, Musica*> sonidos;
     int armaActual;
     int contador;
     bool atacando;

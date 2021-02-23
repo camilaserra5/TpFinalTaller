@@ -49,12 +49,11 @@ void ManejadorEventos::crearCambioDeArma() {
 void ManejadorEventos::detectarEventos(SDL_Event &evento) {
     switch (evento.type) {
         case SDL_QUIT:
-            std::cerr << "entre en quit de manejador " << std::endl;
             this->stop();
             break;
         case SDL_KEYDOWN:
             switch (evento.key.keysym.sym) {
-                case SDLK_LEFT:         // x, y, vida, angulo;
+                case SDLK_LEFT:
                     crearMovimiento(Accion::rotarIzquierda);
                     break;
                 case SDLK_RIGHT:
@@ -78,12 +77,6 @@ void ManejadorEventos::detectarEventos(SDL_Event &evento) {
                     break;
             }
             break;
-        case SDL_KEYUP:
-            if (evento.key.keysym.sym == SDLK_PERIOD) {
-                // dejo de disparar;
-            }
-            break;
-
         default:
             break;
     }

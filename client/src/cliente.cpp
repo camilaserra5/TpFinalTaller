@@ -9,7 +9,7 @@
 
 #include <config.h>
 
-#define MUSICA_FONDO SOUNDS_DIR MUSIQUITA
+#define MUSICA_FONDO SOUNDS_DIR THEME
 #define ERROR -1
 
 Cliente::Cliente(std::string configFile) : socket(),
@@ -40,18 +40,19 @@ void Cliente::run() {
   //pantalla de highscrore tamanio
   //tamanios de letras
 
-
+    Audio audio;
+    Musica musica(MUSICA_FONDO);
+    musica.play(-1);
     LogInWindow logIn(screenWidthLogin, screenheightLogin, screenWidthGame);
     logIn.run();
+    musica.stop();
     int idJugador = logIn.obtenerIdJugador();
     BlockingQueue<Comando *> events;
     ProtectedQueue<Actualizacion *> updates;
     Protocolo *protocolo = logIn.obtenerProtocolo();
     ClientEventSender clientEventSender(protocolo, events);
 
-    Audio audio;
-    //Musica ambient_music = Musica(MUSICA_FONDO);
-    //ambient_music.play(-1);
+
 
     Ventana ventana(nombre_juego, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidthGame,
                     screenHeightGame, /*SDL_WINDOW_FULLSCREEN*/0);

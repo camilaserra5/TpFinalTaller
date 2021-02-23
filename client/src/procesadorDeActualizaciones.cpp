@@ -3,7 +3,6 @@
 #include "../include/player.h"
 
 void ProcesadorDeActualizaciones::procesarActualizacionEmpezoPartida() {
-  std::cerr << "emtro a procesar empezoPartida\n";
     Player &player = this->modelo->getPlayer();
     auto inicio = (ActualizacionInicioPartida *) actualizacion;
     EstadoJuego &estadoJuego = inicio->obtenerEstadoJuego();
@@ -16,7 +15,6 @@ void ProcesadorDeActualizaciones::procesarActualizacionEmpezoPartida() {
     int posy = jugador->getPosicion().pixelesEnY();
     int angulo = jugador->getAnguloDeVista();
     int idArma = jugador->getArma()->getId();
-    std::cerr << "el id arma es: " <<  idArma << std::endl;
     int puntaje = jugador->obtenerPuntosTotales();
     bool disparando = jugador->estaDisparando();
     int cantVidas = jugador->cant_de_vida();
@@ -70,7 +68,6 @@ void ProcesadorDeActualizaciones::procesarActualizacionCambioDeArma() {
 }
 
 void ProcesadorDeActualizaciones::procesarActualizacionAtaque() {
-    std::cerr << "PROCESO ATAQUE\n";
     Player &player = this->modelo->getPlayer();
     auto ataque = (ActualizacionAtaque *) actualizacion;
     Jugador *jugadorAux = ataque->obtenerJugador();
@@ -84,21 +81,13 @@ void ProcesadorDeActualizaciones::procesarActualizacionAtaque() {
     std::map<int, Jugador *>::iterator it;
     for (it = jugadoresAtacados.begin(); it != jugadoresAtacados.end(); it++) {
         if (it->first == player.getId()) {
-            std::cerr << "vida: " << it->second->puntos_de_vida();
-            std::cerr << "cant_balas " << it->second->obtenerPuntosTotales();
-            std::cerr << "cant vidas: " << it->second->cant_de_vida();
             this->modelo->actualizarEstadoAtaqueJugador(it->second->puntos_de_vida(), it->second->getArma()->getId(),
                                                         it->second->cantidad_balas(),
                                                         it->second->obtenerPuntosTotales(), it->second->cant_de_vida(),
                                                         it->second->estaDisparando());
         } else {
             int idE = it->first;
-            std::cerr << "enemigo\n";
             int vidaE = it->second->puntos_de_vida();
-            std::cerr << "vida: " << it->second->puntos_de_vida();
-            std::cerr << "cant_balas " << it->second->obtenerPuntosTotales();
-            std::cerr << "cant vidas: " << it->second->cant_de_vida();
-            std::cerr << "arma: " << jugadorAux->getArma()->getId();
             this->modelo->actualizarVidaEnemigo(idE, vidaE, jugadorAux->getArma()->getId());
             this->modelo->actualizarPosicionEnemigo(idE, ataque->obtenerJugador()->posEnX(),
                                                     ataque->obtenerJugador()->posEnY(),
@@ -123,7 +112,6 @@ void ProcesadorDeActualizaciones::procesarActualizacionMoverse() {
 }
 
 void ProcesadorDeActualizaciones::procesarActualizacionAgarreItem() {
-    std::cerr << "proceso agarro itemm" << std::endl;
     Player &player = this->modelo->getPlayer();
     auto agarroItem = (ActualizacionAgarroItem *) actualizacion;
     int idJugador = agarroItem->obtenerJugador()->getId();

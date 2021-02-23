@@ -19,8 +19,8 @@ public:
     */
     bool obtenerBeneficio(Jugador *jugador) override;
     /*
-      * devuelve el tipo de item
-    */  
+      * devuelve el tipo de tesosro
+    */
     Type getTipo() override;
 
 private:

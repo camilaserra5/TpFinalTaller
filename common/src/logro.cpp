@@ -29,11 +29,6 @@ void Logro::aniadirEnemigosMatados(int cantidadDeEnemigos) {
 }
 
 int Logro::obtenerPuntosTotales() {
-  std::cerr << "puntosBalas "  <<puntosBalas;
-  std::cerr << " puntos tesoros: " <<puntosTotalesPorTesoros;
-  std::cerr << " puntosMatar: " <<puntosMatar;
-  std::cerr << " balas disparadas: " << balasDisparadas;
-  std::cerr<< "puntosBalas" << puntosBalas<<'\n';
     return (this->puntosTotalesPorTesoros + this->enemigosMatados * this->puntosMatar +
             this->balasDisparadas * this->puntosBalas);
 }

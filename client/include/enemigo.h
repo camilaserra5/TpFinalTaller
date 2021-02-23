@@ -53,16 +53,12 @@ public:
     /*
       * devuelve el puntaje del enemigo
     */
-    int getPuntaje() {
-        return this->puntaje;
-    }
+    int getPuntaje();
 
     /*
       * actualiza el arma del jugador
     */
-    void actualizarArma(int idArma) {
-        this->idArma = idArma;
-    }
+    void actualizarArma(int idArma);
 
     /*
       * devuelve el ancho del sprite

@@ -43,9 +43,7 @@ void Juego::eventos() {
     if (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT:
-                std::cerr << "entre en quit del juego" << std::endl;
                 this->cerrar();
-
             default:
                 break;
         }
@@ -77,8 +75,6 @@ void Juego::run() {
         }
     }
     this->cerrar();
-    std::cerr<< "CORTO EJECUCION DE JUEGO\n";
-
 }
 
 void Juego::actualizar() {
