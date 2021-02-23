@@ -30,6 +30,8 @@ public:
 
     Comando *obtenerComandoInicial(std::vector<char> info);
 
+    void enviarError();
+
     void enviarIdJugador();
 
     void agregarColaEventos(ProtectedQueue<Comando *> &cola_comandos);

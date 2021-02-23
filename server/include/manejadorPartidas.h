@@ -37,7 +37,7 @@ public:
       * crea la partida si es que esta ya no existe
       * los parametros deben ser validos
     */
-    void crearPartida(std::string &nombreJugador, int &cant_jugadores,
+    bool crearPartida(std::string &nombreJugador, int &cant_jugadores,
                       std::string &nombre_partida, std::string &archivoMapa,
                       int &screenWidth);
     /*
