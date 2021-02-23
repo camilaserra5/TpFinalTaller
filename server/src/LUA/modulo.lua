@@ -46,7 +46,7 @@ function disparar_al_enemigo()
     return 'p'
 end
 
-function crear_accion(pos_x, pos_y, cantEnemigos)
+function crear_accion(pos_x, pos_y, cantJugadores)
     local siguiente_mov = proximo_movimiento(pos_x, pos_y)
     local posicion_enemigo = posicion_enemigo_cerca(pos_x, pos_y)
     if (posicion_enemigo) then
