@@ -71,9 +71,14 @@ public:
     */
     void agregarMapa(std::string nombreMapa, std::string archivoMapa);
     /*
-      * cierra las partidas 
+      * cierra las partidas
     */
     void cerrar();
+
+    /*
+      * frena a las partidas que siguen andandando
+    */
+    void stop();
 
 private:
     std::map<std::string, Partida *> partidas;

@@ -79,6 +79,11 @@ public:
 
     void joinClientes();
 
+    /*
+      * frena a la partida
+    */
+    void stop();
+
 
 private:
     /*
@@ -98,7 +103,7 @@ private:
     //JugadorLua jugadorLua;
     /*
       * genera comandos del jugador lua
-    */  
+    */
     void generarComandosLua(JugadorLua &jugadorLua);
 };
 
