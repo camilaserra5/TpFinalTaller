@@ -8,16 +8,12 @@ next_position = {
 }
 
 function estoy_en_el_borde(pos_x, pos_y)
-    print("estoy en el borde????")
     if (pos_y >= #mapa[1] or pos_x >= #mapa) then
-        print("SI")
         return true
     end
     if (pos_x <= 1 or pos_y <= 1) then
-        print("SI")
         return true
     end
-    print("NO")
     return false
 end
 
@@ -25,8 +21,8 @@ end
 --Funcion que verifica si puede avanzar
 --Nota: to do lo que sea distinto a 'false' 'nil' es tomado como true;
 function proximo_movimiento(pos_x, pos_y)
-    if(estoy_en_el_borde(pos_x, pos_y)) then
-        return next_position[2] --por convencion rota derecha
+    if (estoy_en_el_borde(pos_x, pos_y)) then
+        return next_position[2]
     end
     if (mapa[pos_x][pos_y + 1] == 0) then
         return next_position[1]
@@ -65,11 +61,10 @@ function disparar_al_enemigo()
 end
 
 function crear_accion(pos_x, pos_y, cantJugadores, posPixelX, posPixelY, tablaEnemigos)
-    print("ENTRE")
     local siguiente_mov = proximo_movimiento(pos_x, pos_y)
     local posicion_enemigo = posicion_enemigo_cerca(posPixelX, posPixelY, cantJugadores, tablaEnemigos)
     if (posicion_enemigo) then
-        return disparar_al_enemigo()   --avanzar_hacia_enemigo(posicion_enemigo, pos_x, pos_y)
+        return disparar_al_enemigo()
     end
-    return siguiente_mov--siguiente_mov
+    return siguiente_mov
 end
