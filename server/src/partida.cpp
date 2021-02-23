@@ -165,7 +165,7 @@ void Partida::run() {
     actualizaciones.push_back(act);
     this->enviar_actualizaciones(actualizaciones);
 
-    std::chrono::duration<double> tiempoPartida(3);
+    std::chrono::duration<double> tiempoPartida(1.5);
 
 
     while (this->sigue_corriendo) {
