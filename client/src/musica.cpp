@@ -12,6 +12,10 @@ void Musica::play(int loop) {
     Mix_PlayMusic(this->musicaPtr, loop);
 }
 
+void Musica::stop(){
+    Mix_HaltMusic();
+}
+
 Musica::~Musica() {
     Mix_FreeMusic(this->musicaPtr);
     this->musicaPtr = NULL;

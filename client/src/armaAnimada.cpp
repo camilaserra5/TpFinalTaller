@@ -48,10 +48,10 @@ ArmaAnimada::ArmaAnimada(SDL_Renderer *render) : contador(CONTADOR_INICIAL), ata
     this->animaciones.insert(std::make_pair(ID_AMETRALLADORA, animacionAmetralladora));
     this->animaciones.insert(std::make_pair(ID_CANION_DE_CADENA, animacionCanion));
 
-    //this->sonidos.insert(std::move(std::make_pair(ID_CUCHILLO, sonidoCuchillo)));
-    //this->sonidos.insert(std::move(std::make_pair(ID_PISTOLA, sonidoPistola)));
-    //this->sonidos.insert(std::move(std::make_pair(ID_AMETRALLADORA, sonidoAmetralladora)));
-    //this->sonidos.insert(std::move(std::make_pair(ID_CANION_DE_CADENA, sonidoCanion)));
+    this->sonidos.insert(std::move(std::make_pair(ID_CUCHILLO, new Musica(RUTA_SONIDO_CUCHILLO))));
+    this->sonidos.insert(std::move(std::make_pair(ID_PISTOLA, new Musica(RUTA_SONIDO_PISTOLA))));
+    this->sonidos.insert(std::move(std::make_pair(ID_AMETRALLADORA, new Musica(RUTA_SONIDO_AMETRALLADORA))));
+    this->sonidos.insert(std::move(std::make_pair(ID_CANION_DE_CADENA, new Musica(RUTA_SONIDO_CANION))));
 
     this->armaActual = ID_PISTOLA;
 }
@@ -66,14 +66,18 @@ void ArmaAnimada::actualizar(int armaActual, bool estado) {
 void ArmaAnimada::renderizar() {
     // Audio audio;
     if (this->atacando) {
-    //    this->sonidos.find(this->armaActual)->second.play(-1);
+        if (contador == 70){
+            this->sonidos.find(this->armaActual)->second->play(1);
+        }    
         if (this->contador != 0) {
             std::cerr << "entre";
             this->animaciones.find(this->armaActual)->second.renderizar(POSX, POSY, 0, NULL);
             this->contador--;
+          //  this->sonidos.find(this->armaActual)->second->stop();
         } else {
             this->contador = CONTADOR_INICIAL;
             this->atacando = false;
+
         }
     } else {
         this->sprites.find(armaActual)->second.renderizar(POSX, POSY, 0, NULL);
