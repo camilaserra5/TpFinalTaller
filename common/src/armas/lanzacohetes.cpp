@@ -4,11 +4,10 @@
 #include "../include/actualizaciones/actualizacionAtaque.h"
 
 #define RADIO_DE_IMPACTO 10
-#define BALAS_POR_LANZACOHETES 5
 
 LanzaCohetes::LanzaCohetes(Posicion &posicion, int id,ConfiguracionPartida& configuracion) :
         Arma(DISTANCIA_MAX, 5,configuracion.getDanioMaximoArma()), Item(posicion, id),
-        configuracion(configuracion) {}
+        configuracion(configuracion){}
 
 LanzaCohetes::~LanzaCohetes() {}
 
@@ -36,7 +35,7 @@ std::map<int, Jugador *> LanzaCohetes::verificarJugadoresEnRango(Posicion &posic
 Actualizacion *LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador,
                                     std::map<int, Jugador *> &jugadores) {
     /*no cheqyeo las balas porque si no tiene 5 no podria tener un lanzacohetes*/
-    jugador->gastarBalas(BALAS_POR_LANZACOHETES);
+    jugador->gastarBalas(configuracion.getBalasPorRafagaAmetralladora());
     int idJugadorMasCercano = JugadorAMenorDistancia(jugador, jugadores);
     std::map<int, Jugador *> jugadoresAtacados;
     if (idJugadorMasCercano != NO_HAY_JUGADOR_CERCANO) {
@@ -48,7 +47,7 @@ Actualizacion *LanzaCohetes::atacar(int distancia_a_pared, Jugador *jugador,
         Posicion posPared(xPared, yPared, 0);
         jugadoresAtacados = verificarJugadoresEnRango(posPared, jugadores, jugador);
     }
-    jugador->gastarBalas(BALAS_POR_LANZACOHETES);
+    jugador->gastarBalas(configuracion.getBalasPorRafagaAmetralladora());
     jugador->actualizarArma();
     return new ActualizacionAtaque(jugador, jugadoresAtacados);
 }

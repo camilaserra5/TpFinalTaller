@@ -1,10 +1,5 @@
 #include "../include/actualizaciones/actualizacionAgregarItem.h"
 
-#define PUNTOS_CRUZ 10
-#define PUNTOS_COPA 50
-#define PUNTOS_COFRE 100
-#define PUNTOS_CORONA 200
-
 ActualizacionAgregarItem::ActualizacionAgregarItem(Item *item) : item(item) {}
 
 ActualizacionAgregarItem::~ActualizacionAgregarItem() {

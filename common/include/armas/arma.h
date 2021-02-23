@@ -1,7 +1,6 @@
 #ifndef _ARMA_H
 #define _ARMA_H
 #define NO_HAY_JUGADOR_CERCANO -1
-#define DANIO_MAX 10
 
 #define ID_CUCHILLO 3
 #define ID_PISTOLA 4

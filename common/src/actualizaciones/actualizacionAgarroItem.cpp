@@ -1,10 +1,4 @@
 #include "actualizaciones/actualizacionAgarroItem.h"
-
-#define PUNTOS_CRUZ 10
-#define PUNTOS_COPA 50
-#define PUNTOS_COFRE 100
-#define PUNTOS_CORONA 200
-
 ActualizacionAgarroItem::ActualizacionAgarroItem(Jugador *jugador,
                                                  std::vector<char> item) :
         jugador(jugador),

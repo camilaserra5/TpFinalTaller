@@ -41,7 +41,7 @@ Actualizacion *Pistola::atacar(int distancia_a_pared, Jugador *jugador, std::map
         }
         jugadoresAtacados.insert({jugadorAtacado->getId()/*idJugadorMasCercano*/, jugadorAtacado});
     }
-    jugador->gastarBalas(BALAS_POR_RAFAGA);
+    jugador->gastarBalas(configuracion.getBalasPorRafagaPistola());
     jugador->actualizarArma();
     return new ActualizacionAtaque(jugador, jugadoresAtacados);
 
