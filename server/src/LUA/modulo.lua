@@ -47,7 +47,6 @@ function posicion_enemigo_cerca(posPixelX, posPixelY, cantJugadores, tablaEnemig
         local diferencia_y = enemigoY - posPixelY
         if (diferencia_x < 21 and diferencia_x > -21) then
             if (diferencia_y < 21 and diferencia_y > -21) then
-                print("======ENEMIGO CERCA======")
                 return {enemigoX, enemigoY}
             end
         end
@@ -56,7 +55,6 @@ function posicion_enemigo_cerca(posPixelX, posPixelY, cantJugadores, tablaEnemig
 end
 
 function disparar_al_enemigo()
-    print("piumpium")
     return 'p'
 end
 
